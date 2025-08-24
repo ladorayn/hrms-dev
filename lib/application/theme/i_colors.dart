@@ -1,289 +1,254 @@
-// lib/core/theme/i_colors.dart
-import 'dart:ui';
+import 'package:flutter/material.dart';
 
+/// Centralized color palette for the application, matching the web design system.
+///
+/// This class provides static access to the complete color scheme, including
+/// separate definitions for light and dark themes.
 class IColors {
-  IColors._();
+  IColors._(); // Private constructor to prevent instantiation.
 
-  static final IColors instance = IColors._();
-
-  static PrimaryColorScheme primary = PrimaryColorScheme(
-    background: PrimaryBackgroundColorScheme(
-      primary: const Color(0xFF0056A3), // Primary Blue
-      dark: const Color(0xFF003F75), // Darker Shade
-      light: const Color(0xFFCCE1F5), // Light Tint
-      twoTone: const Color(0xFFEAF2FB), // Very Light Background
-    ),
-    textIcon: PrimaryTextIconColorScheme(
-      primary: const Color(0xFF0056A3),
-      dark: const Color(0xFF003F75),
-    ),
-    border: PrimaryBorderColorScheme(
-      primary: const Color(0xFF0056A3),
-      dark: const Color(0xFF003F75),
-    ),
-    decorative: PrimaryDecorativeColorScheme(
-      c200: const Color(0xFF80BFEA),
-      c300: const Color(0xFF66AFE3),
-      c600: const Color(0xFF004B91),
-      c700: const Color(0xFF00386C),
-    ),
-  );
-
-  static NeutralColorScheme neutral = NeutralColorScheme(
-    background: NeutralBackgroundColorScheme(
-      primary: const Color(0xFFFFFFFF),
-      lightest: const Color(0xFFF5F7FA),
-      light: const Color(0xFFE6EAF0),
-      dark: const Color(0xFFC2C9D1),
-      darkest: const Color(0xFF8A94A4),
-    ),
-    textIcon: NeutralTextIconColorScheme(
-      primary: const Color(0xFF1C1C1E),
-      subdued: const Color(0xFF6E6E73),
-      disabled: const Color(0xFFBDBDBD),
-      lighter: const Color(0xFFE0E0E0),
-      white: const Color(0xFFFFFFFF),
-    ),
-    border: NeutralBorderColorScheme(
-      dark: const Color(0xFF8A94A4),
-      light: const Color(0xFFC2C9D1),
-      disabled: const Color(0xFFE6EAF0),
-      decorative50: const Color(0xFFE6EAF0),
-      decorative25: const Color(0xFFF5F7FA),
-    ),
-    transparent: NeutralTransparentColorScheme(
-      dark15: const Color(0x261C1C1E),
-      dark30: const Color(0x4C1C1C1E),
-      dark45: const Color(0x721C1C1E),
-      dark60: const Color(0x991C1C1E),
-      dark75: const Color(0xBF1C1C1E),
-      dark90: const Color(0xE51C1C1E),
-      light15: const Color(0x26FFFFFF),
-      light30: const Color(0x4CFFFFFF),
-      light45: const Color(0x72FFFFFF),
-      light60: const Color(0x99FFFFFF),
-      light75: const Color(0xBFFFFFFF),
-      light90: const Color(0xE5FFFFFF),
-    ),
-  );
-
-  static SemanticColorScheme semantic = SemanticColorScheme(
-    positive: const Color(0xFF4CAF50),
-    negative: const Color(0xFFF44336),
-    warning: const Color(0xFFFFC107),
-    informative: const Color(0xFF2196F3),
-  );
-
-  /// Light theme color scheme
+  /// The complete color scheme for the light theme.
   static final AppColorScheme light = AppColorScheme(
-    primary: const Color(0xFF006AFF),
-    background: const Color(0xFFFFFFFF),
-    surface: const Color(0xFFF7F9FC),
-    onPrimary: const Color(0xFFFFFFFF),
-    onBackground: const Color(0xFF000000),
-    onSurface: const Color(0xFF1C1C1E),
-    error: const Color(0xFFB00020),
-    onError: const Color(0xFFFFFFFF),
-    // add other semantic or utility color
+    background: const Color(0xFFEDF6FC),
+    foreground: const Color(0xFF070707),
+    card: const Color(0xFFFFFFFF),
+    cardForeground: const Color(0xFF070707),
+    popover: const Color(0xFFFFFFFF),
+    popoverForeground: const Color(0xFF070707),
+    muted: const Color(0xFFEDEDED),
+    mutedForeground: const Color(0xFF696969),
+    accent: const Color(0xFF8CC8EB),
+    accentForeground: const Color(0xFF202223),
+    destructive: const Color(0xFFE57171),
+    border: const Color(0xFFDBDBD9),
+    input: const Color(0xFFB4B4B4),
+    ring: const Color(0xFFB4B4B4),
+    primary: PrimaryColors(
+      main: const Color(0xFF18618B),
+      foreground: const Color(0xFFFFFFFF),
+      pressed: const Color(0xFF143A24),
+      hover: const Color(0xFF0F3C56),
+      border: const Color(0xFF8CC8EB),
+      focused: const Color(0xFFD6EBF8),
+      background: const Color(0xFFEDF6FC),
+    ),
+    secondary: SecondaryColors(
+      main: const Color(0xFF64C9B1),
+      foreground: const Color(0xFF202223),
+      pressed: const Color(0xFF143A31),
+      hover: const Color(0xFF2A7866),
+      border: const Color(0xFFA8E0D3),
+      focused: const Color(0xFFD8F1EC),
+      background: const Color(0xFFE9F7F4),
+    ),
+    success: SemanticColors(
+      main: const Color(0xFF80C684),
+      pressed: const Color(0xFF19381B),
+      hover: const Color(0xFF367839),
+      border: const Color(0xFFB8DFBA),
+      focused: const Color(0xFFDFF1E0),
+      background: const Color(0xFFEDF7EE),
+    ),
+    warning: SemanticColors(
+      main: const Color(0xFFFFB84D),
+      pressed: const Color(0xFF523100),
+      hover: const Color(0xFFB06800),
+      border: const Color(0xFFFFD79B),
+      focused: const Color(0xFFFFEDD2),
+      background: const Color(0xFFFFF5E6),
+    ),
+    error: SemanticColors(
+      main: const Color(0xFFE57171),
+      pressed: const Color(0xFF460D0D),
+      hover: const Color(0xFF981C1C),
+      border: const Color(0xFFF0AFAF),
+      focused: const Color(0xFFF8DBDB),
+      background: const Color(0xFFFBEBEB),
+    ),
+    grayscale: GrayscaleColors(
+      g100: const Color(0xFF070707),
+      g90: const Color(0xFF111111),
+      g80: const Color(0xFF222222),
+      g70: const Color(0xFF323232),
+      g60: const Color(0xFF434343),
+      g50: const Color(0xFF696969),
+      g40: const Color(0xFFBE8EBE),
+      g30: const Color(0xFFB4B4B4),
+      g20: const Color(0xFFD9D9D9),
+      g10: const Color(0xFFEDEDED),
+      g0: const Color(0xFFFFFFFF),
+    ),
   );
 
-  /// Dark theme color scheme
+  /// The complete color scheme for the dark theme.
   static final AppColorScheme dark = AppColorScheme(
-    primary: const Color(0xFF448AFF),
-    background: const Color(0xFF121212),
-    surface: const Color(0xFF1E1E1E),
-    onPrimary: const Color(0xFF000000),
-    onBackground: const Color(0xFFFFFFFF),
-    onSurface: const Color(0xFFEDEDED),
-    error: const Color(0xFFCF6679),
-    onError: const Color(0xFF000000),
-    // match other values accordingly
+    background: const Color(0xFF070707),
+    foreground: const Color(0xFFFFFFFF),
+    card: const Color(0xFF111111),
+    cardForeground: const Color(0xFFFFFFFF),
+    popover: const Color(0xFF111111),
+    popoverForeground: const Color(0xFFFFFFFF),
+    muted: const Color(0xFF222222),
+    mutedForeground: const Color(0xFFB4B4B4),
+    accent: const Color(0xFF143A31),
+    accentForeground: const Color(0xFFFFFFFF),
+    destructive: const Color(0xFF981C1C),
+    border: const Color(0xFF323232),
+    input: const Color(0xFF323232),
+    ring: const Color(0xFF434343),
+    primary: PrimaryColors(
+      main: const Color(0xFF8CC8EB),
+      foreground: const Color(0xFF070707),
+      pressed: const Color(0xFF0F3C56),
+      hover: const Color(0xFF18618B),
+      border: const Color(0xFF0F3C56),
+      focused: const Color(0xFF143A24),
+      background: const Color(0xFF070707),
+    ),
+    // Secondary, Success, Warning, and Error for dark theme can be inherited
+    // from light theme or defined specifically if they differ.
+    // For simplicity, we'll reuse the main semantic colors but you can adjust.
+    secondary: light.secondary,
+    success: light.success,
+    warning: light.warning,
+    error: light.error,
+    grayscale: light.grayscale, // Grayscale is typically consistent.
   );
 }
 
-// --- Base color group classes (unchanged from your original structure) ---
-
-class PrimaryColorScheme {
-  final PrimaryBackgroundColorScheme background;
-  final PrimaryTextIconColorScheme textIcon;
-  final PrimaryBorderColorScheme border;
-  final PrimaryDecorativeColorScheme decorative;
-
-  PrimaryColorScheme({
-    required this.background,
-    required this.textIcon,
-    required this.border,
-    required this.decorative,
-  });
-}
-
-class PrimaryBackgroundColorScheme {
-  final Color primary;
-  final Color dark;
-  final Color light;
-  final Color twoTone;
-
-  PrimaryBackgroundColorScheme({
-    required this.primary,
-    required this.dark,
-    required this.light,
-    required this.twoTone,
-  });
-}
-
-class PrimaryTextIconColorScheme {
-  final Color primary;
-  final Color dark;
-
-  PrimaryTextIconColorScheme({required this.primary, required this.dark});
-}
-
-class PrimaryBorderColorScheme {
-  final Color primary;
-  final Color dark;
-
-  PrimaryBorderColorScheme({required this.primary, required this.dark});
-}
-
-class PrimaryDecorativeColorScheme {
-  final Color c200;
-  final Color c300;
-  final Color c600;
-  final Color c700;
-
-  PrimaryDecorativeColorScheme({
-    required this.c200,
-    required this.c300,
-    required this.c600,
-    required this.c700,
-  });
-}
-
-class NeutralColorScheme {
-  final NeutralBackgroundColorScheme background;
-  final NeutralTextIconColorScheme textIcon;
-  final NeutralBorderColorScheme border;
-  final NeutralTransparentColorScheme transparent;
-
-  NeutralColorScheme({
-    required this.background,
-    required this.textIcon,
-    required this.border,
-    required this.transparent,
-  });
-}
-
-class NeutralBackgroundColorScheme {
-  final Color primary;
-  final Color lightest;
-  final Color light;
-  final Color dark;
-  final Color darkest;
-
-  NeutralBackgroundColorScheme({
-    required this.primary,
-    required this.lightest,
-    required this.light,
-    required this.dark,
-    required this.darkest,
-  });
-}
-
-class NeutralTextIconColorScheme {
-  final Color primary;
-  final Color subdued;
-  final Color disabled;
-  final Color lighter;
-  final Color white;
-
-  NeutralTextIconColorScheme({
-    required this.primary,
-    required this.subdued,
-    required this.disabled,
-    required this.lighter,
-    required this.white,
-  });
-}
-
-class NeutralBorderColorScheme {
-  final Color dark;
-  final Color light;
-  final Color disabled;
-  final Color decorative50;
-  final Color decorative25;
-
-  NeutralBorderColorScheme({
-    required this.dark,
-    required this.light,
-    required this.disabled,
-    required this.decorative50,
-    required this.decorative25,
-  });
-}
-
-class NeutralTransparentColorScheme {
-  final Color dark15;
-  final Color dark30;
-  final Color dark45;
-  final Color dark60;
-  final Color dark75;
-  final Color dark90;
-
-  final Color light15;
-  final Color light30;
-  final Color light45;
-  final Color light60;
-  final Color light75;
-  final Color light90;
-
-  NeutralTransparentColorScheme({
-    required this.dark15,
-    required this.dark30,
-    required this.dark45,
-    required this.dark60,
-    required this.dark75,
-    required this.dark90,
-    required this.light15,
-    required this.light30,
-    required this.light45,
-    required this.light60,
-    required this.light75,
-    required this.light90,
-  });
-}
-
-class SemanticColorScheme {
-  final Color positive;
-  final Color negative;
-  final Color warning;
-  final Color informative;
-
-  SemanticColorScheme({
-    required this.positive,
-    required this.negative,
-    required this.warning,
-    required this.informative,
-  });
-}
-
+/// Defines the overall structure of a color scheme (light or dark).
 class AppColorScheme {
-  final Color primary;
   final Color background;
-  final Color surface;
-  final Color onPrimary;
-  final Color onBackground;
-  final Color onSurface;
-  final Color error;
-  final Color onError;
+  final Color foreground;
+  final Color card;
+  final Color cardForeground;
+  final Color popover;
+  final Color popoverForeground;
+  final Color muted;
+  final Color mutedForeground;
+  final Color accent;
+  final Color accentForeground;
+  final Color destructive;
+  final Color border;
+  final Color input;
+  final Color ring;
+  final PrimaryColors primary;
+  final SecondaryColors secondary;
+  final SemanticColors success;
+  final SemanticColors warning;
+  final SemanticColors error;
+  final GrayscaleColors grayscale;
 
   AppColorScheme({
-    required this.primary,
     required this.background,
-    required this.surface,
-    required this.onPrimary,
-    required this.onBackground,
-    required this.onSurface,
+    required this.foreground,
+    required this.card,
+    required this.cardForeground,
+    required this.popover,
+    required this.popoverForeground,
+    required this.muted,
+    required this.mutedForeground,
+    required this.accent,
+    required this.accentForeground,
+    required this.destructive,
+    required this.border,
+    required this.input,
+    required this.ring,
+    required this.primary,
+    required this.secondary,
+    required this.success,
+    required this.warning,
     required this.error,
-    required this.onError,
+    required this.grayscale,
+  });
+}
+
+/// Defines the set of primary brand colors.
+class PrimaryColors {
+  final Color main;
+  final Color foreground;
+  final Color pressed;
+  final Color hover;
+  final Color border;
+  final Color focused;
+  final Color background;
+
+  PrimaryColors({
+    required this.main,
+    required this.foreground,
+    required this.pressed,
+    required this.hover,
+    required this.border,
+    required this.focused,
+    required this.background,
+  });
+}
+
+/// Defines the set of secondary brand colors.
+class SecondaryColors {
+  final Color main;
+  final Color foreground;
+  final Color pressed;
+  final Color hover;
+  final Color border;
+  final Color focused;
+  final Color background;
+
+  SecondaryColors({
+    required this.main,
+    required this.foreground,
+    required this.pressed,
+    required this.hover,
+    required this.border,
+    required this.focused,
+    required this.background,
+  });
+}
+
+/// Defines a set of colors for semantic states (e.g., success, error).
+class SemanticColors {
+  final Color main;
+  final Color pressed;
+  final Color hover;
+  final Color border;
+  final Color focused;
+  final Color background;
+
+  SemanticColors({
+    required this.main,
+    required this.pressed,
+    required this.hover,
+    required this.border,
+    required this.focused,
+    required this.background,
+  });
+}
+
+/// Defines the grayscale palette.
+class GrayscaleColors {
+  final Color g100; // Darkest
+  final Color g90;
+  final Color g80;
+  final Color g70;
+  final Color g60;
+  final Color g50;
+  final Color g40;
+  final Color g30;
+  final Color g20;
+  final Color g10;
+  final Color g0; // Lightest (White)
+
+  GrayscaleColors({
+    required this.g100,
+    required this.g90,
+    required this.g80,
+    required this.g70,
+    required this.g60,
+    required this.g50,
+    required this.g40,
+    required this.g30,
+    required this.g20,
+    required this.g10,
+    required this.g0,
   });
 }

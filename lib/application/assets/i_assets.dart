@@ -11,4 +11,12 @@ class IAssets {
   static const String ICON_PATH = 'assets/icons';
   static const String IMAGE_PATH = 'assets/images';
   static const String LOGO_PATH = 'assets/logo';
+
+  // Icons
+  static const String emailIcon = '$ICON_PATH/email.svg';
+  static const String password = '$ICON_PATH/password.svg';
+  static const String documentSolid = '$ICON_PATH/documentSolid.svg';
+  static const String overtime = '$ICON_PATH/overtime.svg';
+  static const String overtimeBlue = '$ICON_PATH/overtime-blue.svg';
+  static const String clockOut = '$ICON_PATH/clockOut.svg';
 }

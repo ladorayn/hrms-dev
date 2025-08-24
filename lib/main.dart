@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_theme.dart';
 import 'package:hrms_mobile/core/routes/app_router.dart';
-import 'package:hrms_mobile/core/widgets/alice_fab.dart'; // ✅ Add this
+import 'package:hrms_mobile/core/widgets/alice_fab.dart';
 
-void main() {
+Future<void> main() async {
+  // Will be used later
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -15,22 +19,28 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(appRouterProvider);
 
-    return MaterialApp.router(
-      title: 'HRMS App',
-      theme: ITheme.light,
-      darkTheme: ITheme.dark,
-      themeMode: ThemeMode.system,
-      routerConfig: router,
-
-      // ✅ Inject Alice inspector button globally
-      builder: (context, child) {
-        return Stack(
-          children: [
-            child ?? const SizedBox.shrink(),
-            const AliceFab(), // shows FAB globally
-          ],
-        );
-      },
-    );
+    return ScreenUtilInit(
+        designSize: const Size(375, 812),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (context, child) {
+          return MaterialApp.router(
+            title: 'HRMS App',
+            theme: ITheme.light,
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            darkTheme: ITheme.dark,
+            themeMode: ThemeMode.system,
+            routerConfig: router,
+            builder: (context, child) {
+              return Stack(
+                children: [
+                  child ?? const SizedBox.shrink(),
+                  const AliceFab(), // shows FAB globally
+                ],
+              );
+            },
+          );
+        });
   }
 }

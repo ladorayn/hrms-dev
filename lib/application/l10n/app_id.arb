@@ -1,0 +1,72 @@
+{
+  "@@locale": "id",
+  "btnYa": "Ya",
+  "btnOke": "Oke",
+  "btnLanjut": "Lanjut",
+  "btnMasuk": "Masuk",
+  "btnBatalkan": "Batalkan",
+  "btnBatal": "Batal",
+  "btnLupaPassword": "Lupa Password?",
+  "btnLewati": "Lewati",
+  "btnAktifkanSekarang": "Aktifkan Sekarang",
+  "btnUlangi": "Ulangi",
+  "btnLogin": "Login",
+  "resetPassword": "Reset Password",
+  "btnUpdate": "Update",
+  "btnNantiSaja": "Nanti Saja",
+  "formIdPerusahaan": "ID Perusahaan",
+  "formIdPengguna": "ID Pengguna",
+  "formPassword": "Password",
+  "formPasswordLama": "Password Lama",
+  "formPasswordBaru": "Password Baru",
+  "formMasukkanPasswordLama": "Masukan Password Lama",
+  "formMasukkanPasswordBaru": "Masukan Password Baru",
+  "formKonfirmasiPasswordBaru": "Konfirmasi Password Baru",
+  "formKonfirmasiPassword": "Konfirmasi Password",
+  "formNoKtpKitias": "No. KTP/KITAS",
+  "formEmail": "Email",
+  "formPhone": "Nomor Handphone",
+  "formHintIdPerusahaan": "Masukkan ID Perusahaan",
+  "formHintIdPengguna": "Masukkan ID Pengguna",
+  "formHintPassword": "Masukkan Password",
+  "formHintPasswordKamu": "Masukkan Password Kamu",
+  "formHintPasswordLama": "Masukkan Password Lama",
+  "formHintPasswordBaru": "Masukan 12 karakter atau lebih",
+  "formHintKonfirmasiPasswordBaru": "Masukan ulang password",
+  "formHintNoKtpKitias": "Masukkan nomor KTP",
+  "formHintEmail": "Masukkan Email",
+  "formHintPhone": "Contoh: 81234567xxx",
+  "formValidationRequired": "{fieldName} wajib diisi",
+  "@formValidationRequired": {
+    "placeholders": {
+      "fieldName": {}
+    }
+  },
+  "formValidationMinLength": "{fieldName} kurang dari {minLength} digit",
+  "@formValidationMinLength": {
+    "placeholders": {
+      "fieldName": {},
+      "minLength": {}
+    }
+  },
+  "formValidationMaxLength": "{fieldName} tidak boleh lebih dari {maxLength} digit",
+  "@formValidationMaxLength": {
+    "placeholders": {
+      "fieldName": {},
+      "maxLength": {}
+    }
+  },
+  "formValidationEmailInvalid": "Email tidak valid",
+  "formValidationOnlyAlphanumeric": "Hanya boleh huruf dan angka",
+  "formValidationPasswordInvalid": "Password yang Anda masukkan tidak sesuai",
+  "formValidationPasswordCriteriaInvalid": "Password belum memenuhi kriteria",
+  "splashScreenDisclaimer": "Bank berizin dan diawasi oleh Otoritas Jasa Keuangan (OJK) dan merupakan bank peserta penjamin Lembaga Penjamin Simpanan (LPS)",
+  "onboardScreenTitleSlide1": "Satu Solusi Untuk\nSemua Transaksi",
+  "onboardScreenMessageSlide1": "Transaksi sehari-hari menjadi lebih mudah, baik untuk kebutuhan personal maupun bisnis.",
+  "onboardScreenTitleSlide2": "Gratis Transfer\nAntar Bank",
+  "onboardScreenMessageSlide2": "Makin hemat transfer antar bank menggunakan hi Nabung. Dapatkan 100 kali gratis transfer per bulan. Buka hi Nabung sekarang!",
+  "loginBeforeBindingTitle": "Masuk",
+  "loginBeforeBindingDescription": "Silakan masuk dengan ID perusahaan & ID pengguna yang sudah di informasikan",
+  "forgotPasswordChangePasswordPasswordBerhasilDisimpan": "Password Berhasil Disimpan",
+  "forgotPasswordChangePasswordSilahkanLoginKembali": "Silakan login kembali untuk melanjutkan."
+}

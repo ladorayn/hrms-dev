@@ -2,62 +2,58 @@ import 'package:flutter/material.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/application/theme/i_text_theme.dart';
 
+/// Defines the application's light and dark themes.
+///
+/// This class uses the centralized `IColors` and `ITextTheme` to build
+/// consistent `ThemeData` for both light and dark modes.
 class ITheme {
+  ITheme._();
+
+  /// The light theme configuration for the application.
   static ThemeData light = ThemeData(
     useMaterial3: true,
     brightness: Brightness.light,
     scaffoldBackgroundColor: IColors.light.background,
-    primaryColor: IColors.light.primary,
+    primaryColor: IColors.light.primary.main, // Corrected to get the Color
     fontFamily: 'Inter',
-    colorScheme: ColorScheme.light(
-      primary: IColors.light.primary,
-      onPrimary: IColors.light.onPrimary,
+    colorScheme: ColorScheme(
+      brightness: Brightness.light,
+      primary: IColors.light.primary.main,
+      onPrimary: IColors.light.primary.foreground,
+      secondary: IColors.light.secondary.main,
+      onSecondary: IColors.light.secondary.foreground,
+      error: IColors.light.error.main,
+      onError: IColors.light.error.main,
       background: IColors.light.background,
-      onBackground: IColors.light.onBackground,
-      surface: IColors.light.surface,
-      onSurface: IColors.light.onSurface,
-      error: IColors.light.error,
-      onError: IColors.light.onError,
+      onBackground: IColors.light.foreground,
+      surface: IColors.light.card, // Card is a good equivalent for surface
+      onSurface: IColors.light.cardForeground,
     ),
-    textTheme: TextTheme(
-      displayLarge: ITextTheme.heading.h1,
-      displayMedium: ITextTheme.heading.h2,
-      displaySmall: ITextTheme.heading.h3,
-      headlineMedium: ITextTheme.heading.h4,
-      headlineSmall: ITextTheme.heading.h5,
-      bodyLarge: ITextTheme.body.body,
-      bodyMedium: ITextTheme.body.bodySmall,
-      labelLarge: ITextTheme.label.label,
-      labelSmall: ITextTheme.label.labelSmall,
-    ),
+    // Generate the text theme using the light color scheme
+    textTheme: ITextTheme.createTextTheme(IColors.light),
   );
 
+  /// The dark theme configuration for the application.
   static ThemeData dark = ThemeData(
     useMaterial3: true,
     brightness: Brightness.dark,
     scaffoldBackgroundColor: IColors.dark.background,
-    primaryColor: IColors.dark.primary,
+    primaryColor: IColors.dark.primary.main, // Corrected to get the Color
     fontFamily: 'Inter',
-    colorScheme: ColorScheme.dark(
-      primary: IColors.dark.primary,
-      onPrimary: IColors.dark.onPrimary,
+    colorScheme: ColorScheme(
+      brightness: Brightness.dark,
+      primary: IColors.dark.primary.main,
+      onPrimary: IColors.dark.primary.foreground,
+      secondary: IColors.dark.secondary.main,
+      onSecondary: IColors.dark.secondary.foreground,
+      error: IColors.dark.error.main,
+      onError: IColors.dark.error.main,
       background: IColors.dark.background,
-      onBackground: IColors.dark.onBackground,
-      surface: IColors.dark.surface,
-      onSurface: IColors.dark.onSurface,
-      error: IColors.dark.error,
-      onError: IColors.dark.onError,
+      onBackground: IColors.dark.foreground,
+      surface: IColors.dark.card, // Card is a good equivalent for surface
+      onSurface: IColors.dark.cardForeground,
     ),
-    textTheme: TextTheme(
-      displayLarge: ITextTheme.heading.h1,
-      displayMedium: ITextTheme.heading.h2,
-      displaySmall: ITextTheme.heading.h3,
-      headlineMedium: ITextTheme.heading.h4,
-      headlineSmall: ITextTheme.heading.h5,
-      bodyLarge: ITextTheme.body.body,
-      bodyMedium: ITextTheme.body.bodySmall,
-      labelLarge: ITextTheme.label.label,
-      labelSmall: ITextTheme.label.labelSmall,
-    ),
+    // Generate the text theme using the dark color scheme
+    textTheme: ITextTheme.createTextTheme(IColors.dark),
   );
 }

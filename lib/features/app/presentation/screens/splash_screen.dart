@@ -17,7 +17,6 @@ class SplashScreen extends ConsumerWidget {
           loading: () => const CircularProgressIndicator(),
           error: (err, stack) => Text("Error: $err"),
           data: (isLoggedIn) {
-            print("HEHEHEHEHHEE");
             Future.microtask(() {
               final next = isLoggedIn ? RoutePaths.dashboard : RoutePaths.login;
               context.go(next);
