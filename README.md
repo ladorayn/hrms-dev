@@ -35,7 +35,7 @@ This project uses code generation for models and providers (e.g., [freezed](http
 Whenever you make changes to files that use code generation (e.g., models, providers), run:
 
 ```sh
-dart run build_runner watch --delete-conflicting-outputs
+fvm dart run build_runner watch --delete-conflicting-outputs
 ```
 
 This will watch for changes and automatically generate the necessary files.
@@ -57,12 +57,18 @@ This will watch for changes and automatically generate the necessary files.
   ```
 - **Run code generation:**
   ```sh
-  dart run build_runner watch --delete-conflicting-outputs
+  fvm dart run build_runner watch --delete-conflicting-outputs
   ```
 - **Run the app:**
   ```sh
   fvm flutter run
   ```
+- **Run reset password on local: (change the token to the valid one on email)**
+  ```sh
+  xcrun simctl openurl booted "hrms-app://reset-password?token=a637f8e405b6ef74cde5be58a45affc19e3fd2fabb59f8820dcd35fde3fa1c4f&email=test@mail.com"
+  ```
+  
+
 
 ## Notes
 

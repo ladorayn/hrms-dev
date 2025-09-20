@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -20,20 +22,18 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  void handleLogin() async {
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  void handleLogin() {
     final email = emailController.text;
     final password = passwordController.text;
 
-    await ref.read(loginProvider.notifier).submit(email, password);
-
-    ref.invalidate(appStartupProvider); // refresh app state
-    if (ref.read(loginProvider).hasError) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Login failed")),
-      );
-    } else {
-      context.go(RoutePaths.dashboard);
-    }
+    ref.read(loginProvider.notifier).submit(email, password);
   }
 
   @override
@@ -41,12 +41,51 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final loginState = ref.watch(loginProvider);
     final l10n = AppLocalizations.of(context)!;
 
+    ref.listen<AsyncValue>(loginProvider, (previous, next) {
+      if (next is AsyncError) {
+        ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Login failed: ${next.error}')),
+        );
+      } else if (previous is AsyncLoading && next is AsyncData) {
+        ref.invalidate(appStartupProvider);
+        context.go(RoutePaths.dashboard);
+      }
+    });
     return Scaffold(
       body: SafeArea(
         child: Stack(
           children: [
-            Container(
-              color: IColors.light.background,
+            Align(
+              alignment: Alignment.center,
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.8,
+                height: MediaQuery.of(context).size.width * 0.8,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: IColors.light.background,
+                ),
+              ),
+            ),
+            Positioned.fill(
+              child: BackdropFilter(
+                filter:
+                    ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0), // stronger blur
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: RadialGradient(
+                      center: Alignment.center,
+                      radius: 0.4,
+                      colors: [
+                        IColors.light.background,
+                        Colors.white.withValues(alpha: 0.2),
+                        Colors.white.withValues(alpha: 1)
+                      ],
+                      stops: const [0.7, 0.8, 1.0],
+                    ),
+                  ),
+                ),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(32),
@@ -75,6 +114,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     ),
                     Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                       GestureDetector(
+                        onTap: () => context.go(
+                          RoutePaths.resetPassword,
+                        ),
                         child: Text(
                           l10n.resetPassword,
                           style: TextStyle(color: IColors.light.primary.main),

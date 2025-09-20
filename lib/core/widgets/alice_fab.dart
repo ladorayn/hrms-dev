@@ -1,9 +1,10 @@
 import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hrms_mobile/core/network/alice_provider.dart';
-import 'package:flutter/foundation.dart';
 import 'package:hrms_mobile/core/config/app_config.dart';
+import 'package:hrms_mobile/core/network/alice_provider.dart';
 
 class AliceFab extends ConsumerWidget {
   const AliceFab({super.key});
@@ -15,8 +16,8 @@ class AliceFab extends ConsumerWidget {
     }
 
     return Positioned(
-      bottom: 24,
-      right: 16,
+      top: 24,
+      left: 16,
       child: FloatingActionButton(
         heroTag: 'alice_inspector',
         onPressed: () => ref.read(aliceProvider).showInspector(),

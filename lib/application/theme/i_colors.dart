@@ -26,7 +26,7 @@ class IColors {
     primary: PrimaryColors(
       main: const Color(0xFF18618B),
       foreground: const Color(0xFFFFFFFF),
-      pressed: const Color(0xFF143A24),
+      pressed: const Color(0xFF0A2636),
       hover: const Color(0xFF0F3C56),
       border: const Color(0xFF8CC8EB),
       focused: const Color(0xFFD6EBF8),

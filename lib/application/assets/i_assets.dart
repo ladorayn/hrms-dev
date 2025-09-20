@@ -19,4 +19,11 @@ class IAssets {
   static const String overtime = '$ICON_PATH/overtime.svg';
   static const String overtimeBlue = '$ICON_PATH/overtime-blue.svg';
   static const String clockOut = '$ICON_PATH/clockOut.svg';
+  static const String clockIn = '$ICON_PATH/clockIn.svg';
+  static const String onTimeClock = '$ICON_PATH/onTimeClock.svg';
+  static const String warningClock = '$ICON_PATH/warningClock.svg';
+  static const String attendanceClock = '$ICON_PATH/attendanceClock.svg';
+  static const String overtimeClock = '$ICON_PATH/overtimeClock.svg';
+  static const String timeOff = '$ICON_PATH/timeOff.svg';
+  static const String logout = '$ICON_PATH/logout.svg';
 }

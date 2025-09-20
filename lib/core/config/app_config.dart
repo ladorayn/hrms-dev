@@ -5,12 +5,12 @@ class AppConfig {
   static const bool USE_VKEY = true;
 
   // NETWORKING STUFF
-  static const bool USE_FULL_BODY_ENCRYPT = true;
+  static const bool USE_FULL_BODY_ENCRYPT = false;
   static const bool USE_SSL_PINNING = true;
   static const bool USE_ALICE = true; // Set true for development
   static const bool USE_KMS = true;
 
-  static const bool USE_MOCK_SERVER = true;
+  static const bool USE_MOCK_SERVER = false;
 
   static String get baseUrl {
     if (USE_MOCK_SERVER) {
@@ -21,7 +21,7 @@ class AppConfig {
         return 'http://localhost:3003/api'; // iOS, macOS, web
       }
     } else {
-      return 'https://your-real-backend.com/api'; // Production
+      return 'https://api.okejobhub.fun/api/v1'; // Production
     }
   }
 }

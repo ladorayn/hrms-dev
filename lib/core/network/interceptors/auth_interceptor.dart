@@ -1,9 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/core/constants/storage_keys.dart';
-import 'package:hrms_mobile/core/navigation/global_navigator.dart';
-import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/state/logout_guard.dart';
 import 'package:hrms_mobile/features/auth/presentation/providers/logout/logout_provider.dart';
 import 'package:riverpod/riverpod.dart';
@@ -35,21 +32,21 @@ class AuthInterceptor extends Interceptor {
   }
 
   @override
-  void onError(DioException err, ErrorInterceptorHandler handler) async {
-    if ((err.response?.statusCode == 401 || err.response?.statusCode == 403) &&
-        !LogoutGuard.hasLoggedOut) {
+  void onError(DioException err, ErrorInterceptorHandler handler) {
+    final bool isUnauthorized =
+        err.response?.statusCode == 401 || err.response?.statusCode == 403;
+
+    final bool isLoginRequest = err.requestOptions.path.endsWith('/login');
+
+    if (isUnauthorized && !isLoginRequest && !LogoutGuard.hasLoggedOut) {
       LogoutGuard.hasLoggedOut = true;
 
-      // ✅ Trigger logout once
-      await ref.read(logoutProvider.notifier).submit(); // Triggers logout flow
-      // Redirect to login
-      final context = globalNavigatorKey.currentContext;
-
-      if (context != null) {
-        context.go(RoutePaths.login);
+      if (kDebugMode) {
+        print(
+            '[AuthInterceptor] Unauthorized on a protected route. Forcing logout.');
       }
+      ref.read(logoutProvider.notifier).submit();
     }
-
     handler.next(err);
   }
 }

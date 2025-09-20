@@ -13,7 +13,7 @@ class ITheme {
   static ThemeData light = ThemeData(
     useMaterial3: true,
     brightness: Brightness.light,
-    scaffoldBackgroundColor: IColors.light.background,
+    scaffoldBackgroundColor: Colors.white,
     primaryColor: IColors.light.primary.main, // Corrected to get the Color
     fontFamily: 'Inter',
     colorScheme: ColorScheme(

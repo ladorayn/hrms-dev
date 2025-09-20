@@ -27,7 +27,7 @@ class ITextFieldEmail extends ITextFieldBase {
     super.obscureText,
     super.autocorrect,
     super.maxLine,
-    super.textCapitalization,
+    TextCapitalization? textCapitalization,
     TextInputType? keyboardType,
     super.textInputAction,
     super.validator,
@@ -36,7 +36,7 @@ class ITextFieldEmail extends ITextFieldBase {
     super.onTap,
     super.inputFormatters,
     super.prefix,
-    Widget? prefixIcon, // Accept an optional prefixIcon
+    Widget? prefixIcon,
     super.suffix,
     super.suffixIcon,
     super.borderVariant,
@@ -45,6 +45,7 @@ class ITextFieldEmail extends ITextFieldBase {
   }) : super(
           maxLength: IFormUtils.maxLengthEmail,
           keyboardType: keyboardType ?? TextInputType.emailAddress,
+          textCapitalization: TextCapitalization.none,
           // Use the provided prefixIcon, or fall back to the default SVG
           prefixIcon: prefixIcon ??
               Padding(

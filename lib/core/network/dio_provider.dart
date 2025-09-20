@@ -3,11 +3,13 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hrms_mobile/core/config/app_config.dart';
+import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/network/interceptors/auth_interceptor.dart';
 import 'package:hrms_mobile/core/network/interceptors/kms_interceptor.dart';
 import 'package:hrms_mobile/core/network/interceptors/vkey_interceptor.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 import 'alice_provider.dart';
 
 part 'dio_provider.g.dart';
@@ -35,6 +37,7 @@ Dio dio(Ref ref) {
 
   if (AppConfig.USE_ALICE) {
     final alice = ref.watch(aliceProvider);
+    alice.setNavigatorKey(globalNavigatorKey);
     final aliceAdapter = AliceDioAdapter();
     alice.addAdapter(aliceAdapter);
     dio.interceptors.add(aliceAdapter);
