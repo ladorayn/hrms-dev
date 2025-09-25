@@ -4,6 +4,8 @@ import 'package:hrms_mobile/features/auth/data/models/login/response/login_respo
 import 'package:hrms_mobile/features/auth/data/models/reset_password/request/forgot_password_request.dart';
 import 'package:hrms_mobile/features/auth/data/models/reset_password/request/reset_password_request.dart';
 import 'package:hrms_mobile/features/auth/data/repositories/auth_repository.dart';
+import 'package:hrms_mobile/features/user/data/models/company/company_profile.dart';
+import 'package:hrms_mobile/features/user/data/models/user.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final Dio dio;
@@ -15,10 +17,8 @@ class AuthRepositoryImpl implements AuthRepository {
     final loginData = LoginRequest(email: email, password: password);
     try {
       final response = await dio.post('/login', data: loginData);
-      print("SUCCESS AJA BRO");
       return LoginResponse.fromJson(response.data['data']);
     } on DioException catch (e) {
-      print("GAGAL INI BRO");
       throw Exception(e.response?.data['message'] ?? 'Login failed');
     }
   }
@@ -62,6 +62,27 @@ class AuthRepositoryImpl implements AuthRepository {
       await dio.post('/password/reset', data: request);
     } on DioException catch (e) {
       throw Exception(e.response?.data['message'] ?? 'Reset failed');
+    }
+  }
+
+  @override
+  Future<UserProfileResponse> getProfile() async {
+    try {
+      final response = await dio.get('/user/profile');
+      return UserProfileResponse.fromJson(response.data['data']['user']);
+    } on DioException catch (e) {
+      throw Exception(e.response?.data['message'] ?? 'Failed to fetch profile');
+    }
+  }
+
+  @override
+  Future<CompanyProfileResponse> getCompanyProfile() async {
+    try {
+      final response = await dio.get('/setting/company-profile');
+      return CompanyProfileResponse.fromJson(response.data['data']);
+    } on DioException catch (e) {
+      throw Exception(
+          e.response?.data['message'] ?? 'Failed to fetch company profile');
     }
   }
 }

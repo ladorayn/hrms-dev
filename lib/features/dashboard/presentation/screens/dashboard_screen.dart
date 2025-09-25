@@ -5,7 +5,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
-import 'package:hrms_mobile/features/auth/presentation/providers/user_provider.dart';
+import 'package:hrms_mobile/core/widgets/status_chip.dart';
+import 'package:hrms_mobile/features/auth/presentation/providers/auth/auth_provider.dart';
+import 'package:hrms_mobile/features/auth/presentation/providers/company_profile/company_profile_provider.dart';
 import 'package:hrms_mobile/features/dashboard/presentation/widgets/recent_activity_tiles.dart';
 
 class DashboardScreen extends ConsumerWidget {
@@ -13,9 +15,9 @@ class DashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(userProvider);
-    final userJson = user.value?.toJson();
-    print("USER JSON $userJson");
+    final authP = ref.watch(authProvider);
+    final companyP = ref.watch(companyProfileProvider);
+    print("COMPANY JA P ${companyP.value?.name}");
     return Scaffold(
       backgroundColor: Color(0xFFF8F8F8),
       body: Column(
@@ -65,7 +67,7 @@ class DashboardScreen extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      'PT Catur Pilar Sejahtera',
+                      companyP.value?.name ?? '-',
                       style: TextStyle(color: Colors.white),
                     ),
                     SizedBox(height: 8),
@@ -76,7 +78,7 @@ class DashboardScreen extends ConsumerWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Phoenix Baker',
+                              authP.value?.name ?? '-',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 24,
@@ -84,7 +86,7 @@ class DashboardScreen extends ConsumerWidget {
                               ),
                             ),
                             Text(
-                              'Product Designer',
+                              authP.value?.employment?.jobPosition?.name ?? '-',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w400,
@@ -135,115 +137,142 @@ class DashboardScreen extends ConsumerWidget {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(12.0),
-                      child: Row(
-                        spacing: 10,
-                        children: [
-                          Expanded(
-                            child: Row(
-                              spacing: 10,
-                              children: [
-                                CircleAvatar(
-                                  backgroundColor:
-                                      IColors.light.primary.background,
-                                  radius: 15,
-                                  child: SvgPicture.asset(
-                                    IAssets.clockIn,
-                                    height: 24.0,
-                                    width: 24.0,
+                      child: IntrinsicHeight(
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  CircleAvatar(
+                                    backgroundColor:
+                                        IColors.light.primary.background,
+                                    radius: 15,
+                                    child: SvgPicture.asset(
+                                      IAssets.clockIn,
+                                      height: 24.0,
+                                      width: 24.0,
+                                    ),
                                   ),
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Clock In',
-                                      style:
-                                          TextStyle(color: Color(0xFF8E8E8E)),
-                                    ),
-                                    ElevatedButton.icon(
-                                      onPressed: () {},
-                                      icon: const Icon(
-                                        Icons.add,
-                                        color: Colors.white,
-                                      ),
-                                      label: const Text(
-                                        'Clock In',
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600,
+                                  const SizedBox(width: 10),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Text(
+                                          'Clock In',
+                                          style: TextStyle(
+                                              color: Color(0xFF8E8E8E)),
                                         ),
-                                      ),
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            IColors.light.primary.main,
-                                        foregroundColor:
-                                            IColors.light.primary.foreground,
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(12)),
-                                      ),
+                                        const SizedBox(height: 4),
+                                        SizedBox(
+                                          width: double.infinity,
+                                          child: ElevatedButton.icon(
+                                            onPressed: () {},
+                                            icon: const Icon(
+                                              Icons.add,
+                                              color: Colors.white,
+                                            ),
+                                            label: const Text(
+                                              'Clock In',
+                                              style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor:
+                                                  IColors.light.primary.main,
+                                              foregroundColor: IColors
+                                                  .light.primary.foreground,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                              ),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                horizontal: 8,
+                                                vertical: 10,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            height: 50,
-                            width: 2,
-                            color: IColors.light.grayscale.g20,
-                          ),
-                          Expanded(
-                            child: Row(
-                              spacing: 10,
-                              children: [
-                                CircleAvatar(
-                                  backgroundColor:
-                                      IColors.light.primary.background,
-                                  radius: 15,
-                                  child: SvgPicture.asset(
-                                    IAssets.clockOut,
-                                    height: 24.0,
-                                    width: 24.0,
                                   ),
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Clock Out',
-                                      style:
-                                          TextStyle(color: Color(0xFF8E8E8E)),
-                                    ),
-                                    ElevatedButton.icon(
-                                      onPressed: () {},
-                                      icon: const Icon(
-                                        Icons.add,
-                                        color: Colors.white,
-                                      ),
-                                      label: const Text(
-                                        'Clock Out',
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            IColors.light.primary.main,
-                                        foregroundColor:
-                                            IColors.light.primary.foreground,
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(12)),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                            VerticalDivider(
+                              width: 20,
+                              thickness: 2,
+                              color: IColors.light.grayscale.g20,
+                            ),
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  CircleAvatar(
+                                    backgroundColor:
+                                        IColors.light.primary.background,
+                                    radius: 15,
+                                    child: SvgPicture.asset(
+                                      IAssets.clockOut,
+                                      height: 24.0,
+                                      width: 24.0,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Text(
+                                          'Clock Out',
+                                          style: TextStyle(
+                                              color: Color(0xFF8E8E8E)),
+                                        ),
+                                        const SizedBox(height: 4),
+                                        SizedBox(
+                                          width: double.infinity,
+                                          child: ElevatedButton.icon(
+                                            onPressed: () {},
+                                            icon: const Icon(
+                                              Icons.add,
+                                              color: Colors.white,
+                                            ),
+                                            label: const Text(
+                                              'Clock Out',
+                                              style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor:
+                                                  IColors.light.primary.main,
+                                              foregroundColor: IColors
+                                                  .light.primary.foreground,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                              ),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                horizontal: 8,
+                                                vertical: 10,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

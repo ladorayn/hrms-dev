@@ -18,6 +18,7 @@ class ITextFieldBase extends StatelessWidget {
     this.notePadding,
     this.textFieldOnly = false,
     this.borderVariant = ITextFieldBorderVariant.outline,
+    this.borderColor,
     this.hintText,
     this.hintStyle,
     this.contentPadding,
@@ -35,6 +36,7 @@ class ITextFieldBase extends StatelessWidget {
     this.textInputAction,
     this.onTap,
     this.maxLength,
+    this.minLine,
     this.maxLine,
     this.prefix,
     this.prefixIcon,
@@ -84,6 +86,7 @@ class ITextFieldBase extends StatelessWidget {
   final bool autocorrect;
   final int? maxLength;
   final int? maxLine;
+  final int? minLine;
 
   // TextField enum option
   final TextCapitalization textCapitalization;
@@ -107,6 +110,7 @@ class ITextFieldBase extends StatelessWidget {
 
   // ITextField option
   final ITextFieldBorderVariant borderVariant;
+  final Color? borderColor;
   final bool textFieldOnly;
   final bool isRequired;
   final Widget? customLeading;
@@ -197,6 +201,7 @@ class ITextFieldBase extends StatelessWidget {
       borderVariant,
       colorScheme,
       errorText,
+      borderColor,
     );
 
     return TextFormField(
@@ -223,6 +228,7 @@ class ITextFieldBase extends StatelessWidget {
         onChanged?.call(value);
       },
       maxLines: maxLine ?? 1,
+      minLines: minLine,
       maxLength: maxLength,
       autocorrect: autocorrect,
       onFieldSubmitted: onFieldSubmitted,
@@ -261,11 +267,14 @@ class ITextFieldBase extends StatelessWidget {
     ITextFieldBorderVariant borderVariant,
     ColorScheme colorScheme,
     String? errorText,
+    Color? borderColor,
   ) {
     final InputBorder defaultBorder = OutlineInputBorder(
       borderRadius: BorderRadius.circular(4),
       borderSide: BorderSide(
-        color: errorText == null ? colorScheme.outline : colorScheme.error,
+        color: errorText == null
+            ? (borderColor ?? colorScheme.outline)
+            : colorScheme.error,
         width: 1,
       ),
     );

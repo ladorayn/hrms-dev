@@ -26,4 +26,9 @@ class IAssets {
   static const String overtimeClock = '$ICON_PATH/overtimeClock.svg';
   static const String timeOff = '$ICON_PATH/timeOff.svg';
   static const String logout = '$ICON_PATH/logout.svg';
+  static const String filter = '$ICON_PATH/filter.svg';
+  static const String edit = '$ICON_PATH/edit.svg';
+  static const String pinLocation = '$ICON_PATH/pinLocation.svg';
+  static const String redClose = '$ICON_PATH/close.svg';
+  static const String onLeave = '$ICON_PATH/onLeave.svg';
 }

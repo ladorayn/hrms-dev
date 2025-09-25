@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,8 +10,6 @@ import 'package:hrms_mobile/application/theme/i_theme.dart';
 import 'package:hrms_mobile/core/routes/app_router.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/services/notifications/local_notification_service.dart';
-import 'package:hrms_mobile/core/widgets/alice_fab.dart';
-import 'package:uni_links/uni_links.dart';
 
 Future<void> main() async {
   // Will be used later
@@ -34,7 +33,8 @@ class MyApp extends ConsumerStatefulWidget {
 }
 
 class _MyAppState extends ConsumerState<MyApp> {
-  StreamSubscription? _sub;
+  late final AppLinks _appLinks;
+  StreamSubscription<Uri>? _uriSubscription;
 
   @override
   void initState() {
@@ -42,18 +42,16 @@ class _MyAppState extends ConsumerState<MyApp> {
     _initDeepLinks();
   }
 
-  void _initDeepLinks() async {
-    // Handle initial link if app was cold-started
-    final initialUri = await getInitialUri();
+  Future<void> _initDeepLinks() async {
+    _appLinks = AppLinks();
+
+    final initialUri = await _appLinks.getInitialLink();
     if (initialUri != null) {
       _handleUri(initialUri);
     }
 
-    // Handle subsequent links while app is in background/foreground
-    _sub = uriLinkStream.listen((uri) {
-      if (uri != null) {
-        _handleUri(uri);
-      }
+    _uriSubscription = _appLinks.uriLinkStream.listen((uri) {
+      _handleUri(uri);
     }, onError: (err) {
       debugPrint("Deep link error: $err");
     });
@@ -80,7 +78,7 @@ class _MyAppState extends ConsumerState<MyApp> {
 
   @override
   void dispose() {
-    _sub?.cancel();
+    _uriSubscription?.cancel();
     super.dispose();
   }
 
@@ -101,14 +99,6 @@ class _MyAppState extends ConsumerState<MyApp> {
             darkTheme: ITheme.dark,
             themeMode: ThemeMode.system,
             routerConfig: router,
-            builder: (context, child) {
-              return Stack(
-                children: [
-                  child ?? const SizedBox.shrink(),
-                  const AliceFab(), // shows FAB globally
-                ],
-              );
-            },
           );
         });
   }

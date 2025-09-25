@@ -5,7 +5,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/features/app/presentation/screens/splash_screen.dart';
-import 'package:hrms_mobile/features/attendance/presentation/screens/attendance_screen.dart';
+import 'package:hrms_mobile/features/attendance/presentation/screens/attendance_and_overtime_screen.dart';
+import 'package:hrms_mobile/features/attendance/presentation/screens/attendance_history_edit_screen.dart';
+import 'package:hrms_mobile/features/attendance/presentation/screens/overtime_history_edit_screen.dart';
 import 'package:hrms_mobile/features/auth/presentation/providers/auth/auth_provider.dart';
 import 'package:hrms_mobile/features/auth/presentation/screens/login_screen.dart';
 import 'package:hrms_mobile/features/auth/presentation/screens/reset_password/reset_password_check_email_screen.dart';
@@ -20,7 +22,6 @@ import 'route_paths.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authProvider);
-
   const authRoutes = [
     RoutePaths.splash,
     RoutePaths.login,
@@ -39,17 +40,23 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     navigatorKey: globalNavigatorKey,
     debugLogDiagnostics: true,
     redirect: (BuildContext context, GoRouterState state) {
-      print("REDIRECT");
+      final isOnLogin = state.matchedLocation == RoutePaths.login;
+      final isOnSplash = state.matchedLocation == RoutePaths.splash;
+
       final bool isLoggedIn = authState.hasValue && authState.value != null;
       if (authState.isLoading) {
         return null;
       }
       final isGoingToPublicRoute = publicRoutes.any(
-        (route) => state.matchedLocation.startsWith(route),
+        (route) {
+          return state.matchedLocation.startsWith(route);
+        },
       );
-      if (!isLoggedIn && !isGoingToPublicRoute) {
-        print("REDIRECT TO LOGIN ${state.matchedLocation}");
-        return RoutePaths.login;
+
+      if (!isLoggedIn) {
+        if (isOnLogin) return null;
+        if (isOnSplash) return RoutePaths.login;
+        if (!isGoingToPublicRoute) return RoutePaths.login;
       }
 
       final isGoingToAuthRoute = authRoutes.contains(state.matchedLocation);
@@ -64,9 +71,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const SplashScreen(),
       ),
       GoRoute(
-        path: RoutePaths.login,
-        builder: (context, state) => const LoginScreen(),
-      ),
+          path: RoutePaths.login,
+          builder: (context, state) {
+            return LoginScreen();
+          }),
       GoRoute(
         path: RoutePaths.resetPassword,
         builder: (context, state) {
@@ -96,7 +104,16 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           ),
         ],
       ),
-
+      GoRoute(
+        path: RoutePaths.attendanceEdit,
+        name: RoutePaths.attendanceEdit,
+        builder: (context, state) => const AttendanceHistoryEditScreen(),
+      ),
+      GoRoute(
+        path: RoutePaths.overtimeEdit,
+        name: RoutePaths.overtimeEdit,
+        builder: (context, state) => const OvertimeHistoryEditScreen(),
+      ),
       // --- ROUTES WITH THE BOTTOM NAV BAR (Using ShellRoute) ---
       ShellRoute(
         // The 'builder' returns the UI shell (your MainScreen with the Scaffold and BottomNavBar).
@@ -109,13 +126,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: RoutePaths.dashboard,
             builder: (context, state) => const DashboardScreen(),
-            routes: [
-              // Attendance is now nested under dashboard. The full path will be '/dashboard/attendance'
-              GoRoute(
-                path: RoutePaths.attendance,
-                builder: (context, state) => const AttendanceScreen(),
-              ),
-            ],
           ),
           // "Employees" tab
           GoRoute(
@@ -144,6 +154,13 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: RoutePaths.profile,
             builder: (context, state) => const ProfileScreen(),
+            routes: [
+              GoRoute(
+                path: RoutePaths.attendance,
+                name: RoutePaths.attendance,
+                builder: (context, state) => const AttendanceOvertimeScreen(),
+              ),
+            ],
           ),
         ],
       ),

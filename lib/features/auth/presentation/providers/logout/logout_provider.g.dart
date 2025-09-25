@@ -6,7 +6,7 @@ part of 'logout_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$logoutHash() => r'd4cea200dd8ecd7e12b2af31d155d17ca3a08935';
+String _$logoutHash() => r'f4999ad3e4ca9a931f3b3858287dedcd7ba95c9e';
 
 /// See also [Logout].
 @ProviderFor(Logout)

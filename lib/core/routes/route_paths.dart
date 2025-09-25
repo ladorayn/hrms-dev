@@ -2,7 +2,7 @@
 
 class RoutePaths {
   // --- Unauthenticated Routes ---
-  static const splash = '/';
+  static const splash = '/splash';
   static const login = '/login';
   static const resetPassword = '/reset-password';
   static const resetPasswordCreate = 'create';
@@ -22,4 +22,6 @@ class RoutePaths {
 
   // --- Nested Routes ---
   static const attendance = 'attendance';
+  static const attendanceEdit = '/edit-attendance';
+  static const overtimeEdit = '/edit-overtime';
 }

@@ -1,19 +1,19 @@
-// lib/core/router/go_router_refresh_stream.dart
-import 'dart:async';
-
+// core/navigation/router_notifier.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hrms_mobile/features/auth/presentation/providers/auth/auth_provider.dart';
 
-class GoRouterRefreshStream extends ChangeNotifier {
-  GoRouterRefreshStream(Stream<dynamic> stream) {
-    notifyListeners();
-    _subscription = stream.asBroadcastStream().listen((_) => notifyListeners());
-  }
+final routerNotifierProvider = Provider<RouterNotifier>((ref) {
+  return RouterNotifier(ref);
+});
 
-  late final StreamSubscription<dynamic> _subscription;
+class RouterNotifier extends ChangeNotifier {
+  final Ref _ref;
 
-  @override
-  void dispose() {
-    _subscription.cancel();
-    super.dispose();
+  RouterNotifier(this._ref) {
+    _ref.listen(
+      authProvider,
+      (_, __) => notifyListeners(),
+    );
   }
 }
