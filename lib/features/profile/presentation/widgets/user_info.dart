@@ -10,8 +10,14 @@ class UserInfo extends ConsumerWidget {
     final authP = ref.watch(authProvider);
     return Column(
       children: [
-        const CircleAvatar(
+        CircleAvatar(
           radius: 50,
+          backgroundImage: (authP.value?.photoProfileUrl?.isNotEmpty ?? false)
+              ? NetworkImage(authP.value!.photoProfileUrl!)
+              : null,
+          child: (authP.value?.photoProfileUrl?.isEmpty ?? true)
+              ? const Icon(Icons.person, size: 80, color: Colors.white)
+              : null,
         ),
         const SizedBox(height: 16),
         Text(

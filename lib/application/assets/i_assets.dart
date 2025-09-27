@@ -31,4 +31,9 @@ class IAssets {
   static const String pinLocation = '$ICON_PATH/pinLocation.svg';
   static const String redClose = '$ICON_PATH/close.svg';
   static const String onLeave = '$ICON_PATH/onLeave.svg';
+  static const String checkBlue = '$ICON_PATH/checkBlue.svg';
+  static const String biometric = '$ICON_PATH/biometric.svg';
+  static const String faceUp = '$ICON_PATH/faceUp.svg';
+  static const String faceRight = '$ICON_PATH/faceRight.svg';
+  static const String faceLeft = '$ICON_PATH/faceLeft.svg';
 }

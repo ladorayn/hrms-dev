@@ -53,6 +53,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       }
     });
     return Scaffold(
+      resizeToAvoidBottomInset: true, // important
       body: SafeArea(
         child: Stack(
           children: [
@@ -69,8 +70,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             ),
             Positioned.fill(
               child: BackdropFilter(
-                filter:
-                    ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0), // stronger blur
+                filter: ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
                 child: Container(
                   decoration: BoxDecoration(
                     gradient: RadialGradient(
@@ -90,58 +90,64 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             Padding(
               padding: const EdgeInsets.all(32),
               child: Center(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // Logo Company
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.35,
-                      height: MediaQuery.of(context).size.width * 0.15,
-                      color: IColors.dark.background,
-                    ),
-                    const SizedBox(height: 40),
-                    ITextFieldEmail(
-                      label: l10n.formEmail,
-                      hintText: l10n.formHintEmail,
-                      controller: emailController,
-                      onChanged: (val) {},
-                    ),
-                    ITextFieldPassword(
-                      label: l10n.formPassword,
-                      hintText: l10n.formHintPassword,
-                      controller: passwordController,
-                    ),
-                    Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                      GestureDetector(
-                        onTap: () => context.go(
-                          RoutePaths.resetPassword,
-                        ),
-                        child: Text(
-                          l10n.resetPassword,
-                          style: TextStyle(color: IColors.light.primary.main),
-                        ),
+                child: SingleChildScrollView(
+                  // 👈 makes it scrollable
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.35,
+                        height: MediaQuery.of(context).size.width * 0.15,
+                        color: IColors.dark.background,
                       ),
-                    ]),
-                    const SizedBox(height: 60),
-                    loginState.isLoading
-                        ? const CircularProgressIndicator()
-                        : ElevatedButton(
-                            onPressed: handleLogin,
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: IColors.light.primary.main,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              minimumSize: Size(
-                                  MediaQuery.of(context).size.width * 0.8, 50),
-                            ),
-                            child: const Text(
-                              "Sign In",
-                              style: TextStyle(color: Colors.white),
+                      const SizedBox(height: 40),
+                      ITextFieldEmail(
+                        label: l10n.formEmail,
+                        hintText: l10n.formHintEmail,
+                        controller: emailController,
+                        onChanged: (val) {},
+                      ),
+                      ITextFieldPassword(
+                        label: l10n.formPassword,
+                        hintText: l10n.formHintPassword,
+                        controller: passwordController,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          GestureDetector(
+                            onTap: () => context.go(RoutePaths.resetPassword),
+                            child: Text(
+                              l10n.resetPassword,
+                              style:
+                                  TextStyle(color: IColors.light.primary.main),
                             ),
                           ),
-                  ],
+                        ],
+                      ),
+                      const SizedBox(height: 60),
+                      loginState.isLoading
+                          ? const CircularProgressIndicator()
+                          : ElevatedButton(
+                              onPressed: handleLogin,
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: IColors.light.primary.main,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                minimumSize: Size(
+                                  MediaQuery.of(context).size.width * 0.8,
+                                  50,
+                                ),
+                              ),
+                              child: const Text(
+                                "Sign In",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                    ],
+                  ),
                 ),
               ),
             ),

@@ -96,7 +96,6 @@ class _MyAppState extends ConsumerState<MyApp> {
             theme: ITheme.light,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
-            darkTheme: ITheme.dark,
             themeMode: ThemeMode.system,
             routerConfig: router,
           );

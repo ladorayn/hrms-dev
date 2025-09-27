@@ -327,28 +327,6 @@ class AttendanceCard extends StatelessWidget {
   }
 }
 
-/// ===== Helper for Month Buttons =====
-Widget _monthArrowButton(IconData icon, VoidCallback onPressed) {
-  return ElevatedButton(
-    onPressed: onPressed,
-    style: ElevatedButton.styleFrom(
-      minimumSize: Size.zero,
-      padding: const EdgeInsets.all(6),
-      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-      backgroundColor: Colors.white,
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(4),
-        side: BorderSide(
-          color: IColors.light.primary.main,
-          width: 1,
-        ),
-      ),
-    ),
-    child: Icon(icon, size: 16, color: IColors.light.primary.main),
-  );
-}
-
 Widget _buildStatBox(String value, String unit, String label) {
   return Container(
     margin: const EdgeInsets.all(8),
@@ -364,9 +342,10 @@ Widget _buildStatBox(String value, String unit, String label) {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Text(value,
-                style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            Text(
+              value,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
             const SizedBox(width: 4),
             Text(
               unit,

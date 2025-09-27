@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
+import 'package:hrms_mobile/core/widgets/i_footer_button.dart';
 import 'package:hrms_mobile/core/widgets/status_chip.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_time_picker.dart';
@@ -131,39 +132,43 @@ class AttendanceHistoryEditScreen extends ConsumerWidget {
               ],
             ),
           ),
-          SafeArea(
-            child: Container(
-              color: Colors.white,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Divider(
-                    color: Colors.grey.shade300,
-                    height: 1,
-                    thickness: 1,
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 16, right: 16, top: 10),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: IColors.light.primary.main,
-                        foregroundColor: Colors.white,
-                        minimumSize: const Size.fromHeight(50),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      onPressed: () {},
-                      child: const Text("Send Adjustment Request"),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+          IFooterButton(
+            text: "Send Adjustment Request",
+            onPressed: () {},
+          )
+          // SafeArea(
+          //   child: Container(
+          //     color: Colors.white,
+          //     child: Column(
+          //       mainAxisSize: MainAxisSize.min,
+          //       children: [
+          //         Divider(
+          //           color: Colors.grey.shade300,
+          //           height: 1,
+          //           thickness: 1,
+          //         ),
+          //         const SizedBox(
+          //           height: 8,
+          //         ),
+          //         Padding(
+          //           padding: EdgeInsets.only(left: 16, right: 16, top: 10),
+          //           child: ElevatedButton(
+          //             style: ElevatedButton.styleFrom(
+          //               backgroundColor: IColors.light.primary.main,
+          //               foregroundColor: Colors.white,
+          //               minimumSize: const Size.fromHeight(50),
+          //               shape: RoundedRectangleBorder(
+          //                 borderRadius: BorderRadius.circular(8),
+          //               ),
+          //             ),
+          //             onPressed: () {},
+          //             child: const Text("Send Adjustment Request"),
+          //           ),
+          //         ),
+          //       ],
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

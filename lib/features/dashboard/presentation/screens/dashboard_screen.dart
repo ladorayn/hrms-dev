@@ -5,9 +5,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
+import 'package:hrms_mobile/core/constants/attendance_enum.dart';
 import 'package:hrms_mobile/core/widgets/status_chip.dart';
 import 'package:hrms_mobile/features/auth/presentation/providers/auth/auth_provider.dart';
 import 'package:hrms_mobile/features/auth/presentation/providers/company_profile/company_profile_provider.dart';
+import 'package:hrms_mobile/features/dashboard/presentation/widgets/location_verification_dialog.dart';
 import 'package:hrms_mobile/features/dashboard/presentation/widgets/recent_activity_tiles.dart';
 
 class DashboardScreen extends ConsumerWidget {
@@ -17,7 +19,6 @@ class DashboardScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final authP = ref.watch(authProvider);
     final companyP = ref.watch(companyProfileProvider);
-    print("COMPANY JA P ${companyP.value?.name}");
     return Scaffold(
       backgroundColor: Color(0xFFF8F8F8),
       body: Column(
@@ -97,8 +98,15 @@ class DashboardScreen extends ConsumerWidget {
                         CircleAvatar(
                           radius: 30,
                           backgroundColor: IColors.dark.accent,
-                          child: Icon(Icons.person_outline),
-                          // backgroundImage: NetworkImage('...'), // Add user image
+                          backgroundImage:
+                              (authP.value?.photoProfileUrl?.isNotEmpty ??
+                                      false)
+                                  ? NetworkImage(authP.value!.photoProfileUrl!)
+                                  : null,
+                          child: (authP.value?.photoProfileUrl?.isEmpty ?? true)
+                              ? const Icon(Icons.person,
+                                  size: 30, color: Colors.white)
+                              : null,
                         ),
                       ],
                     ),
@@ -168,7 +176,11 @@ class DashboardScreen extends ConsumerWidget {
                                         SizedBox(
                                           width: double.infinity,
                                           child: ElevatedButton.icon(
-                                            onPressed: () {},
+                                            onPressed: () async {
+                                              await handleLocationVerification(
+                                                  context,
+                                                  AttendanceEnum.clockIn);
+                                            },
                                             icon: const Icon(
                                               Icons.add,
                                               color: Colors.white,
@@ -236,7 +248,11 @@ class DashboardScreen extends ConsumerWidget {
                                         SizedBox(
                                           width: double.infinity,
                                           child: ElevatedButton.icon(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              handleLocationVerification(
+                                                  context,
+                                                  AttendanceEnum.clockOut);
+                                            },
                                             icon: const Icon(
                                               Icons.add,
                                               color: Colors.white,

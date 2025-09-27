@@ -3,10 +3,15 @@
 import 'package:flutter/material.dart'; // Add this import for Placeholder
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hrms_mobile/core/constants/attendance_enum.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/features/app/presentation/screens/splash_screen.dart';
 import 'package:hrms_mobile/features/attendance/presentation/screens/attendance_and_overtime_screen.dart';
+import 'package:hrms_mobile/features/attendance/presentation/screens/attendance_form_screen.dart';
 import 'package:hrms_mobile/features/attendance/presentation/screens/attendance_history_edit_screen.dart';
+import 'package:hrms_mobile/features/attendance/presentation/screens/face_registration_screen.dart';
+import 'package:hrms_mobile/features/attendance/presentation/screens/face_verification_screen.dart';
+import 'package:hrms_mobile/features/attendance/presentation/screens/location_confirmed.dart';
 import 'package:hrms_mobile/features/attendance/presentation/screens/overtime_history_edit_screen.dart';
 import 'package:hrms_mobile/features/auth/presentation/providers/auth/auth_provider.dart';
 import 'package:hrms_mobile/features/auth/presentation/screens/login_screen.dart';
@@ -113,6 +118,38 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: RoutePaths.overtimeEdit,
         name: RoutePaths.overtimeEdit,
         builder: (context, state) => const OvertimeHistoryEditScreen(),
+      ),
+      GoRoute(
+        path: RoutePaths.locationConfirmed,
+        name: RoutePaths.locationConfirmed,
+        builder: (context, state) {
+          final activity = state.extra as AttendanceEnum;
+          return LocationConfirmedScreen(activity: activity);
+        },
+      ),
+      GoRoute(
+        path: RoutePaths.faceRegistration,
+        name: RoutePaths.faceRegistration,
+        builder: (context, state) {
+          final activity = state.extra as AttendanceEnum;
+          return FaceRegistrationScreen(activity: activity);
+        },
+      ),
+      GoRoute(
+        path: RoutePaths.faceVerification,
+        name: RoutePaths.faceVerification,
+        builder: (context, state) {
+          final activity = state.extra as AttendanceEnum;
+          return FaceVerificationScreen(activity: activity);
+        },
+      ),
+      GoRoute(
+        path: RoutePaths.attendanceForm,
+        name: RoutePaths.attendanceForm,
+        builder: (context, state) {
+          final activity = state.extra as AttendanceEnum;
+          return AttendanceFormScreen(activity: activity);
+        },
       ),
       // --- ROUTES WITH THE BOTTOM NAV BAR (Using ShellRoute) ---
       ShellRoute(
