@@ -15,6 +15,7 @@ class ResetPasswordEmailScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    print("MASOOK ReSET");
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
@@ -57,7 +58,7 @@ class ResetPasswordEmailScreen extends ConsumerWidget {
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: colorScheme.onBackground),
           // Use context.go() to navigate back to the login screen
-          onPressed: () => context.go(RoutePaths.login),
+          onPressed: () => context.pop(),
         ),
       ),
       body: Padding(

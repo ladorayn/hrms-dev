@@ -83,7 +83,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: RoutePaths.resetPassword,
         builder: (context, state) {
-          final extras = state.extra as Map<String, dynamic>?;
+          final extras = state.uri.queryParameters as Map<String, dynamic>?;
 
           final token = extras?['token'] as String?;
           final email = extras?['email'] as String?;

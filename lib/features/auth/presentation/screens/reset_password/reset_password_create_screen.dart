@@ -9,9 +9,6 @@ import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_passwo
 import 'package:hrms_mobile/features/auth/data/models/reset_password/request/reset_password_request.dart';
 import 'package:hrms_mobile/features/auth/presentation/providers/reset_password/reset_password_provider.dart';
 
-// TODO: Create and import the reset password provider
-// import 'package:hrms_mobile/features/auth/presentation/providers/reset_password_provider.dart';
-
 class ResetPasswordCreateScreen extends ConsumerWidget {
   final String token;
   final String email;

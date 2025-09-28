@@ -117,7 +117,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           GestureDetector(
-                            onTap: () => context.go(RoutePaths.resetPassword),
+                            onTap: () => context.push(RoutePaths.resetPassword),
                             child: Text(
                               l10n.resetPassword,
                               style:

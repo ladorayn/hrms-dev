@@ -65,7 +65,7 @@ This will watch for changes and automatically generate the necessary files.
   ```
 - **Run reset password on local: (change the token to the valid one on email)**
   ```sh
-  xcrun simctl openurl booted "hrms-app://reset-password?token=a637f8e405b6ef74cde5be58a45affc19e3fd2fabb59f8820dcd35fde3fa1c4f&email=test@mail.com"
+  xcrun simctl openurl booted "hrms-app://com.okjob.hrms/reset-password?token=a637f8e405b6ef74cde5be58a45affc19e3fd2fabb59f8820dcd35fde3fa1c4f&email=test@mail.com"
   ```
   
 

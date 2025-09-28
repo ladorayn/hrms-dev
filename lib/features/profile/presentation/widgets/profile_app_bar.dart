@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
+import 'package:hrms_mobile/core/navigation/global_navigator.dart';
+import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/features/auth/presentation/providers/logout/logout_provider.dart';
 
 class ProfileAppBar extends ConsumerWidget {
@@ -36,6 +39,7 @@ class ProfileAppBar extends ConsumerWidget {
               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             ),
             onPressed: () {
+              globalNavigatorKey.currentContext?.go(RoutePaths.login);
               ref.read(logoutProvider.notifier).submit();
             },
             child: Row(
