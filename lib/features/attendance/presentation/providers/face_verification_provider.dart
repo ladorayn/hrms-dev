@@ -1,33 +1,10 @@
 import 'dart:async';
 
-import 'package:equatable/equatable.dart';
 import 'package:hrms_mobile/core/constants/face_step_enum.dart';
+import 'package:hrms_mobile/features/attendance/data/models/face_verification_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'face_verification_provider.g.dart';
-
-class FaceVerificationState extends Equatable {
-  final VerificationStep step;
-  final String? photoPath;
-
-  const FaceVerificationState({
-    this.step = VerificationStep.initial,
-    this.photoPath,
-  });
-
-  FaceVerificationState copyWith({
-    VerificationStep? step,
-    String? photoPath,
-  }) {
-    return FaceVerificationState(
-      step: step ?? this.step,
-      photoPath: photoPath ?? this.photoPath,
-    );
-  }
-
-  @override
-  List<Object?> get props => [step, photoPath];
-}
 
 @riverpod
 class FaceVerification extends _$FaceVerification {
