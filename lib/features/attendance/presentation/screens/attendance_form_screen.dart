@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/core/constants/attendance_enum.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
+import 'package:hrms_mobile/core/util/general_utils.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/core/widgets/i_footer_button.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_dropdown_bottom_sheet.dart';
@@ -126,14 +127,15 @@ class _AttendanceFormScreenState extends ConsumerState<AttendanceFormScreen> {
                   children: [
                     AttendanceCardForm(
                       activity: widget.activity.label,
-                      clockIn: clockInFormattedTime ?? '',
-                      clockOut: clockOutFormattedTime ?? '',
+                      clockIn: clockInFormattedTime ?? '-',
+                      clockOut: clockOutFormattedTime ?? '-',
                       date: (widget.activity == AttendanceEnum.clockIn)
                           ? clockInFormattedDate ?? ''
                           : clockOutFormattedDate ?? '',
                       location: attendanceState.address ?? '-',
-                      duration:
-                          todayAttendance.value?.clock.duration ?? '0h 0m',
+                      duration: todayAttendance.value?.clock.duration ??
+                          calculateDuration(
+                              clockInFormattedTime, clockOutFormattedTime),
                       overtime: "0h 0m",
                     ),
                     shiftListState.when(

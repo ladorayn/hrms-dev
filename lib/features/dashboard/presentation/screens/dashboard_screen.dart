@@ -20,10 +20,15 @@ class DashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final textTheme = Theme.of(context).textTheme;
     final todayAttendanceState = ref.watch(todayAttendanceProvider);
     final authP = ref.watch(authProvider);
     final companyP = ref.watch(companyProfileProvider);
     final recentActivityState = ref.watch(recentActivityProvider(limit: 4));
+    final getDetail = ref.watch(getDetailAttendanceProvider(
+        attendanceId: todayAttendanceState.value?.id.toString() ?? ''));
+
+    print("DETAIL $getDetail}");
 
     ref.listen<AsyncValue<List<ActivityLogModel>>>(
         recentActivityProvider(limit: 4), (previous, next) {
@@ -207,111 +212,211 @@ class DashboardScreen extends ConsumerWidget {
                             ),
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: IntrinsicHeight(
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Row(
-                                      children: [
-                                        CircleAvatar(
-                                          backgroundColor:
-                                              IColors.light.primary.background,
-                                          radius: 15,
-                                          child: SvgPicture.asset(
-                                            IAssets.clockIn,
-                                            height: 24.0,
-                                            width: 24.0,
-                                          ),
-                                        ),
-                                        const SizedBox(width: 10),
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              const Text(
-                                                'Clock In',
-                                                style: TextStyle(
-                                                    color: Color(0xFF8E8E8E)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: IntrinsicHeight(
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Row(
+                                          children: [
+                                            CircleAvatar(
+                                              backgroundColor: IColors
+                                                  .light.primary.background,
+                                              radius: 15,
+                                              child: SvgPicture.asset(
+                                                IAssets.clockIn,
+                                                height: 24.0,
+                                                width: 24.0,
                                               ),
-                                              SizedBox(
-                                                height: (attendanceData
-                                                                ?.clock.outAt ==
-                                                            null &&
+                                            ),
+                                            const SizedBox(width: 10),
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  const Text(
+                                                    'Clock In',
+                                                    style: TextStyle(
+                                                        color:
+                                                            Color(0xFF8E8E8E)),
+                                                  ),
+                                                  SizedBox(
+                                                    height: (attendanceData
+                                                                    ?.clock
+                                                                    .outAt ==
+                                                                null &&
+                                                            attendanceData
+                                                                    ?.clock
+                                                                    .inAt !=
+                                                                null)
+                                                        ? 15
+                                                        : 4,
+                                                  ),
+                                                  if (attendanceData == null)
+                                                    _buildClockInButton(
+                                                        context, ref)
+                                                  else
+                                                    _buildTimeDisplay(
                                                         attendanceData
-                                                                ?.clock.inAt !=
-                                                            null)
-                                                    ? 15
-                                                    : 4,
+                                                                .clock.inAt ??
+                                                            ''),
+                                                ],
                                               ),
-                                              if (attendanceData == null)
-                                                _buildClockInButton(
-                                                    context, ref)
-                                              else
-                                                _buildTimeDisplay(
-                                                    attendanceData.clock.inAt ??
-                                                        ''),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                  VerticalDivider(
-                                    width: 20,
-                                    thickness: 2,
-                                    color: IColors.light.grayscale.g20,
-                                  ),
-                                  Expanded(
-                                    child: Row(
-                                      children: [
-                                        CircleAvatar(
-                                          backgroundColor:
-                                              IColors.light.primary.background,
-                                          radius: 15,
-                                          child: SvgPicture.asset(
-                                            IAssets.clockOut,
-                                            height: 24.0,
-                                            width: 24.0,
-                                          ),
-                                        ),
-                                        const SizedBox(width: 10),
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              const Text(
-                                                'Clock Out',
-                                                style: TextStyle(
-                                                    color: Color(0xFF8E8E8E)),
+                                      ),
+                                      VerticalDivider(
+                                        width: 20,
+                                        thickness: 2,
+                                        color: IColors.light.grayscale.g20,
+                                      ),
+                                      Expanded(
+                                        child: Row(
+                                          children: [
+                                            CircleAvatar(
+                                              backgroundColor: IColors
+                                                  .light.primary.background,
+                                              radius: 15,
+                                              child: SvgPicture.asset(
+                                                IAssets.clockOut,
+                                                height: 24.0,
+                                                width: 24.0,
                                               ),
-                                              const SizedBox(height: 4),
-                                              if (attendanceData == null)
-                                                _buildClockOutButton(
-                                                    context, ref,
-                                                    enabled: false)
-                                              else if (attendanceData
-                                                      .clock.outAt ==
-                                                  null)
-                                                _buildClockOutButton(
-                                                    context, ref,
-                                                    enabled: true)
-                                              else
-                                                // Already clocked out, show the time
-                                                _buildTimeDisplay(attendanceData
-                                                    .clock.outAt!),
-                                            ],
-                                          ),
+                                            ),
+                                            const SizedBox(width: 10),
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  const Text(
+                                                    'Clock Out',
+                                                    style: TextStyle(
+                                                        color:
+                                                            Color(0xFF8E8E8E)),
+                                                  ),
+                                                  const SizedBox(height: 4),
+                                                  if (attendanceData == null)
+                                                    _buildClockOutButton(
+                                                        context, ref,
+                                                        enabled: false)
+                                                  else if (attendanceData
+                                                          .clock.outAt ==
+                                                      null)
+                                                    _buildClockOutButton(
+                                                        context, ref,
+                                                        enabled: true)
+                                                  else
+                                                    // Already clocked out, show the time
+                                                    _buildTimeDisplay(
+                                                        attendanceData
+                                                            .clock.outAt!),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
-                                ],
+                                ),
                               ),
-                            ),
+                              if (getDetail.value?.clock.duration != null)
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: IColors.light.primary.main,
+                                    border: Border.all(
+                                      color: IColors.light.primary.border,
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.only(
+                                        bottomRight: Radius.circular(6),
+                                        bottomLeft: Radius.circular(6)),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(12.0),
+                                    child: IntrinsicHeight(
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            child: Row(
+                                              spacing: 8,
+                                              children: [
+                                                Flexible(
+                                                  child: Text(
+                                                    "Working Time Duration",
+                                                    style: textTheme.labelSmall
+                                                        ?.copyWith(
+                                                      color: Colors.white,
+                                                      fontSize: 10,
+                                                    ),
+                                                    overflow:
+                                                        TextOverflow.visible,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  "${getDetail.value?.clock.duration}",
+                                                  style: textTheme.labelSmall
+                                                      ?.copyWith(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 10,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          if (false) ...[
+                                            VerticalDivider(
+                                              width: 20,
+                                              thickness: 2,
+                                              color:
+                                                  IColors.light.grayscale.g20,
+                                            ),
+                                            Expanded(
+                                              child: Row(
+                                                spacing: 8,
+                                                children: [
+                                                  Flexible(
+                                                    child: Text(
+                                                      "Overtime Duration",
+                                                      style: textTheme
+                                                          .labelSmall
+                                                          ?.copyWith(
+                                                        color: Colors.white,
+                                                        fontSize: 10,
+                                                      ),
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    "1h 0m",
+                                                    style: textTheme.labelSmall
+                                                        ?.copyWith(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 10,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ]
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                )
+                            ],
                           ),
                         ),
                       );

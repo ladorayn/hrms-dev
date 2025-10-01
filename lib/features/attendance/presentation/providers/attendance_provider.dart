@@ -12,6 +12,7 @@ import 'package:hrms_mobile/features/attendance/data/models/request/clock_out/cl
 import 'package:hrms_mobile/features/attendance/data/models/response/activity_log/activity_log_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/attendance/attendance_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/attendance_mapper.dart';
+import 'package:hrms_mobile/features/attendance/data/models/response/detail_attendance/attendance_detail_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/shifts_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/repositories/attendance_repository_impl.dart';
 import 'package:hrms_mobile/features/attendance/domain/entities/attendance.dart';
@@ -220,6 +221,18 @@ Future<List<ActivityLogModel>> recentActivity(
   final response = await repository.getActivityLogs(page: 1, limit: limit);
 
   return response.data;
+}
+
+@riverpod
+Future<AttendanceDetail> getDetailAttendance(
+  Ref ref, {
+  required String attendanceId,
+}) async {
+  final repository = ref.watch(attendanceRepoProvider);
+
+  final response = await repository.getDetailAttendance(attendanceId);
+
+  return response;
 }
 
 @riverpod

@@ -161,6 +161,141 @@ class _RecentActivityProviderElement
   int get limit => (origin as RecentActivityProvider).limit;
 }
 
+String _$getDetailAttendanceHash() =>
+    r'5516a9fb30c1b84be05fdbd2714f3cd82486c871';
+
+/// See also [getDetailAttendance].
+@ProviderFor(getDetailAttendance)
+const getDetailAttendanceProvider = GetDetailAttendanceFamily();
+
+/// See also [getDetailAttendance].
+class GetDetailAttendanceFamily extends Family<AsyncValue<AttendanceDetail>> {
+  /// See also [getDetailAttendance].
+  const GetDetailAttendanceFamily();
+
+  /// See also [getDetailAttendance].
+  GetDetailAttendanceProvider call({
+    required String attendanceId,
+  }) {
+    return GetDetailAttendanceProvider(
+      attendanceId: attendanceId,
+    );
+  }
+
+  @override
+  GetDetailAttendanceProvider getProviderOverride(
+    covariant GetDetailAttendanceProvider provider,
+  ) {
+    return call(
+      attendanceId: provider.attendanceId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'getDetailAttendanceProvider';
+}
+
+/// See also [getDetailAttendance].
+class GetDetailAttendanceProvider
+    extends AutoDisposeFutureProvider<AttendanceDetail> {
+  /// See also [getDetailAttendance].
+  GetDetailAttendanceProvider({
+    required String attendanceId,
+  }) : this._internal(
+          (ref) => getDetailAttendance(
+            ref as GetDetailAttendanceRef,
+            attendanceId: attendanceId,
+          ),
+          from: getDetailAttendanceProvider,
+          name: r'getDetailAttendanceProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$getDetailAttendanceHash,
+          dependencies: GetDetailAttendanceFamily._dependencies,
+          allTransitiveDependencies:
+              GetDetailAttendanceFamily._allTransitiveDependencies,
+          attendanceId: attendanceId,
+        );
+
+  GetDetailAttendanceProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.attendanceId,
+  }) : super.internal();
+
+  final String attendanceId;
+
+  @override
+  Override overrideWith(
+    FutureOr<AttendanceDetail> Function(GetDetailAttendanceRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: GetDetailAttendanceProvider._internal(
+        (ref) => create(ref as GetDetailAttendanceRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        attendanceId: attendanceId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<AttendanceDetail> createElement() {
+    return _GetDetailAttendanceProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is GetDetailAttendanceProvider &&
+        other.attendanceId == attendanceId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, attendanceId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin GetDetailAttendanceRef on AutoDisposeFutureProviderRef<AttendanceDetail> {
+  /// The parameter `attendanceId` of this provider.
+  String get attendanceId;
+}
+
+class _GetDetailAttendanceProviderElement
+    extends AutoDisposeFutureProviderElement<AttendanceDetail>
+    with GetDetailAttendanceRef {
+  _GetDetailAttendanceProviderElement(super.provider);
+
+  @override
+  String get attendanceId =>
+      (origin as GetDetailAttendanceProvider).attendanceId;
+}
+
 String _$attendanceHash() => r'15ec77acf5826e6790e387e08d49262585ffd70f';
 
 /// See also [Attendance].
