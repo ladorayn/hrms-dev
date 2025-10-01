@@ -239,6 +239,7 @@ class AttendanceCard extends StatelessWidget {
                 StatusChip(
                   status: 3,
                   statusLabel: "Rejected",
+                  event: 'clock_in',
                 ),
               ],
             ),

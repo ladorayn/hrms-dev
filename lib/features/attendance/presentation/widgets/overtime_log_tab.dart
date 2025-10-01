@@ -137,6 +137,7 @@ class OvertimeRequestCard extends StatelessWidget {
               const StatusChip(
                 status: 3,
                 statusLabel: "Rejected",
+                event: 'clock_in',
               ),
             ],
           ),

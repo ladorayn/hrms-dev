@@ -457,6 +457,7 @@ class DashboardScreen extends ConsumerWidget {
                                       leadingIconAsset: iconAsset,
                                       status: status,
                                       statusLabel: statusLabel,
+                                      event: log.event,
                                     );
                                   },
                                 );
