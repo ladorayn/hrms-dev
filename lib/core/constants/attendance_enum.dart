@@ -12,6 +12,17 @@ enum AttendanceEnum {
     );
   }
 
+  static bool checkActivity(String value) {
+    switch (value) {
+      case "clock_in":
+        return true;
+      case "clock_out":
+        return true;
+      default:
+        return false;
+    }
+  }
+
   static String toTitle(String value) {
     switch (value) {
       case "clock-in":

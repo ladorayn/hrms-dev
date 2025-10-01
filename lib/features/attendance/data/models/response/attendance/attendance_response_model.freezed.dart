@@ -1,0 +1,1218 @@
+// coverage:ignore-file
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
+
+part of 'attendance_response_model.dart';
+
+// **************************************************************************
+// FreezedGenerator
+// **************************************************************************
+
+T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+
+AttendanceData _$AttendanceDataFromJson(Map<String, dynamic> json) {
+  return _AttendanceData.fromJson(json);
+}
+
+/// @nodoc
+mixin _$AttendanceData {
+  int get id => throw _privateConstructorUsedError;
+  @JsonKey(name: "attendance_date")
+  String get attendanceDate => throw _privateConstructorUsedError;
+  Clock get clock => throw _privateConstructorUsedError;
+  String? get duration => throw _privateConstructorUsedError;
+  Location? get location => throw _privateConstructorUsedError;
+  int get status => throw _privateConstructorUsedError;
+  @JsonKey(name: "clock_in_status")
+  int? get clockInStatus => throw _privateConstructorUsedError;
+  @JsonKey(name: "clock_out_status")
+  int? get clockOutStatus => throw _privateConstructorUsedError;
+  @JsonKey(name: "status_label")
+  String? get statusLabel => throw _privateConstructorUsedError;
+  @JsonKey(name: "clock_in_status_label")
+  String? get clockInStatusLabel => throw _privateConstructorUsedError;
+  @JsonKey(name: "clock_out_status_label")
+  String? get clockOutStatusLabel => throw _privateConstructorUsedError;
+  String? get notes => throw _privateConstructorUsedError;
+  @JsonKey(name: "approved_at")
+  String? get approvedAt => throw _privateConstructorUsedError;
+  @JsonKey(name: "rejected_reason")
+  String? get rejectedReason => throw _privateConstructorUsedError;
+  String? get remarks => throw _privateConstructorUsedError;
+  Metadata? get metadata => throw _privateConstructorUsedError;
+  @JsonKey(name: "created_at")
+  String get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: "updated_at")
+  String get updatedAt => throw _privateConstructorUsedError;
+
+  /// Serializes this AttendanceData to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of AttendanceData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $AttendanceDataCopyWith<AttendanceData> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $AttendanceDataCopyWith<$Res> {
+  factory $AttendanceDataCopyWith(
+          AttendanceData value, $Res Function(AttendanceData) then) =
+      _$AttendanceDataCopyWithImpl<$Res, AttendanceData>;
+  @useResult
+  $Res call(
+      {int id,
+      @JsonKey(name: "attendance_date") String attendanceDate,
+      Clock clock,
+      String? duration,
+      Location? location,
+      int status,
+      @JsonKey(name: "clock_in_status") int? clockInStatus,
+      @JsonKey(name: "clock_out_status") int? clockOutStatus,
+      @JsonKey(name: "status_label") String? statusLabel,
+      @JsonKey(name: "clock_in_status_label") String? clockInStatusLabel,
+      @JsonKey(name: "clock_out_status_label") String? clockOutStatusLabel,
+      String? notes,
+      @JsonKey(name: "approved_at") String? approvedAt,
+      @JsonKey(name: "rejected_reason") String? rejectedReason,
+      String? remarks,
+      Metadata? metadata,
+      @JsonKey(name: "created_at") String createdAt,
+      @JsonKey(name: "updated_at") String updatedAt});
+
+  $ClockCopyWith<$Res> get clock;
+  $LocationCopyWith<$Res>? get location;
+  $MetadataCopyWith<$Res>? get metadata;
+}
+
+/// @nodoc
+class _$AttendanceDataCopyWithImpl<$Res, $Val extends AttendanceData>
+    implements $AttendanceDataCopyWith<$Res> {
+  _$AttendanceDataCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of AttendanceData
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? attendanceDate = null,
+    Object? clock = null,
+    Object? duration = freezed,
+    Object? location = freezed,
+    Object? status = null,
+    Object? clockInStatus = freezed,
+    Object? clockOutStatus = freezed,
+    Object? statusLabel = freezed,
+    Object? clockInStatusLabel = freezed,
+    Object? clockOutStatusLabel = freezed,
+    Object? notes = freezed,
+    Object? approvedAt = freezed,
+    Object? rejectedReason = freezed,
+    Object? remarks = freezed,
+    Object? metadata = freezed,
+    Object? createdAt = null,
+    Object? updatedAt = null,
+  }) {
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      attendanceDate: null == attendanceDate
+          ? _value.attendanceDate
+          : attendanceDate // ignore: cast_nullable_to_non_nullable
+              as String,
+      clock: null == clock
+          ? _value.clock
+          : clock // ignore: cast_nullable_to_non_nullable
+              as Clock,
+      duration: freezed == duration
+          ? _value.duration
+          : duration // ignore: cast_nullable_to_non_nullable
+              as String?,
+      location: freezed == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as Location?,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as int,
+      clockInStatus: freezed == clockInStatus
+          ? _value.clockInStatus
+          : clockInStatus // ignore: cast_nullable_to_non_nullable
+              as int?,
+      clockOutStatus: freezed == clockOutStatus
+          ? _value.clockOutStatus
+          : clockOutStatus // ignore: cast_nullable_to_non_nullable
+              as int?,
+      statusLabel: freezed == statusLabel
+          ? _value.statusLabel
+          : statusLabel // ignore: cast_nullable_to_non_nullable
+              as String?,
+      clockInStatusLabel: freezed == clockInStatusLabel
+          ? _value.clockInStatusLabel
+          : clockInStatusLabel // ignore: cast_nullable_to_non_nullable
+              as String?,
+      clockOutStatusLabel: freezed == clockOutStatusLabel
+          ? _value.clockOutStatusLabel
+          : clockOutStatusLabel // ignore: cast_nullable_to_non_nullable
+              as String?,
+      notes: freezed == notes
+          ? _value.notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as String?,
+      approvedAt: freezed == approvedAt
+          ? _value.approvedAt
+          : approvedAt // ignore: cast_nullable_to_non_nullable
+              as String?,
+      rejectedReason: freezed == rejectedReason
+          ? _value.rejectedReason
+          : rejectedReason // ignore: cast_nullable_to_non_nullable
+              as String?,
+      remarks: freezed == remarks
+          ? _value.remarks
+          : remarks // ignore: cast_nullable_to_non_nullable
+              as String?,
+      metadata: freezed == metadata
+          ? _value.metadata
+          : metadata // ignore: cast_nullable_to_non_nullable
+              as Metadata?,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+
+  /// Create a copy of AttendanceData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ClockCopyWith<$Res> get clock {
+    return $ClockCopyWith<$Res>(_value.clock, (value) {
+      return _then(_value.copyWith(clock: value) as $Val);
+    });
+  }
+
+  /// Create a copy of AttendanceData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $LocationCopyWith<$Res>? get location {
+    if (_value.location == null) {
+      return null;
+    }
+
+    return $LocationCopyWith<$Res>(_value.location!, (value) {
+      return _then(_value.copyWith(location: value) as $Val);
+    });
+  }
+
+  /// Create a copy of AttendanceData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $MetadataCopyWith<$Res>? get metadata {
+    if (_value.metadata == null) {
+      return null;
+    }
+
+    return $MetadataCopyWith<$Res>(_value.metadata!, (value) {
+      return _then(_value.copyWith(metadata: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$AttendanceDataImplCopyWith<$Res>
+    implements $AttendanceDataCopyWith<$Res> {
+  factory _$$AttendanceDataImplCopyWith(_$AttendanceDataImpl value,
+          $Res Function(_$AttendanceDataImpl) then) =
+      __$$AttendanceDataImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {int id,
+      @JsonKey(name: "attendance_date") String attendanceDate,
+      Clock clock,
+      String? duration,
+      Location? location,
+      int status,
+      @JsonKey(name: "clock_in_status") int? clockInStatus,
+      @JsonKey(name: "clock_out_status") int? clockOutStatus,
+      @JsonKey(name: "status_label") String? statusLabel,
+      @JsonKey(name: "clock_in_status_label") String? clockInStatusLabel,
+      @JsonKey(name: "clock_out_status_label") String? clockOutStatusLabel,
+      String? notes,
+      @JsonKey(name: "approved_at") String? approvedAt,
+      @JsonKey(name: "rejected_reason") String? rejectedReason,
+      String? remarks,
+      Metadata? metadata,
+      @JsonKey(name: "created_at") String createdAt,
+      @JsonKey(name: "updated_at") String updatedAt});
+
+  @override
+  $ClockCopyWith<$Res> get clock;
+  @override
+  $LocationCopyWith<$Res>? get location;
+  @override
+  $MetadataCopyWith<$Res>? get metadata;
+}
+
+/// @nodoc
+class __$$AttendanceDataImplCopyWithImpl<$Res>
+    extends _$AttendanceDataCopyWithImpl<$Res, _$AttendanceDataImpl>
+    implements _$$AttendanceDataImplCopyWith<$Res> {
+  __$$AttendanceDataImplCopyWithImpl(
+      _$AttendanceDataImpl _value, $Res Function(_$AttendanceDataImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AttendanceData
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? attendanceDate = null,
+    Object? clock = null,
+    Object? duration = freezed,
+    Object? location = freezed,
+    Object? status = null,
+    Object? clockInStatus = freezed,
+    Object? clockOutStatus = freezed,
+    Object? statusLabel = freezed,
+    Object? clockInStatusLabel = freezed,
+    Object? clockOutStatusLabel = freezed,
+    Object? notes = freezed,
+    Object? approvedAt = freezed,
+    Object? rejectedReason = freezed,
+    Object? remarks = freezed,
+    Object? metadata = freezed,
+    Object? createdAt = null,
+    Object? updatedAt = null,
+  }) {
+    return _then(_$AttendanceDataImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      attendanceDate: null == attendanceDate
+          ? _value.attendanceDate
+          : attendanceDate // ignore: cast_nullable_to_non_nullable
+              as String,
+      clock: null == clock
+          ? _value.clock
+          : clock // ignore: cast_nullable_to_non_nullable
+              as Clock,
+      duration: freezed == duration
+          ? _value.duration
+          : duration // ignore: cast_nullable_to_non_nullable
+              as String?,
+      location: freezed == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as Location?,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as int,
+      clockInStatus: freezed == clockInStatus
+          ? _value.clockInStatus
+          : clockInStatus // ignore: cast_nullable_to_non_nullable
+              as int?,
+      clockOutStatus: freezed == clockOutStatus
+          ? _value.clockOutStatus
+          : clockOutStatus // ignore: cast_nullable_to_non_nullable
+              as int?,
+      statusLabel: freezed == statusLabel
+          ? _value.statusLabel
+          : statusLabel // ignore: cast_nullable_to_non_nullable
+              as String?,
+      clockInStatusLabel: freezed == clockInStatusLabel
+          ? _value.clockInStatusLabel
+          : clockInStatusLabel // ignore: cast_nullable_to_non_nullable
+              as String?,
+      clockOutStatusLabel: freezed == clockOutStatusLabel
+          ? _value.clockOutStatusLabel
+          : clockOutStatusLabel // ignore: cast_nullable_to_non_nullable
+              as String?,
+      notes: freezed == notes
+          ? _value.notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as String?,
+      approvedAt: freezed == approvedAt
+          ? _value.approvedAt
+          : approvedAt // ignore: cast_nullable_to_non_nullable
+              as String?,
+      rejectedReason: freezed == rejectedReason
+          ? _value.rejectedReason
+          : rejectedReason // ignore: cast_nullable_to_non_nullable
+              as String?,
+      remarks: freezed == remarks
+          ? _value.remarks
+          : remarks // ignore: cast_nullable_to_non_nullable
+              as String?,
+      metadata: freezed == metadata
+          ? _value.metadata
+          : metadata // ignore: cast_nullable_to_non_nullable
+              as Metadata?,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$AttendanceDataImpl implements _AttendanceData {
+  const _$AttendanceDataImpl(
+      {required this.id,
+      @JsonKey(name: "attendance_date") required this.attendanceDate,
+      required this.clock,
+      this.duration,
+      required this.location,
+      required this.status,
+      @JsonKey(name: "clock_in_status") this.clockInStatus,
+      @JsonKey(name: "clock_out_status") this.clockOutStatus,
+      @JsonKey(name: "status_label") this.statusLabel,
+      @JsonKey(name: "clock_in_status_label") this.clockInStatusLabel,
+      @JsonKey(name: "clock_out_status_label") this.clockOutStatusLabel,
+      this.notes,
+      @JsonKey(name: "approved_at") this.approvedAt,
+      @JsonKey(name: "rejected_reason") this.rejectedReason,
+      this.remarks,
+      required this.metadata,
+      @JsonKey(name: "created_at") required this.createdAt,
+      @JsonKey(name: "updated_at") required this.updatedAt});
+
+  factory _$AttendanceDataImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AttendanceDataImplFromJson(json);
+
+  @override
+  final int id;
+  @override
+  @JsonKey(name: "attendance_date")
+  final String attendanceDate;
+  @override
+  final Clock clock;
+  @override
+  final String? duration;
+  @override
+  final Location? location;
+  @override
+  final int status;
+  @override
+  @JsonKey(name: "clock_in_status")
+  final int? clockInStatus;
+  @override
+  @JsonKey(name: "clock_out_status")
+  final int? clockOutStatus;
+  @override
+  @JsonKey(name: "status_label")
+  final String? statusLabel;
+  @override
+  @JsonKey(name: "clock_in_status_label")
+  final String? clockInStatusLabel;
+  @override
+  @JsonKey(name: "clock_out_status_label")
+  final String? clockOutStatusLabel;
+  @override
+  final String? notes;
+  @override
+  @JsonKey(name: "approved_at")
+  final String? approvedAt;
+  @override
+  @JsonKey(name: "rejected_reason")
+  final String? rejectedReason;
+  @override
+  final String? remarks;
+  @override
+  final Metadata? metadata;
+  @override
+  @JsonKey(name: "created_at")
+  final String createdAt;
+  @override
+  @JsonKey(name: "updated_at")
+  final String updatedAt;
+
+  @override
+  String toString() {
+    return 'AttendanceData(id: $id, attendanceDate: $attendanceDate, clock: $clock, duration: $duration, location: $location, status: $status, clockInStatus: $clockInStatus, clockOutStatus: $clockOutStatus, statusLabel: $statusLabel, clockInStatusLabel: $clockInStatusLabel, clockOutStatusLabel: $clockOutStatusLabel, notes: $notes, approvedAt: $approvedAt, rejectedReason: $rejectedReason, remarks: $remarks, metadata: $metadata, createdAt: $createdAt, updatedAt: $updatedAt)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AttendanceDataImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.attendanceDate, attendanceDate) ||
+                other.attendanceDate == attendanceDate) &&
+            (identical(other.clock, clock) || other.clock == clock) &&
+            (identical(other.duration, duration) ||
+                other.duration == duration) &&
+            (identical(other.location, location) ||
+                other.location == location) &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.clockInStatus, clockInStatus) ||
+                other.clockInStatus == clockInStatus) &&
+            (identical(other.clockOutStatus, clockOutStatus) ||
+                other.clockOutStatus == clockOutStatus) &&
+            (identical(other.statusLabel, statusLabel) ||
+                other.statusLabel == statusLabel) &&
+            (identical(other.clockInStatusLabel, clockInStatusLabel) ||
+                other.clockInStatusLabel == clockInStatusLabel) &&
+            (identical(other.clockOutStatusLabel, clockOutStatusLabel) ||
+                other.clockOutStatusLabel == clockOutStatusLabel) &&
+            (identical(other.notes, notes) || other.notes == notes) &&
+            (identical(other.approvedAt, approvedAt) ||
+                other.approvedAt == approvedAt) &&
+            (identical(other.rejectedReason, rejectedReason) ||
+                other.rejectedReason == rejectedReason) &&
+            (identical(other.remarks, remarks) || other.remarks == remarks) &&
+            (identical(other.metadata, metadata) ||
+                other.metadata == metadata) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      attendanceDate,
+      clock,
+      duration,
+      location,
+      status,
+      clockInStatus,
+      clockOutStatus,
+      statusLabel,
+      clockInStatusLabel,
+      clockOutStatusLabel,
+      notes,
+      approvedAt,
+      rejectedReason,
+      remarks,
+      metadata,
+      createdAt,
+      updatedAt);
+
+  /// Create a copy of AttendanceData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AttendanceDataImplCopyWith<_$AttendanceDataImpl> get copyWith =>
+      __$$AttendanceDataImplCopyWithImpl<_$AttendanceDataImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$AttendanceDataImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _AttendanceData implements AttendanceData {
+  const factory _AttendanceData(
+      {required final int id,
+      @JsonKey(name: "attendance_date") required final String attendanceDate,
+      required final Clock clock,
+      final String? duration,
+      required final Location? location,
+      required final int status,
+      @JsonKey(name: "clock_in_status") final int? clockInStatus,
+      @JsonKey(name: "clock_out_status") final int? clockOutStatus,
+      @JsonKey(name: "status_label") final String? statusLabel,
+      @JsonKey(name: "clock_in_status_label") final String? clockInStatusLabel,
+      @JsonKey(name: "clock_out_status_label")
+      final String? clockOutStatusLabel,
+      final String? notes,
+      @JsonKey(name: "approved_at") final String? approvedAt,
+      @JsonKey(name: "rejected_reason") final String? rejectedReason,
+      final String? remarks,
+      required final Metadata? metadata,
+      @JsonKey(name: "created_at") required final String createdAt,
+      @JsonKey(name: "updated_at")
+      required final String updatedAt}) = _$AttendanceDataImpl;
+
+  factory _AttendanceData.fromJson(Map<String, dynamic> json) =
+      _$AttendanceDataImpl.fromJson;
+
+  @override
+  int get id;
+  @override
+  @JsonKey(name: "attendance_date")
+  String get attendanceDate;
+  @override
+  Clock get clock;
+  @override
+  String? get duration;
+  @override
+  Location? get location;
+  @override
+  int get status;
+  @override
+  @JsonKey(name: "clock_in_status")
+  int? get clockInStatus;
+  @override
+  @JsonKey(name: "clock_out_status")
+  int? get clockOutStatus;
+  @override
+  @JsonKey(name: "status_label")
+  String? get statusLabel;
+  @override
+  @JsonKey(name: "clock_in_status_label")
+  String? get clockInStatusLabel;
+  @override
+  @JsonKey(name: "clock_out_status_label")
+  String? get clockOutStatusLabel;
+  @override
+  String? get notes;
+  @override
+  @JsonKey(name: "approved_at")
+  String? get approvedAt;
+  @override
+  @JsonKey(name: "rejected_reason")
+  String? get rejectedReason;
+  @override
+  String? get remarks;
+  @override
+  Metadata? get metadata;
+  @override
+  @JsonKey(name: "created_at")
+  String get createdAt;
+  @override
+  @JsonKey(name: "updated_at")
+  String get updatedAt;
+
+  /// Create a copy of AttendanceData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$AttendanceDataImplCopyWith<_$AttendanceDataImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+Clock _$ClockFromJson(Map<String, dynamic> json) {
+  return _Clock.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Clock {
+  @JsonKey(name: 'in_at')
+  String? get inAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'out_at')
+  String? get outAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'duration')
+  String? get duration => throw _privateConstructorUsedError;
+
+  /// Serializes this Clock to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of Clock
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $ClockCopyWith<Clock> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ClockCopyWith<$Res> {
+  factory $ClockCopyWith(Clock value, $Res Function(Clock) then) =
+      _$ClockCopyWithImpl<$Res, Clock>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'in_at') String? inAt,
+      @JsonKey(name: 'out_at') String? outAt,
+      @JsonKey(name: 'duration') String? duration});
+}
+
+/// @nodoc
+class _$ClockCopyWithImpl<$Res, $Val extends Clock>
+    implements $ClockCopyWith<$Res> {
+  _$ClockCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of Clock
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? inAt = freezed,
+    Object? outAt = freezed,
+    Object? duration = freezed,
+  }) {
+    return _then(_value.copyWith(
+      inAt: freezed == inAt
+          ? _value.inAt
+          : inAt // ignore: cast_nullable_to_non_nullable
+              as String?,
+      outAt: freezed == outAt
+          ? _value.outAt
+          : outAt // ignore: cast_nullable_to_non_nullable
+              as String?,
+      duration: freezed == duration
+          ? _value.duration
+          : duration // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$ClockImplCopyWith<$Res> implements $ClockCopyWith<$Res> {
+  factory _$$ClockImplCopyWith(
+          _$ClockImpl value, $Res Function(_$ClockImpl) then) =
+      __$$ClockImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'in_at') String? inAt,
+      @JsonKey(name: 'out_at') String? outAt,
+      @JsonKey(name: 'duration') String? duration});
+}
+
+/// @nodoc
+class __$$ClockImplCopyWithImpl<$Res>
+    extends _$ClockCopyWithImpl<$Res, _$ClockImpl>
+    implements _$$ClockImplCopyWith<$Res> {
+  __$$ClockImplCopyWithImpl(
+      _$ClockImpl _value, $Res Function(_$ClockImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of Clock
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? inAt = freezed,
+    Object? outAt = freezed,
+    Object? duration = freezed,
+  }) {
+    return _then(_$ClockImpl(
+      inAt: freezed == inAt
+          ? _value.inAt
+          : inAt // ignore: cast_nullable_to_non_nullable
+              as String?,
+      outAt: freezed == outAt
+          ? _value.outAt
+          : outAt // ignore: cast_nullable_to_non_nullable
+              as String?,
+      duration: freezed == duration
+          ? _value.duration
+          : duration // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ClockImpl implements _Clock {
+  const _$ClockImpl(
+      {@JsonKey(name: 'in_at') this.inAt,
+      @JsonKey(name: 'out_at') this.outAt,
+      @JsonKey(name: 'duration') this.duration});
+
+  factory _$ClockImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ClockImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'in_at')
+  final String? inAt;
+  @override
+  @JsonKey(name: 'out_at')
+  final String? outAt;
+  @override
+  @JsonKey(name: 'duration')
+  final String? duration;
+
+  @override
+  String toString() {
+    return 'Clock(inAt: $inAt, outAt: $outAt, duration: $duration)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ClockImpl &&
+            (identical(other.inAt, inAt) || other.inAt == inAt) &&
+            (identical(other.outAt, outAt) || other.outAt == outAt) &&
+            (identical(other.duration, duration) ||
+                other.duration == duration));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, inAt, outAt, duration);
+
+  /// Create a copy of Clock
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ClockImplCopyWith<_$ClockImpl> get copyWith =>
+      __$$ClockImplCopyWithImpl<_$ClockImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ClockImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Clock implements Clock {
+  const factory _Clock(
+      {@JsonKey(name: 'in_at') final String? inAt,
+      @JsonKey(name: 'out_at') final String? outAt,
+      @JsonKey(name: 'duration') final String? duration}) = _$ClockImpl;
+
+  factory _Clock.fromJson(Map<String, dynamic> json) = _$ClockImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'in_at')
+  String? get inAt;
+  @override
+  @JsonKey(name: 'out_at')
+  String? get outAt;
+  @override
+  @JsonKey(name: 'duration')
+  String? get duration;
+
+  /// Create a copy of Clock
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ClockImplCopyWith<_$ClockImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+Location _$LocationFromJson(Map<String, dynamic> json) {
+  return _Location.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Location {
+  String get latitude => throw _privateConstructorUsedError;
+  String get longitude => throw _privateConstructorUsedError;
+
+  /// Serializes this Location to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of Location
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $LocationCopyWith<Location> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $LocationCopyWith<$Res> {
+  factory $LocationCopyWith(Location value, $Res Function(Location) then) =
+      _$LocationCopyWithImpl<$Res, Location>;
+  @useResult
+  $Res call({String latitude, String longitude});
+}
+
+/// @nodoc
+class _$LocationCopyWithImpl<$Res, $Val extends Location>
+    implements $LocationCopyWith<$Res> {
+  _$LocationCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of Location
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? latitude = null,
+    Object? longitude = null,
+  }) {
+    return _then(_value.copyWith(
+      latitude: null == latitude
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as String,
+      longitude: null == longitude
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$LocationImplCopyWith<$Res>
+    implements $LocationCopyWith<$Res> {
+  factory _$$LocationImplCopyWith(
+          _$LocationImpl value, $Res Function(_$LocationImpl) then) =
+      __$$LocationImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String latitude, String longitude});
+}
+
+/// @nodoc
+class __$$LocationImplCopyWithImpl<$Res>
+    extends _$LocationCopyWithImpl<$Res, _$LocationImpl>
+    implements _$$LocationImplCopyWith<$Res> {
+  __$$LocationImplCopyWithImpl(
+      _$LocationImpl _value, $Res Function(_$LocationImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of Location
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? latitude = null,
+    Object? longitude = null,
+  }) {
+    return _then(_$LocationImpl(
+      latitude: null == latitude
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as String,
+      longitude: null == longitude
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$LocationImpl implements _Location {
+  const _$LocationImpl({required this.latitude, required this.longitude});
+
+  factory _$LocationImpl.fromJson(Map<String, dynamic> json) =>
+      _$$LocationImplFromJson(json);
+
+  @override
+  final String latitude;
+  @override
+  final String longitude;
+
+  @override
+  String toString() {
+    return 'Location(latitude: $latitude, longitude: $longitude)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LocationImpl &&
+            (identical(other.latitude, latitude) ||
+                other.latitude == latitude) &&
+            (identical(other.longitude, longitude) ||
+                other.longitude == longitude));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, latitude, longitude);
+
+  /// Create a copy of Location
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LocationImplCopyWith<_$LocationImpl> get copyWith =>
+      __$$LocationImplCopyWithImpl<_$LocationImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$LocationImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Location implements Location {
+  const factory _Location(
+      {required final String latitude,
+      required final String longitude}) = _$LocationImpl;
+
+  factory _Location.fromJson(Map<String, dynamic> json) =
+      _$LocationImpl.fromJson;
+
+  @override
+  String get latitude;
+  @override
+  String get longitude;
+
+  /// Create a copy of Location
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$LocationImplCopyWith<_$LocationImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+Metadata _$MetadataFromJson(Map<String, dynamic> json) {
+  return _Metadata.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Metadata {
+  @JsonKey(name: 'created_via')
+  String get createdVia => throw _privateConstructorUsedError;
+  @JsonKey(name: 'created_at')
+  DateTime get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'shift_id')
+  int get shiftId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'work_schedule_id')
+  int get workScheduleId => throw _privateConstructorUsedError;
+
+  /// Serializes this Metadata to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of Metadata
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $MetadataCopyWith<Metadata> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $MetadataCopyWith<$Res> {
+  factory $MetadataCopyWith(Metadata value, $Res Function(Metadata) then) =
+      _$MetadataCopyWithImpl<$Res, Metadata>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'created_via') String createdVia,
+      @JsonKey(name: 'created_at') DateTime createdAt,
+      @JsonKey(name: 'shift_id') int shiftId,
+      @JsonKey(name: 'work_schedule_id') int workScheduleId});
+}
+
+/// @nodoc
+class _$MetadataCopyWithImpl<$Res, $Val extends Metadata>
+    implements $MetadataCopyWith<$Res> {
+  _$MetadataCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of Metadata
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? createdVia = null,
+    Object? createdAt = null,
+    Object? shiftId = null,
+    Object? workScheduleId = null,
+  }) {
+    return _then(_value.copyWith(
+      createdVia: null == createdVia
+          ? _value.createdVia
+          : createdVia // ignore: cast_nullable_to_non_nullable
+              as String,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      shiftId: null == shiftId
+          ? _value.shiftId
+          : shiftId // ignore: cast_nullable_to_non_nullable
+              as int,
+      workScheduleId: null == workScheduleId
+          ? _value.workScheduleId
+          : workScheduleId // ignore: cast_nullable_to_non_nullable
+              as int,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$MetadataImplCopyWith<$Res>
+    implements $MetadataCopyWith<$Res> {
+  factory _$$MetadataImplCopyWith(
+          _$MetadataImpl value, $Res Function(_$MetadataImpl) then) =
+      __$$MetadataImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'created_via') String createdVia,
+      @JsonKey(name: 'created_at') DateTime createdAt,
+      @JsonKey(name: 'shift_id') int shiftId,
+      @JsonKey(name: 'work_schedule_id') int workScheduleId});
+}
+
+/// @nodoc
+class __$$MetadataImplCopyWithImpl<$Res>
+    extends _$MetadataCopyWithImpl<$Res, _$MetadataImpl>
+    implements _$$MetadataImplCopyWith<$Res> {
+  __$$MetadataImplCopyWithImpl(
+      _$MetadataImpl _value, $Res Function(_$MetadataImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of Metadata
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? createdVia = null,
+    Object? createdAt = null,
+    Object? shiftId = null,
+    Object? workScheduleId = null,
+  }) {
+    return _then(_$MetadataImpl(
+      createdVia: null == createdVia
+          ? _value.createdVia
+          : createdVia // ignore: cast_nullable_to_non_nullable
+              as String,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      shiftId: null == shiftId
+          ? _value.shiftId
+          : shiftId // ignore: cast_nullable_to_non_nullable
+              as int,
+      workScheduleId: null == workScheduleId
+          ? _value.workScheduleId
+          : workScheduleId // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$MetadataImpl implements _Metadata {
+  const _$MetadataImpl(
+      {@JsonKey(name: 'created_via') required this.createdVia,
+      @JsonKey(name: 'created_at') required this.createdAt,
+      @JsonKey(name: 'shift_id') required this.shiftId,
+      @JsonKey(name: 'work_schedule_id') required this.workScheduleId});
+
+  factory _$MetadataImpl.fromJson(Map<String, dynamic> json) =>
+      _$$MetadataImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'created_via')
+  final String createdVia;
+  @override
+  @JsonKey(name: 'created_at')
+  final DateTime createdAt;
+  @override
+  @JsonKey(name: 'shift_id')
+  final int shiftId;
+  @override
+  @JsonKey(name: 'work_schedule_id')
+  final int workScheduleId;
+
+  @override
+  String toString() {
+    return 'Metadata(createdVia: $createdVia, createdAt: $createdAt, shiftId: $shiftId, workScheduleId: $workScheduleId)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MetadataImpl &&
+            (identical(other.createdVia, createdVia) ||
+                other.createdVia == createdVia) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.shiftId, shiftId) || other.shiftId == shiftId) &&
+            (identical(other.workScheduleId, workScheduleId) ||
+                other.workScheduleId == workScheduleId));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, createdVia, createdAt, shiftId, workScheduleId);
+
+  /// Create a copy of Metadata
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MetadataImplCopyWith<_$MetadataImpl> get copyWith =>
+      __$$MetadataImplCopyWithImpl<_$MetadataImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$MetadataImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Metadata implements Metadata {
+  const factory _Metadata(
+      {@JsonKey(name: 'created_via') required final String createdVia,
+      @JsonKey(name: 'created_at') required final DateTime createdAt,
+      @JsonKey(name: 'shift_id') required final int shiftId,
+      @JsonKey(name: 'work_schedule_id')
+      required final int workScheduleId}) = _$MetadataImpl;
+
+  factory _Metadata.fromJson(Map<String, dynamic> json) =
+      _$MetadataImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'created_via')
+  String get createdVia;
+  @override
+  @JsonKey(name: 'created_at')
+  DateTime get createdAt;
+  @override
+  @JsonKey(name: 'shift_id')
+  int get shiftId;
+  @override
+  @JsonKey(name: 'work_schedule_id')
+  int get workScheduleId;
+
+  /// Create a copy of Metadata
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$MetadataImplCopyWith<_$MetadataImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}

@@ -236,7 +236,10 @@ class AttendanceCard extends StatelessWidget {
                     )
                   ],
                 ),
-                StatusChip(status: status),
+                StatusChip(
+                  status: 3,
+                  statusLabel: "Rejected",
+                ),
               ],
             ),
             const SizedBox(height: 32),

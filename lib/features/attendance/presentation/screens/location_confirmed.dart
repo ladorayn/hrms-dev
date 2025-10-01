@@ -21,6 +21,7 @@ class LocationConfirmedScreen extends ConsumerWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: IAppBar(title: activity.title),
       body: Column(
         children: [
@@ -70,7 +71,7 @@ class LocationConfirmedScreen extends ConsumerWidget {
               globalNavigatorKey.currentContext
                   ?.pushNamed(RoutePaths.faceVerification, extra: activity);
             },
-            text: "Register Your Face",
+            text: "Start Verification",
           ),
         ],
       ),

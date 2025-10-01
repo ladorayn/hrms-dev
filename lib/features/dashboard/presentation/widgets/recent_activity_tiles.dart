@@ -14,7 +14,8 @@ class AttendanceListTile extends StatelessWidget {
   final String subtitle;
   final String time;
   final String leadingIconAsset;
-  final AttendanceStatus status;
+  final int status;
+  final String statusLabel;
 
   const AttendanceListTile({
     super.key,
@@ -23,16 +24,11 @@ class AttendanceListTile extends StatelessWidget {
     required this.time,
     required this.leadingIconAsset,
     required this.status,
+    required this.statusLabel,
   });
 
   @override
   Widget build(BuildContext context) {
-    // --- Logic to determine style based on status ---
-    final String statusText;
-    final String statusIconAsset;
-    final Color statusBackgroundColor;
-    final Color statusTextColor;
-
     return ListTile(
       leading: CircleAvatar(
         backgroundColor: IColors.light.primary.background,
@@ -61,7 +57,7 @@ class AttendanceListTile extends StatelessWidget {
             style: ITheme.light.textTheme.bodyMedium,
           ),
           const SizedBox(height: 4),
-          StatusChip(status: status),
+          StatusChip(status: status, statusLabel: statusLabel),
         ],
       ),
     );

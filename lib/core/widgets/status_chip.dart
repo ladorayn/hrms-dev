@@ -20,9 +20,11 @@ enum AttendanceStatus {
 }
 
 class StatusChip extends StatelessWidget {
-  final AttendanceStatus status;
+  final int status;
+  final String statusLabel;
 
-  const StatusChip({super.key, required this.status});
+  const StatusChip(
+      {super.key, required this.status, required this.statusLabel});
 
   @override
   Widget build(BuildContext context) {
@@ -33,56 +35,29 @@ class StatusChip extends StatelessWidget {
     final Color statusTextColor;
 
     switch (status) {
-      // 🟢 SUCCESS
-      case AttendanceStatus.onTime:
-        statusText = 'On Time';
-        statusIconAsset = IAssets.onTimeClock;
-        statusBackgroundColor = IColors.light.success.background;
-        statusTextColor = IColors.light.success.hover;
-        break;
-
-      case AttendanceStatus.approved:
-        statusText = 'Approved';
-        statusIconAsset = IAssets.onTimeClock;
-        statusBackgroundColor = IColors.light.success.background;
-        statusTextColor = IColors.light.success.hover;
-        break;
-
-      case AttendanceStatus.annualLeave:
-        statusText = 'Annual Leave';
-        statusIconAsset = IAssets.onLeave;
-        statusBackgroundColor = IColors.light.success.background;
-        statusTextColor = IColors.light.success.hover;
-        break;
-
-      // 🟡 WARNING
-      case AttendanceStatus.waitingApproval:
+      case 0:
         statusText = 'Waiting for Approval';
         statusIconAsset = IAssets.warningClock;
         statusBackgroundColor = IColors.light.warning.background;
         statusTextColor = IColors.light.warning.hover;
         break;
-
-      case AttendanceStatus.late:
-        statusText = 'Late';
+      case 2:
+        statusText = statusLabel;
+        statusIconAsset = IAssets.onTimeClock;
+        statusBackgroundColor = IColors.light.success.background;
+        statusTextColor = IColors.light.success.hover;
+        break;
+      case 3:
+        statusText = statusLabel;
         statusIconAsset = IAssets.warningClock;
         statusBackgroundColor = IColors.light.warning.background;
         statusTextColor = IColors.light.warning.hover;
         break;
-
-      // 🔴 ERROR
-      case AttendanceStatus.absent:
-        statusText = 'Absent';
-        statusIconAsset = IAssets.redClose;
-        statusBackgroundColor = IColors.light.error.background;
-        statusTextColor = IColors.light.error.main;
-        break;
-
-      case AttendanceStatus.rejected:
-        statusText = 'Rejected';
-        statusIconAsset = IAssets.redClose;
-        statusBackgroundColor = IColors.light.error.background;
-        statusTextColor = IColors.light.error.main;
+      default:
+        statusText = 'Waiting for Approval';
+        statusIconAsset = IAssets.warningClock;
+        statusBackgroundColor = IColors.light.warning.background;
+        statusTextColor = IColors.light.warning.hover;
         break;
     }
 

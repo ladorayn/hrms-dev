@@ -134,7 +134,10 @@ class OvertimeRequestCard extends StatelessWidget {
                   )
                 ],
               ),
-              const StatusChip(status: AttendanceStatus.rejected),
+              const StatusChip(
+                status: 3,
+                statusLabel: "Rejected",
+              ),
             ],
           ),
 

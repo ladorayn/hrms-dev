@@ -4,5 +4,5 @@ import 'package:hrms_mobile/features/attendance/domain/repositories/attendance_r
 class GetAttendanceHistoryUseCase {
   final AttendanceRepository repo;
   GetAttendanceHistoryUseCase(this.repo);
-  Future<List<Attendance>> call() => repo.getHistory();
+  Future<List<AttendanceModel>> call() => repo.getHistory();
 }

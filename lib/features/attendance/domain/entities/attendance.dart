@@ -4,12 +4,12 @@ part 'attendance.freezed.dart';
 part 'attendance.g.dart';
 
 @freezed
-class Attendance with _$Attendance {
-  const factory Attendance({
+class AttendanceModel with _$AttendanceModel {
+  const factory AttendanceModel({
     required DateTime clockIn,
     DateTime? clockOut,
-  }) = _Attendance;
+  }) = _AttendanceModel;
 
-  factory Attendance.fromJson(Map<String, dynamic> json) =>
-      _$AttendanceFromJson(json);
+  factory AttendanceModel.fromJson(Map<String, dynamic> json) =>
+      _$AttendanceModelFromJson(json);
 }

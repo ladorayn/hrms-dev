@@ -16,7 +16,7 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<LoginResponse> login(String email, String password) async {
     final loginData = LoginRequest(email: email, password: password);
     try {
-      final response = await dio.post('/login', data: loginData);
+      final response = await dio.post('api/v1/login', data: loginData);
       return LoginResponse.fromJson(response.data['data']);
     } on DioException catch (e) {
       throw Exception(e.response?.data['message'] ?? 'Login failed');
@@ -50,7 +50,7 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<void> forgotPassword(String email) async {
     final request = ForgotPasswordRequest(email: email);
     try {
-      await dio.post('/password/forgot', data: request);
+      await dio.post('api/v1/password/forgot', data: request);
     } on DioException catch (e) {
       throw Exception(e.response?.data['message'] ?? 'Request failed');
     }
@@ -59,7 +59,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<void> resetPassword(ResetPasswordRequest request) async {
     try {
-      await dio.post('/password/reset', data: request);
+      await dio.post('api/v1/password/reset', data: request);
     } on DioException catch (e) {
       throw Exception(e.response?.data['message'] ?? 'Reset failed');
     }
@@ -68,7 +68,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<UserProfileResponse> getProfile() async {
     try {
-      final response = await dio.get('/user/profile');
+      final response = await dio.get('api/v1/user/profile');
       return UserProfileResponse.fromJson(response.data['data']['user']);
     } on DioException catch (e) {
       throw Exception(e.response?.data['message'] ?? 'Failed to fetch profile');
@@ -78,7 +78,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<CompanyProfileResponse> getCompanyProfile() async {
     try {
-      final response = await dio.get('/setting/company-profile');
+      final response = await dio.get('api/v1/setting/company-profile');
       return CompanyProfileResponse.fromJson(response.data['data']);
     } on DioException catch (e) {
       throw Exception(

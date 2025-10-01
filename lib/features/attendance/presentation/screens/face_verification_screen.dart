@@ -40,6 +40,7 @@ class FaceVerificationScreen extends ConsumerWidget {
     final isSuccess = state.step == VerificationStep.success;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: IAppBar(title: "Face Verification"),
       body: Column(
         children: [
@@ -96,7 +97,11 @@ class FaceVerificationScreen extends ConsumerWidget {
                         ),
                     ],
                   ),
-                  const SizedBox(height: 40),
+                  SizedBox(
+                      height: state.step == VerificationStep.success ||
+                              state.step == VerificationStep.loading
+                          ? 100
+                          : 40),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24),
                     child: Text(
@@ -117,6 +122,11 @@ class FaceVerificationScreen extends ConsumerWidget {
             ),
           ),
           // Only show the button when it's needed (initial or failed state)
+          if (state.step == VerificationStep.success ||
+              state.step == VerificationStep.loading)
+            SizedBox(
+              height: 60,
+            ),
           if (state.step == VerificationStep.initial ||
               state.step == VerificationStep.failed)
             IFooterButton(

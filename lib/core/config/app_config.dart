@@ -21,7 +21,7 @@ class AppConfig {
         return 'http://localhost:3003/api'; // iOS, macOS, web
       }
     } else {
-      return 'https://api.okejobhub.fun/api/v1'; // Production
+      return 'https://api.okejobhub.fun/'; // Production
     }
   }
 }

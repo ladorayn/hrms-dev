@@ -14,45 +14,45 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-Attendance _$AttendanceFromJson(Map<String, dynamic> json) {
-  return _Attendance.fromJson(json);
+AttendanceModel _$AttendanceModelFromJson(Map<String, dynamic> json) {
+  return _AttendanceModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Attendance {
+mixin _$AttendanceModel {
   DateTime get clockIn => throw _privateConstructorUsedError;
   DateTime? get clockOut => throw _privateConstructorUsedError;
 
-  /// Serializes this Attendance to a JSON map.
+  /// Serializes this AttendanceModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of Attendance
+  /// Create a copy of AttendanceModel
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $AttendanceCopyWith<Attendance> get copyWith =>
+  $AttendanceModelCopyWith<AttendanceModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $AttendanceCopyWith<$Res> {
-  factory $AttendanceCopyWith(
-          Attendance value, $Res Function(Attendance) then) =
-      _$AttendanceCopyWithImpl<$Res, Attendance>;
+abstract class $AttendanceModelCopyWith<$Res> {
+  factory $AttendanceModelCopyWith(
+          AttendanceModel value, $Res Function(AttendanceModel) then) =
+      _$AttendanceModelCopyWithImpl<$Res, AttendanceModel>;
   @useResult
   $Res call({DateTime clockIn, DateTime? clockOut});
 }
 
 /// @nodoc
-class _$AttendanceCopyWithImpl<$Res, $Val extends Attendance>
-    implements $AttendanceCopyWith<$Res> {
-  _$AttendanceCopyWithImpl(this._value, this._then);
+class _$AttendanceModelCopyWithImpl<$Res, $Val extends AttendanceModel>
+    implements $AttendanceModelCopyWith<$Res> {
+  _$AttendanceModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of Attendance
+  /// Create a copy of AttendanceModel
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -74,25 +74,25 @@ class _$AttendanceCopyWithImpl<$Res, $Val extends Attendance>
 }
 
 /// @nodoc
-abstract class _$$AttendanceImplCopyWith<$Res>
-    implements $AttendanceCopyWith<$Res> {
-  factory _$$AttendanceImplCopyWith(
-          _$AttendanceImpl value, $Res Function(_$AttendanceImpl) then) =
-      __$$AttendanceImplCopyWithImpl<$Res>;
+abstract class _$$AttendanceModelImplCopyWith<$Res>
+    implements $AttendanceModelCopyWith<$Res> {
+  factory _$$AttendanceModelImplCopyWith(_$AttendanceModelImpl value,
+          $Res Function(_$AttendanceModelImpl) then) =
+      __$$AttendanceModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({DateTime clockIn, DateTime? clockOut});
 }
 
 /// @nodoc
-class __$$AttendanceImplCopyWithImpl<$Res>
-    extends _$AttendanceCopyWithImpl<$Res, _$AttendanceImpl>
-    implements _$$AttendanceImplCopyWith<$Res> {
-  __$$AttendanceImplCopyWithImpl(
-      _$AttendanceImpl _value, $Res Function(_$AttendanceImpl) _then)
+class __$$AttendanceModelImplCopyWithImpl<$Res>
+    extends _$AttendanceModelCopyWithImpl<$Res, _$AttendanceModelImpl>
+    implements _$$AttendanceModelImplCopyWith<$Res> {
+  __$$AttendanceModelImplCopyWithImpl(
+      _$AttendanceModelImpl _value, $Res Function(_$AttendanceModelImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of Attendance
+  /// Create a copy of AttendanceModel
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -100,7 +100,7 @@ class __$$AttendanceImplCopyWithImpl<$Res>
     Object? clockIn = null,
     Object? clockOut = freezed,
   }) {
-    return _then(_$AttendanceImpl(
+    return _then(_$AttendanceModelImpl(
       clockIn: null == clockIn
           ? _value.clockIn
           : clockIn // ignore: cast_nullable_to_non_nullable
@@ -115,11 +115,11 @@ class __$$AttendanceImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$AttendanceImpl implements _Attendance {
-  const _$AttendanceImpl({required this.clockIn, this.clockOut});
+class _$AttendanceModelImpl implements _AttendanceModel {
+  const _$AttendanceModelImpl({required this.clockIn, this.clockOut});
 
-  factory _$AttendanceImpl.fromJson(Map<String, dynamic> json) =>
-      _$$AttendanceImplFromJson(json);
+  factory _$AttendanceModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AttendanceModelImplFromJson(json);
 
   @override
   final DateTime clockIn;
@@ -128,14 +128,14 @@ class _$AttendanceImpl implements _Attendance {
 
   @override
   String toString() {
-    return 'Attendance(clockIn: $clockIn, clockOut: $clockOut)';
+    return 'AttendanceModel(clockIn: $clockIn, clockOut: $clockOut)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AttendanceImpl &&
+            other is _$AttendanceModelImpl &&
             (identical(other.clockIn, clockIn) || other.clockIn == clockIn) &&
             (identical(other.clockOut, clockOut) ||
                 other.clockOut == clockOut));
@@ -145,39 +145,40 @@ class _$AttendanceImpl implements _Attendance {
   @override
   int get hashCode => Object.hash(runtimeType, clockIn, clockOut);
 
-  /// Create a copy of Attendance
+  /// Create a copy of AttendanceModel
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$AttendanceImplCopyWith<_$AttendanceImpl> get copyWith =>
-      __$$AttendanceImplCopyWithImpl<_$AttendanceImpl>(this, _$identity);
+  _$$AttendanceModelImplCopyWith<_$AttendanceModelImpl> get copyWith =>
+      __$$AttendanceModelImplCopyWithImpl<_$AttendanceModelImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$AttendanceImplToJson(
+    return _$$AttendanceModelImplToJson(
       this,
     );
   }
 }
 
-abstract class _Attendance implements Attendance {
-  const factory _Attendance(
+abstract class _AttendanceModel implements AttendanceModel {
+  const factory _AttendanceModel(
       {required final DateTime clockIn,
-      final DateTime? clockOut}) = _$AttendanceImpl;
+      final DateTime? clockOut}) = _$AttendanceModelImpl;
 
-  factory _Attendance.fromJson(Map<String, dynamic> json) =
-      _$AttendanceImpl.fromJson;
+  factory _AttendanceModel.fromJson(Map<String, dynamic> json) =
+      _$AttendanceModelImpl.fromJson;
 
   @override
   DateTime get clockIn;
   @override
   DateTime? get clockOut;
 
-  /// Create a copy of Attendance
+  /// Create a copy of AttendanceModel
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AttendanceImplCopyWith<_$AttendanceImpl> get copyWith =>
+  _$$AttendanceModelImplCopyWith<_$AttendanceModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
