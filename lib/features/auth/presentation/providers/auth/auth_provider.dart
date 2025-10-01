@@ -1,7 +1,10 @@
 import 'dart:convert';
 
+import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/core/constants/storage_keys.dart';
-import 'package:hrms_mobile/features/auth/data/models/user.dart';
+import 'package:hrms_mobile/core/navigation/global_navigator.dart';
+import 'package:hrms_mobile/core/routes/route_paths.dart';
+import 'package:hrms_mobile/features/attendance/presentation/providers/attendance_provider.dart';
 import 'package:hrms_mobile/features/user/data/models/user.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,7 +33,9 @@ class Auth extends _$Auth {
 
   Future<void> onLogout() async {
     final prefs = await SharedPreferences.getInstance();
+    await ref.read(todayAttendanceProvider.notifier).clear();
     await prefs.remove(StorageKeys.token);
+    globalNavigatorKey.currentContext?.go(RoutePaths.login);
     await prefs.remove(StorageKeys.user);
     state = const AsyncData(null);
   }

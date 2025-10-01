@@ -11,6 +11,8 @@ class ITextFieldDropdownBottomSheet extends ITextFieldBase {
     super.key,
     super.controller,
     super.label,
+    super.enabled,
+    super.labelStyle,
     super.hintText = "Select",
     super.validator,
     super.isRequired,
@@ -18,24 +20,21 @@ class ITextFieldDropdownBottomSheet extends ITextFieldBase {
     required this.options,
     required this.onOptionSelected,
   }) : super(
-          // This field should not be editable by keyboard
           readOnly: true,
-          // Add the dropdown arrow icon
           suffixIcon: const Icon(Icons.keyboard_arrow_down),
           borderColor: IColors.light.grayscale.g30,
         );
 
   @override
   Widget build(BuildContext context) {
-    // We wrap the base widget in a GestureDetector to handle the tap event,
-    // as we need the 'context' to show the bottom sheet.
+    if (!enabled) {
+      return super.build(context);
+    }
     return GestureDetector(
       onTap: () {
-        // Dismiss keyboard if it's open for any reason
         FocusScope.of(context).unfocus();
         _showOptionsBottomSheet(context);
       },
-      // AbsorbPointer prevents the underlying TextFormField's onTap from firing
       child: AbsorbPointer(
         child: super.build(context),
       ),
@@ -55,15 +54,14 @@ class ITextFieldDropdownBottomSheet extends ITextFieldBase {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              // Title of the Bottom Sheet
               Text(
                 label,
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.bold,
+                      color: IColors.light.primary.main,
                     ),
               ),
               SizedBox(height: 16.h),
-              // We use a Flexible with ListView to prevent overflow if options are many
               Flexible(
                 child: ListView.builder(
                   shrinkWrap: true,
@@ -73,11 +71,8 @@ class ITextFieldDropdownBottomSheet extends ITextFieldBase {
                     return ListTile(
                       title: Text(option),
                       onTap: () {
-                        // 1. Call the callback with the selected value
                         onOptionSelected(option);
-                        // 2. Update the text field's controller
                         controller?.text = option;
-                        // 3. Close the bottom sheet
                         Navigator.pop(modalContext);
                       },
                     );

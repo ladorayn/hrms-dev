@@ -7,11 +7,15 @@ enum ITextFieldBorderVariant { outline, underline }
 class ITextFieldBase extends StatelessWidget {
   const ITextFieldBase({
     super.key,
+    this.enabled = true,
     this.textFieldKey,
     this.controller,
     this.label = "",
     this.labelStyle,
     this.labelPadding,
+    this.subLabel = "",
+    this.subLabelStyle,
+    this.subLabelPadding,
     this.rightLabel,
     this.note = "",
     this.noteStyle,
@@ -55,10 +59,15 @@ class ITextFieldBase extends StatelessWidget {
   final Key? textFieldKey;
   final TextEditingController? controller;
 
+  final bool enabled;
+
   // label
   final String label;
   final TextStyle? labelStyle;
   final EdgeInsetsGeometry? labelPadding;
+  final String subLabel;
+  final TextStyle? subLabelStyle;
+  final EdgeInsetsGeometry? subLabelPadding;
   final Widget? rightLabel;
 
   // note
@@ -141,9 +150,23 @@ class ITextFieldBase extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              "$label ${isRequired ? "*" : ""}",
-              style: labelStyle ?? defaultLabelStyle,
+            Text.rich(
+              TextSpan(
+                // This is the default style for the whole text.
+                style: labelStyle ?? defaultLabelStyle,
+                children: [
+                  // The main label text
+                  TextSpan(text: label),
+
+                  // The asterisk, only if isRequired is true
+                  if (isRequired)
+                    const TextSpan(
+                      text: ' *', // A space is added for separation
+                      // This style applies ONLY to the asterisk
+                      style: TextStyle(color: Colors.red),
+                    ),
+                ],
+              ),
             ),
             rightLabel ?? const SizedBox.shrink(),
           ],
@@ -205,6 +228,7 @@ class ITextFieldBase extends StatelessWidget {
     );
 
     return TextFormField(
+      enabled: enabled,
       key: textFieldKey,
       controller: controller,
       style: defaultContentStyle,
@@ -250,6 +274,8 @@ class ITextFieldBase extends StatelessWidget {
         errorStyle:
             const TextStyle(height: 0), // Hides default error text space
         counterText: "",
+        filled: true,
+        fillColor: enabled ? Colors.white : Colors.grey.shade200,
       ),
     );
   }

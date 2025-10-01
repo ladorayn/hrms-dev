@@ -1,7 +1,20 @@
+import 'package:hrms_mobile/core/data/models/base_paginated_response.dart';
+import 'package:hrms_mobile/features/attendance/data/models/request/clock_in/clock_in_request_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/request/clock_out/clock_out_request_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/response/activity_log/activity_log_response_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/response/attendance/attendance_response_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/response/detail_attendance/attendance_detail_response_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/response/shifts_response_model.dart';
 import 'package:hrms_mobile/features/attendance/domain/entities/attendance.dart';
 
 abstract class AttendanceRepository {
-  Future<void> clockIn();
-  Future<void> clockOut();
-  Future<List<Attendance>> getHistory();
+  Future<AttendanceData> clockIn(ClockInRequestModel request);
+  Future<AttendanceData> clockOut(
+      int attendanceId, ClockOutRequestModel request);
+  Future<List<AttendanceModel>> getHistory();
+  Future<List<ShiftModel>> getShift();
+  Future<BasePaginatedResponse<ActivityLogModel>> getActivityLogs();
+  Future<BasePaginatedResponse<ActivityLogModel>> getActivityLogsByUrl(
+      String url);
+  Future<AttendanceDetail> getDetailAttendance(String attendanceId);
 }

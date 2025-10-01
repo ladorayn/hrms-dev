@@ -38,6 +38,7 @@ class FaceRegistrationScreen extends ConsumerWidget {
 
     print("isSuccess $isSuccess - ${state.step}");
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: IAppBar(
         title: "Face Registration",
         onBack: () => globalNavigatorKey.currentContext?.pop(),

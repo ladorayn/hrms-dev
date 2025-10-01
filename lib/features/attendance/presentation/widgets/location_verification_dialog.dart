@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/core/constants/attendance_enum.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
+import 'package:hrms_mobile/features/attendance/presentation/providers/attendance_provider.dart';
 
 Future<void> handleLocationVerification(
-    BuildContext context, AttendanceEnum activity) async {
+    BuildContext context, AttendanceEnum activity, WidgetRef ref) async {
   showDialog(
     barrierDismissible: false,
     context: context,
@@ -47,11 +50,39 @@ Future<void> handleLocationVerification(
   );
 
   try {
+    ref.read(attendanceProvider.notifier).setActivity(activity);
+
     await Future.delayed(const Duration(seconds: 2));
 
     Position position = await _determinePosition();
     print(
         'Location retrieved: Lat: ${position.latitude}, Long: ${position.longitude}');
+
+    ref.read(attendanceProvider.notifier).updatePosition(position);
+
+    if (activity == AttendanceEnum.clockIn) {
+      ref.read(attendanceProvider.notifier).setClockInTime();
+    }
+
+    if (activity == AttendanceEnum.clockOut) {
+      ref.read(attendanceProvider.notifier).setClockOutTime();
+    }
+
+    List<Placemark> placemarks = await placemarkFromCoordinates(
+      position.latitude,
+      position.longitude,
+    );
+
+    if (placemarks.isNotEmpty) {
+      final Placemark p = placemarks.first;
+      final String formattedAddress =
+          "${p.street}, ${p.subLocality}, ${p.locality}, ${p.administrativeArea}";
+
+      print('✅ Address Found: $formattedAddress');
+
+      // Save the address string to the provider
+      ref.read(attendanceProvider.notifier).updateAddress(formattedAddress);
+    }
 
     if (position.latitude != 0 && position.longitude != 0) {
       globalNavigatorKey.currentContext?.pushNamed(

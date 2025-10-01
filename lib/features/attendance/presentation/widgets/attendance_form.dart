@@ -2,21 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
+import 'package:hrms_mobile/core/constants/attendance_enum.dart';
 
 class AttendanceCardForm extends StatelessWidget {
+  final String activity;
   final String date;
   final String clockIn;
   final String clockOut;
   final String overtime;
   final String location;
+  final String duration;
 
   const AttendanceCardForm({
     super.key,
+    required this.activity,
     required this.date,
     required this.clockIn,
     required this.clockOut,
     required this.overtime,
     required this.location,
+    required this.duration,
   });
 
   @override
@@ -45,7 +50,10 @@ class AttendanceCardForm extends StatelessWidget {
                       thickness: 2,
                       color: IColors.light.grayscale.g20,
                     ),
-                    Text(clockIn,
+                    Text(
+                        activity == AttendanceEnum.clockIn.label
+                            ? clockIn
+                            : clockOut,
                         style: textTheme.titleMedium
                             ?.copyWith(fontWeight: FontWeight.bold)),
                   ],
@@ -67,7 +75,7 @@ class AttendanceCardForm extends StatelessWidget {
                       Text(clockIn,
                           style: Theme.of(context)
                               .textTheme
-                              .bodyLarge
+                              .bodyMedium
                               ?.copyWith(fontWeight: FontWeight.bold)),
                     ],
                   ),
@@ -84,7 +92,7 @@ class AttendanceCardForm extends StatelessWidget {
                             color: IColors.light.grayscale.g20,
                           ),
                           const SizedBox(width: 4),
-                          Text("8h0m",
+                          Text(duration,
                               style: Theme.of(context).textTheme.bodySmall),
                           const SizedBox(width: 4),
                           Container(
@@ -108,7 +116,7 @@ class AttendanceCardForm extends StatelessWidget {
                             Text(clockOut,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyLarge
+                                    .bodyMedium
                                     ?.copyWith(fontWeight: FontWeight.bold)),
                           ],
                         ),
@@ -127,7 +135,7 @@ class AttendanceCardForm extends StatelessWidget {
                             Text(overtime,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyLarge
+                                    .bodyMedium
                                     ?.copyWith(fontWeight: FontWeight.bold)),
                           ],
                         ),
