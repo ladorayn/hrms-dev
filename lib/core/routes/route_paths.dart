@@ -28,4 +28,5 @@ class RoutePaths {
   static const faceRegistration = '/face-registration';
   static const faceVerification = '/face-verification';
   static const attendanceForm = '/attendance-form';
+  static const overtimeRequest = '/overtime-request';
 }
