@@ -224,15 +224,12 @@ Future<List<ActivityLogModel>> recentActivity(
 }
 
 @riverpod
-Future<AttendanceDetail> getDetailAttendance(
+Future<AttendanceDetail?> getDetailAttendance(
   Ref ref, {
   required String attendanceId,
 }) async {
-  final repository = ref.watch(attendanceRepoProvider);
-
-  final response = await repository.getDetailAttendance(attendanceId);
-
-  return response;
+  if (attendanceId.isEmpty) return null;
+  return ref.read(attendanceRepoProvider).getDetailAttendance(attendanceId);
 }
 
 @riverpod

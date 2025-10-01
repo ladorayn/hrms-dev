@@ -162,14 +162,14 @@ class _RecentActivityProviderElement
 }
 
 String _$getDetailAttendanceHash() =>
-    r'5516a9fb30c1b84be05fdbd2714f3cd82486c871';
+    r'c1651d1135f7d2a70fd02695a1412eaa8cb1fa24';
 
 /// See also [getDetailAttendance].
 @ProviderFor(getDetailAttendance)
 const getDetailAttendanceProvider = GetDetailAttendanceFamily();
 
 /// See also [getDetailAttendance].
-class GetDetailAttendanceFamily extends Family<AsyncValue<AttendanceDetail>> {
+class GetDetailAttendanceFamily extends Family<AsyncValue<AttendanceDetail?>> {
   /// See also [getDetailAttendance].
   const GetDetailAttendanceFamily();
 
@@ -208,7 +208,7 @@ class GetDetailAttendanceFamily extends Family<AsyncValue<AttendanceDetail>> {
 
 /// See also [getDetailAttendance].
 class GetDetailAttendanceProvider
-    extends AutoDisposeFutureProvider<AttendanceDetail> {
+    extends AutoDisposeFutureProvider<AttendanceDetail?> {
   /// See also [getDetailAttendance].
   GetDetailAttendanceProvider({
     required String attendanceId,
@@ -243,7 +243,8 @@ class GetDetailAttendanceProvider
 
   @override
   Override overrideWith(
-    FutureOr<AttendanceDetail> Function(GetDetailAttendanceRef provider) create,
+    FutureOr<AttendanceDetail?> Function(GetDetailAttendanceRef provider)
+        create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -260,7 +261,7 @@ class GetDetailAttendanceProvider
   }
 
   @override
-  AutoDisposeFutureProviderElement<AttendanceDetail> createElement() {
+  AutoDisposeFutureProviderElement<AttendanceDetail?> createElement() {
     return _GetDetailAttendanceProviderElement(this);
   }
 
@@ -281,13 +282,14 @@ class GetDetailAttendanceProvider
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin GetDetailAttendanceRef on AutoDisposeFutureProviderRef<AttendanceDetail> {
+mixin GetDetailAttendanceRef
+    on AutoDisposeFutureProviderRef<AttendanceDetail?> {
   /// The parameter `attendanceId` of this provider.
   String get attendanceId;
 }
 
 class _GetDetailAttendanceProviderElement
-    extends AutoDisposeFutureProviderElement<AttendanceDetail>
+    extends AutoDisposeFutureProviderElement<AttendanceDetail?>
     with GetDetailAttendanceRef {
   _GetDetailAttendanceProviderElement(super.provider);
 
