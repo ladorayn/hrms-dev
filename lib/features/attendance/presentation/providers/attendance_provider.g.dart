@@ -346,22 +346,326 @@ final paginatedActivityLogsProvider = AsyncNotifierProvider<
 );
 
 typedef _$PaginatedActivityLogs = AsyncNotifier<List<ActivityLogModel>>;
-String _$attendanceHistoryHash() => r'6c49f3b4033ace469ecc849153134f0b4f3e75bc';
+String _$paginatedAttendanceHistoryHash() =>
+    r'3335fa596fba0da24126f8e3c29c946ff42c24e7';
 
-/// See also [AttendanceHistory].
-@ProviderFor(AttendanceHistory)
-final attendanceHistoryProvider = AutoDisposeAsyncNotifierProvider<
-    AttendanceHistory, List<AttendanceModel>>.internal(
-  AttendanceHistory.new,
-  name: r'attendanceHistoryProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$attendanceHistoryHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+abstract class _$PaginatedAttendanceHistory
+    extends BuildlessAutoDisposeAsyncNotifier<List<AttendanceDetail>> {
+  late final String? period;
+  late final String? status;
 
-typedef _$AttendanceHistory = AutoDisposeAsyncNotifier<List<AttendanceModel>>;
+  FutureOr<List<AttendanceDetail>> build({
+    String? period,
+    String? status,
+  });
+}
+
+/// See also [PaginatedAttendanceHistory].
+@ProviderFor(PaginatedAttendanceHistory)
+const paginatedAttendanceHistoryProvider = PaginatedAttendanceHistoryFamily();
+
+/// See also [PaginatedAttendanceHistory].
+class PaginatedAttendanceHistoryFamily
+    extends Family<AsyncValue<List<AttendanceDetail>>> {
+  /// See also [PaginatedAttendanceHistory].
+  const PaginatedAttendanceHistoryFamily();
+
+  /// See also [PaginatedAttendanceHistory].
+  PaginatedAttendanceHistoryProvider call({
+    String? period,
+    String? status,
+  }) {
+    return PaginatedAttendanceHistoryProvider(
+      period: period,
+      status: status,
+    );
+  }
+
+  @override
+  PaginatedAttendanceHistoryProvider getProviderOverride(
+    covariant PaginatedAttendanceHistoryProvider provider,
+  ) {
+    return call(
+      period: provider.period,
+      status: provider.status,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'paginatedAttendanceHistoryProvider';
+}
+
+/// See also [PaginatedAttendanceHistory].
+class PaginatedAttendanceHistoryProvider
+    extends AutoDisposeAsyncNotifierProviderImpl<PaginatedAttendanceHistory,
+        List<AttendanceDetail>> {
+  /// See also [PaginatedAttendanceHistory].
+  PaginatedAttendanceHistoryProvider({
+    String? period,
+    String? status,
+  }) : this._internal(
+          () => PaginatedAttendanceHistory()
+            ..period = period
+            ..status = status,
+          from: paginatedAttendanceHistoryProvider,
+          name: r'paginatedAttendanceHistoryProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$paginatedAttendanceHistoryHash,
+          dependencies: PaginatedAttendanceHistoryFamily._dependencies,
+          allTransitiveDependencies:
+              PaginatedAttendanceHistoryFamily._allTransitiveDependencies,
+          period: period,
+          status: status,
+        );
+
+  PaginatedAttendanceHistoryProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.period,
+    required this.status,
+  }) : super.internal();
+
+  final String? period;
+  final String? status;
+
+  @override
+  FutureOr<List<AttendanceDetail>> runNotifierBuild(
+    covariant PaginatedAttendanceHistory notifier,
+  ) {
+    return notifier.build(
+      period: period,
+      status: status,
+    );
+  }
+
+  @override
+  Override overrideWith(PaginatedAttendanceHistory Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: PaginatedAttendanceHistoryProvider._internal(
+        () => create()
+          ..period = period
+          ..status = status,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        period: period,
+        status: status,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeAsyncNotifierProviderElement<PaginatedAttendanceHistory,
+      List<AttendanceDetail>> createElement() {
+    return _PaginatedAttendanceHistoryProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is PaginatedAttendanceHistoryProvider &&
+        other.period == period &&
+        other.status == status;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, period.hashCode);
+    hash = _SystemHash.combine(hash, status.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin PaginatedAttendanceHistoryRef
+    on AutoDisposeAsyncNotifierProviderRef<List<AttendanceDetail>> {
+  /// The parameter `period` of this provider.
+  String? get period;
+
+  /// The parameter `status` of this provider.
+  String? get status;
+}
+
+class _PaginatedAttendanceHistoryProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<PaginatedAttendanceHistory,
+        List<AttendanceDetail>> with PaginatedAttendanceHistoryRef {
+  _PaginatedAttendanceHistoryProviderElement(super.provider);
+
+  @override
+  String? get period => (origin as PaginatedAttendanceHistoryProvider).period;
+  @override
+  String? get status => (origin as PaginatedAttendanceHistoryProvider).status;
+}
+
+String _$attendanceStatsHash() => r'960f4d92eca8e954283aebe020bb53c9136dd846';
+
+abstract class _$AttendanceStats
+    extends BuildlessAutoDisposeAsyncNotifier<AttendanceStatistics> {
+  late final String? period;
+
+  FutureOr<AttendanceStatistics> build({
+    String? period,
+  });
+}
+
+/// See also [AttendanceStats].
+@ProviderFor(AttendanceStats)
+const attendanceStatsProvider = AttendanceStatsFamily();
+
+/// See also [AttendanceStats].
+class AttendanceStatsFamily extends Family<AsyncValue<AttendanceStatistics>> {
+  /// See also [AttendanceStats].
+  const AttendanceStatsFamily();
+
+  /// See also [AttendanceStats].
+  AttendanceStatsProvider call({
+    String? period,
+  }) {
+    return AttendanceStatsProvider(
+      period: period,
+    );
+  }
+
+  @override
+  AttendanceStatsProvider getProviderOverride(
+    covariant AttendanceStatsProvider provider,
+  ) {
+    return call(
+      period: provider.period,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'attendanceStatsProvider';
+}
+
+/// See also [AttendanceStats].
+class AttendanceStatsProvider extends AutoDisposeAsyncNotifierProviderImpl<
+    AttendanceStats, AttendanceStatistics> {
+  /// See also [AttendanceStats].
+  AttendanceStatsProvider({
+    String? period,
+  }) : this._internal(
+          () => AttendanceStats()..period = period,
+          from: attendanceStatsProvider,
+          name: r'attendanceStatsProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$attendanceStatsHash,
+          dependencies: AttendanceStatsFamily._dependencies,
+          allTransitiveDependencies:
+              AttendanceStatsFamily._allTransitiveDependencies,
+          period: period,
+        );
+
+  AttendanceStatsProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.period,
+  }) : super.internal();
+
+  final String? period;
+
+  @override
+  FutureOr<AttendanceStatistics> runNotifierBuild(
+    covariant AttendanceStats notifier,
+  ) {
+    return notifier.build(
+      period: period,
+    );
+  }
+
+  @override
+  Override overrideWith(AttendanceStats Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: AttendanceStatsProvider._internal(
+        () => create()..period = period,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        period: period,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeAsyncNotifierProviderElement<AttendanceStats, AttendanceStatistics>
+      createElement() {
+    return _AttendanceStatsProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is AttendanceStatsProvider && other.period == period;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, period.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin AttendanceStatsRef
+    on AutoDisposeAsyncNotifierProviderRef<AttendanceStatistics> {
+  /// The parameter `period` of this provider.
+  String? get period;
+}
+
+class _AttendanceStatsProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<AttendanceStats,
+        AttendanceStatistics> with AttendanceStatsRef {
+  _AttendanceStatsProviderElement(super.provider);
+
+  @override
+  String? get period => (origin as AttendanceStatsProvider).period;
+}
+
 String _$shiftListHash() => r'feddc959bfbf882b52524efad5ed62218c63cd5e';
 
 /// See also [ShiftList].

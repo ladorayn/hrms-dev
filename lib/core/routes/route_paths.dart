@@ -22,7 +22,8 @@ class RoutePaths {
 
   // --- Nested Routes ---
   static const attendance = 'attendance';
-  static const attendanceEdit = '/edit-attendance';
+  static const attendanceEdit = '/edit-attendance/:id';
+  static const attendanceEditName = 'attendanceEdit';
   static const overtimeEdit = '/edit-overtime';
   static const locationConfirmed = '/location-confirmed';
   static const faceRegistration = '/face-registration';

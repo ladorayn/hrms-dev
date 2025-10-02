@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
-import 'package:hrms_mobile/core/widgets/status_chip.dart';
 import 'package:hrms_mobile/core/widgets/text_field/base/i_text_field.dart';
-import 'package:hrms_mobile/features/attendance/presentation/screens/attendance_history_edit_screen.dart';
 
 class ITextFieldDropdownAttendanceBottomSheet extends ITextFieldBase {
   final List<String> options;
@@ -81,15 +79,7 @@ class ITextFieldDropdownAttendanceBottomSheet extends ITextFieldBase {
                           controller?.text = option;
                           Navigator.pop(modalContext);
                         },
-                        child: AttendanceCard(
-                          date: "Tuesday, 20 August, 2025",
-                          clockIn: "08.00",
-                          clockOut: "10.00",
-                          overtime: "08h 00m",
-                          status: AttendanceStatus.waitingApproval,
-                          location: "TEST",
-                          notes: "NOTES",
-                        ),
+                        child: Text("TEST"),
                       );
                     },
                   ),

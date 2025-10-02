@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:hrms_mobile/core/data/models/base_paginated_response.dart';
 import 'package:hrms_mobile/core/data/models/base_response.dart';
+import 'package:hrms_mobile/core/data/models/paginated_response.dart';
 import 'package:hrms_mobile/core/errors/error_handler.dart';
 import 'package:hrms_mobile/features/attendance/data/models/request/clock_in/clock_in_request_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/request/clock_out/clock_out_request_model.dart';
@@ -8,6 +9,7 @@ import 'package:hrms_mobile/features/attendance/data/models/response/activity_lo
 import 'package:hrms_mobile/features/attendance/data/models/response/attendance/attendance_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/detail_attendance/attendance_detail_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/shifts_response_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/response/statistics/attendance_statistics_response_model.dart';
 
 class AttendanceRemoteSource {
   final Dio _dio;
@@ -101,6 +103,85 @@ class AttendanceRemoteSource {
       return BaseResponse.fromJson(
         response.data,
         (json) => AttendanceDetail.fromJson(json as Map<String, dynamic>),
+      );
+    } on DioException catch (e) {
+      throw handleDioError(e);
+    }
+  }
+
+  Future<BaseResponse<PaginatedResponse<AttendanceDetail>>>
+      getAttendanceHistory({
+    int page = 1,
+    int perPage = 10,
+    String? period,
+    String? status,
+  }) async {
+    try {
+      final Map<String, dynamic> queryParameters = {
+        'page': page,
+        'per_page': perPage,
+      };
+
+      if (period != null) {
+        queryParameters['period'] = period;
+      }
+
+      if (status != null) {
+        queryParameters['status'] = status;
+      }
+
+      final response = await _dio.get(
+        'api/ess/attendance/history',
+        queryParameters: queryParameters,
+      );
+
+      return BaseResponse.fromJson(
+        response.data,
+        (json) => PaginatedResponse.fromJson(
+          json as Map<String, dynamic>,
+          (itemJson) =>
+              AttendanceDetail.fromJson(itemJson as Map<String, dynamic>),
+        ),
+      );
+    } on DioException catch (e) {
+      throw handleDioError(e);
+    }
+  }
+
+  Future<BaseResponse<PaginatedResponse<AttendanceDetail>>>
+      getAttendanceHistoryByUrl(String url) async {
+    try {
+      final response = await _dio.get(url);
+
+      return BaseResponse.fromJson(
+        response.data,
+        (json) => PaginatedResponse.fromJson(
+          json as Map<String, dynamic>,
+          (itemJson) =>
+              AttendanceDetail.fromJson(itemJson as Map<String, dynamic>),
+        ),
+      );
+    } on DioException catch (e) {
+      throw handleDioError(e);
+    }
+  }
+
+  Future<BaseResponse<AttendanceStatistics>> getAttendanceStats(
+      {String? period}) async {
+    try {
+      final Map<String, dynamic> queryParameters = {};
+
+      if (period != null) {
+        queryParameters['date_format'] = period;
+      }
+
+      final response = await _dio.get(
+        'api/ess/attendance/summary',
+        queryParameters: queryParameters,
+      );
+      return BaseResponse.fromJson(
+        response.data,
+        (json) => AttendanceStatistics.fromJson(json as Map<String, dynamic>),
       );
     } on DioException catch (e) {
       throw handleDioError(e);

@@ -14,6 +14,7 @@ import 'package:hrms_mobile/features/attendance/data/models/response/attendance/
 import 'package:hrms_mobile/features/attendance/data/models/response/attendance_mapper.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/detail_attendance/attendance_detail_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/shifts_response_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/response/statistics/attendance_statistics_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/repositories/attendance_repository_impl.dart';
 import 'package:hrms_mobile/features/attendance/domain/entities/attendance.dart';
 import 'package:hrms_mobile/features/attendance/domain/usecases/clock_in_usecase.dart';
@@ -233,27 +234,58 @@ Future<AttendanceDetail?> getDetailAttendance(
 }
 
 @riverpod
-class AttendanceHistory extends _$AttendanceHistory {
+class PaginatedAttendanceHistory extends _$PaginatedAttendanceHistory {
   @override
-  FutureOr<List<AttendanceModel>> build() async {
-    final usecase = ref.read(getHistoryUseCaseProvider);
-    return await usecase();
+  Future<List<AttendanceDetail>> build({String? period, String? status}) async {
+    ref.keepAlive();
+    final repository = ref.watch(attendanceRepoProvider);
+
+    final response = await repository.getAttendanceHistory(
+      page: 1,
+      period: period,
+      status: status,
+    );
+
+    _nextUrl = response.next;
+    return response.data;
   }
 
-  Future<void> refresh() async {
-    state = const AsyncLoading();
-    try {
-      final data = await ref.read(getHistoryUseCaseProvider)();
-      state = AsyncData(data);
-    } on UnauthorizedException catch (e, st) {
-      state = AsyncError(e.message, st);
-    } on NetworkException catch (e, st) {
-      state = AsyncError(e.message, st);
-    } on ServerException catch (e, st) {
-      state = AsyncError(e.message, st);
-    } catch (e, st) {
-      state = AsyncError(e.toString(), st);
+  String? _nextUrl;
+  bool _isFetching = false;
+
+  Future<void> fetchNextPage() async {
+    if (_isFetching || _nextUrl == null) {
+      return;
     }
+
+    _isFetching = true;
+
+    try {
+      final repository = ref.read(attendanceRepoProvider);
+      final response = await repository.getAttendanceHistoryByUrl(_nextUrl!);
+
+      _nextUrl = response.next;
+
+      state = AsyncData([...state.value!, ...response.data]);
+    } catch (e, st) {
+      print('Error fetching next page: $e');
+    } finally {
+      _isFetching = false;
+    }
+  }
+}
+
+@riverpod
+class AttendanceStats extends _$AttendanceStats {
+  @override
+  Future<AttendanceStatistics> build({String? period}) async {
+    ref.keepAlive();
+    final repository = ref.watch(attendanceRepoProvider);
+
+    final response = await repository.getAttendanceStats(
+      period: period
+    );
+    return response;
   }
 }
 

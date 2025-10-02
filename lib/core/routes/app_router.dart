@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/core/constants/attendance_enum.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/features/app/presentation/screens/splash_screen.dart';
+import 'package:hrms_mobile/features/attendance/data/models/response/detail_attendance/attendance_detail_response_model.dart';
 import 'package:hrms_mobile/features/attendance/presentation/screens/attendance_and_overtime_screen.dart';
 import 'package:hrms_mobile/features/attendance/presentation/screens/attendance_form_screen.dart';
 import 'package:hrms_mobile/features/attendance/presentation/screens/attendance_history_edit_screen.dart';
@@ -111,8 +112,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: RoutePaths.attendanceEdit,
-        name: RoutePaths.attendanceEdit,
-        builder: (context, state) => const AttendanceHistoryEditScreen(),
+        name: RoutePaths.attendanceEditName,
+        builder: (context, state) {
+          final attendance = state.extra as AttendanceDetail;
+          return AttendanceHistoryEditScreen(attendance: attendance);
+        },
       ),
       GoRoute(
         path: RoutePaths.overtimeEdit,

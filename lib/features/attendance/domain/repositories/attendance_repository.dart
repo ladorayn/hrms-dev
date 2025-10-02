@@ -1,10 +1,12 @@
 import 'package:hrms_mobile/core/data/models/base_paginated_response.dart';
+import 'package:hrms_mobile/core/data/models/paginated_response.dart';
 import 'package:hrms_mobile/features/attendance/data/models/request/clock_in/clock_in_request_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/request/clock_out/clock_out_request_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/activity_log/activity_log_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/attendance/attendance_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/detail_attendance/attendance_detail_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/shifts_response_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/response/statistics/attendance_statistics_response_model.dart';
 import 'package:hrms_mobile/features/attendance/domain/entities/attendance.dart';
 
 abstract class AttendanceRepository {
@@ -17,4 +19,15 @@ abstract class AttendanceRepository {
   Future<BasePaginatedResponse<ActivityLogModel>> getActivityLogsByUrl(
       String url);
   Future<AttendanceDetail> getDetailAttendance(String attendanceId);
+  Future<PaginatedResponse<AttendanceDetail>> getAttendanceHistory({
+    int page,
+    int perPage,
+    String? period,
+    String? status,
+  });
+  Future<PaginatedResponse<AttendanceDetail>> getAttendanceHistoryByUrl(
+      String url);
+  Future<AttendanceStatistics> getAttendanceStats({
+    String? period
+  });
 }
