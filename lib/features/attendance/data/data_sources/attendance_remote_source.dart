@@ -5,14 +5,17 @@ import 'package:hrms_mobile/core/data/models/paginated_response.dart';
 import 'package:hrms_mobile/core/errors/error_handler.dart';
 import 'package:hrms_mobile/features/attendance/data/models/request/clock_in/clock_in_request_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/request/clock_out/clock_out_request_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/request/update_attendance/update_attendance_request_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/activity_log/activity_log_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/attendance/attendance_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/detail_attendance/attendance_detail_response_model.dart';
-import 'package:hrms_mobile/features/attendance/data/models/response/shifts_response_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/response/shift/shifts_response_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/response/shift/working_shifts_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/statistics/attendance_statistics_response_model.dart';
 
 class AttendanceRemoteSource {
   final Dio _dio;
+
   AttendanceRemoteSource(this._dio);
 
   Future<BaseResponse<AttendanceData>> clockIn(
@@ -60,6 +63,26 @@ class AttendanceRemoteSource {
         (json) => (json as List)
             .map((item) => ShiftModel.fromJson(item as Map<String, dynamic>))
             .toList(),
+      );
+    } on DioException catch (e) {
+      throw handleDioError(e);
+    }
+  }
+
+  Future<BaseResponse<WorkingShiftResponseModel>> getTodayShifts(
+      {String? date}) async {
+    try {
+      final Map<String, dynamic> queryParameters = {
+        'date': date,
+      };
+
+      final response = await _dio.get('api/v1/setting/shift/shift-date',
+          queryParameters: queryParameters);
+
+      return BaseResponse.fromJson(
+        response.data,
+        (json) =>
+            WorkingShiftResponseModel.fromJson(json as Map<String, dynamic>),
       );
     } on DioException catch (e) {
       throw handleDioError(e);
@@ -182,6 +205,23 @@ class AttendanceRemoteSource {
       return BaseResponse.fromJson(
         response.data,
         (json) => AttendanceStatistics.fromJson(json as Map<String, dynamic>),
+      );
+    } on DioException catch (e) {
+      throw handleDioError(e);
+    }
+  }
+
+  Future<BaseResponse<AttendanceDetail>> updateAttendance(
+      {required String attendanceId,
+      UpdateAttendanceRequestModel? request}) async {
+    try {
+      final response = await _dio.put(
+        'api/ess/attendance/$attendanceId',
+        data: request,
+      );
+      return BaseResponse.fromJson(
+        response.data,
+        (json) => AttendanceDetail.fromJson(json as Map<String, dynamic>),
       );
     } on DioException catch (e) {
       throw handleDioError(e);

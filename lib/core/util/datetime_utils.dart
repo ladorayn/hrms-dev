@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class DateTimeHelper {
@@ -14,5 +15,23 @@ class DateTimeHelper {
   static String formatTime(String rawDate) {
     final dateTime = DateTime.parse(rawDate);
     return DateFormat("hh:mm a").format(dateTime);
+  }
+
+  static TimeOfDay? parseTimeOfDay(String? time) {
+    if (time == null || time.isEmpty) return null;
+
+    try {
+      final parts = time.split(':');
+      if (parts.length < 2) return null;
+
+      final hour = int.parse(parts[0]);
+      final minute = int.parse(parts[1]);
+
+      if (hour < 0 || hour > 23 || minute < 0 || minute > 59) return null;
+
+      return TimeOfDay(hour: hour, minute: minute);
+    } catch (_) {
+      return null;
+    }
   }
 }

@@ -71,7 +71,7 @@ class _AttendanceFormScreenState extends ConsumerState<AttendanceFormScreen> {
       );
     });
 
-    final shiftListState = ref.watch(shiftListProvider);
+    final shiftListState = ref.watch(workingShiftListProvider);
 
     final attendanceState = ref.watch(attendanceProvider);
 
@@ -149,8 +149,9 @@ class _AttendanceFormScreenState extends ConsumerState<AttendanceFormScreen> {
                       },
                       data: (shifts) {
                         // We have the data, now build the dropdown
-                        final shiftOptions =
-                            shifts.map((shift) => shift.name).toList();
+                        final shiftOptions = shifts.shifts
+                            .map((shift) => shift.shift.name)
+                            .toList();
 
                         return ITextFieldDropdownBottomSheet(
                           enabled: (widget.activity == AttendanceEnum.clockIn)
@@ -160,12 +161,11 @@ class _AttendanceFormScreenState extends ConsumerState<AttendanceFormScreen> {
                           controller: _shiftController,
                           options: shiftOptions,
                           onOptionSelected: (selectedOption) {
-                            // Find the selected shift in the list to get its ID
-                            final selectedShift = shifts.firstWhere(
-                              (shift) => shift.name == selectedOption,
+                            final selectedShift = shifts.shifts.firstWhere(
+                              (shift) => shift.shift.name == selectedOption,
                             );
                             setState(() {
-                              _selectedShiftId = selectedShift.id;
+                              _selectedShiftId = selectedShift.shift.id;
                             });
                           },
                           isRequired: true,

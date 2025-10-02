@@ -28,8 +28,6 @@ class DashboardScreen extends ConsumerWidget {
     final getDetail = ref.watch(getDetailAttendanceProvider(
         attendanceId: todayAttendanceState.value?.id.toString() ?? ''));
 
-    print("DETAIL $getDetail}");
-
     ref.listen<AsyncValue<List<ActivityLogModel>>>(
         recentActivityProvider(limit: 4), (previous, next) {
       if (next.hasError && !next.isLoading) {
@@ -328,94 +326,117 @@ class DashboardScreen extends ConsumerWidget {
                                   ),
                                 ),
                               ),
-                              if (getDetail.value?.clock.duration != null)
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: IColors.light.primary.main,
-                                    border: Border.all(
-                                      color: IColors.light.primary.border,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.only(
-                                        bottomRight: Radius.circular(6),
-                                        bottomLeft: Radius.circular(6)),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(12.0),
-                                    child: IntrinsicHeight(
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            child: Row(
-                                              spacing: 8,
-                                              children: [
-                                                Flexible(
-                                                  child: Text(
-                                                    "Working Time Duration",
-                                                    style: textTheme.labelSmall
-                                                        ?.copyWith(
-                                                      color: Colors.white,
-                                                      fontSize: 10,
+                              getDetail.when(
+                                loading: () => const SizedBox
+                                    .shrink(), // Show nothing while loading
+                                error: (err, stack) {
+                                  // Log the error for debugging, but don't show anything in the UI
+                                  debugPrint(
+                                      'Failed to get attendance detail for duration display: $err');
+                                  return const SizedBox
+                                      .shrink(); // Show nothing on error
+                                },
+                                data: (detail) {
+                                  // Now that we have data, we can safely check if the duration exists
+                                  if (detail?.clock.duration != null) {
+                                    // This is the success case, return the original UI
+                                    return Container(
+                                      decoration: BoxDecoration(
+                                        color: IColors.light.primary.main,
+                                        border: Border.all(
+                                          color: IColors.light.primary.border,
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.only(
+                                            bottomRight: Radius.circular(6),
+                                            bottomLeft: Radius.circular(6)),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(12.0),
+                                        child: IntrinsicHeight(
+                                          child: Row(
+                                            children: [
+                                              Expanded(
+                                                child: Row(
+                                                  spacing: 8,
+                                                  children: [
+                                                    Flexible(
+                                                      child: Text(
+                                                        "Working Time Duration",
+                                                        style: textTheme
+                                                            .labelSmall
+                                                            ?.copyWith(
+                                                          color: Colors.white,
+                                                          fontSize: 10,
+                                                        ),
+                                                        overflow: TextOverflow
+                                                            .visible,
+                                                      ),
                                                     ),
-                                                    overflow:
-                                                        TextOverflow.visible,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  "${getDetail.value?.clock.duration}",
-                                                  style: textTheme.labelSmall
-                                                      ?.copyWith(
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 10,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          if (false) ...[
-                                            VerticalDivider(
-                                              width: 20,
-                                              thickness: 2,
-                                              color:
-                                                  IColors.light.grayscale.g20,
-                                            ),
-                                            Expanded(
-                                              child: Row(
-                                                spacing: 8,
-                                                children: [
-                                                  Flexible(
-                                                    child: Text(
-                                                      "Overtime Duration",
+                                                    Text(
+                                                      "${getDetail.value?.clock.duration}",
                                                       style: textTheme
                                                           .labelSmall
                                                           ?.copyWith(
                                                         color: Colors.white,
+                                                        fontWeight:
+                                                            FontWeight.bold,
                                                         fontSize: 10,
                                                       ),
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
                                                     ),
-                                                  ),
-                                                  Text(
-                                                    "1h 0m",
-                                                    style: textTheme.labelSmall
-                                                        ?.copyWith(
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 10,
-                                                    ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
-                                            ),
-                                          ]
-                                        ],
+                                              if (false) ...[
+                                                VerticalDivider(
+                                                  width: 20,
+                                                  thickness: 2,
+                                                  color: IColors
+                                                      .light.grayscale.g20,
+                                                ),
+                                                Expanded(
+                                                  child: Row(
+                                                    spacing: 8,
+                                                    children: [
+                                                      Flexible(
+                                                        child: Text(
+                                                          "Overtime Duration",
+                                                          style: textTheme
+                                                              .labelSmall
+                                                              ?.copyWith(
+                                                            color: Colors.white,
+                                                            fontSize: 10,
+                                                          ),
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        "1h 0m",
+                                                        style: textTheme
+                                                            .labelSmall
+                                                            ?.copyWith(
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 10,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ]
+                                            ],
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                )
+                                    );
+                                  } else {
+                                    // If there's data but no duration, show nothing
+                                    return const SizedBox.shrink();
+                                  }
+                                },
+                              ),
                             ],
                           ),
                         ),

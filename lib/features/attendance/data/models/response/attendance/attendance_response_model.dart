@@ -36,6 +36,9 @@ class Clock with _$Clock {
     @JsonKey(name: 'in_at') String? inAt,
     @JsonKey(name: 'out_at') String? outAt,
     @JsonKey(name: 'duration') String? duration,
+    @JsonKey(name: "overtime_duration") String? overtimeDuration,
+    @JsonKey(name: "overtime_duration_fomated")
+    String? overtimeDurationFormatted,
   }) = _Clock;
 
   factory Clock.fromJson(Map<String, dynamic> json) => _$ClockFromJson(json);

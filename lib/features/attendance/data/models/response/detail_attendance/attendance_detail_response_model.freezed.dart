@@ -649,6 +649,10 @@ mixin _$Clock {
   @JsonKey(name: "out_at")
   String? get outAt => throw _privateConstructorUsedError;
   String? get duration => throw _privateConstructorUsedError;
+  @JsonKey(name: "overtime_duration")
+  String? get overtimeDuration => throw _privateConstructorUsedError;
+  @JsonKey(name: "overtime_duration_fomated")
+  String? get overtimeDurationFormatted => throw _privateConstructorUsedError;
 
   /// Serializes this Clock to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -667,7 +671,10 @@ abstract class $ClockCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: "in_at") String? inAt,
       @JsonKey(name: "out_at") String? outAt,
-      String? duration});
+      String? duration,
+      @JsonKey(name: "overtime_duration") String? overtimeDuration,
+      @JsonKey(name: "overtime_duration_fomated")
+      String? overtimeDurationFormatted});
 }
 
 /// @nodoc
@@ -688,6 +695,8 @@ class _$ClockCopyWithImpl<$Res, $Val extends Clock>
     Object? inAt = freezed,
     Object? outAt = freezed,
     Object? duration = freezed,
+    Object? overtimeDuration = freezed,
+    Object? overtimeDurationFormatted = freezed,
   }) {
     return _then(_value.copyWith(
       inAt: freezed == inAt
@@ -701,6 +710,14 @@ class _$ClockCopyWithImpl<$Res, $Val extends Clock>
       duration: freezed == duration
           ? _value.duration
           : duration // ignore: cast_nullable_to_non_nullable
+              as String?,
+      overtimeDuration: freezed == overtimeDuration
+          ? _value.overtimeDuration
+          : overtimeDuration // ignore: cast_nullable_to_non_nullable
+              as String?,
+      overtimeDurationFormatted: freezed == overtimeDurationFormatted
+          ? _value.overtimeDurationFormatted
+          : overtimeDurationFormatted // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -716,7 +733,10 @@ abstract class _$$ClockImplCopyWith<$Res> implements $ClockCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: "in_at") String? inAt,
       @JsonKey(name: "out_at") String? outAt,
-      String? duration});
+      String? duration,
+      @JsonKey(name: "overtime_duration") String? overtimeDuration,
+      @JsonKey(name: "overtime_duration_fomated")
+      String? overtimeDurationFormatted});
 }
 
 /// @nodoc
@@ -735,6 +755,8 @@ class __$$ClockImplCopyWithImpl<$Res>
     Object? inAt = freezed,
     Object? outAt = freezed,
     Object? duration = freezed,
+    Object? overtimeDuration = freezed,
+    Object? overtimeDurationFormatted = freezed,
   }) {
     return _then(_$ClockImpl(
       inAt: freezed == inAt
@@ -749,6 +771,14 @@ class __$$ClockImplCopyWithImpl<$Res>
           ? _value.duration
           : duration // ignore: cast_nullable_to_non_nullable
               as String?,
+      overtimeDuration: freezed == overtimeDuration
+          ? _value.overtimeDuration
+          : overtimeDuration // ignore: cast_nullable_to_non_nullable
+              as String?,
+      overtimeDurationFormatted: freezed == overtimeDurationFormatted
+          ? _value.overtimeDurationFormatted
+          : overtimeDurationFormatted // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -759,7 +789,10 @@ class _$ClockImpl implements _Clock {
   const _$ClockImpl(
       {@JsonKey(name: "in_at") this.inAt,
       @JsonKey(name: "out_at") this.outAt,
-      this.duration});
+      this.duration,
+      @JsonKey(name: "overtime_duration") this.overtimeDuration,
+      @JsonKey(name: "overtime_duration_fomated")
+      this.overtimeDurationFormatted});
 
   factory _$ClockImpl.fromJson(Map<String, dynamic> json) =>
       _$$ClockImplFromJson(json);
@@ -772,10 +805,16 @@ class _$ClockImpl implements _Clock {
   final String? outAt;
   @override
   final String? duration;
+  @override
+  @JsonKey(name: "overtime_duration")
+  final String? overtimeDuration;
+  @override
+  @JsonKey(name: "overtime_duration_fomated")
+  final String? overtimeDurationFormatted;
 
   @override
   String toString() {
-    return 'Clock(inAt: $inAt, outAt: $outAt, duration: $duration)';
+    return 'Clock(inAt: $inAt, outAt: $outAt, duration: $duration, overtimeDuration: $overtimeDuration, overtimeDurationFormatted: $overtimeDurationFormatted)';
   }
 
   @override
@@ -786,12 +825,18 @@ class _$ClockImpl implements _Clock {
             (identical(other.inAt, inAt) || other.inAt == inAt) &&
             (identical(other.outAt, outAt) || other.outAt == outAt) &&
             (identical(other.duration, duration) ||
-                other.duration == duration));
+                other.duration == duration) &&
+            (identical(other.overtimeDuration, overtimeDuration) ||
+                other.overtimeDuration == overtimeDuration) &&
+            (identical(other.overtimeDurationFormatted,
+                    overtimeDurationFormatted) ||
+                other.overtimeDurationFormatted == overtimeDurationFormatted));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, inAt, outAt, duration);
+  int get hashCode => Object.hash(runtimeType, inAt, outAt, duration,
+      overtimeDuration, overtimeDurationFormatted);
 
   /// Create a copy of Clock
   /// with the given fields replaced by the non-null parameter values.
@@ -813,7 +858,10 @@ abstract class _Clock implements Clock {
   const factory _Clock(
       {@JsonKey(name: "in_at") final String? inAt,
       @JsonKey(name: "out_at") final String? outAt,
-      final String? duration}) = _$ClockImpl;
+      final String? duration,
+      @JsonKey(name: "overtime_duration") final String? overtimeDuration,
+      @JsonKey(name: "overtime_duration_fomated")
+      final String? overtimeDurationFormatted}) = _$ClockImpl;
 
   factory _Clock.fromJson(Map<String, dynamic> json) = _$ClockImpl.fromJson;
 
@@ -825,6 +873,12 @@ abstract class _Clock implements Clock {
   String? get outAt;
   @override
   String? get duration;
+  @override
+  @JsonKey(name: "overtime_duration")
+  String? get overtimeDuration;
+  @override
+  @JsonKey(name: "overtime_duration_fomated")
+  String? get overtimeDurationFormatted;
 
   /// Create a copy of Clock
   /// with the given fields replaced by the non-null parameter values.

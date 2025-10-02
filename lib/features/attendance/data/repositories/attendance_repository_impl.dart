@@ -4,10 +4,12 @@ import 'package:hrms_mobile/features/attendance/data/data_sources/attendance_loc
 import 'package:hrms_mobile/features/attendance/data/data_sources/attendance_remote_source.dart';
 import 'package:hrms_mobile/features/attendance/data/models/request/clock_in/clock_in_request_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/request/clock_out/clock_out_request_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/request/update_attendance/update_attendance_request_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/activity_log/activity_log_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/attendance/attendance_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/detail_attendance/attendance_detail_response_model.dart';
-import 'package:hrms_mobile/features/attendance/data/models/response/shifts_response_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/response/shift/shifts_response_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/response/shift/working_shifts_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/statistics/attendance_statistics_response_model.dart';
 import 'package:hrms_mobile/features/attendance/domain/entities/attendance.dart';
 import 'package:hrms_mobile/features/attendance/domain/repositories/attendance_repository.dart';
@@ -52,6 +54,16 @@ class AttendanceRepositoryImpl implements AttendanceRepository {
   @override
   Future<List<ShiftModel>> getShift() async {
     final response = await remoteSource.getShifts();
+    if (response.status == 'success') {
+      return response.data;
+    } else {
+      throw Exception('API Error: ${response.message}');
+    }
+  }
+
+  @override
+  Future<WorkingShiftResponseModel> getTodayShift({String? data}) async {
+    final response = await remoteSource.getTodayShifts(date: data);
     if (response.status == 'success') {
       return response.data;
     } else {
@@ -107,6 +119,15 @@ class AttendanceRepositoryImpl implements AttendanceRepository {
   @override
   Future<AttendanceStatistics> getAttendanceStats({String? period}) async {
     final response = await remoteSource.getAttendanceStats(period: period);
+    return response.data;
+  }
+
+  @override
+  Future<AttendanceDetail> updateAttendance(
+      {required String attendanceId,
+      UpdateAttendanceRequestModel? request}) async {
+    final response = await remoteSource.updateAttendance(
+        attendanceId: attendanceId, request: request);
     return response.data;
   }
 }

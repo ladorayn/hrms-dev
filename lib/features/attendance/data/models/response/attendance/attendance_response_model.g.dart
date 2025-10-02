@@ -59,6 +59,8 @@ _$ClockImpl _$$ClockImplFromJson(Map<String, dynamic> json) => _$ClockImpl(
       inAt: json['in_at'] as String?,
       outAt: json['out_at'] as String?,
       duration: json['duration'] as String?,
+      overtimeDuration: json['overtime_duration'] as String?,
+      overtimeDurationFormatted: json['overtime_duration_fomated'] as String?,
     );
 
 Map<String, dynamic> _$$ClockImplToJson(_$ClockImpl instance) =>
@@ -66,6 +68,8 @@ Map<String, dynamic> _$$ClockImplToJson(_$ClockImpl instance) =>
       'in_at': instance.inAt,
       'out_at': instance.outAt,
       'duration': instance.duration,
+      'overtime_duration': instance.overtimeDuration,
+      'overtime_duration_fomated': instance.overtimeDurationFormatted,
     };
 
 _$LocationImpl _$$LocationImplFromJson(Map<String, dynamic> json) =>

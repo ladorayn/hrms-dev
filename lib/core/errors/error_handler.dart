@@ -15,17 +15,30 @@ Exception handleDioError(DioException e) {
 
     final message = (responseData is Map<String, dynamic> &&
             responseData.containsKey('message'))
-        ? responseData['message']
+        ? responseData['message'] as String
         : 'An error occurred.';
 
     switch (statusCode) {
       case 401:
       case 403:
         return UnauthorizedException(message);
+
+      case 422:
+        if (responseData is Map<String, dynamic> &&
+            responseData.containsKey('errors')) {
+          final errorsData = responseData['errors'] as Map<String, dynamic>;
+          final Map<String, List<String>> parsedErrors = {};
+          errorsData.forEach((key, value) {
+            if (value is List) {
+              parsedErrors[key] = value.map((e) => e.toString()).toList();
+            }
+          });
+          return ValidationException(message, parsedErrors);
+        }
+        return ValidationException(message, {});
       case 500:
       case 502:
-        return ServerException(
-            message ?? 'Server error, please try again later.');
+        return ServerException(message); // Removed ?? as message has a fallback
       default:
         return Exception(message);
     }

@@ -298,7 +298,7 @@ class _GetDetailAttendanceProviderElement
       (origin as GetDetailAttendanceProvider).attendanceId;
 }
 
-String _$attendanceHash() => r'15ec77acf5826e6790e387e08d49262585ffd70f';
+String _$attendanceHash() => r'da1ae905bf5dcc60d4b366bdb648654874b5ef9f';
 
 /// See also [Attendance].
 @ProviderFor(Attendance)
@@ -681,5 +681,38 @@ final shiftListProvider =
 );
 
 typedef _$ShiftList = AutoDisposeAsyncNotifier<List<ShiftModel>>;
+String _$workingShiftListHash() => r'e861a7cf868b43ef96b31f1d0cf0d6e35f00157c';
+
+/// See also [WorkingShiftList].
+@ProviderFor(WorkingShiftList)
+final workingShiftListProvider = AutoDisposeAsyncNotifierProvider<
+    WorkingShiftList, WorkingShiftResponseModel>.internal(
+  WorkingShiftList.new,
+  name: r'workingShiftListProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$workingShiftListHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$WorkingShiftList
+    = AutoDisposeAsyncNotifier<WorkingShiftResponseModel>;
+String _$updateAttendanceHash() => r'717ee030723f776f3ba77877df5b958259afe231';
+
+/// See also [UpdateAttendance].
+@ProviderFor(UpdateAttendance)
+final updateAttendanceProvider = AutoDisposeNotifierProvider<UpdateAttendance,
+    UpdateAttendanceState>.internal(
+  UpdateAttendance.new,
+  name: r'updateAttendanceProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$updateAttendanceHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$UpdateAttendance = AutoDisposeNotifier<UpdateAttendanceState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

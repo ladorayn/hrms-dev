@@ -342,7 +342,9 @@ class AttendanceCard extends StatelessWidget {
                       thickness: 2,
                       color: IColors.light.grayscale.g20,
                     ),
-                    _buildTimeColumn(context, "Overtime", "0h 0m", isEnd: true),
+                    _buildTimeColumn(context, "Overtime",
+                        item.clock.overtimeDurationFormatted ?? "0h 0m",
+                        isEnd: true),
                   ],
                 ),
               ), // Placeholder
