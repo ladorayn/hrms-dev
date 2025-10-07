@@ -1,11 +1,13 @@
 // FILE: lib/features/attendance/presentation/tabs/attendance_log_tab.dart
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
+import 'package:hrms_mobile/core/errors/exceptions.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/util/geocoding_geolocation_mapper.dart';
@@ -101,6 +103,38 @@ class _AttendanceLogTabState extends ConsumerState<AttendanceLogTab> {
     final attendanceStatsState = ref.watch(attendanceStatsProvider(
       period: _selectedPeriod,
     ));
+
+    ref.listen(
+      paginatedOvertimeHistoryProvider(
+        period: _selectedPeriod,
+        status: _selectedStatus,
+      ),
+      (previous, next) {
+        if (!next.hasError || next.isLoading) return;
+
+        final error = next.error;
+
+        if (error is ValidationException) {
+          final exception = error;
+          final displayErrors =
+              exception.errors.map((key, value) => MapEntry(key, value.first));
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(displayErrors[displayErrors.keys.first]!)),
+          );
+        } else if (error is DioException) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+                content: Text(error.message ?? 'A network error occurred.')),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+                content:
+                    Text('An unexpected error occurred: ${error.toString()}')),
+          );
+        }
+      },
+    );
 
     return Column(
       children: [

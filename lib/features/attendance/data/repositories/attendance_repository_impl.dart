@@ -8,9 +8,11 @@ import 'package:hrms_mobile/features/attendance/data/models/request/update_atten
 import 'package:hrms_mobile/features/attendance/data/models/response/activity_log/activity_log_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/attendance/attendance_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/detail_attendance/attendance_detail_response_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/response/overtime/overtime_detail_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/shift/shifts_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/shift/working_shifts_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/statistics/attendance_statistics_response_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/response/statistics/overtime_statistics_response_model.dart';
 import 'package:hrms_mobile/features/attendance/domain/entities/attendance.dart';
 import 'package:hrms_mobile/features/attendance/domain/repositories/attendance_repository.dart';
 
@@ -128,6 +130,35 @@ class AttendanceRepositoryImpl implements AttendanceRepository {
       UpdateAttendanceRequestModel? request}) async {
     final response = await remoteSource.updateAttendance(
         attendanceId: attendanceId, request: request);
+    return response.data;
+  }
+
+  @override
+  Future<PaginatedResponse<OvertimeDetail>> getOvertimeHistory({
+    int page = 1,
+    int perPage = 10,
+    String? period,
+    String? status,
+  }) async {
+    final response = await remoteSource.getOvertimeHistory(
+      page: page,
+      perPage: perPage,
+      period: period,
+      status: status,
+    );
+    return response.data;
+  }
+
+  @override
+  Future<PaginatedResponse<OvertimeDetail>> getOvertimeHistoryByUrl(
+      String url) async {
+    final response = await remoteSource.getOvertimeHistoryByUrl(url);
+    return response.data;
+  }
+
+  @override
+  Future<OvertimeStatistics> getOvertimeStats({String? period}) async {
+    final response = await remoteSource.getOvertimeStats(period: period);
     return response.data;
   }
 }

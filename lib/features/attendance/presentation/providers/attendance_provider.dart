@@ -16,9 +16,11 @@ import 'package:hrms_mobile/features/attendance/data/models/response/activity_lo
 import 'package:hrms_mobile/features/attendance/data/models/response/attendance/attendance_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/attendance_mapper.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/detail_attendance/attendance_detail_response_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/response/overtime/overtime_detail_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/shift/shifts_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/shift/working_shifts_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/statistics/attendance_statistics_response_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/response/statistics/overtime_statistics_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/repositories/attendance_repository_impl.dart';
 import 'package:hrms_mobile/features/attendance/domain/entities/update_attendance_state.dart';
 import 'package:hrms_mobile/features/attendance/domain/usecases/clock_in_usecase.dart';
@@ -294,6 +296,60 @@ class AttendanceStats extends _$AttendanceStats {
 }
 
 @riverpod
+class PaginatedOvertimeHistory extends _$PaginatedOvertimeHistory {
+  @override
+  Future<List<OvertimeDetail>> build({String? period, String? status}) async {
+    ref.keepAlive();
+    final repository = ref.watch(attendanceRepoProvider);
+
+    final response = await repository.getOvertimeHistory(
+      page: 1,
+      period: period,
+      status: status,
+    );
+
+    _nextUrl = response.next;
+    return response.data;
+  }
+
+  String? _nextUrl;
+  bool _isFetching = false;
+
+  Future<void> fetchNextPage() async {
+    if (_isFetching || _nextUrl == null) {
+      return;
+    }
+
+    _isFetching = true;
+
+    try {
+      final repository = ref.read(attendanceRepoProvider);
+      final response = await repository.getOvertimeHistoryByUrl(_nextUrl!);
+
+      _nextUrl = response.next;
+
+      state = AsyncData([...state.value!, ...response.data]);
+    } catch (e, st) {
+      print('Error fetching next page: $e');
+    } finally {
+      _isFetching = false;
+    }
+  }
+}
+
+@riverpod
+class OvertimeStats extends _$OvertimeStats {
+  @override
+  Future<OvertimeStatistics> build({String? period}) async {
+    ref.keepAlive();
+    final repository = ref.watch(attendanceRepoProvider);
+
+    final response = await repository.getOvertimeStats(period: period);
+    return response;
+  }
+}
+
+@riverpod
 class ShiftList extends _$ShiftList {
   @override
   FutureOr<List<ShiftModel>> build() {
@@ -320,7 +376,6 @@ class UpdateAttendance extends _$UpdateAttendance {
     required String attendanceId,
     required UpdateAttendanceRequestModel request,
   }) async {
-    // Clear previous errors and set loading to true
     state = state.copyWith(isLoading: true, errors: {});
 
     try {

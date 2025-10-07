@@ -650,7 +650,7 @@ mixin _$Clock {
   String? get outAt => throw _privateConstructorUsedError;
   String? get duration => throw _privateConstructorUsedError;
   @JsonKey(name: "overtime_duration")
-  String? get overtimeDuration => throw _privateConstructorUsedError;
+  int? get overtimeDuration => throw _privateConstructorUsedError;
   @JsonKey(name: "overtime_duration_fomated")
   String? get overtimeDurationFormatted => throw _privateConstructorUsedError;
 
@@ -672,7 +672,7 @@ abstract class $ClockCopyWith<$Res> {
       {@JsonKey(name: "in_at") String? inAt,
       @JsonKey(name: "out_at") String? outAt,
       String? duration,
-      @JsonKey(name: "overtime_duration") String? overtimeDuration,
+      @JsonKey(name: "overtime_duration") int? overtimeDuration,
       @JsonKey(name: "overtime_duration_fomated")
       String? overtimeDurationFormatted});
 }
@@ -714,7 +714,7 @@ class _$ClockCopyWithImpl<$Res, $Val extends Clock>
       overtimeDuration: freezed == overtimeDuration
           ? _value.overtimeDuration
           : overtimeDuration // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       overtimeDurationFormatted: freezed == overtimeDurationFormatted
           ? _value.overtimeDurationFormatted
           : overtimeDurationFormatted // ignore: cast_nullable_to_non_nullable
@@ -734,7 +734,7 @@ abstract class _$$ClockImplCopyWith<$Res> implements $ClockCopyWith<$Res> {
       {@JsonKey(name: "in_at") String? inAt,
       @JsonKey(name: "out_at") String? outAt,
       String? duration,
-      @JsonKey(name: "overtime_duration") String? overtimeDuration,
+      @JsonKey(name: "overtime_duration") int? overtimeDuration,
       @JsonKey(name: "overtime_duration_fomated")
       String? overtimeDurationFormatted});
 }
@@ -774,7 +774,7 @@ class __$$ClockImplCopyWithImpl<$Res>
       overtimeDuration: freezed == overtimeDuration
           ? _value.overtimeDuration
           : overtimeDuration // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       overtimeDurationFormatted: freezed == overtimeDurationFormatted
           ? _value.overtimeDurationFormatted
           : overtimeDurationFormatted // ignore: cast_nullable_to_non_nullable
@@ -807,7 +807,7 @@ class _$ClockImpl implements _Clock {
   final String? duration;
   @override
   @JsonKey(name: "overtime_duration")
-  final String? overtimeDuration;
+  final int? overtimeDuration;
   @override
   @JsonKey(name: "overtime_duration_fomated")
   final String? overtimeDurationFormatted;
@@ -859,7 +859,7 @@ abstract class _Clock implements Clock {
       {@JsonKey(name: "in_at") final String? inAt,
       @JsonKey(name: "out_at") final String? outAt,
       final String? duration,
-      @JsonKey(name: "overtime_duration") final String? overtimeDuration,
+      @JsonKey(name: "overtime_duration") final int? overtimeDuration,
       @JsonKey(name: "overtime_duration_fomated")
       final String? overtimeDurationFormatted}) = _$ClockImpl;
 
@@ -875,7 +875,7 @@ abstract class _Clock implements Clock {
   String? get duration;
   @override
   @JsonKey(name: "overtime_duration")
-  String? get overtimeDuration;
+  int? get overtimeDuration;
   @override
   @JsonKey(name: "overtime_duration_fomated")
   String? get overtimeDurationFormatted;
@@ -1076,6 +1076,9 @@ mixin _$Metadata {
   int get toleranceMinutes => throw _privateConstructorUsedError;
   @JsonKey(name: "work_schedule_id")
   int get workScheduleId => throw _privateConstructorUsedError;
+  @JsonKey(name: "location_name")
+  String? get locationName => throw _privateConstructorUsedError;
+  Coordinates? get coordinates => throw _privateConstructorUsedError;
 
   /// Serializes this Metadata to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -1099,7 +1102,11 @@ abstract class $MetadataCopyWith<$Res> {
       @JsonKey(name: "shift_name") String shiftName,
       @JsonKey(name: "day_of_week") int dayOfWeek,
       @JsonKey(name: "tolerance_minutes") int toleranceMinutes,
-      @JsonKey(name: "work_schedule_id") int workScheduleId});
+      @JsonKey(name: "work_schedule_id") int workScheduleId,
+      @JsonKey(name: "location_name") String? locationName,
+      Coordinates? coordinates});
+
+  $CoordinatesCopyWith<$Res>? get coordinates;
 }
 
 /// @nodoc
@@ -1124,6 +1131,8 @@ class _$MetadataCopyWithImpl<$Res, $Val extends Metadata>
     Object? dayOfWeek = null,
     Object? toleranceMinutes = null,
     Object? workScheduleId = null,
+    Object? locationName = freezed,
+    Object? coordinates = freezed,
   }) {
     return _then(_value.copyWith(
       createdVia: null == createdVia
@@ -1154,7 +1163,29 @@ class _$MetadataCopyWithImpl<$Res, $Val extends Metadata>
           ? _value.workScheduleId
           : workScheduleId // ignore: cast_nullable_to_non_nullable
               as int,
+      locationName: freezed == locationName
+          ? _value.locationName
+          : locationName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      coordinates: freezed == coordinates
+          ? _value.coordinates
+          : coordinates // ignore: cast_nullable_to_non_nullable
+              as Coordinates?,
     ) as $Val);
+  }
+
+  /// Create a copy of Metadata
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $CoordinatesCopyWith<$Res>? get coordinates {
+    if (_value.coordinates == null) {
+      return null;
+    }
+
+    return $CoordinatesCopyWith<$Res>(_value.coordinates!, (value) {
+      return _then(_value.copyWith(coordinates: value) as $Val);
+    });
   }
 }
 
@@ -1173,7 +1204,12 @@ abstract class _$$MetadataImplCopyWith<$Res>
       @JsonKey(name: "shift_name") String shiftName,
       @JsonKey(name: "day_of_week") int dayOfWeek,
       @JsonKey(name: "tolerance_minutes") int toleranceMinutes,
-      @JsonKey(name: "work_schedule_id") int workScheduleId});
+      @JsonKey(name: "work_schedule_id") int workScheduleId,
+      @JsonKey(name: "location_name") String? locationName,
+      Coordinates? coordinates});
+
+  @override
+  $CoordinatesCopyWith<$Res>? get coordinates;
 }
 
 /// @nodoc
@@ -1196,6 +1232,8 @@ class __$$MetadataImplCopyWithImpl<$Res>
     Object? dayOfWeek = null,
     Object? toleranceMinutes = null,
     Object? workScheduleId = null,
+    Object? locationName = freezed,
+    Object? coordinates = freezed,
   }) {
     return _then(_$MetadataImpl(
       createdVia: null == createdVia
@@ -1226,6 +1264,14 @@ class __$$MetadataImplCopyWithImpl<$Res>
           ? _value.workScheduleId
           : workScheduleId // ignore: cast_nullable_to_non_nullable
               as int,
+      locationName: freezed == locationName
+          ? _value.locationName
+          : locationName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      coordinates: freezed == coordinates
+          ? _value.coordinates
+          : coordinates // ignore: cast_nullable_to_non_nullable
+              as Coordinates?,
     ));
   }
 }
@@ -1240,7 +1286,9 @@ class _$MetadataImpl implements _Metadata {
       @JsonKey(name: "shift_name") required this.shiftName,
       @JsonKey(name: "day_of_week") required this.dayOfWeek,
       @JsonKey(name: "tolerance_minutes") required this.toleranceMinutes,
-      @JsonKey(name: "work_schedule_id") required this.workScheduleId});
+      @JsonKey(name: "work_schedule_id") required this.workScheduleId,
+      @JsonKey(name: "location_name") this.locationName,
+      this.coordinates});
 
   factory _$MetadataImpl.fromJson(Map<String, dynamic> json) =>
       _$$MetadataImplFromJson(json);
@@ -1266,10 +1314,15 @@ class _$MetadataImpl implements _Metadata {
   @override
   @JsonKey(name: "work_schedule_id")
   final int workScheduleId;
+  @override
+  @JsonKey(name: "location_name")
+  final String? locationName;
+  @override
+  final Coordinates? coordinates;
 
   @override
   String toString() {
-    return 'Metadata(createdVia: $createdVia, createdAt: $createdAt, shiftId: $shiftId, shiftName: $shiftName, dayOfWeek: $dayOfWeek, toleranceMinutes: $toleranceMinutes, workScheduleId: $workScheduleId)';
+    return 'Metadata(createdVia: $createdVia, createdAt: $createdAt, shiftId: $shiftId, shiftName: $shiftName, dayOfWeek: $dayOfWeek, toleranceMinutes: $toleranceMinutes, workScheduleId: $workScheduleId, locationName: $locationName, coordinates: $coordinates)';
   }
 
   @override
@@ -1289,13 +1342,26 @@ class _$MetadataImpl implements _Metadata {
             (identical(other.toleranceMinutes, toleranceMinutes) ||
                 other.toleranceMinutes == toleranceMinutes) &&
             (identical(other.workScheduleId, workScheduleId) ||
-                other.workScheduleId == workScheduleId));
+                other.workScheduleId == workScheduleId) &&
+            (identical(other.locationName, locationName) ||
+                other.locationName == locationName) &&
+            (identical(other.coordinates, coordinates) ||
+                other.coordinates == coordinates));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, createdVia, createdAt, shiftId,
-      shiftName, dayOfWeek, toleranceMinutes, workScheduleId);
+  int get hashCode => Object.hash(
+      runtimeType,
+      createdVia,
+      createdAt,
+      shiftId,
+      shiftName,
+      dayOfWeek,
+      toleranceMinutes,
+      workScheduleId,
+      locationName,
+      coordinates);
 
   /// Create a copy of Metadata
   /// with the given fields replaced by the non-null parameter values.
@@ -1321,8 +1387,9 @@ abstract class _Metadata implements Metadata {
       @JsonKey(name: "shift_name") required final String shiftName,
       @JsonKey(name: "day_of_week") required final int dayOfWeek,
       @JsonKey(name: "tolerance_minutes") required final int toleranceMinutes,
-      @JsonKey(name: "work_schedule_id")
-      required final int workScheduleId}) = _$MetadataImpl;
+      @JsonKey(name: "work_schedule_id") required final int workScheduleId,
+      @JsonKey(name: "location_name") final String? locationName,
+      final Coordinates? coordinates}) = _$MetadataImpl;
 
   factory _Metadata.fromJson(Map<String, dynamic> json) =
       _$MetadataImpl.fromJson;
@@ -1348,11 +1415,185 @@ abstract class _Metadata implements Metadata {
   @override
   @JsonKey(name: "work_schedule_id")
   int get workScheduleId;
+  @override
+  @JsonKey(name: "location_name")
+  String? get locationName;
+  @override
+  Coordinates? get coordinates;
 
   /// Create a copy of Metadata
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MetadataImplCopyWith<_$MetadataImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+Coordinates _$CoordinatesFromJson(Map<String, dynamic> json) {
+  return _Coordinates.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Coordinates {
+  double get latitude => throw _privateConstructorUsedError;
+  double get longitude => throw _privateConstructorUsedError;
+
+  /// Serializes this Coordinates to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of Coordinates
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $CoordinatesCopyWith<Coordinates> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CoordinatesCopyWith<$Res> {
+  factory $CoordinatesCopyWith(
+          Coordinates value, $Res Function(Coordinates) then) =
+      _$CoordinatesCopyWithImpl<$Res, Coordinates>;
+  @useResult
+  $Res call({double latitude, double longitude});
+}
+
+/// @nodoc
+class _$CoordinatesCopyWithImpl<$Res, $Val extends Coordinates>
+    implements $CoordinatesCopyWith<$Res> {
+  _$CoordinatesCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of Coordinates
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? latitude = null,
+    Object? longitude = null,
+  }) {
+    return _then(_value.copyWith(
+      latitude: null == latitude
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      longitude: null == longitude
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$CoordinatesImplCopyWith<$Res>
+    implements $CoordinatesCopyWith<$Res> {
+  factory _$$CoordinatesImplCopyWith(
+          _$CoordinatesImpl value, $Res Function(_$CoordinatesImpl) then) =
+      __$$CoordinatesImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({double latitude, double longitude});
+}
+
+/// @nodoc
+class __$$CoordinatesImplCopyWithImpl<$Res>
+    extends _$CoordinatesCopyWithImpl<$Res, _$CoordinatesImpl>
+    implements _$$CoordinatesImplCopyWith<$Res> {
+  __$$CoordinatesImplCopyWithImpl(
+      _$CoordinatesImpl _value, $Res Function(_$CoordinatesImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of Coordinates
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? latitude = null,
+    Object? longitude = null,
+  }) {
+    return _then(_$CoordinatesImpl(
+      latitude: null == latitude
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      longitude: null == longitude
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$CoordinatesImpl implements _Coordinates {
+  const _$CoordinatesImpl({required this.latitude, required this.longitude});
+
+  factory _$CoordinatesImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CoordinatesImplFromJson(json);
+
+  @override
+  final double latitude;
+  @override
+  final double longitude;
+
+  @override
+  String toString() {
+    return 'Coordinates(latitude: $latitude, longitude: $longitude)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CoordinatesImpl &&
+            (identical(other.latitude, latitude) ||
+                other.latitude == latitude) &&
+            (identical(other.longitude, longitude) ||
+                other.longitude == longitude));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, latitude, longitude);
+
+  /// Create a copy of Coordinates
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CoordinatesImplCopyWith<_$CoordinatesImpl> get copyWith =>
+      __$$CoordinatesImplCopyWithImpl<_$CoordinatesImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$CoordinatesImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Coordinates implements Coordinates {
+  const factory _Coordinates(
+      {required final double latitude,
+      required final double longitude}) = _$CoordinatesImpl;
+
+  factory _Coordinates.fromJson(Map<String, dynamic> json) =
+      _$CoordinatesImpl.fromJson;
+
+  @override
+  double get latitude;
+  @override
+  double get longitude;
+
+  /// Create a copy of Coordinates
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$CoordinatesImplCopyWith<_$CoordinatesImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

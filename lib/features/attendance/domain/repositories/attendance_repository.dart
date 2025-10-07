@@ -6,9 +6,11 @@ import 'package:hrms_mobile/features/attendance/data/models/request/update_atten
 import 'package:hrms_mobile/features/attendance/data/models/response/activity_log/activity_log_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/attendance/attendance_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/detail_attendance/attendance_detail_response_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/response/overtime/overtime_detail_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/shift/shifts_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/shift/working_shifts_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/statistics/attendance_statistics_response_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/response/statistics/overtime_statistics_response_model.dart';
 import 'package:hrms_mobile/features/attendance/domain/entities/attendance.dart';
 
 abstract class AttendanceRepository {
@@ -33,4 +35,12 @@ abstract class AttendanceRepository {
   Future<AttendanceStatistics> getAttendanceStats({String? period});
   Future<AttendanceDetail> updateAttendance(
       {required String attendanceId, UpdateAttendanceRequestModel? request});
+  Future<PaginatedResponse<OvertimeDetail>> getOvertimeHistory({
+    int page,
+    int perPage,
+    String? period,
+    String? status,
+  });
+  Future<PaginatedResponse<OvertimeDetail>> getOvertimeHistoryByUrl(String url);
+  Future<OvertimeStatistics> getOvertimeStats({String? period});
 }

@@ -54,7 +54,7 @@ class DashboardScreen extends ConsumerWidget {
             todayLog = null;
           }
 
-          if (todayLog != null && todayAttendanceState.value == null) {
+          if (todayLog != null) {
             final attendanceId = todayLog.properties.attendanceId.toString();
             ref
                 .read(todayAttendanceProvider.notifier)
@@ -188,6 +188,8 @@ class DashboardScreen extends ConsumerWidget {
                 ),
                 const SizedBox(height: 16),
                 todayAttendanceState.when(
+                    skipLoadingOnRefresh: true,
+                    skipLoadingOnReload: true,
                     loading: () =>
                         const Center(child: CircularProgressIndicator()),
                     error: (err, stack) {
@@ -195,6 +197,7 @@ class DashboardScreen extends ConsumerWidget {
                       return _buildInitialState(context, ref);
                     },
                     data: (attendanceData) {
+                      print("Attendance DAta ${attendanceData?.clock.outAt}");
                       return Container(
                         decoration: BoxDecoration(
                           color: IColors.light.primary.focused,

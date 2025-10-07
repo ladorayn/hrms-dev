@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:hrms_mobile/core/errors/error_handler.dart';
 import 'package:hrms_mobile/features/auth/data/models/login/request/login_request.dart';
 import 'package:hrms_mobile/features/auth/data/models/login/response/login_response.dart';
 import 'package:hrms_mobile/features/auth/data/models/reset_password/request/forgot_password_request.dart';
@@ -19,7 +20,7 @@ class AuthRepositoryImpl implements AuthRepository {
       final response = await dio.post('api/v1/login', data: loginData);
       return LoginResponse.fromJson(response.data['data']);
     } on DioException catch (e) {
-      throw Exception(e.response?.data['message'] ?? 'Login failed');
+      throw handleDioError(e);
     }
   }
 

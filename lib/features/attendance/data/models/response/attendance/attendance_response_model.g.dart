@@ -59,7 +59,7 @@ _$ClockImpl _$$ClockImplFromJson(Map<String, dynamic> json) => _$ClockImpl(
       inAt: json['in_at'] as String?,
       outAt: json['out_at'] as String?,
       duration: json['duration'] as String?,
-      overtimeDuration: json['overtime_duration'] as String?,
+      overtimeDuration: (json['overtime_duration'] as num?)?.toInt(),
       overtimeDurationFormatted: json['overtime_duration_fomated'] as String?,
     );
 
@@ -87,15 +87,39 @@ Map<String, dynamic> _$$LocationImplToJson(_$LocationImpl instance) =>
 _$MetadataImpl _$$MetadataImplFromJson(Map<String, dynamic> json) =>
     _$MetadataImpl(
       createdVia: json['created_via'] as String,
-      createdAt: DateTime.parse(json['created_at'] as String),
+      createdAt: json['created_at'] as String,
       shiftId: (json['shift_id'] as num).toInt(),
+      shiftName: json['shift_name'] as String,
+      dayOfWeek: (json['day_of_week'] as num).toInt(),
+      toleranceMinutes: (json['tolerance_minutes'] as num).toInt(),
       workScheduleId: (json['work_schedule_id'] as num).toInt(),
+      locationName: json['location_name'] as String?,
+      coordinates: json['coordinates'] == null
+          ? null
+          : Coordinates.fromJson(json['coordinates'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$MetadataImplToJson(_$MetadataImpl instance) =>
     <String, dynamic>{
       'created_via': instance.createdVia,
-      'created_at': instance.createdAt.toIso8601String(),
+      'created_at': instance.createdAt,
       'shift_id': instance.shiftId,
+      'shift_name': instance.shiftName,
+      'day_of_week': instance.dayOfWeek,
+      'tolerance_minutes': instance.toleranceMinutes,
       'work_schedule_id': instance.workScheduleId,
+      'location_name': instance.locationName,
+      'coordinates': instance.coordinates,
+    };
+
+_$CoordinatesImpl _$$CoordinatesImplFromJson(Map<String, dynamic> json) =>
+    _$CoordinatesImpl(
+      latitude: (json['latitude'] as num).toDouble(),
+      longitude: (json['longitude'] as num).toDouble(),
+    );
+
+Map<String, dynamic> _$$CoordinatesImplToJson(_$CoordinatesImpl instance) =>
+    <String, dynamic>{
+      'latitude': instance.latitude,
+      'longitude': instance.longitude,
     };

@@ -12,6 +12,8 @@ extension AttendanceMapper on detail.AttendanceDetail {
         inAt: clock.inAt,
         outAt: clock.outAt,
         duration: clock.duration,
+        overtimeDuration: clock.overtimeDuration,
+        overtimeDurationFormatted: clock.overtimeDurationFormatted,
       ),
       duration: duration,
       location: data.Location(
@@ -29,10 +31,18 @@ extension AttendanceMapper on detail.AttendanceDetail {
       rejectedReason: rejectedReason,
       remarks: remarks,
       metadata: data.Metadata(
+        coordinates: data.Coordinates(
+          latitude: metadata.coordinates?.latitude ?? 0.0,
+          longitude: metadata.coordinates?.longitude ?? 0.0,
+        ),
+        dayOfWeek: metadata.dayOfWeek,
         createdVia: metadata.createdVia,
-        createdAt: DateTime.parse(metadata.createdAt),
+        createdAt: metadata.createdAt,
         shiftId: metadata.shiftId,
         workScheduleId: metadata.workScheduleId,
+        shiftName: metadata.shiftName,
+        toleranceMinutes: metadata.toleranceMinutes,
+        locationName: metadata.locationName,
       ),
       createdAt: createdAt,
       updatedAt: updatedAt,

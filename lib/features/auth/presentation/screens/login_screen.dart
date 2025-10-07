@@ -29,11 +29,26 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     super.dispose();
   }
 
-  void handleLogin() {
+  Future<void> handleLogin() async {
     final email = emailController.text;
     final password = passwordController.text;
 
-    ref.read(loginProvider.notifier).submit(email, password);
+    try {
+      final success =
+          await ref.read(loginProvider.notifier).submit(email, password);
+
+      if (success && mounted) {
+        ref.invalidate(appStartupProvider);
+        context.go(RoutePaths.dashboard);
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Login failed: ${e.toString()}')),
+        );
+      }
+    }
   }
 
   @override
@@ -41,17 +56,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final loginState = ref.watch(loginProvider);
     final l10n = AppLocalizations.of(context)!;
 
-    ref.listen<AsyncValue>(loginProvider, (previous, next) {
-      if (next is AsyncError) {
-        ScaffoldMessenger.of(context).clearSnackBars();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Login failed: ${next.error}')),
-        );
-      } else if (previous is AsyncLoading && next is AsyncData) {
-        ref.invalidate(appStartupProvider);
-        context.go(RoutePaths.dashboard);
-      }
-    });
+    final validationErrors = loginState.errors;
+
     return Scaffold(
       resizeToAvoidBottomInset: true, // important
       body: SafeArea(
@@ -106,12 +112,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         label: l10n.formEmail,
                         hintText: l10n.formHintEmail,
                         controller: emailController,
+                        errorText: validationErrors['email'],
                         onChanged: (val) {},
                       ),
                       ITextFieldPassword(
                         label: l10n.formPassword,
                         hintText: l10n.formHintPassword,
                         controller: passwordController,
+                        errorText: validationErrors['password'],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,

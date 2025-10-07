@@ -20,3 +20,17 @@ String calculateDuration(String? clockIn, String? clockOut) {
     return "0h 0m";
   }
 }
+
+String calculateDurationWithTotal(int durationMinutes) {
+  if (durationMinutes == 0) {
+    return "0h 0m";
+  }
+
+  try {
+    final hours = durationMinutes ~/ 60;
+    final minutes = durationMinutes % 60;
+    return "${hours}h ${minutes}m";
+  } catch (_) {
+    return "0h 0m";
+  }
+}
