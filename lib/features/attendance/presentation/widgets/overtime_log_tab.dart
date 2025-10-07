@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
@@ -163,18 +164,20 @@ class _OvertimeLogTabState extends ConsumerState<OvertimeLogTab> {
               const SizedBox(height: 12),
               overtimeStatsState.when(
                 data: (data) {
-                  return Row(
-                    children: [
-                      Expanded(
-                          child: _buildStatBox(
-                              "${data.pending}", "Pending Request")),
-                      Expanded(
-                          child: _buildStatBox(
-                              "${data.approved}", "Approved Request")),
-                      Expanded(
-                          child: _buildStatBox(
-                              "${data.rejected}", "Rejected Request")),
-                    ],
+                  return IntrinsicHeight(
+                    child: Row(
+                      children: [
+                        Expanded(
+                            child: _buildStatBox(
+                                "${data.pending}", "Pending Request")),
+                        Expanded(
+                            child: _buildStatBox(
+                                "${data.approved}", "Approved Request")),
+                        Expanded(
+                            child: _buildStatBox(
+                                "${data.rejected}", "Rejected Request")),
+                      ],
+                    ),
                   );
                 },
                 loading: () => const Center(child: CircularProgressIndicator()),
@@ -225,30 +228,61 @@ class _OvertimeLogTabState extends ConsumerState<OvertimeLogTab> {
                   ],
                 ),
                 Expanded(
-                  child: historyState.when(
-                    loading: () =>
-                        const Center(child: CircularProgressIndicator()),
-                    error: (err, st) {
-                      return Center(
-                          child: Text("Error: Please try again later!"));
-                    },
-                    data: (items) {
-                      if (items.isEmpty) {
-                        return const Center(
-                            child: Text("No overtime data for this period."));
-                      }
-                      return ListView.separated(
-                        controller: _scrollController,
-                        itemCount: items.length,
-                        separatorBuilder: (_, __) => const SizedBox(height: 10),
-                        itemBuilder: (context, index) {
-                          final item = items[index];
-                          return OvertimeRequestCard(item: item);
-                        },
-                      );
-                    },
-                  ),
-                )
+                    child: ListView.separated(
+                  controller: _scrollController,
+                  itemCount: 2,
+                  separatorBuilder: (_, __) => const SizedBox(height: 10),
+                  itemBuilder: (context, index) {
+                    // final item = items[index];
+                    return OvertimeRequestCard(
+                      item: OvertimeDetail(
+                        id: 4,
+                        userId: 1,
+                        overtimeDate: "2025-10-07",
+                        startTime: "18:00",
+                        endTime: "20:00",
+                        duration: 120,
+                        status: 1,
+                        statusLabel: "Pending",
+                        notes:
+                            "Seeded via tinker for superadminSeeded via tinker for superadminSeeded via tinker for superadminSeeded via tinker for superadminSeeded via tinker for superadminSeeded via tinker for superadminSeeded via tinker for superadminSeeded via tinker for superadminSeeded via tinker for superadmin",
+                        approvedBy: 1,
+                        approver: Approver(
+                          id: 1,
+                          name: "Norma Bechtelar",
+                        ),
+                        requestDate: "2025-10-01",
+                        createdAt: "2025-10-01 17:56:16",
+                        updatedAt: "2025-10-01 17:56:28",
+                      ),
+                    );
+                  },
+                )),
+                // Expanded(
+                //   child: historyState.when(
+                //     loading: () =>
+                //         const Center(child: CircularProgressIndicator()),
+                //     error: (err, st) {
+                //       return Center(
+                //           child: Text("Error: Please try again later!"));
+                //     },
+                //     data: (items) {
+                //       if (items.isEmpty) {
+                //         return const Center(
+                //             child: Text("No overtime data for this period."));
+                //       }
+                //       return ListView.separated(
+                //         controller: _scrollController,
+                //         itemCount: items.length,
+                //         separatorBuilder: (_, __) => const SizedBox(height: 10),
+                //         itemBuilder: (context, index) {
+                //           final item = items[index];
+                //           return OvertimeRequestCard(item: item);
+                //         },
+                //       );
+                //     },
+                //   ),
+                // )
               ],
             ),
           ),
@@ -407,6 +441,8 @@ class OvertimeRequestCard extends StatelessWidget {
               Text(
                 item.notes ?? "-",
                 style: textTheme.bodyMedium,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
               ),
             ],
           ),
@@ -427,11 +463,17 @@ Widget _buildStatBox(String value, String label) {
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(value,
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-        const SizedBox(height: 4),
-        Text(label,
-            style: const TextStyle(fontSize: 10, color: Color(0xFF8E8E8E))),
+        Text(
+          value,
+          style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+          textAlign: TextAlign.center,
+        ),
+        SizedBox(height: 4.sp),
+        Text(
+          label,
+          style: TextStyle(fontSize: 10.sp, color: Color(0xFF8E8E8E)),
+          textAlign: TextAlign.center,
+        ),
       ],
     ),
   );

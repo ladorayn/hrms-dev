@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/features/profile/presentation/widgets/statistics_item.dart';
@@ -12,7 +13,7 @@ class StatisticsCard extends ConsumerWidget {
     return Container(
       decoration: BoxDecoration(
         color: IColors.light.primary.focused,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
       ),
       padding: const EdgeInsets.all(4),
       child: Container(
@@ -28,14 +29,14 @@ class StatisticsCard extends ConsumerWidget {
         child: IntrinsicHeight(
           child: Column(
             children: [
-              const Text(
+              Text(
                 'August 2025',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: 12.sp),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -46,7 +47,7 @@ class StatisticsCard extends ConsumerWidget {
                       description: 'Attendance'),
                   Container(
                     width: 1,
-                    height: 50,
+                    height: 50.sp,
                     color: IColors.light.grayscale.g20,
                   ),
                   StatisticsItem(
@@ -56,7 +57,7 @@ class StatisticsCard extends ConsumerWidget {
                       description: 'Time Off'),
                   Container(
                     width: 1,
-                    height: 50,
+                    height: 50.sp,
                     color: IColors.light.grayscale.g20,
                   ),
                   StatisticsItem(

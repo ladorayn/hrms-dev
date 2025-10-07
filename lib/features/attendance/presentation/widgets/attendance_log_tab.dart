@@ -3,6 +3,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
@@ -168,23 +169,27 @@ class _AttendanceLogTabState extends ConsumerState<AttendanceLogTab> {
                 data: (items) {
                   return Column(
                     children: [
-                      Row(
-                        children: [
-                          // Clock In
-                          Expanded(
-                            child: _buildStatBox(items.clockIn.late.toString(),
-                                "Days", "Late Clock In"),
-                          ),
-                          // Clock Out
-                          Expanded(
+                      IntrinsicHeight(
+                        child: Row(
+                          children: [
+                            // Clock In
+                            Expanded(
                               child: _buildStatBox(
-                                  items.clockOut.early.toString(),
+                                  items.clockIn.late.toString(),
                                   "Days",
-                                  "Early Clock Out")),
-                          Expanded(
-                              child: _buildStatBox(items.overtime.toString(),
-                                  "Hours", "Overtime")),
-                        ],
+                                  "Late Clock In"),
+                            ),
+                            // Clock Out
+                            Expanded(
+                                child: _buildStatBox(
+                                    items.clockOut.early.toString(),
+                                    "Days",
+                                    "Early Clock Out")),
+                            Expanded(
+                                child: _buildStatBox(items.overtime.toString(),
+                                    "Hours", "Overtime")),
+                          ],
+                        ),
                       ),
                       Row(
                         children: [
@@ -354,7 +359,7 @@ class AttendanceCard extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 32),
+          SizedBox(height: 32.sp),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -401,7 +406,7 @@ class AttendanceCard extends StatelessWidget {
           isEnd ? CrossAxisAlignment.end : CrossAxisAlignment.start,
       children: [
         Text(label, style: Theme.of(context).textTheme.bodySmall),
-        const SizedBox(height: 4),
+        SizedBox(height: 4.sp),
         Text(value,
             style: Theme.of(context)
                 .textTheme
@@ -414,14 +419,16 @@ class AttendanceCard extends StatelessWidget {
   Widget _buildDurationDisplay(BuildContext context, String duration) {
     return Column(
       children: [
-        const SizedBox(height: 20),
+        SizedBox(height: 20.sp),
         Row(
           children: [
-            Container(height: 1, width: 30, color: IColors.light.grayscale.g20),
-            const SizedBox(width: 4),
+            Container(
+                height: 1, width: 20.sp, color: IColors.light.grayscale.g20),
+            SizedBox(width: 4.sp),
             Text(duration, style: Theme.of(context).textTheme.bodySmall),
-            const SizedBox(width: 4),
-            Container(height: 1, width: 30, color: IColors.light.grayscale.g20),
+            SizedBox(width: 4.sp),
+            Container(
+                height: 1, width: 20.sp, color: IColors.light.grayscale.g20),
           ],
         ),
       ],
@@ -500,6 +507,8 @@ class AttendanceCard extends StatelessWidget {
               .textTheme
               .bodyMedium
               ?.copyWith(color: Colors.grey),
+          maxLines: 3,
+          overflow: TextOverflow.ellipsis,
         ),
       ],
     );
@@ -519,19 +528,25 @@ Widget _buildStatBox(String value, String unit, String label) {
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.baseline,
+          textBaseline: TextBaseline.alphabetic,
           children: [
-            Text(value,
-                style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            const SizedBox(width: 4),
+            Text(
+              value,
+              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(width: 4.sp),
             Text(unit,
-                style: const TextStyle(fontSize: 8, color: Color(0xFF8E8E8E))),
+                style: TextStyle(fontSize: 8.sp, color: Color(0xFF8E8E8E))),
           ],
         ),
-        const SizedBox(height: 4),
-        Text(label,
-            style: const TextStyle(fontSize: 10, color: Color(0xFF8E8E8E))),
+        SizedBox(height: 4.sp),
+        Text(
+          label,
+          style: TextStyle(fontSize: 8.sp, color: Color(0xFF8E8E8E)),
+          textAlign: TextAlign.center,
+        ),
       ],
     ),
   );

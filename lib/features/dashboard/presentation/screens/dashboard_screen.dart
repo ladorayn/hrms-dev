@@ -2,10 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/constants/attendance_enum.dart';
+import 'package:hrms_mobile/core/util/general_utils.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/activity_log/activity_log_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/attendance/attendance_response_model.dart';
 import 'package:hrms_mobile/features/attendance/presentation/providers/attendance_provider.dart';
@@ -84,7 +86,7 @@ class DashboardScreen extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: MediaQuery.of(context).size.height * 0.25,
+            height: 0.25.sh,
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(32),
@@ -141,7 +143,7 @@ class DashboardScreen extends ConsumerWidget {
                               authP.value?.name ?? '-',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 24,
+                                fontSize: 24.sp,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
@@ -155,7 +157,7 @@ class DashboardScreen extends ConsumerWidget {
                           ],
                         ),
                         CircleAvatar(
-                          radius: 30,
+                          radius: 30.r,
                           backgroundColor: IColors.dark.accent,
                           backgroundImage:
                               (authP.value?.photoProfileUrl?.isNotEmpty ??
@@ -175,7 +177,7 @@ class DashboardScreen extends ConsumerWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(16),
+            padding: EdgeInsets.all(16.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -183,7 +185,7 @@ class DashboardScreen extends ConsumerWidget {
                   todayDate,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 18,
+                    fontSize: 18.sp,
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -203,7 +205,7 @@ class DashboardScreen extends ConsumerWidget {
                           color: IColors.light.primary.focused,
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        padding: const EdgeInsets.all(4),
+                        padding: EdgeInsets.all(4.w),
                         child: Container(
                           decoration: BoxDecoration(
                             color: IColors.light.primary.foreground,
@@ -218,7 +220,7 @@ class DashboardScreen extends ConsumerWidget {
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.all(12.0),
+                                padding: EdgeInsets.all(12.0.w),
                                 child: IntrinsicHeight(
                                   child: Row(
                                     children: [
@@ -228,7 +230,7 @@ class DashboardScreen extends ConsumerWidget {
                                             CircleAvatar(
                                               backgroundColor: IColors
                                                   .light.primary.background,
-                                              radius: 15,
+                                              radius: 15.r,
                                               child: SvgPicture.asset(
                                                 IAssets.clockIn,
                                                 height: 24.0,
@@ -256,8 +258,8 @@ class DashboardScreen extends ConsumerWidget {
                                                                     ?.clock
                                                                     .inAt !=
                                                                 null)
-                                                        ? 15
-                                                        : 4,
+                                                        ? 15.w
+                                                        : 4.w,
                                                   ),
                                                   if (attendanceData == null)
                                                     _buildClockInButton(
@@ -284,7 +286,7 @@ class DashboardScreen extends ConsumerWidget {
                                             CircleAvatar(
                                               backgroundColor: IColors
                                                   .light.primary.background,
-                                              radius: 15,
+                                              radius: 15.r,
                                               child: SvgPicture.asset(
                                                 IAssets.clockOut,
                                                 height: 24.0,
@@ -370,7 +372,7 @@ class DashboardScreen extends ConsumerWidget {
                                                             .labelSmall
                                                             ?.copyWith(
                                                           color: Colors.white,
-                                                          fontSize: 10,
+                                                          fontSize: 8.sp,
                                                         ),
                                                         overflow: TextOverflow
                                                             .visible,
@@ -384,13 +386,15 @@ class DashboardScreen extends ConsumerWidget {
                                                         color: Colors.white,
                                                         fontWeight:
                                                             FontWeight.bold,
-                                                        fontSize: 10,
+                                                        fontSize: 8.sp,
                                                       ),
                                                     ),
                                                   ],
                                                 ),
                                               ),
-                                              if (false) ...[
+                                              if (detail?.clock
+                                                      .overtimeDuration !=
+                                                  null) ...[
                                                 VerticalDivider(
                                                   width: 20,
                                                   thickness: 2,
@@ -408,21 +412,24 @@ class DashboardScreen extends ConsumerWidget {
                                                               .labelSmall
                                                               ?.copyWith(
                                                             color: Colors.white,
-                                                            fontSize: 10,
+                                                            fontSize: 8.sp,
                                                           ),
                                                           overflow: TextOverflow
                                                               .ellipsis,
                                                         ),
                                                       ),
                                                       Text(
-                                                        "1h 0m",
+                                                        calculateDurationWithTotal(
+                                                            detail?.clock
+                                                                    .overtimeDuration ??
+                                                                0),
                                                         style: textTheme
                                                             .labelSmall
                                                             ?.copyWith(
                                                           color: Colors.white,
                                                           fontWeight:
                                                               FontWeight.bold,
-                                                          fontSize: 10,
+                                                          fontSize: 8.sp,
                                                         ),
                                                       ),
                                                     ],
@@ -471,7 +478,7 @@ class DashboardScreen extends ConsumerWidget {
                             child: Container(
                               color: Color(0xFFF8FCFF),
                               child: Padding(
-                                padding: EdgeInsets.all(20),
+                                padding: EdgeInsets.all(8.sp),
                                 child: Column(
                                   spacing: 10,
                                   children: [
@@ -484,7 +491,11 @@ class DashboardScreen extends ConsumerWidget {
                                     ),
                                     Text(
                                       'Overtime Request',
-                                      style: TextStyle(color: Colors.black),
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 12.sp,
+                                      ),
+                                      textAlign: TextAlign.center,
                                     ),
                                   ],
                                 ),
@@ -495,7 +506,7 @@ class DashboardScreen extends ConsumerWidget {
                             child: Container(
                               color: Color(0xFFF8FCFF),
                               child: Padding(
-                                padding: EdgeInsets.all(20),
+                                padding: EdgeInsets.all(8.sp),
                                 child: Column(
                                   spacing: 10,
                                   children: [
@@ -508,7 +519,10 @@ class DashboardScreen extends ConsumerWidget {
                                     ),
                                     Text(
                                       'New Leave Request',
-                                      style: TextStyle(color: Colors.black),
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 12.sp,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -526,7 +540,7 @@ class DashboardScreen extends ConsumerWidget {
                             'Recent Activity',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 18,
+                              fontSize: 18.sp,
                               color: IColors.light.primary.main,
                             ),
                           ),
@@ -643,7 +657,7 @@ Widget _buildClockInButton(BuildContext context, WidgetRef ref) {
 Widget _buildTimeDisplay(String time) {
   return Text(
     time,
-    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+    style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
   );
 }
 
