@@ -46,6 +46,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     navigatorKey: globalNavigatorKey,
     debugLogDiagnostics: true,
     redirect: (BuildContext context, GoRouterState state) {
+      print("REDIRECT COK ${state.matchedLocation}");
       final isOnLogin = state.matchedLocation == RoutePaths.login;
       final isOnSplash = state.matchedLocation == RoutePaths.splash;
 
@@ -81,6 +82,21 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           builder: (context, state) {
             return LoginScreen();
           }),
+      GoRoute(
+        path: RoutePaths.resetPasswordCreate,
+        name: RoutePaths.resetPasswordCreateName,
+        builder: (context, state) {
+          print("MASOOK CREATE");
+          final obj = state.extra as Map<String, dynamic>;
+          final email = obj['email'] as String;
+          final password = obj['password'] as String;
+          final isFirstLogin = obj['isFirstLogin'] as bool;
+          return ResetPasswordCreateScreen(
+              email: email,
+              currentPassword: password,
+              isFirstLogin: isFirstLogin);
+        },
+      ),
       GoRoute(
         path: RoutePaths.resetPassword,
         builder: (context, state) {

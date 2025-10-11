@@ -1,5 +1,8 @@
+import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/core/constants/storage_keys.dart';
 import 'package:hrms_mobile/core/errors/exceptions.dart';
+import 'package:hrms_mobile/core/navigation/global_navigator.dart';
+import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/features/auth/domain/entities/login_state.dart';
 import 'package:hrms_mobile/features/auth/domain/usecases/login_usecase.dart';
 import 'package:hrms_mobile/features/auth/presentation/providers/auth/auth_provider.dart';
@@ -33,6 +36,15 @@ class Login extends _$Login {
 
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString(StorageKeys.token, loginResponse.token);
+
+      if (loginResponse.user.isFirstLogin == true) {
+        state = state.copyWith(isLoading: false);
+        globalNavigatorKey.currentContext?.pushNamed(
+          RoutePaths.resetPasswordCreateName,
+          extra: {'email': email, 'password': password, 'isFirstLogin': true},
+        );
+        return false;
+      }
 
       final companyProfile =
           await ref.read(companyProfileProvider.notifier).fetchCompanyProfile();

@@ -47,7 +47,7 @@ jobs:
       # 5️⃣ Build release APK (no pubspec modification)
       - name: Build release APK
         run: |
-          flutter build apk --release \
+          flutter build apk --release --no-tree-shake-icons \
             --build-name $VERSION_NAME \
             --build-number $VERSION_CODE
 

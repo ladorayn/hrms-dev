@@ -1,3 +1,4 @@
+import 'package:hrms_mobile/features/auth/data/models/change_password/request/change_password_request_model.dart';
 import 'package:hrms_mobile/features/auth/data/models/login/response/login_response.dart';
 import 'package:hrms_mobile/features/auth/data/models/reset_password/request/reset_password_request.dart';
 import 'package:hrms_mobile/features/user/data/models/company/company_profile.dart';
@@ -10,4 +11,5 @@ abstract class AuthRepository {
   Future<void> resetPassword(ResetPasswordRequest request);
   Future<UserProfileResponse> getProfile();
   Future<CompanyProfileResponse> getCompanyProfile();
+  Future<void> changePassword(ChangePasswordRequest request);
 }

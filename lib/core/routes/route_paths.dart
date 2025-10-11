@@ -5,7 +5,7 @@ class RoutePaths {
   static const splash = '/splash';
   static const login = '/login';
   static const resetPassword = '/reset-password';
-  static const resetPasswordCreate = 'create';
+  static const resetPasswordCreate = '/create-password';
   static const String resetPasswordCreateName = 'reset-password-create';
   static const resetPasswordSuccess = 'success';
   static const resetPasswordSuccessName = 'reset-password-success';

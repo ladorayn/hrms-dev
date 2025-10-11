@@ -243,11 +243,12 @@ class DashboardScreen extends ConsumerWidget {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  const Text(
+                                                  Text(
                                                     'Clock In',
                                                     style: TextStyle(
                                                         color:
-                                                            Color(0xFF8E8E8E)),
+                                                            Color(0xFF8E8E8E),
+                                                        fontSize: 12.sp),
                                                   ),
                                                   SizedBox(
                                                     height: (attendanceData
@@ -632,10 +633,10 @@ Widget _buildClockInButton(BuildContext context, WidgetRef ref) {
         Icons.add,
         color: Colors.white,
       ),
-      label: const Text(
+      label: Text(
         'Clock In',
         style: TextStyle(
-          fontSize: 14,
+          fontSize: 12.sp,
           fontWeight: FontWeight.w600,
         ),
       ),
@@ -679,10 +680,10 @@ Widget _buildClockOutButton(BuildContext context, WidgetRef ref,
         Icons.add,
         color: Colors.white,
       ),
-      label: const Text(
+      label: Text(
         'Clock Out',
         style: TextStyle(
-          fontSize: 14,
+          fontSize: 12.sp,
           fontWeight: FontWeight.w600,
         ),
       ),
@@ -775,9 +776,10 @@ Widget _buildInitialState(BuildContext context, WidgetRef ref) {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
+                          Text(
                             'Clock Out',
-                            style: TextStyle(color: Color(0xFF8E8E8E)),
+                            style: TextStyle(
+                                color: Color(0xFF8E8E8E), fontSize: 10.sp),
                           ),
                           const SizedBox(height: 4),
                           _buildClockOutButton(context, ref, enabled: false),

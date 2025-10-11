@@ -142,9 +142,6 @@ class _AttendanceFormScreenState extends ConsumerState<AttendanceFormScreen> {
                       loading: () =>
                           const Center(child: CircularProgressIndicator()),
                       error: (err, stack) {
-                        print("ERROR COYY ${err}");
-                        print("ERROR STACK COYY ${stack}");
-
                         return Text('Error: ${err}');
                       },
                       data: (shifts) {
