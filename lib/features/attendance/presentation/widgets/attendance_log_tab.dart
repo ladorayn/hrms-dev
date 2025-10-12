@@ -436,8 +436,8 @@ class AttendanceCard extends StatelessWidget {
   }
 
   Widget _buildLocation(BuildContext context) {
-    final lat = double.tryParse(item.location.latitude) ?? 0.0;
-    final lng = double.tryParse(item.location.longitude) ?? 0.0;
+    final lat = double.tryParse(item.location.latitude ?? '') ?? 0.0;
+    final lng = double.tryParse(item.location.longitude ?? '') ?? 0.0;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -470,20 +470,13 @@ class AttendanceCard extends StatelessWidget {
                   child: FutureBuilder<String>(
                     future: getAddressFromLatLng(lat, lng),
                     builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Text("Loading address...");
-                      } else if (snapshot.hasError) {
-                        return const Text("Error loading address");
-                      } else {
-                        return Text(
-                          snapshot.data ?? "Unknown location",
-                          overflow: TextOverflow.ellipsis,
-                          style:
-                              Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    color: IColors.light.primary.main,
-                                  ),
-                        );
-                      }
+                      return Text(
+                        snapshot.data ?? item.metadata.locationName ?? '',
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: IColors.light.primary.main,
+                            ),
+                      );
                     },
                   ),
                 ),

@@ -1,0 +1,70 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hrms_mobile/application/theme/i_colors.dart';
+import 'package:hrms_mobile/core/navigation/global_navigator.dart';
+import 'package:hrms_mobile/core/routes/route_paths.dart';
+
+class OffboardingStatusCard extends StatelessWidget {
+  const OffboardingStatusCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    return Container(
+      decoration: BoxDecoration(
+        color: IColors.light.warning.focused,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      width: double.infinity,
+      padding: EdgeInsets.all(4.w),
+      child: Container(
+        decoration: BoxDecoration(
+          color: IColors.light.warning.background,
+          border: Border.all(
+            color: IColors.light.warning.border,
+            width: 1,
+          ),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(8.sp),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "🔔 Complete Your Offboarding Journey!",
+                style: textTheme.titleSmall
+                    ?.copyWith(color: IColors.light.primary.main),
+              ),
+              Text(
+                "Let’s wrap things up smoothly before you leave",
+                style: textTheme.bodySmall,
+              ),
+              ElevatedButton(
+                style: ButtonStyle(
+                  shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                  )),
+                  backgroundColor: WidgetStateProperty.all<Color>(
+                      IColors.light.primary.main),
+                ),
+                onPressed: () {
+                  globalNavigatorKey.currentContext
+                      ?.pushNamed(RoutePaths.offboardingName);
+                },
+                child: Text(
+                  "Start Offboarding Process",
+                  style: textTheme.bodySmall?.copyWith(
+                      color: Colors.white, fontWeight: FontWeight.w600),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

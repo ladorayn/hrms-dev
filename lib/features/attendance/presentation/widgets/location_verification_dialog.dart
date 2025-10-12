@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/core/constants/attendance_enum.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
+import 'package:hrms_mobile/features/attendance/data/models/request/validate_location/validate_location_request_model.dart';
 import 'package:hrms_mobile/features/attendance/presentation/providers/attendance_provider.dart';
 
 Future<void> handleLocationVerification(
@@ -58,6 +59,24 @@ Future<void> handleLocationVerification(
     print(
         'Location retrieved: Lat: ${position.latitude}, Long: ${position.longitude}');
 
+    final validationRequest = ValidateLocationRequestModel(
+      latitude: position.latitude.toString(),
+      longitude: position.longitude.toString(),
+    );
+
+    final validationResult =
+        await ref.read(validateLocationProvider(validationRequest).future);
+
+    if (validationResult.isValid != true) {
+      globalNavigatorKey.currentContext?.pop();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+            content: Text(
+                'Location is not valid. You are ~${validationResult.distance?.toStringAsFixed(0)}m away. Max radius is ${validationResult.maxRadius}m.')),
+      );
+      return;
+    }
+
     ref.read(attendanceProvider.notifier).updatePosition(position);
 
     if (activity == AttendanceEnum.clockIn) {
@@ -84,6 +103,8 @@ Future<void> handleLocationVerification(
       ref.read(attendanceProvider.notifier).updateAddress(formattedAddress);
     }
 
+    globalNavigatorKey.currentContext?.pop();
+
     if (position.latitude != 0 && position.longitude != 0) {
       globalNavigatorKey.currentContext?.pushNamed(
         RoutePaths.locationConfirmed,
@@ -91,12 +112,11 @@ Future<void> handleLocationVerification(
       );
     }
   } catch (e) {
-    print('Error getting location: $e');
+    print('Error during location verification: $e');
+    globalNavigatorKey.currentContext?.pop();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text('Error: Could not get location. ${e.toString()}')),
     );
-  } finally {
-    globalNavigatorKey.currentContext?.pop();
   }
 }
 

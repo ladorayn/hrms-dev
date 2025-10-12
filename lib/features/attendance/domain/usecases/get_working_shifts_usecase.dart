@@ -5,7 +5,7 @@ class GetWorkingShiftsUseCase {
   final AttendanceRepository _repository;
   GetWorkingShiftsUseCase(this._repository);
 
-  Future<WorkingShiftResponseModel> call() async {
-    return _repository.getTodayShift();
+  Future<WorkingShiftResponseModel> call(String? date) async {
+    return _repository.getTodayShift(date: date);
   }
 }

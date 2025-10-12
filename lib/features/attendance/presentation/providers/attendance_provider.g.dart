@@ -1001,23 +1001,303 @@ final shiftListProvider =
 );
 
 typedef _$ShiftList = AutoDisposeAsyncNotifier<List<ShiftModel>>;
-String _$workingShiftListHash() => r'e861a7cf868b43ef96b31f1d0cf0d6e35f00157c';
+String _$workingShiftListHash() => r'0100744e648c679482f10ed96c61a68da2f9d156';
+
+abstract class _$WorkingShiftList
+    extends BuildlessAutoDisposeAsyncNotifier<WorkingShiftResponseModel> {
+  late final String? date;
+
+  FutureOr<WorkingShiftResponseModel> build(
+    String? date,
+  );
+}
 
 /// See also [WorkingShiftList].
 @ProviderFor(WorkingShiftList)
-final workingShiftListProvider = AutoDisposeAsyncNotifierProvider<
-    WorkingShiftList, WorkingShiftResponseModel>.internal(
-  WorkingShiftList.new,
-  name: r'workingShiftListProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$workingShiftListHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const workingShiftListProvider = WorkingShiftListFamily();
 
-typedef _$WorkingShiftList
-    = AutoDisposeAsyncNotifier<WorkingShiftResponseModel>;
+/// See also [WorkingShiftList].
+class WorkingShiftListFamily
+    extends Family<AsyncValue<WorkingShiftResponseModel>> {
+  /// See also [WorkingShiftList].
+  const WorkingShiftListFamily();
+
+  /// See also [WorkingShiftList].
+  WorkingShiftListProvider call(
+    String? date,
+  ) {
+    return WorkingShiftListProvider(
+      date,
+    );
+  }
+
+  @override
+  WorkingShiftListProvider getProviderOverride(
+    covariant WorkingShiftListProvider provider,
+  ) {
+    return call(
+      provider.date,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'workingShiftListProvider';
+}
+
+/// See also [WorkingShiftList].
+class WorkingShiftListProvider extends AutoDisposeAsyncNotifierProviderImpl<
+    WorkingShiftList, WorkingShiftResponseModel> {
+  /// See also [WorkingShiftList].
+  WorkingShiftListProvider(
+    String? date,
+  ) : this._internal(
+          () => WorkingShiftList()..date = date,
+          from: workingShiftListProvider,
+          name: r'workingShiftListProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$workingShiftListHash,
+          dependencies: WorkingShiftListFamily._dependencies,
+          allTransitiveDependencies:
+              WorkingShiftListFamily._allTransitiveDependencies,
+          date: date,
+        );
+
+  WorkingShiftListProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.date,
+  }) : super.internal();
+
+  final String? date;
+
+  @override
+  FutureOr<WorkingShiftResponseModel> runNotifierBuild(
+    covariant WorkingShiftList notifier,
+  ) {
+    return notifier.build(
+      date,
+    );
+  }
+
+  @override
+  Override overrideWith(WorkingShiftList Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: WorkingShiftListProvider._internal(
+        () => create()..date = date,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        date: date,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeAsyncNotifierProviderElement<WorkingShiftList,
+      WorkingShiftResponseModel> createElement() {
+    return _WorkingShiftListProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is WorkingShiftListProvider && other.date == date;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, date.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin WorkingShiftListRef
+    on AutoDisposeAsyncNotifierProviderRef<WorkingShiftResponseModel> {
+  /// The parameter `date` of this provider.
+  String? get date;
+}
+
+class _WorkingShiftListProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<WorkingShiftList,
+        WorkingShiftResponseModel> with WorkingShiftListRef {
+  _WorkingShiftListProviderElement(super.provider);
+
+  @override
+  String? get date => (origin as WorkingShiftListProvider).date;
+}
+
+String _$validateLocationHash() => r'49abafd8fadfe1387a576e7f8ff4210f86230c28';
+
+abstract class _$ValidateLocation
+    extends BuildlessAutoDisposeAsyncNotifier<ValidateLocationResponseModel> {
+  late final ValidateLocationRequestModel request;
+
+  FutureOr<ValidateLocationResponseModel> build(
+    ValidateLocationRequestModel request,
+  );
+}
+
+/// See also [ValidateLocation].
+@ProviderFor(ValidateLocation)
+const validateLocationProvider = ValidateLocationFamily();
+
+/// See also [ValidateLocation].
+class ValidateLocationFamily
+    extends Family<AsyncValue<ValidateLocationResponseModel>> {
+  /// See also [ValidateLocation].
+  const ValidateLocationFamily();
+
+  /// See also [ValidateLocation].
+  ValidateLocationProvider call(
+    ValidateLocationRequestModel request,
+  ) {
+    return ValidateLocationProvider(
+      request,
+    );
+  }
+
+  @override
+  ValidateLocationProvider getProviderOverride(
+    covariant ValidateLocationProvider provider,
+  ) {
+    return call(
+      provider.request,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'validateLocationProvider';
+}
+
+/// See also [ValidateLocation].
+class ValidateLocationProvider extends AutoDisposeAsyncNotifierProviderImpl<
+    ValidateLocation, ValidateLocationResponseModel> {
+  /// See also [ValidateLocation].
+  ValidateLocationProvider(
+    ValidateLocationRequestModel request,
+  ) : this._internal(
+          () => ValidateLocation()..request = request,
+          from: validateLocationProvider,
+          name: r'validateLocationProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$validateLocationHash,
+          dependencies: ValidateLocationFamily._dependencies,
+          allTransitiveDependencies:
+              ValidateLocationFamily._allTransitiveDependencies,
+          request: request,
+        );
+
+  ValidateLocationProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.request,
+  }) : super.internal();
+
+  final ValidateLocationRequestModel request;
+
+  @override
+  FutureOr<ValidateLocationResponseModel> runNotifierBuild(
+    covariant ValidateLocation notifier,
+  ) {
+    return notifier.build(
+      request,
+    );
+  }
+
+  @override
+  Override overrideWith(ValidateLocation Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: ValidateLocationProvider._internal(
+        () => create()..request = request,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        request: request,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeAsyncNotifierProviderElement<ValidateLocation,
+      ValidateLocationResponseModel> createElement() {
+    return _ValidateLocationProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is ValidateLocationProvider && other.request == request;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, request.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin ValidateLocationRef
+    on AutoDisposeAsyncNotifierProviderRef<ValidateLocationResponseModel> {
+  /// The parameter `request` of this provider.
+  ValidateLocationRequestModel get request;
+}
+
+class _ValidateLocationProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<ValidateLocation,
+        ValidateLocationResponseModel> with ValidateLocationRef {
+  _ValidateLocationProviderElement(super.provider);
+
+  @override
+  ValidateLocationRequestModel get request =>
+      (origin as ValidateLocationProvider).request;
+}
+
 String _$updateAttendanceHash() => r'717ee030723f776f3ba77877df5b958259afe231';
 
 /// See also [UpdateAttendance].

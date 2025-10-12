@@ -22,6 +22,10 @@ import 'package:hrms_mobile/features/auth/presentation/screens/reset_password/re
 import 'package:hrms_mobile/features/auth/presentation/screens/reset_password/reset_password_success_screen.dart';
 import 'package:hrms_mobile/features/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:hrms_mobile/features/dashboard/presentation/screens/main_screen.dart'; // You will create this file
+import 'package:hrms_mobile/features/offboarding/presentation/screens/document_handover_screen.dart';
+import 'package:hrms_mobile/features/offboarding/presentation/screens/exit_form_screen.dart';
+import 'package:hrms_mobile/features/offboarding/presentation/screens/offboarding_screen.dart';
+import 'package:hrms_mobile/features/offboarding/presentation/screens/work_handover_screen.dart';
 import 'package:hrms_mobile/features/profile/presentation/screens/profile_screen.dart';
 
 import 'route_paths.dart';
@@ -86,7 +90,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: RoutePaths.resetPasswordCreate,
         name: RoutePaths.resetPasswordCreateName,
         builder: (context, state) {
-          print("MASOOK CREATE");
           final obj = state.extra as Map<String, dynamic>;
           final email = obj['email'] as String;
           final password = obj['password'] as String;
@@ -169,6 +172,34 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) {
           final activity = state.extra as AttendanceEnum;
           return AttendanceFormScreen(activity: activity);
+        },
+      ),
+      GoRoute(
+        path: RoutePaths.offboarding,
+        name: RoutePaths.offboardingName,
+        builder: (context, state) {
+          return OffboardingScreen();
+        },
+      ),
+      GoRoute(
+        path: RoutePaths.exitForm,
+        name: RoutePaths.exitFormName,
+        builder: (context, state) {
+          return ExitFormScreen();
+        },
+      ),
+      GoRoute(
+        path: RoutePaths.workHandover,
+        name: RoutePaths.workHandoverName,
+        builder: (context, state) {
+          return WorkHandoverScreen();
+        },
+      ),
+      GoRoute(
+        path: RoutePaths.documentHandover,
+        name: RoutePaths.documentHandoverName,
+        builder: (context, state) {
+          return DocumentHandoverScreen();
         },
       ),
       // --- ROUTES WITH THE BOTTOM NAV BAR (Using ShellRoute) ---

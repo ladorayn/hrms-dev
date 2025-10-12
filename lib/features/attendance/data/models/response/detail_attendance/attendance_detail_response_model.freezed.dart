@@ -894,8 +894,8 @@ Location _$LocationFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Location {
-  String get latitude => throw _privateConstructorUsedError;
-  String get longitude => throw _privateConstructorUsedError;
+  String? get latitude => throw _privateConstructorUsedError;
+  String? get longitude => throw _privateConstructorUsedError;
 
   /// Serializes this Location to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -912,7 +912,7 @@ abstract class $LocationCopyWith<$Res> {
   factory $LocationCopyWith(Location value, $Res Function(Location) then) =
       _$LocationCopyWithImpl<$Res, Location>;
   @useResult
-  $Res call({String latitude, String longitude});
+  $Res call({String? latitude, String? longitude});
 }
 
 /// @nodoc
@@ -930,18 +930,18 @@ class _$LocationCopyWithImpl<$Res, $Val extends Location>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? latitude = null,
-    Object? longitude = null,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
   }) {
     return _then(_value.copyWith(
-      latitude: null == latitude
+      latitude: freezed == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
-              as String,
-      longitude: null == longitude
+              as String?,
+      longitude: freezed == longitude
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
   }
 }
@@ -954,7 +954,7 @@ abstract class _$$LocationImplCopyWith<$Res>
       __$$LocationImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String latitude, String longitude});
+  $Res call({String? latitude, String? longitude});
 }
 
 /// @nodoc
@@ -970,18 +970,18 @@ class __$$LocationImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? latitude = null,
-    Object? longitude = null,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
   }) {
     return _then(_$LocationImpl(
-      latitude: null == latitude
+      latitude: freezed == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
-              as String,
-      longitude: null == longitude
+              as String?,
+      longitude: freezed == longitude
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -995,9 +995,9 @@ class _$LocationImpl implements _Location {
       _$$LocationImplFromJson(json);
 
   @override
-  final String latitude;
+  final String? latitude;
   @override
-  final String longitude;
+  final String? longitude;
 
   @override
   String toString() {
@@ -1037,16 +1037,16 @@ class _$LocationImpl implements _Location {
 
 abstract class _Location implements Location {
   const factory _Location(
-      {required final String latitude,
-      required final String longitude}) = _$LocationImpl;
+      {required final String? latitude,
+      required final String? longitude}) = _$LocationImpl;
 
   factory _Location.fromJson(Map<String, dynamic> json) =
       _$LocationImpl.fromJson;
 
   @override
-  String get latitude;
+  String? get latitude;
   @override
-  String get longitude;
+  String? get longitude;
 
   /// Create a copy of Location
   /// with the given fields replaced by the non-null parameter values.
@@ -1063,21 +1063,25 @@ Metadata _$MetadataFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Metadata {
   @JsonKey(name: "created_via")
-  String get createdVia => throw _privateConstructorUsedError;
+  String? get createdVia => throw _privateConstructorUsedError;
   @JsonKey(name: "created_at")
-  String get createdAt => throw _privateConstructorUsedError;
+  String? get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: "shift_id")
-  int get shiftId => throw _privateConstructorUsedError;
+  int? get shiftId => throw _privateConstructorUsedError;
   @JsonKey(name: "shift_name")
-  String get shiftName => throw _privateConstructorUsedError;
+  String? get shiftName => throw _privateConstructorUsedError;
   @JsonKey(name: "day_of_week")
-  int get dayOfWeek => throw _privateConstructorUsedError;
+  int? get dayOfWeek => throw _privateConstructorUsedError;
   @JsonKey(name: "tolerance_minutes")
-  int get toleranceMinutes => throw _privateConstructorUsedError;
+  int? get toleranceMinutes => throw _privateConstructorUsedError;
   @JsonKey(name: "work_schedule_id")
-  int get workScheduleId => throw _privateConstructorUsedError;
+  int? get workScheduleId => throw _privateConstructorUsedError;
   @JsonKey(name: "location_name")
   String? get locationName => throw _privateConstructorUsedError;
+  @JsonKey(name: "expected_start_time")
+  String? get expectedStartTime => throw _privateConstructorUsedError;
+  @JsonKey(name: "expected_end_time")
+  String? get expectedEndTime => throw _privateConstructorUsedError;
   Coordinates? get coordinates => throw _privateConstructorUsedError;
 
   /// Serializes this Metadata to a JSON map.
@@ -1096,14 +1100,16 @@ abstract class $MetadataCopyWith<$Res> {
       _$MetadataCopyWithImpl<$Res, Metadata>;
   @useResult
   $Res call(
-      {@JsonKey(name: "created_via") String createdVia,
-      @JsonKey(name: "created_at") String createdAt,
-      @JsonKey(name: "shift_id") int shiftId,
-      @JsonKey(name: "shift_name") String shiftName,
-      @JsonKey(name: "day_of_week") int dayOfWeek,
-      @JsonKey(name: "tolerance_minutes") int toleranceMinutes,
-      @JsonKey(name: "work_schedule_id") int workScheduleId,
+      {@JsonKey(name: "created_via") String? createdVia,
+      @JsonKey(name: "created_at") String? createdAt,
+      @JsonKey(name: "shift_id") int? shiftId,
+      @JsonKey(name: "shift_name") String? shiftName,
+      @JsonKey(name: "day_of_week") int? dayOfWeek,
+      @JsonKey(name: "tolerance_minutes") int? toleranceMinutes,
+      @JsonKey(name: "work_schedule_id") int? workScheduleId,
       @JsonKey(name: "location_name") String? locationName,
+      @JsonKey(name: "expected_start_time") String? expectedStartTime,
+      @JsonKey(name: "expected_end_time") String? expectedEndTime,
       Coordinates? coordinates});
 
   $CoordinatesCopyWith<$Res>? get coordinates;
@@ -1124,48 +1130,58 @@ class _$MetadataCopyWithImpl<$Res, $Val extends Metadata>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? createdVia = null,
-    Object? createdAt = null,
-    Object? shiftId = null,
-    Object? shiftName = null,
-    Object? dayOfWeek = null,
-    Object? toleranceMinutes = null,
-    Object? workScheduleId = null,
+    Object? createdVia = freezed,
+    Object? createdAt = freezed,
+    Object? shiftId = freezed,
+    Object? shiftName = freezed,
+    Object? dayOfWeek = freezed,
+    Object? toleranceMinutes = freezed,
+    Object? workScheduleId = freezed,
     Object? locationName = freezed,
+    Object? expectedStartTime = freezed,
+    Object? expectedEndTime = freezed,
     Object? coordinates = freezed,
   }) {
     return _then(_value.copyWith(
-      createdVia: null == createdVia
+      createdVia: freezed == createdVia
           ? _value.createdVia
           : createdVia // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
+              as String?,
+      createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as String,
-      shiftId: null == shiftId
+              as String?,
+      shiftId: freezed == shiftId
           ? _value.shiftId
           : shiftId // ignore: cast_nullable_to_non_nullable
-              as int,
-      shiftName: null == shiftName
+              as int?,
+      shiftName: freezed == shiftName
           ? _value.shiftName
           : shiftName // ignore: cast_nullable_to_non_nullable
-              as String,
-      dayOfWeek: null == dayOfWeek
+              as String?,
+      dayOfWeek: freezed == dayOfWeek
           ? _value.dayOfWeek
           : dayOfWeek // ignore: cast_nullable_to_non_nullable
-              as int,
-      toleranceMinutes: null == toleranceMinutes
+              as int?,
+      toleranceMinutes: freezed == toleranceMinutes
           ? _value.toleranceMinutes
           : toleranceMinutes // ignore: cast_nullable_to_non_nullable
-              as int,
-      workScheduleId: null == workScheduleId
+              as int?,
+      workScheduleId: freezed == workScheduleId
           ? _value.workScheduleId
           : workScheduleId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       locationName: freezed == locationName
           ? _value.locationName
           : locationName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      expectedStartTime: freezed == expectedStartTime
+          ? _value.expectedStartTime
+          : expectedStartTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      expectedEndTime: freezed == expectedEndTime
+          ? _value.expectedEndTime
+          : expectedEndTime // ignore: cast_nullable_to_non_nullable
               as String?,
       coordinates: freezed == coordinates
           ? _value.coordinates
@@ -1198,14 +1214,16 @@ abstract class _$$MetadataImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: "created_via") String createdVia,
-      @JsonKey(name: "created_at") String createdAt,
-      @JsonKey(name: "shift_id") int shiftId,
-      @JsonKey(name: "shift_name") String shiftName,
-      @JsonKey(name: "day_of_week") int dayOfWeek,
-      @JsonKey(name: "tolerance_minutes") int toleranceMinutes,
-      @JsonKey(name: "work_schedule_id") int workScheduleId,
+      {@JsonKey(name: "created_via") String? createdVia,
+      @JsonKey(name: "created_at") String? createdAt,
+      @JsonKey(name: "shift_id") int? shiftId,
+      @JsonKey(name: "shift_name") String? shiftName,
+      @JsonKey(name: "day_of_week") int? dayOfWeek,
+      @JsonKey(name: "tolerance_minutes") int? toleranceMinutes,
+      @JsonKey(name: "work_schedule_id") int? workScheduleId,
       @JsonKey(name: "location_name") String? locationName,
+      @JsonKey(name: "expected_start_time") String? expectedStartTime,
+      @JsonKey(name: "expected_end_time") String? expectedEndTime,
       Coordinates? coordinates});
 
   @override
@@ -1225,48 +1243,58 @@ class __$$MetadataImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? createdVia = null,
-    Object? createdAt = null,
-    Object? shiftId = null,
-    Object? shiftName = null,
-    Object? dayOfWeek = null,
-    Object? toleranceMinutes = null,
-    Object? workScheduleId = null,
+    Object? createdVia = freezed,
+    Object? createdAt = freezed,
+    Object? shiftId = freezed,
+    Object? shiftName = freezed,
+    Object? dayOfWeek = freezed,
+    Object? toleranceMinutes = freezed,
+    Object? workScheduleId = freezed,
     Object? locationName = freezed,
+    Object? expectedStartTime = freezed,
+    Object? expectedEndTime = freezed,
     Object? coordinates = freezed,
   }) {
     return _then(_$MetadataImpl(
-      createdVia: null == createdVia
+      createdVia: freezed == createdVia
           ? _value.createdVia
           : createdVia // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
+              as String?,
+      createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as String,
-      shiftId: null == shiftId
+              as String?,
+      shiftId: freezed == shiftId
           ? _value.shiftId
           : shiftId // ignore: cast_nullable_to_non_nullable
-              as int,
-      shiftName: null == shiftName
+              as int?,
+      shiftName: freezed == shiftName
           ? _value.shiftName
           : shiftName // ignore: cast_nullable_to_non_nullable
-              as String,
-      dayOfWeek: null == dayOfWeek
+              as String?,
+      dayOfWeek: freezed == dayOfWeek
           ? _value.dayOfWeek
           : dayOfWeek // ignore: cast_nullable_to_non_nullable
-              as int,
-      toleranceMinutes: null == toleranceMinutes
+              as int?,
+      toleranceMinutes: freezed == toleranceMinutes
           ? _value.toleranceMinutes
           : toleranceMinutes // ignore: cast_nullable_to_non_nullable
-              as int,
-      workScheduleId: null == workScheduleId
+              as int?,
+      workScheduleId: freezed == workScheduleId
           ? _value.workScheduleId
           : workScheduleId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       locationName: freezed == locationName
           ? _value.locationName
           : locationName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      expectedStartTime: freezed == expectedStartTime
+          ? _value.expectedStartTime
+          : expectedStartTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      expectedEndTime: freezed == expectedEndTime
+          ? _value.expectedEndTime
+          : expectedEndTime // ignore: cast_nullable_to_non_nullable
               as String?,
       coordinates: freezed == coordinates
           ? _value.coordinates
@@ -1280,14 +1308,16 @@ class __$$MetadataImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$MetadataImpl implements _Metadata {
   const _$MetadataImpl(
-      {@JsonKey(name: "created_via") required this.createdVia,
-      @JsonKey(name: "created_at") required this.createdAt,
-      @JsonKey(name: "shift_id") required this.shiftId,
-      @JsonKey(name: "shift_name") required this.shiftName,
-      @JsonKey(name: "day_of_week") required this.dayOfWeek,
-      @JsonKey(name: "tolerance_minutes") required this.toleranceMinutes,
-      @JsonKey(name: "work_schedule_id") required this.workScheduleId,
+      {@JsonKey(name: "created_via") this.createdVia,
+      @JsonKey(name: "created_at") this.createdAt,
+      @JsonKey(name: "shift_id") this.shiftId,
+      @JsonKey(name: "shift_name") this.shiftName,
+      @JsonKey(name: "day_of_week") this.dayOfWeek,
+      @JsonKey(name: "tolerance_minutes") this.toleranceMinutes,
+      @JsonKey(name: "work_schedule_id") this.workScheduleId,
       @JsonKey(name: "location_name") this.locationName,
+      @JsonKey(name: "expected_start_time") this.expectedStartTime,
+      @JsonKey(name: "expected_end_time") this.expectedEndTime,
       this.coordinates});
 
   factory _$MetadataImpl.fromJson(Map<String, dynamic> json) =>
@@ -1295,34 +1325,40 @@ class _$MetadataImpl implements _Metadata {
 
   @override
   @JsonKey(name: "created_via")
-  final String createdVia;
+  final String? createdVia;
   @override
   @JsonKey(name: "created_at")
-  final String createdAt;
+  final String? createdAt;
   @override
   @JsonKey(name: "shift_id")
-  final int shiftId;
+  final int? shiftId;
   @override
   @JsonKey(name: "shift_name")
-  final String shiftName;
+  final String? shiftName;
   @override
   @JsonKey(name: "day_of_week")
-  final int dayOfWeek;
+  final int? dayOfWeek;
   @override
   @JsonKey(name: "tolerance_minutes")
-  final int toleranceMinutes;
+  final int? toleranceMinutes;
   @override
   @JsonKey(name: "work_schedule_id")
-  final int workScheduleId;
+  final int? workScheduleId;
   @override
   @JsonKey(name: "location_name")
   final String? locationName;
+  @override
+  @JsonKey(name: "expected_start_time")
+  final String? expectedStartTime;
+  @override
+  @JsonKey(name: "expected_end_time")
+  final String? expectedEndTime;
   @override
   final Coordinates? coordinates;
 
   @override
   String toString() {
-    return 'Metadata(createdVia: $createdVia, createdAt: $createdAt, shiftId: $shiftId, shiftName: $shiftName, dayOfWeek: $dayOfWeek, toleranceMinutes: $toleranceMinutes, workScheduleId: $workScheduleId, locationName: $locationName, coordinates: $coordinates)';
+    return 'Metadata(createdVia: $createdVia, createdAt: $createdAt, shiftId: $shiftId, shiftName: $shiftName, dayOfWeek: $dayOfWeek, toleranceMinutes: $toleranceMinutes, workScheduleId: $workScheduleId, locationName: $locationName, expectedStartTime: $expectedStartTime, expectedEndTime: $expectedEndTime, coordinates: $coordinates)';
   }
 
   @override
@@ -1345,6 +1381,10 @@ class _$MetadataImpl implements _Metadata {
                 other.workScheduleId == workScheduleId) &&
             (identical(other.locationName, locationName) ||
                 other.locationName == locationName) &&
+            (identical(other.expectedStartTime, expectedStartTime) ||
+                other.expectedStartTime == expectedStartTime) &&
+            (identical(other.expectedEndTime, expectedEndTime) ||
+                other.expectedEndTime == expectedEndTime) &&
             (identical(other.coordinates, coordinates) ||
                 other.coordinates == coordinates));
   }
@@ -1361,6 +1401,8 @@ class _$MetadataImpl implements _Metadata {
       toleranceMinutes,
       workScheduleId,
       locationName,
+      expectedStartTime,
+      expectedEndTime,
       coordinates);
 
   /// Create a copy of Metadata
@@ -1381,14 +1423,16 @@ class _$MetadataImpl implements _Metadata {
 
 abstract class _Metadata implements Metadata {
   const factory _Metadata(
-      {@JsonKey(name: "created_via") required final String createdVia,
-      @JsonKey(name: "created_at") required final String createdAt,
-      @JsonKey(name: "shift_id") required final int shiftId,
-      @JsonKey(name: "shift_name") required final String shiftName,
-      @JsonKey(name: "day_of_week") required final int dayOfWeek,
-      @JsonKey(name: "tolerance_minutes") required final int toleranceMinutes,
-      @JsonKey(name: "work_schedule_id") required final int workScheduleId,
+      {@JsonKey(name: "created_via") final String? createdVia,
+      @JsonKey(name: "created_at") final String? createdAt,
+      @JsonKey(name: "shift_id") final int? shiftId,
+      @JsonKey(name: "shift_name") final String? shiftName,
+      @JsonKey(name: "day_of_week") final int? dayOfWeek,
+      @JsonKey(name: "tolerance_minutes") final int? toleranceMinutes,
+      @JsonKey(name: "work_schedule_id") final int? workScheduleId,
       @JsonKey(name: "location_name") final String? locationName,
+      @JsonKey(name: "expected_start_time") final String? expectedStartTime,
+      @JsonKey(name: "expected_end_time") final String? expectedEndTime,
       final Coordinates? coordinates}) = _$MetadataImpl;
 
   factory _Metadata.fromJson(Map<String, dynamic> json) =
@@ -1396,28 +1440,34 @@ abstract class _Metadata implements Metadata {
 
   @override
   @JsonKey(name: "created_via")
-  String get createdVia;
+  String? get createdVia;
   @override
   @JsonKey(name: "created_at")
-  String get createdAt;
+  String? get createdAt;
   @override
   @JsonKey(name: "shift_id")
-  int get shiftId;
+  int? get shiftId;
   @override
   @JsonKey(name: "shift_name")
-  String get shiftName;
+  String? get shiftName;
   @override
   @JsonKey(name: "day_of_week")
-  int get dayOfWeek;
+  int? get dayOfWeek;
   @override
   @JsonKey(name: "tolerance_minutes")
-  int get toleranceMinutes;
+  int? get toleranceMinutes;
   @override
   @JsonKey(name: "work_schedule_id")
-  int get workScheduleId;
+  int? get workScheduleId;
   @override
   @JsonKey(name: "location_name")
   String? get locationName;
+  @override
+  @JsonKey(name: "expected_start_time")
+  String? get expectedStartTime;
+  @override
+  @JsonKey(name: "expected_end_time")
+  String? get expectedEndTime;
   @override
   Coordinates? get coordinates;
 
@@ -1435,8 +1485,8 @@ Coordinates _$CoordinatesFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Coordinates {
-  double get latitude => throw _privateConstructorUsedError;
-  double get longitude => throw _privateConstructorUsedError;
+  double? get latitude => throw _privateConstructorUsedError;
+  double? get longitude => throw _privateConstructorUsedError;
 
   /// Serializes this Coordinates to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -1454,7 +1504,7 @@ abstract class $CoordinatesCopyWith<$Res> {
           Coordinates value, $Res Function(Coordinates) then) =
       _$CoordinatesCopyWithImpl<$Res, Coordinates>;
   @useResult
-  $Res call({double latitude, double longitude});
+  $Res call({double? latitude, double? longitude});
 }
 
 /// @nodoc
@@ -1472,18 +1522,18 @@ class _$CoordinatesCopyWithImpl<$Res, $Val extends Coordinates>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? latitude = null,
-    Object? longitude = null,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
   }) {
     return _then(_value.copyWith(
-      latitude: null == latitude
+      latitude: freezed == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
-              as double,
-      longitude: null == longitude
+              as double?,
+      longitude: freezed == longitude
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
-              as double,
+              as double?,
     ) as $Val);
   }
 }
@@ -1496,7 +1546,7 @@ abstract class _$$CoordinatesImplCopyWith<$Res>
       __$$CoordinatesImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({double latitude, double longitude});
+  $Res call({double? latitude, double? longitude});
 }
 
 /// @nodoc
@@ -1512,18 +1562,18 @@ class __$$CoordinatesImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? latitude = null,
-    Object? longitude = null,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
   }) {
     return _then(_$CoordinatesImpl(
-      latitude: null == latitude
+      latitude: freezed == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
-              as double,
-      longitude: null == longitude
+              as double?,
+      longitude: freezed == longitude
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
-              as double,
+              as double?,
     ));
   }
 }
@@ -1531,15 +1581,15 @@ class __$$CoordinatesImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$CoordinatesImpl implements _Coordinates {
-  const _$CoordinatesImpl({required this.latitude, required this.longitude});
+  const _$CoordinatesImpl({this.latitude, this.longitude});
 
   factory _$CoordinatesImpl.fromJson(Map<String, dynamic> json) =>
       _$$CoordinatesImplFromJson(json);
 
   @override
-  final double latitude;
+  final double? latitude;
   @override
-  final double longitude;
+  final double? longitude;
 
   @override
   String toString() {
@@ -1579,16 +1629,15 @@ class _$CoordinatesImpl implements _Coordinates {
 
 abstract class _Coordinates implements Coordinates {
   const factory _Coordinates(
-      {required final double latitude,
-      required final double longitude}) = _$CoordinatesImpl;
+      {final double? latitude, final double? longitude}) = _$CoordinatesImpl;
 
   factory _Coordinates.fromJson(Map<String, dynamic> json) =
       _$CoordinatesImpl.fromJson;
 
   @override
-  double get latitude;
+  double? get latitude;
   @override
-  double get longitude;
+  double? get longitude;
 
   /// Create a copy of Coordinates
   /// with the given fields replaced by the non-null parameter values.

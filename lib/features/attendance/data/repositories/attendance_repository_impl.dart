@@ -5,6 +5,7 @@ import 'package:hrms_mobile/features/attendance/data/data_sources/attendance_rem
 import 'package:hrms_mobile/features/attendance/data/models/request/clock_in/clock_in_request_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/request/clock_out/clock_out_request_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/request/update_attendance/update_attendance_request_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/request/validate_location/validate_location_request_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/activity_log/activity_log_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/attendance/attendance_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/detail_attendance/attendance_detail_response_model.dart';
@@ -13,6 +14,7 @@ import 'package:hrms_mobile/features/attendance/data/models/response/shift/shift
 import 'package:hrms_mobile/features/attendance/data/models/response/shift/working_shifts_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/statistics/attendance_statistics_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/statistics/overtime_statistics_response_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/response/validate_location/validate_location_response_model.dart';
 import 'package:hrms_mobile/features/attendance/domain/entities/attendance.dart';
 import 'package:hrms_mobile/features/attendance/domain/repositories/attendance_repository.dart';
 
@@ -64,8 +66,8 @@ class AttendanceRepositoryImpl implements AttendanceRepository {
   }
 
   @override
-  Future<WorkingShiftResponseModel> getTodayShift({String? data}) async {
-    final response = await remoteSource.getTodayShifts(date: data);
+  Future<WorkingShiftResponseModel> getTodayShift({String? date}) async {
+    final response = await remoteSource.getTodayShifts(date: date);
     if (response.status == 'success') {
       return response.data;
     } else {
@@ -159,6 +161,14 @@ class AttendanceRepositoryImpl implements AttendanceRepository {
   @override
   Future<OvertimeStatistics> getOvertimeStats({String? period}) async {
     final response = await remoteSource.getOvertimeStats(period: period);
+    return response.data;
+  }
+
+  @override
+  Future<ValidateLocationResponseModel> validateLocation(
+    ValidateLocationRequestModel request,
+  ) async {
+    final response = await remoteSource.validateLocation(request);
     return response.data;
   }
 }

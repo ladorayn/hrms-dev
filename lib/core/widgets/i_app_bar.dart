@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
@@ -26,7 +27,9 @@ class IAppBar extends ConsumerWidget implements PreferredSizeWidget {
       scrolledUnderElevation: 0.0,
       title: Text(
         title,
-        style: textTheme.titleLarge?.copyWith(fontSize: 18),
+        style: textTheme.titleLarge?.copyWith(fontSize: 18.sp),
+        overflow: TextOverflow.ellipsis,
+        maxLines: 2,
       ),
       leading: IconButton(
         icon: const Icon(Icons.arrow_back),

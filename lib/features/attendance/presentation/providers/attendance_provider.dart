@@ -12,6 +12,7 @@ import 'package:hrms_mobile/features/attendance/data/data_sources/attendance_rem
 import 'package:hrms_mobile/features/attendance/data/models/request/clock_in/clock_in_request_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/request/clock_out/clock_out_request_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/request/update_attendance/update_attendance_request_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/request/validate_location/validate_location_request_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/activity_log/activity_log_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/attendance/attendance_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/attendance_mapper.dart';
@@ -21,6 +22,7 @@ import 'package:hrms_mobile/features/attendance/data/models/response/shift/shift
 import 'package:hrms_mobile/features/attendance/data/models/response/shift/working_shifts_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/statistics/attendance_statistics_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/statistics/overtime_statistics_response_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/response/validate_location/validate_location_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/repositories/attendance_repository_impl.dart';
 import 'package:hrms_mobile/features/attendance/domain/entities/update_attendance_state.dart';
 import 'package:hrms_mobile/features/attendance/domain/usecases/clock_in_usecase.dart';
@@ -28,6 +30,7 @@ import 'package:hrms_mobile/features/attendance/domain/usecases/clock_out_usecas
 import 'package:hrms_mobile/features/attendance/domain/usecases/get_attendance_history_usecase.dart';
 import 'package:hrms_mobile/features/attendance/domain/usecases/get_shifts_usecase.dart';
 import 'package:hrms_mobile/features/attendance/domain/usecases/get_working_shifts_usecase.dart';
+import 'package:hrms_mobile/features/attendance/domain/usecases/validate_location_usecase.dart';
 import 'package:hrms_mobile/features/auth/presentation/providers/auth/auth_provider.dart';
 import 'package:intl/intl.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -67,6 +70,9 @@ final getShiftsUseCaseProvider =
 
 final getWorkingShiftsUseCaseProvider = Provider(
     (ref) => GetWorkingShiftsUseCase(ref.watch(attendanceRepoProvider)));
+
+final validateLocationUseCaseProvider = Provider(
+    (ref) => ValidateLocationUseCase(ref.watch(attendanceRepoProvider)));
 
 @Riverpod(keepAlive: true)
 class Attendance extends _$Attendance {
@@ -360,8 +366,17 @@ class ShiftList extends _$ShiftList {
 @riverpod
 class WorkingShiftList extends _$WorkingShiftList {
   @override
-  FutureOr<WorkingShiftResponseModel> build() {
-    return ref.watch(getWorkingShiftsUseCaseProvider)();
+  FutureOr<WorkingShiftResponseModel> build(String? date) {
+    return ref.watch(getWorkingShiftsUseCaseProvider)(date);
+  }
+}
+
+@riverpod
+class ValidateLocation extends _$ValidateLocation {
+  @override
+  FutureOr<ValidateLocationResponseModel> build(
+      ValidateLocationRequestModel request) {
+    return ref.watch(validateLocationUseCaseProvider)(request);
   }
 }
 

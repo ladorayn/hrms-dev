@@ -6,6 +6,7 @@ import 'package:hrms_mobile/core/errors/error_handler.dart';
 import 'package:hrms_mobile/features/attendance/data/models/request/clock_in/clock_in_request_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/request/clock_out/clock_out_request_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/request/update_attendance/update_attendance_request_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/request/validate_location/validate_location_request_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/activity_log/activity_log_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/attendance/attendance_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/detail_attendance/attendance_detail_response_model.dart';
@@ -14,6 +15,7 @@ import 'package:hrms_mobile/features/attendance/data/models/response/shift/shift
 import 'package:hrms_mobile/features/attendance/data/models/response/shift/working_shifts_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/statistics/attendance_statistics_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/statistics/overtime_statistics_response_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/response/validate_location/validate_location_response_model.dart';
 
 class AttendanceRemoteSource {
   final Dio _dio;
@@ -302,6 +304,25 @@ class AttendanceRemoteSource {
       return BaseResponse.fromJson(
         response.data,
         (json) => OvertimeStatistics.fromJson(json as Map<String, dynamic>),
+      );
+    } on DioException catch (e) {
+      throw handleDioError(e);
+    }
+  }
+
+  Future<BaseResponse<ValidateLocationResponseModel>> validateLocation(
+    ValidateLocationRequestModel request,
+  ) async {
+    try {
+      final response = await _dio.post(
+        'api/ess/validate-location',
+        data: request,
+      );
+
+      return BaseResponse.fromJson(
+        response.data,
+        (json) => ValidateLocationResponseModel.fromJson(
+            json as Map<String, dynamic>),
       );
     } on DioException catch (e) {
       throw handleDioError(e);

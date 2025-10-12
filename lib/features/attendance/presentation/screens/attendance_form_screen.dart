@@ -71,7 +71,7 @@ class _AttendanceFormScreenState extends ConsumerState<AttendanceFormScreen> {
       );
     });
 
-    final shiftListState = ref.watch(workingShiftListProvider);
+    final shiftListState = ref.watch(workingShiftListProvider(""));
 
     final attendanceState = ref.watch(attendanceProvider);
 
@@ -171,6 +171,7 @@ class _AttendanceFormScreenState extends ConsumerState<AttendanceFormScreen> {
                     ),
                     ITextFieldTextArea(
                       label: "Notes",
+                      controller: _notesController,
                       labelStyle: textTheme.bodySmall,
                     ),
                   ],

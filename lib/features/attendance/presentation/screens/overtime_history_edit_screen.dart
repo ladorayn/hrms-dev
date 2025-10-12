@@ -94,39 +94,6 @@ class OvertimeHistoryEditScreen extends ConsumerWidget {
             text: "Send Adjustment Request",
             onPressed: () {},
           )
-          // SafeArea(
-          //   child: Container(
-          //     color: Colors.white,
-          //     child: Column(
-          //       mainAxisSize: MainAxisSize.min,
-          //       children: [
-          //         Divider(
-          //           color: Colors.grey.shade300,
-          //           height: 1,
-          //           thickness: 1,
-          //         ),
-          //         const SizedBox(
-          //           height: 8,
-          //         ),
-          //         Padding(
-          //           padding: EdgeInsets.only(left: 16, right: 16, top: 10),
-          //           child: ElevatedButton(
-          //             style: ElevatedButton.styleFrom(
-          //               backgroundColor: IColors.light.primary.main,
-          //               foregroundColor: Colors.white,
-          //               minimumSize: const Size.fromHeight(50),
-          //               shape: RoundedRectangleBorder(
-          //                 borderRadius: BorderRadius.circular(8),
-          //               ),
-          //             ),
-          //             onPressed: () {},
-          //             child: const Text("Send Adjustment Request"),
-          //           ),
-          //         ),
-          //       ],
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );

@@ -14,6 +14,7 @@ import 'package:hrms_mobile/features/attendance/presentation/providers/attendanc
 import 'package:hrms_mobile/features/attendance/presentation/widgets/location_verification_dialog.dart';
 import 'package:hrms_mobile/features/auth/presentation/providers/auth/auth_provider.dart';
 import 'package:hrms_mobile/features/auth/presentation/providers/company_profile/company_profile_provider.dart';
+import 'package:hrms_mobile/features/dashboard/presentation/widgets/offboarding_status_card.dart';
 import 'package:hrms_mobile/features/dashboard/presentation/widgets/recent_activity_tiles.dart';
 import 'package:intl/intl.dart';
 
@@ -86,7 +87,6 @@ class DashboardScreen extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: 0.25.sh,
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(32),
@@ -123,7 +123,8 @@ class DashboardScreen extends ConsumerWidget {
             ),
             child: SafeArea(
               child: Padding(
-                padding: EdgeInsets.only(left: 16, right: 16, bottom: 60),
+                padding:
+                    EdgeInsets.only(left: 16, right: 16, bottom: 30, top: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -136,25 +137,32 @@ class DashboardScreen extends ConsumerWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              authP.value?.name ?? '-',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 24.sp,
-                                fontWeight: FontWeight.w600,
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                // Use the actual data from your provider
+                                authP.value?.name ?? '-',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 24.sp,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                                maxLines: 2,
+                                overflow:
+                                    TextOverflow.ellipsis, // <-- USE ELLIPSIS
                               ),
-                            ),
-                            Text(
-                              authP.value?.employment?.jobPosition?.name ?? '-',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w400,
+                              Text(
+                                authP.value?.employment?.jobPosition?.name ??
+                                    '-',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w400,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                         CircleAvatar(
                           radius: 30.r,
@@ -177,7 +185,7 @@ class DashboardScreen extends ConsumerWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(16.w),
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -188,7 +196,7 @@ class DashboardScreen extends ConsumerWidget {
                     fontSize: 18.sp,
                   ),
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 4.w),
                 todayAttendanceState.when(
                     skipLoadingOnRefresh: true,
                     skipLoadingOnReload: true,
@@ -220,7 +228,7 @@ class DashboardScreen extends ConsumerWidget {
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
                               Padding(
-                                padding: EdgeInsets.all(12.0.w),
+                                padding: EdgeInsets.all(6.w),
                                 child: IntrinsicHeight(
                                   child: Row(
                                     children: [
@@ -237,7 +245,7 @@ class DashboardScreen extends ConsumerWidget {
                                                 width: 24.0,
                                               ),
                                             ),
-                                            const SizedBox(width: 10),
+                                            SizedBox(width: 10.w),
                                             Expanded(
                                               child: Column(
                                                 crossAxisAlignment:
@@ -458,7 +466,7 @@ class DashboardScreen extends ConsumerWidget {
           ),
           Expanded(
             child: Container(
-              padding: const EdgeInsets.all(4),
+              padding: EdgeInsets.all(2.w),
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -473,7 +481,7 @@ class DashboardScreen extends ConsumerWidget {
                     GestureDetector(
                       onTap: () {},
                       child: Row(
-                        spacing: 20,
+                        spacing: 20.w,
                         children: [
                           Expanded(
                             child: Container(
@@ -537,6 +545,10 @@ class DashboardScreen extends ConsumerWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          OffboardingStatusCard(),
+                          SizedBox(
+                            height: 4.h,
+                          ),
                           Text(
                             'Recent Activity',
                             style: TextStyle(

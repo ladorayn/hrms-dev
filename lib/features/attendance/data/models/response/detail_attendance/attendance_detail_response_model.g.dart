@@ -73,8 +73,8 @@ Map<String, dynamic> _$$ClockImplToJson(_$ClockImpl instance) =>
 
 _$LocationImpl _$$LocationImplFromJson(Map<String, dynamic> json) =>
     _$LocationImpl(
-      latitude: json['latitude'] as String,
-      longitude: json['longitude'] as String,
+      latitude: json['latitude'] as String?,
+      longitude: json['longitude'] as String?,
     );
 
 Map<String, dynamic> _$$LocationImplToJson(_$LocationImpl instance) =>
@@ -85,14 +85,16 @@ Map<String, dynamic> _$$LocationImplToJson(_$LocationImpl instance) =>
 
 _$MetadataImpl _$$MetadataImplFromJson(Map<String, dynamic> json) =>
     _$MetadataImpl(
-      createdVia: json['created_via'] as String,
-      createdAt: json['created_at'] as String,
-      shiftId: (json['shift_id'] as num).toInt(),
-      shiftName: json['shift_name'] as String,
-      dayOfWeek: (json['day_of_week'] as num).toInt(),
-      toleranceMinutes: (json['tolerance_minutes'] as num).toInt(),
-      workScheduleId: (json['work_schedule_id'] as num).toInt(),
+      createdVia: json['created_via'] as String?,
+      createdAt: json['created_at'] as String?,
+      shiftId: (json['shift_id'] as num?)?.toInt(),
+      shiftName: json['shift_name'] as String?,
+      dayOfWeek: (json['day_of_week'] as num?)?.toInt(),
+      toleranceMinutes: (json['tolerance_minutes'] as num?)?.toInt(),
+      workScheduleId: (json['work_schedule_id'] as num?)?.toInt(),
       locationName: json['location_name'] as String?,
+      expectedStartTime: json['expected_start_time'] as String?,
+      expectedEndTime: json['expected_end_time'] as String?,
       coordinates: json['coordinates'] == null
           ? null
           : Coordinates.fromJson(json['coordinates'] as Map<String, dynamic>),
@@ -108,13 +110,15 @@ Map<String, dynamic> _$$MetadataImplToJson(_$MetadataImpl instance) =>
       'tolerance_minutes': instance.toleranceMinutes,
       'work_schedule_id': instance.workScheduleId,
       'location_name': instance.locationName,
+      'expected_start_time': instance.expectedStartTime,
+      'expected_end_time': instance.expectedEndTime,
       'coordinates': instance.coordinates,
     };
 
 _$CoordinatesImpl _$$CoordinatesImplFromJson(Map<String, dynamic> json) =>
     _$CoordinatesImpl(
-      latitude: (json['latitude'] as num).toDouble(),
-      longitude: (json['longitude'] as num).toDouble(),
+      latitude: (json['latitude'] as num?)?.toDouble(),
+      longitude: (json['longitude'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$$CoordinatesImplToJson(_$CoordinatesImpl instance) =>

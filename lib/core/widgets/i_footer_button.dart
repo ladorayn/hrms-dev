@@ -27,7 +27,8 @@ class IFooterButton extends ConsumerWidget {
             ),
             const SizedBox(height: 8),
             Padding(
-              padding: const EdgeInsets.only(left: 16, right: 16, top: 10),
+              padding: const EdgeInsets.only(
+                  left: 16, right: 16, top: 10, bottom: 10),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: IColors.light.primary.main,

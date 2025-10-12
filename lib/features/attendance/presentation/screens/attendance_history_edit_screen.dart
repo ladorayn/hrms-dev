@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
@@ -57,8 +58,8 @@ class _AttendanceEditFormScreenState
         TextEditingController(text: widget.attendance.clock.inAt ?? '');
     _clockOutController =
         TextEditingController(text: widget.attendance.clock.outAt ?? '');
-    _shiftController = TextEditingController(
-        text: widget.attendance.metadata.shiftName.toString());
+    _shiftController =
+        TextEditingController(text: widget.attendance.metadata.shiftName ?? '');
     _notesController =
         TextEditingController(text: widget.attendance.notes ?? '');
     _selectedShiftId = widget.attendance.metadata.shiftId;
@@ -93,7 +94,8 @@ class _AttendanceEditFormScreenState
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    final shiftListState = ref.watch(workingShiftListProvider);
+    final shiftListState =
+        ref.watch(workingShiftListProvider(widget.attendance.attendanceDate));
 
     final updateState = ref.watch(updateAttendanceProvider);
     final isLoading = updateState.isLoading;
@@ -111,6 +113,9 @@ class _AttendanceEditFormScreenState
         try {
           final selectedShift = shifts.shifts
               .firstWhere((shift) => shift.shift.id == _selectedShiftId);
+          setState(() {
+            _shiftController.text = selectedShift.shift.name;
+          });
           if (_selectedClockOut != null) {
             final shiftEndTime =
                 DateTimeHelper.parseTimeOfDay(selectedShift.endTime);
@@ -338,6 +343,7 @@ class _AttendanceEditFormScreenState
                     ),
                     ITextFieldTextArea(
                       label: "Adjustment Notes",
+                      controller: _notesController,
                       onChanged: (val) {},
                     ),
                   ],
@@ -366,12 +372,6 @@ class AttendanceCard extends StatelessWidget {
 
   String _formatDate(String dateStr) {
     final date = DateTime.parse(dateStr);
-    final now = DateTime.now();
-    if (date.year == now.year &&
-        date.month == now.month &&
-        date.day == now.day) {
-      return "Today, ${date.day}";
-    }
     // As it's currently October 2025, showing the month is helpful
     return DateFormat('E, d').format(date);
   }
@@ -392,18 +392,18 @@ class AttendanceCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: IColors.light.primary.focused,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
       ),
-      padding: const EdgeInsets.all(4),
+      padding: EdgeInsets.all(4.w),
       child: Container(
-        padding: EdgeInsets.all(12),
+        padding: EdgeInsets.all(12.w),
         decoration: BoxDecoration(
           color: IColors.light.primary.foreground,
           border: Border.all(
             color: IColors.light.primary.border,
             width: 1,
           ),
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(8.r),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -423,17 +423,19 @@ class AttendanceCard extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 32),
+            SizedBox(height: 32.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _buildTimeColumn(
                     context, "Clock-In", _formatTime(item.clock.inAt)),
-                _buildDurationDisplay(
-                    context,
-                    item.clock.duration != null
-                        ? item.clock.duration.toString()
-                        : '0h 0m'),
+                Expanded(
+                  child: _buildDurationDisplay(
+                      context,
+                      item.clock.duration != null
+                          ? item.clock.duration.toString()
+                          : '0h 0m'),
+                ),
                 IntrinsicHeight(
                   child: Row(
                     children: [
@@ -441,7 +443,7 @@ class AttendanceCard extends StatelessWidget {
                           context, "Clock-Out", _formatTime(item.clock.outAt),
                           color: Colors.orange),
                       VerticalDivider(
-                        width: 20,
+                        width: 20.w,
                         thickness: 2,
                         color: IColors.light.grayscale.g20,
                       ),
@@ -450,13 +452,13 @@ class AttendanceCard extends StatelessWidget {
                           isEnd: true),
                     ],
                   ),
-                ), // Placeholder
+                ),
               ],
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
             Divider(color: IColors.light.grayscale.g10),
             _buildLocation(context),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
             _buildNotes(context),
           ],
         ),
@@ -471,7 +473,7 @@ class AttendanceCard extends StatelessWidget {
           isEnd ? CrossAxisAlignment.end : CrossAxisAlignment.start,
       children: [
         Text(label, style: Theme.of(context).textTheme.bodySmall),
-        const SizedBox(height: 4),
+        SizedBox(height: 4.h),
         Text(value,
             style: Theme.of(context)
                 .textTheme
@@ -484,14 +486,25 @@ class AttendanceCard extends StatelessWidget {
   Widget _buildDurationDisplay(BuildContext context, String duration) {
     return Column(
       children: [
-        const SizedBox(height: 20),
+        SizedBox(height: 20.h),
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(height: 1, width: 30, color: IColors.light.grayscale.g20),
-            const SizedBox(width: 4),
+            Expanded(
+              child: Container(
+                height: 1,
+                color: IColors.light.grayscale.g20,
+                margin: EdgeInsets.only(left: 2.w, right: 4.w),
+              ),
+            ),
             Text(duration, style: Theme.of(context).textTheme.bodySmall),
-            const SizedBox(width: 4),
-            Container(height: 1, width: 30, color: IColors.light.grayscale.g20),
+            Expanded(
+              child: Container(
+                height: 1,
+                color: IColors.light.grayscale.g20,
+                margin: EdgeInsets.only(left: 4.w, right: 2.w),
+              ),
+            ),
           ],
         ),
       ],
@@ -499,54 +512,47 @@ class AttendanceCard extends StatelessWidget {
   }
 
   Widget _buildLocation(BuildContext context) {
-    final lat = double.tryParse(item.location.latitude) ?? 0.0;
-    final lng = double.tryParse(item.location.longitude) ?? 0.0;
+    final lat = double.tryParse(item.location.latitude ?? '') ?? 0.0;
+    final lng = double.tryParse(item.location.longitude ?? '') ?? 0.0;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text("Location", style: Theme.of(context).textTheme.bodySmall),
-        const SizedBox(height: 8),
+        SizedBox(height: 8.h),
         Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(12.r),
             color: IColors.light.primary.border,
           ),
           child: Container(
-            margin: const EdgeInsets.all(2),
-            padding: const EdgeInsets.all(8),
+            margin: EdgeInsets.all(2.w),
+            padding: EdgeInsets.all(8.w),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(8.r),
               color: IColors.light.primary.background,
             ),
             child: Row(
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  padding: EdgeInsets.symmetric(horizontal: 10.w),
                   child: SvgPicture.asset(
                     IAssets.pinLocation,
-                    width: 10,
-                    height: 18,
+                    width: 10.w,
+                    height: 18.h,
                   ),
                 ),
-                const SizedBox(width: 8),
+                SizedBox(width: 8.w),
                 Expanded(
                   child: FutureBuilder<String>(
                     future: getAddressFromLatLng(lat, lng),
                     builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Text("Loading address...");
-                      } else if (snapshot.hasError) {
-                        return const Text("Error loading address");
-                      } else {
-                        return Text(
-                          snapshot.data ?? "Unknown location",
-                          overflow: TextOverflow.ellipsis,
-                          style:
-                              Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    color: IColors.light.primary.main,
-                                  ),
-                        );
-                      }
+                      return Text(
+                        snapshot.data ?? item.metadata.locationName ?? "",
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: IColors.light.primary.main,
+                            ),
+                      );
                     },
                   ),
                 ),
@@ -563,7 +569,7 @@ class AttendanceCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text("Notes", style: Theme.of(context).textTheme.bodySmall),
-        const SizedBox(height: 4),
+        SizedBox(height: 4.h),
         Text(
           item.notes ?? "-",
           style: Theme.of(context)
