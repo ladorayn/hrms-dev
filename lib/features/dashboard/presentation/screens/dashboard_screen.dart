@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/constants/attendance_enum.dart';
+import 'package:hrms_mobile/core/navigation/global_navigator.dart';
+import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/util/general_utils.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/activity_log/activity_log_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/attendance/attendance_response_model.dart';
@@ -479,7 +482,10 @@ class DashboardScreen extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        globalNavigatorKey.currentContext
+                            ?.push(RoutePaths.overtimeRequest);
+                      },
                       child: Row(
                         spacing: 20.w,
                         children: [

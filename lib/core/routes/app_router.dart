@@ -13,8 +13,6 @@ import 'package:hrms_mobile/features/attendance/presentation/screens/attendance_
 import 'package:hrms_mobile/features/attendance/presentation/screens/face_registration_screen.dart';
 import 'package:hrms_mobile/features/attendance/presentation/screens/face_verification_screen.dart';
 import 'package:hrms_mobile/features/attendance/presentation/screens/location_confirmed.dart';
-import 'package:hrms_mobile/features/attendance/presentation/screens/overtime_history_edit_screen.dart';
-import 'package:hrms_mobile/features/attendance/presentation/screens/overtime_request_screen.dart';
 import 'package:hrms_mobile/features/auth/presentation/providers/auth/auth_provider.dart';
 import 'package:hrms_mobile/features/auth/presentation/screens/login_screen.dart';
 import 'package:hrms_mobile/features/auth/presentation/screens/reset_password/reset_password_check_email_screen.dart';
@@ -27,6 +25,8 @@ import 'package:hrms_mobile/features/offboarding/presentation/screens/document_h
 import 'package:hrms_mobile/features/offboarding/presentation/screens/exit_form_screen.dart';
 import 'package:hrms_mobile/features/offboarding/presentation/screens/offboarding_screen.dart';
 import 'package:hrms_mobile/features/offboarding/presentation/screens/work_handover_screen.dart';
+import 'package:hrms_mobile/features/overtime_request/presentation/screens/overtime_history_edit_screen.dart';
+import 'package:hrms_mobile/features/overtime_request/presentation/screens/overtime_request_screen.dart';
 import 'package:hrms_mobile/features/profile/presentation/screens/profile_screen.dart';
 
 import 'route_paths.dart';
