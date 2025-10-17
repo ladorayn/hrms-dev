@@ -2,19 +2,19 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/constants/attendance_enum.dart';
-import 'package:hrms_mobile/core/navigation/global_navigator.dart';
-import 'package:hrms_mobile/core/routes/route_paths.dart';
+import 'package:hrms_mobile/core/util/general_utils.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/activity_log/activity_log_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/attendance/attendance_response_model.dart';
 import 'package:hrms_mobile/features/attendance/presentation/providers/attendance_provider.dart';
 import 'package:hrms_mobile/features/attendance/presentation/widgets/location_verification_dialog.dart';
 import 'package:hrms_mobile/features/auth/presentation/providers/auth/auth_provider.dart';
 import 'package:hrms_mobile/features/auth/presentation/providers/company_profile/company_profile_provider.dart';
+import 'package:hrms_mobile/features/dashboard/presentation/widgets/offboarding_status_card.dart';
 import 'package:hrms_mobile/features/dashboard/presentation/widgets/recent_activity_tiles.dart';
 import 'package:intl/intl.dart';
 
@@ -23,10 +23,13 @@ class DashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final textTheme = Theme.of(context).textTheme;
     final todayAttendanceState = ref.watch(todayAttendanceProvider);
     final authP = ref.watch(authProvider);
     final companyP = ref.watch(companyProfileProvider);
     final recentActivityState = ref.watch(recentActivityProvider(limit: 4));
+    final getDetail = ref.watch(getDetailAttendanceProvider(
+        attendanceId: todayAttendanceState.value?.id.toString() ?? ''));
 
     ref.listen<AsyncValue<List<ActivityLogModel>>>(
         recentActivityProvider(limit: 4), (previous, next) {
@@ -54,7 +57,7 @@ class DashboardScreen extends ConsumerWidget {
             todayLog = null;
           }
 
-          if (todayLog != null && todayAttendanceState.value == null) {
+          if (todayLog != null) {
             final attendanceId = todayLog.properties.attendanceId.toString();
             ref
                 .read(todayAttendanceProvider.notifier)
@@ -84,7 +87,6 @@ class DashboardScreen extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: MediaQuery.of(context).size.height * 0.25,
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(32),
@@ -121,7 +123,8 @@ class DashboardScreen extends ConsumerWidget {
             ),
             child: SafeArea(
               child: Padding(
-                padding: EdgeInsets.only(left: 16, right: 16, bottom: 60),
+                padding:
+                    EdgeInsets.only(left: 16, right: 16, bottom: 30, top: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -134,28 +137,35 @@ class DashboardScreen extends ConsumerWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              authP.value?.name ?? '-',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 24,
-                                fontWeight: FontWeight.w600,
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                // Use the actual data from your provider
+                                authP.value?.name ?? '-',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 24.sp,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                                maxLines: 2,
+                                overflow:
+                                    TextOverflow.ellipsis, // <-- USE ELLIPSIS
                               ),
-                            ),
-                            Text(
-                              authP.value?.employment?.jobPosition?.name ?? '-',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w400,
+                              Text(
+                                authP.value?.employment?.jobPosition?.name ??
+                                    '-',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w400,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                         CircleAvatar(
-                          radius: 30,
+                          radius: 30.r,
                           backgroundColor: IColors.dark.accent,
                           backgroundImage:
                               (authP.value?.photoProfileUrl?.isNotEmpty ??
@@ -175,7 +185,7 @@ class DashboardScreen extends ConsumerWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(16),
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -183,11 +193,13 @@ class DashboardScreen extends ConsumerWidget {
                   todayDate,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 18,
+                    fontSize: 18.sp,
                   ),
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 4.w),
                 todayAttendanceState.when(
+                    skipLoadingOnRefresh: true,
+                    skipLoadingOnReload: true,
                     loading: () =>
                         const Center(child: CircularProgressIndicator()),
                     error: (err, stack) {
@@ -195,12 +207,13 @@ class DashboardScreen extends ConsumerWidget {
                       return _buildInitialState(context, ref);
                     },
                     data: (attendanceData) {
+                      print("Attendance DAta ${attendanceData?.clock.outAt}");
                       return Container(
                         decoration: BoxDecoration(
                           color: IColors.light.primary.focused,
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        padding: const EdgeInsets.all(4),
+                        padding: EdgeInsets.all(4.w),
                         child: Container(
                           decoration: BoxDecoration(
                             color: IColors.light.primary.foreground,
@@ -210,111 +223,240 @@ class DashboardScreen extends ConsumerWidget {
                             ),
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: IntrinsicHeight(
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Row(
-                                      children: [
-                                        CircleAvatar(
-                                          backgroundColor:
-                                              IColors.light.primary.background,
-                                          radius: 15,
-                                          child: SvgPicture.asset(
-                                            IAssets.clockIn,
-                                            height: 24.0,
-                                            width: 24.0,
-                                          ),
-                                        ),
-                                        const SizedBox(width: 10),
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              const Text(
-                                                'Clock In',
-                                                style: TextStyle(
-                                                    color: Color(0xFF8E8E8E)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.all(6.w),
+                                child: IntrinsicHeight(
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Row(
+                                          children: [
+                                            CircleAvatar(
+                                              backgroundColor: IColors
+                                                  .light.primary.background,
+                                              radius: 15.r,
+                                              child: SvgPicture.asset(
+                                                IAssets.clockIn,
+                                                height: 24.0,
+                                                width: 24.0,
                                               ),
-                                              SizedBox(
-                                                height: (attendanceData
-                                                                ?.clock.outAt ==
-                                                            null &&
+                                            ),
+                                            SizedBox(width: 10.w),
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    'Clock In',
+                                                    style: TextStyle(
+                                                        color:
+                                                            Color(0xFF8E8E8E),
+                                                        fontSize: 12.sp),
+                                                  ),
+                                                  SizedBox(
+                                                    height: (attendanceData
+                                                                    ?.clock
+                                                                    .outAt ==
+                                                                null &&
+                                                            attendanceData
+                                                                    ?.clock
+                                                                    .inAt !=
+                                                                null)
+                                                        ? 15.w
+                                                        : 4.w,
+                                                  ),
+                                                  if (attendanceData == null)
+                                                    _buildClockInButton(
+                                                        context, ref)
+                                                  else
+                                                    _buildTimeDisplay(
                                                         attendanceData
-                                                                ?.clock.inAt !=
-                                                            null)
-                                                    ? 15
-                                                    : 4,
+                                                                .clock.inAt ??
+                                                            ''),
+                                                ],
                                               ),
-                                              if (attendanceData == null)
-                                                _buildClockInButton(
-                                                    context, ref)
-                                              else
-                                                _buildTimeDisplay(
-                                                    attendanceData.clock.inAt ??
-                                                        ''),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                  VerticalDivider(
-                                    width: 20,
-                                    thickness: 2,
-                                    color: IColors.light.grayscale.g20,
-                                  ),
-                                  Expanded(
-                                    child: Row(
-                                      children: [
-                                        CircleAvatar(
-                                          backgroundColor:
-                                              IColors.light.primary.background,
-                                          radius: 15,
-                                          child: SvgPicture.asset(
-                                            IAssets.clockOut,
-                                            height: 24.0,
-                                            width: 24.0,
-                                          ),
-                                        ),
-                                        const SizedBox(width: 10),
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              const Text(
-                                                'Clock Out',
-                                                style: TextStyle(
-                                                    color: Color(0xFF8E8E8E)),
+                                      ),
+                                      VerticalDivider(
+                                        width: 20,
+                                        thickness: 2,
+                                        color: IColors.light.grayscale.g20,
+                                      ),
+                                      Expanded(
+                                        child: Row(
+                                          children: [
+                                            CircleAvatar(
+                                              backgroundColor: IColors
+                                                  .light.primary.background,
+                                              radius: 15.r,
+                                              child: SvgPicture.asset(
+                                                IAssets.clockOut,
+                                                height: 24.0,
+                                                width: 24.0,
                                               ),
-                                              const SizedBox(height: 4),
-                                              if (attendanceData == null)
-                                                _buildClockOutButton(
-                                                    context, ref,
-                                                    enabled: false)
-                                              else if (attendanceData
-                                                      .clock.outAt ==
-                                                  null)
-                                                _buildClockOutButton(
-                                                    context, ref,
-                                                    enabled: true)
-                                              else
-                                                // Already clocked out, show the time
-                                                _buildTimeDisplay(attendanceData
-                                                    .clock.outAt!),
-                                            ],
-                                          ),
+                                            ),
+                                            const SizedBox(width: 10),
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  const Text(
+                                                    'Clock Out',
+                                                    style: TextStyle(
+                                                        color:
+                                                            Color(0xFF8E8E8E)),
+                                                  ),
+                                                  const SizedBox(height: 4),
+                                                  if (attendanceData == null)
+                                                    _buildClockOutButton(
+                                                        context, ref,
+                                                        enabled: false)
+                                                  else if (attendanceData
+                                                          .clock.outAt ==
+                                                      null)
+                                                    _buildClockOutButton(
+                                                        context, ref,
+                                                        enabled: true)
+                                                  else
+                                                    // Already clocked out, show the time
+                                                    _buildTimeDisplay(
+                                                        attendanceData
+                                                            .clock.outAt!),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
-                                ],
+                                ),
                               ),
-                            ),
+                              getDetail.when(
+                                loading: () => const SizedBox
+                                    .shrink(), // Show nothing while loading
+                                error: (err, stack) {
+                                  // Log the error for debugging, but don't show anything in the UI
+                                  debugPrint(
+                                      'Failed to get attendance detail for duration display: $err');
+                                  return const SizedBox
+                                      .shrink(); // Show nothing on error
+                                },
+                                data: (detail) {
+                                  // Now that we have data, we can safely check if the duration exists
+                                  if (detail?.clock.duration != null) {
+                                    // This is the success case, return the original UI
+                                    return Container(
+                                      decoration: BoxDecoration(
+                                        color: IColors.light.primary.main,
+                                        border: Border.all(
+                                          color: IColors.light.primary.border,
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.only(
+                                            bottomRight: Radius.circular(6),
+                                            bottomLeft: Radius.circular(6)),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(12.0),
+                                        child: IntrinsicHeight(
+                                          child: Row(
+                                            children: [
+                                              Expanded(
+                                                child: Row(
+                                                  spacing: 8,
+                                                  children: [
+                                                    Flexible(
+                                                      child: Text(
+                                                        "Working Time Duration",
+                                                        style: textTheme
+                                                            .labelSmall
+                                                            ?.copyWith(
+                                                          color: Colors.white,
+                                                          fontSize: 8.sp,
+                                                        ),
+                                                        overflow: TextOverflow
+                                                            .visible,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      "${getDetail.value?.clock.duration}",
+                                                      style: textTheme
+                                                          .labelSmall
+                                                          ?.copyWith(
+                                                        color: Colors.white,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 8.sp,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              if (detail?.clock
+                                                      .overtimeDuration !=
+                                                  null) ...[
+                                                VerticalDivider(
+                                                  width: 20,
+                                                  thickness: 2,
+                                                  color: IColors
+                                                      .light.grayscale.g20,
+                                                ),
+                                                Expanded(
+                                                  child: Row(
+                                                    spacing: 8,
+                                                    children: [
+                                                      Flexible(
+                                                        child: Text(
+                                                          "Overtime Duration",
+                                                          style: textTheme
+                                                              .labelSmall
+                                                              ?.copyWith(
+                                                            color: Colors.white,
+                                                            fontSize: 8.sp,
+                                                          ),
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        calculateDurationWithTotal(
+                                                            detail?.clock
+                                                                    .overtimeDuration ??
+                                                                0),
+                                                        style: textTheme
+                                                            .labelSmall
+                                                            ?.copyWith(
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 8.sp,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ]
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  } else {
+                                    // If there's data but no duration, show nothing
+                                    return const SizedBox.shrink();
+                                  }
+                                },
+                              ),
+                            ],
                           ),
                         ),
                       );
@@ -324,7 +466,7 @@ class DashboardScreen extends ConsumerWidget {
           ),
           Expanded(
             child: Container(
-              padding: const EdgeInsets.all(4),
+              padding: EdgeInsets.all(2.w),
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -337,16 +479,15 @@ class DashboardScreen extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     GestureDetector(
-                      onTap: () => globalNavigatorKey.currentContext
-                          ?.push(RoutePaths.overtimeRequest),
+                      onTap: () {},
                       child: Row(
-                        spacing: 20,
+                        spacing: 20.w,
                         children: [
                           Expanded(
                             child: Container(
                               color: Color(0xFFF8FCFF),
                               child: Padding(
-                                padding: EdgeInsets.all(20),
+                                padding: EdgeInsets.all(8.sp),
                                 child: Column(
                                   spacing: 10,
                                   children: [
@@ -359,7 +500,11 @@ class DashboardScreen extends ConsumerWidget {
                                     ),
                                     Text(
                                       'Overtime Request',
-                                      style: TextStyle(color: Colors.black),
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 12.sp,
+                                      ),
+                                      textAlign: TextAlign.center,
                                     ),
                                   ],
                                 ),
@@ -370,7 +515,7 @@ class DashboardScreen extends ConsumerWidget {
                             child: Container(
                               color: Color(0xFFF8FCFF),
                               child: Padding(
-                                padding: EdgeInsets.all(20),
+                                padding: EdgeInsets.all(8.sp),
                                 child: Column(
                                   spacing: 10,
                                   children: [
@@ -383,7 +528,10 @@ class DashboardScreen extends ConsumerWidget {
                                     ),
                                     Text(
                                       'New Leave Request',
-                                      style: TextStyle(color: Colors.black),
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 12.sp,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -397,11 +545,15 @@ class DashboardScreen extends ConsumerWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          OffboardingStatusCard(),
+                          SizedBox(
+                            height: 4.h,
+                          ),
                           Text(
                             'Recent Activity',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 18,
+                              fontSize: 18.sp,
                               color: IColors.light.primary.main,
                             ),
                           ),
@@ -461,6 +613,7 @@ class DashboardScreen extends ConsumerWidget {
                                       leadingIconAsset: iconAsset,
                                       status: status,
                                       statusLabel: statusLabel,
+                                      event: log.event,
                                     );
                                   },
                                 );
@@ -492,10 +645,10 @@ Widget _buildClockInButton(BuildContext context, WidgetRef ref) {
         Icons.add,
         color: Colors.white,
       ),
-      label: const Text(
+      label: Text(
         'Clock In',
         style: TextStyle(
-          fontSize: 14,
+          fontSize: 12.sp,
           fontWeight: FontWeight.w600,
         ),
       ),
@@ -517,7 +670,7 @@ Widget _buildClockInButton(BuildContext context, WidgetRef ref) {
 Widget _buildTimeDisplay(String time) {
   return Text(
     time,
-    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+    style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
   );
 }
 
@@ -539,10 +692,10 @@ Widget _buildClockOutButton(BuildContext context, WidgetRef ref,
         Icons.add,
         color: Colors.white,
       ),
-      label: const Text(
+      label: Text(
         'Clock Out',
         style: TextStyle(
-          fontSize: 14,
+          fontSize: 12.sp,
           fontWeight: FontWeight.w600,
         ),
       ),
@@ -635,9 +788,10 @@ Widget _buildInitialState(BuildContext context, WidgetRef ref) {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
+                          Text(
                             'Clock Out',
-                            style: TextStyle(color: Color(0xFF8E8E8E)),
+                            style: TextStyle(
+                                color: Color(0xFF8E8E8E), fontSize: 10.sp),
                           ),
                           const SizedBox(height: 4),
                           _buildClockOutButton(context, ref, enabled: false),

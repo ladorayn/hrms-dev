@@ -4,11 +4,6 @@ import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/application/theme/i_theme.dart';
 import 'package:hrms_mobile/core/widgets/status_chip.dart';
 
-// Define your IColors and IAssets paths here for the code to work
-// class IColors { ... }
-// class IAssets { ... }
-
-/// A reusable ListTile for displaying attendance records.
 class AttendanceListTile extends StatelessWidget {
   final String title;
   final String subtitle;
@@ -16,6 +11,7 @@ class AttendanceListTile extends StatelessWidget {
   final String leadingIconAsset;
   final int status;
   final String statusLabel;
+  final String event;
 
   const AttendanceListTile({
     super.key,
@@ -25,6 +21,7 @@ class AttendanceListTile extends StatelessWidget {
     required this.leadingIconAsset,
     required this.status,
     required this.statusLabel,
+    required this.event,
   });
 
   @override
@@ -57,7 +54,7 @@ class AttendanceListTile extends StatelessWidget {
             style: ITheme.light.textTheme.bodyMedium,
           ),
           const SizedBox(height: 4),
-          StatusChip(status: status, statusLabel: statusLabel),
+          StatusChip(status: status, statusLabel: statusLabel, event: event),
         ],
       ),
     );

@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/application/theme/i_theme.dart';
+import 'package:hrms_mobile/core/constants/attendance_enum.dart';
 
 enum AttendanceStatus {
   // Success
@@ -22,9 +23,14 @@ enum AttendanceStatus {
 class StatusChip extends StatelessWidget {
   final int status;
   final String statusLabel;
+  final String event;
 
-  const StatusChip(
-      {super.key, required this.status, required this.statusLabel});
+  const StatusChip({
+    super.key,
+    required this.status,
+    required this.statusLabel,
+    required this.event,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,31 +40,55 @@ class StatusChip extends StatelessWidget {
     final Color statusBackgroundColor;
     final Color statusTextColor;
 
-    switch (status) {
-      case 0:
-        statusText = 'Waiting for Approval';
-        statusIconAsset = IAssets.warningClock;
-        statusBackgroundColor = IColors.light.warning.background;
-        statusTextColor = IColors.light.warning.hover;
-        break;
-      case 2:
-        statusText = statusLabel;
-        statusIconAsset = IAssets.onTimeClock;
-        statusBackgroundColor = IColors.light.success.background;
-        statusTextColor = IColors.light.success.hover;
-        break;
-      case 3:
-        statusText = statusLabel;
-        statusIconAsset = IAssets.warningClock;
-        statusBackgroundColor = IColors.light.warning.background;
-        statusTextColor = IColors.light.warning.hover;
-        break;
-      default:
-        statusText = 'Waiting for Approval';
-        statusIconAsset = IAssets.warningClock;
-        statusBackgroundColor = IColors.light.warning.background;
-        statusTextColor = IColors.light.warning.hover;
-        break;
+    if (AttendanceEnum.checkActivity(event)) {
+      switch (status) {
+        case 1:
+        case 2:
+          statusText = statusLabel;
+          statusIconAsset = IAssets.onTimeClock;
+          statusBackgroundColor = IColors.light.success.background;
+          statusTextColor = IColors.light.success.hover;
+          break;
+        case 3:
+          statusText = statusLabel;
+          statusIconAsset = IAssets.warningClock;
+          statusBackgroundColor = IColors.light.warning.background;
+          statusTextColor = IColors.light.warning.hover;
+          break;
+        default:
+          statusText = statusLabel;
+          statusIconAsset = IAssets.warningClock;
+          statusBackgroundColor = IColors.light.warning.background;
+          statusTextColor = IColors.light.warning.hover;
+          break;
+      }
+    } else {
+      switch (status) {
+        case 0:
+          statusText = statusLabel;
+          statusIconAsset = IAssets.warningClock;
+          statusBackgroundColor = IColors.light.warning.background;
+          statusTextColor = IColors.light.warning.hover;
+          break;
+        case 1:
+          statusText = statusLabel;
+          statusIconAsset = IAssets.onTimeClock;
+          statusBackgroundColor = IColors.light.success.background;
+          statusTextColor = IColors.light.success.hover;
+          break;
+        case 2:
+          statusText = statusLabel;
+          statusIconAsset = IAssets.redClose;
+          statusBackgroundColor = IColors.light.error.background;
+          statusTextColor = IColors.light.error.hover;
+          break;
+        default:
+          statusText = statusLabel;
+          statusIconAsset = IAssets.warningClock;
+          statusBackgroundColor = IColors.light.warning.background;
+          statusTextColor = IColors.light.warning.hover;
+          break;
+      }
     }
 
     // --- Chip UI ---

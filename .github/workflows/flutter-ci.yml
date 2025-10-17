@@ -1,0 +1,80 @@
+name: Flutter CI - Build & Release APK (Auto Increment)
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write  # required to create releases
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2️⃣ Setup Flutter
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.29.0'
+          channel: stable
+
+      # 3️⃣ Install dependencies
+      - name: Install dependencies
+        run: flutter pub get
+
+      # 4️⃣ Extract version info
+      - name: Prepare version info
+        id: version
+        run: |
+          VERSION_LINE=$(grep '^version:' pubspec.yaml | awk '{print $2}')
+          VERSION_NAME=$(echo $VERSION_LINE | cut -d'+' -f1)
+          VERSION_CODE=${{ github.run_number }}
+          DATE=$(date +'%Y%m%d_%H%M%S')
+          TAG_NAME="v${VERSION_NAME}+${VERSION_CODE}"
+          RELEASE_NAME="Build ${VERSION_NAME}+${VERSION_CODE}"
+          echo "VERSION_NAME=$VERSION_NAME" >> $GITHUB_ENV
+          echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_ENV
+          echo "DATE=$DATE" >> $GITHUB_ENV
+          echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
+          echo "RELEASE_NAME=$RELEASE_NAME" >> $GITHUB_ENV
+
+      # 5️⃣ Build release APK (no pubspec modification)
+      - name: Build release APK
+        run: |
+          flutter build apk --release --no-tree-shake-icons \
+            --build-name $VERSION_NAME \
+            --build-number $VERSION_CODE
+
+      # 6️⃣ Rename APK file uniquely
+      - name: Rename APK
+        run: |
+          mkdir -p build/artifacts
+          cp build/app/outputs/flutter-apk/app-release.apk \
+            build/artifacts/app-release-${VERSION_NAME}+${VERSION_CODE}-${DATE}.apk
+          echo "APK_PATH=build/artifacts/app-release-${VERSION_NAME}+${VERSION_CODE}-${DATE}.apk" >> $GITHUB_ENV
+
+      # 7️⃣ Upload as artifact (for quick download)
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release-${{ env.VERSION_NAME }}+${{ env.VERSION_CODE }}
+          path: ${{ env.APK_PATH }}
+
+      # 8️⃣ Create GitHub Release and attach APK
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.TAG_NAME }}
+          name: ${{ env.RELEASE_NAME }}
+          body: |
+            🚀 **Automated Build from CI**
+            - Version: `${{ env.VERSION_NAME }}+${{ env.VERSION_CODE }}`
+            - Date: `${{ env.DATE }}`
+            - Triggered by: `${{ github.actor }}`
+          files: ${{ env.APK_PATH }}

@@ -14,6 +14,7 @@ class ITextFieldTimePicker extends StatefulWidget {
     this.initialTime,
     this.onTimeChanged,
     this.validator,
+    this.errorText,
   });
 
   final String label;
@@ -21,6 +22,7 @@ class ITextFieldTimePicker extends StatefulWidget {
   final TimeOfDay? initialTime;
   final Function(TimeOfDay)? onTimeChanged;
   final String? Function(String?)? validator;
+  final String? errorText;
 
   @override
   State<ITextFieldTimePicker> createState() => _ITextFieldTimePickerState();
@@ -49,6 +51,13 @@ class _ITextFieldTimePickerState extends State<ITextFieldTimePicker> {
     super.didUpdateWidget(oldWidget);
     if (widget.controller != oldWidget.controller) {
       _controller = widget.controller ?? TextEditingController();
+    }
+
+    if (widget.initialTime != oldWidget.initialTime) {
+      _selectedTime = widget.initialTime;
+      if (_selectedTime != null) {
+        _setTextFromTimeOfDay(_selectedTime!);
+      }
     }
   }
 
@@ -121,6 +130,7 @@ class _ITextFieldTimePickerState extends State<ITextFieldTimePicker> {
       onTap: () {
         _selectTime(context);
       },
+      errorText: widget.errorText,
     );
   }
 }

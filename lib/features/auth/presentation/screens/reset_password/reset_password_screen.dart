@@ -5,6 +5,7 @@ import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_email.dart';
+import 'package:hrms_mobile/features/auth/domain/entities/reset_password_state.dart';
 import 'package:hrms_mobile/features/auth/presentation/providers/reset_password/reset_password_provider.dart';
 
 // TODO: Create and import the reset password provider
@@ -15,30 +16,45 @@ class ResetPasswordEmailScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    print("MASOOK ReSET");
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    // final resetPasswordState = ref.watch(resetPasswordProvider);
-    // final resetPasswordNotifier = ref.read(resetPasswordProvider.notifier);
     final emailController = TextEditingController();
     final resetPasswordState = ref.watch(resetPasswordProvider);
 
-    ref.listen<AsyncValue<void>>(resetPasswordProvider, (previous, next) {
-      if (next.hasError) {
+    ref.listen<ResetPasswordState>(resetPasswordProvider, (previous, next) {
+      final wasLoading = previous?.isLoading == true;
+      final nowLoadedSuccessfully =
+          wasLoading && !next.isLoading && next.errors.isEmpty;
+
+      if (nowLoadedSuccessfully) {
         ScaffoldMessenger.of(context).clearSnackBars();
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: ${next.error}')),
+          const SnackBar(
+            content: Text('Reset link sent! Check your email.'),
+            behavior: SnackBarBehavior.floating,
+          ),
         );
-      } else if (!next.isLoading && next.hasValue) {
-        // On success, show the "Check your email" screen
-        // You would navigate to a new screen here. For now, we pop.
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Reset link sent! Check your email.')),
-        );
+
         context.pushNamed(
           RoutePaths.resetPasswordCheckEmailName,
           extra: emailController.text,
+        );
+      }
+      final hasNewError =
+          (previous?.errors.isEmpty ?? true) && next.errors.isNotEmpty;
+
+      if (hasNewError) {
+        final errorMessage = next.errors['general'] ??
+            next.errors.values.firstOrNull ??
+            'Unknown error';
+        ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(errorMessage),
+            backgroundColor: Colors.redAccent,
+            behavior: SnackBarBehavior.floating,
+          ),
         );
       }
     });

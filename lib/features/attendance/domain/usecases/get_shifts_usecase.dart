@@ -1,4 +1,4 @@
-import 'package:hrms_mobile/features/attendance/data/models/response/shifts_response_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/response/shift/shifts_response_model.dart';
 import 'package:hrms_mobile/features/attendance/domain/repositories/attendance_repository.dart';
 
 class GetShiftsUseCase {

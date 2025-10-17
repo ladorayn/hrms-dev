@@ -5,7 +5,7 @@ class RoutePaths {
   static const splash = '/splash';
   static const login = '/login';
   static const resetPassword = '/reset-password';
-  static const resetPasswordCreate = 'create';
+  static const resetPasswordCreate = '/create-password';
   static const String resetPasswordCreateName = 'reset-password-create';
   static const resetPasswordSuccess = 'success';
   static const resetPasswordSuccessName = 'reset-password-success';
@@ -21,12 +21,30 @@ class RoutePaths {
   static const profile = '/profile';
 
   // --- Nested Routes ---
-  static const attendance = 'attendance';
-  static const attendanceEdit = '/edit-attendance';
+
+  // Attendance
+  static const attendance = '/attendance';
+  static const attendanceEdit = '/edit-attendance/:id';
+  static const attendanceEditName = 'attendanceEdit';
   static const overtimeEdit = '/edit-overtime';
   static const locationConfirmed = '/location-confirmed';
   static const faceRegistration = '/face-registration';
   static const faceVerification = '/face-verification';
   static const attendanceForm = '/attendance-form';
   static const overtimeRequest = '/overtime-request';
+
+  // Offboarding
+  static const offboarding = '/offboarding';
+  static const offboardingName = 'offboarding';
+  static const exitForm = '/exit-form';
+  static const exitFormName = 'offboardingExitForm';
+  static const workHandover = '/work-handover';
+  static const workHandoverName = 'offboardingWorkHandover';
+  static const documentHandover = '/document-handover';
+  static const documentHandoverName = 'offboardingDocumentHandover';
+  static const workAssigneeHandover = '/work-handover-assignee';
+  static const workAssigneeHandoverName = 'offboardingWorkAssigneeHandover';
+  static const documentAssigneeHandover = '/document-handover-assignee';
+  static const documentAssigneeHandoverName =
+      'offboardingDocumentAssigneeHandover';
 }

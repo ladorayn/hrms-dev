@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart'; // Import Riverpod
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/features/profile/presentation/widgets/profile_app_bar.dart';
@@ -34,17 +35,17 @@ class ProfileScreen extends ConsumerWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 20.0),
                         child: ProfileAppBar(),
                       ),
-                      const SizedBox(height: 24),
+                      SizedBox(height: 24.sp),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20.0),
                         child: UserInfo(),
                       ),
-                      const SizedBox(height: 24),
+                      SizedBox(height: 24.sp),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20.0),
                         child: StatisticsCard(),
                       ),
-                      const SizedBox(height: 32),
+                      SizedBox(height: 32.sp),
                       Expanded(
                         child: Container(
                           decoration: const BoxDecoration(

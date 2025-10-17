@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/core/constants/attendance_enum.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
+import 'package:hrms_mobile/core/util/general_utils.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/core/widgets/i_footer_button.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_dropdown_bottom_sheet.dart';
@@ -70,7 +71,7 @@ class _AttendanceFormScreenState extends ConsumerState<AttendanceFormScreen> {
       );
     });
 
-    final shiftListState = ref.watch(shiftListProvider);
+    final shiftListState = ref.watch(workingShiftListProvider(""));
 
     final attendanceState = ref.watch(attendanceProvider);
 
@@ -126,29 +127,28 @@ class _AttendanceFormScreenState extends ConsumerState<AttendanceFormScreen> {
                   children: [
                     AttendanceCardForm(
                       activity: widget.activity.label,
-                      clockIn: clockInFormattedTime ?? '',
-                      clockOut: clockOutFormattedTime ?? '',
+                      clockIn: clockInFormattedTime ?? '-',
+                      clockOut: clockOutFormattedTime ?? '-',
                       date: (widget.activity == AttendanceEnum.clockIn)
                           ? clockInFormattedDate ?? ''
                           : clockOutFormattedDate ?? '',
                       location: attendanceState.address ?? '-',
-                      duration:
-                          todayAttendance.value?.clock.duration ?? '0h 0m',
+                      duration: todayAttendance.value?.clock.duration ??
+                          calculateDuration(
+                              clockInFormattedTime, clockOutFormattedTime),
                       overtime: "0h 0m",
                     ),
                     shiftListState.when(
                       loading: () =>
                           const Center(child: CircularProgressIndicator()),
                       error: (err, stack) {
-                        print("ERROR COYY ${err}");
-                        print("ERROR STACK COYY ${stack}");
-
                         return Text('Error: ${err}');
                       },
                       data: (shifts) {
                         // We have the data, now build the dropdown
-                        final shiftOptions =
-                            shifts.map((shift) => shift.name).toList();
+                        final shiftOptions = shifts.shifts
+                            .map((shift) => shift.shift.name)
+                            .toList();
 
                         return ITextFieldDropdownBottomSheet(
                           enabled: (widget.activity == AttendanceEnum.clockIn)
@@ -158,12 +158,11 @@ class _AttendanceFormScreenState extends ConsumerState<AttendanceFormScreen> {
                           controller: _shiftController,
                           options: shiftOptions,
                           onOptionSelected: (selectedOption) {
-                            // Find the selected shift in the list to get its ID
-                            final selectedShift = shifts.firstWhere(
-                              (shift) => shift.name == selectedOption,
+                            final selectedShift = shifts.shifts.firstWhere(
+                              (shift) => shift.shift.name == selectedOption,
                             );
                             setState(() {
-                              _selectedShiftId = selectedShift.id;
+                              _selectedShiftId = selectedShift.shift.id;
                             });
                           },
                           isRequired: true,
@@ -172,6 +171,7 @@ class _AttendanceFormScreenState extends ConsumerState<AttendanceFormScreen> {
                     ),
                     ITextFieldTextArea(
                       label: "Notes",
+                      controller: _notesController,
                       labelStyle: textTheme.bodySmall,
                     ),
                   ],

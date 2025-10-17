@@ -1,21 +1,173 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
-import 'package:hrms_mobile/core/routes/route_paths.dart';
+import 'package:hrms_mobile/core/util/datetime_utils.dart';
+import 'package:hrms_mobile/core/util/general_utils.dart';
+import 'package:hrms_mobile/core/util/geocoding_geolocation_mapper.dart';
 import 'package:hrms_mobile/core/widgets/i_footer_button.dart';
 import 'package:hrms_mobile/core/widgets/status_chip.dart';
+import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_dropdown_bottom_sheet.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_time_picker.dart';
+import 'package:hrms_mobile/features/attendance/data/models/request/update_attendance/update_attendance_request_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/response/detail_attendance/attendance_detail_response_model.dart';
+import 'package:intl/intl.dart';
 
-class AttendanceHistoryEditScreen extends ConsumerWidget {
-  const AttendanceHistoryEditScreen({super.key});
+import '../providers/attendance_provider.dart';
+
+class AttendanceHistoryEditScreen extends ConsumerStatefulWidget {
+  final AttendanceDetail attendance;
+
+  const AttendanceHistoryEditScreen({super.key, required this.attendance});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _AttendanceEditFormScreenState();
+}
+
+class _AttendanceEditFormScreenState
+    extends ConsumerState<AttendanceHistoryEditScreen> {
+  late final TextEditingController _clockInController;
+  late final TextEditingController _clockOutController;
+
+  late final TextEditingController _shiftController;
+  late final TextEditingController _notesController;
+
+  TimeOfDay? _selectedClockIn;
+  TimeOfDay? _selectedClockOut;
+  int? _selectedShiftId;
+  bool? shiftEnabled;
+
+  int _timeOfDayToMinutes(TimeOfDay time) {
+    return time.hour * 60 + time.minute;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedClockIn =
+        DateTimeHelper.parseTimeOfDay(widget.attendance.clock.inAt);
+    _selectedClockOut =
+        DateTimeHelper.parseTimeOfDay(widget.attendance.clock.outAt);
+
+    _clockInController =
+        TextEditingController(text: widget.attendance.clock.inAt ?? '');
+    _clockOutController =
+        TextEditingController(text: widget.attendance.clock.outAt ?? '');
+    _shiftController =
+        TextEditingController(text: widget.attendance.metadata.shiftName ?? '');
+    _notesController =
+        TextEditingController(text: widget.attendance.notes ?? '');
+    _selectedShiftId = widget.attendance.metadata.shiftId;
+  }
+
+  @override
+  void dispose() {
+    _clockInController.dispose();
+    _clockOutController.dispose();
+    _shiftController.dispose();
+    _notesController.dispose();
+    super.dispose();
+  }
+
+  String _formatMinutesToDuration(int totalMinutes) {
+    if (totalMinutes <= 0) {
+      return "0h 0m";
+    }
+    final hours = totalMinutes ~/ 60;
+    final minutes = totalMinutes % 60;
+    return "${hours}h ${minutes}m";
+  }
+
+  String? _formatTimeForAPI(TimeOfDay? time) {
+    if (time == null) return null;
+    final hour = time.hour.toString().padLeft(2, '0');
+    final minute = time.minute.toString().padLeft(2, '0');
+    return '$hour:$minute';
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+
+    final shiftListState =
+        ref.watch(workingShiftListProvider(widget.attendance.attendanceDate));
+
+    final updateState = ref.watch(updateAttendanceProvider);
+    final isLoading = updateState.isLoading;
+    final validationErrors = updateState.errors;
+
+    // Calculate the duration on every build
+    final String? clockInStr = _formatTimeForAPI(_selectedClockIn);
+    final String? clockOutStr = _formatTimeForAPI(_selectedClockOut);
+    final String durationText = calculateDuration(clockInStr, clockOutStr);
+
+    String overtimeText = "0h 0m";
+
+    shiftListState.whenData((shifts) {
+      if (_selectedShiftId != null) {
+        try {
+          final selectedShift = shifts.shifts
+              .firstWhere((shift) => shift.shift.id == _selectedShiftId);
+          setState(() {
+            _shiftController.text = selectedShift.shift.name;
+          });
+          if (_selectedClockOut != null) {
+            final shiftEndTime =
+                DateTimeHelper.parseTimeOfDay(selectedShift.endTime);
+
+            if (shiftEndTime != null) {
+              final clockOutMinutes = _timeOfDayToMinutes(_selectedClockOut!);
+              final shiftEndMinutes = _timeOfDayToMinutes(shiftEndTime);
+
+              if (clockOutMinutes > shiftEndMinutes) {
+                final overtimeMinutes = clockOutMinutes - shiftEndMinutes;
+                overtimeText = _formatMinutesToDuration(overtimeMinutes);
+              }
+            }
+          }
+        } catch (e) {
+          debugPrint(
+              "Shift with ID '$_selectedShiftId' not found in the list.");
+        }
+      }
+    });
+
+    Future<void> onUpdatePressed() async {
+      try {
+        final request = UpdateAttendanceRequestModel(
+          clockInAt: _formatTimeForAPI(_selectedClockIn),
+          clockOutAt: _formatTimeForAPI(_selectedClockOut),
+          shiftId: _selectedShiftId,
+          notes: _notesController.text,
+        );
+
+        final success =
+            await ref.read(updateAttendanceProvider.notifier).updateAttendance(
+                  attendanceId: widget.attendance.id.toString(),
+                  request: request,
+                );
+
+        if (success) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Update Success!')),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Update Failed!')),
+          );
+        }
+      } catch (e) {
+        // Show error message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Update Failed: ${e.toString()}')),
+        );
+      }
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -61,13 +213,7 @@ class AttendanceHistoryEditScreen extends ConsumerWidget {
                       height: 12,
                     ),
                     AttendanceCard(
-                      date: "Tuesday",
-                      clockIn: "08.00",
-                      clockOut: "17.00",
-                      overtime: "8h",
-                      status: AttendanceStatus.absent,
-                      location: "TEST LOCATION",
-                      notes: "TEST NOTES",
+                      item: widget.attendance,
                     )
                   ],
                 ),
@@ -88,10 +234,82 @@ class AttendanceHistoryEditScreen extends ConsumerWidget {
                       height: 12,
                     ),
                     ITextFieldTimePicker(
+                      controller: _clockInController,
+                      initialTime: DateTimeHelper.parseTimeOfDay(
+                          widget.attendance.clock.inAt),
                       label: "Clock In",
+                      errorText: validationErrors['clock_in_at'],
+                      onTimeChanged: (newTime) {
+                        setState(() {
+                          if (_selectedClockOut != null &&
+                              _timeOfDayToMinutes(newTime) >
+                                  _timeOfDayToMinutes(_selectedClockOut!)) {
+                            _selectedClockOut = null;
+                            _clockOutController.clear();
+                          }
+                          _selectedClockIn = newTime;
+                        });
+                      },
                     ),
                     ITextFieldTimePicker(
+                      controller: _clockOutController,
+                      initialTime: DateTimeHelper.parseTimeOfDay(
+                          widget.attendance.clock.outAt),
                       label: "Clock Out",
+                      errorText: validationErrors['clock_out_at'],
+                      onTimeChanged: (newTime) {
+                        setState(() {
+                          // If new Clock Out is before Clock In, clear Clock In.
+                          if (_selectedClockIn != null &&
+                              _timeOfDayToMinutes(newTime) <
+                                  _timeOfDayToMinutes(_selectedClockIn!)) {
+                            _selectedClockIn = null;
+                            _clockInController.clear();
+                          }
+                          _selectedClockOut = newTime;
+                        });
+                      },
+                    ),
+                    shiftListState.when(
+                      loading: () {
+                        return ITextFieldDropdownBottomSheet(
+                          enabled: false,
+                          label: "Shift",
+                          controller: _shiftController,
+                          options: [],
+                          onOptionSelected: (selectedOption) {},
+                        );
+                      },
+                      error: (err, stack) {
+                        return ITextFieldDropdownBottomSheet(
+                          enabled: false,
+                          label: "Shift",
+                          controller: _shiftController,
+                          options: [],
+                          onOptionSelected: (selectedOption) {},
+                        );
+                      },
+                      data: (shifts) {
+                        final shiftOptions = shifts.shifts
+                            .map((shift) => shift.shift.name)
+                            .toList();
+
+                        return ITextFieldDropdownBottomSheet(
+                          label: "Shift",
+                          controller: _shiftController,
+                          options: shiftOptions,
+                          errorText: validationErrors['shift_id'],
+                          onOptionSelected: (selectedOption) {
+                            final selectedShift = shifts.shifts.firstWhere(
+                              (shift) => shift.shift.name == selectedOption,
+                            );
+                            setState(() {
+                              _selectedShiftId = selectedShift.shift.id;
+                            });
+                          },
+                          isRequired: true,
+                        );
+                      },
                     ),
                     SizedBox(
                       height: 12,
@@ -104,7 +322,7 @@ class AttendanceHistoryEditScreen extends ConsumerWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text("Duration"),
-                              Text("0h 0m"),
+                              Text(durationText),
                             ],
                           ),
                         ),
@@ -113,8 +331,8 @@ class AttendanceHistoryEditScreen extends ConsumerWidget {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Duration"),
-                              Text("0h 0m"),
+                              Text("Overtime"),
+                              Text(overtimeText),
                             ],
                           ),
                         ),
@@ -125,6 +343,7 @@ class AttendanceHistoryEditScreen extends ConsumerWidget {
                     ),
                     ITextFieldTextArea(
                       label: "Adjustment Notes",
+                      controller: _notesController,
                       onChanged: (val) {},
                     ),
                   ],
@@ -134,295 +353,231 @@ class AttendanceHistoryEditScreen extends ConsumerWidget {
           ),
           IFooterButton(
             text: "Send Adjustment Request",
-            onPressed: () {},
+            onPressed: () {
+              if (!isLoading) {
+                onUpdatePressed();
+              }
+            },
           )
-          // SafeArea(
-          //   child: Container(
-          //     color: Colors.white,
-          //     child: Column(
-          //       mainAxisSize: MainAxisSize.min,
-          //       children: [
-          //         Divider(
-          //           color: Colors.grey.shade300,
-          //           height: 1,
-          //           thickness: 1,
-          //         ),
-          //         const SizedBox(
-          //           height: 8,
-          //         ),
-          //         Padding(
-          //           padding: EdgeInsets.only(left: 16, right: 16, top: 10),
-          //           child: ElevatedButton(
-          //             style: ElevatedButton.styleFrom(
-          //               backgroundColor: IColors.light.primary.main,
-          //               foregroundColor: Colors.white,
-          //               minimumSize: const Size.fromHeight(50),
-          //               shape: RoundedRectangleBorder(
-          //                 borderRadius: BorderRadius.circular(8),
-          //               ),
-          //             ),
-          //             onPressed: () {},
-          //             child: const Text("Send Adjustment Request"),
-          //           ),
-          //         ),
-          //       ],
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );
   }
 }
 
-/// ===== Attendance Card Widget =====
 class AttendanceCard extends StatelessWidget {
-  final String date;
-  final String clockIn;
-  final String clockOut;
-  final String overtime;
-  final AttendanceStatus status;
-  final String location;
-  final String notes;
+  final AttendanceDetail item;
 
-  const AttendanceCard({
-    super.key,
-    required this.date,
-    required this.clockIn,
-    required this.clockOut,
-    required this.overtime,
-    required this.status,
-    required this.location,
-    required this.notes,
-  });
+  const AttendanceCard({super.key, required this.item});
+
+  String _formatDate(String dateStr) {
+    final date = DateTime.parse(dateStr);
+    // As it's currently October 2025, showing the month is helpful
+    return DateFormat('E, d').format(date);
+  }
+
+  String _formatTime(String? timeStr) {
+    if (timeStr == null) return "-";
+    try {
+      final time = DateFormat('HH:mm').parse(timeStr);
+      return DateFormat('hh:mm a').format(time);
+    } catch (e) {
+      return timeStr; // Return original string if parsing fails
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     return Container(
       decoration: BoxDecoration(
         color: IColors.light.primary.focused,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
       ),
-      padding: const EdgeInsets.all(4),
+      padding: EdgeInsets.all(4.w),
       child: Container(
-        padding: EdgeInsets.only(left: 12, right: 12, bottom: 12),
+        padding: EdgeInsets.all(12.w),
         decoration: BoxDecoration(
           color: IColors.light.primary.foreground,
           border: Border.all(
             color: IColors.light.primary.border,
             width: 1,
           ),
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(8.r),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ===== Title Row =====
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    Text(date),
-                    IconButton(
-                      onPressed: () {
-                        context.goNamed(RoutePaths.attendanceEdit);
-                      },
-                      icon: SvgPicture.asset(
-                        IAssets.edit,
-                        width: 24,
-                        height: 24,
-                      ),
-                    )
-                  ],
+                Text(
+                  _formatDate(item.attendanceDate),
+                  style: textTheme.titleMedium
+                      ?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 StatusChip(
-                  status: 3,
-                  statusLabel: "Rejected",
+                  status: item.status,
+                  statusLabel: item.statusLabel,
+                  event: 'attendance',
                 ),
               ],
             ),
-            const SizedBox(height: 32),
-
-            // ===== Time Row =====
+            SizedBox(height: 32.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // Clock-In
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Clock-In",
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: Color(0xFF8E8E8E),
-                          ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(clockIn,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyLarge
-                            ?.copyWith(fontWeight: FontWeight.bold)),
-                  ],
+                _buildTimeColumn(
+                    context, "Clock-In", _formatTime(item.clock.inAt)),
+                Expanded(
+                  child: _buildDurationDisplay(
+                      context,
+                      item.clock.duration != null
+                          ? item.clock.duration.toString()
+                          : '0h 0m'),
                 ),
-
-                // Duration in middle
-                Column(
-                  children: [
-                    const SizedBox(height: 20),
-                    Row(
-                      children: [
-                        Container(
-                          height: 1,
-                          width: 40,
-                          color: IColors.light.grayscale.g20,
-                        ),
-                        const SizedBox(width: 4),
-                        Text("8h0m",
-                            style: Theme.of(context).textTheme.bodySmall),
-                        const SizedBox(width: 4),
-                        Container(
-                          height: 1,
-                          width: 40,
-                          color: IColors.light.grayscale.g20,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-
-                // Clock-Out
                 IntrinsicHeight(
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Clock-Out",
-                            style:
-                                Theme.of(context).textTheme.bodySmall?.copyWith(
-                                      color: Color(0xFF8E8E8E),
-                                    ),
-                          ),
-                          const SizedBox(height: 4),
-                          Text(clockOut,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge
-                                  ?.copyWith(
-                                      color: Colors.orange,
-                                      fontWeight: FontWeight.bold)),
-                        ],
-                      ),
+                      _buildTimeColumn(
+                          context, "Clock-Out", _formatTime(item.clock.outAt),
+                          color: Colors.orange),
                       VerticalDivider(
-                        width: 20,
+                        width: 20.w,
                         thickness: 2,
                         color: IColors.light.grayscale.g20,
                       ),
-                      // Overtime
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Overtime",
-                            style:
-                                Theme.of(context).textTheme.bodySmall?.copyWith(
-                                      color: Color(0xFF8E8E8E),
-                                    ),
-                          ),
-                          const SizedBox(height: 4),
-                          Text(overtime,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge
-                                  ?.copyWith(fontWeight: FontWeight.bold)),
-                        ],
-                      ),
+                      _buildTimeColumn(context, "Overtime",
+                          item.clock.overtimeDurationFormatted ?? "0h 0m",
+                          isEnd: true),
                     ],
                   ),
-                )
+                ),
               ],
             ),
+            SizedBox(height: 16.h),
             Divider(color: IColors.light.grayscale.g10),
-            // ===== Location =====
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("Location",
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: Color(0xFF8E8E8E),
-                        )),
-                const SizedBox(height: 8),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: IColors.light.primary.border,
-                  ),
-                  child: Container(
-                    margin: const EdgeInsets.all(2),
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: IColors.light.primary.background,
-                    ),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: SvgPicture.asset(
-                            IAssets.pinLocation,
-                            width: 10,
-                            height: 18,
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
-                            location,
-                            overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                                  color: IColors.light.primary.main,
-                                ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-
-            const SizedBox(height: 16),
-
-            // ===== Notes =====
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Notes",
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: Color(0xFF8E8E8E),
-                      ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  notes,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-              ],
-            ),
+            _buildLocation(context),
+            SizedBox(height: 16.h),
+            _buildNotes(context),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildTimeColumn(BuildContext context, String label, String value,
+      {Color? color, bool isEnd = false}) {
+    return Column(
+      crossAxisAlignment:
+          isEnd ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+      children: [
+        Text(label, style: Theme.of(context).textTheme.bodySmall),
+        SizedBox(height: 4.h),
+        Text(value,
+            style: Theme.of(context)
+                .textTheme
+                .bodyLarge
+                ?.copyWith(fontWeight: FontWeight.bold, color: color)),
+      ],
+    );
+  }
+
+  Widget _buildDurationDisplay(BuildContext context, String duration) {
+    return Column(
+      children: [
+        SizedBox(height: 20.h),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Container(
+                height: 1,
+                color: IColors.light.grayscale.g20,
+                margin: EdgeInsets.only(left: 2.w, right: 4.w),
+              ),
+            ),
+            Text(duration, style: Theme.of(context).textTheme.bodySmall),
+            Expanded(
+              child: Container(
+                height: 1,
+                color: IColors.light.grayscale.g20,
+                margin: EdgeInsets.only(left: 4.w, right: 2.w),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildLocation(BuildContext context) {
+    final lat = double.tryParse(item.location.latitude ?? '') ?? 0.0;
+    final lng = double.tryParse(item.location.longitude ?? '') ?? 0.0;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("Location", style: Theme.of(context).textTheme.bodySmall),
+        SizedBox(height: 8.h),
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12.r),
+            color: IColors.light.primary.border,
+          ),
+          child: Container(
+            margin: EdgeInsets.all(2.w),
+            padding: EdgeInsets.all(8.w),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8.r),
+              color: IColors.light.primary.background,
+            ),
+            child: Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10.w),
+                  child: SvgPicture.asset(
+                    IAssets.pinLocation,
+                    width: 10.w,
+                    height: 18.h,
+                  ),
+                ),
+                SizedBox(width: 8.w),
+                Expanded(
+                  child: FutureBuilder<String>(
+                    future: getAddressFromLatLng(lat, lng),
+                    builder: (context, snapshot) {
+                      return Text(
+                        snapshot.data ?? item.metadata.locationName ?? "",
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: IColors.light.primary.main,
+                            ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildNotes(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("Notes", style: Theme.of(context).textTheme.bodySmall),
+        SizedBox(height: 4.h),
+        Text(
+          item.notes ?? "-",
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium
+              ?.copyWith(color: Colors.grey),
+        ),
+      ],
     );
   }
 }

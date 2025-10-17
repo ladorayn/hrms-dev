@@ -36,4 +36,8 @@ class IAssets {
   static const String faceUp = '$ICON_PATH/faceUp.svg';
   static const String faceRight = '$ICON_PATH/faceRight.svg';
   static const String faceLeft = '$ICON_PATH/faceLeft.svg';
+  static const String timelineInProgressDot =
+      '$ICON_PATH/timelineInProgressDot.svg';
+  static const String questionMark = '$ICON_PATH/questionMark.svg';
+  static const String delete = '$ICON_PATH/delete.svg';
 }

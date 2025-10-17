@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:hrms_mobile/core/errors/error_handler.dart';
+import 'package:hrms_mobile/features/auth/data/models/change_password/request/change_password_request_model.dart';
 import 'package:hrms_mobile/features/auth/data/models/login/request/login_request.dart';
 import 'package:hrms_mobile/features/auth/data/models/login/response/login_response.dart';
 import 'package:hrms_mobile/features/auth/data/models/reset_password/request/forgot_password_request.dart';
@@ -19,7 +21,7 @@ class AuthRepositoryImpl implements AuthRepository {
       final response = await dio.post('api/v1/login', data: loginData);
       return LoginResponse.fromJson(response.data['data']);
     } on DioException catch (e) {
-      throw Exception(e.response?.data['message'] ?? 'Login failed');
+      throw handleDioError(e);
     }
   }
 
@@ -52,7 +54,7 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       await dio.post('api/v1/password/forgot', data: request);
     } on DioException catch (e) {
-      throw Exception(e.response?.data['message'] ?? 'Request failed');
+      throw handleDioError(e);
     }
   }
 
@@ -61,7 +63,16 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       await dio.post('api/v1/password/reset', data: request);
     } on DioException catch (e) {
-      throw Exception(e.response?.data['message'] ?? 'Reset failed');
+      throw handleDioError(e);
+    }
+  }
+
+  @override
+  Future<void> changePassword(ChangePasswordRequest request) async {
+    try {
+      await dio.post('api/v1/password/change', data: request);
+    } on DioException catch (e) {
+      throw handleDioError(e);
     }
   }
 
@@ -71,7 +82,7 @@ class AuthRepositoryImpl implements AuthRepository {
       final response = await dio.get('api/v1/user/profile');
       return UserProfileResponse.fromJson(response.data['data']['user']);
     } on DioException catch (e) {
-      throw Exception(e.response?.data['message'] ?? 'Failed to fetch profile');
+      throw handleDioError(e);
     }
   }
 
@@ -81,8 +92,7 @@ class AuthRepositoryImpl implements AuthRepository {
       final response = await dio.get('api/v1/setting/company-profile');
       return CompanyProfileResponse.fromJson(response.data['data']);
     } on DioException catch (e) {
-      throw Exception(
-          e.response?.data['message'] ?? 'Failed to fetch company profile');
+      throw handleDioError(e);
     }
   }
 }

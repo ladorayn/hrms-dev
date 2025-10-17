@@ -21,3 +21,17 @@ class ServerException implements Exception {
   @override
   String toString() => 'ServerException: $message';
 }
+
+class ValidationException implements Exception {
+  final String message;
+  final Map<String, List<String>> errors;
+
+  ValidationException(this.message, this.errors);
+
+  String? getFirstError(String field) {
+    return errors[field]?.first;
+  }
+
+  @override
+  String toString() => 'ValidationException: $message, Errors: $errors';
+}

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 class StatisticsItem extends ConsumerWidget {
@@ -25,23 +26,23 @@ class StatisticsItem extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              SvgPicture.asset(iconAsset, width: 20),
-              const SizedBox(width: 8),
+              SvgPicture.asset(iconAsset, width: 20.sp),
+              SizedBox(width: 8.sp),
               Text(value,
-                  style: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.bold)),
-              const SizedBox(width: 4),
+                  style:
+                      TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold)),
+              SizedBox(width: 4.sp),
               Padding(
                 padding: const EdgeInsets.only(bottom: 2.0),
                 child: Text(label,
-                    style:
-                        TextStyle(color: Colors.grey.shade600, fontSize: 12)),
+                    style: TextStyle(
+                        color: Colors.grey.shade600, fontSize: 12.sp)),
               ),
             ],
           ),
-          const SizedBox(height: 4),
+          SizedBox(height: 4.sp),
           Text(description,
-              style: TextStyle(color: Colors.grey.shade600, fontSize: 12)),
+              style: TextStyle(color: Colors.grey.shade600, fontSize: 12.sp)),
         ],
       ),
     );

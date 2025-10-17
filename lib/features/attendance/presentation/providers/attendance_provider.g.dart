@@ -161,7 +161,144 @@ class _RecentActivityProviderElement
   int get limit => (origin as RecentActivityProvider).limit;
 }
 
-String _$attendanceHash() => r'15ec77acf5826e6790e387e08d49262585ffd70f';
+String _$getDetailAttendanceHash() =>
+    r'c1651d1135f7d2a70fd02695a1412eaa8cb1fa24';
+
+/// See also [getDetailAttendance].
+@ProviderFor(getDetailAttendance)
+const getDetailAttendanceProvider = GetDetailAttendanceFamily();
+
+/// See also [getDetailAttendance].
+class GetDetailAttendanceFamily extends Family<AsyncValue<AttendanceDetail?>> {
+  /// See also [getDetailAttendance].
+  const GetDetailAttendanceFamily();
+
+  /// See also [getDetailAttendance].
+  GetDetailAttendanceProvider call({
+    required String attendanceId,
+  }) {
+    return GetDetailAttendanceProvider(
+      attendanceId: attendanceId,
+    );
+  }
+
+  @override
+  GetDetailAttendanceProvider getProviderOverride(
+    covariant GetDetailAttendanceProvider provider,
+  ) {
+    return call(
+      attendanceId: provider.attendanceId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'getDetailAttendanceProvider';
+}
+
+/// See also [getDetailAttendance].
+class GetDetailAttendanceProvider
+    extends AutoDisposeFutureProvider<AttendanceDetail?> {
+  /// See also [getDetailAttendance].
+  GetDetailAttendanceProvider({
+    required String attendanceId,
+  }) : this._internal(
+          (ref) => getDetailAttendance(
+            ref as GetDetailAttendanceRef,
+            attendanceId: attendanceId,
+          ),
+          from: getDetailAttendanceProvider,
+          name: r'getDetailAttendanceProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$getDetailAttendanceHash,
+          dependencies: GetDetailAttendanceFamily._dependencies,
+          allTransitiveDependencies:
+              GetDetailAttendanceFamily._allTransitiveDependencies,
+          attendanceId: attendanceId,
+        );
+
+  GetDetailAttendanceProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.attendanceId,
+  }) : super.internal();
+
+  final String attendanceId;
+
+  @override
+  Override overrideWith(
+    FutureOr<AttendanceDetail?> Function(GetDetailAttendanceRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: GetDetailAttendanceProvider._internal(
+        (ref) => create(ref as GetDetailAttendanceRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        attendanceId: attendanceId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<AttendanceDetail?> createElement() {
+    return _GetDetailAttendanceProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is GetDetailAttendanceProvider &&
+        other.attendanceId == attendanceId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, attendanceId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin GetDetailAttendanceRef
+    on AutoDisposeFutureProviderRef<AttendanceDetail?> {
+  /// The parameter `attendanceId` of this provider.
+  String get attendanceId;
+}
+
+class _GetDetailAttendanceProviderElement
+    extends AutoDisposeFutureProviderElement<AttendanceDetail?>
+    with GetDetailAttendanceRef {
+  _GetDetailAttendanceProviderElement(super.provider);
+
+  @override
+  String get attendanceId =>
+      (origin as GetDetailAttendanceProvider).attendanceId;
+}
+
+String _$attendanceHash() => r'da1ae905bf5dcc60d4b366bdb648654874b5ef9f';
 
 /// See also [Attendance].
 @ProviderFor(Attendance)
@@ -209,22 +346,646 @@ final paginatedActivityLogsProvider = AsyncNotifierProvider<
 );
 
 typedef _$PaginatedActivityLogs = AsyncNotifier<List<ActivityLogModel>>;
-String _$attendanceHistoryHash() => r'6c49f3b4033ace469ecc849153134f0b4f3e75bc';
+String _$paginatedAttendanceHistoryHash() =>
+    r'3335fa596fba0da24126f8e3c29c946ff42c24e7';
 
-/// See also [AttendanceHistory].
-@ProviderFor(AttendanceHistory)
-final attendanceHistoryProvider = AutoDisposeAsyncNotifierProvider<
-    AttendanceHistory, List<AttendanceModel>>.internal(
-  AttendanceHistory.new,
-  name: r'attendanceHistoryProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$attendanceHistoryHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+abstract class _$PaginatedAttendanceHistory
+    extends BuildlessAutoDisposeAsyncNotifier<List<AttendanceDetail>> {
+  late final String? period;
+  late final String? status;
 
-typedef _$AttendanceHistory = AutoDisposeAsyncNotifier<List<AttendanceModel>>;
+  FutureOr<List<AttendanceDetail>> build({
+    String? period,
+    String? status,
+  });
+}
+
+/// See also [PaginatedAttendanceHistory].
+@ProviderFor(PaginatedAttendanceHistory)
+const paginatedAttendanceHistoryProvider = PaginatedAttendanceHistoryFamily();
+
+/// See also [PaginatedAttendanceHistory].
+class PaginatedAttendanceHistoryFamily
+    extends Family<AsyncValue<List<AttendanceDetail>>> {
+  /// See also [PaginatedAttendanceHistory].
+  const PaginatedAttendanceHistoryFamily();
+
+  /// See also [PaginatedAttendanceHistory].
+  PaginatedAttendanceHistoryProvider call({
+    String? period,
+    String? status,
+  }) {
+    return PaginatedAttendanceHistoryProvider(
+      period: period,
+      status: status,
+    );
+  }
+
+  @override
+  PaginatedAttendanceHistoryProvider getProviderOverride(
+    covariant PaginatedAttendanceHistoryProvider provider,
+  ) {
+    return call(
+      period: provider.period,
+      status: provider.status,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'paginatedAttendanceHistoryProvider';
+}
+
+/// See also [PaginatedAttendanceHistory].
+class PaginatedAttendanceHistoryProvider
+    extends AutoDisposeAsyncNotifierProviderImpl<PaginatedAttendanceHistory,
+        List<AttendanceDetail>> {
+  /// See also [PaginatedAttendanceHistory].
+  PaginatedAttendanceHistoryProvider({
+    String? period,
+    String? status,
+  }) : this._internal(
+          () => PaginatedAttendanceHistory()
+            ..period = period
+            ..status = status,
+          from: paginatedAttendanceHistoryProvider,
+          name: r'paginatedAttendanceHistoryProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$paginatedAttendanceHistoryHash,
+          dependencies: PaginatedAttendanceHistoryFamily._dependencies,
+          allTransitiveDependencies:
+              PaginatedAttendanceHistoryFamily._allTransitiveDependencies,
+          period: period,
+          status: status,
+        );
+
+  PaginatedAttendanceHistoryProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.period,
+    required this.status,
+  }) : super.internal();
+
+  final String? period;
+  final String? status;
+
+  @override
+  FutureOr<List<AttendanceDetail>> runNotifierBuild(
+    covariant PaginatedAttendanceHistory notifier,
+  ) {
+    return notifier.build(
+      period: period,
+      status: status,
+    );
+  }
+
+  @override
+  Override overrideWith(PaginatedAttendanceHistory Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: PaginatedAttendanceHistoryProvider._internal(
+        () => create()
+          ..period = period
+          ..status = status,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        period: period,
+        status: status,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeAsyncNotifierProviderElement<PaginatedAttendanceHistory,
+      List<AttendanceDetail>> createElement() {
+    return _PaginatedAttendanceHistoryProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is PaginatedAttendanceHistoryProvider &&
+        other.period == period &&
+        other.status == status;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, period.hashCode);
+    hash = _SystemHash.combine(hash, status.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin PaginatedAttendanceHistoryRef
+    on AutoDisposeAsyncNotifierProviderRef<List<AttendanceDetail>> {
+  /// The parameter `period` of this provider.
+  String? get period;
+
+  /// The parameter `status` of this provider.
+  String? get status;
+}
+
+class _PaginatedAttendanceHistoryProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<PaginatedAttendanceHistory,
+        List<AttendanceDetail>> with PaginatedAttendanceHistoryRef {
+  _PaginatedAttendanceHistoryProviderElement(super.provider);
+
+  @override
+  String? get period => (origin as PaginatedAttendanceHistoryProvider).period;
+  @override
+  String? get status => (origin as PaginatedAttendanceHistoryProvider).status;
+}
+
+String _$attendanceStatsHash() => r'960f4d92eca8e954283aebe020bb53c9136dd846';
+
+abstract class _$AttendanceStats
+    extends BuildlessAutoDisposeAsyncNotifier<AttendanceStatistics> {
+  late final String? period;
+
+  FutureOr<AttendanceStatistics> build({
+    String? period,
+  });
+}
+
+/// See also [AttendanceStats].
+@ProviderFor(AttendanceStats)
+const attendanceStatsProvider = AttendanceStatsFamily();
+
+/// See also [AttendanceStats].
+class AttendanceStatsFamily extends Family<AsyncValue<AttendanceStatistics>> {
+  /// See also [AttendanceStats].
+  const AttendanceStatsFamily();
+
+  /// See also [AttendanceStats].
+  AttendanceStatsProvider call({
+    String? period,
+  }) {
+    return AttendanceStatsProvider(
+      period: period,
+    );
+  }
+
+  @override
+  AttendanceStatsProvider getProviderOverride(
+    covariant AttendanceStatsProvider provider,
+  ) {
+    return call(
+      period: provider.period,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'attendanceStatsProvider';
+}
+
+/// See also [AttendanceStats].
+class AttendanceStatsProvider extends AutoDisposeAsyncNotifierProviderImpl<
+    AttendanceStats, AttendanceStatistics> {
+  /// See also [AttendanceStats].
+  AttendanceStatsProvider({
+    String? period,
+  }) : this._internal(
+          () => AttendanceStats()..period = period,
+          from: attendanceStatsProvider,
+          name: r'attendanceStatsProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$attendanceStatsHash,
+          dependencies: AttendanceStatsFamily._dependencies,
+          allTransitiveDependencies:
+              AttendanceStatsFamily._allTransitiveDependencies,
+          period: period,
+        );
+
+  AttendanceStatsProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.period,
+  }) : super.internal();
+
+  final String? period;
+
+  @override
+  FutureOr<AttendanceStatistics> runNotifierBuild(
+    covariant AttendanceStats notifier,
+  ) {
+    return notifier.build(
+      period: period,
+    );
+  }
+
+  @override
+  Override overrideWith(AttendanceStats Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: AttendanceStatsProvider._internal(
+        () => create()..period = period,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        period: period,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeAsyncNotifierProviderElement<AttendanceStats, AttendanceStatistics>
+      createElement() {
+    return _AttendanceStatsProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is AttendanceStatsProvider && other.period == period;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, period.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin AttendanceStatsRef
+    on AutoDisposeAsyncNotifierProviderRef<AttendanceStatistics> {
+  /// The parameter `period` of this provider.
+  String? get period;
+}
+
+class _AttendanceStatsProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<AttendanceStats,
+        AttendanceStatistics> with AttendanceStatsRef {
+  _AttendanceStatsProviderElement(super.provider);
+
+  @override
+  String? get period => (origin as AttendanceStatsProvider).period;
+}
+
+String _$paginatedOvertimeHistoryHash() =>
+    r'88577562a185aa8cbecf6e295ac101e6eef0ad74';
+
+abstract class _$PaginatedOvertimeHistory
+    extends BuildlessAutoDisposeAsyncNotifier<List<OvertimeDetail>> {
+  late final String? period;
+  late final String? status;
+
+  FutureOr<List<OvertimeDetail>> build({
+    String? period,
+    String? status,
+  });
+}
+
+/// See also [PaginatedOvertimeHistory].
+@ProviderFor(PaginatedOvertimeHistory)
+const paginatedOvertimeHistoryProvider = PaginatedOvertimeHistoryFamily();
+
+/// See also [PaginatedOvertimeHistory].
+class PaginatedOvertimeHistoryFamily
+    extends Family<AsyncValue<List<OvertimeDetail>>> {
+  /// See also [PaginatedOvertimeHistory].
+  const PaginatedOvertimeHistoryFamily();
+
+  /// See also [PaginatedOvertimeHistory].
+  PaginatedOvertimeHistoryProvider call({
+    String? period,
+    String? status,
+  }) {
+    return PaginatedOvertimeHistoryProvider(
+      period: period,
+      status: status,
+    );
+  }
+
+  @override
+  PaginatedOvertimeHistoryProvider getProviderOverride(
+    covariant PaginatedOvertimeHistoryProvider provider,
+  ) {
+    return call(
+      period: provider.period,
+      status: provider.status,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'paginatedOvertimeHistoryProvider';
+}
+
+/// See also [PaginatedOvertimeHistory].
+class PaginatedOvertimeHistoryProvider
+    extends AutoDisposeAsyncNotifierProviderImpl<PaginatedOvertimeHistory,
+        List<OvertimeDetail>> {
+  /// See also [PaginatedOvertimeHistory].
+  PaginatedOvertimeHistoryProvider({
+    String? period,
+    String? status,
+  }) : this._internal(
+          () => PaginatedOvertimeHistory()
+            ..period = period
+            ..status = status,
+          from: paginatedOvertimeHistoryProvider,
+          name: r'paginatedOvertimeHistoryProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$paginatedOvertimeHistoryHash,
+          dependencies: PaginatedOvertimeHistoryFamily._dependencies,
+          allTransitiveDependencies:
+              PaginatedOvertimeHistoryFamily._allTransitiveDependencies,
+          period: period,
+          status: status,
+        );
+
+  PaginatedOvertimeHistoryProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.period,
+    required this.status,
+  }) : super.internal();
+
+  final String? period;
+  final String? status;
+
+  @override
+  FutureOr<List<OvertimeDetail>> runNotifierBuild(
+    covariant PaginatedOvertimeHistory notifier,
+  ) {
+    return notifier.build(
+      period: period,
+      status: status,
+    );
+  }
+
+  @override
+  Override overrideWith(PaginatedOvertimeHistory Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: PaginatedOvertimeHistoryProvider._internal(
+        () => create()
+          ..period = period
+          ..status = status,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        period: period,
+        status: status,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeAsyncNotifierProviderElement<PaginatedOvertimeHistory,
+      List<OvertimeDetail>> createElement() {
+    return _PaginatedOvertimeHistoryProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is PaginatedOvertimeHistoryProvider &&
+        other.period == period &&
+        other.status == status;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, period.hashCode);
+    hash = _SystemHash.combine(hash, status.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin PaginatedOvertimeHistoryRef
+    on AutoDisposeAsyncNotifierProviderRef<List<OvertimeDetail>> {
+  /// The parameter `period` of this provider.
+  String? get period;
+
+  /// The parameter `status` of this provider.
+  String? get status;
+}
+
+class _PaginatedOvertimeHistoryProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<PaginatedOvertimeHistory,
+        List<OvertimeDetail>> with PaginatedOvertimeHistoryRef {
+  _PaginatedOvertimeHistoryProviderElement(super.provider);
+
+  @override
+  String? get period => (origin as PaginatedOvertimeHistoryProvider).period;
+  @override
+  String? get status => (origin as PaginatedOvertimeHistoryProvider).status;
+}
+
+String _$overtimeStatsHash() => r'8ebd384fd0abcfad0197b56b2ca9a6fb93d56170';
+
+abstract class _$OvertimeStats
+    extends BuildlessAutoDisposeAsyncNotifier<OvertimeStatistics> {
+  late final String? period;
+
+  FutureOr<OvertimeStatistics> build({
+    String? period,
+  });
+}
+
+/// See also [OvertimeStats].
+@ProviderFor(OvertimeStats)
+const overtimeStatsProvider = OvertimeStatsFamily();
+
+/// See also [OvertimeStats].
+class OvertimeStatsFamily extends Family<AsyncValue<OvertimeStatistics>> {
+  /// See also [OvertimeStats].
+  const OvertimeStatsFamily();
+
+  /// See also [OvertimeStats].
+  OvertimeStatsProvider call({
+    String? period,
+  }) {
+    return OvertimeStatsProvider(
+      period: period,
+    );
+  }
+
+  @override
+  OvertimeStatsProvider getProviderOverride(
+    covariant OvertimeStatsProvider provider,
+  ) {
+    return call(
+      period: provider.period,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'overtimeStatsProvider';
+}
+
+/// See also [OvertimeStats].
+class OvertimeStatsProvider extends AutoDisposeAsyncNotifierProviderImpl<
+    OvertimeStats, OvertimeStatistics> {
+  /// See also [OvertimeStats].
+  OvertimeStatsProvider({
+    String? period,
+  }) : this._internal(
+          () => OvertimeStats()..period = period,
+          from: overtimeStatsProvider,
+          name: r'overtimeStatsProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$overtimeStatsHash,
+          dependencies: OvertimeStatsFamily._dependencies,
+          allTransitiveDependencies:
+              OvertimeStatsFamily._allTransitiveDependencies,
+          period: period,
+        );
+
+  OvertimeStatsProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.period,
+  }) : super.internal();
+
+  final String? period;
+
+  @override
+  FutureOr<OvertimeStatistics> runNotifierBuild(
+    covariant OvertimeStats notifier,
+  ) {
+    return notifier.build(
+      period: period,
+    );
+  }
+
+  @override
+  Override overrideWith(OvertimeStats Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: OvertimeStatsProvider._internal(
+        () => create()..period = period,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        period: period,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeAsyncNotifierProviderElement<OvertimeStats, OvertimeStatistics>
+      createElement() {
+    return _OvertimeStatsProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is OvertimeStatsProvider && other.period == period;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, period.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin OvertimeStatsRef
+    on AutoDisposeAsyncNotifierProviderRef<OvertimeStatistics> {
+  /// The parameter `period` of this provider.
+  String? get period;
+}
+
+class _OvertimeStatsProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<OvertimeStats,
+        OvertimeStatistics> with OvertimeStatsRef {
+  _OvertimeStatsProviderElement(super.provider);
+
+  @override
+  String? get period => (origin as OvertimeStatsProvider).period;
+}
+
 String _$shiftListHash() => r'feddc959bfbf882b52524efad5ed62218c63cd5e';
 
 /// See also [ShiftList].
@@ -240,5 +1001,318 @@ final shiftListProvider =
 );
 
 typedef _$ShiftList = AutoDisposeAsyncNotifier<List<ShiftModel>>;
+String _$workingShiftListHash() => r'0100744e648c679482f10ed96c61a68da2f9d156';
+
+abstract class _$WorkingShiftList
+    extends BuildlessAutoDisposeAsyncNotifier<WorkingShiftResponseModel> {
+  late final String? date;
+
+  FutureOr<WorkingShiftResponseModel> build(
+    String? date,
+  );
+}
+
+/// See also [WorkingShiftList].
+@ProviderFor(WorkingShiftList)
+const workingShiftListProvider = WorkingShiftListFamily();
+
+/// See also [WorkingShiftList].
+class WorkingShiftListFamily
+    extends Family<AsyncValue<WorkingShiftResponseModel>> {
+  /// See also [WorkingShiftList].
+  const WorkingShiftListFamily();
+
+  /// See also [WorkingShiftList].
+  WorkingShiftListProvider call(
+    String? date,
+  ) {
+    return WorkingShiftListProvider(
+      date,
+    );
+  }
+
+  @override
+  WorkingShiftListProvider getProviderOverride(
+    covariant WorkingShiftListProvider provider,
+  ) {
+    return call(
+      provider.date,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'workingShiftListProvider';
+}
+
+/// See also [WorkingShiftList].
+class WorkingShiftListProvider extends AutoDisposeAsyncNotifierProviderImpl<
+    WorkingShiftList, WorkingShiftResponseModel> {
+  /// See also [WorkingShiftList].
+  WorkingShiftListProvider(
+    String? date,
+  ) : this._internal(
+          () => WorkingShiftList()..date = date,
+          from: workingShiftListProvider,
+          name: r'workingShiftListProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$workingShiftListHash,
+          dependencies: WorkingShiftListFamily._dependencies,
+          allTransitiveDependencies:
+              WorkingShiftListFamily._allTransitiveDependencies,
+          date: date,
+        );
+
+  WorkingShiftListProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.date,
+  }) : super.internal();
+
+  final String? date;
+
+  @override
+  FutureOr<WorkingShiftResponseModel> runNotifierBuild(
+    covariant WorkingShiftList notifier,
+  ) {
+    return notifier.build(
+      date,
+    );
+  }
+
+  @override
+  Override overrideWith(WorkingShiftList Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: WorkingShiftListProvider._internal(
+        () => create()..date = date,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        date: date,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeAsyncNotifierProviderElement<WorkingShiftList,
+      WorkingShiftResponseModel> createElement() {
+    return _WorkingShiftListProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is WorkingShiftListProvider && other.date == date;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, date.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin WorkingShiftListRef
+    on AutoDisposeAsyncNotifierProviderRef<WorkingShiftResponseModel> {
+  /// The parameter `date` of this provider.
+  String? get date;
+}
+
+class _WorkingShiftListProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<WorkingShiftList,
+        WorkingShiftResponseModel> with WorkingShiftListRef {
+  _WorkingShiftListProviderElement(super.provider);
+
+  @override
+  String? get date => (origin as WorkingShiftListProvider).date;
+}
+
+String _$validateLocationHash() => r'49abafd8fadfe1387a576e7f8ff4210f86230c28';
+
+abstract class _$ValidateLocation
+    extends BuildlessAutoDisposeAsyncNotifier<ValidateLocationResponseModel> {
+  late final ValidateLocationRequestModel request;
+
+  FutureOr<ValidateLocationResponseModel> build(
+    ValidateLocationRequestModel request,
+  );
+}
+
+/// See also [ValidateLocation].
+@ProviderFor(ValidateLocation)
+const validateLocationProvider = ValidateLocationFamily();
+
+/// See also [ValidateLocation].
+class ValidateLocationFamily
+    extends Family<AsyncValue<ValidateLocationResponseModel>> {
+  /// See also [ValidateLocation].
+  const ValidateLocationFamily();
+
+  /// See also [ValidateLocation].
+  ValidateLocationProvider call(
+    ValidateLocationRequestModel request,
+  ) {
+    return ValidateLocationProvider(
+      request,
+    );
+  }
+
+  @override
+  ValidateLocationProvider getProviderOverride(
+    covariant ValidateLocationProvider provider,
+  ) {
+    return call(
+      provider.request,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'validateLocationProvider';
+}
+
+/// See also [ValidateLocation].
+class ValidateLocationProvider extends AutoDisposeAsyncNotifierProviderImpl<
+    ValidateLocation, ValidateLocationResponseModel> {
+  /// See also [ValidateLocation].
+  ValidateLocationProvider(
+    ValidateLocationRequestModel request,
+  ) : this._internal(
+          () => ValidateLocation()..request = request,
+          from: validateLocationProvider,
+          name: r'validateLocationProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$validateLocationHash,
+          dependencies: ValidateLocationFamily._dependencies,
+          allTransitiveDependencies:
+              ValidateLocationFamily._allTransitiveDependencies,
+          request: request,
+        );
+
+  ValidateLocationProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.request,
+  }) : super.internal();
+
+  final ValidateLocationRequestModel request;
+
+  @override
+  FutureOr<ValidateLocationResponseModel> runNotifierBuild(
+    covariant ValidateLocation notifier,
+  ) {
+    return notifier.build(
+      request,
+    );
+  }
+
+  @override
+  Override overrideWith(ValidateLocation Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: ValidateLocationProvider._internal(
+        () => create()..request = request,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        request: request,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeAsyncNotifierProviderElement<ValidateLocation,
+      ValidateLocationResponseModel> createElement() {
+    return _ValidateLocationProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is ValidateLocationProvider && other.request == request;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, request.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin ValidateLocationRef
+    on AutoDisposeAsyncNotifierProviderRef<ValidateLocationResponseModel> {
+  /// The parameter `request` of this provider.
+  ValidateLocationRequestModel get request;
+}
+
+class _ValidateLocationProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<ValidateLocation,
+        ValidateLocationResponseModel> with ValidateLocationRef {
+  _ValidateLocationProviderElement(super.provider);
+
+  @override
+  ValidateLocationRequestModel get request =>
+      (origin as ValidateLocationProvider).request;
+}
+
+String _$updateAttendanceHash() => r'717ee030723f776f3ba77877df5b958259afe231';
+
+/// See also [UpdateAttendance].
+@ProviderFor(UpdateAttendance)
+final updateAttendanceProvider = AutoDisposeNotifierProvider<UpdateAttendance,
+    UpdateAttendanceState>.internal(
+  UpdateAttendance.new,
+  name: r'updateAttendanceProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$updateAttendanceHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$UpdateAttendance = AutoDisposeNotifier<UpdateAttendanceState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

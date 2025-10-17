@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/core/constants/attendance_enum.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/features/app/presentation/screens/splash_screen.dart';
+import 'package:hrms_mobile/features/attendance/data/models/response/detail_attendance/attendance_detail_response_model.dart';
 import 'package:hrms_mobile/features/attendance/presentation/screens/attendance_and_overtime_screen.dart';
 import 'package:hrms_mobile/features/attendance/presentation/screens/attendance_form_screen.dart';
 import 'package:hrms_mobile/features/attendance/presentation/screens/attendance_history_edit_screen.dart';
@@ -22,6 +23,10 @@ import 'package:hrms_mobile/features/auth/presentation/screens/reset_password/re
 import 'package:hrms_mobile/features/auth/presentation/screens/reset_password/reset_password_success_screen.dart';
 import 'package:hrms_mobile/features/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:hrms_mobile/features/dashboard/presentation/screens/main_screen.dart'; // You will create this file
+import 'package:hrms_mobile/features/offboarding/presentation/screens/document_handover_screen.dart';
+import 'package:hrms_mobile/features/offboarding/presentation/screens/exit_form_screen.dart';
+import 'package:hrms_mobile/features/offboarding/presentation/screens/offboarding_screen.dart';
+import 'package:hrms_mobile/features/offboarding/presentation/screens/work_handover_screen.dart';
 import 'package:hrms_mobile/features/profile/presentation/screens/profile_screen.dart';
 
 import 'route_paths.dart';
@@ -46,6 +51,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     navigatorKey: globalNavigatorKey,
     debugLogDiagnostics: true,
     redirect: (BuildContext context, GoRouterState state) {
+      print("REDIRECT COK ${state.matchedLocation}");
       final isOnLogin = state.matchedLocation == RoutePaths.login;
       final isOnSplash = state.matchedLocation == RoutePaths.splash;
 
@@ -82,6 +88,20 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             return LoginScreen();
           }),
       GoRoute(
+        path: RoutePaths.resetPasswordCreate,
+        name: RoutePaths.resetPasswordCreateName,
+        builder: (context, state) {
+          final obj = state.extra as Map<String, dynamic>;
+          final email = obj['email'] as String;
+          final password = obj['password'] as String;
+          final isFirstLogin = obj['isFirstLogin'] as bool;
+          return ResetPasswordCreateScreen(
+              email: email,
+              currentPassword: password,
+              isFirstLogin: isFirstLogin);
+        },
+      ),
+      GoRoute(
         path: RoutePaths.resetPassword,
         builder: (context, state) {
           final extras = state.uri.queryParameters as Map<String, dynamic>?;
@@ -112,8 +132,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: RoutePaths.attendanceEdit,
-        name: RoutePaths.attendanceEdit,
-        builder: (context, state) => const AttendanceHistoryEditScreen(),
+        name: RoutePaths.attendanceEditName,
+        builder: (context, state) {
+          final attendance = state.extra as AttendanceDetail;
+          return AttendanceHistoryEditScreen(attendance: attendance);
+        },
       ),
       GoRoute(
         path: RoutePaths.overtimeEdit,
@@ -157,6 +180,34 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         name: RoutePaths.overtimeRequest,
         builder: (context, state) {
           return OvertimeRequestScreen();
+        },
+      ),
+      GoRoute(
+        path: RoutePaths.offboarding,
+        name: RoutePaths.offboardingName,
+        builder: (context, state) {
+          return OffboardingScreen();
+        },
+      ),
+      GoRoute(
+        path: RoutePaths.exitForm,
+        name: RoutePaths.exitFormName,
+        builder: (context, state) {
+          return ExitFormScreen();
+        },
+      ),
+      GoRoute(
+        path: RoutePaths.workHandover,
+        name: RoutePaths.workHandoverName,
+        builder: (context, state) {
+          return WorkHandoverScreen();
+        },
+      ),
+      GoRoute(
+        path: RoutePaths.documentHandover,
+        name: RoutePaths.documentHandoverName,
+        builder: (context, state) {
+          return DocumentHandoverScreen();
         },
       ),
       // --- ROUTES WITH THE BOTTOM NAV BAR (Using ShellRoute) ---

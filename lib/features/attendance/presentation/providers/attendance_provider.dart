@@ -2,29 +2,41 @@ import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/core/constants/attendance_enum.dart';
 import 'package:hrms_mobile/core/errors/exceptions.dart';
+import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/network/dio_provider.dart';
 import 'package:hrms_mobile/features/attendance/data/data_sources/attendance_local_source.dart';
 import 'package:hrms_mobile/features/attendance/data/data_sources/attendance_remote_source.dart';
 import 'package:hrms_mobile/features/attendance/data/models/request/clock_in/clock_in_request_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/request/clock_out/clock_out_request_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/request/update_attendance/update_attendance_request_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/request/validate_location/validate_location_request_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/activity_log/activity_log_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/attendance/attendance_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/attendance_mapper.dart';
-import 'package:hrms_mobile/features/attendance/data/models/response/shifts_response_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/response/detail_attendance/attendance_detail_response_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/response/overtime/overtime_detail_response_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/response/shift/shifts_response_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/response/shift/working_shifts_response_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/response/statistics/attendance_statistics_response_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/response/statistics/overtime_statistics_response_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/response/validate_location/validate_location_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/repositories/attendance_repository_impl.dart';
-import 'package:hrms_mobile/features/attendance/domain/entities/attendance.dart';
+import 'package:hrms_mobile/features/attendance/domain/entities/update_attendance_state.dart';
 import 'package:hrms_mobile/features/attendance/domain/usecases/clock_in_usecase.dart';
 import 'package:hrms_mobile/features/attendance/domain/usecases/clock_out_usecase.dart';
 import 'package:hrms_mobile/features/attendance/domain/usecases/get_attendance_history_usecase.dart';
 import 'package:hrms_mobile/features/attendance/domain/usecases/get_shifts_usecase.dart';
+import 'package:hrms_mobile/features/attendance/domain/usecases/get_working_shifts_usecase.dart';
+import 'package:hrms_mobile/features/attendance/domain/usecases/validate_location_usecase.dart';
 import 'package:hrms_mobile/features/auth/presentation/providers/auth/auth_provider.dart';
 import 'package:intl/intl.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'attendance_state.dart';
+import '../../domain/entities/attendance_state.dart';
 
 part 'attendance_provider.g.dart';
 
@@ -56,6 +68,12 @@ final getHistoryUseCaseProvider = Provider(
 final getShiftsUseCaseProvider =
     Provider((ref) => GetShiftsUseCase(ref.watch(attendanceRepoProvider)));
 
+final getWorkingShiftsUseCaseProvider = Provider(
+    (ref) => GetWorkingShiftsUseCase(ref.watch(attendanceRepoProvider)));
+
+final validateLocationUseCaseProvider = Provider(
+    (ref) => ValidateLocationUseCase(ref.watch(attendanceRepoProvider)));
+
 @Riverpod(keepAlive: true)
 class Attendance extends _$Attendance {
   @override
@@ -64,7 +82,6 @@ class Attendance extends _$Attendance {
   }
 
   void updatePosition(Position position) {
-    print('✅ Updating position in provider: ${position.latitude}');
     state = state.copyWith(position: position);
   }
 
@@ -165,7 +182,6 @@ class TodayAttendance extends _$TodayAttendance {
 
 @Riverpod(keepAlive: true)
 class PaginatedActivityLogs extends _$PaginatedActivityLogs {
-  /// The build method is responsible for fetching the INITIAL page.
   @override
   Future<List<ActivityLogModel>> build() async {
     ref.keepAlive();
@@ -223,27 +239,119 @@ Future<List<ActivityLogModel>> recentActivity(
 }
 
 @riverpod
-class AttendanceHistory extends _$AttendanceHistory {
+Future<AttendanceDetail?> getDetailAttendance(
+  Ref ref, {
+  required String attendanceId,
+}) async {
+  if (attendanceId.isEmpty) return null;
+  return ref.read(attendanceRepoProvider).getDetailAttendance(attendanceId);
+}
+
+@riverpod
+class PaginatedAttendanceHistory extends _$PaginatedAttendanceHistory {
   @override
-  FutureOr<List<AttendanceModel>> build() async {
-    final usecase = ref.read(getHistoryUseCaseProvider);
-    return await usecase();
+  Future<List<AttendanceDetail>> build({String? period, String? status}) async {
+    ref.keepAlive();
+    final repository = ref.watch(attendanceRepoProvider);
+
+    final response = await repository.getAttendanceHistory(
+      page: 1,
+      period: period,
+      status: status,
+    );
+
+    _nextUrl = response.next;
+    return response.data;
   }
 
-  Future<void> refresh() async {
-    state = const AsyncLoading();
-    try {
-      final data = await ref.read(getHistoryUseCaseProvider)();
-      state = AsyncData(data);
-    } on UnauthorizedException catch (e, st) {
-      state = AsyncError(e.message, st);
-    } on NetworkException catch (e, st) {
-      state = AsyncError(e.message, st);
-    } on ServerException catch (e, st) {
-      state = AsyncError(e.message, st);
-    } catch (e, st) {
-      state = AsyncError(e.toString(), st);
+  String? _nextUrl;
+  bool _isFetching = false;
+
+  Future<void> fetchNextPage() async {
+    if (_isFetching || _nextUrl == null) {
+      return;
     }
+
+    _isFetching = true;
+
+    try {
+      final repository = ref.read(attendanceRepoProvider);
+      final response = await repository.getAttendanceHistoryByUrl(_nextUrl!);
+
+      _nextUrl = response.next;
+
+      state = AsyncData([...state.value!, ...response.data]);
+    } catch (e, st) {
+      print('Error fetching next page: $e');
+    } finally {
+      _isFetching = false;
+    }
+  }
+}
+
+@riverpod
+class AttendanceStats extends _$AttendanceStats {
+  @override
+  Future<AttendanceStatistics> build({String? period}) async {
+    ref.keepAlive();
+    final repository = ref.watch(attendanceRepoProvider);
+
+    final response = await repository.getAttendanceStats(period: period);
+    return response;
+  }
+}
+
+@riverpod
+class PaginatedOvertimeHistory extends _$PaginatedOvertimeHistory {
+  @override
+  Future<List<OvertimeDetail>> build({String? period, String? status}) async {
+    ref.keepAlive();
+    final repository = ref.watch(attendanceRepoProvider);
+
+    final response = await repository.getOvertimeHistory(
+      page: 1,
+      period: period,
+      status: status,
+    );
+
+    _nextUrl = response.next;
+    return response.data;
+  }
+
+  String? _nextUrl;
+  bool _isFetching = false;
+
+  Future<void> fetchNextPage() async {
+    if (_isFetching || _nextUrl == null) {
+      return;
+    }
+
+    _isFetching = true;
+
+    try {
+      final repository = ref.read(attendanceRepoProvider);
+      final response = await repository.getOvertimeHistoryByUrl(_nextUrl!);
+
+      _nextUrl = response.next;
+
+      state = AsyncData([...state.value!, ...response.data]);
+    } catch (e, st) {
+      print('Error fetching next page: $e');
+    } finally {
+      _isFetching = false;
+    }
+  }
+}
+
+@riverpod
+class OvertimeStats extends _$OvertimeStats {
+  @override
+  Future<OvertimeStatistics> build({String? period}) async {
+    ref.keepAlive();
+    final repository = ref.watch(attendanceRepoProvider);
+
+    final response = await repository.getOvertimeStats(period: period);
+    return response;
   }
 }
 
@@ -252,5 +360,54 @@ class ShiftList extends _$ShiftList {
   @override
   FutureOr<List<ShiftModel>> build() {
     return ref.watch(getShiftsUseCaseProvider)();
+  }
+}
+
+@riverpod
+class WorkingShiftList extends _$WorkingShiftList {
+  @override
+  FutureOr<WorkingShiftResponseModel> build(String? date) {
+    return ref.watch(getWorkingShiftsUseCaseProvider)(date);
+  }
+}
+
+@riverpod
+class ValidateLocation extends _$ValidateLocation {
+  @override
+  FutureOr<ValidateLocationResponseModel> build(
+      ValidateLocationRequestModel request) {
+    return ref.watch(validateLocationUseCaseProvider)(request);
+  }
+}
+
+@riverpod
+class UpdateAttendance extends _$UpdateAttendance {
+  @override
+  UpdateAttendanceState build() {
+    return const UpdateAttendanceState();
+  }
+
+  Future<bool> updateAttendance({
+    required String attendanceId,
+    required UpdateAttendanceRequestModel request,
+  }) async {
+    state = state.copyWith(isLoading: true, errors: {});
+
+    try {
+      await ref
+          .read(attendanceRepoProvider)
+          .updateAttendance(attendanceId: attendanceId, request: request);
+      state = state.copyWith(isLoading: false);
+      globalNavigatorKey.currentContext?.pop();
+      return true;
+    } on ValidationException catch (e) {
+      final displayErrors =
+          e.errors.map((key, value) => MapEntry(key, value.first));
+      state = state.copyWith(isLoading: false, errors: displayErrors);
+      return false;
+    } catch (e) {
+      state = state.copyWith(isLoading: false);
+      rethrow;
+    }
   }
 }

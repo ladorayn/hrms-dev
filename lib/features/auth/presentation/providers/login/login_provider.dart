@@ -1,4 +1,9 @@
+import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/core/constants/storage_keys.dart';
+import 'package:hrms_mobile/core/errors/exceptions.dart';
+import 'package:hrms_mobile/core/navigation/global_navigator.dart';
+import 'package:hrms_mobile/core/routes/route_paths.dart';
+import 'package:hrms_mobile/features/auth/domain/entities/login_state.dart';
 import 'package:hrms_mobile/features/auth/domain/usecases/login_usecase.dart';
 import 'package:hrms_mobile/features/auth/presentation/providers/auth/auth_provider.dart';
 import 'package:hrms_mobile/features/auth/presentation/providers/auth_repository_provider.dart';
@@ -18,10 +23,12 @@ final loginUseCaseProvider = Provider((ref) {
 @riverpod
 class Login extends _$Login {
   @override
-  FutureOr<void> build() {}
+  LoginState build() {
+    return const LoginState();
+  }
 
-  Future<void> submit(String email, String password) async {
-    state = const AsyncLoading();
+  Future<bool> submit(String email, String password) async {
+    state = state.copyWith(isLoading: true, errors: {});
 
     try {
       final loginResponse =
@@ -30,10 +37,17 @@ class Login extends _$Login {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString(StorageKeys.token, loginResponse.token);
 
+      if (loginResponse.user.isFirstLogin == true) {
+        state = state.copyWith(isLoading: false);
+        globalNavigatorKey.currentContext?.pushNamed(
+          RoutePaths.resetPasswordCreateName,
+          extra: {'email': email, 'password': password, 'isFirstLogin': true},
+        );
+        return false;
+      }
+
       final companyProfile =
           await ref.read(companyProfileProvider.notifier).fetchCompanyProfile();
-
-      print("Company p ${companyProfile.name}");
 
       await ref
           .read(companyProfileProvider.notifier)
@@ -44,11 +58,17 @@ class Login extends _$Login {
 
       await ref.read(authProvider.notifier).onLoginSuccess(userProfile);
 
-      state = const AsyncData(null);
+      state = state.copyWith(isLoading: false);
+      return true;
+    } on ValidationException catch (e) {
+      final displayErrors =
+          e.errors.map((key, value) => MapEntry(key, value.first));
+      state = state.copyWith(isLoading: false, errors: displayErrors);
+      return false;
     } catch (error, st) {
       await ref.read(authRepositoryProvider).logout();
       await ref.read(logoutProvider.notifier).submit();
-      state = AsyncError(error, st); // <- keep consistent state
+      state = state.copyWith(isLoading: false);
       rethrow;
     }
   }
