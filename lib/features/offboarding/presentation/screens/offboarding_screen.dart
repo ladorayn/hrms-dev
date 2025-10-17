@@ -44,7 +44,7 @@ class OffboardingScreen extends ConsumerWidget {
         title: "Exit Interview Form",
         description:
             "Please complete your exit interview to help us understand your experience.",
-        status: TaskStatus.inProgress,
+        status: TaskStatus.completed,
         page: RoutePaths.exitFormName,
       ),
       OffboardingTask(
