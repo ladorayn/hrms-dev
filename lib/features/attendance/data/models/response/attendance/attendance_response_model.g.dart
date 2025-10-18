@@ -8,14 +8,16 @@ part of 'attendance_response_model.dart';
 
 _$AttendanceDataImpl _$$AttendanceDataImplFromJson(Map<String, dynamic> json) =>
     _$AttendanceDataImpl(
-      id: (json['id'] as num).toInt(),
-      attendanceDate: json['attendance_date'] as String,
-      clock: Clock.fromJson(json['clock'] as Map<String, dynamic>),
+      id: (json['id'] as num?)?.toInt(),
+      attendanceDate: json['attendance_date'] as String?,
+      clock: json['clock'] == null
+          ? null
+          : Clock.fromJson(json['clock'] as Map<String, dynamic>),
       duration: json['duration'] as String?,
       location: json['location'] == null
           ? null
           : Location.fromJson(json['location'] as Map<String, dynamic>),
-      status: (json['status'] as num).toInt(),
+      status: (json['status'] as num?)?.toInt(),
       clockInStatus: (json['clock_in_status'] as num?)?.toInt(),
       clockOutStatus: (json['clock_out_status'] as num?)?.toInt(),
       statusLabel: json['status_label'] as String?,
@@ -28,8 +30,8 @@ _$AttendanceDataImpl _$$AttendanceDataImplFromJson(Map<String, dynamic> json) =>
       metadata: json['metadata'] == null
           ? null
           : Metadata.fromJson(json['metadata'] as Map<String, dynamic>),
-      createdAt: json['created_at'] as String,
-      updatedAt: json['updated_at'] as String,
+      createdAt: json['created_at'] as String?,
+      updatedAt: json['updated_at'] as String?,
     );
 
 Map<String, dynamic> _$$AttendanceDataImplToJson(

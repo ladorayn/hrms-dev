@@ -81,7 +81,7 @@ class _AttendanceFormScreenState extends ConsumerState<AttendanceFormScreen> {
     final DateTime? clockOutTime = attendanceState.clockOutTime;
 
     // Fallback from persisted data
-    final String? persistedClockIn = todayAttendance.value?.clock.inAt;
+    final String? persistedClockIn = todayAttendance.value?.clock?.inAt;
 
     // Parse persistedClockIn into DateTime if needed
     DateTime? parsedPersistedClockIn;
@@ -133,7 +133,7 @@ class _AttendanceFormScreenState extends ConsumerState<AttendanceFormScreen> {
                           ? clockInFormattedDate ?? ''
                           : clockOutFormattedDate ?? '',
                       location: attendanceState.address ?? '-',
-                      duration: todayAttendance.value?.clock.duration ??
+                      duration: todayAttendance.value?.clock?.duration ??
                           calculateDuration(
                               clockInFormattedTime, clockOutFormattedTime),
                       overtime: "0h 0m",

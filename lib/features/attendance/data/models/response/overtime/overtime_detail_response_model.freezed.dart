@@ -22,15 +22,16 @@ OvertimeDetail _$OvertimeDetailFromJson(Map<String, dynamic> json) {
 mixin _$OvertimeDetail {
   int get id => throw _privateConstructorUsedError;
   @JsonKey(name: "overtime_date")
-  String get overtimeDate => throw _privateConstructorUsedError;
+  String? get overtimeDate => throw _privateConstructorUsedError;
   @JsonKey(name: "user_id")
-  int get userId => throw _privateConstructorUsedError;
+  int? get userId => throw _privateConstructorUsedError;
   @JsonKey(name: "start_time")
   String? get startTime => throw _privateConstructorUsedError;
   @JsonKey(name: "end_time")
   String? get endTime => throw _privateConstructorUsedError;
   int? get duration => throw _privateConstructorUsedError;
   int? get status => throw _privateConstructorUsedError;
+  @JsonKey(name: "status_label")
   String? get statusLabel => throw _privateConstructorUsedError;
   String? get notes => throw _privateConstructorUsedError;
   @JsonKey(name: "approved_by")
@@ -39,9 +40,9 @@ mixin _$OvertimeDetail {
   @JsonKey(name: "request_date")
   String? get requestDate => throw _privateConstructorUsedError;
   @JsonKey(name: "created_at")
-  String get createdAt => throw _privateConstructorUsedError;
+  String? get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: "updated_at")
-  String get updatedAt => throw _privateConstructorUsedError;
+  String? get updatedAt => throw _privateConstructorUsedError;
 
   /// Serializes this OvertimeDetail to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -61,19 +62,19 @@ abstract class $OvertimeDetailCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
-      @JsonKey(name: "overtime_date") String overtimeDate,
-      @JsonKey(name: "user_id") int userId,
+      @JsonKey(name: "overtime_date") String? overtimeDate,
+      @JsonKey(name: "user_id") int? userId,
       @JsonKey(name: "start_time") String? startTime,
       @JsonKey(name: "end_time") String? endTime,
       int? duration,
       int? status,
-      String? statusLabel,
+      @JsonKey(name: "status_label") String? statusLabel,
       String? notes,
       @JsonKey(name: "approved_by") int? approvedBy,
       Approver? approver,
       @JsonKey(name: "request_date") String? requestDate,
-      @JsonKey(name: "created_at") String createdAt,
-      @JsonKey(name: "updated_at") String updatedAt});
+      @JsonKey(name: "created_at") String? createdAt,
+      @JsonKey(name: "updated_at") String? updatedAt});
 
   $ApproverCopyWith<$Res>? get approver;
 }
@@ -94,8 +95,8 @@ class _$OvertimeDetailCopyWithImpl<$Res, $Val extends OvertimeDetail>
   @override
   $Res call({
     Object? id = null,
-    Object? overtimeDate = null,
-    Object? userId = null,
+    Object? overtimeDate = freezed,
+    Object? userId = freezed,
     Object? startTime = freezed,
     Object? endTime = freezed,
     Object? duration = freezed,
@@ -105,22 +106,22 @@ class _$OvertimeDetailCopyWithImpl<$Res, $Val extends OvertimeDetail>
     Object? approvedBy = freezed,
     Object? approver = freezed,
     Object? requestDate = freezed,
-    Object? createdAt = null,
-    Object? updatedAt = null,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      overtimeDate: null == overtimeDate
+      overtimeDate: freezed == overtimeDate
           ? _value.overtimeDate
           : overtimeDate // ignore: cast_nullable_to_non_nullable
-              as String,
-      userId: null == userId
+              as String?,
+      userId: freezed == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       startTime: freezed == startTime
           ? _value.startTime
           : startTime // ignore: cast_nullable_to_non_nullable
@@ -157,14 +158,14 @@ class _$OvertimeDetailCopyWithImpl<$Res, $Val extends OvertimeDetail>
           ? _value.requestDate
           : requestDate // ignore: cast_nullable_to_non_nullable
               as String?,
-      createdAt: null == createdAt
+      createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as String,
-      updatedAt: null == updatedAt
+              as String?,
+      updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
   }
 
@@ -193,19 +194,19 @@ abstract class _$$OvertimeDetailImplCopyWith<$Res>
   @useResult
   $Res call(
       {int id,
-      @JsonKey(name: "overtime_date") String overtimeDate,
-      @JsonKey(name: "user_id") int userId,
+      @JsonKey(name: "overtime_date") String? overtimeDate,
+      @JsonKey(name: "user_id") int? userId,
       @JsonKey(name: "start_time") String? startTime,
       @JsonKey(name: "end_time") String? endTime,
       int? duration,
       int? status,
-      String? statusLabel,
+      @JsonKey(name: "status_label") String? statusLabel,
       String? notes,
       @JsonKey(name: "approved_by") int? approvedBy,
       Approver? approver,
       @JsonKey(name: "request_date") String? requestDate,
-      @JsonKey(name: "created_at") String createdAt,
-      @JsonKey(name: "updated_at") String updatedAt});
+      @JsonKey(name: "created_at") String? createdAt,
+      @JsonKey(name: "updated_at") String? updatedAt});
 
   @override
   $ApproverCopyWith<$Res>? get approver;
@@ -225,8 +226,8 @@ class __$$OvertimeDetailImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? overtimeDate = null,
-    Object? userId = null,
+    Object? overtimeDate = freezed,
+    Object? userId = freezed,
     Object? startTime = freezed,
     Object? endTime = freezed,
     Object? duration = freezed,
@@ -236,22 +237,22 @@ class __$$OvertimeDetailImplCopyWithImpl<$Res>
     Object? approvedBy = freezed,
     Object? approver = freezed,
     Object? requestDate = freezed,
-    Object? createdAt = null,
-    Object? updatedAt = null,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
   }) {
     return _then(_$OvertimeDetailImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      overtimeDate: null == overtimeDate
+      overtimeDate: freezed == overtimeDate
           ? _value.overtimeDate
           : overtimeDate // ignore: cast_nullable_to_non_nullable
-              as String,
-      userId: null == userId
+              as String?,
+      userId: freezed == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       startTime: freezed == startTime
           ? _value.startTime
           : startTime // ignore: cast_nullable_to_non_nullable
@@ -288,14 +289,14 @@ class __$$OvertimeDetailImplCopyWithImpl<$Res>
           ? _value.requestDate
           : requestDate // ignore: cast_nullable_to_non_nullable
               as String?,
-      createdAt: null == createdAt
+      createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as String,
-      updatedAt: null == updatedAt
+              as String?,
+      updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -305,19 +306,19 @@ class __$$OvertimeDetailImplCopyWithImpl<$Res>
 class _$OvertimeDetailImpl implements _OvertimeDetail {
   const _$OvertimeDetailImpl(
       {required this.id,
-      @JsonKey(name: "overtime_date") required this.overtimeDate,
-      @JsonKey(name: "user_id") required this.userId,
+      @JsonKey(name: "overtime_date") this.overtimeDate,
+      @JsonKey(name: "user_id") this.userId,
       @JsonKey(name: "start_time") this.startTime,
       @JsonKey(name: "end_time") this.endTime,
       this.duration,
       this.status,
-      this.statusLabel,
+      @JsonKey(name: "status_label") this.statusLabel,
       this.notes,
       @JsonKey(name: "approved_by") this.approvedBy,
       this.approver,
       @JsonKey(name: "request_date") this.requestDate,
-      @JsonKey(name: "created_at") required this.createdAt,
-      @JsonKey(name: "updated_at") required this.updatedAt});
+      @JsonKey(name: "created_at") this.createdAt,
+      @JsonKey(name: "updated_at") this.updatedAt});
 
   factory _$OvertimeDetailImpl.fromJson(Map<String, dynamic> json) =>
       _$$OvertimeDetailImplFromJson(json);
@@ -326,10 +327,10 @@ class _$OvertimeDetailImpl implements _OvertimeDetail {
   final int id;
   @override
   @JsonKey(name: "overtime_date")
-  final String overtimeDate;
+  final String? overtimeDate;
   @override
   @JsonKey(name: "user_id")
-  final int userId;
+  final int? userId;
   @override
   @JsonKey(name: "start_time")
   final String? startTime;
@@ -341,6 +342,7 @@ class _$OvertimeDetailImpl implements _OvertimeDetail {
   @override
   final int? status;
   @override
+  @JsonKey(name: "status_label")
   final String? statusLabel;
   @override
   final String? notes;
@@ -354,10 +356,10 @@ class _$OvertimeDetailImpl implements _OvertimeDetail {
   final String? requestDate;
   @override
   @JsonKey(name: "created_at")
-  final String createdAt;
+  final String? createdAt;
   @override
   @JsonKey(name: "updated_at")
-  final String updatedAt;
+  final String? updatedAt;
 
   @override
   String toString() {
@@ -433,19 +435,19 @@ class _$OvertimeDetailImpl implements _OvertimeDetail {
 abstract class _OvertimeDetail implements OvertimeDetail {
   const factory _OvertimeDetail(
           {required final int id,
-          @JsonKey(name: "overtime_date") required final String overtimeDate,
-          @JsonKey(name: "user_id") required final int userId,
+          @JsonKey(name: "overtime_date") final String? overtimeDate,
+          @JsonKey(name: "user_id") final int? userId,
           @JsonKey(name: "start_time") final String? startTime,
           @JsonKey(name: "end_time") final String? endTime,
           final int? duration,
           final int? status,
-          final String? statusLabel,
+          @JsonKey(name: "status_label") final String? statusLabel,
           final String? notes,
           @JsonKey(name: "approved_by") final int? approvedBy,
           final Approver? approver,
           @JsonKey(name: "request_date") final String? requestDate,
-          @JsonKey(name: "created_at") required final String createdAt,
-          @JsonKey(name: "updated_at") required final String updatedAt}) =
+          @JsonKey(name: "created_at") final String? createdAt,
+          @JsonKey(name: "updated_at") final String? updatedAt}) =
       _$OvertimeDetailImpl;
 
   factory _OvertimeDetail.fromJson(Map<String, dynamic> json) =
@@ -455,10 +457,10 @@ abstract class _OvertimeDetail implements OvertimeDetail {
   int get id;
   @override
   @JsonKey(name: "overtime_date")
-  String get overtimeDate;
+  String? get overtimeDate;
   @override
   @JsonKey(name: "user_id")
-  int get userId;
+  int? get userId;
   @override
   @JsonKey(name: "start_time")
   String? get startTime;
@@ -470,6 +472,7 @@ abstract class _OvertimeDetail implements OvertimeDetail {
   @override
   int? get status;
   @override
+  @JsonKey(name: "status_label")
   String? get statusLabel;
   @override
   String? get notes;
@@ -483,10 +486,10 @@ abstract class _OvertimeDetail implements OvertimeDetail {
   String? get requestDate;
   @override
   @JsonKey(name: "created_at")
-  String get createdAt;
+  String? get createdAt;
   @override
   @JsonKey(name: "updated_at")
-  String get updatedAt;
+  String? get updatedAt;
 
   /// Create a copy of OvertimeDetail
   /// with the given fields replaced by the non-null parameter values.

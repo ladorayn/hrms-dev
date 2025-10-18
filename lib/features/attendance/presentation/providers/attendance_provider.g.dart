@@ -313,7 +313,7 @@ final attendanceProvider =
 );
 
 typedef _$Attendance = Notifier<AttendanceState>;
-String _$todayAttendanceHash() => r'652076a29f0bdcacaa06996d52d0fae93f6e654c';
+String _$todayAttendanceHash() => r'ebecb0a71614216ba7aa4ddf9323a937e1a0bd87';
 
 /// See also [TodayAttendance].
 @ProviderFor(TodayAttendance)

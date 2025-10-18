@@ -15,6 +15,7 @@ class ITextFieldTimePicker extends StatefulWidget {
     this.onTimeChanged,
     this.validator,
     this.errorText,
+    this.isRequired = false,
   });
 
   final String label;
@@ -23,6 +24,7 @@ class ITextFieldTimePicker extends StatefulWidget {
   final Function(TimeOfDay)? onTimeChanged;
   final String? Function(String?)? validator;
   final String? errorText;
+  final bool isRequired;
 
   @override
   State<ITextFieldTimePicker> createState() => _ITextFieldTimePickerState();
@@ -111,6 +113,7 @@ class _ITextFieldTimePickerState extends State<ITextFieldTimePicker> {
   Widget build(BuildContext context) {
     return ITextFieldBase(
       controller: _controller,
+      isRequired: widget.isRequired,
       label: widget.label,
       readOnly: true,
       validator: widget.validator,

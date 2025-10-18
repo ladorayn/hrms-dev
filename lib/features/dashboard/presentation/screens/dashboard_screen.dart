@@ -52,19 +52,20 @@ class DashboardScreen extends ConsumerWidget {
           try {
             todayLog = logs.firstWhere(
               (log) =>
-                  log.createdAt.year == today.year &&
-                  log.createdAt.month == today.month &&
-                  log.createdAt.day == today.day,
+                  log.createdAt?.year == today.year &&
+                  log.createdAt?.month == today.month &&
+                  log.createdAt?.day == today.day &&
+                  (log.eventType == 'clock_in' || log.eventType == 'clock_out'),
             );
           } catch (_) {
             todayLog = null;
           }
 
-          if (todayLog != null) {
-            final attendanceId = todayLog.properties.attendanceId.toString();
+          if (todayLog != null && todayLog.properties?.attendanceId != null) {
+            final attendanceId = todayLog.properties?.attendanceId.toString();
             ref
                 .read(todayAttendanceProvider.notifier)
-                .refreshFromServer(attendanceId);
+                .refreshFromServer(attendanceId ?? '');
           }
         }
       }
@@ -210,7 +211,7 @@ class DashboardScreen extends ConsumerWidget {
                       return _buildInitialState(context, ref);
                     },
                     data: (attendanceData) {
-                      print("Attendance DAta ${attendanceData?.clock.outAt}");
+                      print("Attendance DAta ${attendanceData?.clock?.outAt}");
                       return Container(
                         decoration: BoxDecoration(
                           color: IColors.light.primary.focused,
@@ -264,11 +265,11 @@ class DashboardScreen extends ConsumerWidget {
                                                   SizedBox(
                                                     height: (attendanceData
                                                                     ?.clock
-                                                                    .outAt ==
+                                                                    ?.outAt ==
                                                                 null &&
                                                             attendanceData
                                                                     ?.clock
-                                                                    .inAt !=
+                                                                    ?.inAt !=
                                                                 null)
                                                         ? 15.w
                                                         : 4.w,
@@ -279,7 +280,7 @@ class DashboardScreen extends ConsumerWidget {
                                                   else
                                                     _buildTimeDisplay(
                                                         attendanceData
-                                                                .clock.inAt ??
+                                                                .clock?.inAt ??
                                                             ''),
                                                 ],
                                               ),
@@ -323,7 +324,7 @@ class DashboardScreen extends ConsumerWidget {
                                                         context, ref,
                                                         enabled: false)
                                                   else if (attendanceData
-                                                          .clock.outAt ==
+                                                          .clock?.outAt ==
                                                       null)
                                                     _buildClockOutButton(
                                                         context, ref,
@@ -332,7 +333,8 @@ class DashboardScreen extends ConsumerWidget {
                                                     // Already clocked out, show the time
                                                     _buildTimeDisplay(
                                                         attendanceData
-                                                            .clock.outAt!),
+                                                                .clock?.outAt ??
+                                                            ''),
                                                 ],
                                               ),
                                             ),
@@ -579,47 +581,8 @@ class DashboardScreen extends ConsumerWidget {
                                   itemCount: logs.length,
                                   itemBuilder: (context, index) {
                                     final log = logs[index];
-                                    final time = DateFormat('hh:mm a').format(
-                                      DateTime.parse(log.isClockIn
-                                          ? log.properties.clockInAt ?? ''
-                                          : log.properties.clockOutAt ?? ''),
-                                    );
-
-                                    int status;
-                                    String statusLabel;
-                                    String iconAsset;
-                                    if (AttendanceEnum.checkActivity(
-                                        log.event)) {
-                                      status = log.isClockIn
-                                          ? log.properties.clockInStatus ?? 0
-                                          : log.properties.clockOutStatus ?? 0;
-                                      statusLabel = log.isClockIn
-                                          ? log.properties.clockInStatusLabel ??
-                                              ''
-                                          : log.properties
-                                                  .clockOutStatusLabel ??
-                                              '';
-                                      iconAsset = log.isClockIn
-                                          ? IAssets.clockIn
-                                          : IAssets.clockOut;
-                                    } else {
-                                      status =
-                                          log.properties.attendanceStatus ?? 0;
-                                      statusLabel = log.properties
-                                              .attendanceStatusLabel ??
-                                          '';
-                                      iconAsset = IAssets.overtimeBlue;
-                                    }
-
                                     return AttendanceListTile(
-                                      title: log.eventType,
-                                      subtitle: DateFormat('MMMM d, y')
-                                          .format(log.createdAt),
-                                      time: time,
-                                      leadingIconAsset: iconAsset,
-                                      status: status,
-                                      statusLabel: statusLabel,
-                                      event: log.event,
+                                      log: log,
                                     );
                                   },
                                 );

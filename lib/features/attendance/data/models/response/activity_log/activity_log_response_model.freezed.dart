@@ -20,23 +20,23 @@ ActivityLogModel _$ActivityLogModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ActivityLogModel {
-  int get id => throw _privateConstructorUsedError;
-  String get event => throw _privateConstructorUsedError;
-  String get description => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
+  String? get event => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
-  DateTime get createdAt => throw _privateConstructorUsedError;
+  DateTime? get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'updated_at')
-  DateTime get updatedAt => throw _privateConstructorUsedError;
+  DateTime? get updatedAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'time_ago')
-  String get timeAgo => throw _privateConstructorUsedError;
+  String? get timeAgo => throw _privateConstructorUsedError;
   @JsonKey(name: 'event_type')
-  String get eventType => throw _privateConstructorUsedError;
+  String? get eventType => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_clock_in')
-  bool get isClockIn => throw _privateConstructorUsedError;
+  bool? get isClockIn => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_clock_out')
-  bool get isClockOut => throw _privateConstructorUsedError;
-  Properties get properties => throw _privateConstructorUsedError;
-  Causer get causer => throw _privateConstructorUsedError;
+  bool? get isClockOut => throw _privateConstructorUsedError;
+  Properties? get properties => throw _privateConstructorUsedError;
+  Causer? get causer => throw _privateConstructorUsedError;
 
   /// Serializes this ActivityLogModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -55,20 +55,20 @@ abstract class $ActivityLogModelCopyWith<$Res> {
       _$ActivityLogModelCopyWithImpl<$Res, ActivityLogModel>;
   @useResult
   $Res call(
-      {int id,
-      String event,
-      String description,
-      @JsonKey(name: 'created_at') DateTime createdAt,
-      @JsonKey(name: 'updated_at') DateTime updatedAt,
-      @JsonKey(name: 'time_ago') String timeAgo,
-      @JsonKey(name: 'event_type') String eventType,
-      @JsonKey(name: 'is_clock_in') bool isClockIn,
-      @JsonKey(name: 'is_clock_out') bool isClockOut,
-      Properties properties,
-      Causer causer});
+      {int? id,
+      String? event,
+      String? description,
+      @JsonKey(name: 'created_at') DateTime? createdAt,
+      @JsonKey(name: 'updated_at') DateTime? updatedAt,
+      @JsonKey(name: 'time_ago') String? timeAgo,
+      @JsonKey(name: 'event_type') String? eventType,
+      @JsonKey(name: 'is_clock_in') bool? isClockIn,
+      @JsonKey(name: 'is_clock_out') bool? isClockOut,
+      Properties? properties,
+      Causer? causer});
 
-  $PropertiesCopyWith<$Res> get properties;
-  $CauserCopyWith<$Res> get causer;
+  $PropertiesCopyWith<$Res>? get properties;
+  $CauserCopyWith<$Res>? get causer;
 }
 
 /// @nodoc
@@ -86,63 +86,63 @@ class _$ActivityLogModelCopyWithImpl<$Res, $Val extends ActivityLogModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? event = null,
-    Object? description = null,
-    Object? createdAt = null,
-    Object? updatedAt = null,
-    Object? timeAgo = null,
-    Object? eventType = null,
-    Object? isClockIn = null,
-    Object? isClockOut = null,
-    Object? properties = null,
-    Object? causer = null,
+    Object? id = freezed,
+    Object? event = freezed,
+    Object? description = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+    Object? timeAgo = freezed,
+    Object? eventType = freezed,
+    Object? isClockIn = freezed,
+    Object? isClockOut = freezed,
+    Object? properties = freezed,
+    Object? causer = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      event: null == event
+              as int?,
+      event: freezed == event
           ? _value.event
           : event // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: null == description
+              as String?,
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
+              as String?,
+      createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: null == updatedAt
+              as DateTime?,
+      updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      timeAgo: null == timeAgo
+              as DateTime?,
+      timeAgo: freezed == timeAgo
           ? _value.timeAgo
           : timeAgo // ignore: cast_nullable_to_non_nullable
-              as String,
-      eventType: null == eventType
+              as String?,
+      eventType: freezed == eventType
           ? _value.eventType
           : eventType // ignore: cast_nullable_to_non_nullable
-              as String,
-      isClockIn: null == isClockIn
+              as String?,
+      isClockIn: freezed == isClockIn
           ? _value.isClockIn
           : isClockIn // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isClockOut: null == isClockOut
+              as bool?,
+      isClockOut: freezed == isClockOut
           ? _value.isClockOut
           : isClockOut // ignore: cast_nullable_to_non_nullable
-              as bool,
-      properties: null == properties
+              as bool?,
+      properties: freezed == properties
           ? _value.properties
           : properties // ignore: cast_nullable_to_non_nullable
-              as Properties,
-      causer: null == causer
+              as Properties?,
+      causer: freezed == causer
           ? _value.causer
           : causer // ignore: cast_nullable_to_non_nullable
-              as Causer,
+              as Causer?,
     ) as $Val);
   }
 
@@ -150,8 +150,12 @@ class _$ActivityLogModelCopyWithImpl<$Res, $Val extends ActivityLogModel>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $PropertiesCopyWith<$Res> get properties {
-    return $PropertiesCopyWith<$Res>(_value.properties, (value) {
+  $PropertiesCopyWith<$Res>? get properties {
+    if (_value.properties == null) {
+      return null;
+    }
+
+    return $PropertiesCopyWith<$Res>(_value.properties!, (value) {
       return _then(_value.copyWith(properties: value) as $Val);
     });
   }
@@ -160,8 +164,12 @@ class _$ActivityLogModelCopyWithImpl<$Res, $Val extends ActivityLogModel>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $CauserCopyWith<$Res> get causer {
-    return $CauserCopyWith<$Res>(_value.causer, (value) {
+  $CauserCopyWith<$Res>? get causer {
+    if (_value.causer == null) {
+      return null;
+    }
+
+    return $CauserCopyWith<$Res>(_value.causer!, (value) {
       return _then(_value.copyWith(causer: value) as $Val);
     });
   }
@@ -176,22 +184,22 @@ abstract class _$$ActivityLogModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
-      String event,
-      String description,
-      @JsonKey(name: 'created_at') DateTime createdAt,
-      @JsonKey(name: 'updated_at') DateTime updatedAt,
-      @JsonKey(name: 'time_ago') String timeAgo,
-      @JsonKey(name: 'event_type') String eventType,
-      @JsonKey(name: 'is_clock_in') bool isClockIn,
-      @JsonKey(name: 'is_clock_out') bool isClockOut,
-      Properties properties,
-      Causer causer});
+      {int? id,
+      String? event,
+      String? description,
+      @JsonKey(name: 'created_at') DateTime? createdAt,
+      @JsonKey(name: 'updated_at') DateTime? updatedAt,
+      @JsonKey(name: 'time_ago') String? timeAgo,
+      @JsonKey(name: 'event_type') String? eventType,
+      @JsonKey(name: 'is_clock_in') bool? isClockIn,
+      @JsonKey(name: 'is_clock_out') bool? isClockOut,
+      Properties? properties,
+      Causer? causer});
 
   @override
-  $PropertiesCopyWith<$Res> get properties;
+  $PropertiesCopyWith<$Res>? get properties;
   @override
-  $CauserCopyWith<$Res> get causer;
+  $CauserCopyWith<$Res>? get causer;
 }
 
 /// @nodoc
@@ -207,63 +215,63 @@ class __$$ActivityLogModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? event = null,
-    Object? description = null,
-    Object? createdAt = null,
-    Object? updatedAt = null,
-    Object? timeAgo = null,
-    Object? eventType = null,
-    Object? isClockIn = null,
-    Object? isClockOut = null,
-    Object? properties = null,
-    Object? causer = null,
+    Object? id = freezed,
+    Object? event = freezed,
+    Object? description = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+    Object? timeAgo = freezed,
+    Object? eventType = freezed,
+    Object? isClockIn = freezed,
+    Object? isClockOut = freezed,
+    Object? properties = freezed,
+    Object? causer = freezed,
   }) {
     return _then(_$ActivityLogModelImpl(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      event: null == event
+              as int?,
+      event: freezed == event
           ? _value.event
           : event // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: null == description
+              as String?,
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
+              as String?,
+      createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: null == updatedAt
+              as DateTime?,
+      updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      timeAgo: null == timeAgo
+              as DateTime?,
+      timeAgo: freezed == timeAgo
           ? _value.timeAgo
           : timeAgo // ignore: cast_nullable_to_non_nullable
-              as String,
-      eventType: null == eventType
+              as String?,
+      eventType: freezed == eventType
           ? _value.eventType
           : eventType // ignore: cast_nullable_to_non_nullable
-              as String,
-      isClockIn: null == isClockIn
+              as String?,
+      isClockIn: freezed == isClockIn
           ? _value.isClockIn
           : isClockIn // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isClockOut: null == isClockOut
+              as bool?,
+      isClockOut: freezed == isClockOut
           ? _value.isClockOut
           : isClockOut // ignore: cast_nullable_to_non_nullable
-              as bool,
-      properties: null == properties
+              as bool?,
+      properties: freezed == properties
           ? _value.properties
           : properties // ignore: cast_nullable_to_non_nullable
-              as Properties,
-      causer: null == causer
+              as Properties?,
+      causer: freezed == causer
           ? _value.causer
           : causer // ignore: cast_nullable_to_non_nullable
-              as Causer,
+              as Causer?,
     ));
   }
 }
@@ -272,49 +280,49 @@ class __$$ActivityLogModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ActivityLogModelImpl implements _ActivityLogModel {
   const _$ActivityLogModelImpl(
-      {required this.id,
-      required this.event,
-      required this.description,
-      @JsonKey(name: 'created_at') required this.createdAt,
-      @JsonKey(name: 'updated_at') required this.updatedAt,
-      @JsonKey(name: 'time_ago') required this.timeAgo,
-      @JsonKey(name: 'event_type') required this.eventType,
-      @JsonKey(name: 'is_clock_in') required this.isClockIn,
-      @JsonKey(name: 'is_clock_out') required this.isClockOut,
-      required this.properties,
-      required this.causer});
+      {this.id,
+      this.event,
+      this.description,
+      @JsonKey(name: 'created_at') this.createdAt,
+      @JsonKey(name: 'updated_at') this.updatedAt,
+      @JsonKey(name: 'time_ago') this.timeAgo,
+      @JsonKey(name: 'event_type') this.eventType,
+      @JsonKey(name: 'is_clock_in') this.isClockIn,
+      @JsonKey(name: 'is_clock_out') this.isClockOut,
+      this.properties,
+      this.causer});
 
   factory _$ActivityLogModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ActivityLogModelImplFromJson(json);
 
   @override
-  final int id;
+  final int? id;
   @override
-  final String event;
+  final String? event;
   @override
-  final String description;
+  final String? description;
   @override
   @JsonKey(name: 'created_at')
-  final DateTime createdAt;
+  final DateTime? createdAt;
   @override
   @JsonKey(name: 'updated_at')
-  final DateTime updatedAt;
+  final DateTime? updatedAt;
   @override
   @JsonKey(name: 'time_ago')
-  final String timeAgo;
+  final String? timeAgo;
   @override
   @JsonKey(name: 'event_type')
-  final String eventType;
+  final String? eventType;
   @override
   @JsonKey(name: 'is_clock_in')
-  final bool isClockIn;
+  final bool? isClockIn;
   @override
   @JsonKey(name: 'is_clock_out')
-  final bool isClockOut;
+  final bool? isClockOut;
   @override
-  final Properties properties;
+  final Properties? properties;
   @override
-  final Causer causer;
+  final Causer? causer;
 
   @override
   String toString() {
@@ -381,49 +389,49 @@ class _$ActivityLogModelImpl implements _ActivityLogModel {
 
 abstract class _ActivityLogModel implements ActivityLogModel {
   const factory _ActivityLogModel(
-      {required final int id,
-      required final String event,
-      required final String description,
-      @JsonKey(name: 'created_at') required final DateTime createdAt,
-      @JsonKey(name: 'updated_at') required final DateTime updatedAt,
-      @JsonKey(name: 'time_ago') required final String timeAgo,
-      @JsonKey(name: 'event_type') required final String eventType,
-      @JsonKey(name: 'is_clock_in') required final bool isClockIn,
-      @JsonKey(name: 'is_clock_out') required final bool isClockOut,
-      required final Properties properties,
-      required final Causer causer}) = _$ActivityLogModelImpl;
+      {final int? id,
+      final String? event,
+      final String? description,
+      @JsonKey(name: 'created_at') final DateTime? createdAt,
+      @JsonKey(name: 'updated_at') final DateTime? updatedAt,
+      @JsonKey(name: 'time_ago') final String? timeAgo,
+      @JsonKey(name: 'event_type') final String? eventType,
+      @JsonKey(name: 'is_clock_in') final bool? isClockIn,
+      @JsonKey(name: 'is_clock_out') final bool? isClockOut,
+      final Properties? properties,
+      final Causer? causer}) = _$ActivityLogModelImpl;
 
   factory _ActivityLogModel.fromJson(Map<String, dynamic> json) =
       _$ActivityLogModelImpl.fromJson;
 
   @override
-  int get id;
+  int? get id;
   @override
-  String get event;
+  String? get event;
   @override
-  String get description;
+  String? get description;
   @override
   @JsonKey(name: 'created_at')
-  DateTime get createdAt;
+  DateTime? get createdAt;
   @override
   @JsonKey(name: 'updated_at')
-  DateTime get updatedAt;
+  DateTime? get updatedAt;
   @override
   @JsonKey(name: 'time_ago')
-  String get timeAgo;
+  String? get timeAgo;
   @override
   @JsonKey(name: 'event_type')
-  String get eventType;
+  String? get eventType;
   @override
   @JsonKey(name: 'is_clock_in')
-  bool get isClockIn;
+  bool? get isClockIn;
   @override
   @JsonKey(name: 'is_clock_out')
-  bool get isClockOut;
+  bool? get isClockOut;
   @override
-  Properties get properties;
+  Properties? get properties;
   @override
-  Causer get causer;
+  Causer? get causer;
 
   /// Create a copy of ActivityLogModel
   /// with the given fields replaced by the non-null parameter values.
@@ -440,7 +448,7 @@ Properties _$PropertiesFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Properties {
   @JsonKey(name: 'attendance_id')
-  int get attendanceId => throw _privateConstructorUsedError;
+  int? get attendanceId => throw _privateConstructorUsedError;
   @JsonKey(name: 'attendance_status')
   int? get attendanceStatus => throw _privateConstructorUsedError;
   @JsonKey(name: 'attendance_status_label')
@@ -463,6 +471,28 @@ mixin _$Properties {
   String? get scheduledClockOut => throw _privateConstructorUsedError;
   @JsonKey(name: 'tolerance_minutes')
   int? get toleranceMinutes => throw _privateConstructorUsedError;
+  @JsonKey(name: "overtime_date")
+  String? get overtimeDate => throw _privateConstructorUsedError;
+  @JsonKey(name: "user_id")
+  int? get userId => throw _privateConstructorUsedError;
+  @JsonKey(name: "start_time")
+  String? get startTime => throw _privateConstructorUsedError;
+  @JsonKey(name: "end_time")
+  String? get endTime => throw _privateConstructorUsedError;
+  int? get duration => throw _privateConstructorUsedError;
+  int? get status => throw _privateConstructorUsedError;
+  @JsonKey(name: "status_label")
+  String? get statusLabel => throw _privateConstructorUsedError;
+  String? get notes => throw _privateConstructorUsedError;
+  @JsonKey(name: "approved_by")
+  int? get approvedBy => throw _privateConstructorUsedError;
+  Approver? get approver => throw _privateConstructorUsedError;
+  @JsonKey(name: "request_date")
+  String? get requestDate => throw _privateConstructorUsedError;
+  @JsonKey(name: "created_at")
+  String? get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: "updated_at")
+  String? get updatedAt => throw _privateConstructorUsedError;
 
   /// Serializes this Properties to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -481,7 +511,7 @@ abstract class $PropertiesCopyWith<$Res> {
       _$PropertiesCopyWithImpl<$Res, Properties>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'attendance_id') int attendanceId,
+      {@JsonKey(name: 'attendance_id') int? attendanceId,
       @JsonKey(name: 'attendance_status') int? attendanceStatus,
       @JsonKey(name: 'attendance_status_label') String? attendanceStatusLabel,
       @JsonKey(name: 'clock_in_at') String? clockInAt,
@@ -492,7 +522,22 @@ abstract class $PropertiesCopyWith<$Res> {
       @JsonKey(name: 'clock_out_status_label') String? clockOutStatusLabel,
       @JsonKey(name: 'schedule_clock_in') String? scheduledClockIn,
       @JsonKey(name: 'schedule_clock_out') String? scheduledClockOut,
-      @JsonKey(name: 'tolerance_minutes') int? toleranceMinutes});
+      @JsonKey(name: 'tolerance_minutes') int? toleranceMinutes,
+      @JsonKey(name: "overtime_date") String? overtimeDate,
+      @JsonKey(name: "user_id") int? userId,
+      @JsonKey(name: "start_time") String? startTime,
+      @JsonKey(name: "end_time") String? endTime,
+      int? duration,
+      int? status,
+      @JsonKey(name: "status_label") String? statusLabel,
+      String? notes,
+      @JsonKey(name: "approved_by") int? approvedBy,
+      Approver? approver,
+      @JsonKey(name: "request_date") String? requestDate,
+      @JsonKey(name: "created_at") String? createdAt,
+      @JsonKey(name: "updated_at") String? updatedAt});
+
+  $ApproverCopyWith<$Res>? get approver;
 }
 
 /// @nodoc
@@ -510,7 +555,7 @@ class _$PropertiesCopyWithImpl<$Res, $Val extends Properties>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? attendanceId = null,
+    Object? attendanceId = freezed,
     Object? attendanceStatus = freezed,
     Object? attendanceStatusLabel = freezed,
     Object? clockInAt = freezed,
@@ -522,12 +567,25 @@ class _$PropertiesCopyWithImpl<$Res, $Val extends Properties>
     Object? scheduledClockIn = freezed,
     Object? scheduledClockOut = freezed,
     Object? toleranceMinutes = freezed,
+    Object? overtimeDate = freezed,
+    Object? userId = freezed,
+    Object? startTime = freezed,
+    Object? endTime = freezed,
+    Object? duration = freezed,
+    Object? status = freezed,
+    Object? statusLabel = freezed,
+    Object? notes = freezed,
+    Object? approvedBy = freezed,
+    Object? approver = freezed,
+    Object? requestDate = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
-      attendanceId: null == attendanceId
+      attendanceId: freezed == attendanceId
           ? _value.attendanceId
           : attendanceId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       attendanceStatus: freezed == attendanceStatus
           ? _value.attendanceStatus
           : attendanceStatus // ignore: cast_nullable_to_non_nullable
@@ -572,7 +630,73 @@ class _$PropertiesCopyWithImpl<$Res, $Val extends Properties>
           ? _value.toleranceMinutes
           : toleranceMinutes // ignore: cast_nullable_to_non_nullable
               as int?,
+      overtimeDate: freezed == overtimeDate
+          ? _value.overtimeDate
+          : overtimeDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userId: freezed == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      startTime: freezed == startTime
+          ? _value.startTime
+          : startTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      endTime: freezed == endTime
+          ? _value.endTime
+          : endTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      duration: freezed == duration
+          ? _value.duration
+          : duration // ignore: cast_nullable_to_non_nullable
+              as int?,
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as int?,
+      statusLabel: freezed == statusLabel
+          ? _value.statusLabel
+          : statusLabel // ignore: cast_nullable_to_non_nullable
+              as String?,
+      notes: freezed == notes
+          ? _value.notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as String?,
+      approvedBy: freezed == approvedBy
+          ? _value.approvedBy
+          : approvedBy // ignore: cast_nullable_to_non_nullable
+              as int?,
+      approver: freezed == approver
+          ? _value.approver
+          : approver // ignore: cast_nullable_to_non_nullable
+              as Approver?,
+      requestDate: freezed == requestDate
+          ? _value.requestDate
+          : requestDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String?,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
+  }
+
+  /// Create a copy of Properties
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ApproverCopyWith<$Res>? get approver {
+    if (_value.approver == null) {
+      return null;
+    }
+
+    return $ApproverCopyWith<$Res>(_value.approver!, (value) {
+      return _then(_value.copyWith(approver: value) as $Val);
+    });
   }
 }
 
@@ -585,7 +709,7 @@ abstract class _$$PropertiesImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'attendance_id') int attendanceId,
+      {@JsonKey(name: 'attendance_id') int? attendanceId,
       @JsonKey(name: 'attendance_status') int? attendanceStatus,
       @JsonKey(name: 'attendance_status_label') String? attendanceStatusLabel,
       @JsonKey(name: 'clock_in_at') String? clockInAt,
@@ -596,7 +720,23 @@ abstract class _$$PropertiesImplCopyWith<$Res>
       @JsonKey(name: 'clock_out_status_label') String? clockOutStatusLabel,
       @JsonKey(name: 'schedule_clock_in') String? scheduledClockIn,
       @JsonKey(name: 'schedule_clock_out') String? scheduledClockOut,
-      @JsonKey(name: 'tolerance_minutes') int? toleranceMinutes});
+      @JsonKey(name: 'tolerance_minutes') int? toleranceMinutes,
+      @JsonKey(name: "overtime_date") String? overtimeDate,
+      @JsonKey(name: "user_id") int? userId,
+      @JsonKey(name: "start_time") String? startTime,
+      @JsonKey(name: "end_time") String? endTime,
+      int? duration,
+      int? status,
+      @JsonKey(name: "status_label") String? statusLabel,
+      String? notes,
+      @JsonKey(name: "approved_by") int? approvedBy,
+      Approver? approver,
+      @JsonKey(name: "request_date") String? requestDate,
+      @JsonKey(name: "created_at") String? createdAt,
+      @JsonKey(name: "updated_at") String? updatedAt});
+
+  @override
+  $ApproverCopyWith<$Res>? get approver;
 }
 
 /// @nodoc
@@ -612,7 +752,7 @@ class __$$PropertiesImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? attendanceId = null,
+    Object? attendanceId = freezed,
     Object? attendanceStatus = freezed,
     Object? attendanceStatusLabel = freezed,
     Object? clockInAt = freezed,
@@ -624,12 +764,25 @@ class __$$PropertiesImplCopyWithImpl<$Res>
     Object? scheduledClockIn = freezed,
     Object? scheduledClockOut = freezed,
     Object? toleranceMinutes = freezed,
+    Object? overtimeDate = freezed,
+    Object? userId = freezed,
+    Object? startTime = freezed,
+    Object? endTime = freezed,
+    Object? duration = freezed,
+    Object? status = freezed,
+    Object? statusLabel = freezed,
+    Object? notes = freezed,
+    Object? approvedBy = freezed,
+    Object? approver = freezed,
+    Object? requestDate = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
   }) {
     return _then(_$PropertiesImpl(
-      attendanceId: null == attendanceId
+      attendanceId: freezed == attendanceId
           ? _value.attendanceId
           : attendanceId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       attendanceStatus: freezed == attendanceStatus
           ? _value.attendanceStatus
           : attendanceStatus // ignore: cast_nullable_to_non_nullable
@@ -674,6 +827,58 @@ class __$$PropertiesImplCopyWithImpl<$Res>
           ? _value.toleranceMinutes
           : toleranceMinutes // ignore: cast_nullable_to_non_nullable
               as int?,
+      overtimeDate: freezed == overtimeDate
+          ? _value.overtimeDate
+          : overtimeDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userId: freezed == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      startTime: freezed == startTime
+          ? _value.startTime
+          : startTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      endTime: freezed == endTime
+          ? _value.endTime
+          : endTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      duration: freezed == duration
+          ? _value.duration
+          : duration // ignore: cast_nullable_to_non_nullable
+              as int?,
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as int?,
+      statusLabel: freezed == statusLabel
+          ? _value.statusLabel
+          : statusLabel // ignore: cast_nullable_to_non_nullable
+              as String?,
+      notes: freezed == notes
+          ? _value.notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as String?,
+      approvedBy: freezed == approvedBy
+          ? _value.approvedBy
+          : approvedBy // ignore: cast_nullable_to_non_nullable
+              as int?,
+      approver: freezed == approver
+          ? _value.approver
+          : approver // ignore: cast_nullable_to_non_nullable
+              as Approver?,
+      requestDate: freezed == requestDate
+          ? _value.requestDate
+          : requestDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String?,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -682,7 +887,7 @@ class __$$PropertiesImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$PropertiesImpl implements _Properties {
   const _$PropertiesImpl(
-      {@JsonKey(name: 'attendance_id') required this.attendanceId,
+      {@JsonKey(name: 'attendance_id') this.attendanceId,
       @JsonKey(name: 'attendance_status') this.attendanceStatus,
       @JsonKey(name: 'attendance_status_label') this.attendanceStatusLabel,
       @JsonKey(name: 'clock_in_at') this.clockInAt,
@@ -693,14 +898,27 @@ class _$PropertiesImpl implements _Properties {
       @JsonKey(name: 'clock_out_status_label') this.clockOutStatusLabel,
       @JsonKey(name: 'schedule_clock_in') this.scheduledClockIn,
       @JsonKey(name: 'schedule_clock_out') this.scheduledClockOut,
-      @JsonKey(name: 'tolerance_minutes') this.toleranceMinutes});
+      @JsonKey(name: 'tolerance_minutes') this.toleranceMinutes,
+      @JsonKey(name: "overtime_date") this.overtimeDate,
+      @JsonKey(name: "user_id") this.userId,
+      @JsonKey(name: "start_time") this.startTime,
+      @JsonKey(name: "end_time") this.endTime,
+      this.duration,
+      this.status,
+      @JsonKey(name: "status_label") this.statusLabel,
+      this.notes,
+      @JsonKey(name: "approved_by") this.approvedBy,
+      this.approver,
+      @JsonKey(name: "request_date") this.requestDate,
+      @JsonKey(name: "created_at") this.createdAt,
+      @JsonKey(name: "updated_at") this.updatedAt});
 
   factory _$PropertiesImpl.fromJson(Map<String, dynamic> json) =>
       _$$PropertiesImplFromJson(json);
 
   @override
   @JsonKey(name: 'attendance_id')
-  final int attendanceId;
+  final int? attendanceId;
   @override
   @JsonKey(name: 'attendance_status')
   final int? attendanceStatus;
@@ -734,10 +952,45 @@ class _$PropertiesImpl implements _Properties {
   @override
   @JsonKey(name: 'tolerance_minutes')
   final int? toleranceMinutes;
+  @override
+  @JsonKey(name: "overtime_date")
+  final String? overtimeDate;
+  @override
+  @JsonKey(name: "user_id")
+  final int? userId;
+  @override
+  @JsonKey(name: "start_time")
+  final String? startTime;
+  @override
+  @JsonKey(name: "end_time")
+  final String? endTime;
+  @override
+  final int? duration;
+  @override
+  final int? status;
+  @override
+  @JsonKey(name: "status_label")
+  final String? statusLabel;
+  @override
+  final String? notes;
+  @override
+  @JsonKey(name: "approved_by")
+  final int? approvedBy;
+  @override
+  final Approver? approver;
+  @override
+  @JsonKey(name: "request_date")
+  final String? requestDate;
+  @override
+  @JsonKey(name: "created_at")
+  final String? createdAt;
+  @override
+  @JsonKey(name: "updated_at")
+  final String? updatedAt;
 
   @override
   String toString() {
-    return 'Properties(attendanceId: $attendanceId, attendanceStatus: $attendanceStatus, attendanceStatusLabel: $attendanceStatusLabel, clockInAt: $clockInAt, clockInStatus: $clockInStatus, clockInStatusLabel: $clockInStatusLabel, clockOutAt: $clockOutAt, clockOutStatus: $clockOutStatus, clockOutStatusLabel: $clockOutStatusLabel, scheduledClockIn: $scheduledClockIn, scheduledClockOut: $scheduledClockOut, toleranceMinutes: $toleranceMinutes)';
+    return 'Properties(attendanceId: $attendanceId, attendanceStatus: $attendanceStatus, attendanceStatusLabel: $attendanceStatusLabel, clockInAt: $clockInAt, clockInStatus: $clockInStatus, clockInStatusLabel: $clockInStatusLabel, clockOutAt: $clockOutAt, clockOutStatus: $clockOutStatus, clockOutStatusLabel: $clockOutStatusLabel, scheduledClockIn: $scheduledClockIn, scheduledClockOut: $scheduledClockOut, toleranceMinutes: $toleranceMinutes, overtimeDate: $overtimeDate, userId: $userId, startTime: $startTime, endTime: $endTime, duration: $duration, status: $status, statusLabel: $statusLabel, notes: $notes, approvedBy: $approvedBy, approver: $approver, requestDate: $requestDate, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -768,25 +1021,61 @@ class _$PropertiesImpl implements _Properties {
             (identical(other.scheduledClockOut, scheduledClockOut) ||
                 other.scheduledClockOut == scheduledClockOut) &&
             (identical(other.toleranceMinutes, toleranceMinutes) ||
-                other.toleranceMinutes == toleranceMinutes));
+                other.toleranceMinutes == toleranceMinutes) &&
+            (identical(other.overtimeDate, overtimeDate) ||
+                other.overtimeDate == overtimeDate) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.startTime, startTime) ||
+                other.startTime == startTime) &&
+            (identical(other.endTime, endTime) || other.endTime == endTime) &&
+            (identical(other.duration, duration) ||
+                other.duration == duration) &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.statusLabel, statusLabel) ||
+                other.statusLabel == statusLabel) &&
+            (identical(other.notes, notes) || other.notes == notes) &&
+            (identical(other.approvedBy, approvedBy) ||
+                other.approvedBy == approvedBy) &&
+            (identical(other.approver, approver) ||
+                other.approver == approver) &&
+            (identical(other.requestDate, requestDate) ||
+                other.requestDate == requestDate) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      attendanceId,
-      attendanceStatus,
-      attendanceStatusLabel,
-      clockInAt,
-      clockInStatus,
-      clockInStatusLabel,
-      clockOutAt,
-      clockOutStatus,
-      clockOutStatusLabel,
-      scheduledClockIn,
-      scheduledClockOut,
-      toleranceMinutes);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        attendanceId,
+        attendanceStatus,
+        attendanceStatusLabel,
+        clockInAt,
+        clockInStatus,
+        clockInStatusLabel,
+        clockOutAt,
+        clockOutStatus,
+        clockOutStatusLabel,
+        scheduledClockIn,
+        scheduledClockOut,
+        toleranceMinutes,
+        overtimeDate,
+        userId,
+        startTime,
+        endTime,
+        duration,
+        status,
+        statusLabel,
+        notes,
+        approvedBy,
+        approver,
+        requestDate,
+        createdAt,
+        updatedAt
+      ]);
 
   /// Create a copy of Properties
   /// with the given fields replaced by the non-null parameter values.
@@ -806,7 +1095,7 @@ class _$PropertiesImpl implements _Properties {
 
 abstract class _Properties implements Properties {
   const factory _Properties(
-      {@JsonKey(name: 'attendance_id') required final int attendanceId,
+      {@JsonKey(name: 'attendance_id') final int? attendanceId,
       @JsonKey(name: 'attendance_status') final int? attendanceStatus,
       @JsonKey(name: 'attendance_status_label')
       final String? attendanceStatusLabel,
@@ -819,15 +1108,27 @@ abstract class _Properties implements Properties {
       final String? clockOutStatusLabel,
       @JsonKey(name: 'schedule_clock_in') final String? scheduledClockIn,
       @JsonKey(name: 'schedule_clock_out') final String? scheduledClockOut,
-      @JsonKey(name: 'tolerance_minutes')
-      final int? toleranceMinutes}) = _$PropertiesImpl;
+      @JsonKey(name: 'tolerance_minutes') final int? toleranceMinutes,
+      @JsonKey(name: "overtime_date") final String? overtimeDate,
+      @JsonKey(name: "user_id") final int? userId,
+      @JsonKey(name: "start_time") final String? startTime,
+      @JsonKey(name: "end_time") final String? endTime,
+      final int? duration,
+      final int? status,
+      @JsonKey(name: "status_label") final String? statusLabel,
+      final String? notes,
+      @JsonKey(name: "approved_by") final int? approvedBy,
+      final Approver? approver,
+      @JsonKey(name: "request_date") final String? requestDate,
+      @JsonKey(name: "created_at") final String? createdAt,
+      @JsonKey(name: "updated_at") final String? updatedAt}) = _$PropertiesImpl;
 
   factory _Properties.fromJson(Map<String, dynamic> json) =
       _$PropertiesImpl.fromJson;
 
   @override
   @JsonKey(name: 'attendance_id')
-  int get attendanceId;
+  int? get attendanceId;
   @override
   @JsonKey(name: 'attendance_status')
   int? get attendanceStatus;
@@ -861,6 +1162,41 @@ abstract class _Properties implements Properties {
   @override
   @JsonKey(name: 'tolerance_minutes')
   int? get toleranceMinutes;
+  @override
+  @JsonKey(name: "overtime_date")
+  String? get overtimeDate;
+  @override
+  @JsonKey(name: "user_id")
+  int? get userId;
+  @override
+  @JsonKey(name: "start_time")
+  String? get startTime;
+  @override
+  @JsonKey(name: "end_time")
+  String? get endTime;
+  @override
+  int? get duration;
+  @override
+  int? get status;
+  @override
+  @JsonKey(name: "status_label")
+  String? get statusLabel;
+  @override
+  String? get notes;
+  @override
+  @JsonKey(name: "approved_by")
+  int? get approvedBy;
+  @override
+  Approver? get approver;
+  @override
+  @JsonKey(name: "request_date")
+  String? get requestDate;
+  @override
+  @JsonKey(name: "created_at")
+  String? get createdAt;
+  @override
+  @JsonKey(name: "updated_at")
+  String? get updatedAt;
 
   /// Create a copy of Properties
   /// with the given fields replaced by the non-null parameter values.
@@ -876,9 +1212,9 @@ Causer _$CauserFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Causer {
-  int get id => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
-  String get email => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
+  String? get email => throw _privateConstructorUsedError;
 
   /// Serializes this Causer to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -894,7 +1230,7 @@ abstract class $CauserCopyWith<$Res> {
   factory $CauserCopyWith(Causer value, $Res Function(Causer) then) =
       _$CauserCopyWithImpl<$Res, Causer>;
   @useResult
-  $Res call({int id, String name, String email});
+  $Res call({int? id, String? name, String? email});
 }
 
 /// @nodoc
@@ -912,23 +1248,23 @@ class _$CauserCopyWithImpl<$Res, $Val extends Causer>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? name = null,
-    Object? email = null,
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? email = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      name: null == name
+              as int?,
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      email: null == email
+              as String?,
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
   }
 }
@@ -940,7 +1276,7 @@ abstract class _$$CauserImplCopyWith<$Res> implements $CauserCopyWith<$Res> {
       __$$CauserImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String name, String email});
+  $Res call({int? id, String? name, String? email});
 }
 
 /// @nodoc
@@ -956,23 +1292,23 @@ class __$$CauserImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? name = null,
-    Object? email = null,
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? email = freezed,
   }) {
     return _then(_$CauserImpl(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      name: null == name
+              as int?,
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      email: null == email
+              as String?,
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -980,18 +1316,17 @@ class __$$CauserImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$CauserImpl implements _Causer {
-  const _$CauserImpl(
-      {required this.id, required this.name, required this.email});
+  const _$CauserImpl({this.id, this.name, this.email});
 
   factory _$CauserImpl.fromJson(Map<String, dynamic> json) =>
       _$$CauserImplFromJson(json);
 
   @override
-  final int id;
+  final int? id;
   @override
-  final String name;
+  final String? name;
   @override
-  final String email;
+  final String? email;
 
   @override
   String toString() {
@@ -1030,23 +1365,205 @@ class _$CauserImpl implements _Causer {
 
 abstract class _Causer implements Causer {
   const factory _Causer(
-      {required final int id,
-      required final String name,
-      required final String email}) = _$CauserImpl;
+      {final int? id, final String? name, final String? email}) = _$CauserImpl;
 
   factory _Causer.fromJson(Map<String, dynamic> json) = _$CauserImpl.fromJson;
 
   @override
-  int get id;
+  int? get id;
   @override
-  String get name;
+  String? get name;
   @override
-  String get email;
+  String? get email;
 
   /// Create a copy of Causer
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CauserImplCopyWith<_$CauserImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+Approver _$ApproverFromJson(Map<String, dynamic> json) {
+  return _Approver.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Approver {
+  int? get id => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
+  String? get duration => throw _privateConstructorUsedError;
+
+  /// Serializes this Approver to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of Approver
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $ApproverCopyWith<Approver> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ApproverCopyWith<$Res> {
+  factory $ApproverCopyWith(Approver value, $Res Function(Approver) then) =
+      _$ApproverCopyWithImpl<$Res, Approver>;
+  @useResult
+  $Res call({int? id, String? name, String? duration});
+}
+
+/// @nodoc
+class _$ApproverCopyWithImpl<$Res, $Val extends Approver>
+    implements $ApproverCopyWith<$Res> {
+  _$ApproverCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of Approver
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? duration = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      duration: freezed == duration
+          ? _value.duration
+          : duration // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$ApproverImplCopyWith<$Res>
+    implements $ApproverCopyWith<$Res> {
+  factory _$$ApproverImplCopyWith(
+          _$ApproverImpl value, $Res Function(_$ApproverImpl) then) =
+      __$$ApproverImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({int? id, String? name, String? duration});
+}
+
+/// @nodoc
+class __$$ApproverImplCopyWithImpl<$Res>
+    extends _$ApproverCopyWithImpl<$Res, _$ApproverImpl>
+    implements _$$ApproverImplCopyWith<$Res> {
+  __$$ApproverImplCopyWithImpl(
+      _$ApproverImpl _value, $Res Function(_$ApproverImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of Approver
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? duration = freezed,
+  }) {
+    return _then(_$ApproverImpl(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      duration: freezed == duration
+          ? _value.duration
+          : duration // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ApproverImpl implements _Approver {
+  const _$ApproverImpl({this.id, this.name, this.duration});
+
+  factory _$ApproverImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ApproverImplFromJson(json);
+
+  @override
+  final int? id;
+  @override
+  final String? name;
+  @override
+  final String? duration;
+
+  @override
+  String toString() {
+    return 'Approver(id: $id, name: $name, duration: $duration)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ApproverImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.duration, duration) ||
+                other.duration == duration));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, name, duration);
+
+  /// Create a copy of Approver
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ApproverImplCopyWith<_$ApproverImpl> get copyWith =>
+      __$$ApproverImplCopyWithImpl<_$ApproverImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ApproverImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Approver implements Approver {
+  const factory _Approver(
+      {final int? id,
+      final String? name,
+      final String? duration}) = _$ApproverImpl;
+
+  factory _Approver.fromJson(Map<String, dynamic> json) =
+      _$ApproverImpl.fromJson;
+
+  @override
+  int? get id;
+  @override
+  String? get name;
+  @override
+  String? get duration;
+
+  /// Create a copy of Approver
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ApproverImplCopyWith<_$ApproverImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

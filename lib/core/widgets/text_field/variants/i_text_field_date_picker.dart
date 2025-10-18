@@ -18,6 +18,7 @@ class ITextFieldDatePicker extends StatefulWidget {
     this.onDateChanged,
     this.validator,
     this.errorText,
+    this.isRequired = false,
   });
 
   final String label;
@@ -28,6 +29,7 @@ class ITextFieldDatePicker extends StatefulWidget {
   final Function(DateTime)? onDateChanged;
   final String? Function(String?)? validator;
   final String? errorText;
+  final bool isRequired;
 
   @override
   State<ITextFieldDatePicker> createState() => _ITextFieldDatePickerState();
@@ -100,6 +102,7 @@ class _ITextFieldDatePickerState extends State<ITextFieldDatePicker> {
   Widget build(BuildContext context) {
     return ITextFieldBase(
       controller: _controller,
+      isRequired: widget.isRequired,
       label: widget.label,
       readOnly: true,
       validator: widget.validator,

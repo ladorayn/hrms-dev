@@ -7,6 +7,7 @@ import 'package:hrms_mobile/core/constants/attendance_enum.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/features/app/presentation/screens/splash_screen.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/detail_attendance/attendance_detail_response_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/response/overtime/overtime_detail_response_model.dart';
 import 'package:hrms_mobile/features/attendance/presentation/screens/attendance_and_overtime_screen.dart';
 import 'package:hrms_mobile/features/attendance/presentation/screens/attendance_form_screen.dart';
 import 'package:hrms_mobile/features/attendance/presentation/screens/attendance_history_edit_screen.dart';
@@ -140,8 +141,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: RoutePaths.overtimeEdit,
-        name: RoutePaths.overtimeEdit,
-        builder: (context, state) => const OvertimeHistoryEditScreen(),
+        name: RoutePaths.overtimeEditName,
+        builder: (context, state) {
+          final overtime = state.extra as OvertimeDetail;
+          return OvertimeHistoryEditScreen(overtime: overtime);
+        },
       ),
       GoRoute(
         path: RoutePaths.locationConfirmed,
