@@ -18,6 +18,7 @@ class ResetPasswordCheckEmailScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
+        // This was already correct
         title: Text(
           l10n.resetPassword,
           style: theme.textTheme.titleLarge?.copyWith(
@@ -40,39 +41,36 @@ class ResetPasswordCheckEmailScreen extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "Please Check Your Email",
+              l10n.resetPasswordCheckEmail_title,
               style: theme.textTheme.headlineSmall
                   ?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
             Text(
-              "Reset password request link has been succesfully sent to your registered email.",
+              l10n.resetPasswordCheckEmail_body,
               style: theme.textTheme.bodyLarge,
             ),
             const SizedBox(height: 32),
-            // Use RichText to have a clickable part of the text
             RichText(
               text: TextSpan(
                 style: theme.textTheme.bodyMedium,
                 children: [
-                  const TextSpan(text: "Didn't receive an email? "),
+                  TextSpan(text: l10n.resetPasswordCheckEmail_didNotReceive),
                   TextSpan(
-                    text: "Resend Email",
+                    text: l10n.resetPasswordCheckEmail_resend,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: colorScheme.primary,
                     ),
-                    // Add a recognizer to make it clickable
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
-                        // Re-hit the request reset API
                         ref
                             .read(resetPasswordProvider.notifier)
                             .requestReset(email);
-                        // Show a snackbar for user feedback
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                              content: Text('Resending reset link...')),
+                          SnackBar(
+                              content: Text(l10n
+                                  .resetPasswordCheckEmail_resendingSnackbar)),
                         );
                       },
                   ),

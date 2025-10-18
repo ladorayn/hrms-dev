@@ -8,9 +8,6 @@ import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_email.
 import 'package:hrms_mobile/features/auth/domain/entities/reset_password_state.dart';
 import 'package:hrms_mobile/features/auth/presentation/providers/reset_password/reset_password_provider.dart';
 
-// TODO: Create and import the reset password provider
-// import 'package:hrms_mobile/features/auth/presentation/providers/reset_password_provider.dart';
-
 class ResetPasswordEmailScreen extends ConsumerWidget {
   const ResetPasswordEmailScreen({super.key});
 
@@ -30,8 +27,9 @@ class ResetPasswordEmailScreen extends ConsumerWidget {
       if (nowLoadedSuccessfully) {
         ScaffoldMessenger.of(context).clearSnackBars();
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Reset link sent! Check your email.'),
+          SnackBar(
+            // UPDATED
+            content: Text(l10n.resetPasswordEmail_linkSentSnackbar),
             behavior: SnackBarBehavior.floating,
           ),
         );
@@ -45,9 +43,10 @@ class ResetPasswordEmailScreen extends ConsumerWidget {
           (previous?.errors.isEmpty ?? true) && next.errors.isNotEmpty;
 
       if (hasNewError) {
+        // UPDATED: Added fallback for unknown errors
         final errorMessage = next.errors['general'] ??
             next.errors.values.firstOrNull ??
-            'Unknown error';
+            l10n.errorUnknown;
         ScaffoldMessenger.of(context).clearSnackBars();
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -61,19 +60,19 @@ class ResetPasswordEmailScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
+        // This was already correct
         title: Text(
           l10n.resetPassword,
           style: theme.textTheme.titleLarge?.copyWith(
-            color: colorScheme.primary, // Recolor to primary
+            color: colorScheme.primary,
             fontWeight: FontWeight.bold,
           ),
         ),
-        centerTitle: false, // Align title to the left
+        centerTitle: false,
         backgroundColor: theme.scaffoldBackgroundColor,
         elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: colorScheme.onBackground),
-          // Use context.go() to navigate back to the login screen
           onPressed: () => context.pop(),
         ),
       ),
@@ -85,17 +84,16 @@ class ResetPasswordEmailScreen extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Enter your registered email to reset password",
+                l10n.resetPasswordEmail_body,
                 style: theme.textTheme.bodyLarge,
               ),
               const SizedBox(height: 12),
               ITextFieldEmail(
                 label: l10n.formEmail,
+                hintText: l10n.formHintEmail, // ADDED: Hint text
                 controller: emailController,
               ),
-              SizedBox(
-                height: 60,
-              ),
+              const SizedBox(height: 60),
               ElevatedButton(
                 onPressed: resetPasswordState.isLoading
                     ? null
@@ -114,8 +112,9 @@ class ResetPasswordEmailScreen extends ConsumerWidget {
                 ),
                 child: resetPasswordState.isLoading
                     ? const CircularProgressIndicator(color: Colors.white)
-                    : const Text("Continue",
-                        style: TextStyle(color: Colors.white)),
+                    // UPDATED
+                    : Text(l10n.continueButton,
+                        style: const TextStyle(color: Colors.white)),
               ),
               const SizedBox(height: 20),
             ],

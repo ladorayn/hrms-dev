@@ -5,6 +5,7 @@ import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/core/widgets/i_footer_button.dart';
+import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_date_picker.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_dropdown_attendance_bottom_sheet.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
 
@@ -66,6 +67,10 @@ class _OvertimeRequestScreenState extends ConsumerState<OvertimeRequestScreen> {
                   //   location: "test",
                   //   overtime: "0h 0m",
                   // ),
+                  ITextFieldDatePicker(
+                    label: "Request Date",
+                    controller: _attendanceDateController,
+                  ),
                   ITextFieldDropdownAttendanceBottomSheet(
                     label: "Attendance Date",
                     labelStyle: textTheme.bodySmall,

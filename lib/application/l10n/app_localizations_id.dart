@@ -9,164 +9,103 @@ class AppLocalizationsId extends AppLocalizations {
   AppLocalizationsId([String locale = 'id']) : super(locale);
 
   @override
-  String get btnYa => 'Ya';
+  String get signIn => 'Masuk';
 
   @override
-  String get btnOke => 'Oke';
+  String get continueButton => 'Lanjutkan';
 
   @override
-  String get btnLanjut => 'Lanjut';
+  String get resetPassword => 'Atur Ulang Kata Sandi';
 
   @override
-  String get btnMasuk => 'Masuk';
-
-  @override
-  String get btnBatalkan => 'Batalkan';
-
-  @override
-  String get btnBatal => 'Batal';
-
-  @override
-  String get btnLupaPassword => 'Lupa Password?';
-
-  @override
-  String get btnLewati => 'Lewati';
-
-  @override
-  String get btnAktifkanSekarang => 'Aktifkan Sekarang';
-
-  @override
-  String get btnUlangi => 'Ulangi';
-
-  @override
-  String get btnLogin => 'Login';
-
-  @override
-  String get resetPassword => 'Reset Password';
-
-  @override
-  String get btnUpdate => 'Update';
-
-  @override
-  String get btnNantiSaja => 'Nanti Saja';
-
-  @override
-  String get formIdPerusahaan => 'ID Perusahaan';
-
-  @override
-  String get formIdPengguna => 'ID Pengguna';
-
-  @override
-  String get formPassword => 'Password';
-
-  @override
-  String get formPasswordLama => 'Password Lama';
-
-  @override
-  String get formPasswordBaru => 'Password Baru';
-
-  @override
-  String get formMasukkanPasswordLama => 'Masukan Password Lama';
-
-  @override
-  String get formMasukkanPasswordBaru => 'Masukan Password Baru';
-
-  @override
-  String get formKonfirmasiPasswordBaru => 'Konfirmasi Password Baru';
-
-  @override
-  String get formKonfirmasiPassword => 'Konfirmasi Password';
-
-  @override
-  String get formNoKtpKitias => 'No. KTP/KITAS';
+  String get forgotPassword => 'Lupa Kata Sandi?';
 
   @override
   String get formEmail => 'Email';
 
   @override
-  String get formPhone => 'Nomor Handphone';
+  String get formHintEmail => 'Masukkan email Anda';
 
   @override
-  String get formHintIdPerusahaan => 'Masukkan ID Perusahaan';
+  String get formPassword => 'Kata Sandi';
 
   @override
-  String get formHintIdPengguna => 'Masukkan ID Pengguna';
+  String get formHintPassword => 'Masukkan kata sandi Anda';
 
   @override
-  String get formHintPassword => 'Masukkan Password';
+  String get formPasswordConfirmation => 'Konfirmasi Kata Sandi';
 
   @override
-  String get formHintPasswordKamu => 'Masukkan Password Kamu';
+  String loginFailed(String error) {
+    return 'Gagal masuk: $error';
+  }
 
   @override
-  String get formHintPasswordLama => 'Masukkan Password Lama';
+  String get resetPasswordEmail_title => 'Atur Ulang Kata Sandi';
 
   @override
-  String get formHintPasswordBaru => 'Masukan 12 karakter atau lebih';
+  String get resetPasswordEmail_body => 'Masukkan email terdaftar Anda untuk mengatur ulang kata sandi';
 
   @override
-  String get formHintKonfirmasiPasswordBaru => 'Masukan ulang password';
+  String get resetPasswordEmail_linkSentSnackbar => 'Tautan terkirim! Periksa email Anda.';
 
   @override
-  String get formHintNoKtpKitias => 'Masukkan nomor KTP';
+  String get resetPasswordCheckEmail_title => 'Silakan Periksa Email Anda';
 
   @override
-  String get formHintEmail => 'Masukkan Email';
+  String get resetPasswordCheckEmail_body => 'Tautan atur ulang kata sandi telah dikirim ke email Anda yang terdaftar.';
 
   @override
-  String get formHintPhone => 'Contoh: 81234567xxx';
+  String get resetPasswordCheckEmail_didNotReceive => 'Tidak menerima email? ';
 
   @override
-  String formValidationRequired(Object fieldName) {
+  String get resetPasswordCheckEmail_resend => 'Kirim Ulang Email';
+
+  @override
+  String get resetPasswordCheckEmail_resendingSnackbar => 'Mengirim ulang tautan...';
+
+  @override
+  String get resetPasswordCreate_title => 'Buat Kata Sandi Baru';
+
+  @override
+  String get resetPasswordCreate_subtitle => 'Buat kata sandi baru untuk akun Anda';
+
+  @override
+  String get resetPasswordSuccess_title => 'Kata Sandi Berhasil Diatur Ulang';
+
+  @override
+  String get resetPasswordSuccess_body => 'Silakan masuk menggunakan kata sandi baru Anda.';
+
+  @override
+  String get errorUnknown => 'Terjadi kesalahan yang tidak diketahui';
+
+  @override
+  String formValidationRequired(String fieldName) {
     return '$fieldName wajib diisi';
   }
 
   @override
-  String formValidationMinLength(Object fieldName, Object minLength) {
-    return '$fieldName kurang dari $minLength digit';
+  String formValidationMinLength(String fieldName, int minLength) {
+    return '$fieldName harus terdiri dari minimal $minLength karakter';
   }
 
   @override
-  String formValidationMaxLength(Object fieldName, Object maxLength) {
-    return '$fieldName tidak boleh lebih dari $maxLength digit';
+  String formValidationMaxLength(String fieldName, int maxLength) {
+    return '$fieldName tidak boleh lebih dari $maxLength karakter';
   }
 
   @override
-  String get formValidationEmailInvalid => 'Email tidak valid';
+  String get formValidationEmailInvalid => 'Harap masukkan email yang valid';
 
   @override
-  String get formValidationOnlyAlphanumeric => 'Hanya boleh huruf dan angka';
+  String get formValidationOnlyAlphanumeric => 'Hanya huruf dan angka yang diperbolehkan';
 
   @override
-  String get formValidationPasswordInvalid => 'Password yang Anda masukkan tidak sesuai';
+  String get formValidationPasswordInvalid => 'Kata sandi yang Anda masukkan salah';
 
   @override
-  String get formValidationPasswordCriteriaInvalid => 'Password belum memenuhi kriteria';
+  String get formValidationPasswordCriteriaInvalid => 'Kata sandi tidak memenuhi kriteria yang disyaratkan';
 
   @override
-  String get splashScreenDisclaimer => 'Bank berizin dan diawasi oleh Otoritas Jasa Keuangan (OJK) dan merupakan bank peserta penjamin Lembaga Penjamin Simpanan (LPS)';
-
-  @override
-  String get onboardScreenTitleSlide1 => 'Satu Solusi Untuk\nSemua Transaksi';
-
-  @override
-  String get onboardScreenMessageSlide1 => 'Transaksi sehari-hari menjadi lebih mudah, baik untuk kebutuhan personal maupun bisnis.';
-
-  @override
-  String get onboardScreenTitleSlide2 => 'Gratis Transfer\nAntar Bank';
-
-  @override
-  String get onboardScreenMessageSlide2 => 'Makin hemat transfer antar bank menggunakan hi Nabung. Dapatkan 100 kali gratis transfer per bulan. Buka hi Nabung sekarang!';
-
-  @override
-  String get loginBeforeBindingTitle => 'Masuk';
-
-  @override
-  String get loginBeforeBindingDescription => 'Silakan masuk dengan ID perusahaan & ID pengguna yang sudah di informasikan';
-
-  @override
-  String get forgotPasswordChangePasswordPasswordBerhasilDisimpan => 'Password Berhasil Disimpan';
-
-  @override
-  String get forgotPasswordChangePasswordSilahkanLoginKembali => 'Silakan login kembali untuk melanjutkan.';
+  String get formPhone => 'Nomor Telepon';
 }

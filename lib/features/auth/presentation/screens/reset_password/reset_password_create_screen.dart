@@ -30,7 +30,6 @@ class ResetPasswordCreateScreen extends ConsumerWidget {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final resetPasswordState = ref.watch(resetPasswordProvider);
-    // final resetPasswordNotifier = ref.read(resetPasswordProvider.notifier);
 
     final emailController = TextEditingController();
     final passwordController = TextEditingController();
@@ -38,7 +37,6 @@ class ResetPasswordCreateScreen extends ConsumerWidget {
 
     final validationErrors = resetPasswordState.errors;
 
-    // Add this listener to handle the result of the API call
     ref.listen<ResetPasswordState>(
       resetPasswordProvider,
       (previous, next) {
@@ -65,16 +63,15 @@ class ResetPasswordCreateScreen extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Create a New Password",
+                  l10n.resetPasswordCreate_title,
                   style: theme.textTheme.headlineSmall,
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  "Create a new password for this account",
+                  l10n.resetPasswordCreate_subtitle,
                   style: theme.textTheme.bodyLarge,
                 ),
                 const SizedBox(height: 60),
-                // You might want a disabled email field here for context
                 if (!isFirstLogin) ...[
                   ITextFieldEmail(
                     label: l10n.formEmail,
@@ -85,16 +82,15 @@ class ResetPasswordCreateScreen extends ConsumerWidget {
                 ],
                 ITextFieldPassword(
                   label: l10n.formPassword,
+                  hintText: l10n.formHintPassword, // ADDED: Hint text
                   controller: passwordController,
                   errorText: validationErrors['new_password'],
                 ),
                 ITextFieldPassword(
-                  label: "Password Confirmation", // Add to l10n
+                  label: l10n.formPasswordConfirmation,
                   controller: confirmPasswordController,
                 ),
-                SizedBox(
-                  height: 60,
-                ),
+                const SizedBox(height: 60),
                 Center(
                   child: ElevatedButton(
                     onPressed: () {
@@ -128,9 +124,9 @@ class ResetPasswordCreateScreen extends ConsumerWidget {
                       minimumSize:
                           Size(MediaQuery.of(context).size.width * 0.8, 50),
                     ),
-                    child: const Text(
-                      "Reset Password",
-                      style: TextStyle(color: Colors.white),
+                    child: Text(
+                      l10n.resetPassword,
+                      style: const TextStyle(color: Colors.white),
                     ),
                   ),
                 ),

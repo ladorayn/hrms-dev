@@ -5,7 +5,7 @@ import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 enum ValidateFormType {
   email,
   phone,
-  ktp,
+  // ktp,
   password,
 }
 
@@ -27,7 +27,7 @@ class IFormUtils {
   /// A generic form field validator.
   /// It now requires a BuildContext to access translations.
   static String? validateFormField({
-    required BuildContext context, // <-- Add BuildContext
+    required BuildContext context,
     required String value,
     required String fieldName,
     int? minLength,
@@ -98,15 +98,15 @@ class IFormUtils {
           minLength: minLengthPhone,
           maxLength: maxLengthPhone,
         );
-      case ValidateFormType.ktp:
-        return validateFormField(
-          context: context,
-          fieldName: l10n.formNoKtpKitias,
-          value: value,
-          minLength: minLengthKtp,
-          maxLength: maxLengthKtp,
-          isKtp: true,
-        );
+      // case ValidateFormType.ktp:
+      //   return validateFormField(
+      //     context: context,
+      //     fieldName: l10n.formNoKtpKitias,
+      //     value: value,
+      //     minLength: minLengthKtp,
+      //     maxLength: maxLengthKtp,
+      //     isKtp: true,
+      //   );
       case ValidateFormType.password:
         return validateFormField(
           context: context,

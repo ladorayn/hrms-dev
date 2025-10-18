@@ -1,0 +1,80 @@
+{
+  "@@locale": "en",
+
+  "signIn": "Sign In",
+  "continueButton": "Continue",
+  "resetPassword": "Reset Password",
+  "forgotPassword": "Forgot Password?",
+
+  "formEmail": "Email",
+  "formHintEmail": "Enter your email",
+  "formPassword": "Password",
+  "formHintPassword": "Enter your password",
+  "formPasswordConfirmation": "Password Confirmation",
+
+  "loginFailed": "Login failed: {error}",
+  "@loginFailed": {
+    "description": "Error message shown on login failure.",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Invalid credentials"
+      }
+    }
+  },
+
+  "resetPasswordEmail_title": "Reset Password",
+  "resetPasswordEmail_body": "Enter your registered email to reset your password",
+  "resetPasswordEmail_linkSentSnackbar": "Reset link sent! Check your email.",
+
+  "resetPasswordCheckEmail_title": "Please Check Your Email",
+  "resetPasswordCheckEmail_body": "A reset password link has been sent to your registered email.",
+  "resetPasswordCheckEmail_didNotReceive": "Didn't receive an email? ",
+  "resetPasswordCheckEmail_resend": "Resend Email",
+  "resetPasswordCheckEmail_resendingSnackbar": "Resending reset link...",
+
+  "resetPasswordCreate_title": "Create a New Password",
+  "resetPasswordCreate_subtitle": "Create a new password for your account",
+
+  "resetPasswordSuccess_title": "Password Reset Successful",
+  "resetPasswordSuccess_body": "Please sign in using your new password.",
+
+  "errorUnknown": "An unknown error occurred",
+
+  "formValidationRequired": "{fieldName} is required",
+  "@formValidationRequired": {
+    "placeholders": {
+      "fieldName": {
+        "type": "String",
+        "example": "Password"
+      }
+    }
+  },
+  "formValidationMinLength": "{fieldName} must be at least {minLength} characters long",
+  "@formValidationMinLength": {
+    "placeholders": {
+      "fieldName": {
+        "type": "String"
+      },
+      "minLength": {
+        "type": "int"
+      }
+    }
+  },
+  "formValidationMaxLength": "{fieldName} cannot be longer than {maxLength} characters",
+  "@formValidationMaxLength": {
+    "placeholders": {
+      "fieldName": {
+        "type": "String"
+      },
+      "maxLength": {
+        "type": "int"
+      }
+    }
+  },
+  "formValidationEmailInvalid": "Please enter a valid email",
+  "formValidationOnlyAlphanumeric": "Only letters and numbers are allowed",
+  "formValidationPasswordInvalid": "The password you entered is incorrect",
+  "formValidationPasswordCriteriaInvalid": "Password does not meet the required criteria",
+  "formPhone": "Phone Number"
+}
