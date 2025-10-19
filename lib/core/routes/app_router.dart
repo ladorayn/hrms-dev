@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart'; // Add this import for Placeholder
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hrms_mobile/core/constants/attendance_enum.dart';
+import 'package:hrms_mobile/core/enums/attendance_enum.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/features/app/presentation/screens/splash_screen.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/detail_attendance/attendance_detail_response_model.dart';
@@ -22,6 +22,9 @@ import 'package:hrms_mobile/features/auth/presentation/screens/reset_password/re
 import 'package:hrms_mobile/features/auth/presentation/screens/reset_password/reset_password_success_screen.dart';
 import 'package:hrms_mobile/features/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:hrms_mobile/features/dashboard/presentation/screens/main_screen.dart'; // You will create this file
+import 'package:hrms_mobile/features/leave_request/presentation/screens/leave_request_detail_screen.dart';
+import 'package:hrms_mobile/features/leave_request/presentation/screens/leave_request_form_screen.dart';
+import 'package:hrms_mobile/features/leave_request/presentation/screens/leave_request_screen.dart';
 import 'package:hrms_mobile/features/offboarding/presentation/screens/document_handover_screen.dart';
 import 'package:hrms_mobile/features/offboarding/presentation/screens/exit_form_screen.dart';
 import 'package:hrms_mobile/features/offboarding/presentation/screens/offboarding_screen.dart';
@@ -187,6 +190,20 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         },
       ),
       GoRoute(
+        path: RoutePaths.leaveRequestForm,
+        name: RoutePaths.leaveRequestFormName,
+        builder: (context, state) {
+          return LeaveRequestFormScreen();
+        },
+      ),
+      GoRoute(
+        path: RoutePaths.leaveDetail,
+        name: RoutePaths.leaveDetailName,
+        builder: (context, state) {
+          return LeaveRequestDetailScreen();
+        },
+      ),
+      GoRoute(
         path: RoutePaths.offboarding,
         name: RoutePaths.offboardingName,
         builder: (context, state) {
@@ -238,10 +255,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           // "Leave Request" tab
           GoRoute(
             path: RoutePaths.leaveRequest,
-            builder: (context, state) => const Scaffold(
-                body: Center(
-                    child: Text(
-                        'Leave Request'))), // Replace with your LeaveRequestScreen
+            builder: (context, state) =>
+                const LeaveRequestScreen(), // Replace with your LeaveRequestScreen
           ),
           // "Inbox" tab
           GoRoute(

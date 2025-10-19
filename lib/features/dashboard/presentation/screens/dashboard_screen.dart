@@ -7,7 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
-import 'package:hrms_mobile/core/constants/attendance_enum.dart';
+import 'package:hrms_mobile/core/enums/attendance_enum.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/util/general_utils.dart';
@@ -483,15 +483,15 @@ class DashboardScreen extends ConsumerWidget {
                   spacing: 10,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        globalNavigatorKey.currentContext
-                            ?.push(RoutePaths.overtimeRequest);
-                      },
-                      child: Row(
-                        spacing: 20.w,
-                        children: [
-                          Expanded(
+                    Row(
+                      spacing: 20.w,
+                      children: [
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              globalNavigatorKey.currentContext
+                                  ?.push(RoutePaths.overtimeRequest);
+                            },
                             child: Container(
                               color: Color(0xFFF8FCFF),
                               child: Padding(
@@ -519,7 +519,13 @@ class DashboardScreen extends ConsumerWidget {
                               ),
                             ),
                           ),
-                          Expanded(
+                        ),
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              globalNavigatorKey.currentContext
+                                  ?.push(RoutePaths.leaveRequestForm);
+                            },
                             child: Container(
                               color: Color(0xFFF8FCFF),
                               child: Padding(
@@ -546,8 +552,8 @@ class DashboardScreen extends ConsumerWidget {
                               ),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                     Expanded(
                       child: Column(

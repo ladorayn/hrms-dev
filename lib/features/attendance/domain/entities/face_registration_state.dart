@@ -1,4 +1,4 @@
-import 'package:hrms_mobile/core/constants/face_step_enum.dart';
+import 'package:hrms_mobile/core/enums/face_step_enum.dart';
 
 class FaceRegistrationState {
   final FaceStep step;

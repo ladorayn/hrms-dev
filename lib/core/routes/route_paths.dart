@@ -26,13 +26,10 @@ class RoutePaths {
   static const attendance = '/attendance';
   static const attendanceEdit = '/edit-attendance/:id';
   static const attendanceEditName = 'attendanceEdit';
-  static const overtimeEdit = '/edit-overtime/:id';
-  static const overtimeEditName = 'overtimeEdit';
   static const locationConfirmed = '/location-confirmed';
   static const faceRegistration = '/face-registration';
   static const faceVerification = '/face-verification';
   static const attendanceForm = '/attendance-form';
-  static const overtimeRequest = '/overtime-request';
 
   // Offboarding
   static const offboarding = '/offboarding';
@@ -48,4 +45,15 @@ class RoutePaths {
   static const documentAssigneeHandover = '/document-handover-assignee';
   static const documentAssigneeHandoverName =
       'offboardingDocumentAssigneeHandover';
+
+  // Overtime Request
+  static const overtimeRequest = '/overtime-request';
+  static const overtimeEdit = '/edit-overtime/:id';
+  static const overtimeEditName = 'overtimeEdit';
+
+  // Leave Request
+  static const leaveRequestForm = '/new-leave-request';
+  static const leaveRequestFormName = 'leaveRequestForm';
+  static const leaveDetail = '/leave-request/:id';
+  static const leaveDetailName = 'leaveDetail';
 }
