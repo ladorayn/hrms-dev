@@ -83,13 +83,6 @@ class _AttendanceEditFormScreenState
     return "${hours}h ${minutes}m";
   }
 
-  String? _formatTimeForAPI(TimeOfDay? time) {
-    if (time == null) return null;
-    final hour = time.hour.toString().padLeft(2, '0');
-    final minute = time.minute.toString().padLeft(2, '0');
-    return '$hour:$minute';
-  }
-
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -102,8 +95,8 @@ class _AttendanceEditFormScreenState
     final validationErrors = updateState.errors;
 
     // Calculate the duration on every build
-    final String? clockInStr = _formatTimeForAPI(_selectedClockIn);
-    final String? clockOutStr = _formatTimeForAPI(_selectedClockOut);
+    final String? clockInStr = formatTimeForAPI(_selectedClockIn);
+    final String? clockOutStr = formatTimeForAPI(_selectedClockOut);
     final String durationText = calculateDuration(clockInStr, clockOutStr);
 
     String overtimeText = "0h 0m";
@@ -140,8 +133,8 @@ class _AttendanceEditFormScreenState
     Future<void> onUpdatePressed() async {
       try {
         final request = UpdateAttendanceRequestModel(
-          clockInAt: _formatTimeForAPI(_selectedClockIn),
-          clockOutAt: _formatTimeForAPI(_selectedClockOut),
+          clockInAt: formatTimeForAPI(_selectedClockIn),
+          clockOutAt: formatTimeForAPI(_selectedClockOut),
           shiftId: _selectedShiftId,
           notes: _notesController.text,
         );

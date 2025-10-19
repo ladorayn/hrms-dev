@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 String calculateDuration(String? clockIn, String? clockOut) {
@@ -8,9 +9,14 @@ String calculateDuration(String? clockIn, String? clockOut) {
     return "0h 0m";
   }
 
+  print("CLOCK IN ${clockIn}");
+  print("CLOCK OUT ${clockOut}");
+
   try {
     final inTime = DateFormat("HH:mm").parse(clockIn);
     final outTime = DateFormat("HH:mm").parse(clockOut);
+    print("inTime ${inTime}");
+    print("outTime ${outTime}");
     final diff = outTime.difference(inTime);
 
     final hours = diff.inHours;
@@ -33,4 +39,16 @@ String calculateDurationWithTotal(int durationMinutes) {
   } catch (_) {
     return "0h 0m";
   }
+}
+
+String? formatTimeForAPI(TimeOfDay? time) {
+  if (time == null) return null;
+  final hour = time.hour.toString().padLeft(2, '0');
+  final minute = time.minute.toString().padLeft(2, '0');
+  return '$hour:$minute';
+}
+
+String formatDateForAPI(DateTime? date) {
+  if (date == null) return '';
+  return DateFormat('yyyy-MM-dd').format(date);
 }

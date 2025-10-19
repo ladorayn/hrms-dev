@@ -20,13 +20,13 @@ AttendanceData _$AttendanceDataFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AttendanceData {
-  int get id => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
   @JsonKey(name: "attendance_date")
-  String get attendanceDate => throw _privateConstructorUsedError;
-  Clock get clock => throw _privateConstructorUsedError;
+  String? get attendanceDate => throw _privateConstructorUsedError;
+  Clock? get clock => throw _privateConstructorUsedError;
   String? get duration => throw _privateConstructorUsedError;
   Location? get location => throw _privateConstructorUsedError;
-  int get status => throw _privateConstructorUsedError;
+  int? get status => throw _privateConstructorUsedError;
   @JsonKey(name: "clock_in_status")
   int? get clockInStatus => throw _privateConstructorUsedError;
   @JsonKey(name: "clock_out_status")
@@ -45,9 +45,9 @@ mixin _$AttendanceData {
   String? get remarks => throw _privateConstructorUsedError;
   Metadata? get metadata => throw _privateConstructorUsedError;
   @JsonKey(name: "created_at")
-  String get createdAt => throw _privateConstructorUsedError;
+  String? get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: "updated_at")
-  String get updatedAt => throw _privateConstructorUsedError;
+  String? get updatedAt => throw _privateConstructorUsedError;
 
   /// Serializes this AttendanceData to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -66,12 +66,12 @@ abstract class $AttendanceDataCopyWith<$Res> {
       _$AttendanceDataCopyWithImpl<$Res, AttendanceData>;
   @useResult
   $Res call(
-      {int id,
-      @JsonKey(name: "attendance_date") String attendanceDate,
-      Clock clock,
+      {int? id,
+      @JsonKey(name: "attendance_date") String? attendanceDate,
+      Clock? clock,
       String? duration,
       Location? location,
-      int status,
+      int? status,
       @JsonKey(name: "clock_in_status") int? clockInStatus,
       @JsonKey(name: "clock_out_status") int? clockOutStatus,
       @JsonKey(name: "status_label") String? statusLabel,
@@ -82,10 +82,10 @@ abstract class $AttendanceDataCopyWith<$Res> {
       @JsonKey(name: "rejected_reason") String? rejectedReason,
       String? remarks,
       Metadata? metadata,
-      @JsonKey(name: "created_at") String createdAt,
-      @JsonKey(name: "updated_at") String updatedAt});
+      @JsonKey(name: "created_at") String? createdAt,
+      @JsonKey(name: "updated_at") String? updatedAt});
 
-  $ClockCopyWith<$Res> get clock;
+  $ClockCopyWith<$Res>? get clock;
   $LocationCopyWith<$Res>? get location;
   $MetadataCopyWith<$Res>? get metadata;
 }
@@ -105,12 +105,12 @@ class _$AttendanceDataCopyWithImpl<$Res, $Val extends AttendanceData>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? attendanceDate = null,
-    Object? clock = null,
+    Object? id = freezed,
+    Object? attendanceDate = freezed,
+    Object? clock = freezed,
     Object? duration = freezed,
     Object? location = freezed,
-    Object? status = null,
+    Object? status = freezed,
     Object? clockInStatus = freezed,
     Object? clockOutStatus = freezed,
     Object? statusLabel = freezed,
@@ -121,22 +121,22 @@ class _$AttendanceDataCopyWithImpl<$Res, $Val extends AttendanceData>
     Object? rejectedReason = freezed,
     Object? remarks = freezed,
     Object? metadata = freezed,
-    Object? createdAt = null,
-    Object? updatedAt = null,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      attendanceDate: null == attendanceDate
+              as int?,
+      attendanceDate: freezed == attendanceDate
           ? _value.attendanceDate
           : attendanceDate // ignore: cast_nullable_to_non_nullable
-              as String,
-      clock: null == clock
+              as String?,
+      clock: freezed == clock
           ? _value.clock
           : clock // ignore: cast_nullable_to_non_nullable
-              as Clock,
+              as Clock?,
       duration: freezed == duration
           ? _value.duration
           : duration // ignore: cast_nullable_to_non_nullable
@@ -145,10 +145,10 @@ class _$AttendanceDataCopyWithImpl<$Res, $Val extends AttendanceData>
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as Location?,
-      status: null == status
+      status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       clockInStatus: freezed == clockInStatus
           ? _value.clockInStatus
           : clockInStatus // ignore: cast_nullable_to_non_nullable
@@ -189,14 +189,14 @@ class _$AttendanceDataCopyWithImpl<$Res, $Val extends AttendanceData>
           ? _value.metadata
           : metadata // ignore: cast_nullable_to_non_nullable
               as Metadata?,
-      createdAt: null == createdAt
+      createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as String,
-      updatedAt: null == updatedAt
+              as String?,
+      updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
   }
 
@@ -204,8 +204,12 @@ class _$AttendanceDataCopyWithImpl<$Res, $Val extends AttendanceData>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $ClockCopyWith<$Res> get clock {
-    return $ClockCopyWith<$Res>(_value.clock, (value) {
+  $ClockCopyWith<$Res>? get clock {
+    if (_value.clock == null) {
+      return null;
+    }
+
+    return $ClockCopyWith<$Res>(_value.clock!, (value) {
       return _then(_value.copyWith(clock: value) as $Val);
     });
   }
@@ -248,12 +252,12 @@ abstract class _$$AttendanceDataImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
-      @JsonKey(name: "attendance_date") String attendanceDate,
-      Clock clock,
+      {int? id,
+      @JsonKey(name: "attendance_date") String? attendanceDate,
+      Clock? clock,
       String? duration,
       Location? location,
-      int status,
+      int? status,
       @JsonKey(name: "clock_in_status") int? clockInStatus,
       @JsonKey(name: "clock_out_status") int? clockOutStatus,
       @JsonKey(name: "status_label") String? statusLabel,
@@ -264,11 +268,11 @@ abstract class _$$AttendanceDataImplCopyWith<$Res>
       @JsonKey(name: "rejected_reason") String? rejectedReason,
       String? remarks,
       Metadata? metadata,
-      @JsonKey(name: "created_at") String createdAt,
-      @JsonKey(name: "updated_at") String updatedAt});
+      @JsonKey(name: "created_at") String? createdAt,
+      @JsonKey(name: "updated_at") String? updatedAt});
 
   @override
-  $ClockCopyWith<$Res> get clock;
+  $ClockCopyWith<$Res>? get clock;
   @override
   $LocationCopyWith<$Res>? get location;
   @override
@@ -288,12 +292,12 @@ class __$$AttendanceDataImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? attendanceDate = null,
-    Object? clock = null,
+    Object? id = freezed,
+    Object? attendanceDate = freezed,
+    Object? clock = freezed,
     Object? duration = freezed,
     Object? location = freezed,
-    Object? status = null,
+    Object? status = freezed,
     Object? clockInStatus = freezed,
     Object? clockOutStatus = freezed,
     Object? statusLabel = freezed,
@@ -304,22 +308,22 @@ class __$$AttendanceDataImplCopyWithImpl<$Res>
     Object? rejectedReason = freezed,
     Object? remarks = freezed,
     Object? metadata = freezed,
-    Object? createdAt = null,
-    Object? updatedAt = null,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
   }) {
     return _then(_$AttendanceDataImpl(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      attendanceDate: null == attendanceDate
+              as int?,
+      attendanceDate: freezed == attendanceDate
           ? _value.attendanceDate
           : attendanceDate // ignore: cast_nullable_to_non_nullable
-              as String,
-      clock: null == clock
+              as String?,
+      clock: freezed == clock
           ? _value.clock
           : clock // ignore: cast_nullable_to_non_nullable
-              as Clock,
+              as Clock?,
       duration: freezed == duration
           ? _value.duration
           : duration // ignore: cast_nullable_to_non_nullable
@@ -328,10 +332,10 @@ class __$$AttendanceDataImplCopyWithImpl<$Res>
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as Location?,
-      status: null == status
+      status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       clockInStatus: freezed == clockInStatus
           ? _value.clockInStatus
           : clockInStatus // ignore: cast_nullable_to_non_nullable
@@ -372,14 +376,14 @@ class __$$AttendanceDataImplCopyWithImpl<$Res>
           ? _value.metadata
           : metadata // ignore: cast_nullable_to_non_nullable
               as Metadata?,
-      createdAt: null == createdAt
+      createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as String,
-      updatedAt: null == updatedAt
+              as String?,
+      updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -388,12 +392,12 @@ class __$$AttendanceDataImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$AttendanceDataImpl implements _AttendanceData {
   const _$AttendanceDataImpl(
-      {required this.id,
-      @JsonKey(name: "attendance_date") required this.attendanceDate,
-      required this.clock,
+      {this.id,
+      @JsonKey(name: "attendance_date") this.attendanceDate,
+      this.clock,
       this.duration,
-      required this.location,
-      required this.status,
+      this.location,
+      this.status,
       @JsonKey(name: "clock_in_status") this.clockInStatus,
       @JsonKey(name: "clock_out_status") this.clockOutStatus,
       @JsonKey(name: "status_label") this.statusLabel,
@@ -403,26 +407,26 @@ class _$AttendanceDataImpl implements _AttendanceData {
       @JsonKey(name: "approved_at") this.approvedAt,
       @JsonKey(name: "rejected_reason") this.rejectedReason,
       this.remarks,
-      required this.metadata,
-      @JsonKey(name: "created_at") required this.createdAt,
-      @JsonKey(name: "updated_at") required this.updatedAt});
+      this.metadata,
+      @JsonKey(name: "created_at") this.createdAt,
+      @JsonKey(name: "updated_at") this.updatedAt});
 
   factory _$AttendanceDataImpl.fromJson(Map<String, dynamic> json) =>
       _$$AttendanceDataImplFromJson(json);
 
   @override
-  final int id;
+  final int? id;
   @override
   @JsonKey(name: "attendance_date")
-  final String attendanceDate;
+  final String? attendanceDate;
   @override
-  final Clock clock;
+  final Clock? clock;
   @override
   final String? duration;
   @override
   final Location? location;
   @override
-  final int status;
+  final int? status;
   @override
   @JsonKey(name: "clock_in_status")
   final int? clockInStatus;
@@ -452,10 +456,10 @@ class _$AttendanceDataImpl implements _AttendanceData {
   final Metadata? metadata;
   @override
   @JsonKey(name: "created_at")
-  final String createdAt;
+  final String? createdAt;
   @override
   @JsonKey(name: "updated_at")
-  final String updatedAt;
+  final String? updatedAt;
 
   @override
   String toString() {
@@ -542,12 +546,12 @@ class _$AttendanceDataImpl implements _AttendanceData {
 
 abstract class _AttendanceData implements AttendanceData {
   const factory _AttendanceData(
-      {required final int id,
-      @JsonKey(name: "attendance_date") required final String attendanceDate,
-      required final Clock clock,
+      {final int? id,
+      @JsonKey(name: "attendance_date") final String? attendanceDate,
+      final Clock? clock,
       final String? duration,
-      required final Location? location,
-      required final int status,
+      final Location? location,
+      final int? status,
       @JsonKey(name: "clock_in_status") final int? clockInStatus,
       @JsonKey(name: "clock_out_status") final int? clockOutStatus,
       @JsonKey(name: "status_label") final String? statusLabel,
@@ -558,27 +562,27 @@ abstract class _AttendanceData implements AttendanceData {
       @JsonKey(name: "approved_at") final String? approvedAt,
       @JsonKey(name: "rejected_reason") final String? rejectedReason,
       final String? remarks,
-      required final Metadata? metadata,
-      @JsonKey(name: "created_at") required final String createdAt,
+      final Metadata? metadata,
+      @JsonKey(name: "created_at") final String? createdAt,
       @JsonKey(name: "updated_at")
-      required final String updatedAt}) = _$AttendanceDataImpl;
+      final String? updatedAt}) = _$AttendanceDataImpl;
 
   factory _AttendanceData.fromJson(Map<String, dynamic> json) =
       _$AttendanceDataImpl.fromJson;
 
   @override
-  int get id;
+  int? get id;
   @override
   @JsonKey(name: "attendance_date")
-  String get attendanceDate;
+  String? get attendanceDate;
   @override
-  Clock get clock;
+  Clock? get clock;
   @override
   String? get duration;
   @override
   Location? get location;
   @override
-  int get status;
+  int? get status;
   @override
   @JsonKey(name: "clock_in_status")
   int? get clockInStatus;
@@ -608,10 +612,10 @@ abstract class _AttendanceData implements AttendanceData {
   Metadata? get metadata;
   @override
   @JsonKey(name: "created_at")
-  String get createdAt;
+  String? get createdAt;
   @override
   @JsonKey(name: "updated_at")
-  String get updatedAt;
+  String? get updatedAt;
 
   /// Create a copy of AttendanceData
   /// with the given fields replaced by the non-null parameter values.
@@ -975,7 +979,7 @@ class __$$LocationImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$LocationImpl implements _Location {
-  const _$LocationImpl({required this.latitude, required this.longitude});
+  const _$LocationImpl({this.latitude, this.longitude});
 
   factory _$LocationImpl.fromJson(Map<String, dynamic> json) =>
       _$$LocationImplFromJson(json);
@@ -1022,9 +1026,8 @@ class _$LocationImpl implements _Location {
 }
 
 abstract class _Location implements Location {
-  const factory _Location(
-      {required final String? latitude,
-      required final String? longitude}) = _$LocationImpl;
+  const factory _Location({final String? latitude, final String? longitude}) =
+      _$LocationImpl;
 
   factory _Location.fromJson(Map<String, dynamic> json) =
       _$LocationImpl.fromJson;

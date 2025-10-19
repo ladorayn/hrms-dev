@@ -89,6 +89,9 @@ class AttendanceRepositoryImpl implements AttendanceRepository {
 
   @override
   Future<AttendanceDetail> getDetailAttendance(String attendanceId) async {
+    if (attendanceId == null) {
+      throw Exception('API Error: no attendance');
+    }
     final response = await remoteSource.getDetailAttendance(attendanceId);
     if (response.status == 'success') {
       return response.data;

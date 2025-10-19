@@ -160,7 +160,7 @@ class TodayAttendance extends _$TodayAttendance {
     state = const AsyncLoading();
     try {
       final result =
-          await ref.read(clockOutUseCaseProvider)(current.id, request);
+          await ref.read(clockOutUseCaseProvider)(current.id ?? 0, request);
 
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString(

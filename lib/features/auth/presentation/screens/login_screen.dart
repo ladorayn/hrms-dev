@@ -30,6 +30,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   }
 
   Future<void> handleLogin() async {
+    final l10n = AppLocalizations.of(context)!;
     final email = emailController.text;
     final password = passwordController.text;
 
@@ -45,7 +46,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).clearSnackBars();
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Login failed: ${e.toString()}')),
+          SnackBar(content: Text(l10n.loginFailed(e.toString()))),
         );
       }
     }
@@ -149,9 +150,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                   50,
                                 ),
                               ),
-                              child: const Text(
-                                "Sign In",
-                                style: TextStyle(color: Colors.white),
+                              child: Text(
+                                // UPDATED: Using the localization key for the button
+                                l10n.signIn,
+                                style: const TextStyle(color: Colors.white),
                               ),
                             ),
                     ],

@@ -6,12 +6,12 @@ part 'attendance_response_model.g.dart';
 @freezed
 class AttendanceData with _$AttendanceData {
   const factory AttendanceData({
-    required int id,
-    @JsonKey(name: "attendance_date") required String attendanceDate,
-    required Clock clock,
+    int? id,
+    @JsonKey(name: "attendance_date") String? attendanceDate,
+    Clock? clock,
     String? duration,
-    required Location? location,
-    required int status,
+    Location? location,
+    int? status,
     @JsonKey(name: "clock_in_status") int? clockInStatus,
     @JsonKey(name: "clock_out_status") int? clockOutStatus,
     @JsonKey(name: "status_label") String? statusLabel,
@@ -21,9 +21,9 @@ class AttendanceData with _$AttendanceData {
     @JsonKey(name: "approved_at") String? approvedAt,
     @JsonKey(name: "rejected_reason") String? rejectedReason,
     String? remarks,
-    required Metadata? metadata,
-    @JsonKey(name: "created_at") required String createdAt,
-    @JsonKey(name: "updated_at") required String updatedAt,
+    Metadata? metadata,
+    @JsonKey(name: "created_at") String? createdAt,
+    @JsonKey(name: "updated_at") String? updatedAt,
   }) = _AttendanceData;
 
   factory AttendanceData.fromJson(Map<String, dynamic> json) =>
@@ -47,8 +47,8 @@ class Clock with _$Clock {
 @freezed
 class Location with _$Location {
   const factory Location({
-    required String? latitude,
-    required String? longitude,
+    String? latitude,
+    String? longitude,
   }) = _Location;
 
   factory Location.fromJson(Map<String, dynamic> json) =>

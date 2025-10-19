@@ -69,11 +69,11 @@ class _AttendanceLogTabState extends ConsumerState<AttendanceLogTab> {
             const SizedBox(height: 16),
             ListTile(title: const Text('All'), onTap: () => _applyFilter(null)),
             ListTile(
-                title: const Text('Waiting'), onTap: () => _applyFilter('0')),
+                title: const Text('Waiting'), onTap: () => _applyFilter('1')),
             ListTile(
-                title: const Text('Approved'), onTap: () => _applyFilter('1')),
+                title: const Text('Approved'), onTap: () => _applyFilter('2')),
             ListTile(
-                title: const Text('Rejected'), onTap: () => _applyFilter('2')),
+                title: const Text('Rejected'), onTap: () => _applyFilter('3')),
           ],
         ),
       ),

@@ -6,17 +6,17 @@ part 'activity_log_response_model.g.dart';
 @freezed
 class ActivityLogModel with _$ActivityLogModel {
   const factory ActivityLogModel({
-    required int id,
-    required String event,
-    required String description,
-    @JsonKey(name: 'created_at') required DateTime createdAt,
-    @JsonKey(name: 'updated_at') required DateTime updatedAt,
-    @JsonKey(name: 'time_ago') required String timeAgo,
-    @JsonKey(name: 'event_type') required String eventType,
-    @JsonKey(name: 'is_clock_in') required bool isClockIn,
-    @JsonKey(name: 'is_clock_out') required bool isClockOut,
-    required Properties properties,
-    required Causer causer,
+    int? id,
+    String? event,
+    String? description,
+    @JsonKey(name: 'created_at') DateTime? createdAt,
+    @JsonKey(name: 'updated_at') DateTime? updatedAt,
+    @JsonKey(name: 'time_ago') String? timeAgo,
+    @JsonKey(name: 'event_type') String? eventType,
+    @JsonKey(name: 'is_clock_in') bool? isClockIn,
+    @JsonKey(name: 'is_clock_out') bool? isClockOut,
+    Properties? properties,
+    Causer? causer,
   }) = _ActivityLogModel;
 
   factory ActivityLogModel.fromJson(Map<String, dynamic> json) =>
@@ -27,7 +27,7 @@ class ActivityLogModel with _$ActivityLogModel {
 @freezed
 class Properties with _$Properties {
   const factory Properties({
-    @JsonKey(name: 'attendance_id') required int attendanceId,
+    @JsonKey(name: 'attendance_id') int? attendanceId,
     @JsonKey(name: 'attendance_status') int? attendanceStatus,
     @JsonKey(name: 'attendance_status_label') String? attendanceStatusLabel,
     @JsonKey(name: 'clock_in_at') String? clockInAt,
@@ -39,6 +39,19 @@ class Properties with _$Properties {
     @JsonKey(name: 'schedule_clock_in') String? scheduledClockIn,
     @JsonKey(name: 'schedule_clock_out') String? scheduledClockOut,
     @JsonKey(name: 'tolerance_minutes') int? toleranceMinutes,
+    @JsonKey(name: "overtime_date") String? overtimeDate,
+    @JsonKey(name: "user_id") int? userId,
+    @JsonKey(name: "start_time") String? startTime,
+    @JsonKey(name: "end_time") String? endTime,
+    int? duration,
+    int? status,
+    @JsonKey(name: "status_label") String? statusLabel,
+    String? notes,
+    @JsonKey(name: "approved_by") int? approvedBy,
+    Approver? approver,
+    @JsonKey(name: "request_date") String? requestDate,
+    @JsonKey(name: "created_at") String? createdAt,
+    @JsonKey(name: "updated_at") String? updatedAt,
   }) = _Properties;
 
   factory Properties.fromJson(Map<String, dynamic> json) =>
@@ -49,10 +62,22 @@ class Properties with _$Properties {
 @freezed
 class Causer with _$Causer {
   const factory Causer({
-    required int id,
-    required String name,
-    required String email,
+    int? id,
+    String? name,
+    String? email,
   }) = _Causer;
 
   factory Causer.fromJson(Map<String, dynamic> json) => _$CauserFromJson(json);
+}
+
+@freezed
+class Approver with _$Approver {
+  const factory Approver({
+    int? id,
+    String? name,
+    String? duration,
+  }) = _Approver;
+
+  factory Approver.fromJson(Map<String, dynamic> json) =>
+      _$ApproverFromJson(json);
 }

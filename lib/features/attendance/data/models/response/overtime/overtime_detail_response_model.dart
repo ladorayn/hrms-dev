@@ -7,19 +7,19 @@ part 'overtime_detail_response_model.g.dart';
 class OvertimeDetail with _$OvertimeDetail {
   const factory OvertimeDetail({
     required int id,
-    @JsonKey(name: "overtime_date") required String overtimeDate,
-    @JsonKey(name: "user_id") required int userId,
+    @JsonKey(name: "overtime_date") String? overtimeDate,
+    @JsonKey(name: "user_id") int? userId,
     @JsonKey(name: "start_time") String? startTime,
     @JsonKey(name: "end_time") String? endTime,
     int? duration,
     int? status,
-    String? statusLabel,
+    @JsonKey(name: "status_label") String? statusLabel,
     String? notes,
     @JsonKey(name: "approved_by") int? approvedBy,
     Approver? approver,
     @JsonKey(name: "request_date") String? requestDate,
-    @JsonKey(name: "created_at") required String createdAt,
-    @JsonKey(name: "updated_at") required String updatedAt,
+    @JsonKey(name: "created_at") String? createdAt,
+    @JsonKey(name: "updated_at") String? updatedAt,
   }) = _OvertimeDetail;
 
   factory OvertimeDetail.fromJson(Map<String, dynamic> json) =>

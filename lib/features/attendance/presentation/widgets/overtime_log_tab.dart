@@ -66,11 +66,11 @@ class _OvertimeLogTabState extends ConsumerState<OvertimeLogTab> {
             const SizedBox(height: 16),
             ListTile(title: const Text('All'), onTap: () => _applyFilter(null)),
             ListTile(
-                title: const Text('Waiting'), onTap: () => _applyFilter('0')),
+                title: const Text('Waiting'), onTap: () => _applyFilter('1')),
             ListTile(
-                title: const Text('Approved'), onTap: () => _applyFilter('1')),
+                title: const Text('Approved'), onTap: () => _applyFilter('2')),
             ListTile(
-                title: const Text('Rejected'), onTap: () => _applyFilter('2')),
+                title: const Text('Rejected'), onTap: () => _applyFilter('3')),
           ],
         ),
       ),
@@ -227,37 +227,6 @@ class _OvertimeLogTabState extends ConsumerState<OvertimeLogTab> {
                     )
                   ],
                 ),
-                // Expanded(
-                //     child: ListView.separated(
-                //   controller: _scrollController,
-                //   itemCount: 2,
-                //   separatorBuilder: (_, __) => const SizedBox(height: 10),
-                //   itemBuilder: (context, index) {
-                //     // final item = items[index];
-                //     return OvertimeRequestCard(
-                //       item: OvertimeDetail(
-                //         id: 4,
-                //         userId: 1,
-                //         overtimeDate: "2025-10-07",
-                //         startTime: "18:00",
-                //         endTime: "20:00",
-                //         duration: 120,
-                //         status: 1,
-                //         statusLabel: "Pending",
-                //         notes:
-                //             "Seeded via tinker for superadminSeeded via tinker for superadminSeeded via tinker for superadminSeeded via tinker for superadminSeeded via tinker for superadminSeeded via tinker for superadminSeeded via tinker for superadminSeeded via tinker for superadminSeeded via tinker for superadmin",
-                //         approvedBy: 1,
-                //         approver: Approver(
-                //           id: 1,
-                //           name: "Norma Bechtelar",
-                //         ),
-                //         requestDate: "2025-10-01",
-                //         createdAt: "2025-10-01 17:56:16",
-                //         updatedAt: "2025-10-01 17:56:28",
-                //       ),
-                //     );
-                //   },
-                // )),
                 Expanded(
                   child: historyState.when(
                     loading: () =>
@@ -346,6 +315,8 @@ class OvertimeRequestCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
+    print("TEST ${item.statusLabel}");
+
     return Container(
       padding: const EdgeInsets.only(left: 12, right: 12, bottom: 12),
       decoration: BoxDecoration(
@@ -364,13 +335,17 @@ class OvertimeRequestCard extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    _formatDate(item.overtimeDate),
+                    _formatDate(item.overtimeDate ?? ''),
                     style: textTheme.titleMedium
                         ?.copyWith(fontWeight: FontWeight.bold),
                   ),
                   IconButton(
                     onPressed: () {
-                      context.pushNamed(RoutePaths.overtimeEdit);
+                      context.pushNamed(
+                        RoutePaths.overtimeEditName,
+                        pathParameters: {'id': item.id.toString()},
+                        extra: item,
+                      );
                     },
                     icon: SvgPicture.asset(
                       IAssets.edit,
@@ -389,7 +364,7 @@ class OvertimeRequestCard extends StatelessWidget {
           ),
 
           Text(
-            _formatDaysAgo(item.overtimeDate),
+            _formatDaysAgo(item.overtimeDate ?? ''),
             style:
                 textTheme.bodySmall?.copyWith(color: const Color(0xFF8E8E8E)),
           ),

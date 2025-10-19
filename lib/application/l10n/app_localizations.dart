@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
+import 'app_localizations_en.dart';
 import 'app_localizations_id.dart';
 
 // ignore_for_file: type=lint
@@ -90,320 +91,195 @@ abstract class AppLocalizations {
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
+    Locale('en'),
     Locale('id')
   ];
 
-  /// No description provided for @btnYa.
+  /// No description provided for @signIn.
   ///
-  /// In id, this message translates to:
-  /// **'Ya'**
-  String get btnYa;
+  /// In en, this message translates to:
+  /// **'Sign In'**
+  String get signIn;
 
-  /// No description provided for @btnOke.
+  /// No description provided for @continueButton.
   ///
-  /// In id, this message translates to:
-  /// **'Oke'**
-  String get btnOke;
-
-  /// No description provided for @btnLanjut.
-  ///
-  /// In id, this message translates to:
-  /// **'Lanjut'**
-  String get btnLanjut;
-
-  /// No description provided for @btnMasuk.
-  ///
-  /// In id, this message translates to:
-  /// **'Masuk'**
-  String get btnMasuk;
-
-  /// No description provided for @btnBatalkan.
-  ///
-  /// In id, this message translates to:
-  /// **'Batalkan'**
-  String get btnBatalkan;
-
-  /// No description provided for @btnBatal.
-  ///
-  /// In id, this message translates to:
-  /// **'Batal'**
-  String get btnBatal;
-
-  /// No description provided for @btnLupaPassword.
-  ///
-  /// In id, this message translates to:
-  /// **'Lupa Password?'**
-  String get btnLupaPassword;
-
-  /// No description provided for @btnLewati.
-  ///
-  /// In id, this message translates to:
-  /// **'Lewati'**
-  String get btnLewati;
-
-  /// No description provided for @btnAktifkanSekarang.
-  ///
-  /// In id, this message translates to:
-  /// **'Aktifkan Sekarang'**
-  String get btnAktifkanSekarang;
-
-  /// No description provided for @btnUlangi.
-  ///
-  /// In id, this message translates to:
-  /// **'Ulangi'**
-  String get btnUlangi;
-
-  /// No description provided for @btnLogin.
-  ///
-  /// In id, this message translates to:
-  /// **'Login'**
-  String get btnLogin;
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueButton;
 
   /// No description provided for @resetPassword.
   ///
-  /// In id, this message translates to:
+  /// In en, this message translates to:
   /// **'Reset Password'**
   String get resetPassword;
 
-  /// No description provided for @btnUpdate.
+  /// No description provided for @forgotPassword.
   ///
-  /// In id, this message translates to:
-  /// **'Update'**
-  String get btnUpdate;
-
-  /// No description provided for @btnNantiSaja.
-  ///
-  /// In id, this message translates to:
-  /// **'Nanti Saja'**
-  String get btnNantiSaja;
-
-  /// No description provided for @formIdPerusahaan.
-  ///
-  /// In id, this message translates to:
-  /// **'ID Perusahaan'**
-  String get formIdPerusahaan;
-
-  /// No description provided for @formIdPengguna.
-  ///
-  /// In id, this message translates to:
-  /// **'ID Pengguna'**
-  String get formIdPengguna;
-
-  /// No description provided for @formPassword.
-  ///
-  /// In id, this message translates to:
-  /// **'Password'**
-  String get formPassword;
-
-  /// No description provided for @formPasswordLama.
-  ///
-  /// In id, this message translates to:
-  /// **'Password Lama'**
-  String get formPasswordLama;
-
-  /// No description provided for @formPasswordBaru.
-  ///
-  /// In id, this message translates to:
-  /// **'Password Baru'**
-  String get formPasswordBaru;
-
-  /// No description provided for @formMasukkanPasswordLama.
-  ///
-  /// In id, this message translates to:
-  /// **'Masukan Password Lama'**
-  String get formMasukkanPasswordLama;
-
-  /// No description provided for @formMasukkanPasswordBaru.
-  ///
-  /// In id, this message translates to:
-  /// **'Masukan Password Baru'**
-  String get formMasukkanPasswordBaru;
-
-  /// No description provided for @formKonfirmasiPasswordBaru.
-  ///
-  /// In id, this message translates to:
-  /// **'Konfirmasi Password Baru'**
-  String get formKonfirmasiPasswordBaru;
-
-  /// No description provided for @formKonfirmasiPassword.
-  ///
-  /// In id, this message translates to:
-  /// **'Konfirmasi Password'**
-  String get formKonfirmasiPassword;
-
-  /// No description provided for @formNoKtpKitias.
-  ///
-  /// In id, this message translates to:
-  /// **'No. KTP/KITAS'**
-  String get formNoKtpKitias;
+  /// In en, this message translates to:
+  /// **'Forgot Password?'**
+  String get forgotPassword;
 
   /// No description provided for @formEmail.
   ///
-  /// In id, this message translates to:
+  /// In en, this message translates to:
   /// **'Email'**
   String get formEmail;
 
-  /// No description provided for @formPhone.
+  /// No description provided for @formHintEmail.
   ///
-  /// In id, this message translates to:
-  /// **'Nomor Handphone'**
-  String get formPhone;
+  /// In en, this message translates to:
+  /// **'Enter your email'**
+  String get formHintEmail;
 
-  /// No description provided for @formHintIdPerusahaan.
+  /// No description provided for @formPassword.
   ///
-  /// In id, this message translates to:
-  /// **'Masukkan ID Perusahaan'**
-  String get formHintIdPerusahaan;
-
-  /// No description provided for @formHintIdPengguna.
-  ///
-  /// In id, this message translates to:
-  /// **'Masukkan ID Pengguna'**
-  String get formHintIdPengguna;
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get formPassword;
 
   /// No description provided for @formHintPassword.
   ///
-  /// In id, this message translates to:
-  /// **'Masukkan Password'**
+  /// In en, this message translates to:
+  /// **'Enter your password'**
   String get formHintPassword;
 
-  /// No description provided for @formHintPasswordKamu.
+  /// No description provided for @formPasswordConfirmation.
   ///
-  /// In id, this message translates to:
-  /// **'Masukkan Password Kamu'**
-  String get formHintPasswordKamu;
+  /// In en, this message translates to:
+  /// **'Password Confirmation'**
+  String get formPasswordConfirmation;
 
-  /// No description provided for @formHintPasswordLama.
+  /// Error message shown on login failure.
   ///
-  /// In id, this message translates to:
-  /// **'Masukkan Password Lama'**
-  String get formHintPasswordLama;
+  /// In en, this message translates to:
+  /// **'Login failed: {error}'**
+  String loginFailed(String error);
 
-  /// No description provided for @formHintPasswordBaru.
+  /// No description provided for @resetPasswordEmail_title.
   ///
-  /// In id, this message translates to:
-  /// **'Masukan 12 karakter atau lebih'**
-  String get formHintPasswordBaru;
+  /// In en, this message translates to:
+  /// **'Reset Password'**
+  String get resetPasswordEmail_title;
 
-  /// No description provided for @formHintKonfirmasiPasswordBaru.
+  /// No description provided for @resetPasswordEmail_body.
   ///
-  /// In id, this message translates to:
-  /// **'Masukan ulang password'**
-  String get formHintKonfirmasiPasswordBaru;
+  /// In en, this message translates to:
+  /// **'Enter your registered email to reset your password'**
+  String get resetPasswordEmail_body;
 
-  /// No description provided for @formHintNoKtpKitias.
+  /// No description provided for @resetPasswordEmail_linkSentSnackbar.
   ///
-  /// In id, this message translates to:
-  /// **'Masukkan nomor KTP'**
-  String get formHintNoKtpKitias;
+  /// In en, this message translates to:
+  /// **'Reset link sent! Check your email.'**
+  String get resetPasswordEmail_linkSentSnackbar;
 
-  /// No description provided for @formHintEmail.
+  /// No description provided for @resetPasswordCheckEmail_title.
   ///
-  /// In id, this message translates to:
-  /// **'Masukkan Email'**
-  String get formHintEmail;
+  /// In en, this message translates to:
+  /// **'Please Check Your Email'**
+  String get resetPasswordCheckEmail_title;
 
-  /// No description provided for @formHintPhone.
+  /// No description provided for @resetPasswordCheckEmail_body.
   ///
-  /// In id, this message translates to:
-  /// **'Contoh: 81234567xxx'**
-  String get formHintPhone;
+  /// In en, this message translates to:
+  /// **'A reset password link has been sent to your registered email.'**
+  String get resetPasswordCheckEmail_body;
+
+  /// No description provided for @resetPasswordCheckEmail_didNotReceive.
+  ///
+  /// In en, this message translates to:
+  /// **'Didn\'t receive an email? '**
+  String get resetPasswordCheckEmail_didNotReceive;
+
+  /// No description provided for @resetPasswordCheckEmail_resend.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend Email'**
+  String get resetPasswordCheckEmail_resend;
+
+  /// No description provided for @resetPasswordCheckEmail_resendingSnackbar.
+  ///
+  /// In en, this message translates to:
+  /// **'Resending reset link...'**
+  String get resetPasswordCheckEmail_resendingSnackbar;
+
+  /// No description provided for @resetPasswordCreate_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a New Password'**
+  String get resetPasswordCreate_title;
+
+  /// No description provided for @resetPasswordCreate_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a new password for your account'**
+  String get resetPasswordCreate_subtitle;
+
+  /// No description provided for @resetPasswordSuccess_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Password Reset Successful'**
+  String get resetPasswordSuccess_title;
+
+  /// No description provided for @resetPasswordSuccess_body.
+  ///
+  /// In en, this message translates to:
+  /// **'Please sign in using your new password.'**
+  String get resetPasswordSuccess_body;
+
+  /// No description provided for @errorUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'An unknown error occurred'**
+  String get errorUnknown;
 
   /// No description provided for @formValidationRequired.
   ///
-  /// In id, this message translates to:
-  /// **'{fieldName} wajib diisi'**
-  String formValidationRequired(Object fieldName);
+  /// In en, this message translates to:
+  /// **'{fieldName} is required'**
+  String formValidationRequired(String fieldName);
 
   /// No description provided for @formValidationMinLength.
   ///
-  /// In id, this message translates to:
-  /// **'{fieldName} kurang dari {minLength} digit'**
-  String formValidationMinLength(Object fieldName, Object minLength);
+  /// In en, this message translates to:
+  /// **'{fieldName} must be at least {minLength} characters long'**
+  String formValidationMinLength(String fieldName, int minLength);
 
   /// No description provided for @formValidationMaxLength.
   ///
-  /// In id, this message translates to:
-  /// **'{fieldName} tidak boleh lebih dari {maxLength} digit'**
-  String formValidationMaxLength(Object fieldName, Object maxLength);
+  /// In en, this message translates to:
+  /// **'{fieldName} cannot be longer than {maxLength} characters'**
+  String formValidationMaxLength(String fieldName, int maxLength);
 
   /// No description provided for @formValidationEmailInvalid.
   ///
-  /// In id, this message translates to:
-  /// **'Email tidak valid'**
+  /// In en, this message translates to:
+  /// **'Please enter a valid email'**
   String get formValidationEmailInvalid;
 
   /// No description provided for @formValidationOnlyAlphanumeric.
   ///
-  /// In id, this message translates to:
-  /// **'Hanya boleh huruf dan angka'**
+  /// In en, this message translates to:
+  /// **'Only letters and numbers are allowed'**
   String get formValidationOnlyAlphanumeric;
 
   /// No description provided for @formValidationPasswordInvalid.
   ///
-  /// In id, this message translates to:
-  /// **'Password yang Anda masukkan tidak sesuai'**
+  /// In en, this message translates to:
+  /// **'The password you entered is incorrect'**
   String get formValidationPasswordInvalid;
 
   /// No description provided for @formValidationPasswordCriteriaInvalid.
   ///
-  /// In id, this message translates to:
-  /// **'Password belum memenuhi kriteria'**
+  /// In en, this message translates to:
+  /// **'Password does not meet the required criteria'**
   String get formValidationPasswordCriteriaInvalid;
 
-  /// No description provided for @splashScreenDisclaimer.
+  /// No description provided for @formPhone.
   ///
-  /// In id, this message translates to:
-  /// **'Bank berizin dan diawasi oleh Otoritas Jasa Keuangan (OJK) dan merupakan bank peserta penjamin Lembaga Penjamin Simpanan (LPS)'**
-  String get splashScreenDisclaimer;
-
-  /// No description provided for @onboardScreenTitleSlide1.
-  ///
-  /// In id, this message translates to:
-  /// **'Satu Solusi Untuk\nSemua Transaksi'**
-  String get onboardScreenTitleSlide1;
-
-  /// No description provided for @onboardScreenMessageSlide1.
-  ///
-  /// In id, this message translates to:
-  /// **'Transaksi sehari-hari menjadi lebih mudah, baik untuk kebutuhan personal maupun bisnis.'**
-  String get onboardScreenMessageSlide1;
-
-  /// No description provided for @onboardScreenTitleSlide2.
-  ///
-  /// In id, this message translates to:
-  /// **'Gratis Transfer\nAntar Bank'**
-  String get onboardScreenTitleSlide2;
-
-  /// No description provided for @onboardScreenMessageSlide2.
-  ///
-  /// In id, this message translates to:
-  /// **'Makin hemat transfer antar bank menggunakan hi Nabung. Dapatkan 100 kali gratis transfer per bulan. Buka hi Nabung sekarang!'**
-  String get onboardScreenMessageSlide2;
-
-  /// No description provided for @loginBeforeBindingTitle.
-  ///
-  /// In id, this message translates to:
-  /// **'Masuk'**
-  String get loginBeforeBindingTitle;
-
-  /// No description provided for @loginBeforeBindingDescription.
-  ///
-  /// In id, this message translates to:
-  /// **'Silakan masuk dengan ID perusahaan & ID pengguna yang sudah di informasikan'**
-  String get loginBeforeBindingDescription;
-
-  /// No description provided for @forgotPasswordChangePasswordPasswordBerhasilDisimpan.
-  ///
-  /// In id, this message translates to:
-  /// **'Password Berhasil Disimpan'**
-  String get forgotPasswordChangePasswordPasswordBerhasilDisimpan;
-
-  /// No description provided for @forgotPasswordChangePasswordSilahkanLoginKembali.
-  ///
-  /// In id, this message translates to:
-  /// **'Silakan login kembali untuk melanjutkan.'**
-  String get forgotPasswordChangePasswordSilahkanLoginKembali;
+  /// In en, this message translates to:
+  /// **'Phone Number'**
+  String get formPhone;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
@@ -415,7 +291,7 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['id'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['en', 'id'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -426,6 +302,7 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
 
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
+    case 'en': return AppLocalizationsEn();
     case 'id': return AppLocalizationsId();
   }
 

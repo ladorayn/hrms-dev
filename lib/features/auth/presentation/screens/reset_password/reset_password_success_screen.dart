@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart'; // ADDED
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 
@@ -10,6 +11,7 @@ class ResetPasswordSuccessScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!; // ADDED
 
     return Scaffold(
       body: SafeArea(
@@ -21,23 +23,20 @@ class ResetPasswordSuccessScreen extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Reset Password Success",
+                  l10n.resetPasswordSuccess_title,
                   textAlign: TextAlign.center,
                   style: theme.textTheme.headlineSmall,
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  "Please sign in using your new password",
+                  l10n.resetPasswordSuccess_body,
                   textAlign: TextAlign.center,
                   style: theme.textTheme.bodyLarge,
                 ),
-                SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
                 Center(
                   child: ElevatedButton(
                     onPressed: () {
-                      // Navigate back to the login screen
                       context.go(RoutePaths.login);
                     },
                     style: ElevatedButton.styleFrom(
@@ -48,9 +47,9 @@ class ResetPasswordSuccessScreen extends ConsumerWidget {
                       minimumSize:
                           Size(MediaQuery.of(context).size.width * 0.8, 50),
                     ),
-                    child: const Text(
-                      "Sign In",
-                      style: TextStyle(color: Colors.white),
+                    child: Text(
+                      l10n.signIn,
+                      style: const TextStyle(color: Colors.white),
                     ),
                   ),
                 ),

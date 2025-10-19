@@ -134,8 +134,7 @@ class ITextFieldBase extends StatelessWidget {
     final textTheme = theme.textTheme;
     final colorScheme = theme.colorScheme;
 
-    // Define default styles using the current theme
-    final defaultLabelStyle = textTheme.labelMedium;
+    final defaultLabelStyle = textTheme.bodySmall;
     final defaultErrorStyle =
         textTheme.labelSmall?.copyWith(color: colorScheme.error);
 
