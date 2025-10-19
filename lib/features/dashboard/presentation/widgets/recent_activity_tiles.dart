@@ -70,9 +70,7 @@ class AttendanceListTile extends StatelessWidget {
 }
 
 String getActivityLogValue(ActivityLogModel log) {
-  final event = log.event != null
-      ? ActivityLogEnum.fromString(log.event)
-      : ActivityLogEnum.unknown;
+  final event = ActivityLogEnum.fromString(log.event);
   switch (event) {
     case ActivityLogEnum.clockIn:
       return DateFormat('hh:mm a')
@@ -88,15 +86,16 @@ String getActivityLogValue(ActivityLogModel log) {
 }
 
 int getStatus(ActivityLogModel log) {
-  final event = log.event != null
-      ? ActivityLogEnum.fromString(log.event)
-      : ActivityLogEnum.unknown;
+  final event = ActivityLogEnum.fromString(log.event);
   switch (event) {
     case ActivityLogEnum.clockIn:
       return log.properties?.clockInStatus ?? 0;
     case ActivityLogEnum.clockOut:
       return log.properties?.clockOutStatus ?? 0;
     case ActivityLogEnum.overtimeCreated:
+    case ActivityLogEnum.overtimeUpdated:
+    case ActivityLogEnum.overtimeApproved:
+    case ActivityLogEnum.overtimeRejected:
       return log.properties?.status ?? 0;
     default:
       return 0;
@@ -104,15 +103,16 @@ int getStatus(ActivityLogModel log) {
 }
 
 String getStatusLabel(ActivityLogModel log) {
-  final event = log.event != null
-      ? ActivityLogEnum.fromString(log.event)
-      : ActivityLogEnum.unknown;
+  final event = ActivityLogEnum.fromString(log.event);
   switch (event) {
     case ActivityLogEnum.clockIn:
       return log.properties?.clockInStatusLabel ?? "";
     case ActivityLogEnum.clockOut:
       return log.properties?.clockOutStatusLabel ?? "";
     case ActivityLogEnum.overtimeCreated:
+    case ActivityLogEnum.overtimeUpdated:
+    case ActivityLogEnum.overtimeApproved:
+    case ActivityLogEnum.overtimeRejected:
       return log.properties?.statusLabel ?? "";
     default:
       return "";
@@ -120,15 +120,16 @@ String getStatusLabel(ActivityLogModel log) {
 }
 
 String getIconAsset(ActivityLogModel log) {
-  final event = log.event != null
-      ? ActivityLogEnum.fromString(log.event)
-      : ActivityLogEnum.unknown;
+  final event = ActivityLogEnum.fromString(log.event);
   switch (event) {
     case ActivityLogEnum.clockIn:
       return IAssets.clockIn;
     case ActivityLogEnum.clockOut:
       return IAssets.clockOut;
     case ActivityLogEnum.overtimeCreated:
+    case ActivityLogEnum.overtimeUpdated:
+    case ActivityLogEnum.overtimeApproved:
+    case ActivityLogEnum.overtimeRejected:
       return IAssets.overtimeBlue;
     default:
       return IAssets.overtimeBlue;
