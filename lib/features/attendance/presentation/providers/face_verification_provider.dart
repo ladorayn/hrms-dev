@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:hrms_mobile/core/constants/face_step_enum.dart';
+import 'package:hrms_mobile/core/enums/face_step_enum.dart';
 import 'package:hrms_mobile/features/attendance/domain/entities/face_verification_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

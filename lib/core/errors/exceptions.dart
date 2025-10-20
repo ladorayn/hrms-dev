@@ -1,3 +1,11 @@
+class BadResponseException implements Exception {
+  final String message;
+  BadResponseException(this.message);
+
+  @override
+  String toString() => message;
+}
+
 class UnauthorizedException implements Exception {
   final String message;
   UnauthorizedException(this.message);

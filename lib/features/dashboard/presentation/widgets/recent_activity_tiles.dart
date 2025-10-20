@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/application/theme/i_theme.dart';
-import 'package:hrms_mobile/core/constants/activity_log_enum.dart';
+import 'package:hrms_mobile/core/enums/activity_log_enum.dart';
 import 'package:hrms_mobile/core/util/general_utils.dart';
 import 'package:hrms_mobile/core/widgets/status_chip.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/activity_log/activity_log_response_model.dart';

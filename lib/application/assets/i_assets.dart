@@ -41,4 +41,5 @@ class IAssets {
   static const String questionMark = '$ICON_PATH/questionMark.svg';
   static const String delete = '$ICON_PATH/delete.svg';
   static const String calendar = '$ICON_PATH/calendar.svg';
+  static const String attachment = '$ICON_PATH/attachment.svg';
 }
