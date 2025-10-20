@@ -77,4 +77,6 @@ jobs:
             - Version: `${{ env.VERSION_NAME }}+${{ env.VERSION_CODE }}`
             - Date: `${{ env.DATE }}`
             - Triggered by: `${{ github.actor }}`
+
+            🔔 **Build successful!** Notifying @JuicyBurger.
           files: ${{ env.APK_PATH }}

@@ -55,7 +55,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     navigatorKey: globalNavigatorKey,
     debugLogDiagnostics: true,
     redirect: (BuildContext context, GoRouterState state) {
-      print("REDIRECT COK ${state.matchedLocation}");
       final isOnLogin = state.matchedLocation == RoutePaths.login;
       final isOnSplash = state.matchedLocation == RoutePaths.splash;
 

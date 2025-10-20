@@ -119,7 +119,7 @@ class LeaveRequestScreen extends ConsumerWidget {
                           ),
                           onPressed: () {
                             globalNavigatorKey.currentContext
-                                ?.push(RoutePaths.overtimeRequest);
+                                ?.push(RoutePaths.leaveRequestForm);
                           },
                           child: Text("New Leave Request"),
                         ),

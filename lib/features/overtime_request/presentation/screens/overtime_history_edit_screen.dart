@@ -5,6 +5,7 @@ import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/errors/exceptions.dart';
 import 'package:hrms_mobile/core/util/datetime_utils.dart';
 import 'package:hrms_mobile/core/util/general_utils.dart'; // Import for your utility functions
+import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/core/widgets/i_footer_button.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_time_picker.dart';
@@ -111,9 +112,7 @@ class _OvertimeHistoryEditScreenState
     }
 
     return Scaffold(
-      appBar: AppBar(
-          // ... (app bar code remains the same)
-          ),
+      appBar: IAppBar(title: "Edit Overtime Request"),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
