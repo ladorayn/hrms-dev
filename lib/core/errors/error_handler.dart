@@ -40,7 +40,7 @@ Exception handleDioError(DioException e) {
       case 502:
         return ServerException(message); // Removed ?? as message has a fallback
       default:
-        return Exception(message);
+        return BadResponseException(message);
     }
   }
 

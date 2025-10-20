@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
+import 'package:hrms_mobile/features/leave_request/data/models/response/leave_balance_response.dart';
 import 'package:hrms_mobile/features/leave_request/presentation/widgets/statistics_item.dart';
 
 class StatisticsCard extends ConsumerWidget {
-  const StatisticsCard({super.key});
+  final LeaveBalanceResponse balance;
+
+  const StatisticsCard({super.key, required this.balance});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -41,16 +44,20 @@ class StatisticsCard extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     StatisticsItem(
-                        value: '2',
-                        label: 'Days',
-                        description: 'Time Off Used'),
+                      value: balance.timeOffUsed.toString(),
+                      label: 'Days',
+                      description: 'Time Off Used',
+                    ),
                     VerticalDivider(
                       width: 20,
                       thickness: 2,
                       color: IColors.light.grayscale.g20,
                     ),
                     StatisticsItem(
-                        value: '13', label: 'Days', description: 'Time Off'),
+                      value: balance.availableTimeOff.toString(),
+                      label: 'Days',
+                      description: 'Time Off',
+                    ),
                   ],
                 ),
               ),

@@ -8,8 +8,11 @@ import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
+import 'package:hrms_mobile/features/leave_request/data/models/response/leave_balance_response.dart';
 import 'package:hrms_mobile/features/leave_request/presentation/widgets/leave_request_history.dart';
 import 'package:hrms_mobile/features/leave_request/presentation/widgets/statistics_card.dart';
+
+import '../providers/leave_provider.dart';
 
 class LeaveRequestScreen extends ConsumerWidget {
   const LeaveRequestScreen({super.key});
@@ -17,6 +20,9 @@ class LeaveRequestScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = Theme.of(context).textTheme;
+
+    final leaveBalanceAsync = ref.watch(leaveBalanceProvider);
+
     final groupedRequests = {
       'December 2025': [
         LeaveRequest(
@@ -45,6 +51,17 @@ class LeaveRequestScreen extends ConsumerWidget {
       ],
     };
 
+    ref.listen<AsyncValue>(leaveBalanceProvider, (previous, next) {
+      // Show a SnackBar if the new state is an error
+      if (next is AsyncError) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Could not load leave balance: ${next.error}'),
+          ),
+        );
+      }
+    });
+
     final months = groupedRequests.keys.toList();
     return Scaffold(
       appBar: IAppBar(
@@ -68,7 +85,25 @@ class LeaveRequestScreen extends ConsumerWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                        child: StatisticsCard(),
+                        child: leaveBalanceAsync.when(
+                          skipError: true,
+                          data: (balance) {
+                            return StatisticsCard(balance: balance);
+                          },
+                          loading: () {
+                            return const SizedBox(
+                              height: 120,
+                              child: Center(child: CircularProgressIndicator()),
+                            );
+                          },
+                          error: (err, stack) {
+                            // On ERROR, show an error message
+                            return const StatisticsCard(
+                              balance: LeaveBalanceResponse(
+                                  timeOffUsed: 0, availableTimeOff: 0),
+                            );
+                          },
+                        ),
                       ),
                       SizedBox(height: 16.sp),
                       Padding(

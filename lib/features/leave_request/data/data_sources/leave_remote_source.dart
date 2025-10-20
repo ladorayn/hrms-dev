@@ -1,0 +1,23 @@
+import 'package:dio/dio.dart';
+import 'package:hrms_mobile/core/data/models/base_response.dart';
+import 'package:hrms_mobile/core/errors/error_handler.dart';
+import 'package:hrms_mobile/features/leave_request/data/models/response/leave_balance_response.dart';
+
+class LeaveRemoteSource {
+  final Dio _dio;
+
+  LeaveRemoteSource(this._dio);
+
+  Future<BaseResponse<LeaveBalanceResponse>> getLeaveBalance() async {
+    try {
+      final response = await _dio.get('api/ess/leave/balance');
+
+      return BaseResponse.fromJson(
+        response.data,
+        (json) => LeaveBalanceResponse.fromJson(json as Map<String, dynamic>),
+      );
+    } on DioException catch (e) {
+      throw handleDioError(e);
+    }
+  }
+}
