@@ -106,12 +106,14 @@ class AttendanceRepositoryImpl implements AttendanceRepository {
     int perPage = 10,
     String? period,
     String? status,
+    String? date,
   }) async {
     final response = await remoteSource.getAttendanceHistory(
       page: page,
       perPage: perPage,
       period: period,
       status: status,
+      date: date,
     );
     return response.data;
   }

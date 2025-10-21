@@ -347,16 +347,18 @@ final paginatedActivityLogsProvider = AsyncNotifierProvider<
 
 typedef _$PaginatedActivityLogs = AsyncNotifier<List<ActivityLogModel>>;
 String _$paginatedAttendanceHistoryHash() =>
-    r'3335fa596fba0da24126f8e3c29c946ff42c24e7';
+    r'32f00d454bd9110e61bab2d1877d8bcaf8127f7e';
 
 abstract class _$PaginatedAttendanceHistory
     extends BuildlessAutoDisposeAsyncNotifier<List<AttendanceDetail>> {
   late final String? period;
   late final String? status;
+  late final String? date;
 
   FutureOr<List<AttendanceDetail>> build({
     String? period,
     String? status,
+    String? date,
   });
 }
 
@@ -374,10 +376,12 @@ class PaginatedAttendanceHistoryFamily
   PaginatedAttendanceHistoryProvider call({
     String? period,
     String? status,
+    String? date,
   }) {
     return PaginatedAttendanceHistoryProvider(
       period: period,
       status: status,
+      date: date,
     );
   }
 
@@ -388,6 +392,7 @@ class PaginatedAttendanceHistoryFamily
     return call(
       period: provider.period,
       status: provider.status,
+      date: provider.date,
     );
   }
 
@@ -414,10 +419,12 @@ class PaginatedAttendanceHistoryProvider
   PaginatedAttendanceHistoryProvider({
     String? period,
     String? status,
+    String? date,
   }) : this._internal(
           () => PaginatedAttendanceHistory()
             ..period = period
-            ..status = status,
+            ..status = status
+            ..date = date,
           from: paginatedAttendanceHistoryProvider,
           name: r'paginatedAttendanceHistoryProvider',
           debugGetCreateSourceHash:
@@ -429,6 +436,7 @@ class PaginatedAttendanceHistoryProvider
               PaginatedAttendanceHistoryFamily._allTransitiveDependencies,
           period: period,
           status: status,
+          date: date,
         );
 
   PaginatedAttendanceHistoryProvider._internal(
@@ -440,10 +448,12 @@ class PaginatedAttendanceHistoryProvider
     required super.from,
     required this.period,
     required this.status,
+    required this.date,
   }) : super.internal();
 
   final String? period;
   final String? status;
+  final String? date;
 
   @override
   FutureOr<List<AttendanceDetail>> runNotifierBuild(
@@ -452,6 +462,7 @@ class PaginatedAttendanceHistoryProvider
     return notifier.build(
       period: period,
       status: status,
+      date: date,
     );
   }
 
@@ -462,7 +473,8 @@ class PaginatedAttendanceHistoryProvider
       override: PaginatedAttendanceHistoryProvider._internal(
         () => create()
           ..period = period
-          ..status = status,
+          ..status = status
+          ..date = date,
         from: from,
         name: null,
         dependencies: null,
@@ -470,6 +482,7 @@ class PaginatedAttendanceHistoryProvider
         debugGetCreateSourceHash: null,
         period: period,
         status: status,
+        date: date,
       ),
     );
   }
@@ -484,7 +497,8 @@ class PaginatedAttendanceHistoryProvider
   bool operator ==(Object other) {
     return other is PaginatedAttendanceHistoryProvider &&
         other.period == period &&
-        other.status == status;
+        other.status == status &&
+        other.date == date;
   }
 
   @override
@@ -492,6 +506,7 @@ class PaginatedAttendanceHistoryProvider
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, period.hashCode);
     hash = _SystemHash.combine(hash, status.hashCode);
+    hash = _SystemHash.combine(hash, date.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -506,6 +521,9 @@ mixin PaginatedAttendanceHistoryRef
 
   /// The parameter `status` of this provider.
   String? get status;
+
+  /// The parameter `date` of this provider.
+  String? get date;
 }
 
 class _PaginatedAttendanceHistoryProviderElement
@@ -517,6 +535,8 @@ class _PaginatedAttendanceHistoryProviderElement
   String? get period => (origin as PaginatedAttendanceHistoryProvider).period;
   @override
   String? get status => (origin as PaginatedAttendanceHistoryProvider).status;
+  @override
+  String? get date => (origin as PaginatedAttendanceHistoryProvider).date;
 }
 
 String _$attendanceStatsHash() => r'960f4d92eca8e954283aebe020bb53c9136dd846';

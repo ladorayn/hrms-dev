@@ -137,12 +137,12 @@ class AttendanceRemoteSource {
   }
 
   Future<BaseResponse<PaginatedResponse<AttendanceDetail>>>
-      getAttendanceHistory({
-    int page = 1,
-    int perPage = 10,
-    String? period,
-    String? status,
-  }) async {
+      getAttendanceHistory(
+          {int page = 1,
+          int perPage = 10,
+          String? period,
+          String? status,
+          String? date}) async {
     try {
       final Map<String, dynamic> queryParameters = {
         'page': page,
@@ -155,6 +155,10 @@ class AttendanceRemoteSource {
 
       if (status != null) {
         queryParameters['status'] = status;
+      }
+
+      if (date != null) {
+        queryParameters['date'] = date;
       }
 
       final response = await _dio.get(

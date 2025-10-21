@@ -250,7 +250,8 @@ Future<AttendanceDetail?> getDetailAttendance(
 @riverpod
 class PaginatedAttendanceHistory extends _$PaginatedAttendanceHistory {
   @override
-  Future<List<AttendanceDetail>> build({String? period, String? status}) async {
+  Future<List<AttendanceDetail>> build(
+      {String? period, String? status, String? date}) async {
     ref.keepAlive();
     final repository = ref.watch(attendanceRepoProvider);
 
@@ -258,6 +259,7 @@ class PaginatedAttendanceHistory extends _$PaginatedAttendanceHistory {
       page: 1,
       period: period,
       status: status,
+      date: date,
     );
 
     _nextUrl = response.next;

@@ -31,6 +31,7 @@ abstract class AttendanceRepository {
     int perPage,
     String? period,
     String? status,
+    String? date,
   });
   Future<PaginatedResponse<AttendanceDetail>> getAttendanceHistoryByUrl(
       String url);

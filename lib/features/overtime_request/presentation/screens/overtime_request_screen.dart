@@ -9,8 +9,12 @@ import 'package:hrms_mobile/core/widgets/i_footer_button.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_date_picker.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_time_picker.dart';
+import 'package:hrms_mobile/features/attendance/presentation/providers/attendance_provider.dart';
 import 'package:hrms_mobile/features/overtime_request/data/models/request/overtime_request_model.dart';
 import 'package:hrms_mobile/features/overtime_request/presentation/providers/overtime_provider.dart';
+import 'package:hrms_mobile/features/overtime_request/presentation/widgets/warning_empty_attendance.dart';
+
+import '../widgets/attendance_card.dart';
 
 class OvertimeRequestScreen extends ConsumerStatefulWidget {
   const OvertimeRequestScreen({
@@ -43,9 +47,14 @@ class _OvertimeRequestScreenState extends ConsumerState<OvertimeRequestScreen> {
     super.dispose();
   }
 
+  @override
+  void initState() {
+    _selectedDate = DateTime.now();
+    super.initState();
+  }
+
   // --- Submission Logic ---
   Future<void> _submitOvertime() async {
-    // 1. Create the request object from the current state
     final request = OvertimeRequest(
       overtimeDate: formatDateForAPI(_selectedDate),
       startTime: formatTimeForAPI(_selectedClockIn) ?? '',
@@ -64,7 +73,7 @@ class _OvertimeRequestScreenState extends ConsumerState<OvertimeRequestScreen> {
         const SnackBar(
             content: Text('Overtime request submitted successfully!')),
       );
-      context.pop(); // Go back to the previous screen
+      context.pop();
     }
   }
 
@@ -83,6 +92,12 @@ class _OvertimeRequestScreenState extends ConsumerState<OvertimeRequestScreen> {
         }
       }
     });
+
+    final historyState = ref.watch(
+      paginatedAttendanceHistoryProvider(
+        date: formatDateForAPI(_selectedDate),
+      ),
+    );
 
     final error = overtimeState.error;
     Map<String, String> validationErrors = {};
@@ -106,6 +121,8 @@ class _OvertimeRequestScreenState extends ConsumerState<OvertimeRequestScreen> {
               // Added for better small-screen support
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ITextFieldDatePicker(
                     label: "Request Date",
@@ -116,6 +133,20 @@ class _OvertimeRequestScreenState extends ConsumerState<OvertimeRequestScreen> {
                       setState(() {
                         _selectedDate = newDate;
                       });
+                    },
+                  ),
+                  SizedBox(height: 10.h),
+                  historyState.when(
+                    loading: () => const CircularProgressIndicator(),
+                    error: (err, stack) => Text('Error: $err'),
+                    data: (historyList) {
+                      final attendanceLog =
+                          historyList.isNotEmpty ? historyList.first : null;
+                      return attendanceLog != null
+                          ? AttendanceCard(
+                              item: attendanceLog,
+                            )
+                          : WarningEmptyAttendance();
                     },
                   ),
                   SizedBox(height: 10.h),
