@@ -56,4 +56,14 @@ class RoutePaths {
   static const leaveRequestFormName = 'leaveRequestForm';
   static const leaveDetail = '/leave-request/:id';
   static const leaveDetailName = 'leaveDetail';
+
+  // Payslip
+  static const payslip = '/payslip';
+  static const payslipName = 'payslip';
+  static const payslipViewRequest = '/payslip-view-request';
+  static const payslipViewRequestName = 'payslipViewRequest';
+  static const payslipView = '/payslip-view';
+  static const payslipViewName = 'payslipView';
+  static const payslipPrintRequest = '/payslip-print-request';
+  static const payslipPrintRequestName = 'payslipPrintRequest';
 }

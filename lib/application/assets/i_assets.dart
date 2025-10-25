@@ -42,4 +42,8 @@ class IAssets {
   static const String delete = '$ICON_PATH/delete.svg';
   static const String calendar = '$ICON_PATH/calendar.svg';
   static const String attachment = '$ICON_PATH/attachment.svg';
+  static const String lock = '$ICON_PATH/lock.svg';
+  static const String printer = '$ICON_PATH/printer.svg';
+  static const String payslipLock = '$ICON_PATH/payslipLock.svg';
+  static const String docSuccess = '$ICON_PATH/docSuccess.svg';
 }

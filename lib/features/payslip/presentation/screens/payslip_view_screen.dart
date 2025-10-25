@@ -1,0 +1,82 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hrms_mobile/application/theme/i_colors.dart';
+import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
+import 'package:hrms_mobile/features/payslip/presentation/widgets/benefit_section.dart';
+import 'package:hrms_mobile/features/payslip/presentation/widgets/earnings_deductions_table.dart';
+import 'package:hrms_mobile/features/payslip/presentation/widgets/payslip_details_section.dart';
+import 'package:hrms_mobile/features/payslip/presentation/widgets/payslip_notes_section.dart';
+
+class PayslipViewScreen extends ConsumerWidget {
+  const PayslipViewScreen({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final textTheme = Theme.of(context).textTheme;
+    final headerColor = Color(0xFF323232);
+    final confidentialColor = Colors.red[600];
+    final labelColor = Color(0xFF323232);
+    final valueColor = Colors.black;
+    final fieldLabelColor = Color(0xFF8E8E8E);
+
+    return Scaffold(
+      appBar: IAppBar(title: "Payslip August 2025"),
+      resizeToAvoidBottomInset: false,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 24.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // --- 1. Payroll Details Section ---
+              PayslipDetailsSection(
+                textTheme: textTheme,
+                headerColor: headerColor,
+                confidentialColor: confidentialColor,
+                labelColor: fieldLabelColor,
+                valueColor: valueColor,
+              ),
+              SizedBox(height: 24.h),
+              Divider(
+                height: 1,
+                color: IColors.light.grayscale.g20,
+              ),
+              SizedBox(height: 24.h),
+
+              // --- 2. Table Earnings Deductions ---
+              EarningsDeductionsTable(
+                textTheme: textTheme,
+                headerColor: headerColor,
+                valueColor: valueColor,
+              ),
+              SizedBox(height: 24.h),
+
+              // --- 3. Benefits ---
+              BenefitsSection(
+                textTheme: textTheme,
+                headerColor: headerColor,
+                labelColor: labelColor,
+                valueColor: valueColor,
+              ),
+              SizedBox(height: 24.h),
+              Divider(
+                height: 1,
+                color: IColors.light.grayscale.g20,
+              ),
+              SizedBox(height: 24.h),
+
+              // --- 4. Notes ---
+              PayslipNotesSection(
+                textTheme: textTheme,
+                confidentialColor: confidentialColor,
+                labelColor: labelColor,
+              ),
+              SizedBox(height: 40.h), // Extra space at the bottom
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

@@ -31,6 +31,10 @@ import 'package:hrms_mobile/features/offboarding/presentation/screens/offboardin
 import 'package:hrms_mobile/features/offboarding/presentation/screens/work_handover_screen.dart';
 import 'package:hrms_mobile/features/overtime_request/presentation/screens/overtime_history_edit_screen.dart';
 import 'package:hrms_mobile/features/overtime_request/presentation/screens/overtime_request_screen.dart';
+import 'package:hrms_mobile/features/payslip/presentation/screens/payslip_print_request_screen.dart';
+import 'package:hrms_mobile/features/payslip/presentation/screens/payslip_screen.dart';
+import 'package:hrms_mobile/features/payslip/presentation/screens/payslip_view_request_screen.dart';
+import 'package:hrms_mobile/features/payslip/presentation/screens/payslip_view_screen.dart';
 import 'package:hrms_mobile/features/profile/presentation/screens/profile_screen.dart';
 
 import 'route_paths.dart';
@@ -230,6 +234,31 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           return DocumentHandoverScreen();
         },
       ),
+      GoRoute(
+        path: RoutePaths.payslip,
+        name: RoutePaths.payslipName,
+        builder: (context, state) => const PayslipScreen(),
+      ),
+      GoRoute(
+        path: RoutePaths.payslipViewRequest,
+        name: RoutePaths.payslipViewRequestName,
+        builder: (context, state) => const PayslipViewRequestScreen(),
+      ),
+      GoRoute(
+        path: RoutePaths.payslipView,
+        name: RoutePaths.payslipViewName,
+        builder: (context, state) => const PayslipViewScreen(),
+      ),
+      GoRoute(
+        path: RoutePaths.payslipPrintRequest,
+        name: RoutePaths.payslipPrintRequestName,
+        builder: (context, state) => const PayslipPrintRequestScreen(),
+      ),
+      GoRoute(
+        path: RoutePaths.attendance,
+        name: RoutePaths.attendance,
+        builder: (context, state) => const AttendanceOvertimeScreen(),
+      ),
       // --- ROUTES WITH THE BOTTOM NAV BAR (Using ShellRoute) ---
       ShellRoute(
         // The 'builder' returns the UI shell (your MainScreen with the Scaffold and BottomNavBar).
@@ -268,13 +297,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: RoutePaths.profile,
             builder: (context, state) => const ProfileScreen(),
-            routes: [
-              GoRoute(
-                path: RoutePaths.attendance,
-                name: RoutePaths.attendance,
-                builder: (context, state) => const AttendanceOvertimeScreen(),
-              ),
-            ],
           ),
         ],
       ),

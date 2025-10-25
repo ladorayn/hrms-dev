@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart'; // Import Riverpod
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/features/profile/presentation/widgets/profile_app_bar.dart';
 import 'package:hrms_mobile/features/profile/presentation/widgets/statistics_card.dart';
@@ -70,13 +71,17 @@ class ProfileScreen extends ConsumerWidget {
                                     icon: Icons.history_toggle_off_outlined,
                                     title: 'Attendance and Overtime',
                                     onTap: () {
-                                      context.goNamed(RoutePaths.attendance);
+                                      globalNavigatorKey.currentContext
+                                          ?.pushNamed(RoutePaths.attendance);
                                     },
                                   ),
                                   ProfileMenuItem(
                                     icon: Icons.wallet_outlined,
                                     title: 'My Payslip',
-                                    onTap: () {},
+                                    onTap: () {
+                                      globalNavigatorKey.currentContext
+                                          ?.pushNamed(RoutePaths.payslipName);
+                                    },
                                   ),
                                   ProfileMenuItem(
                                     icon: Icons.description_outlined,

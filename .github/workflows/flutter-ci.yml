@@ -78,5 +78,5 @@ jobs:
             - Date: `${{ env.DATE }}`
             - Triggered by: `${{ github.actor }}`
 
-            🔔 **Build successful!** Notifying @ladorayn
+            🔔 **Build successful!** Notifying @JuicyBurger
           files: ${{ env.APK_PATH }}
