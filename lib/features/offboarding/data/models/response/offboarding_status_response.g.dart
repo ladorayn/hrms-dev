@@ -1,0 +1,33 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'offboarding_status_response.dart';
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+_$OffboardingStatusResponseImpl _$$OffboardingStatusResponseImplFromJson(
+        Map<String, dynamic> json) =>
+    _$OffboardingStatusResponseImpl(
+      id: (json['id'] as num?)?.toInt(),
+      userId: (json['user_id'] as num?)?.toInt(),
+      effectiveResignationDate: json['effective_resignation_date'] as String?,
+      lastWorkingDate: json['last_working_date'] as String?,
+      formId: json['form_id'] as String?,
+      status: (json['status'] as num?)?.toInt(),
+      createdAt: json['created_at'] as String?,
+      updatedAt: json['updated_at'] as String?,
+    );
+
+Map<String, dynamic> _$$OffboardingStatusResponseImplToJson(
+        _$OffboardingStatusResponseImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'user_id': instance.userId,
+      'effective_resignation_date': instance.effectiveResignationDate,
+      'last_working_date': instance.lastWorkingDate,
+      'form_id': instance.formId,
+      'status': instance.status,
+      'created_at': instance.createdAt,
+      'updated_at': instance.updatedAt,
+    };

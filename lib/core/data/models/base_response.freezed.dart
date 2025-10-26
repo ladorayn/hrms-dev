@@ -14,20 +14,11 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-BaseResponse<T> _$BaseResponseFromJson<T>(
-    Map<String, dynamic> json, T Function(Object?) fromJsonT) {
-  return _BaseResponse<T>.fromJson(json, fromJsonT);
-}
-
 /// @nodoc
 mixin _$BaseResponse<T> {
   String get status => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
   T get data => throw _privateConstructorUsedError;
-
-  /// Serializes this BaseResponse to a JSON map.
-  Map<String, dynamic> toJson(Object? Function(T) toJsonT) =>
-      throw _privateConstructorUsedError;
 
   /// Create a copy of BaseResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -127,14 +118,10 @@ class __$$BaseResponseImplCopyWithImpl<T, $Res>
 }
 
 /// @nodoc
-@JsonSerializable(genericArgumentFactories: true)
+
 class _$BaseResponseImpl<T> implements _BaseResponse<T> {
   const _$BaseResponseImpl(
       {required this.status, required this.message, required this.data});
-
-  factory _$BaseResponseImpl.fromJson(
-          Map<String, dynamic> json, T Function(Object?) fromJsonT) =>
-      _$$BaseResponseImplFromJson(json, fromJsonT);
 
   @override
   final String status;
@@ -158,7 +145,6 @@ class _$BaseResponseImpl<T> implements _BaseResponse<T> {
             const DeepCollectionEquality().equals(other.data, data));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, status, message, const DeepCollectionEquality().hash(data));
@@ -171,11 +157,6 @@ class _$BaseResponseImpl<T> implements _BaseResponse<T> {
   _$$BaseResponseImplCopyWith<T, _$BaseResponseImpl<T>> get copyWith =>
       __$$BaseResponseImplCopyWithImpl<T, _$BaseResponseImpl<T>>(
           this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson(Object? Function(T) toJsonT) {
-    return _$$BaseResponseImplToJson<T>(this, toJsonT);
-  }
 }
 
 abstract class _BaseResponse<T> implements BaseResponse<T> {
@@ -183,10 +164,6 @@ abstract class _BaseResponse<T> implements BaseResponse<T> {
       {required final String status,
       required final String message,
       required final T data}) = _$BaseResponseImpl<T>;
-
-  factory _BaseResponse.fromJson(
-          Map<String, dynamic> json, T Function(Object?) fromJsonT) =
-      _$BaseResponseImpl<T>.fromJson;
 
   @override
   String get status;

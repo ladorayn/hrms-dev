@@ -499,11 +499,6 @@ abstract class _LinksModel implements LinksModel {
       throw _privateConstructorUsedError;
 }
 
-BasePaginatedResponse<T> _$BasePaginatedResponseFromJson<T>(
-    Map<String, dynamic> json, T Function(Object?) fromJsonT) {
-  return _BasePaginatedResponse<T>.fromJson(json, fromJsonT);
-}
-
 /// @nodoc
 mixin _$BasePaginatedResponse<T> {
   int get code => throw _privateConstructorUsedError;
@@ -511,10 +506,6 @@ mixin _$BasePaginatedResponse<T> {
   List<T> get data => throw _privateConstructorUsedError;
   LinksModel? get links => throw _privateConstructorUsedError;
   MetaModel? get meta => throw _privateConstructorUsedError;
-
-  /// Serializes this BasePaginatedResponse to a JSON map.
-  Map<String, dynamic> toJson(Object? Function(T) toJsonT) =>
-      throw _privateConstructorUsedError;
 
   /// Create a copy of BasePaginatedResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -684,7 +675,7 @@ class __$$BasePaginatedResponseImplCopyWithImpl<T, $Res>
 }
 
 /// @nodoc
-@JsonSerializable(genericArgumentFactories: true)
+
 class _$BasePaginatedResponseImpl<T> implements _BasePaginatedResponse<T> {
   const _$BasePaginatedResponseImpl(
       {required this.code,
@@ -693,10 +684,6 @@ class _$BasePaginatedResponseImpl<T> implements _BasePaginatedResponse<T> {
       this.links,
       this.meta})
       : _data = data;
-
-  factory _$BasePaginatedResponseImpl.fromJson(
-          Map<String, dynamic> json, T Function(Object?) fromJsonT) =>
-      _$$BasePaginatedResponseImplFromJson(json, fromJsonT);
 
   @override
   final int code;
@@ -732,7 +719,6 @@ class _$BasePaginatedResponseImpl<T> implements _BasePaginatedResponse<T> {
             (identical(other.meta, meta) || other.meta == meta));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, code, message,
       const DeepCollectionEquality().hash(_data), links, meta);
@@ -745,11 +731,6 @@ class _$BasePaginatedResponseImpl<T> implements _BasePaginatedResponse<T> {
   _$$BasePaginatedResponseImplCopyWith<T, _$BasePaginatedResponseImpl<T>>
       get copyWith => __$$BasePaginatedResponseImplCopyWithImpl<T,
           _$BasePaginatedResponseImpl<T>>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson(Object? Function(T) toJsonT) {
-    return _$$BasePaginatedResponseImplToJson<T>(this, toJsonT);
-  }
 }
 
 abstract class _BasePaginatedResponse<T> implements BasePaginatedResponse<T> {
@@ -759,10 +740,6 @@ abstract class _BasePaginatedResponse<T> implements BasePaginatedResponse<T> {
       required final List<T> data,
       final LinksModel? links,
       final MetaModel? meta}) = _$BasePaginatedResponseImpl<T>;
-
-  factory _BasePaginatedResponse.fromJson(
-          Map<String, dynamic> json, T Function(Object?) fromJsonT) =
-      _$BasePaginatedResponseImpl<T>.fromJson;
 
   @override
   int get code;

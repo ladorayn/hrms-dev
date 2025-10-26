@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/enums/attendance_enum.dart';
+import 'package:hrms_mobile/core/errors/exceptions.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/util/general_utils.dart';
@@ -19,6 +20,7 @@ import 'package:hrms_mobile/features/auth/presentation/providers/auth/auth_provi
 import 'package:hrms_mobile/features/auth/presentation/providers/company_profile/company_profile_provider.dart';
 import 'package:hrms_mobile/features/dashboard/presentation/widgets/offboarding_status_card.dart';
 import 'package:hrms_mobile/features/dashboard/presentation/widgets/recent_activity_tiles.dart';
+import 'package:hrms_mobile/features/offboarding/presentation/providers/offboarding_provider.dart';
 import 'package:intl/intl.dart';
 
 class DashboardScreen extends ConsumerWidget {
@@ -33,6 +35,8 @@ class DashboardScreen extends ConsumerWidget {
     final recentActivityState = ref.watch(recentActivityProvider(limit: 4));
     final getDetail = ref.watch(getDetailAttendanceProvider(
         attendanceId: todayAttendanceState.value?.id.toString() ?? ''));
+
+    final getOffboardingStatus = ref.watch(offboardingStatusProvider);
 
     ref.listen<AsyncValue<List<ActivityLogModel>>>(
         recentActivityProvider(limit: 4), (previous, next) {
@@ -211,7 +215,6 @@ class DashboardScreen extends ConsumerWidget {
                       return _buildInitialState(context, ref);
                     },
                     data: (attendanceData) {
-                      print("Attendance DAta ${attendanceData?.clock?.outAt}");
                       return Container(
                         decoration: BoxDecoration(
                           color: IColors.light.primary.focused,
@@ -559,7 +562,23 @@ class DashboardScreen extends ConsumerWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          OffboardingStatusCard(),
+                          getOffboardingStatus.when(
+                            skipError: true,
+                            skipLoadingOnRefresh: true,
+                            skipLoadingOnReload: true,
+                            data: (data) {
+                              return OffboardingStatusCard();
+                            },
+                            error: (error, stackTrace) {
+                              if (error is DataNotFoundException) {
+                                return const SizedBox.shrink();
+                              }
+                              return Text("Error fetching offboarding status");
+                            },
+                            loading: () {
+                              return const SizedBox.shrink();
+                            },
+                          ),
                           SizedBox(
                             height: 4.h,
                           ),

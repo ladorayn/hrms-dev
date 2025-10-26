@@ -43,31 +43,3 @@ Map<String, dynamic> _$$LinksModelImplToJson(_$LinksModelImpl instance) =>
       'prev': instance.prev,
       'next': instance.next,
     };
-
-_$BasePaginatedResponseImpl<T> _$$BasePaginatedResponseImplFromJson<T>(
-  Map<String, dynamic> json,
-  T Function(Object? json) fromJsonT,
-) =>
-    _$BasePaginatedResponseImpl<T>(
-      code: (json['code'] as num).toInt(),
-      message: json['message'] as String,
-      data: (json['data'] as List<dynamic>).map(fromJsonT).toList(),
-      links: json['links'] == null
-          ? null
-          : LinksModel.fromJson(json['links'] as Map<String, dynamic>),
-      meta: json['meta'] == null
-          ? null
-          : MetaModel.fromJson(json['meta'] as Map<String, dynamic>),
-    );
-
-Map<String, dynamic> _$$BasePaginatedResponseImplToJson<T>(
-  _$BasePaginatedResponseImpl<T> instance,
-  Object? Function(T value) toJsonT,
-) =>
-    <String, dynamic>{
-      'code': instance.code,
-      'message': instance.message,
-      'data': instance.data.map(toJsonT).toList(),
-      'links': instance.links,
-      'meta': instance.meta,
-    };

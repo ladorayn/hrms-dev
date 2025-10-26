@@ -1,9 +1,9 @@
 // core/data/models/base_response.dart
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hrms_mobile/core/errors/exceptions.dart';
 
 part 'base_response.freezed.dart';
-part 'base_response.g.dart';
 
 @Freezed(genericArgumentFactories: true)
 class BaseResponse<T> with _$BaseResponse<T> {
@@ -16,6 +16,16 @@ class BaseResponse<T> with _$BaseResponse<T> {
   factory BaseResponse.fromJson(
     Map<String, dynamic> json,
     T Function(Object? json) fromJsonT,
-  ) =>
-      _$BaseResponseFromJson(json, fromJsonT);
+  ) {
+    if (json['data'] == null) {
+      throw DataNotFoundException(
+        json['message'] ?? 'Data not found',
+      );
+    }
+    return _BaseResponse<T>(
+      status: json['status'] as String,
+      message: json['message'] as String,
+      data: fromJsonT(json['data']),
+    );
+  }
 }

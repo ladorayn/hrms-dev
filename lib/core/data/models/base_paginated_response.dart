@@ -45,7 +45,36 @@ class BasePaginatedResponse<T> with _$BasePaginatedResponse<T> {
 
   factory BasePaginatedResponse.fromJson(
     Map<String, dynamic> json,
-    T Function(Object? json) fromJsonT,
-  ) =>
-      _$BasePaginatedResponseFromJson(json, fromJsonT);
+    T Function(Object? json) fromJsonT, {
+    required List<T> Function() emptyT,
+  }) {
+    final links = json['links'] == null
+        ? null
+        : LinksModel.fromJson(json['links'] as Map<String, dynamic>);
+
+    final meta = json['meta'] == null
+        ? null
+        : MetaModel.fromJson(json['meta'] as Map<String, dynamic>);
+
+    if (json['data'] == null) {
+      return _BasePaginatedResponse<T>(
+        message: json['message'] as String,
+        code: json['code'] as int,
+        data: emptyT(),
+        links: links,
+        meta: meta,
+      );
+    }
+
+    final dataList = json['data'] as List;
+    final parsedData = dataList.map((item) => fromJsonT(item)).toList();
+
+    return _BasePaginatedResponse<T>(
+      code: json['code'] as int,
+      message: json['message'] as String,
+      data: parsedData,
+      links: links,
+      meta: meta,
+    );
+  }
 }

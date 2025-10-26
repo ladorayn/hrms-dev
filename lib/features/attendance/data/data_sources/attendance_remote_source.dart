@@ -104,6 +104,7 @@ class AttendanceRemoteSource {
       return BasePaginatedResponse.fromJson(
         response.data,
         (json) => ActivityLogModel.fromJson(json as Map<String, dynamic>),
+        emptyT: () => List.empty(),
       );
     } on DioException catch (e) {
       throw handleDioError(e);
@@ -117,6 +118,7 @@ class AttendanceRemoteSource {
       return BasePaginatedResponse.fromJson(
         response.data,
         (json) => ActivityLogModel.fromJson(json as Map<String, dynamic>),
+        emptyT: () => List.empty(),
       );
     } on DioException catch (e) {
       throw handleDioError(e);
