@@ -66,4 +66,10 @@ class RoutePaths {
   static const payslipViewName = 'payslipView';
   static const payslipPrintRequest = '/payslip-print-request';
   static const payslipPrintRequestName = 'payslipPrintRequest';
+
+  // Profile
+  static const profileDetail = '/profile-detail';
+  static const profileDetailName = 'profileDetail';
+  static const profileEdit = '/profile-edit';
+  static const profileEditName = 'profileEdit';
 }

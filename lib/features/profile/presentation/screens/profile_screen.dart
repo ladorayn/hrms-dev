@@ -36,17 +36,17 @@ class ProfileScreen extends ConsumerWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 20.0),
                         child: ProfileAppBar(),
                       ),
-                      SizedBox(height: 24.sp),
+                      SizedBox(height: 8.sp),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20.0),
                         child: UserInfo(),
                       ),
-                      SizedBox(height: 24.sp),
+                      SizedBox(height: 8.sp),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20.0),
                         child: StatisticsCard(),
                       ),
-                      SizedBox(height: 32.sp),
+                      SizedBox(height: 12.sp),
                       Expanded(
                         child: Container(
                           decoration: const BoxDecoration(
@@ -65,7 +65,11 @@ class ProfileScreen extends ConsumerWidget {
                                   ProfileMenuItem(
                                     icon: Icons.person_outline,
                                     title: 'My Profile',
-                                    onTap: () {},
+                                    onTap: () {
+                                      globalNavigatorKey.currentContext
+                                          ?.pushNamed(
+                                              RoutePaths.profileDetailName);
+                                    },
                                   ),
                                   ProfileMenuItem(
                                     icon: Icons.history_toggle_off_outlined,

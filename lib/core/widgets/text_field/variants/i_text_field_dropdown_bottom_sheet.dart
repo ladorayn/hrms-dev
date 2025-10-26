@@ -19,6 +19,8 @@ class ITextFieldDropdownBottomSheet extends ITextFieldBase {
     super.errorText,
     required this.options,
     required this.onOptionSelected,
+    super.textFieldOnly,
+    super.prefixIcon,
   }) : super(
           readOnly: true,
           suffixIcon: const Icon(Icons.keyboard_arrow_down),

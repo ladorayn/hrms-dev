@@ -46,4 +46,8 @@ class IAssets {
   static const String printer = '$ICON_PATH/printer.svg';
   static const String payslipLock = '$ICON_PATH/payslipLock.svg';
   static const String docSuccess = '$ICON_PATH/docSuccess.svg';
+  static const String instagram = '$ICON_PATH/instagram.svg';
+  static const String twitter = '$ICON_PATH/twitter.svg';
+  static const String linkedin = '$ICON_PATH/linkedin.svg';
+  static const String imagePlaceholder = '$ICON_PATH/imagePlaceholder.svg';
 }
