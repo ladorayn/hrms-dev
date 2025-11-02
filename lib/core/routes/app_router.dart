@@ -25,6 +25,7 @@ import 'package:hrms_mobile/features/dashboard/presentation/screens/main_screen.
 import 'package:hrms_mobile/features/leave_request/presentation/screens/leave_request_detail_screen.dart';
 import 'package:hrms_mobile/features/leave_request/presentation/screens/leave_request_form_screen.dart';
 import 'package:hrms_mobile/features/leave_request/presentation/screens/leave_request_screen.dart';
+import 'package:hrms_mobile/features/offboarding/data/models/response/offboarding_status_response.dart';
 import 'package:hrms_mobile/features/offboarding/presentation/screens/document_handover_screen.dart';
 import 'package:hrms_mobile/features/offboarding/presentation/screens/exit_form_screen.dart';
 import 'package:hrms_mobile/features/offboarding/presentation/screens/offboarding_screen.dart';
@@ -210,28 +211,36 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: RoutePaths.offboarding,
         name: RoutePaths.offboardingName,
         builder: (context, state) {
-          return OffboardingScreen();
+          final data = state.extra as OffboardingStatusResponse;
+          return OffboardingScreen(
+            data: data,
+          );
         },
       ),
       GoRoute(
         path: RoutePaths.exitForm,
         name: RoutePaths.exitFormName,
         builder: (context, state) {
-          return ExitFormScreen();
+          final data = state.extra as OffboardingStatusResponse;
+          return ExitFormScreen(data: data);
         },
       ),
       GoRoute(
         path: RoutePaths.workHandover,
         name: RoutePaths.workHandoverName,
         builder: (context, state) {
-          return WorkHandoverScreen();
+          final data = state.extra as OffboardingStatusResponse;
+          return WorkHandoverScreen(
+            data: data,
+          );
         },
       ),
       GoRoute(
         path: RoutePaths.documentHandover,
         name: RoutePaths.documentHandoverName,
         builder: (context, state) {
-          return DocumentHandoverScreen();
+          final data = state.extra as OffboardingStatusResponse;
+          return DocumentHandoverScreen(data: data);
         },
       ),
       GoRoute(

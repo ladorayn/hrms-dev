@@ -4,9 +4,12 @@ import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
+import 'package:hrms_mobile/features/offboarding/data/models/response/offboarding_status_response.dart';
 
 class OffboardingStatusCard extends StatelessWidget {
-  const OffboardingStatusCard({super.key});
+  final OffboardingStatusResponse data;
+
+  const OffboardingStatusCard({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +56,7 @@ class OffboardingStatusCard extends StatelessWidget {
                 ),
                 onPressed: () {
                   globalNavigatorKey.currentContext
-                      ?.pushNamed(RoutePaths.offboardingName);
+                      ?.pushNamed(RoutePaths.offboardingName, extra: data);
                 },
                 child: Text(
                   "Start Offboarding Process",

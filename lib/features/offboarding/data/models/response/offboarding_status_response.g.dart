@@ -13,7 +13,7 @@ _$OffboardingStatusResponseImpl _$$OffboardingStatusResponseImplFromJson(
       userId: (json['user_id'] as num?)?.toInt(),
       effectiveResignationDate: json['effective_resignation_date'] as String?,
       lastWorkingDate: json['last_working_date'] as String?,
-      formId: json['form_id'] as String?,
+      formId: (json['form_id'] as num?)?.toInt(),
       status: (json['status'] as num?)?.toInt(),
       createdAt: json['created_at'] as String?,
       updatedAt: json['updated_at'] as String?,

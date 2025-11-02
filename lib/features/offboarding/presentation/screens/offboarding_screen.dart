@@ -8,6 +8,7 @@ import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
+import 'package:hrms_mobile/features/offboarding/data/models/response/offboarding_status_response.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 enum TaskStatus {
@@ -20,7 +21,7 @@ class OffboardingTask {
   final String title;
   final String description;
   final TaskStatus status;
-  final String? page; // The screen to navigate to
+  final String? page;
 
   OffboardingTask({
     required this.title,
@@ -31,8 +32,11 @@ class OffboardingTask {
 }
 
 class OffboardingScreen extends ConsumerWidget {
+  final OffboardingStatusResponse data;
+
   const OffboardingScreen({
     super.key,
+    required this.data,
   });
 
   @override
@@ -44,7 +48,7 @@ class OffboardingScreen extends ConsumerWidget {
         title: "Exit Interview Form",
         description:
             "Please complete your exit interview to help us understand your experience.",
-        status: TaskStatus.completed,
+        status: TaskStatus.inProgress,
         page: RoutePaths.exitFormName,
       ),
       OffboardingTask(
@@ -125,7 +129,7 @@ class OffboardingScreen extends ConsumerWidget {
                       indicator: _buildIndicator(task.status),
                       drawGap: true,
                     ),
-                    endChild: _buildTaskContent(context, task),
+                    endChild: _buildTaskContent(context, task, data),
                   );
                 },
               ),
@@ -174,64 +178,56 @@ class OffboardingScreen extends ConsumerWidget {
     }
   }
 
-  // Helper widget to build the main content for each task
-  Widget _buildTaskContent(BuildContext context, OffboardingTask task) {
+  Widget _buildTaskContent(BuildContext context, OffboardingTask task,
+      OffboardingStatusResponse data) {
     final textTheme = Theme.of(context).textTheme;
 
-    return GestureDetector(
-      onTap: () {
-        if (task.page != null) {
-          globalNavigatorKey.currentContext?.pushNamed(task.page!);
-        }
-      },
-      child: Padding(
-        padding:
-            EdgeInsets.only(left: 16.w, top: 8.h, bottom: 24.h, right: 8.w),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    task.title,
-                    style: textTheme.titleSmall?.copyWith(
-                        fontWeight: FontWeight.w600,
-                        color: IColors.light.primary.main),
-                  ),
-                  SizedBox(height: 4.h),
-                  Text(
-                    task.description,
-                    style: textTheme.bodySmall?.copyWith(
-                      color: Colors.grey.shade600,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(width: 16.w),
-            if (task.status != TaskStatus.completed && task.page != null)
-              ElevatedButton(
-                onPressed: () {
-                  if (task.page != null) {
-                    globalNavigatorKey.currentContext?.pushNamed(task.page!);
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: IColors.light.primary.main,
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.r),
-                  ),
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
+    return Padding(
+      padding: EdgeInsets.only(left: 16.w, top: 8.h, bottom: 24.h, right: 8.w),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  task.title,
+                  style: textTheme.titleSmall?.copyWith(
+                      fontWeight: FontWeight.w600,
+                      color: IColors.light.primary.main),
                 ),
-                child: const Text("Start"),
-              )
-          ],
-        ),
+                SizedBox(height: 4.h),
+                Text(
+                  task.description,
+                  style: textTheme.bodySmall?.copyWith(
+                    color: Colors.grey.shade600,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(width: 16.w),
+          if (task.status != TaskStatus.completed && task.page != null)
+            ElevatedButton(
+              onPressed: () {
+                if (task.page != null) {
+                  globalNavigatorKey.currentContext
+                      ?.pushNamed(task.page!, extra: data);
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: IColors.light.primary.main,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
+              ),
+              child: const Text("Start"),
+            )
+        ],
       ),
     );
   }

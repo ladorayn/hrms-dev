@@ -1,31 +1,22 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
+import 'package:hrms_mobile/application/theme/i_colors.dart';
+import 'package:hrms_mobile/core/data/models/employees/employees_response.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/core/widgets/i_footer_button.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_dropdown_multi_select.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
-
-class Employee {
-  final int id;
-  final String name;
-  final String position;
-
-  Employee({required this.id, required this.name, required this.position});
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is Employee && runtimeType == other.runtimeType && id == other.id;
-
-  @override
-  int get hashCode => id.hashCode;
-}
+import 'package:hrms_mobile/features/offboarding/data/models/request/handover_bulk_update_request.dart';
+import 'package:hrms_mobile/features/offboarding/data/models/response/offboarding_status_response.dart';
+import 'package:hrms_mobile/features/offboarding/presentation/providers/offboarding_provider.dart';
 
 class HandoverItem {
-  final int id; // Unique ID for each card
+  final int id;
   final TextEditingController worksController;
   List<Employee> selectedEmployees;
 
@@ -37,7 +28,9 @@ class HandoverItem {
 }
 
 class WorkHandoverScreen extends ConsumerStatefulWidget {
-  const WorkHandoverScreen({super.key});
+  final OffboardingStatusResponse data;
+
+  const WorkHandoverScreen({super.key, required this.data});
 
   @override
   ConsumerState<WorkHandoverScreen> createState() => _WorkHandoverScreenState();
@@ -45,19 +38,6 @@ class WorkHandoverScreen extends ConsumerStatefulWidget {
 
 class _WorkHandoverScreenState extends ConsumerState<WorkHandoverScreen> {
   final List<HandoverItem> _handoverItems = [];
-
-  final List<Employee> _allEmployees = [
-    Employee(id: 1, name: 'Olivia Rhye', position: 'COO'),
-    Employee(id: 2, name: 'Phoenix Baker', position: 'CTO'),
-    Employee(id: 3, name: 'Lana Steiner', position: 'COO'),
-    Employee(id: 4, name: 'Demi Wilkinson', position: 'Head of Product'),
-    Employee(id: 5, name: 'Candice Wu', position: 'Head of Engineering'),
-    Employee(id: 6, name: 'Natali Craig', position: 'Front End Engineer'),
-    Employee(id: 7, name: 'Drew Cano', position: 'UX Copywriter'),
-    Employee(id: 8, name: 'Orlando Diggs', position: 'Product Designer'),
-    Employee(id: 9, name: 'Andi Lane', position: 'Product Designer'),
-    Employee(id: 10, name: 'Kate Morrison', position: 'Back End Engineer'),
-  ];
 
   @override
   void initState() {
@@ -87,17 +67,79 @@ class _WorkHandoverScreenState extends ConsumerState<WorkHandoverScreen> {
 
   void _removeHandoverItem(int index) {
     setState(() {
-      // First, dispose the controller of the item being removed
       _handoverItems[index].worksController.dispose();
       _handoverItems.removeAt(index);
     });
   }
 
+  void _showSnackBar(String message, {bool isError = false}) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        // backgroundColor: isError ? Colors.red : Colors.green,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final handoverState = ref.watch(handoverSubmissionProvider);
+
+    ref.listen(handoverSubmissionProvider, (_, state) {
+      state.whenOrNull(
+        error: (e, s) => _showSnackBar(e.toString(), isError: true),
+        data: (data) {
+          if (data != null) {
+            _showSnackBar("Handover submitted successfully!");
+            // Pop the screen on success
+            Navigator.of(context).pop();
+          }
+        },
+      );
+    });
+
     Future<void> onSubmit() async {
-      // Collect all data from controllers and selected employees
-      // and send to the API
+      for (var item in _handoverItems) {
+        if (item.worksController.text.isEmpty) {
+          _showSnackBar('Please fill in all "Works" fields.', isError: true);
+          return;
+        }
+        if (item.selectedEmployees.isEmpty) {
+          _showSnackBar('Please select at least one recipient for all items.',
+              isError: true);
+          return;
+        }
+      }
+
+      final List<HandoverItemRequest> items = _handoverItems.map((item) {
+        final List<RecipientRequest> recipients =
+            item.selectedEmployees.map((emp) {
+          return RecipientRequest(
+            userId: emp.id ?? 0,
+            status: emp.status ?? 0,
+          );
+        }).toList();
+
+        return HandoverItemRequest(
+          category: 'work',
+          name: item.worksController.text,
+          recipients: recipients,
+        );
+      }).toList();
+
+      final HandoverRequest request = HandoverRequest(data: items);
+      final int? offboardingId = widget.data.id;
+
+      if (offboardingId == null) {
+        _showSnackBar('Could not find offboarding ID. Please try again.',
+            isError: true);
+        return;
+      }
+      await ref.read(handoverSubmissionProvider.notifier).submitForm(
+            request: request,
+            offboardingId: offboardingId,
+          );
     }
 
     return Scaffold(
@@ -126,8 +168,9 @@ class _WorkHandoverScreenState extends ConsumerState<WorkHandoverScreen> {
             ),
           ),
           IFooterButton(
-            text: "Submit",
-            onPressed: onSubmit,
+            // 🚀 --- UPDATE BUTTON STATE ---
+            text: handoverState.isLoading ? "Submitting..." : "Submit",
+            onPressed: handoverState.isLoading ? null : onSubmit,
           ),
         ],
       ),
@@ -164,16 +207,18 @@ class _WorkHandoverScreenState extends ConsumerState<WorkHandoverScreen> {
                   ITextFieldDropdownMultiSelect<Employee>(
                     label: 'Handed Over To',
                     isRequired: true,
-                    allItems: _allEmployees,
                     selectedItems: item.selectedEmployees,
-                    bottomSheetTitle: 'Employees',
-                    searchHintText: 'Search Employee',
-                    itemToString: (employee) => employee.name,
-                    itemToSubtitle: (employee) => employee.position,
+                    itemToString: (employee) => employee.name ?? '-',
                     onSelectionConfirmed: (newSelection) {
                       setState(() {
                         item.selectedEmployees = newSelection;
                       });
+                    },
+                    // We pass the custom builder
+                    customSheetBuilder: (context, initialSelection) {
+                      return EmployeeSelectionSheet(
+                        initialSelectedEmployees: initialSelection,
+                      );
                     },
                   ),
                 ],
@@ -198,56 +243,75 @@ class _WorkHandoverScreenState extends ConsumerState<WorkHandoverScreen> {
   }
 }
 
-class EmployeeSelectionSheet extends StatefulWidget {
-  final List<Employee> allEmployees;
+class EmployeeSelectionSheet extends ConsumerStatefulWidget {
   final List<Employee> initialSelectedEmployees;
 
   const EmployeeSelectionSheet({
     super.key,
-    required this.allEmployees,
     required this.initialSelectedEmployees,
   });
 
   @override
-  State<EmployeeSelectionSheet> createState() => _EmployeeSelectionSheetState();
+  ConsumerState<EmployeeSelectionSheet> createState() =>
+      _EmployeeSelectionSheetState();
 }
 
-class _EmployeeSelectionSheetState extends State<EmployeeSelectionSheet> {
-  late List<Employee> _filteredEmployees;
+class _EmployeeSelectionSheetState
+    extends ConsumerState<EmployeeSelectionSheet> {
   late List<Employee> _tempSelectedEmployees;
   final TextEditingController _searchController = TextEditingController();
+  String _searchQuery = '';
+  Timer? _debounce;
 
   @override
   void initState() {
     super.initState();
-    _filteredEmployees = widget.allEmployees;
     _tempSelectedEmployees = List.from(widget.initialSelectedEmployees);
-    _searchController.addListener(_filterEmployees);
+    _searchController.addListener(_onSearchChanged);
   }
 
   @override
   void dispose() {
-    _searchController.removeListener(_filterEmployees);
+    _searchController.removeListener(_onSearchChanged);
     _searchController.dispose();
+    _debounce?.cancel();
     super.dispose();
   }
 
-  void _filterEmployees() {
-    final query = _searchController.text.toLowerCase();
-    setState(() {
-      _filteredEmployees = widget.allEmployees.where((employee) {
-        return employee.name.toLowerCase().contains(query);
-      }).toList();
+  void _onSearchChanged() {
+    if (_debounce?.isActive ?? false) _debounce!.cancel();
+    _debounce = Timer(const Duration(milliseconds: 500), () {
+      if (mounted) {
+        setState(() {
+          _searchQuery = _searchController.text;
+        });
+      }
     });
+  }
+
+  void _onScroll(ScrollController controller) {
+    if (controller.position.pixels >=
+        controller.position.maxScrollExtent - 200) {
+      ref
+          .read(paginatedEmployeeProvider(search: _searchQuery).notifier)
+          .fetchNextPage(search: _searchQuery);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    final asyncEmployees = ref.watch(paginatedEmployeeProvider(
+      search: _searchQuery,
+    ));
+
     return DraggableScrollableSheet(
       initialChildSize: 0.8,
       maxChildSize: 0.8,
       expand: false,
       builder: (_, controller) {
+        controller.removeListener(() => _onScroll(controller));
+        controller.addListener(() => _onScroll(controller));
+
         return Padding(
           padding: EdgeInsets.all(16.w),
           child: Column(
@@ -267,28 +331,36 @@ class _EmployeeSelectionSheetState extends State<EmployeeSelectionSheet> {
               ),
               SizedBox(height: 16.h),
               Expanded(
-                child: ListView.builder(
-                  controller: controller,
-                  itemCount: _filteredEmployees.length,
-                  itemBuilder: (context, index) {
-                    final employee = _filteredEmployees[index];
-                    final isSelected =
-                        _tempSelectedEmployees.contains(employee);
-                    return CheckboxListTile(
-                      title: Text(employee.name),
-                      subtitle: Text(employee.position),
-                      value: isSelected,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          if (value == true) {
-                            _tempSelectedEmployees.add(employee);
-                          } else {
-                            _tempSelectedEmployees.remove(employee);
-                          }
-                        });
+                child: asyncEmployees.when(
+                  data: (paginatedResponse) {
+                    final employees = paginatedResponse.data;
+                    return ListView.builder(
+                      controller: controller,
+                      itemCount: employees.length,
+                      itemBuilder: (context, index) {
+                        final employee = employees[index];
+                        final isSelected =
+                            _tempSelectedEmployees.contains(employee);
+                        return CheckboxListTile(
+                          title: Text(employee.name ?? '-'),
+                          subtitle: Text(employee.jobPosition ?? '-'),
+                          value: isSelected,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              if (value == true) {
+                                _tempSelectedEmployees.add(employee);
+                              } else {
+                                _tempSelectedEmployees.remove(employee);
+                              }
+                            });
+                          },
+                        );
                       },
                     );
                   },
+                  loading: () =>
+                      const Center(child: CircularProgressIndicator()),
+                  error: (e, s) => Center(child: Text('Error: $e')),
                 ),
               ),
               SizedBox(height: 16.h),
@@ -297,6 +369,12 @@ class _EmployeeSelectionSheetState extends State<EmployeeSelectionSheet> {
                   Navigator.pop(context, _tempSelectedEmployees);
                 },
                 style: ElevatedButton.styleFrom(
+                  backgroundColor: IColors.light.primary.main,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(color: IColors.light.primary.main),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                   minimumSize: Size(double.infinity, 48.h),
                 ),
                 child: const Text('Done'),

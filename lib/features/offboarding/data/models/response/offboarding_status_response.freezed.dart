@@ -29,7 +29,7 @@ mixin _$OffboardingStatusResponse {
   @JsonKey(name: 'last_working_date')
   String? get lastWorkingDate => throw _privateConstructorUsedError;
   @JsonKey(name: 'form_id')
-  String? get formId => throw _privateConstructorUsedError;
+  int? get formId => throw _privateConstructorUsedError;
   int? get status => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
   String? get createdAt => throw _privateConstructorUsedError;
@@ -58,7 +58,7 @@ abstract class $OffboardingStatusResponseCopyWith<$Res> {
       @JsonKey(name: 'effective_resignation_date')
       String? effectiveResignationDate,
       @JsonKey(name: 'last_working_date') String? lastWorkingDate,
-      @JsonKey(name: 'form_id') String? formId,
+      @JsonKey(name: 'form_id') int? formId,
       int? status,
       @JsonKey(name: 'created_at') String? createdAt,
       @JsonKey(name: 'updated_at') String? updatedAt});
@@ -109,7 +109,7 @@ class _$OffboardingStatusResponseCopyWithImpl<$Res,
       formId: freezed == formId
           ? _value.formId
           : formId // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -141,7 +141,7 @@ abstract class _$$OffboardingStatusResponseImplCopyWith<$Res>
       @JsonKey(name: 'effective_resignation_date')
       String? effectiveResignationDate,
       @JsonKey(name: 'last_working_date') String? lastWorkingDate,
-      @JsonKey(name: 'form_id') String? formId,
+      @JsonKey(name: 'form_id') int? formId,
       int? status,
       @JsonKey(name: 'created_at') String? createdAt,
       @JsonKey(name: 'updated_at') String? updatedAt});
@@ -191,7 +191,7 @@ class __$$OffboardingStatusResponseImplCopyWithImpl<$Res>
       formId: freezed == formId
           ? _value.formId
           : formId // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -238,7 +238,7 @@ class _$OffboardingStatusResponseImpl implements _OffboardingStatusResponse {
   final String? lastWorkingDate;
   @override
   @JsonKey(name: 'form_id')
-  final String? formId;
+  final int? formId;
   @override
   final int? status;
   @override
@@ -310,7 +310,7 @@ abstract class _OffboardingStatusResponse implements OffboardingStatusResponse {
           @JsonKey(name: 'effective_resignation_date')
           final String? effectiveResignationDate,
           @JsonKey(name: 'last_working_date') final String? lastWorkingDate,
-          @JsonKey(name: 'form_id') final String? formId,
+          @JsonKey(name: 'form_id') final int? formId,
           final int? status,
           @JsonKey(name: 'created_at') final String? createdAt,
           @JsonKey(name: 'updated_at') final String? updatedAt}) =
@@ -332,7 +332,7 @@ abstract class _OffboardingStatusResponse implements OffboardingStatusResponse {
   String? get lastWorkingDate;
   @override
   @JsonKey(name: 'form_id')
-  String? get formId;
+  int? get formId;
   @override
   int? get status;
   @override
