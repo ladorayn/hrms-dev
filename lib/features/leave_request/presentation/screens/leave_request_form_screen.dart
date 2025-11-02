@@ -9,7 +9,10 @@ import 'package:hrms_mobile/core/widgets/i_footer_button.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_date_picker.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_dropdown_bottom_sheet.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
+import 'package:hrms_mobile/features/leave_request/presentation/providers/leave_provider.dart';
 import 'package:hrms_mobile/features/overtime_request/presentation/providers/overtime_provider.dart';
+
+import '../../data/models/response/leave_type_response.dart';
 
 class LeaveRequestFormScreen extends ConsumerStatefulWidget {
   const LeaveRequestFormScreen({
@@ -30,7 +33,7 @@ class _LeaveRequestFormScreenState
   final _clockOutController = TextEditingController();
 
   // --- State for selected values ---
-  String? _selectedLeaveType;
+  LeaveType? _selectedLeaveType;
   DateTime? _selectedStartDate;
   DateTime? _selectedEndDate;
   PlatformFile? _attachment;
@@ -44,22 +47,13 @@ class _LeaveRequestFormScreenState
     super.dispose();
   }
 
-  // --- Submission Logic ---
   Future<void> _submitOvertime() async {}
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    final List<String> leaveTypeOptions = [
-      'Annual Leave',
-      'Sick Leave',
-      'Maternity Leave',
-      'Menstrual Leave',
-      'Marriage Leave',
-      'Paternity Leave',
-      'Unpaid Leave',
-    ];
+    final leaveTypesAsync = ref.watch(leaveTypesProvider);
 
     final overtimeState = ref.watch(overtimeRequestNotifierProvider);
     ref.listen(overtimeRequestNotifierProvider, (_, state) {
@@ -93,18 +87,39 @@ class _LeaveRequestFormScreenState
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ITextFieldDropdownBottomSheet(
-                    label: "Leave Type",
-                    controller: _leaveTypeController,
-                    options: leaveTypeOptions,
-                    isRequired: true,
-                    errorText: validationErrors['leave_type'],
-                    // Match your API error key
-                    onOptionSelected: (selectedOption) {
-                      setState(() {
-                        _selectedLeaveType = selectedOption;
-                      });
+                  leaveTypesAsync.when(
+                    data: (leaveTypes) {
+                      final leaveTypeNames =
+                          leaveTypes.map((lt) => lt.name).toList();
+
+                      return ITextFieldDropdownBottomSheet(
+                        label: "Leave Type",
+                        controller: _leaveTypeController,
+                        options: leaveTypeNames,
+                        isRequired: true,
+                        errorText: validationErrors['leave_type'],
+                        onOptionSelected: (selectedName) {
+                          setState(() {
+                            _selectedLeaveType = leaveTypes.firstWhere(
+                              (lt) => lt.name == selectedName,
+                            );
+                          });
+                        },
+                      );
                     },
+                    loading: () => const Center(
+                      child: Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: CircularProgressIndicator(),
+                      ),
+                    ),
+                    error: (e, s) => ITextFieldDropdownBottomSheet(
+                      label: "Leave Type",
+                      controller: _leaveTypeController,
+                      options: const [],
+                      errorText: "Failed to load leave types",
+                      onOptionSelected: (selectedOption) {},
+                    ),
                   ),
                   SizedBox(width: 10.h),
                   ITextFieldDatePicker(

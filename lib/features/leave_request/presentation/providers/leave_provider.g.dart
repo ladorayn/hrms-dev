@@ -39,5 +39,20 @@ final leaveNotifierProvider =
 );
 
 typedef _$LeaveNotifier = AutoDisposeAsyncNotifier<void>;
+String _$leaveTypesHash() => r'22b14ca47a5c6200de1e20ea0340a51b8fe94d6e';
+
+/// See also [LeaveTypes].
+@ProviderFor(LeaveTypes)
+final leaveTypesProvider =
+    AutoDisposeAsyncNotifierProvider<LeaveTypes, List<LeaveType>>.internal(
+  LeaveTypes.new,
+  name: r'leaveTypesProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$leaveTypesHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$LeaveTypes = AutoDisposeAsyncNotifier<List<LeaveType>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

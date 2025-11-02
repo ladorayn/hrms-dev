@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hrms_mobile/core/network/dio_provider.dart';
 import 'package:hrms_mobile/features/leave_request/data/data_sources/leave_remote_source.dart';
 import 'package:hrms_mobile/features/leave_request/data/models/response/leave_balance_response.dart';
+import 'package:hrms_mobile/features/leave_request/data/models/response/leave_type_response.dart';
 import 'package:hrms_mobile/features/leave_request/data/repositories/leave_repository_impl.dart';
 import 'package:hrms_mobile/features/leave_request/domain/usecases/leave_usecase.dart';
 import 'package:hrms_mobile/features/overtime_request/data/models/request/overtime_request_model.dart';
@@ -45,5 +46,14 @@ class LeaveNotifier extends _$LeaveNotifier {
       state = AsyncError(e, st);
       return false;
     }
+  }
+}
+
+@riverpod
+class LeaveTypes extends _$LeaveTypes {
+  @override
+  Future<List<LeaveType>> build() async {
+    final usecase = ref.watch(leaveUseCaseProvider);
+    return await usecase.getLeaveTypes();
   }
 }
