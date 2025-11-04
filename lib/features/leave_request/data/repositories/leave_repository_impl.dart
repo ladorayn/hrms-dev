@@ -3,6 +3,8 @@ import 'package:hrms_mobile/features/leave_request/data/models/response/leave_ba
 import 'package:hrms_mobile/features/leave_request/data/models/response/leave_type_response.dart';
 import 'package:hrms_mobile/features/leave_request/domain/repositories/leave_repository.dart';
 
+import '../models/request/leave_request.dart';
+
 class LeaveRepositoryImpl implements LeaveRepository {
   final LeaveRemoteSource remoteSource;
 
@@ -25,6 +27,37 @@ class LeaveRepositoryImpl implements LeaveRepository {
   Future<List<LeaveType>> getLeaveTypes() async {
     final response = await remoteSource.getLeaveTypes();
 
+    if (response.status == 'success') {
+      return response.data;
+    } else {
+      throw Exception('API Error: ${response.message}');
+    }
+  }
+
+  @override
+  Future<dynamic> submitLeaveRequest({required LeaveRequest request}) async {
+    final response = await remoteSource.submitLeaveRequest(request: request);
+
+    if (response.status == 'success') {
+      return response.data;
+    } else {
+      throw Exception('API Error: ${response.message}');
+    }
+  }
+
+  @override
+  Future<List<LeaveGroup>> getLeaveHistory() async {
+    final response = await remoteSource.getLeaveHistory();
+    if (response.status == 'success') {
+      return response.data;
+    } else {
+      throw Exception('API Error: ${response.message}');
+    }
+  }
+
+  @override
+  Future<LeaveDetail> getLeaveDetail({required int id}) async {
+    final response = await remoteSource.getLeaveDetail(id: id);
     if (response.status == 'success') {
       return response.data;
     } else {

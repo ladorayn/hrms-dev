@@ -11,8 +11,8 @@ class LeaveType with _$LeaveType {
     required String description,
     required String gender,
     @JsonKey(name: 'quota_configuration') required String quotaConfiguration,
-    @JsonKey(name: 'created_at') required DateTime createdAt,
-    @JsonKey(name: 'updated_at') required DateTime updatedAt,
+    @JsonKey(name: 'created_at') required String createdAt,
+    @JsonKey(name: 'updated_at') required String updatedAt,
     required List<Entitlement> entitlements,
   }) = _LeaveType;
 
@@ -31,9 +31,9 @@ class Entitlement with _$Entitlement {
     @JsonKey(name: 'max_carry_over_days') required int maxCarryOverDays,
     @JsonKey(name: 'deduct_employee_balance')
     required bool deductEmployeeBalance,
-    @JsonKey(name: 'carry_over_expiry') DateTime? carryOverExpiry,
-    @JsonKey(name: 'created_at') required DateTime createdAt,
-    @JsonKey(name: 'updated_at') required DateTime updatedAt,
+    @JsonKey(name: 'carry_over_expiry') String? carryOverExpiry,
+    @JsonKey(name: 'created_at') required String createdAt,
+    @JsonKey(name: 'updated_at') required String updatedAt,
   }) = _Entitlement;
 
   factory Entitlement.fromJson(Map<String, dynamic> json) =>

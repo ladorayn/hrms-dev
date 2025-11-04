@@ -1,34 +1,87 @@
-// lib/core/widgets/leave_type_chip.dart
-
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:hrms_mobile/application/assets/i_assets.dart';
+import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/application/theme/i_theme.dart';
-import 'package:hrms_mobile/core/enums/leave_type_enum.dart';
 
-class LeaveTypeChip extends StatelessWidget {
-  final LeaveType type;
+enum LeaveStatusEnum {
+  // Success
+  approved, // 1
 
-  const LeaveTypeChip({
+  // Warning
+  pending, // 2
+
+  // Error
+  rejected, // 3
+}
+
+class LeaveStatusChip extends StatelessWidget {
+  final int status;
+  final String statusLabel;
+  final double? fontSize;
+
+  const LeaveStatusChip({
     super.key,
-    required this.type,
+    required this.status,
+    required this.statusLabel,
+    this.fontSize,
   });
 
   @override
   Widget build(BuildContext context) {
-    // Logic is now cleanly handled by the extension
-    final chipColors = type.colors;
+    // --- Status Config ---
+    final String statusText;
+    final String statusIconAsset;
+    final Color statusBackgroundColor;
+    final Color statusTextColor;
+
+    switch (status) {
+      case 1:
+        statusText = statusLabel;
+        statusIconAsset = IAssets.warningClock;
+        statusBackgroundColor = IColors.light.warning.background;
+        statusTextColor = IColors.light.warning.hover;
+      case 2:
+        statusText = statusLabel;
+        statusIconAsset = IAssets.onTimeClock;
+        statusBackgroundColor = IColors.light.success.background;
+        statusTextColor = IColors.light.success.hover;
+        break;
+      case 3:
+        statusText = statusLabel;
+        statusIconAsset = IAssets.redClose;
+        statusBackgroundColor = IColors.light.error.background;
+        statusTextColor = IColors.light.error.hover;
+        break;
+      default:
+        statusText = statusLabel;
+        statusIconAsset = IAssets.warningClock;
+        statusBackgroundColor = IColors.light.warning.background;
+        statusTextColor = IColors.light.warning.hover;
+        break;
+    }
 
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
+      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
       decoration: BoxDecoration(
-        color: chipColors.background, // Use color from extension
+        color: statusBackgroundColor,
         borderRadius: const BorderRadius.all(Radius.circular(20)),
       ),
-      child: Text(
-        type.displayName, // Use display name from extension
-        style: ITheme.light.textTheme.labelSmall?.copyWith(
-          color: chipColors.foreground, // Use color from extension
-          fontWeight: FontWeight.w600,
-        ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SvgPicture.asset(
+            statusIconAsset,
+            height: 14.0,
+            width: 14.0,
+          ),
+          const SizedBox(width: 4.0),
+          Text(
+            statusText,
+            style: ITheme.light.textTheme.labelSmall
+                ?.copyWith(color: statusTextColor, fontSize: fontSize),
+          ),
+        ],
       ),
     );
   }

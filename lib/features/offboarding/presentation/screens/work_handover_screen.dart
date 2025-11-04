@@ -117,7 +117,7 @@ class _WorkHandoverScreenState extends ConsumerState<WorkHandoverScreen> {
             item.selectedEmployees.map((emp) {
           return RecipientRequest(
             userId: emp.id ?? 0,
-            status: emp.status ?? 0,
+            status: 1,
           );
         }).toList();
 
@@ -306,80 +306,105 @@ class _EmployeeSelectionSheetState
 
     return DraggableScrollableSheet(
       initialChildSize: 0.8,
-      maxChildSize: 0.8,
+      minChildSize: 0.4,
+      maxChildSize: 0.95,
       expand: false,
-      builder: (_, controller) {
-        controller.removeListener(() => _onScroll(controller));
-        controller.addListener(() => _onScroll(controller));
+      builder: (_, scrollController) {
+        scrollController.removeListener(() => _onScroll(scrollController));
+        scrollController.addListener(() => _onScroll(scrollController));
 
-        return Padding(
-          padding: EdgeInsets.all(16.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Employees', style: Theme.of(context).textTheme.titleLarge),
-              SizedBox(height: 16.h),
-              TextField(
-                controller: _searchController,
-                decoration: InputDecoration(
-                  hintText: 'Search Employee',
-                  prefixIcon: const Icon(Icons.search),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.r),
+        return Container(
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+          ),
+          child: SafeArea(
+            top: false,
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 8.h),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Employees',
+                          style: Theme.of(context).textTheme.titleLarge),
+                      SizedBox(height: 12.h),
+                      TextField(
+                        controller: _searchController,
+                        decoration: InputDecoration(
+                          hintText: 'Search Employee',
+                          prefixIcon: const Icon(Icons.search),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12.r),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-              SizedBox(height: 16.h),
-              Expanded(
-                child: asyncEmployees.when(
-                  data: (paginatedResponse) {
-                    final employees = paginatedResponse.data;
-                    return ListView.builder(
-                      controller: controller,
-                      itemCount: employees.length,
-                      itemBuilder: (context, index) {
-                        final employee = employees[index];
-                        final isSelected =
-                            _tempSelectedEmployees.contains(employee);
-                        return CheckboxListTile(
-                          title: Text(employee.name ?? '-'),
-                          subtitle: Text(employee.jobPosition ?? '-'),
-                          value: isSelected,
-                          onChanged: (bool? value) {
-                            setState(() {
-                              if (value == true) {
-                                _tempSelectedEmployees.add(employee);
-                              } else {
-                                _tempSelectedEmployees.remove(employee);
-                              }
-                            });
-                          },
-                        );
-                      },
-                    );
-                  },
-                  loading: () =>
-                      const Center(child: CircularProgressIndicator()),
-                  error: (e, s) => Center(child: Text('Error: $e')),
-                ),
-              ),
-              SizedBox(height: 16.h),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context, _tempSelectedEmployees);
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: IColors.light.primary.main,
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide(color: IColors.light.primary.main),
-                    borderRadius: BorderRadius.circular(8),
+                Expanded(
+                  child: asyncEmployees.when(
+                    data: (paginatedResponse) {
+                      final employees = paginatedResponse.data;
+
+                      return ListView.builder(
+                        controller: scrollController,
+                        padding: EdgeInsets.only(
+                          left: 16.w,
+                          right: 16.w,
+                          bottom: 100.h,
+                        ),
+                        itemCount: employees.length,
+                        itemBuilder: (context, index) {
+                          final employee = employees[index];
+                          final isSelected =
+                              _tempSelectedEmployees.contains(employee);
+
+                          return CheckboxListTile(
+                            title: Text(employee.name ?? '-'),
+                            subtitle: Text(employee.jobPosition ?? '-'),
+                            value: isSelected,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                if (value == true) {
+                                  _tempSelectedEmployees.add(employee);
+                                } else {
+                                  _tempSelectedEmployees.remove(employee);
+                                }
+                              });
+                            },
+                          );
+                        },
+                      );
+                    },
+                    loading: () =>
+                        const Center(child: CircularProgressIndicator()),
+                    error: (e, s) => Center(child: Text('Error: $e')),
                   ),
-                  minimumSize: Size(double.infinity, 48.h),
                 ),
-                child: const Text('Done'),
-              )
-            ],
+                Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.fromLTRB(16.w, 12.h, 16.w, 24.h),
+                  color: Colors.white,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context, _tempSelectedEmployees);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: IColors.light.primary.main,
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(color: IColors.light.primary.main),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      minimumSize: Size(double.infinity, 48.h),
+                    ),
+                    child: const Text('Done'),
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },

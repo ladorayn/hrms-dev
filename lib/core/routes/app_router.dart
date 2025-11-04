@@ -204,7 +204,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: RoutePaths.leaveDetail,
         name: RoutePaths.leaveDetailName,
         builder: (context, state) {
-          return LeaveRequestDetailScreen();
+          final id = state.extra as int;
+          return LeaveRequestDetailScreen(
+            leaveId: id,
+          );
         },
       ),
       GoRoute(

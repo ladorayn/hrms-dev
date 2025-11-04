@@ -2,6 +2,7 @@
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart'; // Assuming your assets are here
 import 'package:hrms_mobile/application/theme/i_colors.dart';
@@ -9,11 +10,13 @@ import 'package:path/path.dart' as p;
 
 class IFilePicker extends StatefulWidget {
   final String title;
+  final String? errorText;
   final Function(PlatformFile?) onFileSelected;
 
   const IFilePicker({
     super.key,
     this.title = "Attachments",
+    this.errorText,
     required this.onFileSelected,
   });
 
@@ -58,17 +61,31 @@ class _IFilePickerState extends State<IFilePicker> {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
+    final defaultErrorStyle =
+        textTheme.labelSmall?.copyWith(color: colorScheme.error);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(widget.title, style: textTheme.bodySmall),
         const SizedBox(height: 8),
-
-        // Show the selected file card or the upload button
         if (_selectedFile != null)
           _buildFileCard(context)
         else
           _buildUploadButton(),
+        Visibility(
+          visible: widget.errorText != null,
+          child: SizedBox(
+            height: 18.h,
+            child: Text(
+              widget.errorText.toString(),
+              style: defaultErrorStyle,
+            ),
+          ),
+        ),
       ],
     );
   }

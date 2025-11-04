@@ -27,9 +27,9 @@ mixin _$LeaveType {
   @JsonKey(name: 'quota_configuration')
   String get quotaConfiguration => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
-  DateTime get createdAt => throw _privateConstructorUsedError;
+  String get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'updated_at')
-  DateTime get updatedAt => throw _privateConstructorUsedError;
+  String get updatedAt => throw _privateConstructorUsedError;
   List<Entitlement> get entitlements => throw _privateConstructorUsedError;
 
   /// Serializes this LeaveType to a JSON map.
@@ -53,8 +53,8 @@ abstract class $LeaveTypeCopyWith<$Res> {
       String description,
       String gender,
       @JsonKey(name: 'quota_configuration') String quotaConfiguration,
-      @JsonKey(name: 'created_at') DateTime createdAt,
-      @JsonKey(name: 'updated_at') DateTime updatedAt,
+      @JsonKey(name: 'created_at') String createdAt,
+      @JsonKey(name: 'updated_at') String updatedAt,
       List<Entitlement> entitlements});
 }
 
@@ -106,11 +106,11 @@ class _$LeaveTypeCopyWithImpl<$Res, $Val extends LeaveType>
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
       updatedAt: null == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
       entitlements: null == entitlements
           ? _value.entitlements
           : entitlements // ignore: cast_nullable_to_non_nullable
@@ -133,8 +133,8 @@ abstract class _$$LeaveTypeImplCopyWith<$Res>
       String description,
       String gender,
       @JsonKey(name: 'quota_configuration') String quotaConfiguration,
-      @JsonKey(name: 'created_at') DateTime createdAt,
-      @JsonKey(name: 'updated_at') DateTime updatedAt,
+      @JsonKey(name: 'created_at') String createdAt,
+      @JsonKey(name: 'updated_at') String updatedAt,
       List<Entitlement> entitlements});
 }
 
@@ -184,11 +184,11 @@ class __$$LeaveTypeImplCopyWithImpl<$Res>
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
       updatedAt: null == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
       entitlements: null == entitlements
           ? _value._entitlements
           : entitlements // ignore: cast_nullable_to_non_nullable
@@ -227,10 +227,10 @@ class _$LeaveTypeImpl implements _LeaveType {
   final String quotaConfiguration;
   @override
   @JsonKey(name: 'created_at')
-  final DateTime createdAt;
+  final String createdAt;
   @override
   @JsonKey(name: 'updated_at')
-  final DateTime updatedAt;
+  final String updatedAt;
   final List<Entitlement> _entitlements;
   @override
   List<Entitlement> get entitlements {
@@ -301,8 +301,8 @@ abstract class _LeaveType implements LeaveType {
       required final String gender,
       @JsonKey(name: 'quota_configuration')
       required final String quotaConfiguration,
-      @JsonKey(name: 'created_at') required final DateTime createdAt,
-      @JsonKey(name: 'updated_at') required final DateTime updatedAt,
+      @JsonKey(name: 'created_at') required final String createdAt,
+      @JsonKey(name: 'updated_at') required final String updatedAt,
       required final List<Entitlement> entitlements}) = _$LeaveTypeImpl;
 
   factory _LeaveType.fromJson(Map<String, dynamic> json) =
@@ -321,10 +321,10 @@ abstract class _LeaveType implements LeaveType {
   String get quotaConfiguration;
   @override
   @JsonKey(name: 'created_at')
-  DateTime get createdAt;
+  String get createdAt;
   @override
   @JsonKey(name: 'updated_at')
-  DateTime get updatedAt;
+  String get updatedAt;
   @override
   List<Entitlement> get entitlements;
 
@@ -356,11 +356,11 @@ mixin _$Entitlement {
   @JsonKey(name: 'deduct_employee_balance')
   bool get deductEmployeeBalance => throw _privateConstructorUsedError;
   @JsonKey(name: 'carry_over_expiry')
-  DateTime? get carryOverExpiry => throw _privateConstructorUsedError;
+  String? get carryOverExpiry => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
-  DateTime get createdAt => throw _privateConstructorUsedError;
+  String get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'updated_at')
-  DateTime get updatedAt => throw _privateConstructorUsedError;
+  String get updatedAt => throw _privateConstructorUsedError;
 
   /// Serializes this Entitlement to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -386,9 +386,9 @@ abstract class $EntitlementCopyWith<$Res> {
       @JsonKey(name: 'carry_over_allowed') bool carryOverAllowed,
       @JsonKey(name: 'max_carry_over_days') int maxCarryOverDays,
       @JsonKey(name: 'deduct_employee_balance') bool deductEmployeeBalance,
-      @JsonKey(name: 'carry_over_expiry') DateTime? carryOverExpiry,
-      @JsonKey(name: 'created_at') DateTime createdAt,
-      @JsonKey(name: 'updated_at') DateTime updatedAt});
+      @JsonKey(name: 'carry_over_expiry') String? carryOverExpiry,
+      @JsonKey(name: 'created_at') String createdAt,
+      @JsonKey(name: 'updated_at') String updatedAt});
 }
 
 /// @nodoc
@@ -449,15 +449,15 @@ class _$EntitlementCopyWithImpl<$Res, $Val extends Entitlement>
       carryOverExpiry: freezed == carryOverExpiry
           ? _value.carryOverExpiry
           : carryOverExpiry // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as String?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
       updatedAt: null == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
     ) as $Val);
   }
 }
@@ -478,9 +478,9 @@ abstract class _$$EntitlementImplCopyWith<$Res>
       @JsonKey(name: 'carry_over_allowed') bool carryOverAllowed,
       @JsonKey(name: 'max_carry_over_days') int maxCarryOverDays,
       @JsonKey(name: 'deduct_employee_balance') bool deductEmployeeBalance,
-      @JsonKey(name: 'carry_over_expiry') DateTime? carryOverExpiry,
-      @JsonKey(name: 'created_at') DateTime createdAt,
-      @JsonKey(name: 'updated_at') DateTime updatedAt});
+      @JsonKey(name: 'carry_over_expiry') String? carryOverExpiry,
+      @JsonKey(name: 'created_at') String createdAt,
+      @JsonKey(name: 'updated_at') String updatedAt});
 }
 
 /// @nodoc
@@ -539,15 +539,15 @@ class __$$EntitlementImplCopyWithImpl<$Res>
       carryOverExpiry: freezed == carryOverExpiry
           ? _value.carryOverExpiry
           : carryOverExpiry // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as String?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
       updatedAt: null == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
     ));
   }
 }
@@ -593,13 +593,13 @@ class _$EntitlementImpl implements _Entitlement {
   final bool deductEmployeeBalance;
   @override
   @JsonKey(name: 'carry_over_expiry')
-  final DateTime? carryOverExpiry;
+  final String? carryOverExpiry;
   @override
   @JsonKey(name: 'created_at')
-  final DateTime createdAt;
+  final String createdAt;
   @override
   @JsonKey(name: 'updated_at')
-  final DateTime updatedAt;
+  final String updatedAt;
 
   @override
   String toString() {
@@ -673,10 +673,10 @@ abstract class _Entitlement implements Entitlement {
       @JsonKey(name: 'max_carry_over_days') required final int maxCarryOverDays,
       @JsonKey(name: 'deduct_employee_balance')
       required final bool deductEmployeeBalance,
-      @JsonKey(name: 'carry_over_expiry') final DateTime? carryOverExpiry,
-      @JsonKey(name: 'created_at') required final DateTime createdAt,
+      @JsonKey(name: 'carry_over_expiry') final String? carryOverExpiry,
+      @JsonKey(name: 'created_at') required final String createdAt,
       @JsonKey(name: 'updated_at')
-      required final DateTime updatedAt}) = _$EntitlementImpl;
+      required final String updatedAt}) = _$EntitlementImpl;
 
   factory _Entitlement.fromJson(Map<String, dynamic> json) =
       _$EntitlementImpl.fromJson;
@@ -703,13 +703,13 @@ abstract class _Entitlement implements Entitlement {
   bool get deductEmployeeBalance;
   @override
   @JsonKey(name: 'carry_over_expiry')
-  DateTime? get carryOverExpiry;
+  String? get carryOverExpiry;
   @override
   @JsonKey(name: 'created_at')
-  DateTime get createdAt;
+  String get createdAt;
   @override
   @JsonKey(name: 'updated_at')
-  DateTime get updatedAt;
+  String get updatedAt;
 
   /// Create a copy of Entitlement
   /// with the given fields replaced by the non-null parameter values.

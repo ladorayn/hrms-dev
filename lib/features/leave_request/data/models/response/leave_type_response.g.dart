@@ -13,8 +13,8 @@ _$LeaveTypeImpl _$$LeaveTypeImplFromJson(Map<String, dynamic> json) =>
       description: json['description'] as String,
       gender: json['gender'] as String,
       quotaConfiguration: json['quota_configuration'] as String,
-      createdAt: DateTime.parse(json['created_at'] as String),
-      updatedAt: DateTime.parse(json['updated_at'] as String),
+      createdAt: json['created_at'] as String,
+      updatedAt: json['updated_at'] as String,
       entitlements: (json['entitlements'] as List<dynamic>)
           .map((e) => Entitlement.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -27,8 +27,8 @@ Map<String, dynamic> _$$LeaveTypeImplToJson(_$LeaveTypeImpl instance) =>
       'description': instance.description,
       'gender': instance.gender,
       'quota_configuration': instance.quotaConfiguration,
-      'created_at': instance.createdAt.toIso8601String(),
-      'updated_at': instance.updatedAt.toIso8601String(),
+      'created_at': instance.createdAt,
+      'updated_at': instance.updatedAt,
       'entitlements': instance.entitlements,
     };
 
@@ -41,11 +41,9 @@ _$EntitlementImpl _$$EntitlementImplFromJson(Map<String, dynamic> json) =>
       carryOverAllowed: json['carry_over_allowed'] as bool,
       maxCarryOverDays: (json['max_carry_over_days'] as num).toInt(),
       deductEmployeeBalance: json['deduct_employee_balance'] as bool,
-      carryOverExpiry: json['carry_over_expiry'] == null
-          ? null
-          : DateTime.parse(json['carry_over_expiry'] as String),
-      createdAt: DateTime.parse(json['created_at'] as String),
-      updatedAt: DateTime.parse(json['updated_at'] as String),
+      carryOverExpiry: json['carry_over_expiry'] as String?,
+      createdAt: json['created_at'] as String,
+      updatedAt: json['updated_at'] as String,
     );
 
 Map<String, dynamic> _$$EntitlementImplToJson(_$EntitlementImpl instance) =>
@@ -57,7 +55,7 @@ Map<String, dynamic> _$$EntitlementImplToJson(_$EntitlementImpl instance) =>
       'carry_over_allowed': instance.carryOverAllowed,
       'max_carry_over_days': instance.maxCarryOverDays,
       'deduct_employee_balance': instance.deductEmployeeBalance,
-      'carry_over_expiry': instance.carryOverExpiry?.toIso8601String(),
-      'created_at': instance.createdAt.toIso8601String(),
-      'updated_at': instance.updatedAt.toIso8601String(),
+      'carry_over_expiry': instance.carryOverExpiry,
+      'created_at': instance.createdAt,
+      'updated_at': instance.updatedAt,
     };

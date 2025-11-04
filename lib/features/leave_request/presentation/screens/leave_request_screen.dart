@@ -1,7 +1,5 @@
-// features/profile/presentation/screens/profile_screen.dart
-
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart'; // Import Riverpod
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
@@ -9,10 +7,9 @@ import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/features/leave_request/data/models/response/leave_balance_response.dart';
+import 'package:hrms_mobile/features/leave_request/presentation/providers/leave_provider.dart';
 import 'package:hrms_mobile/features/leave_request/presentation/widgets/leave_request_history.dart';
 import 'package:hrms_mobile/features/leave_request/presentation/widgets/statistics_card.dart';
-
-import '../providers/leave_provider.dart';
 
 class LeaveRequestScreen extends ConsumerWidget {
   const LeaveRequestScreen({super.key});
@@ -22,37 +19,9 @@ class LeaveRequestScreen extends ConsumerWidget {
     final textTheme = Theme.of(context).textTheme;
 
     final leaveBalanceAsync = ref.watch(leaveBalanceProvider);
-
-    final groupedRequests = {
-      'December 2025': [
-        LeaveRequest(
-          leaveType: 'Annual Leave',
-          status: 0, // Waiting for Approval
-          statusLabel: 'Waiting for Approval',
-          startDate: DateTime(2025, 12, 21),
-          endDate: DateTime(2025, 12, 23),
-        ),
-        LeaveRequest(
-          leaveType: 'Sick Leave',
-          status: 1, // Approved
-          statusLabel: 'Approved',
-          startDate: DateTime(2025, 12, 2),
-          endDate: DateTime(2025, 12, 4),
-        ),
-      ],
-      'September 2025': [
-        LeaveRequest(
-          leaveType: 'Sick Leave',
-          status: 1, // Approved
-          statusLabel: 'Approved',
-          startDate: DateTime(2025, 9, 2),
-          endDate: DateTime(2025, 9, 4),
-        ),
-      ],
-    };
+    final leaveHistoryAsync = ref.watch(leaveHistoriesProvider);
 
     ref.listen<AsyncValue>(leaveBalanceProvider, (previous, next) {
-      // Show a SnackBar if the new state is an error
       if (next is AsyncError) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -62,7 +31,6 @@ class LeaveRequestScreen extends ConsumerWidget {
       }
     });
 
-    final months = groupedRequests.keys.toList();
     return Scaffold(
       appBar: IAppBar(
         title: "Leave Request",
@@ -83,9 +51,11 @@ class LeaveRequestScreen extends ConsumerWidget {
                   padding: const EdgeInsets.only(top: 20.0),
                   child: Column(
                     children: [
+                      // --- (StatisticsCard and Button are unchanged) ---
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20.0),
                         child: leaveBalanceAsync.when(
+                          // ... (rest of leaveBalanceAsync.when)
                           skipError: true,
                           data: (balance) {
                             return StatisticsCard(balance: balance);
@@ -97,7 +67,6 @@ class LeaveRequestScreen extends ConsumerWidget {
                             );
                           },
                           error: (err, stack) {
-                            // On ERROR, show an error message
                             return const StatisticsCard(
                               balance: LeaveBalanceResponse(
                                   timeOffUsed: 0, availableTimeOff: 0),
@@ -109,6 +78,7 @@ class LeaveRequestScreen extends ConsumerWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20.0),
                         child: ElevatedButton(
+                          // ... (button style)
                           style: ElevatedButton.styleFrom(
                             backgroundColor: IColors.light.primary.main,
                             foregroundColor: Colors.white,
@@ -147,36 +117,48 @@ class LeaveRequestScreen extends ConsumerWidget {
                                 ),
                                 const SizedBox(height: 16),
                                 Expanded(
-                                  // This ListView will scroll inside its parent Expanded container
-                                  child: ListView.builder(
-                                    itemCount: months.length,
-                                    itemBuilder: (context, index) {
-                                      final month = months[index];
-                                      final requestsInMonth =
-                                          groupedRequests[month]!;
+                                  // --- Use the provider's .when() here ---
+                                  child: leaveHistoryAsync.when(
+                                    data: (leaveGroups) {
+                                      if (leaveGroups.isEmpty) {
+                                        return const Center(
+                                          child:
+                                              Text("No leave history found."),
+                                        );
+                                      }
+                                      // --- This ListView is now built from REAL data ---
+                                      return ListView.builder(
+                                        itemCount: leaveGroups.length,
+                                        itemBuilder: (context, index) {
+                                          final group = leaveGroups[index];
+                                          final requestsInMonth = group.leaves;
 
-                                      return Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          // Month Header
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                bottom: 8.0),
-                                            child: Text(month,
-                                                style: textTheme.titleSmall),
-                                          ),
-                                          // List of requests for that month
-                                          ...requestsInMonth.map(
-                                            (request) => LeaveRequestItem(
-                                                request: request),
-                                          ),
-                                          const SizedBox(
-                                              height:
-                                                  20), // Space between months
-                                        ],
+                                          return Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    bottom: 8.0),
+                                                child: Text(group.label,
+                                                    style:
+                                                        textTheme.titleSmall),
+                                              ),
+                                              ...requestsInMonth.map(
+                                                (request) => LeaveRequestItem(
+                                                    request: request),
+                                              ),
+                                              const SizedBox(height: 20),
+                                            ],
+                                          );
+                                        },
                                       );
                                     },
+                                    loading: () => const Center(
+                                        child: CircularProgressIndicator()),
+                                    error: (err, stack) => Center(
+                                        child: Text(
+                                            "Failed to load history: $err")),
                                   ),
                                 ),
                               ],
