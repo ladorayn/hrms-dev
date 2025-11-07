@@ -361,15 +361,16 @@ class AttendanceCard extends StatelessWidget {
           ),
           SizedBox(height: 32.sp),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               _buildTimeColumn(
                   context, "Clock-In", _formatTime(item.clock.inAt)),
-              _buildDurationDisplay(
-                  context,
-                  item.clock.duration != null
-                      ? item.clock.duration.toString()
-                      : '0h 0m'),
+              Expanded(
+                child: _buildDurationDisplay(
+                    context,
+                    item.clock.duration != null
+                        ? item.clock.duration.toString()
+                        : '0h 0m'),
+              ),
               IntrinsicHeight(
                 child: Row(
                   children: [
@@ -386,7 +387,7 @@ class AttendanceCard extends StatelessWidget {
                         isEnd: true),
                   ],
                 ),
-              ), // Placeholder
+              ),
             ],
           ),
           const SizedBox(height: 16),
@@ -421,14 +422,19 @@ class AttendanceCard extends StatelessWidget {
       children: [
         SizedBox(height: 20.sp),
         Row(
+          // mainAxisAlignment: MainAxisAlignment.center, // This is no longer needed
           children: [
-            Container(
-                height: 1, width: 20.sp, color: IColors.light.grayscale.g20),
+            // Use Expanded for the line
+            Expanded(
+              child: Container(height: 1, color: IColors.light.grayscale.g20),
+            ),
             SizedBox(width: 4.sp),
             Text(duration, style: Theme.of(context).textTheme.bodySmall),
             SizedBox(width: 4.sp),
-            Container(
-                height: 1, width: 20.sp, color: IColors.light.grayscale.g20),
+            // Use Expanded for the other line
+            Expanded(
+              child: Container(height: 1, color: IColors.light.grayscale.g20),
+            ),
           ],
         ),
       ],

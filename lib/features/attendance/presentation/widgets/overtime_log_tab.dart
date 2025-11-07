@@ -18,6 +18,7 @@ import 'package:intl/intl.dart';
 
 class OvertimeLogTab extends ConsumerStatefulWidget {
   const OvertimeLogTab({super.key});
+
   @override
   ConsumerState<OvertimeLogTab> createState() => _OvertimeLogTabState();
 }
@@ -263,6 +264,7 @@ class _OvertimeLogTabState extends ConsumerState<OvertimeLogTab> {
 
 class OvertimeRequestCard extends StatelessWidget {
   final OvertimeDetail item;
+
   const OvertimeRequestCard({super.key, required this.item});
 
   String _formatDate(String dateStr) {
@@ -358,7 +360,7 @@ class OvertimeRequestCard extends StatelessWidget {
               StatusChip(
                 status: item.status ?? 0,
                 statusLabel: item.statusLabel ?? '',
-                event: 'attendance',
+                event: 'overtime',
               ),
             ],
           ),

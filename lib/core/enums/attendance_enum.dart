@@ -3,6 +3,7 @@ enum AttendanceEnum {
   clockOut("clock-out");
 
   final String label;
+
   const AttendanceEnum(this.label);
 
   static AttendanceEnum? fromLabel(String value) {
@@ -17,6 +18,8 @@ enum AttendanceEnum {
       case "clock_in":
         return true;
       case "clock_out":
+        return true;
+      case "attendance":
         return true;
       default:
         return false;

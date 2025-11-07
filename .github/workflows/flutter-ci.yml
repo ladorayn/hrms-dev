@@ -1,4 +1,4 @@
-name: Flutter CI - Build & Release APK (Auto Increment)
+name: Flutter CI - Build & Release APK (Safe Build)
 
 on:
   push:
@@ -24,11 +24,26 @@ jobs:
           flutter-version: '3.29.0'
           channel: stable
 
-      # 3️⃣ Install dependencies
+      # 3️⃣ Cache pub dependencies for faster builds
+      - name: Cache Flutter dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.pub-cache
+            ${{ github.workspace }}/.dart_tool
+          key: ${{ runner.os }}-flutter-${{ hashFiles('pubspec.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-flutter-
+
+      # 4️⃣ Clean project to avoid asset/UI cache issues
+      - name: Flutter clean
+        run: flutter clean
+
+      # 5️⃣ Install dependencies
       - name: Install dependencies
         run: flutter pub get
 
-      # 4️⃣ Extract version info
+      # 6️⃣ Extract version info
       - name: Prepare version info
         id: version
         run: |
@@ -44,14 +59,16 @@ jobs:
           echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
           echo "RELEASE_NAME=$RELEASE_NAME" >> $GITHUB_ENV
 
-      # 5️⃣ Build release APK (no pubspec modification)
+      # 7️⃣ Build release APK safely
       - name: Build release APK
         run: |
-          flutter build apk --release --no-tree-shake-icons \
+          flutter build apk --release \
+            --no-tree-shake-icons \
+            --no-shrink \
             --build-name $VERSION_NAME \
             --build-number $VERSION_CODE
 
-      # 6️⃣ Rename APK file uniquely
+      # 8️⃣ Rename APK file uniquely
       - name: Rename APK
         run: |
           mkdir -p build/artifacts
@@ -59,14 +76,14 @@ jobs:
             build/artifacts/app-release-${VERSION_NAME}+${VERSION_CODE}-${DATE}.apk
           echo "APK_PATH=build/artifacts/app-release-${VERSION_NAME}+${VERSION_CODE}-${DATE}.apk" >> $GITHUB_ENV
 
-      # 7️⃣ Upload as artifact (for quick download)
+      # 9️⃣ Upload as artifact (for quick download)
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: app-release-${{ env.VERSION_NAME }}+${{ env.VERSION_CODE }}
           path: ${{ env.APK_PATH }}
 
-      # 8️⃣ Create GitHub Release and attach APK
+      # 🔟 Create GitHub Release and attach APK
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
@@ -77,6 +94,11 @@ jobs:
             - Version: `${{ env.VERSION_NAME }}+${{ env.VERSION_CODE }}`
             - Date: `${{ env.DATE }}`
             - Triggered by: `${{ github.actor }}`
+
+            🧱 **Important Notes**
+            - Please uninstall the old version before installing this APK.
+            - Built with `--no-shrink` and `--no-tree-shake-icons` to prevent UI or icon issues.
+            - Each build is clean-compiled for reliable testing.
 
             🔔 **Build successful!** Notifying @JuicyBurger
           files: ${{ env.APK_PATH }}
