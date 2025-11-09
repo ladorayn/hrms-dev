@@ -2,14 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/application/theme/i_theme.dart';
+import 'package:hrms_mobile/core/data/models/employees/employee_profile_response.dart';
+import 'package:hrms_mobile/core/util/datetime_utils.dart';
 import 'package:hrms_mobile/features/profile/presentation/widgets/detail/profile_detail_item.dart';
-import 'package:hrms_mobile/features/profile/presentation/widgets/detail/section_title.dart';
 
 class EmployeeInfoSection extends StatelessWidget {
-  const EmployeeInfoSection({super.key});
+  final EmployeeProfile profile;
+
+  const EmployeeInfoSection({super.key, required this.profile});
 
   @override
   Widget build(BuildContext context) {
+    final employment = profile.employment;
+
+    final primaryReportNames = profile.reportingRelationships
+            ?.where((r) => r.relationshipType == 'primary')
+            .map((r) => r.name ?? 'Unknown')
+            .toList() ??
+        [];
+    final primaryReportValue =
+        primaryReportNames.isEmpty ? '-' : primaryReportNames.join('; ');
+
+    final additionalReportNames = profile.reportingRelationships
+            ?.where((r) => r.relationshipType != 'primary')
+            .map((r) => r.name ?? 'Unknown')
+            .toList() ??
+        [];
+    final additionalReportValue =
+        additionalReportNames.isEmpty ? '-' : additionalReportNames.join('; ');
+
+    // --- Logic for Teams ---
+    final teams = profile.teamMembers ?? [];
+
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
@@ -19,8 +43,6 @@ class EmployeeInfoSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SectionTitle("Employee Information"),
-          SizedBox(height: 16.h),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -29,38 +51,41 @@ class EmployeeInfoSection extends StatelessWidget {
                 children: [
                   Expanded(
                       child: ProfileDetailItem(
-                          label: "Position", value: "Product Designer")),
+                          label: "Position",
+                          value: employment?.jobPosition?.name ?? '-')),
                   SizedBox(width: 16.w),
                   Expanded(
                       child: ProfileDetailItem(
-                          label: "Department", value: "Managerial")),
+                          label: "Department",
+                          value: employment?.department?.name ?? '-')),
                 ],
               ),
               SizedBox(height: 16.h),
-              ProfileDetailItem(label: "Job Level", value: "Staff"),
+              ProfileDetailItem(
+                  label: "Job Level", value: employment?.jobLevel?.name ?? '-'),
               SizedBox(height: 16.h),
               ProfileDetailItem(
-                  label: "Primary Direct Report",
-                  value:
-                      "Demi Wilkinson (Head of Product Designer); Phoenix Baker (COO)"),
-              SizedBox(height: 16.h),
-              ProfileDetailItem(
-                  label: "Additional Direct Report",
-                  value: "Glenn Robert (CPO)"),
-              SizedBox(height: 16.h),
-              ProfileDetailItem(label: "Team", value: null),
-              Wrap(
-                spacing: 8.w,
-                runSpacing: 8.h,
-                children: [
-                  _buildTeamChip("Team Creative"),
-                  _buildTeamChip("Team Marketing"),
-                  _buildTeamChip("Team Production"),
-                  _buildTeamChip("Team Production"),
-                  _buildTeamChip("Team Production"),
-                  _buildTeamChip("Team Production"),
-                ],
+                label: "Primary Direct Report",
+                value: primaryReportValue,
               ),
+              SizedBox(height: 16.h),
+              ProfileDetailItem(
+                label: "Additional Direct Report",
+                value: additionalReportValue,
+              ),
+              SizedBox(height: 16.h),
+              ProfileDetailItem(
+                label: "Team",
+                value: teams.isEmpty ? "No team assigned" : null,
+              ),
+              if (teams.isNotEmpty)
+                Wrap(
+                  spacing: 8.w,
+                  runSpacing: 8.h,
+                  children: [
+                    ...teams.map((team) => _buildTeamChip(team.name ?? '-')),
+                  ],
+                ),
               SizedBox(height: 16.h),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,11 +93,14 @@ class EmployeeInfoSection extends StatelessWidget {
                   Expanded(
                       child: ProfileDetailItem(
                           label: "Employment Start Date",
-                          value: "December 2, 2018")),
+                          value: DateTimeHelper.formatDate(
+                              employment?.startDate ?? '-'))),
                   SizedBox(width: 16.w),
                   Expanded(
                       child: ProfileDetailItem(
-                          label: "Employment End Date", value: "-")),
+                          label: "Employment End Date",
+                          value: DateTimeHelper.formatDate(
+                              employment?.endDate ?? '-'))),
                 ],
               ),
             ],

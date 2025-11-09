@@ -12,11 +12,13 @@ class ITextFieldSocial extends StatefulWidget {
     this.onTypeSelected,
     this.usernameController,
     this.onRemove,
+    this.type,
   });
 
   final Function(String)? onTypeSelected;
   final TextEditingController? usernameController;
   final VoidCallback? onRemove;
+  final String? type;
 
   @override
   State<ITextFieldSocial> createState() => _ITextFieldSocialState();
@@ -34,9 +36,14 @@ class _ITextFieldSocialState extends State<ITextFieldSocial> {
       case 'LinkedIn':
         return IAssets.linkedin;
       default:
-        // Use a default icon or the first one as a fallback
         return IAssets.imagePlaceholder;
     }
+  }
+
+  @override
+  void initState() {
+    _selectedType = widget.type;
+    super.initState();
   }
 
   @override

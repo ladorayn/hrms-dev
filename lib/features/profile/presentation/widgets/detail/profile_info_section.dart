@@ -2,16 +2,47 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
+import 'package:hrms_mobile/core/data/models/employees/employee_profile_response.dart';
+import 'package:hrms_mobile/core/util/datetime_utils.dart';
+import 'package:hrms_mobile/core/util/i_strings_utils.dart';
 import 'package:hrms_mobile/features/profile/presentation/widgets/detail/profile_detail_item.dart';
 import 'package:hrms_mobile/features/profile/presentation/widgets/detail/section_title.dart';
+import 'package:intl/intl.dart'; // Import for date formatting
 
 class PersonalInfoSection extends StatelessWidget {
-  const PersonalInfoSection({super.key});
+  final EmployeeProfile profile;
+
+  const PersonalInfoSection({super.key, required this.profile});
+
+  /// Helper to get the correct icon path from the social media type
+  String _getSocialIconPath(String? type) {
+    switch (type) {
+      case 'instagram':
+        return IAssets.instagram;
+      case 'twitter':
+        return IAssets.twitter;
+      case 'linkedin':
+        return IAssets.linkedin;
+      case 'facebook':
+        return IAssets.facebook; // Added based on your API
+      default:
+        return IAssets.imagePlaceholder; // A sensible default
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final valueColor = Colors.black;
+
+    String formattedDate = '-';
+    if (profile.dateOfBirth != null) {
+      try {
+        formattedDate = DateTimeHelper.formatDate(profile.dateOfBirth!);
+      } catch (e) {
+        formattedDate = profile.dateOfBirth!;
+      }
+    }
 
     return Container(
       padding: EdgeInsets.all(16.w),
@@ -22,8 +53,6 @@ class PersonalInfoSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SectionTitle("Personal Information"),
-          SizedBox(height: 16.h),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -32,24 +61,13 @@ class PersonalInfoSection extends StatelessWidget {
                 children: [
                   Expanded(
                       child: ProfileDetailItem(
-                          label: "Email", value: "olivia@gmail.com")),
+                          label: "Email", value: profile.user.email)),
                   SizedBox(width: 16.w),
                   Expanded(
                       child: ProfileDetailItem(
-                          label: "Phone Number", value: "+62 851239874621")),
-                ],
-              ),
-              SizedBox(height: 16.h),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                      child:
-                          ProfileDetailItem(label: "Gender", value: "Female")),
-                  SizedBox(width: 16.w),
-                  Expanded(
-                      child: ProfileDetailItem(
-                          label: "Place of Birth", value: "Surabaya")),
+                          label: "Phone Number",
+                          value: IStringUtils.convertNumber(
+                              profile.phoneNumber ?? '-'))),
                 ],
               ),
               SizedBox(height: 16.h),
@@ -58,11 +76,12 @@ class PersonalInfoSection extends StatelessWidget {
                 children: [
                   Expanded(
                       child: ProfileDetailItem(
-                          label: "Born Date", value: "January 1, 1987")),
+                          label: "Gender", value: profile.gender ?? '-')),
                   SizedBox(width: 16.w),
                   Expanded(
                       child: ProfileDetailItem(
-                          label: "Marital Status", value: "Married")),
+                          label: "Place of Birth",
+                          value: profile.placeOfBirth ?? '-')),
                 ],
               ),
               SizedBox(height: 16.h),
@@ -70,18 +89,39 @@ class PersonalInfoSection extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
-                      child:
-                          ProfileDetailItem(label: "Blood Type", value: "AB")),
+                      child: ProfileDetailItem(
+                          label: "Born Date", value: formattedDate)),
+                  SizedBox(width: 16.w),
+                  Expanded(
+                      child: ProfileDetailItem(
+                          label: "Marital Status",
+                          value: profile.maritalStatusLabel ?? '-')),
+                ],
+              ),
+              SizedBox(height: 16.h),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                      child: ProfileDetailItem(
+                          label: "Blood Type",
+                          value: profile.bloodType ?? '-')),
                   SizedBox(width: 16.w),
                   Expanded(
                     child: Row(
                       children: [
                         Expanded(
                             child: ProfileDetailItem(
-                                label: "Height", value: "179 cm")),
+                                label: "Height",
+                                value: profile.height != null
+                                    ? "${profile.height} cm"
+                                    : "-")),
                         Expanded(
                             child: ProfileDetailItem(
-                                label: "Weight", value: "80 kg")),
+                                label: "Weight",
+                                value: profile.weight != null
+                                    ? "${profile.weight} kg"
+                                    : "-")),
                       ],
                     ),
                   )
@@ -93,12 +133,12 @@ class PersonalInfoSection extends StatelessWidget {
                 children: [
                   Expanded(
                       child: ProfileDetailItem(
-                          label: "ID Number", value: "340197897650002")),
+                          label: "ID Number", value: profile.idNumber ?? '-')),
                   SizedBox(width: 16.w),
                   Expanded(
                       child: ProfileDetailItem(
                           label: "Taxpayer ID Number (NPWP)",
-                          value: "12.345.678.9-012.000")),
+                          value: profile.npwp ?? '-')),
                 ],
               ),
               SizedBox(height: 16.h),
@@ -108,11 +148,11 @@ class PersonalInfoSection extends StatelessWidget {
                   Expanded(
                       child: ProfileDetailItem(
                           label: "Health Insurance Number (BPJS)",
-                          value: "0001234567890")),
+                          value: profile.bpjs ?? '-')),
                   SizedBox(width: 16.w),
                   Expanded(
                       child: ProfileDetailItem(
-                          label: "Hobby", value: "Photography")),
+                          label: "Hobby", value: profile.hobby ?? '-')),
                 ],
               ),
               SizedBox(height: 16.h),
@@ -121,22 +161,38 @@ class PersonalInfoSection extends StatelessWidget {
                 children: [
                   Expanded(
                       child: ProfileDetailItem(
-                          label: "Citizen ID Address", value: "Yogyakarta")),
+                          label: "Citizen ID Address",
+                          value: profile.citizenIdAddress ?? '-')),
                   SizedBox(width: 16.w),
                 ],
               ),
               SizedBox(height: 16.h),
-              ProfileDetailItem(label: "Residential Address", value: "Jakarta"),
+              ProfileDetailItem(
+                  label: "Residential Address",
+                  value: profile.residentialAddress ?? '-'),
               SizedBox(height: 16.h),
               ProfileDetailItem(label: "Social Media", value: null),
-              _buildSocialItem(
-                  textTheme, valueColor, IAssets.instagram, "@olivia"),
               SizedBox(height: 8.h),
-              _buildSocialItem(
-                  textTheme, valueColor, IAssets.twitter, "@olivia"),
-              SizedBox(height: 8.h),
-              _buildSocialItem(
-                  textTheme, valueColor, IAssets.linkedin, "@olivia"),
+
+              // --- Dynamic Social Media List ---
+              if (profile.socialMediaAccounts == null ||
+                  profile.socialMediaAccounts!.isEmpty)
+                Text(
+                  "No social media accounts linked.",
+                  style: textTheme.bodyMedium,
+                )
+              else
+                ...profile.socialMediaAccounts!.map(
+                  (account) => Padding(
+                    padding: EdgeInsets.only(bottom: 8.h),
+                    child: _buildSocialItem(
+                      textTheme,
+                      valueColor,
+                      _getSocialIconPath(account.type),
+                      account.url ?? '-', // Use the URL from the API
+                    ),
+                  ),
+                ),
             ],
           ),
         ],

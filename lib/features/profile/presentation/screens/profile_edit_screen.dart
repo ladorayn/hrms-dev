@@ -1,8 +1,13 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/constants/general.dart';
+import 'package:hrms_mobile/core/data/entities/country_code.dart';
+
+// Import the profile model
+import 'package:hrms_mobile/core/data/models/employees/employee_profile_response.dart';
 import 'package:hrms_mobile/core/enums/gender_enum.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/core/widgets/i_footer_button.dart';
@@ -15,9 +20,12 @@ import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_phone.
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_social.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
 import 'package:hrms_mobile/features/profile/presentation/widgets/detail/section_title.dart';
+import 'package:intl/intl.dart'; // Import for date formatting
 
 class ProfileEditScreen extends ConsumerStatefulWidget {
-  const ProfileEditScreen({super.key});
+  final EmployeeProfile profile;
+
+  const ProfileEditScreen({super.key, required this.profile});
 
   @override
   ConsumerState<ProfileEditScreen> createState() => _ProfileEditScreenState();
@@ -26,35 +34,104 @@ class ProfileEditScreen extends ConsumerStatefulWidget {
 class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  // ToDo: Initialize controllers with actual user data
-  final _nameController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _phoneController = TextEditingController();
-  final _placeOfBirthController = TextEditingController();
-  final _dobController = TextEditingController();
-  final _maritalStatusController = TextEditingController();
-  final _bloodTypeController = TextEditingController();
-  final _heightController = TextEditingController();
-  final _weightController = TextEditingController();
-  final _idNumberController = TextEditingController();
-  final _npwpController = TextEditingController();
-  final _bpjsController = TextEditingController();
-  final _citizenAddressController = TextEditingController();
-  final _residentialAddressController = TextEditingController();
-  final _hobbyController = TextEditingController();
+  // --- Initialize controllers (will be set in initState) ---
+  late TextEditingController _nameController;
+  late TextEditingController _emailController;
+  late TextEditingController _phoneController;
+  late TextEditingController _placeOfBirthController;
+  late TextEditingController _dobController;
+  late TextEditingController _maritalStatusController;
+  late TextEditingController _bloodTypeController;
+  late TextEditingController _heightController;
+  late TextEditingController _weightController;
+  late TextEditingController _idNumberController;
+  late TextEditingController _npwpController;
+  late TextEditingController _bpjsController;
+  late TextEditingController _citizenAddressController;
+  late TextEditingController _residentialAddressController;
+  late TextEditingController _hobbyController;
 
+  // --- State for complex fields ---
+  late CountryCode _selectedCountryCode;
+  Gender _selectedGender = Gender.male; // Default
+  DateTime? _selectedDob;
   List<Map<String, dynamic>> _socialMediaFieldsData = [];
 
   @override
   void initState() {
     super.initState();
-    _addSocialMediaField();
+    final profile = widget.profile;
+
+    // --- Populate all text controllers ---
+    _nameController = TextEditingController(text: profile.user.name);
+    _emailController = TextEditingController(text: profile.user.email);
+    _placeOfBirthController =
+        TextEditingController(text: profile.placeOfBirth ?? '');
+    _maritalStatusController =
+        TextEditingController(text: profile.maritalStatusLabel ?? '');
+    _bloodTypeController = TextEditingController(text: profile.bloodType ?? '');
+    _heightController = TextEditingController(text: profile.height ?? '');
+    _weightController = TextEditingController(text: profile.weight ?? '');
+    _idNumberController = TextEditingController(text: profile.idNumber ?? '');
+    _npwpController = TextEditingController(text: profile.npwp ?? '');
+    _bpjsController = TextEditingController(text: profile.bpjs ?? '');
+    _citizenAddressController =
+        TextEditingController(text: profile.citizenIdAddress ?? '');
+    _residentialAddressController =
+        TextEditingController(text: profile.residentialAddress ?? '');
+    _hobbyController = TextEditingController(text: profile.hobby ?? '');
+
+    // --- Handle Phone Number ---
+    _selectedCountryCode = kCountryCodes[0]; // Default
+    String localNumber = '';
+    if (profile.phoneNumber != null && profile.phoneNumber!.length > 2) {
+      final code = profile.phoneNumber!.substring(0, 2);
+      localNumber = profile.phoneNumber!.substring(2);
+      _selectedCountryCode = kCountryCodes.firstWhere(
+        (c) => c.code == code,
+        orElse: () => kCountryCodes[0],
+      );
+    }
+    _phoneController = TextEditingController(text: localNumber);
+
+    // --- Handle Gender ---
+    if (profile.gender == 'female') {
+      _selectedGender = Gender.female;
+    } else {
+      _selectedGender = Gender.male;
+    }
+
+    // --- Handle Date of Birth ---
+    _dobController = TextEditingController();
+    if (profile.dateOfBirth != null) {
+      try {
+        _selectedDob = DateTime.parse(profile.dateOfBirth!);
+        _dobController.text = DateFormat('MMMM d, yyyy').format(_selectedDob!);
+      } catch (e) {
+        _selectedDob = null;
+      }
+    }
+
+    // --- Handle Social Media ---
+    _socialMediaFieldsData = []; // Init list
+    if (profile.socialMediaAccounts != null &&
+        profile.socialMediaAccounts!.isNotEmpty) {
+      for (var account in profile.socialMediaAccounts!) {
+        _addSocialMediaField(
+            initialType: account.type, initialUrl: account.url);
+      }
+    } else {
+      // Add one blank field if no accounts exist
+      _addSocialMediaField();
+    }
   }
 
-  void _addSocialMediaField() {
+  void _addSocialMediaField({String? initialType, String? initialUrl}) {
     final key = UniqueKey();
-    final typeController = TextEditingController();
-    final usernameController = TextEditingController();
+    // The typeController stores the selected type (e.g., 'facebook')
+    final typeController = TextEditingController(text: initialType);
+    // The usernameController stores the handle/url
+    final usernameController = TextEditingController(text: initialUrl ?? '');
 
     final newField = {
       'key': key,
@@ -125,6 +202,8 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                   IProfileImagePicker(
                     label: 'Photo',
                     isOptional: true,
+                    // --- Populate Image ---
+                    initialImageUrl: widget.profile.photoProfileUrl,
                     onImageSelected: (file) {
                       // ToDo: Handle file upload logic
                     },
@@ -154,9 +233,10 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                     phoneController: _phoneController,
                     isRequired: true,
                     countryCodes: kCountryCodes,
-                    initialCountryCode: kCountryCodes[0],
+                    // --- Populate Country Code ---
+                    initialCountryCode: _selectedCountryCode,
                     onCountryCodeChanged: (newCode) {
-                      print('Selected country: ${newCode.name}');
+                      _selectedCountryCode = newCode;
                     },
                   ),
 
@@ -169,8 +249,15 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                       'Male': Gender.male,
                       'Female': Gender.female,
                     },
-                    initialValue: Gender.male,
-                    onChanged: (selectedGender) {},
+                    // --- Populate Gender ---
+                    initialValue: _selectedGender,
+                    onChanged: (selectedGender) {
+                      if (selectedGender != null) {
+                        setState(() {
+                          _selectedGender = selectedGender;
+                        });
+                      }
+                    },
                   ),
                   SizedBox(height: 16.h),
 
@@ -186,6 +273,14 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                     label: 'Born Date',
                     controller: _dobController,
                     isRequired: true,
+                    initialDate: _selectedDob,
+                    onDateChanged: (newDate) {
+                      setState(() {
+                        _selectedDob = newDate;
+                        _dobController.text =
+                            DateFormat('MMMM d, yyyy').format(newDate);
+                      });
+                    },
                   ),
                   SizedBox(height: 16.h),
 
@@ -287,7 +382,6 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                   ),
                   SizedBox(height: 16.h),
 
-                  // --- Social Media Section ---
                   Text('Social Media',
                       style: Theme.of(context).textTheme.bodySmall),
                   SizedBox(height: 8.h),
@@ -296,11 +390,10 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                       key: fieldData['key'],
                       padding: EdgeInsets.only(bottom: 8.h),
                       child: ITextFieldSocial(
-                        // Pass the controllers
+                        type: fieldData['typeController'].text,
                         usernameController: fieldData['usernameController'],
                         onTypeSelected: (type) {
                           fieldData['typeController'].text = type;
-                          // ToDo: You can save this type
                         },
                         onRemove: () =>
                             _removeSocialMediaField(fieldData['key']),

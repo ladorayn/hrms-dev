@@ -49,5 +49,6 @@ class IAssets {
   static const String instagram = '$ICON_PATH/instagram.svg';
   static const String twitter = '$ICON_PATH/twitter.svg';
   static const String linkedin = '$ICON_PATH/linkedin.svg';
+  static const String facebook = '$ICON_PATH/facebook.svg';
   static const String imagePlaceholder = '$ICON_PATH/imagePlaceholder.svg';
 }

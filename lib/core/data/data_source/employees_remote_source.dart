@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:hrms_mobile/core/data/models/base_response.dart';
+import 'package:hrms_mobile/core/data/models/employees/employee_profile_request.dart';
+import 'package:hrms_mobile/core/data/models/employees/employee_profile_response.dart';
 import 'package:hrms_mobile/core/data/models/employees/employees_response.dart';
 import 'package:hrms_mobile/core/data/models/paginated_response.dart';
 import 'package:hrms_mobile/core/errors/error_handler.dart';
@@ -127,6 +129,39 @@ class EmployeesRemoteSource {
           json as Map<String, dynamic>,
           (itemJson) => Employee.fromJson(itemJson as Map<String, dynamic>),
         ),
+      );
+    } on DioException catch (e) {
+      throw handleDioError(e);
+    }
+  }
+
+  Future<BaseResponse<EmployeeProfile>> getEmployeeProfile(
+      {required int id}) async {
+    try {
+      // Assuming this endpoint fetches the logged-in user's profile
+      final response = await _dio.get('api/v1/employees/$id');
+
+      return BaseResponse.fromJson(
+        response.data,
+        (json) => EmployeeProfile.fromJson(json as Map<String, dynamic>),
+      );
+    } on DioException catch (e) {
+      throw handleDioError(e);
+    }
+  }
+
+  Future<BaseResponse<EmployeeProfile>> updateEmployeeProfile({
+    required int id,
+    required EmployeeProfileRequest request,
+  }) async {
+    try {
+      final response = await _dio.put(
+        'api/v1/employees/$id',
+        data: request,
+      );
+      return BaseResponse.fromJson(
+        response.data,
+        (json) => EmployeeProfile.fromJson(json as Map<String, dynamic>),
       );
     } on DioException catch (e) {
       throw handleDioError(e);

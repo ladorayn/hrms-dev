@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart'; // Add this import for Placeholder
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hrms_mobile/core/data/models/employees/employee_profile_response.dart';
 import 'package:hrms_mobile/core/enums/attendance_enum.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/features/app/presentation/screens/splash_screen.dart';
@@ -281,7 +282,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: RoutePaths.profileEdit,
         name: RoutePaths.profileEditName,
-        builder: (context, state) => const ProfileEditScreen(),
+        builder: (context, state) {
+          final profile = state.extra as EmployeeProfile;
+          return ProfileEditScreen(profile: profile);
+        },
       ),
       // --- ROUTES WITH THE BOTTOM NAV BAR (Using ShellRoute) ---
       ShellRoute(

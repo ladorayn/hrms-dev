@@ -4,12 +4,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
+import 'package:hrms_mobile/core/data/models/employees/employee_profile_response.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/features/profile/presentation/widgets/user_info.dart';
 
 class ProfileHeader extends StatelessWidget {
-  const ProfileHeader({super.key});
+  final EmployeeProfile profile;
+
+  const ProfileHeader({super.key, required this.profile});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +46,7 @@ class ProfileHeader extends StatelessWidget {
             ),
             onPressed: () {
               globalNavigatorKey.currentContext
-                  ?.pushNamed(RoutePaths.profileEditName);
+                  ?.pushNamed(RoutePaths.profileEditName, extra: profile);
             },
             child: Row(
               mainAxisSize: MainAxisSize.min,

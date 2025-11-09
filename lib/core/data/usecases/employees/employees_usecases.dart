@@ -1,3 +1,5 @@
+import 'package:hrms_mobile/core/data/models/employees/employee_profile_request.dart';
+import 'package:hrms_mobile/core/data/models/employees/employee_profile_response.dart';
 import 'package:hrms_mobile/core/data/models/employees/employees_response.dart';
 import 'package:hrms_mobile/core/data/models/paginated_response.dart';
 import 'package:hrms_mobile/core/data/repositories/employees_repository/employee_repository.dart';
@@ -51,5 +53,16 @@ class EmployeeUsecases {
       startDate: startDate,
       endDate: endDate,
     );
+  }
+
+  Future<EmployeeProfile> getEmployeeProfile({required int id}) {
+    return repository.getEmployeeProfile(id: id);
+  }
+
+  Future<EmployeeProfile> updateEmployeeProfile({
+    required int id,
+    required EmployeeProfileRequest request,
+  }) {
+    return repository.updateEmployeeProfile(id: id, request: request);
   }
 }
