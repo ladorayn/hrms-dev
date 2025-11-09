@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart'; // Add this import for Placeholder
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hrms_mobile/core/data/models/employees/employee_profile_response.dart';
 import 'package:hrms_mobile/core/enums/attendance_enum.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/features/app/presentation/screens/splash_screen.dart';
@@ -36,6 +37,8 @@ import 'package:hrms_mobile/features/payslip/presentation/screens/payslip_print_
 import 'package:hrms_mobile/features/payslip/presentation/screens/payslip_screen.dart';
 import 'package:hrms_mobile/features/payslip/presentation/screens/payslip_view_request_screen.dart';
 import 'package:hrms_mobile/features/payslip/presentation/screens/payslip_view_screen.dart';
+import 'package:hrms_mobile/features/profile/presentation/screens/profile_detail_screen.dart';
+import 'package:hrms_mobile/features/profile/presentation/screens/profile_edit_screen.dart';
 import 'package:hrms_mobile/features/profile/presentation/screens/profile_screen.dart';
 
 import 'route_paths.dart';
@@ -271,15 +274,26 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         name: RoutePaths.attendance,
         builder: (context, state) => const AttendanceOvertimeScreen(),
       ),
+      GoRoute(
+        path: RoutePaths.profileDetail,
+        name: RoutePaths.profileDetailName,
+        builder: (context, state) => const ProfileDetailScreen(),
+      ),
+      GoRoute(
+        path: RoutePaths.profileEdit,
+        name: RoutePaths.profileEditName,
+        builder: (context, state) {
+          final profile = state.extra as EmployeeProfile;
+          return ProfileEditScreen(profile: profile);
+        },
+      ),
       // --- ROUTES WITH THE BOTTOM NAV BAR (Using ShellRoute) ---
       ShellRoute(
-        // The 'builder' returns the UI shell (your MainScreen with the Scaffold and BottomNavBar).
-        // The 'child' is the screen for the currently active route.
         builder: (context, state, child) {
           return MainScreen(child: child);
         },
         routes: [
-          // This is the "Home" tab
+          // "Home" tab
           GoRoute(
             path: RoutePaths.dashboard,
             builder: (context, state) => const DashboardScreen(),
@@ -295,15 +309,13 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           // "Leave Request" tab
           GoRoute(
             path: RoutePaths.leaveRequest,
-            builder: (context, state) =>
-                const LeaveRequestScreen(), // Replace with your LeaveRequestScreen
+            builder: (context, state) => const LeaveRequestScreen(),
           ),
           // "Inbox" tab
           GoRoute(
             path: RoutePaths.inbox,
-            builder: (context, state) => const Scaffold(
-                body: Center(
-                    child: Text('Inbox'))), // Replace with your InboxScreen
+            builder: (context, state) =>
+                const Scaffold(body: Center(child: Text('Inbox'))),
           ),
           // "Profile" tab
           GoRoute(

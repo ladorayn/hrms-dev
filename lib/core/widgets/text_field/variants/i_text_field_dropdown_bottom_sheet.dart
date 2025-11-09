@@ -6,6 +6,7 @@ import 'package:hrms_mobile/core/widgets/text_field/base/i_text_field.dart';
 class ITextFieldDropdownBottomSheet extends ITextFieldBase {
   final List<String> options;
   final Function(String selectedOption) onOptionSelected;
+  final bool updateTextOnSelect;
 
   ITextFieldDropdownBottomSheet({
     super.key,
@@ -19,6 +20,9 @@ class ITextFieldDropdownBottomSheet extends ITextFieldBase {
     super.errorText,
     required this.options,
     required this.onOptionSelected,
+    super.textFieldOnly,
+    super.prefixIcon,
+    this.updateTextOnSelect = true,
   }) : super(
           readOnly: true,
           suffixIcon: const Icon(Icons.keyboard_arrow_down),
@@ -72,7 +76,9 @@ class ITextFieldDropdownBottomSheet extends ITextFieldBase {
                       title: Text(option),
                       onTap: () {
                         onOptionSelected(option);
-                        controller?.text = option;
+                        if (updateTextOnSelect) {
+                          controller?.text = option;
+                        }
                         Navigator.pop(modalContext);
                       },
                     );

@@ -20,7 +20,7 @@ class UserInfo extends ConsumerWidget {
               ? const Icon(Icons.person, size: 80, color: Colors.white)
               : null,
         ),
-        SizedBox(height: 16.sp),
+        SizedBox(height: 8.sp),
         Text(
           authP.value?.name ?? '-',
           style: TextStyle(

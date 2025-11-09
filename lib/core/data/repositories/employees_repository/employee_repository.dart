@@ -1,3 +1,5 @@
+import 'package:hrms_mobile/core/data/models/employees/employee_profile_request.dart';
+import 'package:hrms_mobile/core/data/models/employees/employee_profile_response.dart';
 import 'package:hrms_mobile/core/data/models/employees/employees_response.dart';
 import 'package:hrms_mobile/core/data/models/paginated_response.dart';
 
@@ -23,5 +25,12 @@ abstract class EmployeeRepository {
     String? startDate,
     String? endDate,
     String? perPage,
+  });
+
+  Future<EmployeeProfile> getEmployeeProfile({required int id});
+
+  Future<EmployeeProfile> updateEmployeeProfile({
+    required int id,
+    required EmployeeProfileRequest request,
   });
 }

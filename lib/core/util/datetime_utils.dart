@@ -6,8 +6,14 @@ class DateTimeHelper {
     return d1.year == d2.year && d1.month == d2.month && d1.day == d2.day;
   }
 
-  /// Converts `"2025-09-30 20:58:00"` into `"5 August, 2025"`
+  /// Converts `"2025-08-5"` into `"August 5, 2025"`
   static String formatDate(String rawDate) {
+    final dateTime = DateTime.parse(rawDate);
+    return DateFormat("MMMM d, yyyy").format(dateTime);
+  }
+
+  /// Converts `"2025-09-30 20:58:00"` into `"5 August, 2025"`
+  static String formatDateTime(String rawDate) {
     final dateTime = DateTime.parse(rawDate);
     return DateFormat("d MMMM, yyyy").format(dateTime);
   }

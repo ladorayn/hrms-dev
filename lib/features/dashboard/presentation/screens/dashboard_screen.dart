@@ -664,7 +664,7 @@ Widget _buildClockInButton(BuildContext context, WidgetRef ref) {
       onPressed: () async {
         await handleLocationVerification(context, AttendanceEnum.clockIn, ref);
       },
-      icon: const Icon(
+      icon: Icon(
         Icons.add,
         color: Colors.white,
       ),
@@ -711,9 +711,9 @@ Widget _buildClockOutButton(BuildContext context, WidgetRef ref,
               );
             }
           : null,
-      icon: const Icon(
+      icon: Icon(
         Icons.add,
-        color: Colors.white,
+        color: enabled ? Colors.white : Colors.grey,
       ),
       label: Text(
         'Clock Out',
