@@ -26,9 +26,9 @@ mixin _$EmployeeProfileRequest {
   @JsonKey(name: 'email')
   String get email => throw _privateConstructorUsedError;
   @JsonKey(name: 'phone_number')
-  String get phoneNumber => throw _privateConstructorUsedError;
+  int get phoneNumber => throw _privateConstructorUsedError;
   @JsonKey(name: 'role_id')
-  int get roleId => throw _privateConstructorUsedError;
+  int? get roleId => throw _privateConstructorUsedError;
   @JsonKey(name: 'gender')
   String get gender => throw _privateConstructorUsedError;
   @JsonKey(name: 'date_of_birth')
@@ -81,6 +81,8 @@ mixin _$EmployeeProfileRequest {
   String get accountNumber => throw _privateConstructorUsedError;
   @JsonKey(name: 'account_name')
   String get accountName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'country_code')
+  int get countryCode => throw _privateConstructorUsedError;
 
   /// Serializes this EmployeeProfileRequest to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -101,8 +103,8 @@ abstract class $EmployeeProfileRequestCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'name') String name,
       @JsonKey(name: 'email') String email,
-      @JsonKey(name: 'phone_number') String phoneNumber,
-      @JsonKey(name: 'role_id') int roleId,
+      @JsonKey(name: 'phone_number') int phoneNumber,
+      @JsonKey(name: 'role_id') int? roleId,
       @JsonKey(name: 'gender') String gender,
       @JsonKey(name: 'date_of_birth') String dateOfBirth,
       @JsonKey(name: 'place_of_birth') String placeOfBirth,
@@ -128,7 +130,8 @@ abstract class $EmployeeProfileRequestCopyWith<$Res> {
       @JsonKey(name: 'salary_nett') int salaryNett,
       @JsonKey(name: 'bank_id') int bankId,
       @JsonKey(name: 'account_number') String accountNumber,
-      @JsonKey(name: 'account_name') String accountName});
+      @JsonKey(name: 'account_name') String accountName,
+      @JsonKey(name: 'country_code') int countryCode});
 }
 
 /// @nodoc
@@ -150,7 +153,7 @@ class _$EmployeeProfileRequestCopyWithImpl<$Res,
     Object? name = null,
     Object? email = null,
     Object? phoneNumber = null,
-    Object? roleId = null,
+    Object? roleId = freezed,
     Object? gender = null,
     Object? dateOfBirth = null,
     Object? placeOfBirth = null,
@@ -177,6 +180,7 @@ class _$EmployeeProfileRequestCopyWithImpl<$Res,
     Object? bankId = null,
     Object? accountNumber = null,
     Object? accountName = null,
+    Object? countryCode = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -190,11 +194,11 @@ class _$EmployeeProfileRequestCopyWithImpl<$Res,
       phoneNumber: null == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
-              as String,
-      roleId: null == roleId
+              as int,
+      roleId: freezed == roleId
           ? _value.roleId
           : roleId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       gender: null == gender
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
@@ -299,6 +303,10 @@ class _$EmployeeProfileRequestCopyWithImpl<$Res,
           ? _value.accountName
           : accountName // ignore: cast_nullable_to_non_nullable
               as String,
+      countryCode: null == countryCode
+          ? _value.countryCode
+          : countryCode // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -315,8 +323,8 @@ abstract class _$$EmployeeProfileRequestImplCopyWith<$Res>
   $Res call(
       {@JsonKey(name: 'name') String name,
       @JsonKey(name: 'email') String email,
-      @JsonKey(name: 'phone_number') String phoneNumber,
-      @JsonKey(name: 'role_id') int roleId,
+      @JsonKey(name: 'phone_number') int phoneNumber,
+      @JsonKey(name: 'role_id') int? roleId,
       @JsonKey(name: 'gender') String gender,
       @JsonKey(name: 'date_of_birth') String dateOfBirth,
       @JsonKey(name: 'place_of_birth') String placeOfBirth,
@@ -342,7 +350,8 @@ abstract class _$$EmployeeProfileRequestImplCopyWith<$Res>
       @JsonKey(name: 'salary_nett') int salaryNett,
       @JsonKey(name: 'bank_id') int bankId,
       @JsonKey(name: 'account_number') String accountNumber,
-      @JsonKey(name: 'account_name') String accountName});
+      @JsonKey(name: 'account_name') String accountName,
+      @JsonKey(name: 'country_code') int countryCode});
 }
 
 /// @nodoc
@@ -363,7 +372,7 @@ class __$$EmployeeProfileRequestImplCopyWithImpl<$Res>
     Object? name = null,
     Object? email = null,
     Object? phoneNumber = null,
-    Object? roleId = null,
+    Object? roleId = freezed,
     Object? gender = null,
     Object? dateOfBirth = null,
     Object? placeOfBirth = null,
@@ -390,6 +399,7 @@ class __$$EmployeeProfileRequestImplCopyWithImpl<$Res>
     Object? bankId = null,
     Object? accountNumber = null,
     Object? accountName = null,
+    Object? countryCode = null,
   }) {
     return _then(_$EmployeeProfileRequestImpl(
       name: null == name
@@ -403,11 +413,11 @@ class __$$EmployeeProfileRequestImplCopyWithImpl<$Res>
       phoneNumber: null == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
-              as String,
-      roleId: null == roleId
+              as int,
+      roleId: freezed == roleId
           ? _value.roleId
           : roleId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       gender: null == gender
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
@@ -512,6 +522,10 @@ class __$$EmployeeProfileRequestImplCopyWithImpl<$Res>
           ? _value.accountName
           : accountName // ignore: cast_nullable_to_non_nullable
               as String,
+      countryCode: null == countryCode
+          ? _value.countryCode
+          : countryCode // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -523,7 +537,7 @@ class _$EmployeeProfileRequestImpl implements _EmployeeProfileRequest {
       {@JsonKey(name: 'name') required this.name,
       @JsonKey(name: 'email') required this.email,
       @JsonKey(name: 'phone_number') required this.phoneNumber,
-      @JsonKey(name: 'role_id') required this.roleId,
+      @JsonKey(name: 'role_id') this.roleId,
       @JsonKey(name: 'gender') required this.gender,
       @JsonKey(name: 'date_of_birth') required this.dateOfBirth,
       @JsonKey(name: 'place_of_birth') required this.placeOfBirth,
@@ -550,7 +564,8 @@ class _$EmployeeProfileRequestImpl implements _EmployeeProfileRequest {
       @JsonKey(name: 'salary_nett') required this.salaryNett,
       @JsonKey(name: 'bank_id') required this.bankId,
       @JsonKey(name: 'account_number') required this.accountNumber,
-      @JsonKey(name: 'account_name') required this.accountName})
+      @JsonKey(name: 'account_name') required this.accountName,
+      @JsonKey(name: 'country_code') required this.countryCode})
       : _teamMembers = teamMembers;
 
   factory _$EmployeeProfileRequestImpl.fromJson(Map<String, dynamic> json) =>
@@ -564,10 +579,10 @@ class _$EmployeeProfileRequestImpl implements _EmployeeProfileRequest {
   final String email;
   @override
   @JsonKey(name: 'phone_number')
-  final String phoneNumber;
+  final int phoneNumber;
   @override
   @JsonKey(name: 'role_id')
-  final int roleId;
+  final int? roleId;
   @override
   @JsonKey(name: 'gender')
   final String gender;
@@ -652,10 +667,13 @@ class _$EmployeeProfileRequestImpl implements _EmployeeProfileRequest {
   @override
   @JsonKey(name: 'account_name')
   final String accountName;
+  @override
+  @JsonKey(name: 'country_code')
+  final int countryCode;
 
   @override
   String toString() {
-    return 'EmployeeProfileRequest(name: $name, email: $email, phoneNumber: $phoneNumber, roleId: $roleId, gender: $gender, dateOfBirth: $dateOfBirth, placeOfBirth: $placeOfBirth, maritalStatus: $maritalStatus, bloodType: $bloodType, height: $height, weight: $weight, idNumber: $idNumber, npwp: $npwp, bpjs: $bpjs, citizenIdAddress: $citizenIdAddress, residentialAddress: $residentialAddress, hobby: $hobby, achievement: $achievement, personalDescription: $personalDescription, jobPositionId: $jobPositionId, jobLevelId: $jobLevelId, departmentId: $departmentId, teamMembers: $teamMembers, startDate: $startDate, status: $status, baseSalary: $baseSalary, salaryNett: $salaryNett, bankId: $bankId, accountNumber: $accountNumber, accountName: $accountName)';
+    return 'EmployeeProfileRequest(name: $name, email: $email, phoneNumber: $phoneNumber, roleId: $roleId, gender: $gender, dateOfBirth: $dateOfBirth, placeOfBirth: $placeOfBirth, maritalStatus: $maritalStatus, bloodType: $bloodType, height: $height, weight: $weight, idNumber: $idNumber, npwp: $npwp, bpjs: $bpjs, citizenIdAddress: $citizenIdAddress, residentialAddress: $residentialAddress, hobby: $hobby, achievement: $achievement, personalDescription: $personalDescription, jobPositionId: $jobPositionId, jobLevelId: $jobLevelId, departmentId: $departmentId, teamMembers: $teamMembers, startDate: $startDate, status: $status, baseSalary: $baseSalary, salaryNett: $salaryNett, bankId: $bankId, accountNumber: $accountNumber, accountName: $accountName, countryCode: $countryCode)';
   }
 
   @override
@@ -711,7 +729,9 @@ class _$EmployeeProfileRequestImpl implements _EmployeeProfileRequest {
             (identical(other.accountNumber, accountNumber) ||
                 other.accountNumber == accountNumber) &&
             (identical(other.accountName, accountName) ||
-                other.accountName == accountName));
+                other.accountName == accountName) &&
+            (identical(other.countryCode, countryCode) ||
+                other.countryCode == countryCode));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -747,7 +767,8 @@ class _$EmployeeProfileRequestImpl implements _EmployeeProfileRequest {
         salaryNett,
         bankId,
         accountNumber,
-        accountName
+        accountName,
+        countryCode
       ]);
 
   /// Create a copy of EmployeeProfileRequest
@@ -771,8 +792,8 @@ abstract class _EmployeeProfileRequest implements EmployeeProfileRequest {
   const factory _EmployeeProfileRequest(
           {@JsonKey(name: 'name') required final String name,
           @JsonKey(name: 'email') required final String email,
-          @JsonKey(name: 'phone_number') required final String phoneNumber,
-          @JsonKey(name: 'role_id') required final int roleId,
+          @JsonKey(name: 'phone_number') required final int phoneNumber,
+          @JsonKey(name: 'role_id') final int? roleId,
           @JsonKey(name: 'gender') required final String gender,
           @JsonKey(name: 'date_of_birth') required final String dateOfBirth,
           @JsonKey(name: 'place_of_birth') required final String placeOfBirth,
@@ -802,7 +823,8 @@ abstract class _EmployeeProfileRequest implements EmployeeProfileRequest {
           @JsonKey(name: 'salary_nett') required final int salaryNett,
           @JsonKey(name: 'bank_id') required final int bankId,
           @JsonKey(name: 'account_number') required final String accountNumber,
-          @JsonKey(name: 'account_name') required final String accountName}) =
+          @JsonKey(name: 'account_name') required final String accountName,
+          @JsonKey(name: 'country_code') required final int countryCode}) =
       _$EmployeeProfileRequestImpl;
 
   factory _EmployeeProfileRequest.fromJson(Map<String, dynamic> json) =
@@ -816,10 +838,10 @@ abstract class _EmployeeProfileRequest implements EmployeeProfileRequest {
   String get email;
   @override
   @JsonKey(name: 'phone_number')
-  String get phoneNumber;
+  int get phoneNumber;
   @override
   @JsonKey(name: 'role_id')
-  int get roleId;
+  int? get roleId;
   @override
   @JsonKey(name: 'gender')
   String get gender;
@@ -898,6 +920,9 @@ abstract class _EmployeeProfileRequest implements EmployeeProfileRequest {
   @override
   @JsonKey(name: 'account_name')
   String get accountName;
+  @override
+  @JsonKey(name: 'country_code')
+  int get countryCode;
 
   /// Create a copy of EmployeeProfileRequest
   /// with the given fields replaced by the non-null parameter values.

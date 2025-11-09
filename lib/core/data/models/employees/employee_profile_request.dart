@@ -9,8 +9,8 @@ class EmployeeProfileRequest with _$EmployeeProfileRequest {
   const factory EmployeeProfileRequest({
     @JsonKey(name: 'name') required String name,
     @JsonKey(name: 'email') required String email,
-    @JsonKey(name: 'phone_number') required String phoneNumber,
-    @JsonKey(name: 'role_id') required int roleId,
+    @JsonKey(name: 'phone_number') required int phoneNumber,
+    @JsonKey(name: 'role_id') int? roleId,
     @JsonKey(name: 'gender') required String gender,
     @JsonKey(name: 'date_of_birth') required String dateOfBirth,
     @JsonKey(name: 'place_of_birth') required String placeOfBirth,
@@ -37,6 +37,7 @@ class EmployeeProfileRequest with _$EmployeeProfileRequest {
     @JsonKey(name: 'bank_id') required int bankId,
     @JsonKey(name: 'account_number') required String accountNumber,
     @JsonKey(name: 'account_name') required String accountName,
+    @JsonKey(name: 'country_code') required int countryCode,
   }) = _EmployeeProfileRequest;
 
   factory EmployeeProfileRequest.fromJson(Map<String, dynamic> json) =>

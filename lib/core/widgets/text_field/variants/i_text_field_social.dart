@@ -84,7 +84,7 @@ class _ITextFieldSocialState extends State<ITextFieldSocial> {
           child: ITextFieldBase(
             controller: widget.usernameController,
             textFieldOnly: true,
-            hintText: '@olivia',
+            hintText: '@username',
             keyboardType: TextInputType.text,
             borderColor: IColors.light.grayscale.g30,
           ),

@@ -1,14 +1,15 @@
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/constants/general.dart';
 import 'package:hrms_mobile/core/data/entities/country_code.dart';
+import 'package:hrms_mobile/core/data/models/employees/employee_profile_request.dart';
 
-// Import the profile model
 import 'package:hrms_mobile/core/data/models/employees/employee_profile_response.dart';
 import 'package:hrms_mobile/core/enums/gender_enum.dart';
+import 'package:hrms_mobile/core/errors/exceptions.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/core/widgets/i_footer_button.dart';
 import 'package:hrms_mobile/core/widgets/i_image_picker.dart';
@@ -19,6 +20,9 @@ import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_dropdo
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_phone.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_social.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
+
+// --- Import Request Model and Provider ---
+import 'package:hrms_mobile/features/profile/presentation/providers/profile_provider.dart';
 import 'package:hrms_mobile/features/profile/presentation/widgets/detail/section_title.dart';
 import 'package:intl/intl.dart'; // Import for date formatting
 
@@ -34,7 +38,7 @@ class ProfileEditScreen extends ConsumerStatefulWidget {
 class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  // --- Initialize controllers (will be set in initState) ---
+  // --- (All your existing controllers) ---
   late TextEditingController _nameController;
   late TextEditingController _emailController;
   late TextEditingController _phoneController;
@@ -51,18 +55,18 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
   late TextEditingController _residentialAddressController;
   late TextEditingController _hobbyController;
 
-  // --- State for complex fields ---
   late CountryCode _selectedCountryCode;
-  Gender _selectedGender = Gender.male; // Default
+  Gender _selectedGender = Gender.male;
   DateTime? _selectedDob;
   List<Map<String, dynamic>> _socialMediaFieldsData = [];
+
+  Map<String, String> _validationErrors = {};
 
   @override
   void initState() {
     super.initState();
     final profile = widget.profile;
 
-    // --- Populate all text controllers ---
     _nameController = TextEditingController(text: profile.user.name);
     _emailController = TextEditingController(text: profile.user.email);
     _placeOfBirthController =
@@ -81,17 +85,26 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
         TextEditingController(text: profile.residentialAddress ?? '');
     _hobbyController = TextEditingController(text: profile.hobby ?? '');
 
-    // --- Handle Phone Number ---
-    _selectedCountryCode = kCountryCodes[0]; // Default
-    String localNumber = '';
-    if (profile.phoneNumber != null && profile.phoneNumber!.length > 2) {
-      final code = profile.phoneNumber!.substring(0, 2);
-      localNumber = profile.phoneNumber!.substring(2);
-      _selectedCountryCode = kCountryCodes.firstWhere(
-        (c) => c.code == code,
-        orElse: () => kCountryCodes[0],
-      );
+    String localNumber = profile.phoneNumber ?? '';
+    _selectedCountryCode = kCountryCodes[0];
+
+    if (profile.phoneNumber != null && profile.phoneNumber!.isNotEmpty) {
+      final fullNumber = profile.phoneNumber!;
+
+      final sortedCodes = List<CountryCode>.from(kCountryCodes);
+      sortedCodes.sort((a, b) => b.code.length.compareTo(a.code.length));
+
+      for (final countryCode in sortedCodes) {
+        final dialCode = countryCode.code.substring(1);
+
+        if (fullNumber.startsWith(dialCode)) {
+          _selectedCountryCode = countryCode;
+          localNumber = fullNumber.substring(dialCode.length);
+          break;
+        }
+      }
     }
+
     _phoneController = TextEditingController(text: localNumber);
 
     // --- Handle Gender ---
@@ -101,7 +114,6 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
       _selectedGender = Gender.male;
     }
 
-    // --- Handle Date of Birth ---
     _dobController = TextEditingController();
     if (profile.dateOfBirth != null) {
       try {
@@ -112,8 +124,7 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
       }
     }
 
-    // --- Handle Social Media ---
-    _socialMediaFieldsData = []; // Init list
+    _socialMediaFieldsData = [];
     if (profile.socialMediaAccounts != null &&
         profile.socialMediaAccounts!.isNotEmpty) {
       for (var account in profile.socialMediaAccounts!) {
@@ -121,16 +132,13 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
             initialType: account.type, initialUrl: account.url);
       }
     } else {
-      // Add one blank field if no accounts exist
       _addSocialMediaField();
     }
   }
 
   void _addSocialMediaField({String? initialType, String? initialUrl}) {
     final key = UniqueKey();
-    // The typeController stores the selected type (e.g., 'facebook')
     final typeController = TextEditingController(text: initialType);
-    // The usernameController stores the handle/url
     final usernameController = TextEditingController(text: initialUrl ?? '');
 
     final newField = {
@@ -142,6 +150,13 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
     setState(() {
       _socialMediaFieldsData.add(newField);
     });
+  }
+
+  String _getMaritalStatusCode(String label) {
+    if (label == 'Married') return '2';
+    if (label == 'Divorced') return '3';
+    if (label == 'Widowed') return '4';
+    return '1'; // Default to 'Single'
   }
 
   void _removeSocialMediaField(Key key) {
@@ -157,36 +172,106 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
     });
   }
 
-  @override
-  void dispose() {
-    _nameController.dispose();
-    _emailController.dispose();
-    _phoneController.dispose();
-    _placeOfBirthController.dispose();
-    _dobController.dispose();
-    _maritalStatusController.dispose();
-    _bloodTypeController.dispose();
-    _heightController.dispose();
-    _weightController.dispose();
-    _idNumberController.dispose();
-    _npwpController.dispose();
-    _bpjsController.dispose();
-    _citizenAddressController.dispose();
-    _residentialAddressController.dispose();
-    _hobbyController.dispose();
+  // --- NEW: Submit Logic ---
+  Future<void> _onUpdateProfile() async {
+    // Clear previous errors
+    setState(() {
+      _validationErrors = {};
+    });
 
-    for (var fieldData in _socialMediaFieldsData) {
-      (fieldData['usernameController'] as TextEditingController).dispose();
-      (fieldData['typeController'] as TextEditingController).dispose();
+    if (!_formKey.currentState!.validate()) {
+      return; // Stop if local validation fails
     }
-    super.dispose();
+
+    final profile = widget.profile;
+    final employment = profile.employment;
+    final bank = profile.bankAccount;
+
+    final request = EmployeeProfileRequest(
+      name: _nameController.text,
+      email: _emailController.text,
+      phoneNumber: int.parse(_phoneController.text),
+      gender: _selectedGender.name,
+      dateOfBirth: _selectedDob != null
+          ? DateFormat('y-MM-dd').format(_selectedDob!)
+          : profile.dateOfBirth?.split('T').first ?? '',
+      placeOfBirth: _placeOfBirthController.text,
+      maritalStatus: _getMaritalStatusCode(_maritalStatusController.text),
+      bloodType: _bloodTypeController.text,
+      height: int.tryParse(_heightController.text) ?? 0,
+      weight: int.tryParse(_weightController.text) ?? 0,
+      idNumber: _idNumberController.text,
+      npwp: _npwpController.text,
+      bpjs: _bpjsController.text,
+      citizenIdAddress: _citizenAddressController.text,
+      residentialAddress: _residentialAddressController.text,
+      hobby: _hobbyController.text,
+      achievement: profile.achievement ?? '',
+      personalDescription: profile.personalDescription ?? '',
+      jobPositionId: employment?.jobPositionId ?? 0,
+      jobLevelId: employment?.jobLevelId ?? 0,
+      departmentId: employment?.departmentId ?? 0,
+      teamMembers: profile.teamMembers
+              ?.map((tm) => TeamMemberRequest(teamId: tm.id))
+              .toList() ??
+          [],
+      startDate: employment?.startDate?.split('T').first ?? '',
+      status: employment?.status?.toString() ?? '1',
+      baseSalary: (double.tryParse(employment?.baseSalary ?? '0') ?? 0).toInt(),
+      salaryNett: (double.tryParse(employment?.salaryNett ?? '0') ?? 0).toInt(),
+      bankId: bank?.bankId ?? 0,
+      accountNumber: bank?.accountNumber ?? '',
+      accountName: bank?.accountName ?? '',
+      countryCode: _selectedCountryCode.dialCode,
+    );
+
+    // --- Call the provider ---
+    try {
+      await ref
+          .read(employeeProfileEditProvider.notifier)
+          .submitUpdate(id: profile.id, request: request);
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Profile updated successfully!')),
+        );
+        context.pop(); // Go back to the detail screen
+      }
+    } catch (e) {
+      // The provider re-throws the error, so we catch it here
+      // No need to show a snackbar, the listener below will handle it.
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    // --- NEW: Watch and Listen to the edit provider ---
+    final editState = ref.watch(employeeProfileEditProvider);
+    final isUpdating = editState.isLoading;
+
+    ref.listen(employeeProfileEditProvider, (_, state) {
+      if (state.hasError && !state.isLoading) {
+        final error = state.error;
+        if (error is ValidationException) {
+          // Handle validation errors from the API
+          setState(() {
+            _validationErrors =
+                error.errors.map((key, value) => MapEntry(key, value.first));
+          });
+        } else {
+          // Handle generic errors
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+                content:
+                    Text('Update Failed: ${error.toString().split(':').last}')),
+          );
+        }
+      }
+    });
+
     return Scaffold(
       appBar: IAppBar(title: "Edit Profile"),
-      resizeToAvoidBottomInset: true, // Allow keyboard to push up
+      resizeToAvoidBottomInset: true,
       body: Column(
         children: [
           Expanded(
@@ -197,51 +282,44 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                 children: [
                   const SectionTitle("Personal Information"),
                   SizedBox(height: 16.h),
-
-                  // --- Begin Form Fields ---
                   IProfileImagePicker(
                     label: 'Photo',
                     isOptional: true,
-                    // --- Populate Image ---
                     initialImageUrl: widget.profile.photoProfileUrl,
                     onImageSelected: (file) {
                       // ToDo: Handle file upload logic
                     },
                   ),
                   SizedBox(height: 16.h),
-
                   ITextFieldBase(
                     label: 'Name',
                     controller: _nameController,
                     isRequired: true,
                     borderColor: IColors.light.grayscale.g30,
-                    // ToDo: Add validator
+                    errorText: _validationErrors['name'],
                   ),
                   SizedBox(height: 16.h),
-
                   ITextFieldBase(
                     label: 'Email',
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
                     isRequired: true,
                     borderColor: IColors.light.grayscale.g30,
+                    errorText: _validationErrors['email'],
                   ),
                   SizedBox(height: 16.h),
-
                   ITextFieldPhone(
                     label: 'Phone Number',
                     phoneController: _phoneController,
                     isRequired: true,
                     countryCodes: kCountryCodes,
-                    // --- Populate Country Code ---
                     initialCountryCode: _selectedCountryCode,
                     onCountryCodeChanged: (newCode) {
                       _selectedCountryCode = newCode;
                     },
+                    errorText: _validationErrors['phone_number'],
                   ),
-
                   SizedBox(height: 16.h),
-
                   IRadioButtonGroup<Gender>(
                     label: 'Gender',
                     isRequired: true,
@@ -249,26 +327,23 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                       'Male': Gender.male,
                       'Female': Gender.female,
                     },
-                    // --- Populate Gender ---
                     initialValue: _selectedGender,
                     onChanged: (selectedGender) {
-                      if (selectedGender != null) {
-                        setState(() {
-                          _selectedGender = selectedGender;
-                        });
-                      }
+                      setState(() {
+                        _selectedGender = selectedGender;
+                      });
                     },
+                    // errorText: _validationErrors['gender'],
                   ),
                   SizedBox(height: 16.h),
-
                   ITextFieldBase(
                     label: 'Place of Birth',
                     controller: _placeOfBirthController,
                     isRequired: true,
                     borderColor: IColors.light.grayscale.g30,
+                    errorText: _validationErrors['place_of_birth'],
                   ),
                   SizedBox(height: 16.h),
-
                   ITextFieldDatePicker(
                     label: 'Born Date',
                     controller: _dobController,
@@ -281,20 +356,20 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                             DateFormat('MMMM d, yyyy').format(newDate);
                       });
                     },
+                    errorText: _validationErrors['date_of_birth'],
                   ),
                   SizedBox(height: 16.h),
-
                   ITextFieldDropdownBottomSheet(
                     label: 'Marital Status',
                     controller: _maritalStatusController,
                     isRequired: true,
-                    options: const ['Married', 'Single', 'Divorced'],
+                    options: const ['Single', 'Married', 'Divorced', 'Widowed'],
                     onOptionSelected: (selected) {
                       _maritalStatusController.text = selected;
                     },
+                    errorText: _validationErrors['marital_status'],
                   ),
                   SizedBox(height: 16.h),
-
                   ITextFieldDropdownBottomSheet(
                     label: 'Blood Type',
                     controller: _bloodTypeController,
@@ -303,9 +378,9 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                     onOptionSelected: (selected) {
                       _bloodTypeController.text = selected;
                     },
+                    errorText: _validationErrors['blood_type'],
                   ),
                   SizedBox(height: 16.h),
-
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -317,6 +392,7 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                           keyboardType: TextInputType.number,
                           suffix: const Text('cm'),
                           borderColor: IColors.light.grayscale.g30,
+                          errorText: _validationErrors['height'],
                         ),
                       ),
                       SizedBox(width: 16.w),
@@ -328,60 +404,60 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                           keyboardType: TextInputType.number,
                           suffix: const Text('kg'),
                           borderColor: IColors.light.grayscale.g30,
+                          errorText: _validationErrors['weight'],
                         ),
                       ),
                     ],
                   ),
                   SizedBox(height: 16.h),
-
                   ITextFieldBase(
                     label: 'ID Number',
                     controller: _idNumberController,
                     isRequired: true,
                     keyboardType: TextInputType.number,
                     borderColor: IColors.light.grayscale.g30,
+                    errorText: _validationErrors['id_number'],
                   ),
                   SizedBox(height: 16.h),
-
                   ITextFieldBase(
                     label: 'Taxpayer ID Number (NPWP)',
                     controller: _npwpController,
                     isRequired: true,
                     borderColor: IColors.light.grayscale.g30,
+                    errorText: _validationErrors['npwp'],
                   ),
                   SizedBox(height: 16.h),
-
                   ITextFieldBase(
                     label: 'Health Insurance Number (BPJS)',
                     controller: _bpjsController,
                     isRequired: true,
                     keyboardType: TextInputType.number,
                     borderColor: IColors.light.grayscale.g30,
+                    errorText: _validationErrors['bpjs'],
                   ),
                   SizedBox(height: 16.h),
-
                   ITextFieldTextArea(
                     label: 'Citizen ID Address',
                     controller: _citizenAddressController,
                     isRequired: true,
+                    errorText: _validationErrors['citizen_id_address'],
                   ),
                   SizedBox(height: 16.h),
-
                   ITextFieldTextArea(
                     label: 'Residential Address',
                     controller: _residentialAddressController,
                     isRequired: true,
+                    errorText: _validationErrors['residential_address'],
                   ),
                   SizedBox(height: 16.h),
-
                   ITextFieldBase(
                     label: 'Hobby',
                     controller: _hobbyController,
                     isRequired: true,
                     borderColor: IColors.light.grayscale.g30,
+                    errorText: _validationErrors['hobby'],
                   ),
                   SizedBox(height: 16.h),
-
                   Text('Social Media',
                       style: Theme.of(context).textTheme.bodySmall),
                   SizedBox(height: 8.h),
@@ -410,13 +486,9 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
             ),
           ),
           IFooterButton(
-            text: "Update Profile",
-            onPressed: () {
-              // ToDo: Implement update logic
-              if (_formKey.currentState!.validate()) {
-                // Form is valid
-              }
-            },
+            // --- UPDATED: Connect to provider state ---
+            text: isUpdating ? "Updating..." : "Update Profile",
+            onPressed: isUpdating ? null : _onUpdateProfile,
           )
         ],
       ),

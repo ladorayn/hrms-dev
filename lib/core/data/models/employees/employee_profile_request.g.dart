@@ -11,8 +11,8 @@ _$EmployeeProfileRequestImpl _$$EmployeeProfileRequestImplFromJson(
     _$EmployeeProfileRequestImpl(
       name: json['name'] as String,
       email: json['email'] as String,
-      phoneNumber: json['phone_number'] as String,
-      roleId: (json['role_id'] as num).toInt(),
+      phoneNumber: (json['phone_number'] as num).toInt(),
+      roleId: (json['role_id'] as num?)?.toInt(),
       gender: json['gender'] as String,
       dateOfBirth: json['date_of_birth'] as String,
       placeOfBirth: json['place_of_birth'] as String,
@@ -41,6 +41,7 @@ _$EmployeeProfileRequestImpl _$$EmployeeProfileRequestImplFromJson(
       bankId: (json['bank_id'] as num).toInt(),
       accountNumber: json['account_number'] as String,
       accountName: json['account_name'] as String,
+      countryCode: (json['country_code'] as num).toInt(),
     );
 
 Map<String, dynamic> _$$EmployeeProfileRequestImplToJson(
@@ -76,6 +77,7 @@ Map<String, dynamic> _$$EmployeeProfileRequestImplToJson(
       'bank_id': instance.bankId,
       'account_number': instance.accountNumber,
       'account_name': instance.accountName,
+      'country_code': instance.countryCode,
     };
 
 _$TeamMemberRequestImpl _$$TeamMemberRequestImplFromJson(
