@@ -5,30 +5,38 @@ import 'package:hrms_mobile/application/theme/i_colors.dart';
 class ITextFieldDropdownMultiSelect<T> extends StatelessWidget {
   final String label;
   final bool isRequired;
-  final List<T> allItems;
   final List<T> selectedItems;
   final Function(List<T> newSelection) onSelectionConfirmed;
   final String Function(T item) itemToString;
-  final String? Function(T item)? itemToSubtitle;
-  final String bottomSheetTitle;
-  final String searchHintText;
   final Widget? suffixIcon;
   final int maxChipsToDisplay;
+
+  final List<T>? allItems;
+  final String? Function(T item)? itemToSubtitle;
+  final String? bottomSheetTitle;
+  final String? searchHintText;
+
+  final Widget Function(BuildContext context, List<T> initialSelectedItems)?
+      customSheetBuilder;
 
   const ITextFieldDropdownMultiSelect({
     super.key,
     required this.label,
     this.isRequired = false,
-    required this.allItems,
     required this.selectedItems,
     required this.onSelectionConfirmed,
     required this.itemToString,
-    this.itemToSubtitle,
-    required this.bottomSheetTitle,
-    this.searchHintText = 'Search...',
     this.suffixIcon,
     this.maxChipsToDisplay = 2,
-  });
+    this.allItems,
+    this.itemToSubtitle,
+    this.bottomSheetTitle,
+    this.searchHintText,
+    this.customSheetBuilder,
+  }) : assert(
+            (allItems != null && customSheetBuilder == null) ||
+                (allItems == null && customSheetBuilder != null),
+            'You must provide EITHER `allItems` OR a `customSheetBuilder`, but not both.');
 
   @override
   Widget build(BuildContext context) {
@@ -45,21 +53,40 @@ class ITextFieldDropdownMultiSelect<T> extends StatelessWidget {
         SizedBox(height: 8.h),
         GestureDetector(
           onTap: () async {
-            final List<T>? result = await showModalBottomSheet(
-              context: context,
-              isScrollControlled: true,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
-              ),
-              builder: (_) => _MultiSelectBottomSheet<T>(
-                allItems: allItems,
-                initialSelectedItems: selectedItems,
-                bottomSheetTitle: bottomSheetTitle,
-                searchHintText: searchHintText,
-                itemToString: itemToString,
-                itemToSubtitle: itemToSubtitle,
-              ),
-            );
+            List<T>? result;
+
+            // 🚀 --- NEW LOGIC ---
+            // If a custom builder is provided, use it.
+            if (customSheetBuilder != null) {
+              result = await showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                shape: RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(20.r)),
+                ),
+                builder: (ctx) => customSheetBuilder!(ctx, selectedItems),
+              );
+            }
+            // Otherwise, use the internal simple sheet.
+            else {
+              result = await showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                shape: RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(20.r)),
+                ),
+                builder: (_) => _MultiSelectBottomSheet<T>(
+                  allItems: allItems!,
+                  initialSelectedItems: selectedItems,
+                  bottomSheetTitle: bottomSheetTitle ?? 'Select Items',
+                  searchHintText: searchHintText ?? 'Search...',
+                  itemToString: itemToString,
+                  itemToSubtitle: itemToSubtitle,
+                ),
+              );
+            }
 
             if (result != null) {
               onSelectionConfirmed(result);
@@ -130,8 +157,7 @@ class ITextFieldDropdownMultiSelect<T> extends StatelessWidget {
                                   ),
                                   backgroundColor:
                                       IColors.light.primary.focused,
-                                  shape:
-                                      const CircleBorder(), // Make it circular
+                                  shape: const CircleBorder(),
                                   side: BorderSide.none,
                                 ),
                               ),
@@ -155,7 +181,6 @@ class ITextFieldDropdownMultiSelect<T> extends StatelessWidget {
   }
 }
 
-// Internal widget for the bottom sheet logic
 class _MultiSelectBottomSheet<T> extends StatefulWidget {
   final List<T> allItems;
   final List<T> initialSelectedItems;
@@ -283,15 +308,12 @@ class _MultiSelectBottomSheetState<T>
                               ),
                             ),
                             SizedBox(width: 8.w),
-
                             Expanded(
                               child: Text(
                                 widget.itemToString(item),
                                 style: Theme.of(context).textTheme.bodyLarge,
                               ),
                             ),
-
-                            // Right side: Employee Position
                             if (widget.itemToSubtitle != null &&
                                 widget.itemToSubtitle!(item) != null)
                               Text(
@@ -314,15 +336,15 @@ class _MultiSelectBottomSheetState<T>
                   Navigator.pop(context, _tempSelectedItems);
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  foregroundColor: IColors.light.primary.main,
+                  backgroundColor: IColors.light.primary.main,
+                  foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                     side: BorderSide(color: IColors.light.primary.main),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   minimumSize: Size(double.infinity, 48.h),
                 ),
-                child: const Text('Done'),
+                child: const Text('udah'),
               )
             ],
           ),

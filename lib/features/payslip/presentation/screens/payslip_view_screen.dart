@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
-import 'package:hrms_mobile/features/payslip/presentation/widgets/benefit_section.dart';
 import 'package:hrms_mobile/features/payslip/presentation/widgets/earnings_deductions_table.dart';
 import 'package:hrms_mobile/features/payslip/presentation/widgets/payslip_details_section.dart';
 import 'package:hrms_mobile/features/payslip/presentation/widgets/payslip_notes_section.dart';
@@ -51,28 +50,17 @@ class PayslipViewScreen extends ConsumerWidget {
                 valueColor: valueColor,
               ),
               SizedBox(height: 24.h),
-
-              // --- 3. Benefits ---
-              BenefitsSection(
-                textTheme: textTheme,
-                headerColor: headerColor,
-                labelColor: labelColor,
-                valueColor: valueColor,
-              ),
-              SizedBox(height: 24.h),
               Divider(
                 height: 1,
                 color: IColors.light.grayscale.g20,
               ),
               SizedBox(height: 24.h),
-
-              // --- 4. Notes ---
               PayslipNotesSection(
                 textTheme: textTheme,
                 confidentialColor: confidentialColor,
                 labelColor: labelColor,
               ),
-              SizedBox(height: 40.h), // Extra space at the bottom
+              SizedBox(height: 40.h),
             ],
           ),
         ),

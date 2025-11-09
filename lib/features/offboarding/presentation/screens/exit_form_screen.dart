@@ -5,190 +5,265 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
+import 'package:hrms_mobile/core/data/models/form_fields_response.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/core/widgets/i_footer_button.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
+import 'package:hrms_mobile/features/offboarding/data/models/request/exit_form_request.dart';
+import 'package:hrms_mobile/features/offboarding/data/models/response/offboarding_status_response.dart';
+import 'package:hrms_mobile/features/offboarding/presentation/providers/offboarding_provider.dart';
 
 class ExitFormScreen extends ConsumerStatefulWidget {
-  const ExitFormScreen({super.key});
+  final OffboardingStatusResponse data;
+
+  const ExitFormScreen(
+      {super.key, required OffboardingStatusResponse this.data});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _ExitFormScreenState();
 }
 
 class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
-  // 1. Reason for Leaving
-  final Map<String, bool> _reasonsForLeaving = {
-    'Better career opportunity (promotion & role expansion)': false,
-    'Salary/Compensation': false,
-    'Work-life balance': false,
-    'Relationship with supervisor/colleagues': false,
-    'Relocation / Family reason': false,
-    'Others': false,
-  };
-  late final TextEditingController _otherReasonController;
+  final Map<int, Map<String, bool>> _checkboxAnswers = {};
 
-  // 2-5. Rating Sections
-  int? _compensationRating;
-  late final TextEditingController _compensationNotesController;
+  final Map<int, int?> _ratingAnswers = {};
 
-  int? _workEnvironmentRating;
-  late final TextEditingController _workEnvironmentNotesController;
+  final Map<int, TextEditingController> _notesControllers = {};
 
-  int? _supervisorRelationshipRating;
-  late final TextEditingController _supervisorRelationshipNotesController;
+  bool _isStateInitialized = false;
 
-  int? _careerDevelopmentRating;
-  late final TextEditingController _careerDevelopmentNotesController;
-
-  // 6-9. Text Area Sections
-  late final TextEditingController _strengthsController;
-  late final TextEditingController _weaknessController;
-  late final TextEditingController _improvementController;
-  late final TextEditingController _finalCommentsController;
-
-  @override
-  void initState() {
-    super.initState();
-    _otherReasonController = TextEditingController();
-    _compensationNotesController = TextEditingController();
-    _workEnvironmentNotesController = TextEditingController();
-    _supervisorRelationshipNotesController = TextEditingController();
-    _careerDevelopmentNotesController = TextEditingController();
-    _strengthsController = TextEditingController();
-    _weaknessController = TextEditingController();
-    _improvementController = TextEditingController();
-    _finalCommentsController = TextEditingController();
-  }
+  bool _isFormValid = false;
 
   @override
   void dispose() {
-    _otherReasonController.dispose();
-    _compensationNotesController.dispose();
-    _workEnvironmentNotesController.dispose();
-    _supervisorRelationshipNotesController.dispose();
-    _careerDevelopmentNotesController.dispose();
-    _strengthsController.dispose();
-    _weaknessController.dispose();
-    _improvementController.dispose();
-    _finalCommentsController.dispose();
+    for (var controller in _notesControllers.values) {
+      controller.removeListener(_validateForm);
+      controller.dispose();
+    }
     super.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+  void _initializeState(List<FormFields> fields) {
+    if (_isStateInitialized) return;
 
-    Future<void> onSubmit() async {
-      // In a real app, you would gather all the state variables here
-      // and send them to your API.
-      try {
+    for (final field in fields) {
+      switch (field.type) {
+        case 'checkbox':
+          final optionsMap = <String, bool>{};
+          if (field.options is List) {
+            for (final option in (field.options as List).cast<String>()) {
+              optionsMap[option] = false;
+            }
+          }
+          _checkboxAnswers[field.id] = optionsMap;
+          break;
+        case 'range':
+          _ratingAnswers[field.id] = null;
+          if (field.metadata != null &&
+              field.metadata is Map<String, dynamic>) {
+            final metadata =
+                FieldMetadata.fromJson(field.metadata as Map<String, dynamic>);
+            if (metadata.isNote == true) {
+              final controller = TextEditingController();
+              controller.addListener(_validateForm);
+              _notesControllers[field.id] = controller;
+            }
+          }
+          break;
+        case 'textarea':
+        case 'text':
+          final controller = TextEditingController();
+          controller.addListener(_validateForm);
+          _notesControllers[field.id] = controller;
+          break;
+      }
+    }
+    _isStateInitialized = true;
+    _validateForm();
+  }
+
+  void _validateForm() {
+    final formFields = ref
+        .read(offboardingFormFieldsProvider(formId: widget.data.formId ?? 0))
+        .value;
+
+    if (formFields == null) {
+      setState(() => _isFormValid = false);
+      return;
+    }
+
+    bool allRequiredFieldsAreValid = true;
+    for (final field in formFields) {
+      if (field.isRequired) {
+        bool isFieldValid = false;
+
+        switch (field.type) {
+          case 'checkbox':
+            final answers = _checkboxAnswers[field.id];
+            if (answers != null && answers.values.contains(true)) {
+              isFieldValid = true;
+            }
+            break;
+          case 'range':
+            if (_ratingAnswers[field.id] != null) {
+              isFieldValid = true;
+            }
+            break;
+          case 'textarea':
+          case 'text':
+            final controller = _notesControllers[field.id];
+            if (controller != null && controller.text.trim().isNotEmpty) {
+              isFieldValid = true;
+            }
+            break;
+          default:
+            isFieldValid = true;
+            break;
+        }
+
+        if (!isFieldValid) {
+          allRequiredFieldsAreValid = false;
+          break;
+        }
+      }
+    }
+
+    // Update the state with the result
+    setState(() {
+      _isFormValid = allRequiredFieldsAreValid;
+    });
+  }
+
+  Future<void> _onSubmit() async {
+    final List<SubmissionForm> submissions = [];
+
+    _checkboxAnswers.forEach((fieldId, answers) {
+      final selectedOptions = answers.entries
+          .where((e) => e.value == true)
+          .map((e) => e.key)
+          .toList();
+
+      submissions.add(SubmissionForm(
+        fieldId: fieldId,
+        value: selectedOptions,
+        additionalData: selectedOptions,
+      ));
+    });
+
+    _ratingAnswers.forEach((fieldId, rating) {
+      submissions.add(SubmissionForm(
+        fieldId: fieldId,
+        value: rating.toString(),
+        additionalData: {
+          'notes': _notesControllers[fieldId]?.text ?? '',
+        },
+      ));
+    });
+
+    _notesControllers.forEach((fieldId, controller) {
+      if (!_ratingAnswers.containsKey(fieldId)) {
+        submissions.add(SubmissionForm(
+          fieldId: fieldId,
+          value: controller.text,
+        ));
+      }
+    });
+
+    final request = ExitFormRequest(submissions: submissions);
+
+    try {
+      await ref.read(exitFormSubmissionProvider.notifier).submitForm(
+          request: request,
+          formId: widget.data.formId ?? 0,
+          offboardingId: widget.data.id ?? 0);
+      ref.invalidate(exitFormSubmissionProvider);
+      if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Form Submitted Successfully!')),
         );
-        // Optional: Navigate back after submission
-        // context.pop();
-      } catch (e) {
+        context.pop(); // Pop the dialog
+        globalNavigatorKey.currentContext?.pop();
+      }
+    } catch (e) {
+      if (mounted) {
+        context.pop(); // Pop the dialog
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Submission Failed: ${e.toString()}')),
         );
       }
     }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final formFieldsAsync = ref
+        .watch(offboardingFormFieldsProvider(formId: widget.data.formId ?? 0));
+
+    ref.listen(offboardingFormFieldsProvider(formId: widget.data.formId ?? 0),
+        (previous, next) {
+      if (next.hasValue && !_isStateInitialized) {
+        setState(() {
+          _initializeState(next.value!);
+        });
+      }
+    });
 
     return Scaffold(
       appBar: IAppBar(title: "Exit Interview Form"),
       body: Column(
         children: [
           Expanded(
-            child: ListView(
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-              children: [
-                _buildReasonForLeavingSection(),
-                Divider(
-                  height: 24.h,
-                  color: IColors.light.grayscale.g10,
-                ),
-                _buildRatingSection(
-                  title: '2. Compensation & Benefits',
-                  selectedRating: _compensationRating,
-                  notesController: _compensationNotesController,
-                  onRatingSelected: (rating) {
-                    setState(() => _compensationRating = rating);
+            child: formFieldsAsync.when(
+              loading: () => const Center(child: CircularProgressIndicator()),
+              error: (err, stack) => Center(child: Text('Error: $err')),
+              data: (formFields) {
+                return ListView.separated(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+                  itemCount: formFields.length,
+                  itemBuilder: (context, index) {
+                    final field = formFields[index];
+
+                    return _buildDynamicField(field);
                   },
-                ),
-                Divider(
-                  height: 24.h,
-                  color: IColors.light.grayscale.g10,
-                ),
-                _buildRatingSection(
-                  title: '3. Work Environment',
-                  selectedRating: _workEnvironmentRating,
-                  notesController: _workEnvironmentNotesController,
-                  onRatingSelected: (rating) {
-                    setState(() => _workEnvironmentRating = rating);
-                  },
-                ),
-                Divider(
-                  height: 24.h,
-                  color: IColors.light.grayscale.g10,
-                ),
-                _buildRatingSection(
-                  title: '4. Relationship with Supervisor',
-                  selectedRating: _supervisorRelationshipRating,
-                  notesController: _supervisorRelationshipNotesController,
-                  onRatingSelected: (rating) {
-                    setState(() => _supervisorRelationshipRating = rating);
-                  },
-                ),
-                Divider(
-                  height: 24.h,
-                  color: IColors.light.grayscale.g10,
-                ),
-                _buildRatingSection(
-                  title: '5. Career Development',
-                  selectedRating: _careerDevelopmentRating,
-                  notesController: _careerDevelopmentNotesController,
-                  onRatingSelected: (rating) {
-                    setState(() => _careerDevelopmentRating = rating);
-                  },
-                ),
-                Divider(
-                  height: 24.h,
-                  color: IColors.light.grayscale.g10,
-                ),
-                _buildTextAreaSection(
-                    '6. Company Strengths', _strengthsController),
-                Divider(
-                  height: 24.h,
-                  color: IColors.light.grayscale.g10,
-                ),
-                _buildTextAreaSection(
-                    '7. Company Weakness', _weaknessController),
-                Divider(
-                  height: 24.h,
-                  color: IColors.light.grayscale.g10,
-                ),
-                _buildTextAreaSection(
-                    '8. Suggestion for Improvement', _improvementController),
-                Divider(
-                  height: 24.h,
-                  color: IColors.light.grayscale.g10,
-                ),
-                _buildTextAreaSection(
-                    '9. Final Comments', _finalCommentsController),
-              ],
+                  separatorBuilder: (context, index) => Divider(
+                    height: 24.h,
+                    color: IColors.light.grayscale.g10,
+                  ),
+                );
+              },
             ),
           ),
           IFooterButton(
             text: "Submit Form",
-            onPressed: () {
-              _showPopUpConfirmationSubmission(context);
-            },
+            onPressed: _isFormValid
+                ? () {
+                    if (_isStateInitialized) {
+                      _showPopUpConfirmationSubmission(context);
+                    }
+                  }
+                : null,
           )
         ],
       ),
     );
+  }
+
+  /// Master widget builder that routes to the correct sub-builder.
+  Widget _buildDynamicField(FormFields field) {
+    switch (field.type) {
+      case 'checkbox':
+        return _buildCheckboxSection(field);
+      case 'range':
+        return _buildRatingSection(field);
+      case 'textarea':
+        return _buildTextAreaSection(field);
+      case 'text':
+        return _buildTextAreaSection(field);
+      default:
+        return Text('Unknown field type: ${field.type}');
+    }
   }
 
   Widget _buildCustomCheckbox({
@@ -198,14 +273,14 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
   }) {
     return InkWell(
       onTap: () {
-        onChanged(!value); // Toggle the value when the row is tapped
+        onChanged(!value);
       },
       child: Row(
         children: [
           Checkbox(
             value: value,
             onChanged: onChanged,
-            visualDensity: VisualDensity.compact, // Make checkbox smaller
+            visualDensity: VisualDensity.compact,
           ),
           Expanded(child: Text(title)),
         ],
@@ -213,57 +288,67 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
     );
   }
 
-  Widget _buildReasonForLeavingSection() {
+  Widget _buildCheckboxSection(FormFields field) {
+    final answers = _checkboxAnswers[field.id];
+
+    if (answers == null || field.options == null || field.options is! List) {
+      return const SizedBox.shrink();
+    }
+
+    final options = (field.options as List).cast<String>();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('1. Reason for Leaving',
+        Text('${field.order}. ${field.label}' ?? '',
             style: Theme.of(context).textTheme.titleMedium),
-        ..._reasonsForLeaving.keys.map((reason) {
+        ...options.map((option) {
           return _buildCustomCheckbox(
-            title: reason,
-            value: _reasonsForLeaving[reason]!,
+            title: option,
+            value: answers[option]!,
             onChanged: (bool? value) {
               setState(() {
-                _reasonsForLeaving[reason] = value!;
+                answers[option] = value!;
               });
+              _validateForm();
             },
           );
-        }).toList(),
-        if (_reasonsForLeaving['Others'] == true)
-          Padding(
-            padding: EdgeInsets.only(left: 40.w, right: 16.w),
-            child: ITextFieldTextArea(
-              controller: _otherReasonController,
-              hintText: '',
-            ),
-          ),
+        }),
       ],
     );
   }
 
-  Widget _buildRatingSection({
-    required String title,
-    required int? selectedRating,
-    required TextEditingController notesController,
-    required ValueChanged<int> onRatingSelected,
-  }) {
+  Widget _buildRatingSection(FormFields field) {
+    final selectedRating = _ratingAnswers[field.id];
+    final notesController = _notesControllers[field.id];
+
+    if (field.options == null || field.options is! Map<String, dynamic>) {
+      return const SizedBox.shrink();
+    }
+    final options =
+        FieldOptionsRange.fromJson(field.options as Map<String, dynamic>);
+    final int count = options.max - options.min + 1;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: Theme.of(context).textTheme.titleMedium),
+        Text('${field.order}. ${field.label}' ?? '',
+            style: Theme.of(context).textTheme.titleMedium),
         SizedBox(height: 12.h),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: List.generate(5, (index) {
-            final rating = index + 1;
+          children: List.generate(count, (index) {
+            final rating = options.min + index;
             final isSelected = rating == selectedRating;
             return Expanded(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 4.w),
                 child: isSelected
                     ? ElevatedButton(
-                        onPressed: () => onRatingSelected(rating),
+                        onPressed: () {
+                          setState(() => _ratingAnswers[field.id] = rating);
+                          _validateForm();
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: IColors.light.primary.main,
                           foregroundColor: Colors.white,
@@ -275,7 +360,10 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
                         child: Text('$rating'),
                       )
                     : ElevatedButton(
-                        onPressed: () => onRatingSelected(rating),
+                        onPressed: () {
+                          setState(() => _ratingAnswers[field.id] = rating);
+                          _validateForm();
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
                           foregroundColor: IColors.light.primary.main,
@@ -290,21 +378,27 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
             );
           }),
         ),
-        SizedBox(height: 12.h),
-        ITextFieldTextArea(
-          controller: notesController,
-          label: 'Notes',
-          hintText: '',
-        ),
+        if (notesController != null) ...[
+          SizedBox(height: 12.h),
+          ITextFieldTextArea(
+            controller: notesController,
+            label: 'Notes',
+            hintText: '',
+          ),
+        ],
       ],
     );
   }
 
-  Widget _buildTextAreaSection(String title, TextEditingController controller) {
+  Widget _buildTextAreaSection(FormFields field) {
+    final controller = _notesControllers[field.id];
+    if (controller == null) return const SizedBox.shrink();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: Theme.of(context).textTheme.titleMedium),
+        Text('${field.order}. ${field.label}' ?? '',
+            style: Theme.of(context).textTheme.titleMedium),
         SizedBox(height: 12.h),
         ITextFieldTextArea(
           controller: controller,
@@ -322,6 +416,7 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
       barrierDismissible: false,
       builder: (context) {
         return Dialog(
+          insetPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 24.h),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.0),
           ),
@@ -347,12 +442,11 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
                 ),
                 SizedBox(height: 16.h),
                 Row(
-                  spacing: 10,
                   children: [
                     Expanded(
                         child: ElevatedButton(
                             onPressed: () {
-                              globalNavigatorKey.currentContext?.pop();
+                              context.pop();
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.white,
@@ -364,10 +458,11 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
                               ),
                             ),
                             child: Text("Cancel"))),
+                    SizedBox(width: 10.w),
                     Expanded(
                         child: ElevatedButton(
                             onPressed: () {
-                              globalNavigatorKey.currentContext?.pop();
+                              _onSubmit();
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: IColors.light.primary.main,
@@ -378,7 +473,10 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
                                 borderRadius: BorderRadius.circular(8),
                               ),
                             ),
-                            child: Text("Confirm"))),
+                            child: Text(
+                              "Submit Form",
+                              textAlign: TextAlign.center,
+                            ))),
                   ],
                 )
               ],

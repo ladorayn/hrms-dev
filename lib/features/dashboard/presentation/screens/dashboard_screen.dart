@@ -32,7 +32,7 @@ class DashboardScreen extends ConsumerWidget {
     final todayAttendanceState = ref.watch(todayAttendanceProvider);
     final authP = ref.watch(authProvider);
     final companyP = ref.watch(companyProfileProvider);
-    final recentActivityState = ref.watch(recentActivityProvider(limit: 4));
+    final recentActivityState = ref.watch(recentActivityProvider(limit: 10));
     final getDetail = ref.watch(getDetailAttendanceProvider(
         attendanceId: todayAttendanceState.value?.id.toString() ?? ''));
 
@@ -88,541 +88,570 @@ class DashboardScreen extends ConsumerWidget {
     });
 
     final String todayDate = DateFormat('MMMM d, y').format(DateTime.now());
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Color(0xFFF8F8F8),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(32),
-                bottomRight: Radius.circular(32),
-              ),
-              gradient: LinearGradient(
-                begin: Alignment.bottomLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  IColors.light.primary.main,
-                  IColors.light.primary.main.withValues(alpha: 0.9),
-                  IColors.light.primary.main.withValues(alpha: 0.65),
-                  IColors.light.primary.main.withValues(alpha: 0.65),
-                  IColors.light.primary.main.withValues(alpha: 0.65),
-                  IColors.light.primary.main.withValues(alpha: 0.65),
-                  IColors.light.primary.main.withValues(alpha: 0.65),
-                  IColors.light.primary.main.withValues(alpha: 0.65),
-                  IColors.light.primary.main.withValues(alpha: 0.9),
-                  IColors.light.primary.hover,
-                ],
-                stops: const [
-                  0.0,
-                  0.15,
-                  0.35,
-                  0.37,
-                  0.39,
-                  0.42,
-                  0.44,
-                  0.46,
-                  0.65,
-                  1
-                ],
-              ),
-            ),
-            child: SafeArea(
-              child: Padding(
-                padding:
-                    EdgeInsets.only(left: 16, right: 16, bottom: 30, top: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      companyP.value?.name ?? '-',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    SizedBox(height: 8),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      backgroundColor: const Color(0xFFF8F8F8),
+      // --- START REFACTOR ---
+      // Replaced the root Column with NestedScrollView
+      body: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            SliverToBoxAdapter(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(32),
+                    bottomRight: Radius.circular(32),
+                  ),
+                  gradient: LinearGradient(
+                    begin: Alignment.bottomLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      IColors.light.primary.main,
+                      IColors.light.primary.main.withValues(alpha: 0.9),
+                      IColors.light.primary.main.withValues(alpha: 0.65),
+                      IColors.light.primary.main.withValues(alpha: 0.65),
+                      IColors.light.primary.main.withValues(alpha: 0.65),
+                      IColors.light.primary.main.withValues(alpha: 0.65),
+                      IColors.light.primary.main.withValues(alpha: 0.65),
+                      IColors.light.primary.main.withValues(alpha: 0.65),
+                      IColors.light.primary.main.withValues(alpha: 0.9),
+                      IColors.light.primary.hover,
+                    ],
+                    stops: const [
+                      0.0,
+                      0.15,
+                      0.35,
+                      0.37,
+                      0.39,
+                      0.42,
+                      0.44,
+                      0.46,
+                      0.65,
+                      1
+                    ],
+                  ),
+                ),
+                child: SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: 16, right: 16, bottom: 30, top: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                // Use the actual data from your provider
-                                authP.value?.name ?? '-',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 24.sp,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                maxLines: 2,
-                                overflow:
-                                    TextOverflow.ellipsis, // <-- USE ELLIPSIS
-                              ),
-                              Text(
-                                authP.value?.employment?.jobPosition?.name ??
-                                    '-',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ],
-                          ),
+                        Text(
+                          companyP.value?.name ?? '-',
+                          style: const TextStyle(color: Colors.white),
                         ),
-                        CircleAvatar(
-                          radius: 30.r,
-                          backgroundColor: IColors.dark.accent,
-                          backgroundImage:
-                              (authP.value?.photoProfileUrl?.isNotEmpty ??
+                        const SizedBox(height: 8),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    // Use the actual data from your provider
+                                    authP.value?.name ?? '-',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 24.sp,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                    maxLines: 2,
+                                    overflow: TextOverflow
+                                        .ellipsis, // <-- USE ELLIPSIS
+                                  ),
+                                  Text(
+                                    authP.value?.employment?.jobPosition
+                                            ?.name ??
+                                        '-',
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            CircleAvatar(
+                              radius: 30.r,
+                              backgroundColor: IColors.dark.accent,
+                              backgroundImage: (authP
+                                          .value?.photoProfileUrl?.isNotEmpty ??
                                       false)
                                   ? NetworkImage(authP.value!.photoProfileUrl!)
                                   : null,
-                          child: (authP.value?.photoProfileUrl?.isEmpty ?? true)
-                              ? const Icon(Icons.person,
-                                  size: 30, color: Colors.white)
-                              : null,
+                              child: (authP.value?.photoProfileUrl?.isEmpty ??
+                                      true)
+                                  ? const Icon(Icons.person,
+                                      size: 30, color: Colors.white)
+                                  : null,
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                  ],
+                  ),
                 ),
               ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.w),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  todayDate,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18.sp,
-                  ),
-                ),
-                SizedBox(height: 4.w),
-                todayAttendanceState.when(
-                    skipLoadingOnRefresh: true,
-                    skipLoadingOnReload: true,
-                    loading: () =>
-                        const Center(child: CircularProgressIndicator()),
-                    error: (err, stack) {
-                      debugPrint('Error in todayAttendanceProvider: $err');
-                      return _buildInitialState(context, ref);
-                    },
-                    data: (attendanceData) {
-                      return Container(
-                        decoration: BoxDecoration(
-                          color: IColors.light.primary.focused,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        padding: EdgeInsets.all(4.w),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: IColors.light.primary.foreground,
-                            border: Border.all(
-                              color: IColors.light.primary.border,
-                              width: 1,
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      todayDate,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.sp,
+                      ),
+                    ),
+                    SizedBox(height: 4.w),
+                    todayAttendanceState.when(
+                        skipLoadingOnRefresh: true,
+                        skipLoadingOnReload: true,
+                        loading: () =>
+                            const Center(child: CircularProgressIndicator()),
+                        error: (err, stack) {
+                          debugPrint('Error in todayAttendanceProvider: $err');
+                          return _buildInitialState(context, ref);
+                        },
+                        data: (attendanceData) {
+                          return Container(
+                            decoration: BoxDecoration(
+                              color: IColors.light.primary.focused,
+                              borderRadius: BorderRadius.circular(12),
                             ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.all(6.w),
-                                child: IntrinsicHeight(
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: Row(
-                                          children: [
-                                            CircleAvatar(
-                                              backgroundColor: IColors
-                                                  .light.primary.background,
-                                              radius: 15.r,
-                                              child: SvgPicture.asset(
-                                                IAssets.clockIn,
-                                                height: 24.0,
-                                                width: 24.0,
-                                              ),
-                                            ),
-                                            SizedBox(width: 10.w),
-                                            Expanded(
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    'Clock In',
-                                                    style: TextStyle(
-                                                        color:
-                                                            Color(0xFF8E8E8E),
-                                                        fontSize: 12.sp),
-                                                  ),
-                                                  SizedBox(
-                                                    height: (attendanceData
-                                                                    ?.clock
-                                                                    ?.outAt ==
-                                                                null &&
-                                                            attendanceData
-                                                                    ?.clock
-                                                                    ?.inAt !=
-                                                                null)
-                                                        ? 15.w
-                                                        : 4.w,
-                                                  ),
-                                                  if (attendanceData == null)
-                                                    _buildClockInButton(
-                                                        context, ref)
-                                                  else
-                                                    _buildTimeDisplay(
-                                                        attendanceData
-                                                                .clock?.inAt ??
-                                                            ''),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      VerticalDivider(
-                                        width: 20,
-                                        thickness: 2,
-                                        color: IColors.light.grayscale.g20,
-                                      ),
-                                      Expanded(
-                                        child: Row(
-                                          children: [
-                                            CircleAvatar(
-                                              backgroundColor: IColors
-                                                  .light.primary.background,
-                                              radius: 15.r,
-                                              child: SvgPicture.asset(
-                                                IAssets.clockOut,
-                                                height: 24.0,
-                                                width: 24.0,
-                                              ),
-                                            ),
-                                            const SizedBox(width: 10),
-                                            Expanded(
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  const Text(
-                                                    'Clock Out',
-                                                    style: TextStyle(
-                                                        color:
-                                                            Color(0xFF8E8E8E)),
-                                                  ),
-                                                  const SizedBox(height: 4),
-                                                  if (attendanceData == null)
-                                                    _buildClockOutButton(
-                                                        context, ref,
-                                                        enabled: false)
-                                                  else if (attendanceData
-                                                          .clock?.outAt ==
-                                                      null)
-                                                    _buildClockOutButton(
-                                                        context, ref,
-                                                        enabled: true)
-                                                  else
-                                                    // Already clocked out, show the time
-                                                    _buildTimeDisplay(
-                                                        attendanceData
-                                                                .clock?.outAt ??
-                                                            ''),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                            padding: EdgeInsets.all(4.w),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: IColors.light.primary.foreground,
+                                border: Border.all(
+                                  color: IColors.light.primary.border,
+                                  width: 1,
                                 ),
+                                borderRadius: BorderRadius.circular(8),
                               ),
-                              getDetail.when(
-                                loading: () => const SizedBox
-                                    .shrink(), // Show nothing while loading
-                                error: (err, stack) {
-                                  // Log the error for debugging, but don't show anything in the UI
-                                  debugPrint(
-                                      'Failed to get attendance detail for duration display: $err');
-                                  return const SizedBox
-                                      .shrink(); // Show nothing on error
-                                },
-                                data: (detail) {
-                                  // Now that we have data, we can safely check if the duration exists
-                                  if (detail?.clock.duration != null) {
-                                    // This is the success case, return the original UI
-                                    return Container(
-                                      decoration: BoxDecoration(
-                                        color: IColors.light.primary.main,
-                                        border: Border.all(
-                                          color: IColors.light.primary.border,
-                                          width: 1,
-                                        ),
-                                        borderRadius: BorderRadius.only(
-                                            bottomRight: Radius.circular(6),
-                                            bottomLeft: Radius.circular(6)),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(12.0),
-                                        child: IntrinsicHeight(
-                                          child: Row(
-                                            children: [
-                                              Expanded(
-                                                child: Row(
-                                                  spacing: 8,
-                                                  children: [
-                                                    Flexible(
-                                                      child: Text(
-                                                        "Working Time Duration",
-                                                        style: textTheme
-                                                            .labelSmall
-                                                            ?.copyWith(
-                                                          color: Colors.white,
-                                                          fontSize: 8.sp,
-                                                        ),
-                                                        overflow: TextOverflow
-                                                            .visible,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      "${getDetail.value?.clock.duration}",
-                                                      style: textTheme
-                                                          .labelSmall
-                                                          ?.copyWith(
-                                                        color: Colors.white,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 8.sp,
-                                                      ),
-                                                    ),
-                                                  ],
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.all(6.w),
+                                    child: IntrinsicHeight(
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            child: Row(
+                                              children: [
+                                                CircleAvatar(
+                                                  backgroundColor: IColors
+                                                      .light.primary.background,
+                                                  radius: 15.r,
+                                                  child: SvgPicture.asset(
+                                                    IAssets.clockIn,
+                                                    height: 24.0,
+                                                    width: 24.0,
+                                                  ),
                                                 ),
-                                              ),
-                                              if (detail?.clock
-                                                      .overtimeDuration !=
-                                                  null) ...[
-                                                VerticalDivider(
-                                                  width: 20,
-                                                  thickness: 2,
-                                                  color: IColors
-                                                      .light.grayscale.g20,
-                                                ),
+                                                SizedBox(width: 10.w),
                                                 Expanded(
-                                                  child: Row(
-                                                    spacing: 8,
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
-                                                      Flexible(
-                                                        child: Text(
-                                                          "Overtime Duration",
+                                                      Text(
+                                                        'Clock In',
+                                                        style: TextStyle(
+                                                            color: Color(
+                                                                0xFF8E8E8E),
+                                                            fontSize: 12.sp),
+                                                      ),
+                                                      SizedBox(
+                                                        height: (attendanceData
+                                                                        ?.clock
+                                                                        ?.outAt ==
+                                                                    null &&
+                                                                attendanceData
+                                                                        ?.clock
+                                                                        ?.inAt !=
+                                                                    null)
+                                                            ? 15.w
+                                                            : 4.w,
+                                                      ),
+                                                      if (attendanceData ==
+                                                          null)
+                                                        _buildClockInButton(
+                                                            context, ref)
+                                                      else
+                                                        _buildTimeDisplay(
+                                                            attendanceData.clock
+                                                                    ?.inAt ??
+                                                                ''),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          VerticalDivider(
+                                            width: 20,
+                                            thickness: 2,
+                                            color: IColors.light.grayscale.g20,
+                                          ),
+                                          Expanded(
+                                            child: Row(
+                                              children: [
+                                                CircleAvatar(
+                                                  backgroundColor: IColors
+                                                      .light.primary.background,
+                                                  radius: 15.r,
+                                                  child: SvgPicture.asset(
+                                                    IAssets.clockOut,
+                                                    height: 24.0,
+                                                    width: 24.0,
+                                                  ),
+                                                ),
+                                                const SizedBox(width: 10),
+                                                Expanded(
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      const Text(
+                                                        'Clock Out',
+                                                        style: TextStyle(
+                                                            color: Color(
+                                                                0xFF8E8E8E)),
+                                                      ),
+                                                      const SizedBox(height: 4),
+                                                      if (attendanceData ==
+                                                          null)
+                                                        _buildClockOutButton(
+                                                            context, ref,
+                                                            enabled: false)
+                                                      else if (attendanceData
+                                                              .clock?.outAt ==
+                                                          null)
+                                                        _buildClockOutButton(
+                                                            context, ref,
+                                                            enabled: true)
+                                                      else
+                                                        // Already clocked out, show the time
+                                                        _buildTimeDisplay(
+                                                            attendanceData.clock
+                                                                    ?.outAt ??
+                                                                ''),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  getDetail.when(
+                                    loading: () => const SizedBox.shrink(),
+                                    error: (err, stack) {
+                                      debugPrint(
+                                          'Failed to get attendance detail for duration display: $err');
+                                      return const SizedBox.shrink();
+                                    },
+                                    data: (detail) {
+                                      if (detail?.clock.duration != null) {
+                                        return Container(
+                                          decoration: BoxDecoration(
+                                            color: IColors.light.primary.main,
+                                            border: Border.all(
+                                              color:
+                                                  IColors.light.primary.border,
+                                              width: 1,
+                                            ),
+                                            borderRadius:
+                                                const BorderRadius.only(
+                                                    bottomRight:
+                                                        Radius.circular(6),
+                                                    bottomLeft:
+                                                        Radius.circular(6)),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(12.0),
+                                            child: IntrinsicHeight(
+                                              child: Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: Row(
+                                                      // spacing: 8, // Invalid property
+                                                      children: [
+                                                        Flexible(
+                                                          child: Text(
+                                                            "Working Time Duration",
+                                                            style: textTheme
+                                                                .labelSmall
+                                                                ?.copyWith(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 8.sp,
+                                                            ),
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .visible,
+                                                          ),
+                                                        ),
+                                                        SizedBox(width: 8),
+                                                        // Added SizedBox
+                                                        Text(
+                                                          "${getDetail.value?.clock.duration}",
                                                           style: textTheme
                                                               .labelSmall
                                                               ?.copyWith(
                                                             color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight.bold,
                                                             fontSize: 8.sp,
                                                           ),
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
                                                         ),
-                                                      ),
-                                                      Text(
-                                                        calculateDurationWithTotal(
-                                                            detail?.clock
-                                                                    .overtimeDuration ??
-                                                                0),
-                                                        style: textTheme
-                                                            .labelSmall
-                                                            ?.copyWith(
-                                                          color: Colors.white,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 8.sp,
-                                                        ),
-                                                      ),
-                                                    ],
+                                                      ],
+                                                    ),
                                                   ),
-                                                ),
-                                              ]
-                                            ],
+                                                  if (detail?.clock
+                                                          .overtimeDuration !=
+                                                      null) ...[
+                                                    VerticalDivider(
+                                                      width: 20,
+                                                      thickness: 2,
+                                                      color: IColors
+                                                          .light.grayscale.g20,
+                                                    ),
+                                                    Expanded(
+                                                      child: Row(
+                                                        // spacing: 8, // Invalid property
+                                                        children: [
+                                                          Flexible(
+                                                            child: Text(
+                                                              "Overtime Duration",
+                                                              style: textTheme
+                                                                  .labelSmall
+                                                                  ?.copyWith(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 8.sp,
+                                                              ),
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                            ),
+                                                          ),
+                                                          SizedBox(width: 8),
+                                                          // Added SizedBox
+                                                          Text(
+                                                            calculateDurationWithTotal(
+                                                                detail?.clock
+                                                                        .overtimeDuration ??
+                                                                    0),
+                                                            style: textTheme
+                                                                .labelSmall
+                                                                ?.copyWith(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontSize: 8.sp,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ]
+                                                ],
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                      ),
-                                    );
-                                  } else {
-                                    // If there's data but no duration, show nothing
-                                    return const SizedBox.shrink();
-                                  }
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    }),
-              ],
-            ),
-          ),
-          Expanded(
-            child: Container(
-              padding: EdgeInsets.all(2.w),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(16),
-                      topRight: Radius.circular(16))),
-              child: Padding(
-                padding: EdgeInsets.only(left: 16, right: 16, top: 16),
-                child: Column(
-                  spacing: 10,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      spacing: 20.w,
-                      children: [
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              globalNavigatorKey.currentContext
-                                  ?.push(RoutePaths.overtimeRequest);
-                            },
-                            child: Container(
-                              color: Color(0xFFF8FCFF),
-                              child: Padding(
-                                padding: EdgeInsets.all(8.sp),
-                                child: Column(
-                                  spacing: 10,
-                                  children: [
-                                    CircleAvatar(
-                                      child: SvgPicture.asset(
-                                        IAssets.overtime,
-                                        height: 24.0,
-                                        width: 24.0,
-                                      ),
-                                    ),
-                                    Text(
-                                      'Overtime Request',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12.sp,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ],
-                                ),
+                                        );
+                                      } else {
+                                        return const SizedBox.shrink();
+                                      }
+                                    },
+                                  ),
+                                ],
                               ),
                             ),
-                          ),
-                        ),
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              globalNavigatorKey.currentContext
-                                  ?.push(RoutePaths.leaveRequestForm);
-                            },
-                            child: Container(
-                              color: Color(0xFFF8FCFF),
-                              child: Padding(
-                                padding: EdgeInsets.all(8.sp),
-                                child: Column(
-                                  spacing: 10,
-                                  children: [
-                                    CircleAvatar(
-                                      child: SvgPicture.asset(
-                                        IAssets.documentSolid,
-                                        height: 24.0,
-                                        width: 24.0,
-                                      ),
-                                    ),
-                                    Text(
-                                      'New Leave Request',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12.sp,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          getOffboardingStatus.when(
-                            skipError: true,
-                            skipLoadingOnRefresh: true,
-                            skipLoadingOnReload: true,
-                            data: (data) {
-                              return OffboardingStatusCard();
-                            },
-                            error: (error, stackTrace) {
-                              if (error is DataNotFoundException) {
-                                return const SizedBox.shrink();
-                              }
-                              return Text("Error fetching offboarding status");
-                            },
-                            loading: () {
-                              return const SizedBox.shrink();
-                            },
-                          ),
-                          SizedBox(
-                            height: 4.h,
-                          ),
-                          Text(
-                            'Recent Activity',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18.sp,
-                              color: IColors.light.primary.main,
-                            ),
-                          ),
-                          Expanded(
-                            child: recentActivityState.when(
-                              loading: () => const Center(
-                                  child: CircularProgressIndicator()),
-                              error: (error, stackTrace) => const Center(
-                                  child: Text('Could not load activities')),
-                              data: (logs) {
-                                if (logs.isEmpty) {
-                                  return const Center(
-                                      child: Text('No recent activity.'));
-                                }
-                                return ListView.builder(
-                                  padding: EdgeInsets.zero,
-                                  itemCount: logs.length,
-                                  itemBuilder: (context, index) {
-                                    final log = logs[index];
-                                    return AttendanceListTile(
-                                      log: log,
-                                    );
-                                  },
-                                );
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
+                          );
+                        }),
                   ],
                 ),
               ),
             ),
+          ];
+        },
+        body: Container(
+          padding: EdgeInsets.all(2.w),
+          decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(16), topRight: Radius.circular(16))),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          globalNavigatorKey.currentContext
+                              ?.push(RoutePaths.overtimeRequest);
+                        },
+                        child: Container(
+                          color: const Color(0xFFF8FCFF),
+                          child: Padding(
+                            padding: EdgeInsets.all(8.sp),
+                            child: Column(
+                              children: [
+                                CircleAvatar(
+                                  child: SvgPicture.asset(
+                                    IAssets.overtime,
+                                    height: 24.0,
+                                    width: 24.0,
+                                  ),
+                                ),
+                                SizedBox(height: 10), // Added SizedBox
+                                Text(
+                                  'Overtime Request',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 12.sp,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 20.w), // Added SizedBox
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          globalNavigatorKey.currentContext
+                              ?.push(RoutePaths.leaveRequestForm);
+                        },
+                        child: Container(
+                          color: const Color(0xFFF8FCFF),
+                          child: Padding(
+                            padding: EdgeInsets.all(8.sp),
+                            child: Column(
+                              // spacing: 10, // Invalid property
+                              children: [
+                                CircleAvatar(
+                                  child: SvgPicture.asset(
+                                    IAssets.documentSolid,
+                                    height: 24.0,
+                                    width: 24.0,
+                                  ),
+                                ),
+                                SizedBox(height: 10), // Added SizedBox
+                                Text(
+                                  'New Leave Request',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 12.sp,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10), // Added SizedBox
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      getOffboardingStatus.when(
+                        skipError: true,
+                        skipLoadingOnRefresh: true,
+                        skipLoadingOnReload: true,
+                        data: (data) {
+                          if (data?.id == null) {
+                            return const SizedBox.shrink();
+                          }
+                          return OffboardingStatusCard(
+                            data: data!,
+                          );
+                        },
+                        error: (error, stackTrace) {
+                          if (error is DataNotFoundException) {
+                            return const SizedBox.shrink();
+                          }
+                          return Text(
+                              "Error fetching offboarding status $error");
+                        },
+                        loading: () {
+                          return const SizedBox.shrink();
+                        },
+                      ),
+                      SizedBox(
+                        height: 4.h,
+                      ),
+                      Text(
+                        'Recent Activity',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18.sp,
+                          color: IColors.light.primary.main,
+                        ),
+                      ),
+                      // This Expanded is CRITICAL for the inner scroll
+                      Expanded(
+                        child: recentActivityState.when(
+                          loading: () =>
+                              const Center(child: CircularProgressIndicator()),
+                          error: (error, stackTrace) => const Center(
+                              child: Text('Could not load activities')),
+                          data: (logs) {
+                            if (logs.isEmpty) {
+                              return const Center(
+                                  child: Text('No recent activity.'));
+                            }
+                            // This ListView is now the primary
+                            // scrollable for the body
+                            return ListView.builder(
+                              padding: EdgeInsets.zero,
+                              itemCount: logs.length,
+                              itemBuilder: (context, index) {
+                                final log = logs[index];
+                                return AttendanceListTile(
+                                  log: log,
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
-        ],
+        ),
       ),
     );
   }

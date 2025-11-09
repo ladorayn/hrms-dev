@@ -40,55 +40,91 @@ class StatusChip extends StatelessWidget {
     final Color statusBackgroundColor;
     final Color statusTextColor;
 
-    if (AttendanceEnum.checkActivity(event)) {
-      switch (status) {
-        case 1:
-        case 2:
-          statusText = statusLabel;
-          statusIconAsset = IAssets.onTimeClock;
-          statusBackgroundColor = IColors.light.success.background;
-          statusTextColor = IColors.light.success.hover;
-          break;
-        case 3:
-          statusText = statusLabel;
-          statusIconAsset = IAssets.warningClock;
-          statusBackgroundColor = IColors.light.warning.background;
-          statusTextColor = IColors.light.warning.hover;
-          break;
-        default:
-          statusText = statusLabel;
-          statusIconAsset = IAssets.warningClock;
-          statusBackgroundColor = IColors.light.warning.background;
-          statusTextColor = IColors.light.warning.hover;
-          break;
-      }
-    } else {
-      switch (status) {
-        case 0:
-          statusText = statusLabel;
-          statusIconAsset = IAssets.warningClock;
-          statusBackgroundColor = IColors.light.warning.background;
-          statusTextColor = IColors.light.warning.hover;
-          break;
-        case 1:
-          statusText = statusLabel;
-          statusIconAsset = IAssets.onTimeClock;
-          statusBackgroundColor = IColors.light.success.background;
-          statusTextColor = IColors.light.success.hover;
-          break;
-        case 2:
-          statusText = statusLabel;
-          statusIconAsset = IAssets.redClose;
-          statusBackgroundColor = IColors.light.error.background;
-          statusTextColor = IColors.light.error.hover;
-          break;
-        default:
-          statusText = statusLabel;
-          statusIconAsset = IAssets.warningClock;
-          statusBackgroundColor = IColors.light.warning.background;
-          statusTextColor = IColors.light.warning.hover;
-          break;
-      }
+    switch (event) {
+      case 'clock_in':
+      case 'clock_out':
+        switch (status) {
+          case 1:
+          case 2:
+            statusText = statusLabel;
+            statusIconAsset = IAssets.onTimeClock;
+            statusBackgroundColor = IColors.light.success.background;
+            statusTextColor = IColors.light.success.hover;
+            break;
+          case 3:
+            statusText = statusLabel;
+            statusIconAsset = IAssets.warningClock;
+            statusBackgroundColor = IColors.light.warning.background;
+            statusTextColor = IColors.light.warning.hover;
+            break;
+          default:
+            statusText = statusLabel;
+            statusIconAsset = IAssets.warningClock;
+            statusBackgroundColor = IColors.light.warning.background;
+            statusTextColor = IColors.light.warning.hover;
+            break;
+        }
+      case 'attendance':
+        switch (status) {
+          case 0:
+            statusText = statusLabel;
+            statusIconAsset = IAssets.warningClock;
+            statusBackgroundColor = IColors.light.warning.background;
+            statusTextColor = IColors.light.warning.hover;
+            break;
+          case 1:
+            statusText = statusLabel;
+            statusIconAsset = IAssets.onTimeClock;
+            statusBackgroundColor = IColors.light.success.background;
+            statusTextColor = IColors.light.success.hover;
+            break;
+          case 2:
+            statusText = statusLabel;
+            statusIconAsset = IAssets.redClose;
+            statusBackgroundColor = IColors.light.error.background;
+            statusTextColor = IColors.light.error.hover;
+            break;
+          case 3:
+            statusText = statusLabel;
+            statusIconAsset = IAssets.warningClock;
+            statusBackgroundColor = IColors.light.warning.background;
+            statusTextColor = IColors.light.warning.hover;
+            break;
+          default:
+            statusText = statusLabel;
+            statusIconAsset = IAssets.warningClock;
+            statusBackgroundColor = IColors.light.warning.background;
+            statusTextColor = IColors.light.warning.hover;
+            break;
+        }
+      case 'overtime':
+      default:
+        switch (status) {
+          case 1:
+            statusText = statusLabel;
+            statusIconAsset = IAssets.warningClock;
+            statusBackgroundColor = IColors.light.warning.background;
+            statusTextColor = IColors.light.warning.hover;
+            break;
+          case 2:
+            statusText = statusLabel;
+            statusIconAsset = IAssets.onTimeClock;
+            statusBackgroundColor = IColors.light.success.background;
+            statusTextColor = IColors.light.success.hover;
+            break;
+          case 3:
+            statusText = statusLabel;
+            statusIconAsset = IAssets.redClose;
+            statusBackgroundColor = IColors.light.error.background;
+            statusTextColor = IColors.light.error.hover;
+            break;
+          default:
+            statusText = statusLabel;
+            statusIconAsset = IAssets.warningClock;
+            statusBackgroundColor = IColors.light.warning.background;
+            statusTextColor = IColors.light.warning.hover;
+            break;
+        }
     }
 
     // --- Chip UI ---

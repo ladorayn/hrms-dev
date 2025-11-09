@@ -23,12 +23,14 @@ PaginatedResponse<T> _$PaginatedResponseFromJson<T>(
 mixin _$PaginatedResponse<T> {
   List<T> get data => throw _privateConstructorUsedError;
   @JsonKey(name: 'current_page')
-  int get currentPage => throw _privateConstructorUsedError;
+  int? get currentPage => throw _privateConstructorUsedError;
+  @JsonKey(name: 'current_page_url')
+  String? get currentPageUrl => throw _privateConstructorUsedError;
   @JsonKey(name: 'per_page')
-  int get perPage => throw _privateConstructorUsedError;
-  int get total => throw _privateConstructorUsedError;
+  int? get perPage => throw _privateConstructorUsedError;
+  int? get total => throw _privateConstructorUsedError;
   @JsonKey(name: 'last_page')
-  int get lastPage => throw _privateConstructorUsedError;
+  int? get lastPage => throw _privateConstructorUsedError;
   int? get from => throw _privateConstructorUsedError;
   int? get to => throw _privateConstructorUsedError;
   @JsonKey(name: 'first')
@@ -39,6 +41,15 @@ mixin _$PaginatedResponse<T> {
   String? get prev => throw _privateConstructorUsedError;
   @JsonKey(name: 'next')
   String? get next => throw _privateConstructorUsedError;
+  @JsonKey(name: 'last_page_url')
+  String? get lastPageUrl => throw _privateConstructorUsedError;
+  @JsonKey(name: 'first_page_url')
+  String? get firstPageUrl => throw _privateConstructorUsedError;
+  @JsonKey(name: 'next_page_url')
+  String? get nextPageUrl => throw _privateConstructorUsedError;
+  String? get path => throw _privateConstructorUsedError;
+  @JsonKey(name: 'prev_page_url')
+  String? get prevPageUrl => throw _privateConstructorUsedError;
 
   /// Serializes this PaginatedResponse to a JSON map.
   Map<String, dynamic> toJson(Object? Function(T) toJsonT) =>
@@ -59,16 +70,22 @@ abstract class $PaginatedResponseCopyWith<T, $Res> {
   @useResult
   $Res call(
       {List<T> data,
-      @JsonKey(name: 'current_page') int currentPage,
-      @JsonKey(name: 'per_page') int perPage,
-      int total,
-      @JsonKey(name: 'last_page') int lastPage,
+      @JsonKey(name: 'current_page') int? currentPage,
+      @JsonKey(name: 'current_page_url') String? currentPageUrl,
+      @JsonKey(name: 'per_page') int? perPage,
+      int? total,
+      @JsonKey(name: 'last_page') int? lastPage,
       int? from,
       int? to,
       @JsonKey(name: 'first') String? first,
       @JsonKey(name: 'last') String? last,
       @JsonKey(name: 'prev') String? prev,
-      @JsonKey(name: 'next') String? next});
+      @JsonKey(name: 'next') String? next,
+      @JsonKey(name: 'last_page_url') String? lastPageUrl,
+      @JsonKey(name: 'first_page_url') String? firstPageUrl,
+      @JsonKey(name: 'next_page_url') String? nextPageUrl,
+      String? path,
+      @JsonKey(name: 'prev_page_url') String? prevPageUrl});
 }
 
 /// @nodoc
@@ -88,38 +105,48 @@ class _$PaginatedResponseCopyWithImpl<T, $Res,
   @override
   $Res call({
     Object? data = null,
-    Object? currentPage = null,
-    Object? perPage = null,
-    Object? total = null,
-    Object? lastPage = null,
+    Object? currentPage = freezed,
+    Object? currentPageUrl = freezed,
+    Object? perPage = freezed,
+    Object? total = freezed,
+    Object? lastPage = freezed,
     Object? from = freezed,
     Object? to = freezed,
     Object? first = freezed,
     Object? last = freezed,
     Object? prev = freezed,
     Object? next = freezed,
+    Object? lastPageUrl = freezed,
+    Object? firstPageUrl = freezed,
+    Object? nextPageUrl = freezed,
+    Object? path = freezed,
+    Object? prevPageUrl = freezed,
   }) {
     return _then(_value.copyWith(
       data: null == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as List<T>,
-      currentPage: null == currentPage
+      currentPage: freezed == currentPage
           ? _value.currentPage
           : currentPage // ignore: cast_nullable_to_non_nullable
-              as int,
-      perPage: null == perPage
+              as int?,
+      currentPageUrl: freezed == currentPageUrl
+          ? _value.currentPageUrl
+          : currentPageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      perPage: freezed == perPage
           ? _value.perPage
           : perPage // ignore: cast_nullable_to_non_nullable
-              as int,
-      total: null == total
+              as int?,
+      total: freezed == total
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
-              as int,
-      lastPage: null == lastPage
+              as int?,
+      lastPage: freezed == lastPage
           ? _value.lastPage
           : lastPage // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       from: freezed == from
           ? _value.from
           : from // ignore: cast_nullable_to_non_nullable
@@ -144,6 +171,26 @@ class _$PaginatedResponseCopyWithImpl<T, $Res,
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
               as String?,
+      lastPageUrl: freezed == lastPageUrl
+          ? _value.lastPageUrl
+          : lastPageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      firstPageUrl: freezed == firstPageUrl
+          ? _value.firstPageUrl
+          : firstPageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      nextPageUrl: freezed == nextPageUrl
+          ? _value.nextPageUrl
+          : nextPageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      path: freezed == path
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
+              as String?,
+      prevPageUrl: freezed == prevPageUrl
+          ? _value.prevPageUrl
+          : prevPageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -158,16 +205,22 @@ abstract class _$$PaginatedResponseImplCopyWith<T, $Res>
   @useResult
   $Res call(
       {List<T> data,
-      @JsonKey(name: 'current_page') int currentPage,
-      @JsonKey(name: 'per_page') int perPage,
-      int total,
-      @JsonKey(name: 'last_page') int lastPage,
+      @JsonKey(name: 'current_page') int? currentPage,
+      @JsonKey(name: 'current_page_url') String? currentPageUrl,
+      @JsonKey(name: 'per_page') int? perPage,
+      int? total,
+      @JsonKey(name: 'last_page') int? lastPage,
       int? from,
       int? to,
       @JsonKey(name: 'first') String? first,
       @JsonKey(name: 'last') String? last,
       @JsonKey(name: 'prev') String? prev,
-      @JsonKey(name: 'next') String? next});
+      @JsonKey(name: 'next') String? next,
+      @JsonKey(name: 'last_page_url') String? lastPageUrl,
+      @JsonKey(name: 'first_page_url') String? firstPageUrl,
+      @JsonKey(name: 'next_page_url') String? nextPageUrl,
+      String? path,
+      @JsonKey(name: 'prev_page_url') String? prevPageUrl});
 }
 
 /// @nodoc
@@ -184,38 +237,48 @@ class __$$PaginatedResponseImplCopyWithImpl<T, $Res>
   @override
   $Res call({
     Object? data = null,
-    Object? currentPage = null,
-    Object? perPage = null,
-    Object? total = null,
-    Object? lastPage = null,
+    Object? currentPage = freezed,
+    Object? currentPageUrl = freezed,
+    Object? perPage = freezed,
+    Object? total = freezed,
+    Object? lastPage = freezed,
     Object? from = freezed,
     Object? to = freezed,
     Object? first = freezed,
     Object? last = freezed,
     Object? prev = freezed,
     Object? next = freezed,
+    Object? lastPageUrl = freezed,
+    Object? firstPageUrl = freezed,
+    Object? nextPageUrl = freezed,
+    Object? path = freezed,
+    Object? prevPageUrl = freezed,
   }) {
     return _then(_$PaginatedResponseImpl<T>(
       data: null == data
           ? _value._data
           : data // ignore: cast_nullable_to_non_nullable
               as List<T>,
-      currentPage: null == currentPage
+      currentPage: freezed == currentPage
           ? _value.currentPage
           : currentPage // ignore: cast_nullable_to_non_nullable
-              as int,
-      perPage: null == perPage
+              as int?,
+      currentPageUrl: freezed == currentPageUrl
+          ? _value.currentPageUrl
+          : currentPageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      perPage: freezed == perPage
           ? _value.perPage
           : perPage // ignore: cast_nullable_to_non_nullable
-              as int,
-      total: null == total
+              as int?,
+      total: freezed == total
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
-              as int,
-      lastPage: null == lastPage
+              as int?,
+      lastPage: freezed == lastPage
           ? _value.lastPage
           : lastPage // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       from: freezed == from
           ? _value.from
           : from // ignore: cast_nullable_to_non_nullable
@@ -240,6 +303,26 @@ class __$$PaginatedResponseImplCopyWithImpl<T, $Res>
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
               as String?,
+      lastPageUrl: freezed == lastPageUrl
+          ? _value.lastPageUrl
+          : lastPageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      firstPageUrl: freezed == firstPageUrl
+          ? _value.firstPageUrl
+          : firstPageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      nextPageUrl: freezed == nextPageUrl
+          ? _value.nextPageUrl
+          : nextPageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      path: freezed == path
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
+              as String?,
+      prevPageUrl: freezed == prevPageUrl
+          ? _value.prevPageUrl
+          : prevPageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -249,16 +332,22 @@ class __$$PaginatedResponseImplCopyWithImpl<T, $Res>
 class _$PaginatedResponseImpl<T> implements _PaginatedResponse<T> {
   const _$PaginatedResponseImpl(
       {required final List<T> data,
-      @JsonKey(name: 'current_page') required this.currentPage,
-      @JsonKey(name: 'per_page') required this.perPage,
-      required this.total,
-      @JsonKey(name: 'last_page') required this.lastPage,
-      required this.from,
-      required this.to,
-      @JsonKey(name: 'first') required this.first,
-      @JsonKey(name: 'last') required this.last,
-      @JsonKey(name: 'prev') required this.prev,
-      @JsonKey(name: 'next') required this.next})
+      @JsonKey(name: 'current_page') this.currentPage,
+      @JsonKey(name: 'current_page_url') this.currentPageUrl,
+      @JsonKey(name: 'per_page') this.perPage,
+      this.total,
+      @JsonKey(name: 'last_page') this.lastPage,
+      this.from,
+      this.to,
+      @JsonKey(name: 'first') this.first,
+      @JsonKey(name: 'last') this.last,
+      @JsonKey(name: 'prev') this.prev,
+      @JsonKey(name: 'next') this.next,
+      @JsonKey(name: 'last_page_url') this.lastPageUrl,
+      @JsonKey(name: 'first_page_url') this.firstPageUrl,
+      @JsonKey(name: 'next_page_url') this.nextPageUrl,
+      this.path,
+      @JsonKey(name: 'prev_page_url') this.prevPageUrl})
       : _data = data;
 
   factory _$PaginatedResponseImpl.fromJson(
@@ -275,15 +364,18 @@ class _$PaginatedResponseImpl<T> implements _PaginatedResponse<T> {
 
   @override
   @JsonKey(name: 'current_page')
-  final int currentPage;
+  final int? currentPage;
+  @override
+  @JsonKey(name: 'current_page_url')
+  final String? currentPageUrl;
   @override
   @JsonKey(name: 'per_page')
-  final int perPage;
+  final int? perPage;
   @override
-  final int total;
+  final int? total;
   @override
   @JsonKey(name: 'last_page')
-  final int lastPage;
+  final int? lastPage;
   @override
   final int? from;
   @override
@@ -300,10 +392,24 @@ class _$PaginatedResponseImpl<T> implements _PaginatedResponse<T> {
   @override
   @JsonKey(name: 'next')
   final String? next;
+  @override
+  @JsonKey(name: 'last_page_url')
+  final String? lastPageUrl;
+  @override
+  @JsonKey(name: 'first_page_url')
+  final String? firstPageUrl;
+  @override
+  @JsonKey(name: 'next_page_url')
+  final String? nextPageUrl;
+  @override
+  final String? path;
+  @override
+  @JsonKey(name: 'prev_page_url')
+  final String? prevPageUrl;
 
   @override
   String toString() {
-    return 'PaginatedResponse<$T>(data: $data, currentPage: $currentPage, perPage: $perPage, total: $total, lastPage: $lastPage, from: $from, to: $to, first: $first, last: $last, prev: $prev, next: $next)';
+    return 'PaginatedResponse<$T>(data: $data, currentPage: $currentPage, currentPageUrl: $currentPageUrl, perPage: $perPage, total: $total, lastPage: $lastPage, from: $from, to: $to, first: $first, last: $last, prev: $prev, next: $next, lastPageUrl: $lastPageUrl, firstPageUrl: $firstPageUrl, nextPageUrl: $nextPageUrl, path: $path, prevPageUrl: $prevPageUrl)';
   }
 
   @override
@@ -314,6 +420,8 @@ class _$PaginatedResponseImpl<T> implements _PaginatedResponse<T> {
             const DeepCollectionEquality().equals(other._data, _data) &&
             (identical(other.currentPage, currentPage) ||
                 other.currentPage == currentPage) &&
+            (identical(other.currentPageUrl, currentPageUrl) ||
+                other.currentPageUrl == currentPageUrl) &&
             (identical(other.perPage, perPage) || other.perPage == perPage) &&
             (identical(other.total, total) || other.total == total) &&
             (identical(other.lastPage, lastPage) ||
@@ -323,7 +431,16 @@ class _$PaginatedResponseImpl<T> implements _PaginatedResponse<T> {
             (identical(other.first, first) || other.first == first) &&
             (identical(other.last, last) || other.last == last) &&
             (identical(other.prev, prev) || other.prev == prev) &&
-            (identical(other.next, next) || other.next == next));
+            (identical(other.next, next) || other.next == next) &&
+            (identical(other.lastPageUrl, lastPageUrl) ||
+                other.lastPageUrl == lastPageUrl) &&
+            (identical(other.firstPageUrl, firstPageUrl) ||
+                other.firstPageUrl == firstPageUrl) &&
+            (identical(other.nextPageUrl, nextPageUrl) ||
+                other.nextPageUrl == nextPageUrl) &&
+            (identical(other.path, path) || other.path == path) &&
+            (identical(other.prevPageUrl, prevPageUrl) ||
+                other.prevPageUrl == prevPageUrl));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -332,6 +449,7 @@ class _$PaginatedResponseImpl<T> implements _PaginatedResponse<T> {
       runtimeType,
       const DeepCollectionEquality().hash(_data),
       currentPage,
+      currentPageUrl,
       perPage,
       total,
       lastPage,
@@ -340,7 +458,12 @@ class _$PaginatedResponseImpl<T> implements _PaginatedResponse<T> {
       first,
       last,
       prev,
-      next);
+      next,
+      lastPageUrl,
+      firstPageUrl,
+      nextPageUrl,
+      path,
+      prevPageUrl);
 
   /// Create a copy of PaginatedResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -361,16 +484,22 @@ class _$PaginatedResponseImpl<T> implements _PaginatedResponse<T> {
 abstract class _PaginatedResponse<T> implements PaginatedResponse<T> {
   const factory _PaginatedResponse(
           {required final List<T> data,
-          @JsonKey(name: 'current_page') required final int currentPage,
-          @JsonKey(name: 'per_page') required final int perPage,
-          required final int total,
-          @JsonKey(name: 'last_page') required final int lastPage,
-          required final int? from,
-          required final int? to,
-          @JsonKey(name: 'first') required final String? first,
-          @JsonKey(name: 'last') required final String? last,
-          @JsonKey(name: 'prev') required final String? prev,
-          @JsonKey(name: 'next') required final String? next}) =
+          @JsonKey(name: 'current_page') final int? currentPage,
+          @JsonKey(name: 'current_page_url') final String? currentPageUrl,
+          @JsonKey(name: 'per_page') final int? perPage,
+          final int? total,
+          @JsonKey(name: 'last_page') final int? lastPage,
+          final int? from,
+          final int? to,
+          @JsonKey(name: 'first') final String? first,
+          @JsonKey(name: 'last') final String? last,
+          @JsonKey(name: 'prev') final String? prev,
+          @JsonKey(name: 'next') final String? next,
+          @JsonKey(name: 'last_page_url') final String? lastPageUrl,
+          @JsonKey(name: 'first_page_url') final String? firstPageUrl,
+          @JsonKey(name: 'next_page_url') final String? nextPageUrl,
+          final String? path,
+          @JsonKey(name: 'prev_page_url') final String? prevPageUrl}) =
       _$PaginatedResponseImpl<T>;
 
   factory _PaginatedResponse.fromJson(
@@ -381,15 +510,18 @@ abstract class _PaginatedResponse<T> implements PaginatedResponse<T> {
   List<T> get data;
   @override
   @JsonKey(name: 'current_page')
-  int get currentPage;
+  int? get currentPage;
+  @override
+  @JsonKey(name: 'current_page_url')
+  String? get currentPageUrl;
   @override
   @JsonKey(name: 'per_page')
-  int get perPage;
+  int? get perPage;
   @override
-  int get total;
+  int? get total;
   @override
   @JsonKey(name: 'last_page')
-  int get lastPage;
+  int? get lastPage;
   @override
   int? get from;
   @override
@@ -406,6 +538,20 @@ abstract class _PaginatedResponse<T> implements PaginatedResponse<T> {
   @override
   @JsonKey(name: 'next')
   String? get next;
+  @override
+  @JsonKey(name: 'last_page_url')
+  String? get lastPageUrl;
+  @override
+  @JsonKey(name: 'first_page_url')
+  String? get firstPageUrl;
+  @override
+  @JsonKey(name: 'next_page_url')
+  String? get nextPageUrl;
+  @override
+  String? get path;
+  @override
+  @JsonKey(name: 'prev_page_url')
+  String? get prevPageUrl;
 
   /// Create a copy of PaginatedResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -413,4 +559,183 @@ abstract class _PaginatedResponse<T> implements PaginatedResponse<T> {
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PaginatedResponseImplCopyWith<T, _$PaginatedResponseImpl<T>>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+Link _$LinkFromJson(Map<String, dynamic> json) {
+  return _Link.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Link {
+  String? get url => throw _privateConstructorUsedError;
+  String? get label => throw _privateConstructorUsedError;
+  bool? get active => throw _privateConstructorUsedError;
+
+  /// Serializes this Link to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of Link
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $LinkCopyWith<Link> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $LinkCopyWith<$Res> {
+  factory $LinkCopyWith(Link value, $Res Function(Link) then) =
+      _$LinkCopyWithImpl<$Res, Link>;
+  @useResult
+  $Res call({String? url, String? label, bool? active});
+}
+
+/// @nodoc
+class _$LinkCopyWithImpl<$Res, $Val extends Link>
+    implements $LinkCopyWith<$Res> {
+  _$LinkCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of Link
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? url = freezed,
+    Object? label = freezed,
+    Object? active = freezed,
+  }) {
+    return _then(_value.copyWith(
+      url: freezed == url
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String?,
+      label: freezed == label
+          ? _value.label
+          : label // ignore: cast_nullable_to_non_nullable
+              as String?,
+      active: freezed == active
+          ? _value.active
+          : active // ignore: cast_nullable_to_non_nullable
+              as bool?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$LinkImplCopyWith<$Res> implements $LinkCopyWith<$Res> {
+  factory _$$LinkImplCopyWith(
+          _$LinkImpl value, $Res Function(_$LinkImpl) then) =
+      __$$LinkImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String? url, String? label, bool? active});
+}
+
+/// @nodoc
+class __$$LinkImplCopyWithImpl<$Res>
+    extends _$LinkCopyWithImpl<$Res, _$LinkImpl>
+    implements _$$LinkImplCopyWith<$Res> {
+  __$$LinkImplCopyWithImpl(_$LinkImpl _value, $Res Function(_$LinkImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of Link
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? url = freezed,
+    Object? label = freezed,
+    Object? active = freezed,
+  }) {
+    return _then(_$LinkImpl(
+      url: freezed == url
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String?,
+      label: freezed == label
+          ? _value.label
+          : label // ignore: cast_nullable_to_non_nullable
+              as String?,
+      active: freezed == active
+          ? _value.active
+          : active // ignore: cast_nullable_to_non_nullable
+              as bool?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$LinkImpl implements _Link {
+  const _$LinkImpl({this.url, this.label, this.active});
+
+  factory _$LinkImpl.fromJson(Map<String, dynamic> json) =>
+      _$$LinkImplFromJson(json);
+
+  @override
+  final String? url;
+  @override
+  final String? label;
+  @override
+  final bool? active;
+
+  @override
+  String toString() {
+    return 'Link(url: $url, label: $label, active: $active)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LinkImpl &&
+            (identical(other.url, url) || other.url == url) &&
+            (identical(other.label, label) || other.label == label) &&
+            (identical(other.active, active) || other.active == active));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, url, label, active);
+
+  /// Create a copy of Link
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LinkImplCopyWith<_$LinkImpl> get copyWith =>
+      __$$LinkImplCopyWithImpl<_$LinkImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$LinkImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Link implements Link {
+  const factory _Link(
+      {final String? url,
+      final String? label,
+      final bool? active}) = _$LinkImpl;
+
+  factory _Link.fromJson(Map<String, dynamic> json) = _$LinkImpl.fromJson;
+
+  @override
+  String? get url;
+  @override
+  String? get label;
+  @override
+  bool? get active;
+
+  /// Create a copy of Link
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$LinkImplCopyWith<_$LinkImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

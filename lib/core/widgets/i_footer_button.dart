@@ -4,7 +4,7 @@ import 'package:hrms_mobile/application/theme/i_colors.dart';
 
 class IFooterButton extends ConsumerWidget {
   final String text;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   const IFooterButton({
     super.key,
@@ -33,6 +33,8 @@ class IFooterButton extends ConsumerWidget {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: IColors.light.primary.main,
                   foregroundColor: Colors.white,
+                  disabledBackgroundColor: Colors.grey.shade200,
+                  disabledForegroundColor: Colors.grey.shade500,
                   minimumSize: const Size.fromHeight(50),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),

@@ -11,7 +11,7 @@ class OffboardingStatusResponse with _$OffboardingStatusResponse {
     @JsonKey(name: 'effective_resignation_date')
     String? effectiveResignationDate,
     @JsonKey(name: 'last_working_date') String? lastWorkingDate,
-    @JsonKey(name: 'form_id') String? formId,
+    @JsonKey(name: 'form_id') int? formId,
     int? status,
     @JsonKey(name: 'created_at') String? createdAt,
     @JsonKey(name: 'updated_at') String? updatedAt,
