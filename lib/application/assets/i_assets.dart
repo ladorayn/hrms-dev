@@ -51,4 +51,14 @@ class IAssets {
   static const String linkedin = '$ICON_PATH/linkedin.svg';
   static const String facebook = '$ICON_PATH/facebook.svg';
   static const String imagePlaceholder = '$ICON_PATH/imagePlaceholder.svg';
+  static const String storeReport = '$ICON_PATH/storeReport.svg';
+  static const String storeReportActive = '$ICON_PATH/storeReportActive.svg';
+  static const String home = '$ICON_PATH/home.svg';
+  static const String homeActive = '$ICON_PATH/homeActive.svg';
+  static const String inbox = '$ICON_PATH/inbox.svg';
+  static const String inboxActive = '$ICON_PATH/inboxActive.svg';
+  static const String userMenu = '$ICON_PATH/userMenu.svg';
+  static const String userMenuActive = '$ICON_PATH/userMenuActive.svg';
+  static const String documentMenu = '$ICON_PATH/documentMenu.svg';
+  static const String documentMenuActive = '$ICON_PATH/documentMenuActive.svg';
 }
