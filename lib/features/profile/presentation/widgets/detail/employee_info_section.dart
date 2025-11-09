@@ -31,7 +31,6 @@ class EmployeeInfoSection extends StatelessWidget {
     final additionalReportValue =
         additionalReportNames.isEmpty ? '-' : additionalReportNames.join('; ');
 
-    // --- Logic for Teams ---
     final teams = profile.teamMembers ?? [];
 
     return Container(

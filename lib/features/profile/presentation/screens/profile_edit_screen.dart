@@ -21,7 +21,6 @@ import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_phone.
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_social.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
 
-// --- Import Request Model and Provider ---
 import 'package:hrms_mobile/features/profile/presentation/providers/profile_provider.dart';
 import 'package:hrms_mobile/features/profile/presentation/widgets/detail/section_title.dart';
 import 'package:intl/intl.dart'; // Import for date formatting
@@ -38,7 +37,6 @@ class ProfileEditScreen extends ConsumerStatefulWidget {
 class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  // --- (All your existing controllers) ---
   late TextEditingController _nameController;
   late TextEditingController _emailController;
   late TextEditingController _phoneController;
@@ -107,7 +105,6 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
 
     _phoneController = TextEditingController(text: localNumber);
 
-    // --- Handle Gender ---
     if (profile.gender == 'female') {
       _selectedGender = Gender.female;
     } else {
@@ -172,15 +169,13 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
     });
   }
 
-  // --- NEW: Submit Logic ---
   Future<void> _onUpdateProfile() async {
-    // Clear previous errors
     setState(() {
       _validationErrors = {};
     });
 
     if (!_formKey.currentState!.validate()) {
-      return; // Stop if local validation fails
+      return;
     }
 
     final profile = widget.profile;
@@ -225,7 +220,6 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
       countryCode: _selectedCountryCode.dialCode,
     );
 
-    // --- Call the provider ---
     try {
       await ref
           .read(employeeProfileEditProvider.notifier)
@@ -235,7 +229,7 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Profile updated successfully!')),
         );
-        context.pop(); // Go back to the detail screen
+        context.pop();
       }
     } catch (e) {
       // The provider re-throws the error, so we catch it here
@@ -259,7 +253,6 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                 error.errors.map((key, value) => MapEntry(key, value.first));
           });
         } else {
-          // Handle generic errors
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
                 content:
@@ -486,7 +479,6 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
             ),
           ),
           IFooterButton(
-            // --- UPDATED: Connect to provider state ---
             text: isUpdating ? "Updating..." : "Update Profile",
             onPressed: isUpdating ? null : _onUpdateProfile,
           )

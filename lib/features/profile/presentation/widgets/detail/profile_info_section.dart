@@ -6,8 +6,6 @@ import 'package:hrms_mobile/core/data/models/employees/employee_profile_response
 import 'package:hrms_mobile/core/util/datetime_utils.dart';
 import 'package:hrms_mobile/core/util/i_strings_utils.dart';
 import 'package:hrms_mobile/features/profile/presentation/widgets/detail/profile_detail_item.dart';
-import 'package:hrms_mobile/features/profile/presentation/widgets/detail/section_title.dart';
-import 'package:intl/intl.dart'; // Import for date formatting
 
 class PersonalInfoSection extends StatelessWidget {
   final EmployeeProfile profile;
@@ -24,9 +22,9 @@ class PersonalInfoSection extends StatelessWidget {
       case 'linkedin':
         return IAssets.linkedin;
       case 'facebook':
-        return IAssets.facebook; // Added based on your API
+        return IAssets.facebook;
       default:
-        return IAssets.imagePlaceholder; // A sensible default
+        return IAssets.imagePlaceholder;
     }
   }
 
