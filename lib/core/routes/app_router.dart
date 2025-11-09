@@ -37,6 +37,8 @@ import 'package:hrms_mobile/features/payslip/presentation/screens/payslip_print_
 import 'package:hrms_mobile/features/payslip/presentation/screens/payslip_screen.dart';
 import 'package:hrms_mobile/features/payslip/presentation/screens/payslip_view_request_screen.dart';
 import 'package:hrms_mobile/features/payslip/presentation/screens/payslip_view_screen.dart';
+import 'package:hrms_mobile/features/performance/presentation/screens/performance_screen.dart';
+import 'package:hrms_mobile/features/performance/presentation/screens/self_assessment_screen.dart';
 import 'package:hrms_mobile/features/profile/presentation/screens/profile_detail_screen.dart';
 import 'package:hrms_mobile/features/profile/presentation/screens/profile_edit_screen.dart';
 import 'package:hrms_mobile/features/profile/presentation/screens/profile_screen.dart';
@@ -287,6 +289,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           return ProfileEditScreen(profile: profile);
         },
       ),
+      GoRoute(
+        path: RoutePaths.selfAssessment,
+        name: RoutePaths.selfAssessmentName,
+        builder: (context, state) =>
+            const SelfAssessmentScreen(), // Replace with your EmployeesScreen
+      ),
       // --- ROUTES WITH THE BOTTOM NAV BAR (Using ShellRoute) ---
       ShellRoute(
         builder: (context, state, child) {
@@ -298,13 +306,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             path: RoutePaths.dashboard,
             builder: (context, state) => const DashboardScreen(),
           ),
-          // "Employees" tab
+          // "Performance" tab
           GoRoute(
-            path: RoutePaths.employees,
-            builder: (context, state) => const Scaffold(
-                body: Center(
-                    child: Text(
-                        'Employees'))), // Replace with your EmployeesScreen
+            path: RoutePaths.performance,
+            builder: (context, state) =>
+                const PerformanceScreen(), // Replace with your EmployeesScreen
           ),
           // "Leave Request" tab
           GoRoute(

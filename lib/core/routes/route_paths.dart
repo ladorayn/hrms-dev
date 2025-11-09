@@ -16,6 +16,7 @@ class RoutePaths {
   // --- Authenticated Routes (with Bottom Nav Bar) ---
   static const dashboard = '/dashboard'; // Home tab
   static const employees = '/employees';
+  static const performance = '/performance';
   static const leaveRequest = '/leave-request';
   static const inbox = '/inbox';
   static const profile = '/profile';
@@ -72,4 +73,8 @@ class RoutePaths {
   static const profileDetailName = 'profileDetail';
   static const profileEdit = '/profile-edit';
   static const profileEditName = 'profileEdit';
+
+  // Performance
+  static const selfAssessment = '/self-assessment';
+  static const selfAssessmentName = 'selfAssessmentName';
 }

@@ -69,7 +69,7 @@ class MainScreen extends StatelessWidget {
     if (location.startsWith(RoutePaths.dashboard)) {
       return 0;
     }
-    if (location.startsWith(RoutePaths.employees)) {
+    if (location.startsWith(RoutePaths.performance)) {
       return 1;
     }
     if (location.startsWith(RoutePaths.leaveRequest)) {
@@ -90,7 +90,7 @@ class MainScreen extends StatelessWidget {
         context.go(RoutePaths.dashboard);
         break;
       case 1:
-        context.go(RoutePaths.employees);
+        context.go(RoutePaths.performance);
         break;
       case 2:
         context.go(RoutePaths.leaveRequest);
