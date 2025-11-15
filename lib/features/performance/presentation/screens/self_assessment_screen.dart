@@ -18,6 +18,8 @@ class SelfAssessmentScreen extends ConsumerWidget {
     {'title': 'Q4 2023', 'status': 'Complete', 'dueDate': null},
   ];
 
+  final managerView = true;
+
   @override
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -43,43 +45,31 @@ class SelfAssessmentScreen extends ConsumerWidget {
 
                     return GestureDetector(
                       onTap: () {
-                        globalNavigatorKey.currentContext
-                            ?.pushNamed(RoutePaths.assessmentFormName);
+                        globalNavigatorKey.currentContext?.pushNamed(
+                          !managerView
+                              ? RoutePaths.assessmentFormName
+                              : RoutePaths.managerAssessmentName,
+                        );
                       },
                       child: ListTile(
                         dense: true,
                         visualDensity: VisualDensity.compact,
-
-                        // --- THIS IS THE FIX ---
-                        // 1. Remove the subtitle property
                         subtitle: null,
-
-                        // 2. Put all widgets inside the title property, wrapped in a Wrap
                         title: Wrap(
                           spacing: 8.w,
-                          // Horizontal space between items
                           runSpacing: 4.h,
-                          // Vertical space if they wrap
                           crossAxisAlignment: WrapCrossAlignment.center,
-                          // Vertically align items
                           children: [
-                            // Title Text
                             Text(
                               title,
                               style: textTheme.bodyLarge
                                   ?.copyWith(fontWeight: FontWeight.w500),
                             ),
-
-                            // Status Chip
                             _buildStatusChip(context, status),
-
-                            // Due Date Chip (if it exists)
                             if (dueDate != null)
                               _buildDueDateLabel(context, dueDate),
                           ],
                         ),
-                        // ------------------------
-
                         trailing: Icon(
                           Icons.arrow_forward_ios,
                           size: 16,
@@ -92,7 +82,6 @@ class SelfAssessmentScreen extends ConsumerWidget {
                   separatorBuilder: (context, index) {
                     return Divider(
                       color: IColors.light.grayscale.g10,
-                      // --- 2. FIX: Reduced indent to match padding ---
                       indent: 16.w,
                       endIndent: 16.w,
                     );
@@ -105,12 +94,10 @@ class SelfAssessmentScreen extends ConsumerWidget {
     );
   }
 
-  // --- 6. Added helper widget for the Status chip ---
   Widget _buildStatusChip(BuildContext context, String status) {
     final textTheme = Theme.of(context).textTheme;
     final bool isComplete = status == 'Complete';
 
-    // Use success for 'Complete', warning for 'Incomplete'
     final color =
         isComplete ? IColors.light.success.main : IColors.light.warning.main;
     final bgColor = isComplete
@@ -133,7 +120,6 @@ class SelfAssessmentScreen extends ConsumerWidget {
     );
   }
 
-  // --- 7. Added helper widget for the Due Date chip ---
   Widget _buildDueDateLabel(BuildContext context, String date) {
     final textTheme = Theme.of(context).textTheme;
     final warningColor = IColors.light.warning.main;

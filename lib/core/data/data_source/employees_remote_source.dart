@@ -139,7 +139,7 @@ class EmployeesRemoteSource {
       {required int id}) async {
     try {
       // Assuming this endpoint fetches the logged-in user's profile
-      final response = await _dio.get('api/v1/employees/$id');
+      final response = await _dio.get('api/v1/employees/user/$id');
 
       return BaseResponse.fromJson(
         response.data,

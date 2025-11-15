@@ -284,9 +284,7 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
         Row(
           children: [
             SvgPicture.asset(
-              IAssets.questionMark,
-              height: 20.h,
-              width: 20.w,
+              IAssets.helpDesk,
             ),
             SizedBox(width: 8.w),
             Text('Deskripsi Penilaian',

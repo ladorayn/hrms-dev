@@ -63,4 +63,6 @@ class IAssets {
   static const String documentMenuActive = '$ICON_PATH/documentMenuActive.svg';
   static const String selfAssessment = '$ICON_PATH/selfAssessment.svg';
   static const String okr = '$ICON_PATH/OKR.svg';
+  static const String alert = '$ICON_PATH/alert.svg';
+  static const String helpDesk = '$ICON_PATH/helpDesk.svg';
 }

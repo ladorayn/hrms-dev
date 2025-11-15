@@ -6,7 +6,6 @@ import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/constants/general.dart';
 import 'package:hrms_mobile/core/data/entities/country_code.dart';
 import 'package:hrms_mobile/core/data/models/employees/employee_profile_request.dart';
-
 import 'package:hrms_mobile/core/data/models/employees/employee_profile_response.dart';
 import 'package:hrms_mobile/core/enums/gender_enum.dart';
 import 'package:hrms_mobile/core/errors/exceptions.dart';
@@ -20,7 +19,6 @@ import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_dropdo
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_phone.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_social.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
-
 import 'package:hrms_mobile/features/profile/presentation/providers/profile_provider.dart';
 import 'package:hrms_mobile/features/profile/presentation/widgets/detail/section_title.dart';
 import 'package:intl/intl.dart'; // Import for date formatting
@@ -223,7 +221,7 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
     try {
       await ref
           .read(employeeProfileEditProvider.notifier)
-          .submitUpdate(id: profile.id, request: request);
+          .submitUpdate(id: profile.userId, request: request);
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(

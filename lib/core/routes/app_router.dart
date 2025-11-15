@@ -39,6 +39,7 @@ import 'package:hrms_mobile/features/payslip/presentation/screens/payslip_view_r
 import 'package:hrms_mobile/features/payslip/presentation/screens/payslip_view_screen.dart';
 import 'package:hrms_mobile/features/performance/presentation/screens/assessment_form_screen.dart';
 import 'package:hrms_mobile/features/performance/presentation/screens/performance_screen.dart';
+import 'package:hrms_mobile/features/performance/presentation/screens/self_assessment_manager_screen.dart';
 import 'package:hrms_mobile/features/performance/presentation/screens/self_assessment_screen.dart';
 import 'package:hrms_mobile/features/profile/presentation/screens/profile_detail_screen.dart';
 import 'package:hrms_mobile/features/profile/presentation/screens/profile_edit_screen.dart';
@@ -301,6 +302,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         name: RoutePaths.assessmentFormName,
         builder: (context, state) =>
             const AssessmentFormScreen(), // Replace with your EmployeesScreen
+      ),
+      GoRoute(
+        path: RoutePaths.managerAssessment,
+        name: RoutePaths.managerAssessmentName,
+        builder: (context, state) => const ManagerAssessmentLandingScreen(
+            quarterTitle: "Self Assessment-Q4 2025"),
       ),
       // --- ROUTES WITH THE BOTTOM NAV BAR (Using ShellRoute) ---
       ShellRoute(
