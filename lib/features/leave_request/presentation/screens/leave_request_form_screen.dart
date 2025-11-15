@@ -171,7 +171,7 @@ class _LeaveRequestFormScreenState
                             leaveTypes.map((lt) => lt.name).toList();
 
                         return ITextFieldDropdownBottomSheet(
-                          label: "LeaveType",
+                          label: "Leave Type",
                           controller: _leaveTypeController,
                           options: leaveTypeNames,
                           isRequired: true,

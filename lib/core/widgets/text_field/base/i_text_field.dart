@@ -145,29 +145,32 @@ class ITextFieldBase extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text.rich(
-              TextSpan(
-                // This is the default style for the whole text.
-                style: labelStyle ?? defaultLabelStyle,
-                children: [
-                  // The main label text
-                  TextSpan(text: label),
+        Visibility(
+          visible: label != '',
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text.rich(
+                TextSpan(
+                  // This is the default style for the whole text.
+                  style: labelStyle ?? defaultLabelStyle,
+                  children: [
+                    // The main label text
+                    TextSpan(text: label),
 
-                  // The asterisk, only if isRequired is true
-                  if (isRequired)
-                    const TextSpan(
-                      text: ' *', // A space is added for separation
-                      // This style applies ONLY to the asterisk
-                      style: TextStyle(color: Colors.red),
-                    ),
-                ],
+                    // The asterisk, only if isRequired is true
+                    if (isRequired)
+                      const TextSpan(
+                        text: ' *', // A space is added for separation
+                        // This style applies ONLY to the asterisk
+                        style: TextStyle(color: Colors.red),
+                      ),
+                  ],
+                ),
               ),
-            ),
-            rightLabel ?? const SizedBox.shrink(),
-          ],
+              rightLabel ?? const SizedBox.shrink(),
+            ],
+          ),
         ),
         SizedBox(height: 4.h),
         customLeading != null
@@ -269,8 +272,8 @@ class ITextFieldBase extends StatelessWidget {
         prefixIcon: prefixIcon,
         suffix: suffix,
         suffixIcon: suffixIcon,
-        errorStyle:
-            const TextStyle(height: 0), // Hides default error text space
+        errorStyle: const TextStyle(height: 0),
+        // Hides default error text space
         counterText: "",
         filled: true,
         fillColor: enabled ? Colors.white : Colors.grey.shade200,

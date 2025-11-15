@@ -6,24 +6,26 @@ import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/data/models/form_fields_response.dart';
-import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/core/widgets/i_footer_button.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
 import 'package:hrms_mobile/features/offboarding/data/models/request/exit_form_request.dart';
-import 'package:hrms_mobile/features/offboarding/data/models/response/offboarding_status_response.dart';
-import 'package:hrms_mobile/features/offboarding/presentation/providers/offboarding_provider.dart';
+import 'package:hrms_mobile/features/performance/presentation/providers/performance_provider.dart';
 
-class ExitFormScreen extends ConsumerStatefulWidget {
-  final OffboardingStatusResponse data;
+class AssessmentFormScreen extends ConsumerStatefulWidget {
+  // final performanceStatusResponse data;
 
-  const ExitFormScreen({super.key, required this.data});
+  const AssessmentFormScreen({
+    super.key,
+    // required this.data,
+  });
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _ExitFormScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _AssessmentFormScreenState();
 }
 
-class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
+class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
   final Map<int, Map<String, bool>> _checkboxAnswers = {};
 
   final Map<int, int?> _ratingAnswers = {};
@@ -83,9 +85,8 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
   }
 
   void _validateForm() {
-    final formFields = ref
-        .read(offboardingFormFieldsProvider(formId: widget.data.formId ?? 0))
-        .value;
+    final formFields =
+        ref.read(performanceFormFieldsProvider(formId: 1 ?? 0)).value;
 
     if (formFields == null) {
       setState(() => _isFormValid = false);
@@ -168,39 +169,35 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
         ));
       }
     });
+    context.pop();
 
-    final request = ExitFormRequest(submissions: submissions);
-
-    try {
-      await ref.read(exitFormSubmissionProvider.notifier).submitForm(
-          request: request,
-          formId: widget.data.formId ?? 0,
-          offboardingId: widget.data.id ?? 0);
-      ref.invalidate(exitFormSubmissionProvider);
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Form Submitted Successfully!')),
-        );
-        context.pop(); // Pop the dialog
-        globalNavigatorKey.currentContext?.pop();
-      }
-    } catch (e) {
-      if (mounted) {
-        context.pop(); // Pop the dialog
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Submission Failed: ${e.toString()}')),
-        );
-      }
-    }
+    // TODO: Add actual form submission logic here
+    // final request = ExitFormRequest(submissions: submissions);
+    // try {
+    //   await ref.read(exitFormSubmissionProvider.notifier).submitForm(
+    //       request: request, formId: 1 ?? 0, offboardingId: widget.data.id ?? 0);
+    //   if (mounted) {
+    //     ScaffoldMessenger.of(context).showSnackBar(
+    //       const SnackBar(content: Text('Form Submitted Successfully!')),
+    //     );
+    //     context.pop();
+    //   }
+    // } catch (e) {
+    //   if (mounted) {
+    //     context.pop();
+    //     ScaffoldMessenger.of(context).showSnackBar(
+    //       SnackBar(content: Text('Submission Failed: ${e.toString()}')),
+    //     );
+    //   }
+    // }
   }
 
   @override
   Widget build(BuildContext context) {
-    final formFieldsAsync = ref
-        .watch(offboardingFormFieldsProvider(formId: widget.data.formId ?? 0));
+    final formFieldsAsync =
+        ref.watch(performanceFormFieldsProvider(formId: 1 ?? 0));
 
-    ref.listen(offboardingFormFieldsProvider(formId: widget.data.formId ?? 0),
-        (previous, next) {
+    ref.listen(performanceFormFieldsProvider(formId: 1 ?? 0), (previous, next) {
       if (next.hasValue && !_isStateInitialized) {
         setState(() {
           _initializeState(next.value!);
@@ -209,7 +206,7 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
     });
 
     return Scaffold(
-      appBar: IAppBar(title: "Exit Interview Form"),
+      appBar: IAppBar(title: "Self Assessment - Q3 2025"),
       body: Column(
         children: [
           Expanded(
@@ -221,21 +218,32 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
                   padding:
                       EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
                   itemCount: formFields.length,
+                  separatorBuilder: (context, index) {
+                    return SizedBox(
+                      height: 16.h,
+                    );
+                  },
                   itemBuilder: (context, index) {
                     final field = formFields[index];
 
-                    return _buildDynamicField(field);
+                    return Container(
+                      padding: EdgeInsets.all(12.sp),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8.r),
+                        border: Border.all(
+                          color: IColors.light.grayscale.g20,
+                        ),
+                        color: Colors.white,
+                      ),
+                      child: _buildDynamicField(field),
+                    );
                   },
-                  separatorBuilder: (context, index) => Divider(
-                    height: 24.h,
-                    color: IColors.light.grayscale.g10,
-                  ),
                 );
               },
             ),
           ),
           IFooterButton(
-            text: "Submit Form",
+            text: "Submit Self Assessment",
             onPressed: _isFormValid
                 ? () {
                     if (_isStateInitialized) {
@@ -243,9 +251,54 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
                     }
                   }
                 : null,
+            secondaryText: "Save as Draft",
+            onSecondaryPressed: () {
+              if (_isStateInitialized) {
+                _showPopUpConfirmationSubmission(context);
+              }
+            },
           )
         ],
       ),
+    );
+  }
+
+  Widget _buildFieldHeader(FormFields field) {
+    final textTheme = Theme.of(context).textTheme;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('${field.label}', style: textTheme.titleMedium),
+        if (field.description != null && field.description!.isNotEmpty)
+          Padding(
+            padding: EdgeInsets.only(top: 4.h, bottom: 8.h),
+            child: Text(
+              field.description!,
+              style: textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w400,
+                color: const Color(0xFF323232),
+                fontSize: 14.sp,
+              ),
+            ),
+          ),
+        Row(
+          children: [
+            SvgPicture.asset(
+              IAssets.questionMark,
+              height: 20.h,
+              width: 20.w,
+            ),
+            SizedBox(width: 8.w),
+            Text('Deskripsi Penilaian',
+                style: textTheme.titleMedium?.copyWith(
+                  color: IColors.light.primary.main,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 14.sp,
+                )),
+          ],
+        ),
+        SizedBox(height: 12.h),
+      ],
     );
   }
 
@@ -298,8 +351,7 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('${field.order}. ${field.label}',
-            style: Theme.of(context).textTheme.titleMedium),
+        _buildFieldHeader(field),
         ...options.map((option) {
           return _buildCustomCheckbox(
             title: option,
@@ -330,9 +382,7 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('${field.order}. ${field.label}',
-            style: Theme.of(context).textTheme.titleMedium),
-        SizedBox(height: 12.h),
+        _buildFieldHeader(field),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: List.generate(count, (index) {
@@ -380,7 +430,6 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
           SizedBox(height: 12.h),
           ITextFieldTextArea(
             controller: notesController,
-            label: 'Notes',
             hintText: '',
           ),
         ],
@@ -395,12 +444,9 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('${field.order}. ${field.label}',
-            style: Theme.of(context).textTheme.titleMedium),
-        SizedBox(height: 12.h),
+        _buildFieldHeader(field),
         ITextFieldTextArea(
           controller: controller,
-          label: 'Notes',
           hintText: '',
         ),
       ],
@@ -426,7 +472,7 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
                 SvgPicture.asset(IAssets.questionMark),
                 SizedBox(height: 16.h),
                 Text(
-                  'Are you sure you want to submit this exit interview form?',
+                  'Are you sure you want to submit this self assessment form?',
                   textAlign: TextAlign.center,
                   style: textTheme.titleSmall
                       ?.copyWith(fontWeight: FontWeight.w600),

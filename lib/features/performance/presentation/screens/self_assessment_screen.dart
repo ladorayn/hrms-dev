@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
+import 'package:hrms_mobile/core/navigation/global_navigator.dart';
+import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 
 class SelfAssessmentScreen extends ConsumerWidget {
   const SelfAssessmentScreen({super.key});
 
-  // --- 1. Added dummy data based on your Figma design ---
   final List<Map<String, String?>> _dummyData = const [
     {'title': 'Q4 2025', 'status': 'Incomplete', 'dueDate': 'November 2, 2025'},
     {'title': 'Q3 2025', 'status': 'Complete', 'dueDate': null},
@@ -41,7 +43,8 @@ class SelfAssessmentScreen extends ConsumerWidget {
 
                     return GestureDetector(
                       onTap: () {
-                        // ToDo: Handle navigation
+                        globalNavigatorKey.currentContext
+                            ?.pushNamed(RoutePaths.assessmentFormName);
                       },
                       child: ListTile(
                         dense: true,

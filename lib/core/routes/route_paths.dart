@@ -77,4 +77,6 @@ class RoutePaths {
   // Performance
   static const selfAssessment = '/self-assessment';
   static const selfAssessmentName = 'selfAssessmentName';
+  static const assessmentForm = '/assessment-form';
+  static const assessmentFormName = 'assessmentForm';
 }
