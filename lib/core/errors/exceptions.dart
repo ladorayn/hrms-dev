@@ -4,7 +4,7 @@ class DataNotFoundException implements Exception {
   DataNotFoundException([this.message = "The requested data was not found."]);
 
   @override
-  String toString() => "DataNotFoundException: $message";
+  String toString() => "$message";
 }
 
 class BadResponseException implements Exception {
@@ -22,7 +22,7 @@ class UnauthorizedException implements Exception {
   UnauthorizedException(this.message);
 
   @override
-  String toString() => 'UnauthorizedException: $message';
+  String toString() => '$message';
 }
 
 class NetworkException implements Exception {
@@ -31,7 +31,7 @@ class NetworkException implements Exception {
   NetworkException(this.message);
 
   @override
-  String toString() => 'NetworkException: $message';
+  String toString() => '$message';
 }
 
 class ServerException implements Exception {
@@ -40,7 +40,7 @@ class ServerException implements Exception {
   ServerException(this.message);
 
   @override
-  String toString() => 'ServerException: $message';
+  String toString() => '$message';
 }
 
 class ValidationException implements Exception {
@@ -54,5 +54,5 @@ class ValidationException implements Exception {
   }
 
   @override
-  String toString() => 'ValidationException: $message, Errors: $errors';
+  String toString() => '$message, Errors: $errors';
 }

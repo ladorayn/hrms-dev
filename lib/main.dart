@@ -42,6 +42,7 @@ class MyApp extends ConsumerWidget {
             supportedLocales: AppLocalizations.supportedLocales,
             themeMode: ThemeMode.system,
             routerConfig: router,
+            builder: (context, child) => child!,
           );
         });
   }

@@ -6,12 +6,41 @@ import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/features/payslip/presentation/widgets/earnings_deductions_table.dart';
 import 'package:hrms_mobile/features/payslip/presentation/widgets/payslip_details_section.dart';
 import 'package:hrms_mobile/features/payslip/presentation/widgets/payslip_notes_section.dart';
+import 'package:no_screenshot/no_screenshot.dart';
 
-class PayslipViewScreen extends ConsumerWidget {
+class PayslipViewScreen extends ConsumerStatefulWidget {
   const PayslipViewScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<PayslipViewScreen> createState() => _PayslipViewScreenState();
+}
+
+class _PayslipViewScreenState extends ConsumerState<PayslipViewScreen>
+    with WidgetsBindingObserver {
+  final _noScreenshot = NoScreenshot.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    _noScreenshot.screenshotOff();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    _noScreenshot.screenshotOff();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    _noScreenshot.screenshotOn();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final headerColor = Color(0xFF323232);
     final confidentialColor = Colors.red[600];
