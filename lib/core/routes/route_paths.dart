@@ -81,4 +81,6 @@ class RoutePaths {
   static const managerAssessmentName = 'managerAssessmentName';
   static const assessmentForm = '/assessment-form';
   static const assessmentFormName = 'assessmentForm';
+  static const assessmentManagerForm = '/assessment-manager-form';
+  static const assessmentManagerFormName = 'assessmentManagerForm';
 }

@@ -230,14 +230,16 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
         context.pop();
       }
     } catch (e) {
-      // The provider re-throws the error, so we catch it here
-      // No need to show a snackbar, the listener below will handle it.
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Submission Failed')),
+        );
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    // --- NEW: Watch and Listen to the edit provider ---
     final editState = ref.watch(employeeProfileEditProvider);
     final isUpdating = editState.isLoading;
 
@@ -245,7 +247,6 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
       if (state.hasError && !state.isLoading) {
         final error = state.error;
         if (error is ValidationException) {
-          // Handle validation errors from the API
           setState(() {
             _validationErrors =
                 error.errors.map((key, value) => MapEntry(key, value.first));

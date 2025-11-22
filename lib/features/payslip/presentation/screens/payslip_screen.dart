@@ -10,41 +10,12 @@ import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/features/payslip/presentation/widgets/payslip_view_status.dart';
-import 'package:no_screenshot/no_screenshot.dart';
 
-class PayslipScreen extends ConsumerStatefulWidget {
+class PayslipScreen extends ConsumerWidget {
   const PayslipScreen({super.key});
 
   @override
-  ConsumerState<PayslipScreen> createState() => _PayslipScreenState();
-}
-
-class _PayslipScreenState extends ConsumerState<PayslipScreen>
-    with WidgetsBindingObserver {
-  final _noScreenshot = NoScreenshot.instance;
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-    _noScreenshot.screenshotOff();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    super.didChangeAppLifecycleState(state);
-    _noScreenshot.screenshotOff();
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    _noScreenshot.screenshotOn();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef) {
     final textTheme = Theme.of(context).textTheme;
     final months = [
       "August 2025",

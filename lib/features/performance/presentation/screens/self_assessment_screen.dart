@@ -18,7 +18,7 @@ class SelfAssessmentScreen extends ConsumerWidget {
     {'title': 'Q4 2023', 'status': 'Complete', 'dueDate': null},
   ];
 
-  final managerView = true;
+  final managerView = false;
 
   @override
   @override

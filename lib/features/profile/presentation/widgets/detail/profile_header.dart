@@ -27,7 +27,7 @@ class ProfileHeader extends StatelessWidget {
       width: double.infinity,
       child: Column(
         children: [
-          UserInfo(),
+          UserInfo(profile: profile),
           SizedBox(
             height: 16.h,
           ),

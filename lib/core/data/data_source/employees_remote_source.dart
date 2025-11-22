@@ -61,10 +61,12 @@ class EmployeesRemoteSource {
 
       return BaseResponse.fromJson(
         response.data,
-        (json) => PaginatedResponse.fromJson(
-          json as Map<String, dynamic>,
-          (itemJson) => Employee.fromJson(itemJson as Map<String, dynamic>),
-        ),
+            (json) =>
+            PaginatedResponse.fromJson(
+              json as Map<String, dynamic>,
+                  (itemJson) =>
+                  Employee.fromJson(itemJson as Map<String, dynamic>),
+            ),
       );
     } on DioException catch (e) {
       throw handleDioError(e);
@@ -125,10 +127,12 @@ class EmployeesRemoteSource {
 
       return BaseResponse.fromJson(
         response.data,
-        (json) => PaginatedResponse.fromJson(
-          json as Map<String, dynamic>,
-          (itemJson) => Employee.fromJson(itemJson as Map<String, dynamic>),
-        ),
+            (json) =>
+            PaginatedResponse.fromJson(
+              json as Map<String, dynamic>,
+                  (itemJson) =>
+                  Employee.fromJson(itemJson as Map<String, dynamic>),
+            ),
       );
     } on DioException catch (e) {
       throw handleDioError(e);
@@ -143,7 +147,7 @@ class EmployeesRemoteSource {
 
       return BaseResponse.fromJson(
         response.data,
-        (json) => EmployeeProfile.fromJson(json as Map<String, dynamic>),
+            (json) => EmployeeProfile.fromJson(json as Map<String, dynamic>),
       );
     } on DioException catch (e) {
       throw handleDioError(e);
@@ -156,12 +160,12 @@ class EmployeesRemoteSource {
   }) async {
     try {
       final response = await _dio.put(
-        'api/v1/employees/$id',
+        'api/v1/user/profile',
         data: request,
       );
       return BaseResponse.fromJson(
         response.data,
-        (json) => EmployeeProfile.fromJson(json as Map<String, dynamic>),
+            (json) => EmployeeProfile.fromJson(json as Map<String, dynamic>),
       );
     } on DioException catch (e) {
       throw handleDioError(e);

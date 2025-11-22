@@ -9,43 +9,12 @@ import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_password.dart';
-import 'package:no_screenshot/no_screenshot.dart';
 
-class PayslipPrintRequestScreen extends ConsumerStatefulWidget {
+class PayslipPrintRequestScreen extends ConsumerWidget {
   const PayslipPrintRequestScreen({super.key});
 
   @override
-  ConsumerState<PayslipPrintRequestScreen> createState() =>
-      _PayslipPrintRequestScreenState();
-}
-
-class _PayslipPrintRequestScreenState
-    extends ConsumerState<PayslipPrintRequestScreen>
-    with WidgetsBindingObserver {
-  final _noScreenshot = NoScreenshot.instance;
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-    _noScreenshot.screenshotOff();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    super.didChangeAppLifecycleState(state);
-    _noScreenshot.screenshotOff();
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    _noScreenshot.screenshotOn();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(

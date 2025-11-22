@@ -98,8 +98,7 @@ class ManagerAssessmentLandingScreen extends ConsumerWidget {
                     member: member,
                     onTap: () {
                       globalNavigatorKey.currentContext?.pushNamed(
-                        RoutePaths.assessmentFormName,
-                        extra: {'assessmentId': member['name']},
+                        RoutePaths.assessmentManagerFormName,
                       );
                     },
                   );

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hrms_mobile/core/data/models/employees/employee_profile_response.dart';
 import 'package:hrms_mobile/features/auth/presentation/providers/auth/auth_provider.dart';
 
 class UserInfo extends ConsumerWidget {
-  const UserInfo({super.key});
+  final EmployeeProfile? profile;
+
+  const UserInfo({super.key, this.profile});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -13,10 +16,10 @@ class UserInfo extends ConsumerWidget {
       children: [
         CircleAvatar(
           radius: 50.r,
-          backgroundImage: (authP.value?.photoProfileUrl?.isNotEmpty ?? false)
-              ? NetworkImage(authP.value!.photoProfileUrl!)
+          backgroundImage: (profile?.photoProfileUrl) != null
+              ? NetworkImage(profile!.photoProfileUrl!)
               : null,
-          child: (authP.value?.photoProfileUrl?.isEmpty ?? true)
+          child: (profile?.photoProfileUrl) == null
               ? const Icon(Icons.person, size: 80, color: Colors.white)
               : null,
         ),
