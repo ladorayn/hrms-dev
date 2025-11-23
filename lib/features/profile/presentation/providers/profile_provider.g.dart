@@ -6,7 +6,7 @@ part of 'profile_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$employeeDetailHash() => r'699fa5f7d25cf4715e75fd37ecbf0e4c84f32393';
+String _$employeeDetailHash() => r'61f7181430783a455d99a777620481a3589a9733';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -30,10 +30,10 @@ class _SystemHash {
 }
 
 abstract class _$EmployeeDetail
-    extends BuildlessAutoDisposeAsyncNotifier<EmployeeProfile> {
+    extends BuildlessAutoDisposeAsyncNotifier<UserProfile> {
   late final int id;
 
-  FutureOr<EmployeeProfile> build({
+  FutureOr<UserProfile> build({
     required int id,
   });
 }
@@ -43,7 +43,7 @@ abstract class _$EmployeeDetail
 const employeeDetailProvider = EmployeeDetailFamily();
 
 /// See also [EmployeeDetail].
-class EmployeeDetailFamily extends Family<AsyncValue<EmployeeProfile>> {
+class EmployeeDetailFamily extends Family<AsyncValue<UserProfile>> {
   /// See also [EmployeeDetail].
   const EmployeeDetailFamily();
 
@@ -81,8 +81,8 @@ class EmployeeDetailFamily extends Family<AsyncValue<EmployeeProfile>> {
 }
 
 /// See also [EmployeeDetail].
-class EmployeeDetailProvider extends AutoDisposeAsyncNotifierProviderImpl<
-    EmployeeDetail, EmployeeProfile> {
+class EmployeeDetailProvider
+    extends AutoDisposeAsyncNotifierProviderImpl<EmployeeDetail, UserProfile> {
   /// See also [EmployeeDetail].
   EmployeeDetailProvider({
     required int id,
@@ -113,7 +113,7 @@ class EmployeeDetailProvider extends AutoDisposeAsyncNotifierProviderImpl<
   final int id;
 
   @override
-  FutureOr<EmployeeProfile> runNotifierBuild(
+  FutureOr<UserProfile> runNotifierBuild(
     covariant EmployeeDetail notifier,
   ) {
     return notifier.build(
@@ -138,7 +138,7 @@ class EmployeeDetailProvider extends AutoDisposeAsyncNotifierProviderImpl<
   }
 
   @override
-  AutoDisposeAsyncNotifierProviderElement<EmployeeDetail, EmployeeProfile>
+  AutoDisposeAsyncNotifierProviderElement<EmployeeDetail, UserProfile>
       createElement() {
     return _EmployeeDetailProviderElement(this);
   }
@@ -159,15 +159,14 @@ class EmployeeDetailProvider extends AutoDisposeAsyncNotifierProviderImpl<
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin EmployeeDetailRef
-    on AutoDisposeAsyncNotifierProviderRef<EmployeeProfile> {
+mixin EmployeeDetailRef on AutoDisposeAsyncNotifierProviderRef<UserProfile> {
   /// The parameter `id` of this provider.
   int get id;
 }
 
 class _EmployeeDetailProviderElement
-    extends AutoDisposeAsyncNotifierProviderElement<EmployeeDetail,
-        EmployeeProfile> with EmployeeDetailRef {
+    extends AutoDisposeAsyncNotifierProviderElement<EmployeeDetail, UserProfile>
+    with EmployeeDetailRef {
   _EmployeeDetailProviderElement(super.provider);
 
   @override
@@ -175,12 +174,12 @@ class _EmployeeDetailProviderElement
 }
 
 String _$employeeProfileEditHash() =>
-    r'84233fb08157d5e52e308f16441c19dcfc1fb373';
+    r'586028db485a8012d8bc06f25a87743d7cc7ad57';
 
 /// See also [EmployeeProfileEdit].
 @ProviderFor(EmployeeProfileEdit)
 final employeeProfileEditProvider = AutoDisposeAsyncNotifierProvider<
-    EmployeeProfileEdit, EmployeeProfile?>.internal(
+    EmployeeProfileEdit, UserProfile?>.internal(
   EmployeeProfileEdit.new,
   name: r'employeeProfileEditProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -190,6 +189,6 @@ final employeeProfileEditProvider = AutoDisposeAsyncNotifierProvider<
   allTransitiveDependencies: null,
 );
 
-typedef _$EmployeeProfileEdit = AutoDisposeAsyncNotifier<EmployeeProfile?>;
+typedef _$EmployeeProfileEdit = AutoDisposeAsyncNotifier<UserProfile?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -38,6 +38,7 @@ class EmployeeProfileRequest with _$EmployeeProfileRequest {
     @JsonKey(name: 'account_number') required String accountNumber,
     @JsonKey(name: 'account_name') required String accountName,
     @JsonKey(name: 'country_code') required int countryCode,
+    @JsonKey(name: 'photo_profile') required String photoProfile,
   }) = _EmployeeProfileRequest;
 
   factory EmployeeProfileRequest.fromJson(Map<String, dynamic> json) =>

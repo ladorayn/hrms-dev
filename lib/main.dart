@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,11 +9,18 @@ import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_theme.dart';
 import 'package:hrms_mobile/core/routes/app_router.dart';
 import 'package:hrms_mobile/core/services/notifications/local_notification_service.dart';
+import 'package:hrms_mobile/firebase_options.dart';
 import 'package:no_screenshot/no_screenshot.dart';
 
+import 'core/services/notifications/providers/push_notification_provider.dart';
+
 Future<void> main() async {
-  // Will be used later
   WidgetsFlutterBinding.ensureInitialized();
+
+  // 1. Initialize Firebase Core
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   await LocalNotificationService.initializePlatformNotifications();
 
@@ -39,6 +47,9 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     _noScreenshot.screenshotOff();
+
+    final pushService = ref.read(pushNotificationServiceProvider);
+    pushService.initializePushNotifications();
   }
 
   @override

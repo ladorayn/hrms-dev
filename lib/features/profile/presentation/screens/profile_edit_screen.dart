@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,12 +20,13 @@ import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_dropdo
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_phone.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_social.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
+import 'package:hrms_mobile/features/leave_request/presentation/providers/leave_provider.dart';
 import 'package:hrms_mobile/features/profile/presentation/providers/profile_provider.dart';
 import 'package:hrms_mobile/features/profile/presentation/widgets/detail/section_title.dart';
 import 'package:intl/intl.dart'; // Import for date formatting
 
 class ProfileEditScreen extends ConsumerStatefulWidget {
-  final EmployeeProfile profile;
+  final UserProfile profile;
 
   const ProfileEditScreen({super.key, required this.profile});
 
@@ -58,34 +60,43 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
 
   Map<String, String> _validationErrors = {};
 
+  PlatformFile? _attachment;
+
   @override
   void initState() {
     super.initState();
     final profile = widget.profile;
 
-    _nameController = TextEditingController(text: profile.user.name);
-    _emailController = TextEditingController(text: profile.user.email);
-    _placeOfBirthController =
-        TextEditingController(text: profile.placeOfBirth ?? '');
-    _maritalStatusController =
-        TextEditingController(text: profile.maritalStatusLabel ?? '');
-    _bloodTypeController = TextEditingController(text: profile.bloodType ?? '');
-    _heightController = TextEditingController(text: profile.height ?? '');
-    _weightController = TextEditingController(text: profile.weight ?? '');
-    _idNumberController = TextEditingController(text: profile.idNumber ?? '');
-    _npwpController = TextEditingController(text: profile.npwp ?? '');
-    _bpjsController = TextEditingController(text: profile.bpjs ?? '');
-    _citizenAddressController =
-        TextEditingController(text: profile.citizenIdAddress ?? '');
-    _residentialAddressController =
-        TextEditingController(text: profile.residentialAddress ?? '');
-    _hobbyController = TextEditingController(text: profile.hobby ?? '');
+    _nameController = TextEditingController(text: profile.user?.name);
+    _emailController = TextEditingController(text: profile.user?.email);
+    _placeOfBirthController = TextEditingController(
+        text: profile.user?.employeeProfile.placeOfBirth ?? '');
+    _maritalStatusController = TextEditingController(
+        text: profile.user?.employeeProfile.maritalStatusLabel ?? '');
+    _bloodTypeController = TextEditingController(
+        text: profile.user?.employeeProfile.bloodType ?? '');
+    _heightController =
+        TextEditingController(text: profile.user?.employeeProfile.height ?? '');
+    _weightController =
+        TextEditingController(text: profile.user?.employeeProfile.weight ?? '');
+    _idNumberController = TextEditingController(
+        text: profile.user?.employeeProfile.idNumber ?? '');
+    _npwpController =
+        TextEditingController(text: profile.user?.employeeProfile.npwp ?? '');
+    _bpjsController =
+        TextEditingController(text: profile.user?.employeeProfile.bpjs ?? '');
+    _citizenAddressController = TextEditingController(
+        text: profile.user?.employeeProfile.citizenIdAddress ?? '');
+    _residentialAddressController = TextEditingController(
+        text: profile.user?.employeeProfile.residentialAddress ?? '');
+    _hobbyController =
+        TextEditingController(text: profile.user?.employeeProfile.hobby ?? '');
 
-    String localNumber = profile.phoneNumber ?? '';
+    String localNumber = profile.user?.employeeProfile.phoneNumber ?? '';
     _selectedCountryCode = kCountryCodes[0];
 
-    if (profile.phoneNumber != null && profile.phoneNumber!.isNotEmpty) {
-      final fullNumber = profile.phoneNumber!;
+    if (profile.user?.employeeProfile.phoneNumber != null) {
+      final fullNumber = profile.user?.employeeProfile.phoneNumber ?? '';
 
       final sortedCodes = List<CountryCode>.from(kCountryCodes);
       sortedCodes.sort((a, b) => b.code.length.compareTo(a.code.length));
@@ -103,16 +114,17 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
 
     _phoneController = TextEditingController(text: localNumber);
 
-    if (profile.gender == 'female') {
+    if (profile.user?.employeeProfile.gender == 'female') {
       _selectedGender = Gender.female;
     } else {
       _selectedGender = Gender.male;
     }
 
     _dobController = TextEditingController();
-    if (profile.dateOfBirth != null) {
+    if (profile.user?.employeeProfile.dateOfBirth != null) {
       try {
-        _selectedDob = DateTime.parse(profile.dateOfBirth!);
+        _selectedDob =
+            DateTime.parse(profile.user?.employeeProfile.dateOfBirth ?? '');
         _dobController.text = DateFormat('MMMM d, yyyy').format(_selectedDob!);
       } catch (e) {
         _selectedDob = null;
@@ -120,9 +132,9 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
     }
 
     _socialMediaFieldsData = [];
-    if (profile.socialMediaAccounts != null &&
-        profile.socialMediaAccounts!.isNotEmpty) {
-      for (var account in profile.socialMediaAccounts!) {
+    if (profile.user?.employeeProfile.socialMediaAccounts != null) {
+      for (var account
+          in profile.user?.employeeProfile.socialMediaAccounts ?? []) {
         _addSocialMediaField(
             initialType: account.type, initialUrl: account.url);
       }
@@ -177,17 +189,42 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
     }
 
     final profile = widget.profile;
-    final employment = profile.employment;
-    final bank = profile.bankAccount;
+    final employment = profile.user?.employment;
+    final bank = profile.user?.employeeProfile.bankAccount;
+
+    String? attachmentPath;
+
+    if (_attachment != null) {
+      try {
+        ref.read(employeeProfileEditProvider.notifier).setLoading();
+
+        final uploadResponse = await ref
+            .read(fileUploadNotifierProvider.notifier)
+            .uploadFile(_attachment!);
+
+        attachmentPath = uploadResponse.path;
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Attachment upload failed: $e')),
+          );
+        }
+        ref.read(employeeProfileEditProvider.notifier).reset();
+        return;
+      }
+    }
+
+    final formattedPhoneNumber =
+        '${_selectedCountryCode.code.replaceAll('+', '')}${_phoneController.text}';
 
     final request = EmployeeProfileRequest(
       name: _nameController.text,
       email: _emailController.text,
-      phoneNumber: int.parse(_phoneController.text),
+      phoneNumber: int.parse(formattedPhoneNumber),
       gender: _selectedGender.name,
       dateOfBirth: _selectedDob != null
           ? DateFormat('y-MM-dd').format(_selectedDob!)
-          : profile.dateOfBirth?.split('T').first ?? '',
+          : profile.user?.employeeProfile.dateOfBirth?.split('T').first ?? '',
       placeOfBirth: _placeOfBirthController.text,
       maritalStatus: _getMaritalStatusCode(_maritalStatusController.text),
       bloodType: _bloodTypeController.text,
@@ -199,13 +236,14 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
       citizenIdAddress: _citizenAddressController.text,
       residentialAddress: _residentialAddressController.text,
       hobby: _hobbyController.text,
-      achievement: profile.achievement ?? '',
-      personalDescription: profile.personalDescription ?? '',
+      achievement: profile.user?.employeeProfile.achievement ?? '',
+      personalDescription:
+          profile.user?.employeeProfile.personalDescription ?? '',
       jobPositionId: employment?.jobPositionId ?? 0,
       jobLevelId: employment?.jobLevelId ?? 0,
       departmentId: employment?.departmentId ?? 0,
-      teamMembers: profile.teamMembers
-              ?.map((tm) => TeamMemberRequest(teamId: tm.id))
+      teamMembers: profile.user?.employeeProfile.teamMembers
+              ?.map((tm) => TeamMemberRequest(teamId: tm.id ?? 0))
               .toList() ??
           [],
       startDate: employment?.startDate?.split('T').first ?? '',
@@ -216,12 +254,13 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
       accountNumber: bank?.accountNumber ?? '',
       accountName: bank?.accountName ?? '',
       countryCode: _selectedCountryCode.dialCode,
+      photoProfile: attachmentPath ?? '',
     );
 
     try {
       await ref
           .read(employeeProfileEditProvider.notifier)
-          .submitUpdate(id: profile.userId, request: request);
+          .submitUpdate(id: profile.user?.id ?? 0, request: request);
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -277,9 +316,20 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                   IProfileImagePicker(
                     label: 'Photo',
                     isOptional: true,
-                    initialImageUrl: widget.profile.photoProfileUrl,
+                    initialImageUrl:
+                        widget.profile.user?.employeeProfile.photoProfileUrl,
                     onImageSelected: (file) {
-                      // ToDo: Handle file upload logic
+                      if (file != null) {
+                        final platform = PlatformFile(
+                          name: file.path.split('/').last,
+                          path: file.path,
+                          size: file.lengthSync(),
+                        );
+
+                        setState(() {
+                          _attachment = platform;
+                        });
+                      }
                     },
                   ),
                   SizedBox(height: 16.h),

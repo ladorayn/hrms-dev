@@ -61,12 +61,10 @@ class EmployeesRemoteSource {
 
       return BaseResponse.fromJson(
         response.data,
-            (json) =>
-            PaginatedResponse.fromJson(
-              json as Map<String, dynamic>,
-                  (itemJson) =>
-                  Employee.fromJson(itemJson as Map<String, dynamic>),
-            ),
+        (json) => PaginatedResponse.fromJson(
+          json as Map<String, dynamic>,
+          (itemJson) => Employee.fromJson(itemJson as Map<String, dynamic>),
+        ),
       );
     } on DioException catch (e) {
       throw handleDioError(e);
@@ -127,34 +125,32 @@ class EmployeesRemoteSource {
 
       return BaseResponse.fromJson(
         response.data,
-            (json) =>
-            PaginatedResponse.fromJson(
-              json as Map<String, dynamic>,
-                  (itemJson) =>
-                  Employee.fromJson(itemJson as Map<String, dynamic>),
-            ),
+        (json) => PaginatedResponse.fromJson(
+          json as Map<String, dynamic>,
+          (itemJson) => Employee.fromJson(itemJson as Map<String, dynamic>),
+        ),
       );
     } on DioException catch (e) {
       throw handleDioError(e);
     }
   }
 
-  Future<BaseResponse<EmployeeProfile>> getEmployeeProfile(
+  Future<BaseResponse<UserProfile>> getEmployeeProfile(
       {required int id}) async {
     try {
       // Assuming this endpoint fetches the logged-in user's profile
-      final response = await _dio.get('api/v1/employees/user/$id');
+      final response = await _dio.get('api/v1/user/profile');
 
       return BaseResponse.fromJson(
         response.data,
-            (json) => EmployeeProfile.fromJson(json as Map<String, dynamic>),
+        (json) => UserProfile.fromJson(json as Map<String, dynamic>),
       );
     } on DioException catch (e) {
       throw handleDioError(e);
     }
   }
 
-  Future<BaseResponse<EmployeeProfile>> updateEmployeeProfile({
+  Future<BaseResponse<UserProfile>> updateEmployeeProfile({
     required int id,
     required EmployeeProfileRequest request,
   }) async {
@@ -165,7 +161,7 @@ class EmployeesRemoteSource {
       );
       return BaseResponse.fromJson(
         response.data,
-            (json) => EmployeeProfile.fromJson(json as Map<String, dynamic>),
+        (json) => UserProfile.fromJson(json as Map<String, dynamic>),
       );
     } on DioException catch (e) {
       throw handleDioError(e);

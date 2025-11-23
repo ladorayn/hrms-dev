@@ -6,16 +6,71 @@ part of 'employee_profile_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$EmployeeProfileImpl _$$EmployeeProfileImplFromJson(
+_$UserProfileImpl _$$UserProfileImplFromJson(Map<String, dynamic> json) =>
+    _$UserProfileImpl(
+      user: json['user'] == null
+          ? null
+          : UserWithEmployeeData.fromJson(json['user'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$$UserProfileImplToJson(_$UserProfileImpl instance) =>
+    <String, dynamic>{
+      'user': instance.user,
+    };
+
+_$UserWithEmployeeDataImpl _$$UserWithEmployeeDataImplFromJson(
         Map<String, dynamic> json) =>
-    _$EmployeeProfileImpl(
-      id: (json['id'] as num).toInt(),
-      userId: (json['user_id'] as num).toInt(),
+    _$UserWithEmployeeDataImpl(
+      id: (json['id'] as num?)?.toInt(),
+      employeeId: (json['employee_id'] as num?)?.toInt(),
+      code: json['code'] as String?,
+      photoProfile: json['photo_profile'] as String?,
+      photoProfileUrl: json['photo_profile_url'] as String?,
+      name: json['name'] as String?,
+      email: json['email'] as String?,
+      roles:
+          (json['roles'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      firstLoginAt: json['first_login_at'] as String?,
+      isFirstLogin: json['is_first_login'] as bool?,
+      createdAt: json['created_at'] as String?,
+      updatedAt: json['updated_at'] as String?,
+      employeeProfile: EmployeeProfileData.fromJson(
+          json['employee_profile'] as Map<String, dynamic>),
+      employment: json['employment'] == null
+          ? null
+          : Employment.fromJson(json['employment'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$$UserWithEmployeeDataImplToJson(
+        _$UserWithEmployeeDataImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'employee_id': instance.employeeId,
+      'code': instance.code,
+      'photo_profile': instance.photoProfile,
+      'photo_profile_url': instance.photoProfileUrl,
+      'name': instance.name,
+      'email': instance.email,
+      'roles': instance.roles,
+      'first_login_at': instance.firstLoginAt,
+      'is_first_login': instance.isFirstLogin,
+      'created_at': instance.createdAt,
+      'updated_at': instance.updatedAt,
+      'employee_profile': instance.employeeProfile,
+      'employment': instance.employment,
+    };
+
+_$EmployeeProfileDataImpl _$$EmployeeProfileDataImplFromJson(
+        Map<String, dynamic> json) =>
+    _$EmployeeProfileDataImpl(
+      id: (json['id'] as num?)?.toInt(),
+      userId: (json['user_id'] as num?)?.toInt(),
       phoneNumber: json['phone_number'] as String?,
       gender: json['gender'] as String?,
       dateOfBirth: json['date_of_birth'] as String?,
       placeOfBirth: json['place_of_birth'] as String?,
       maritalStatus: (json['marital_status'] as num?)?.toInt(),
+      maritalStatusLabel: json['marital_status_label'] as String?,
       bloodType: json['blood_type'] as String?,
       height: json['height'] as String?,
       weight: json['weight'] as String?,
@@ -30,14 +85,6 @@ _$EmployeeProfileImpl _$$EmployeeProfileImplFromJson(
       photoProfile: json['photo_profile'] as String?,
       photoProfileUrl: json['photo_profile_url'] as String?,
       code: json['code'] as String?,
-      maritalStatusLabel: json['marital_status_label'] as String?,
-      user: UserProfile.fromJson(json['user'] as Map<String, dynamic>),
-      employment: json['employment'] == null
-          ? null
-          : Employment.fromJson(json['employment'] as Map<String, dynamic>),
-      branch: json['branch'] == null
-          ? null
-          : Branch.fromJson(json['branch'] as Map<String, dynamic>),
       socialMediaAccounts: (json['social_media_accounts'] as List<dynamic>?)
           ?.map((e) => SocialMediaAccount.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -69,8 +116,8 @@ _$EmployeeProfileImpl _$$EmployeeProfileImplFromJson(
           .toList(),
     );
 
-Map<String, dynamic> _$$EmployeeProfileImplToJson(
-        _$EmployeeProfileImpl instance) =>
+Map<String, dynamic> _$$EmployeeProfileDataImplToJson(
+        _$EmployeeProfileDataImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'user_id': instance.userId,
@@ -79,6 +126,7 @@ Map<String, dynamic> _$$EmployeeProfileImplToJson(
       'date_of_birth': instance.dateOfBirth,
       'place_of_birth': instance.placeOfBirth,
       'marital_status': instance.maritalStatus,
+      'marital_status_label': instance.maritalStatusLabel,
       'blood_type': instance.bloodType,
       'height': instance.height,
       'weight': instance.weight,
@@ -93,10 +141,6 @@ Map<String, dynamic> _$$EmployeeProfileImplToJson(
       'photo_profile': instance.photoProfile,
       'photo_profile_url': instance.photoProfileUrl,
       'code': instance.code,
-      'marital_status_label': instance.maritalStatusLabel,
-      'user': instance.user,
-      'employment': instance.employment,
-      'branch': instance.branch,
       'social_media_accounts': instance.socialMediaAccounts,
       'bank_account': instance.bankAccount,
       'team_members': instance.teamMembers,
@@ -109,7 +153,7 @@ Map<String, dynamic> _$$EmployeeProfileImplToJson(
     };
 
 _$BranchImpl _$$BranchImplFromJson(Map<String, dynamic> json) => _$BranchImpl(
-      id: (json['id'] as num).toInt(),
+      id: (json['id'] as num?)?.toInt(),
       name: json['name'] as String?,
       latitude: json['latitude'] as String?,
       longitude: json['longitude'] as String?,
@@ -125,25 +169,9 @@ Map<String, dynamic> _$$BranchImplToJson(_$BranchImpl instance) =>
       'address': instance.address,
     };
 
-_$UserProfileImpl _$$UserProfileImplFromJson(Map<String, dynamic> json) =>
-    _$UserProfileImpl(
-      id: (json['id'] as num).toInt(),
-      name: json['name'] as String,
-      email: json['email'] as String,
-      isFirstLogin: json['is_first_login'] as bool?,
-    );
-
-Map<String, dynamic> _$$UserProfileImplToJson(_$UserProfileImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'email': instance.email,
-      'is_first_login': instance.isFirstLogin,
-    };
-
 _$EmploymentImpl _$$EmploymentImplFromJson(Map<String, dynamic> json) =>
     _$EmploymentImpl(
-      id: (json['id'] as num).toInt(),
+      id: (json['id'] as num?)?.toInt(),
       employeeProfileId: (json['employee_profile_id'] as num?)?.toInt(),
       departmentId: (json['department_id'] as num?)?.toInt(),
       jobLevelId: (json['job_level_id'] as num?)?.toInt(),
@@ -187,7 +215,7 @@ Map<String, dynamic> _$$EmploymentImplToJson(_$EmploymentImpl instance) =>
 
 _$DepartmentImpl _$$DepartmentImplFromJson(Map<String, dynamic> json) =>
     _$DepartmentImpl(
-      id: (json['id'] as num).toInt(),
+      id: (json['id'] as num?)?.toInt(),
       name: json['name'] as String?,
       description: json['description'] as String?,
     );
@@ -201,7 +229,7 @@ Map<String, dynamic> _$$DepartmentImplToJson(_$DepartmentImpl instance) =>
 
 _$JobLevelImpl _$$JobLevelImplFromJson(Map<String, dynamic> json) =>
     _$JobLevelImpl(
-      id: (json['id'] as num).toInt(),
+      id: (json['id'] as num?)?.toInt(),
       name: json['name'] as String?,
       description: json['description'] as String?,
     );
@@ -215,7 +243,7 @@ Map<String, dynamic> _$$JobLevelImplToJson(_$JobLevelImpl instance) =>
 
 _$JobPositionImpl _$$JobPositionImplFromJson(Map<String, dynamic> json) =>
     _$JobPositionImpl(
-      id: (json['id'] as num).toInt(),
+      id: (json['id'] as num?)?.toInt(),
       name: json['name'] as String?,
       description: json['description'] as String?,
       status: json['status'] as String?,
@@ -246,7 +274,7 @@ Map<String, dynamic> _$$AllowanceImplToJson(_$AllowanceImpl instance) =>
 _$SocialMediaAccountImpl _$$SocialMediaAccountImplFromJson(
         Map<String, dynamic> json) =>
     _$SocialMediaAccountImpl(
-      id: (json['id'] as num).toInt(),
+      id: (json['id'] as num?)?.toInt(),
       employeeProfileId: (json['employee_profile_id'] as num?)?.toInt(),
       type: json['type'] as String?,
       url: json['url'] as String?,
@@ -263,7 +291,7 @@ Map<String, dynamic> _$$SocialMediaAccountImplToJson(
 
 _$BankAccountImpl _$$BankAccountImplFromJson(Map<String, dynamic> json) =>
     _$BankAccountImpl(
-      id: (json['id'] as num).toInt(),
+      id: (json['id'] as num?)?.toInt(),
       employeeProfileId: (json['employee_profile_id'] as num?)?.toInt(),
       accountNumber: json['account_number'] as String?,
       accountName: json['account_name'] as String?,
@@ -284,7 +312,7 @@ Map<String, dynamic> _$$BankAccountImplToJson(_$BankAccountImpl instance) =>
     };
 
 _$BankImpl _$$BankImplFromJson(Map<String, dynamic> json) => _$BankImpl(
-      id: (json['id'] as num).toInt(),
+      id: (json['id'] as num?)?.toInt(),
       bankName: json['bank_name'] as String?,
       code: json['code'] as String?,
     );
@@ -298,7 +326,7 @@ Map<String, dynamic> _$$BankImplToJson(_$BankImpl instance) =>
 
 _$TeamMemberImpl _$$TeamMemberImplFromJson(Map<String, dynamic> json) =>
     _$TeamMemberImpl(
-      id: (json['id'] as num).toInt(),
+      id: (json['id'] as num?)?.toInt(),
       name: json['name'] as String?,
     );
 
@@ -311,7 +339,7 @@ Map<String, dynamic> _$$TeamMemberImplToJson(_$TeamMemberImpl instance) =>
 _$ReportingRelationshipImpl _$$ReportingRelationshipImplFromJson(
         Map<String, dynamic> json) =>
     _$ReportingRelationshipImpl(
-      id: (json['id'] as num).toInt(),
+      id: (json['id'] as num?)?.toInt(),
       directReportId: (json['direct_report_id'] as num?)?.toInt(),
       relationshipType: json['relationship_type'] as String?,
       name: json['name'] as String?,
@@ -339,7 +367,7 @@ Map<String, dynamic> _$$WorkExperienceImplToJson(
 
 _$EducationImpl _$$EducationImplFromJson(Map<String, dynamic> json) =>
     _$EducationImpl(
-      id: (json['id'] as num).toInt(),
+      id: (json['id'] as num?)?.toInt(),
       employeeProfileId: (json['employee_profile_id'] as num?)?.toInt(),
       category: json['category'] as String?,
       institution: json['institution'] as String?,
@@ -369,7 +397,7 @@ Map<String, dynamic> _$$EducationImplToJson(_$EducationImpl instance) =>
 
 _$FamilyEmployeeImpl _$$FamilyEmployeeImplFromJson(Map<String, dynamic> json) =>
     _$FamilyEmployeeImpl(
-      id: (json['id'] as num).toInt(),
+      id: (json['id'] as num?)?.toInt(),
       employeeProfileId: (json['employee_profile_id'] as num?)?.toInt(),
       name: json['name'] as String?,
       relationship: json['relationship'] as String?,
@@ -413,7 +441,7 @@ Map<String, dynamic> _$$ContactReferenceImplToJson(
 _$EmployeeDocumentImpl _$$EmployeeDocumentImplFromJson(
         Map<String, dynamic> json) =>
     _$EmployeeDocumentImpl(
-      id: (json['id'] as num).toInt(),
+      id: (json['id'] as num?)?.toInt(),
       employeeProfileId: (json['employee_profile_id'] as num?)?.toInt(),
       type: json['type'] as String?,
       filename: json['filename'] as String?,

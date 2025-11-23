@@ -17,7 +17,7 @@ class ProfileDetailScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final authP = ref.watch(authProvider);
     final profileAsync =
-        ref.watch(employeeDetailProvider(id: authP.value?.employeeId ?? 0));
+        ref.watch(employeeDetailProvider(id: authP.value?.id ?? 0));
 
     return Scaffold(
       appBar: IAppBar(title: "My Profile"),

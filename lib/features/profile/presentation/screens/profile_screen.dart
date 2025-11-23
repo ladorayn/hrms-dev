@@ -21,7 +21,7 @@ class ProfileScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final authP = ref.watch(authProvider);
     final profileAsync =
-        ref.watch(employeeDetailProvider(id: authP.value?.employeeId ?? 0));
+        ref.watch(employeeDetailProvider(id: authP.value?.id ?? 0));
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xFFF8F8F8),

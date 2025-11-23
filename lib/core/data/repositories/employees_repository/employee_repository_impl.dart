@@ -63,13 +63,13 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
   }
 
   @override
-  Future<EmployeeProfile> getEmployeeProfile({required int id}) async {
+  Future<UserProfile> getEmployeeProfile({required int id}) async {
     final response = await remoteSource.getEmployeeProfile(id: id);
     return response.data;
   }
 
   @override
-  Future<EmployeeProfile> updateEmployeeProfile({
+  Future<UserProfile> updateEmployeeProfile({
     required int id,
     required EmployeeProfileRequest request,
   }) async {

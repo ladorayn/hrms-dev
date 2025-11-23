@@ -8,7 +8,7 @@ import 'package:hrms_mobile/core/util/i_strings_utils.dart';
 import 'package:hrms_mobile/features/profile/presentation/widgets/detail/profile_detail_item.dart';
 
 class PersonalInfoSection extends StatelessWidget {
-  final EmployeeProfile profile;
+  final UserProfile profile;
 
   const PersonalInfoSection({super.key, required this.profile});
 
@@ -33,12 +33,13 @@ class PersonalInfoSection extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     final valueColor = Colors.black;
 
-    String formattedDate = '-';
-    if (profile.dateOfBirth != null) {
+    String? formattedDate = '-';
+    if (profile.user?.employeeProfile.dateOfBirth != null) {
       try {
-        formattedDate = DateTimeHelper.formatDate(profile.dateOfBirth!);
+        formattedDate = DateTimeHelper.formatDate(
+            profile.user?.employeeProfile.dateOfBirth ?? '');
       } catch (e) {
-        formattedDate = profile.dateOfBirth!;
+        formattedDate = profile.user?.employeeProfile.dateOfBirth;
       }
     }
 
@@ -59,13 +60,14 @@ class PersonalInfoSection extends StatelessWidget {
                 children: [
                   Expanded(
                       child: ProfileDetailItem(
-                          label: "Email", value: profile.user.email)),
+                          label: "Email", value: profile.user?.email)),
                   SizedBox(width: 16.w),
                   Expanded(
                       child: ProfileDetailItem(
                           label: "Phone Number",
                           value: IStringUtils.convertNumber(
-                              profile.phoneNumber ?? '-'))),
+                              profile.user?.employeeProfile.phoneNumber ??
+                                  '-'))),
                 ],
               ),
               SizedBox(height: 16.h),
@@ -74,12 +76,14 @@ class PersonalInfoSection extends StatelessWidget {
                 children: [
                   Expanded(
                       child: ProfileDetailItem(
-                          label: "Gender", value: profile.gender ?? '-')),
+                          label: "Gender",
+                          value: profile.user?.employeeProfile.gender ?? '-')),
                   SizedBox(width: 16.w),
                   Expanded(
                       child: ProfileDetailItem(
                           label: "Place of Birth",
-                          value: profile.placeOfBirth ?? '-')),
+                          value: profile.user?.employeeProfile.placeOfBirth ??
+                              '-')),
                 ],
               ),
               SizedBox(height: 16.h),
@@ -93,7 +97,9 @@ class PersonalInfoSection extends StatelessWidget {
                   Expanded(
                       child: ProfileDetailItem(
                           label: "Marital Status",
-                          value: profile.maritalStatusLabel ?? '-')),
+                          value: profile
+                                  .user?.employeeProfile.maritalStatusLabel ??
+                              '-')),
                 ],
               ),
               SizedBox(height: 16.h),
@@ -103,7 +109,8 @@ class PersonalInfoSection extends StatelessWidget {
                   Expanded(
                       child: ProfileDetailItem(
                           label: "Blood Type",
-                          value: profile.bloodType ?? '-')),
+                          value:
+                              profile.user?.employeeProfile.bloodType ?? '-')),
                   SizedBox(width: 16.w),
                   Expanded(
                     child: Row(
@@ -111,14 +118,16 @@ class PersonalInfoSection extends StatelessWidget {
                         Expanded(
                             child: ProfileDetailItem(
                                 label: "Height",
-                                value: profile.height != null
-                                    ? "${profile.height} cm"
+                                value: profile.user?.employeeProfile.height !=
+                                        null
+                                    ? "${profile.user?.employeeProfile.height} cm"
                                     : "-")),
                         Expanded(
                             child: ProfileDetailItem(
                                 label: "Weight",
-                                value: profile.weight != null
-                                    ? "${profile.weight} kg"
+                                value: profile.user?.employeeProfile.weight !=
+                                        null
+                                    ? "${profile.user?.employeeProfile.weight} kg"
                                     : "-")),
                       ],
                     ),
@@ -131,12 +140,15 @@ class PersonalInfoSection extends StatelessWidget {
                 children: [
                   Expanded(
                       child: ProfileDetailItem(
-                          label: "ID Number", value: profile.idNumber ?? '-')),
+                          label: "ID Number",
+                          value: profile.user?.id != null
+                              ? '${profile.user?.id}'
+                              : '-')),
                   SizedBox(width: 16.w),
                   Expanded(
                       child: ProfileDetailItem(
                           label: "Taxpayer ID Number (NPWP)",
-                          value: profile.npwp ?? '-')),
+                          value: profile.user?.employeeProfile.npwp ?? '-')),
                 ],
               ),
               SizedBox(height: 16.h),
@@ -146,11 +158,12 @@ class PersonalInfoSection extends StatelessWidget {
                   Expanded(
                       child: ProfileDetailItem(
                           label: "Health Insurance Number (BPJS)",
-                          value: profile.bpjs ?? '-')),
+                          value: profile.user?.employeeProfile.bpjs ?? '-')),
                   SizedBox(width: 16.w),
                   Expanded(
                       child: ProfileDetailItem(
-                          label: "Hobby", value: profile.hobby ?? '-')),
+                          label: "Hobby",
+                          value: profile.user?.employeeProfile.hobby ?? '-')),
                 ],
               ),
               SizedBox(height: 16.h),
@@ -160,27 +173,29 @@ class PersonalInfoSection extends StatelessWidget {
                   Expanded(
                       child: ProfileDetailItem(
                           label: "Citizen ID Address",
-                          value: profile.citizenIdAddress ?? '-')),
+                          value:
+                              profile.user?.employeeProfile.citizenIdAddress ??
+                                  '-')),
                   SizedBox(width: 16.w),
                 ],
               ),
               SizedBox(height: 16.h),
               ProfileDetailItem(
                   label: "Residential Address",
-                  value: profile.residentialAddress ?? '-'),
+                  value:
+                      profile.user?.employeeProfile.residentialAddress ?? '-'),
               SizedBox(height: 16.h),
               ProfileDetailItem(label: "Social Media", value: null),
               SizedBox(height: 8.h),
 
               // --- Dynamic Social Media List ---
-              if (profile.socialMediaAccounts == null ||
-                  profile.socialMediaAccounts!.isEmpty)
+              if (profile.user?.employeeProfile.socialMediaAccounts == null)
                 Text(
                   "No social media accounts linked.",
                   style: textTheme.bodyMedium,
                 )
               else
-                ...profile.socialMediaAccounts!.map(
+                ...?profile.user?.employeeProfile.socialMediaAccounts!.map(
                   (account) => Padding(
                     padding: EdgeInsets.only(bottom: 8.h),
                     child: _buildSocialItem(

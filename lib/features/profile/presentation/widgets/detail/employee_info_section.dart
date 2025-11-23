@@ -7,15 +7,16 @@ import 'package:hrms_mobile/core/util/datetime_utils.dart';
 import 'package:hrms_mobile/features/profile/presentation/widgets/detail/profile_detail_item.dart';
 
 class EmployeeInfoSection extends StatelessWidget {
-  final EmployeeProfile profile;
+  final UserProfile profile;
 
   const EmployeeInfoSection({super.key, required this.profile});
 
   @override
   Widget build(BuildContext context) {
-    final employment = profile.employment;
+    final employment = profile.user?.employment;
 
-    final primaryReportNames = profile.reportingRelationships
+    final primaryReportNames = profile
+            .user?.employeeProfile.reportingRelationships
             ?.where((r) => r.relationshipType == 'primary')
             .map((r) => r.name ?? 'Unknown')
             .toList() ??
@@ -23,7 +24,8 @@ class EmployeeInfoSection extends StatelessWidget {
     final primaryReportValue =
         primaryReportNames.isEmpty ? '-' : primaryReportNames.join('; ');
 
-    final additionalReportNames = profile.reportingRelationships
+    final additionalReportNames = profile
+            .user?.employeeProfile.reportingRelationships
             ?.where((r) => r.relationshipType != 'primary')
             .map((r) => r.name ?? 'Unknown')
             .toList() ??
@@ -31,7 +33,7 @@ class EmployeeInfoSection extends StatelessWidget {
     final additionalReportValue =
         additionalReportNames.isEmpty ? '-' : additionalReportNames.join('; ');
 
-    final teams = profile.teamMembers ?? [];
+    final teams = profile.user?.employeeProfile.teamMembers ?? [];
 
     return Container(
       padding: EdgeInsets.all(16.w),

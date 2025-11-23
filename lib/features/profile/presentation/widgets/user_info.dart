@@ -5,7 +5,7 @@ import 'package:hrms_mobile/core/data/models/employees/employee_profile_response
 import 'package:hrms_mobile/features/auth/presentation/providers/auth/auth_provider.dart';
 
 class UserInfo extends ConsumerWidget {
-  final EmployeeProfile? profile;
+  final UserProfile? profile;
 
   const UserInfo({super.key, this.profile});
 
@@ -16,10 +16,12 @@ class UserInfo extends ConsumerWidget {
       children: [
         CircleAvatar(
           radius: 50.r,
-          backgroundImage: (profile?.photoProfileUrl) != null
-              ? NetworkImage(profile!.photoProfileUrl!)
-              : null,
-          child: (profile?.photoProfileUrl) == null
+          backgroundImage:
+              (profile?.user?.employeeProfile.photoProfileUrl) != null
+                  ? NetworkImage(
+                      profile?.user?.employeeProfile.photoProfileUrl ?? '')
+                  : null,
+          child: profile?.user?.employeeProfile.photoProfileUrl == null
               ? const Icon(Icons.person, size: 80, color: Colors.white)
               : null,
         ),

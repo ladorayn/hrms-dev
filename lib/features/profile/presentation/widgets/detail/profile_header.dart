@@ -10,7 +10,7 @@ import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/features/profile/presentation/widgets/user_info.dart';
 
 class ProfileHeader extends StatelessWidget {
-  final EmployeeProfile profile;
+  final UserProfile profile;
 
   const ProfileHeader({super.key, required this.profile});
 

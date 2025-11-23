@@ -288,7 +288,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: RoutePaths.profileEdit,
         name: RoutePaths.profileEditName,
         builder: (context, state) {
-          final profile = state.extra as EmployeeProfile;
+          final profile = state.extra as UserProfile;
           return ProfileEditScreen(profile: profile);
         },
       ),

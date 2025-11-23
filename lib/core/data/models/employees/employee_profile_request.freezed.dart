@@ -83,6 +83,8 @@ mixin _$EmployeeProfileRequest {
   String get accountName => throw _privateConstructorUsedError;
   @JsonKey(name: 'country_code')
   int get countryCode => throw _privateConstructorUsedError;
+  @JsonKey(name: 'photo_profile')
+  String get photoProfile => throw _privateConstructorUsedError;
 
   /// Serializes this EmployeeProfileRequest to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -131,7 +133,8 @@ abstract class $EmployeeProfileRequestCopyWith<$Res> {
       @JsonKey(name: 'bank_id') int bankId,
       @JsonKey(name: 'account_number') String accountNumber,
       @JsonKey(name: 'account_name') String accountName,
-      @JsonKey(name: 'country_code') int countryCode});
+      @JsonKey(name: 'country_code') int countryCode,
+      @JsonKey(name: 'photo_profile') String photoProfile});
 }
 
 /// @nodoc
@@ -181,6 +184,7 @@ class _$EmployeeProfileRequestCopyWithImpl<$Res,
     Object? accountNumber = null,
     Object? accountName = null,
     Object? countryCode = null,
+    Object? photoProfile = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -307,6 +311,10 @@ class _$EmployeeProfileRequestCopyWithImpl<$Res,
           ? _value.countryCode
           : countryCode // ignore: cast_nullable_to_non_nullable
               as int,
+      photoProfile: null == photoProfile
+          ? _value.photoProfile
+          : photoProfile // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -351,7 +359,8 @@ abstract class _$$EmployeeProfileRequestImplCopyWith<$Res>
       @JsonKey(name: 'bank_id') int bankId,
       @JsonKey(name: 'account_number') String accountNumber,
       @JsonKey(name: 'account_name') String accountName,
-      @JsonKey(name: 'country_code') int countryCode});
+      @JsonKey(name: 'country_code') int countryCode,
+      @JsonKey(name: 'photo_profile') String photoProfile});
 }
 
 /// @nodoc
@@ -400,6 +409,7 @@ class __$$EmployeeProfileRequestImplCopyWithImpl<$Res>
     Object? accountNumber = null,
     Object? accountName = null,
     Object? countryCode = null,
+    Object? photoProfile = null,
   }) {
     return _then(_$EmployeeProfileRequestImpl(
       name: null == name
@@ -526,6 +536,10 @@ class __$$EmployeeProfileRequestImplCopyWithImpl<$Res>
           ? _value.countryCode
           : countryCode // ignore: cast_nullable_to_non_nullable
               as int,
+      photoProfile: null == photoProfile
+          ? _value.photoProfile
+          : photoProfile // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -565,7 +579,8 @@ class _$EmployeeProfileRequestImpl implements _EmployeeProfileRequest {
       @JsonKey(name: 'bank_id') required this.bankId,
       @JsonKey(name: 'account_number') required this.accountNumber,
       @JsonKey(name: 'account_name') required this.accountName,
-      @JsonKey(name: 'country_code') required this.countryCode})
+      @JsonKey(name: 'country_code') required this.countryCode,
+      @JsonKey(name: 'photo_profile') required this.photoProfile})
       : _teamMembers = teamMembers;
 
   factory _$EmployeeProfileRequestImpl.fromJson(Map<String, dynamic> json) =>
@@ -670,10 +685,13 @@ class _$EmployeeProfileRequestImpl implements _EmployeeProfileRequest {
   @override
   @JsonKey(name: 'country_code')
   final int countryCode;
+  @override
+  @JsonKey(name: 'photo_profile')
+  final String photoProfile;
 
   @override
   String toString() {
-    return 'EmployeeProfileRequest(name: $name, email: $email, phoneNumber: $phoneNumber, roleId: $roleId, gender: $gender, dateOfBirth: $dateOfBirth, placeOfBirth: $placeOfBirth, maritalStatus: $maritalStatus, bloodType: $bloodType, height: $height, weight: $weight, idNumber: $idNumber, npwp: $npwp, bpjs: $bpjs, citizenIdAddress: $citizenIdAddress, residentialAddress: $residentialAddress, hobby: $hobby, achievement: $achievement, personalDescription: $personalDescription, jobPositionId: $jobPositionId, jobLevelId: $jobLevelId, departmentId: $departmentId, teamMembers: $teamMembers, startDate: $startDate, status: $status, baseSalary: $baseSalary, salaryNett: $salaryNett, bankId: $bankId, accountNumber: $accountNumber, accountName: $accountName, countryCode: $countryCode)';
+    return 'EmployeeProfileRequest(name: $name, email: $email, phoneNumber: $phoneNumber, roleId: $roleId, gender: $gender, dateOfBirth: $dateOfBirth, placeOfBirth: $placeOfBirth, maritalStatus: $maritalStatus, bloodType: $bloodType, height: $height, weight: $weight, idNumber: $idNumber, npwp: $npwp, bpjs: $bpjs, citizenIdAddress: $citizenIdAddress, residentialAddress: $residentialAddress, hobby: $hobby, achievement: $achievement, personalDescription: $personalDescription, jobPositionId: $jobPositionId, jobLevelId: $jobLevelId, departmentId: $departmentId, teamMembers: $teamMembers, startDate: $startDate, status: $status, baseSalary: $baseSalary, salaryNett: $salaryNett, bankId: $bankId, accountNumber: $accountNumber, accountName: $accountName, countryCode: $countryCode, photoProfile: $photoProfile)';
   }
 
   @override
@@ -731,7 +749,9 @@ class _$EmployeeProfileRequestImpl implements _EmployeeProfileRequest {
             (identical(other.accountName, accountName) ||
                 other.accountName == accountName) &&
             (identical(other.countryCode, countryCode) ||
-                other.countryCode == countryCode));
+                other.countryCode == countryCode) &&
+            (identical(other.photoProfile, photoProfile) ||
+                other.photoProfile == photoProfile));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -768,7 +788,8 @@ class _$EmployeeProfileRequestImpl implements _EmployeeProfileRequest {
         bankId,
         accountNumber,
         accountName,
-        countryCode
+        countryCode,
+        photoProfile
       ]);
 
   /// Create a copy of EmployeeProfileRequest
@@ -824,7 +845,8 @@ abstract class _EmployeeProfileRequest implements EmployeeProfileRequest {
           @JsonKey(name: 'bank_id') required final int bankId,
           @JsonKey(name: 'account_number') required final String accountNumber,
           @JsonKey(name: 'account_name') required final String accountName,
-          @JsonKey(name: 'country_code') required final int countryCode}) =
+          @JsonKey(name: 'country_code') required final int countryCode,
+          @JsonKey(name: 'photo_profile') required final String photoProfile}) =
       _$EmployeeProfileRequestImpl;
 
   factory _EmployeeProfileRequest.fromJson(Map<String, dynamic> json) =
@@ -923,6 +945,9 @@ abstract class _EmployeeProfileRequest implements EmployeeProfileRequest {
   @override
   @JsonKey(name: 'country_code')
   int get countryCode;
+  @override
+  @JsonKey(name: 'photo_profile')
+  String get photoProfile;
 
   /// Create a copy of EmployeeProfileRequest
   /// with the given fields replaced by the non-null parameter values.

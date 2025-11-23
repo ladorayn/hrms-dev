@@ -14,15 +14,697 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-EmployeeProfile _$EmployeeProfileFromJson(Map<String, dynamic> json) {
-  return _EmployeeProfile.fromJson(json);
+UserProfile _$UserProfileFromJson(Map<String, dynamic> json) {
+  return _UserProfile.fromJson(json);
 }
 
 /// @nodoc
-mixin _$EmployeeProfile {
-  int get id => throw _privateConstructorUsedError;
+mixin _$UserProfile {
+  UserWithEmployeeData? get user => throw _privateConstructorUsedError;
+
+  /// Serializes this UserProfile to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of UserProfile
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $UserProfileCopyWith<UserProfile> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $UserProfileCopyWith<$Res> {
+  factory $UserProfileCopyWith(
+          UserProfile value, $Res Function(UserProfile) then) =
+      _$UserProfileCopyWithImpl<$Res, UserProfile>;
+  @useResult
+  $Res call({UserWithEmployeeData? user});
+
+  $UserWithEmployeeDataCopyWith<$Res>? get user;
+}
+
+/// @nodoc
+class _$UserProfileCopyWithImpl<$Res, $Val extends UserProfile>
+    implements $UserProfileCopyWith<$Res> {
+  _$UserProfileCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of UserProfile
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? user = freezed,
+  }) {
+    return _then(_value.copyWith(
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserWithEmployeeData?,
+    ) as $Val);
+  }
+
+  /// Create a copy of UserProfile
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $UserWithEmployeeDataCopyWith<$Res>? get user {
+    if (_value.user == null) {
+      return null;
+    }
+
+    return $UserWithEmployeeDataCopyWith<$Res>(_value.user!, (value) {
+      return _then(_value.copyWith(user: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$UserProfileImplCopyWith<$Res>
+    implements $UserProfileCopyWith<$Res> {
+  factory _$$UserProfileImplCopyWith(
+          _$UserProfileImpl value, $Res Function(_$UserProfileImpl) then) =
+      __$$UserProfileImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({UserWithEmployeeData? user});
+
+  @override
+  $UserWithEmployeeDataCopyWith<$Res>? get user;
+}
+
+/// @nodoc
+class __$$UserProfileImplCopyWithImpl<$Res>
+    extends _$UserProfileCopyWithImpl<$Res, _$UserProfileImpl>
+    implements _$$UserProfileImplCopyWith<$Res> {
+  __$$UserProfileImplCopyWithImpl(
+      _$UserProfileImpl _value, $Res Function(_$UserProfileImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of UserProfile
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? user = freezed,
+  }) {
+    return _then(_$UserProfileImpl(
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserWithEmployeeData?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$UserProfileImpl implements _UserProfile {
+  const _$UserProfileImpl({this.user});
+
+  factory _$UserProfileImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UserProfileImplFromJson(json);
+
+  @override
+  final UserWithEmployeeData? user;
+
+  @override
+  String toString() {
+    return 'UserProfile(user: $user)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UserProfileImpl &&
+            (identical(other.user, user) || other.user == user));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, user);
+
+  /// Create a copy of UserProfile
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UserProfileImplCopyWith<_$UserProfileImpl> get copyWith =>
+      __$$UserProfileImplCopyWithImpl<_$UserProfileImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$UserProfileImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _UserProfile implements UserProfile {
+  const factory _UserProfile({final UserWithEmployeeData? user}) =
+      _$UserProfileImpl;
+
+  factory _UserProfile.fromJson(Map<String, dynamic> json) =
+      _$UserProfileImpl.fromJson;
+
+  @override
+  UserWithEmployeeData? get user;
+
+  /// Create a copy of UserProfile
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$UserProfileImplCopyWith<_$UserProfileImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+UserWithEmployeeData _$UserWithEmployeeDataFromJson(Map<String, dynamic> json) {
+  return _UserWithEmployeeData.fromJson(json);
+}
+
+/// @nodoc
+mixin _$UserWithEmployeeData {
+// Fields from the top level of the JSON:
+  int? get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'employee_id')
+  int? get employeeId => throw _privateConstructorUsedError;
+  String? get code => throw _privateConstructorUsedError;
+  @JsonKey(name: 'photo_profile')
+  String? get photoProfile => throw _privateConstructorUsedError;
+  @JsonKey(name: 'photo_profile_url')
+  String? get photoProfileUrl => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
+  String? get email => throw _privateConstructorUsedError;
+  List<String>? get roles => throw _privateConstructorUsedError;
+  @JsonKey(name: 'first_login_at')
+  String? get firstLoginAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_first_login')
+  bool? get isFirstLogin => throw _privateConstructorUsedError;
+  @JsonKey(name: 'created_at')
+  String? get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'updated_at')
+  String? get updatedAt =>
+      throw _privateConstructorUsedError; // Nested objects:
+  @JsonKey(name: 'employee_profile')
+  EmployeeProfileData get employeeProfile =>
+      throw _privateConstructorUsedError; // Renamed model
+  Employment? get employment => throw _privateConstructorUsedError;
+
+  /// Serializes this UserWithEmployeeData to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of UserWithEmployeeData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $UserWithEmployeeDataCopyWith<UserWithEmployeeData> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $UserWithEmployeeDataCopyWith<$Res> {
+  factory $UserWithEmployeeDataCopyWith(UserWithEmployeeData value,
+          $Res Function(UserWithEmployeeData) then) =
+      _$UserWithEmployeeDataCopyWithImpl<$Res, UserWithEmployeeData>;
+  @useResult
+  $Res call(
+      {int? id,
+      @JsonKey(name: 'employee_id') int? employeeId,
+      String? code,
+      @JsonKey(name: 'photo_profile') String? photoProfile,
+      @JsonKey(name: 'photo_profile_url') String? photoProfileUrl,
+      String? name,
+      String? email,
+      List<String>? roles,
+      @JsonKey(name: 'first_login_at') String? firstLoginAt,
+      @JsonKey(name: 'is_first_login') bool? isFirstLogin,
+      @JsonKey(name: 'created_at') String? createdAt,
+      @JsonKey(name: 'updated_at') String? updatedAt,
+      @JsonKey(name: 'employee_profile') EmployeeProfileData employeeProfile,
+      Employment? employment});
+
+  $EmployeeProfileDataCopyWith<$Res> get employeeProfile;
+  $EmploymentCopyWith<$Res>? get employment;
+}
+
+/// @nodoc
+class _$UserWithEmployeeDataCopyWithImpl<$Res,
+        $Val extends UserWithEmployeeData>
+    implements $UserWithEmployeeDataCopyWith<$Res> {
+  _$UserWithEmployeeDataCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of UserWithEmployeeData
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? employeeId = freezed,
+    Object? code = freezed,
+    Object? photoProfile = freezed,
+    Object? photoProfileUrl = freezed,
+    Object? name = freezed,
+    Object? email = freezed,
+    Object? roles = freezed,
+    Object? firstLoginAt = freezed,
+    Object? isFirstLogin = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+    Object? employeeProfile = null,
+    Object? employment = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      employeeId: freezed == employeeId
+          ? _value.employeeId
+          : employeeId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      code: freezed == code
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as String?,
+      photoProfile: freezed == photoProfile
+          ? _value.photoProfile
+          : photoProfile // ignore: cast_nullable_to_non_nullable
+              as String?,
+      photoProfileUrl: freezed == photoProfileUrl
+          ? _value.photoProfileUrl
+          : photoProfileUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
+      roles: freezed == roles
+          ? _value.roles
+          : roles // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      firstLoginAt: freezed == firstLoginAt
+          ? _value.firstLoginAt
+          : firstLoginAt // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isFirstLogin: freezed == isFirstLogin
+          ? _value.isFirstLogin
+          : isFirstLogin // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String?,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as String?,
+      employeeProfile: null == employeeProfile
+          ? _value.employeeProfile
+          : employeeProfile // ignore: cast_nullable_to_non_nullable
+              as EmployeeProfileData,
+      employment: freezed == employment
+          ? _value.employment
+          : employment // ignore: cast_nullable_to_non_nullable
+              as Employment?,
+    ) as $Val);
+  }
+
+  /// Create a copy of UserWithEmployeeData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $EmployeeProfileDataCopyWith<$Res> get employeeProfile {
+    return $EmployeeProfileDataCopyWith<$Res>(_value.employeeProfile, (value) {
+      return _then(_value.copyWith(employeeProfile: value) as $Val);
+    });
+  }
+
+  /// Create a copy of UserWithEmployeeData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $EmploymentCopyWith<$Res>? get employment {
+    if (_value.employment == null) {
+      return null;
+    }
+
+    return $EmploymentCopyWith<$Res>(_value.employment!, (value) {
+      return _then(_value.copyWith(employment: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$UserWithEmployeeDataImplCopyWith<$Res>
+    implements $UserWithEmployeeDataCopyWith<$Res> {
+  factory _$$UserWithEmployeeDataImplCopyWith(_$UserWithEmployeeDataImpl value,
+          $Res Function(_$UserWithEmployeeDataImpl) then) =
+      __$$UserWithEmployeeDataImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {int? id,
+      @JsonKey(name: 'employee_id') int? employeeId,
+      String? code,
+      @JsonKey(name: 'photo_profile') String? photoProfile,
+      @JsonKey(name: 'photo_profile_url') String? photoProfileUrl,
+      String? name,
+      String? email,
+      List<String>? roles,
+      @JsonKey(name: 'first_login_at') String? firstLoginAt,
+      @JsonKey(name: 'is_first_login') bool? isFirstLogin,
+      @JsonKey(name: 'created_at') String? createdAt,
+      @JsonKey(name: 'updated_at') String? updatedAt,
+      @JsonKey(name: 'employee_profile') EmployeeProfileData employeeProfile,
+      Employment? employment});
+
+  @override
+  $EmployeeProfileDataCopyWith<$Res> get employeeProfile;
+  @override
+  $EmploymentCopyWith<$Res>? get employment;
+}
+
+/// @nodoc
+class __$$UserWithEmployeeDataImplCopyWithImpl<$Res>
+    extends _$UserWithEmployeeDataCopyWithImpl<$Res, _$UserWithEmployeeDataImpl>
+    implements _$$UserWithEmployeeDataImplCopyWith<$Res> {
+  __$$UserWithEmployeeDataImplCopyWithImpl(_$UserWithEmployeeDataImpl _value,
+      $Res Function(_$UserWithEmployeeDataImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of UserWithEmployeeData
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? employeeId = freezed,
+    Object? code = freezed,
+    Object? photoProfile = freezed,
+    Object? photoProfileUrl = freezed,
+    Object? name = freezed,
+    Object? email = freezed,
+    Object? roles = freezed,
+    Object? firstLoginAt = freezed,
+    Object? isFirstLogin = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+    Object? employeeProfile = null,
+    Object? employment = freezed,
+  }) {
+    return _then(_$UserWithEmployeeDataImpl(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      employeeId: freezed == employeeId
+          ? _value.employeeId
+          : employeeId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      code: freezed == code
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as String?,
+      photoProfile: freezed == photoProfile
+          ? _value.photoProfile
+          : photoProfile // ignore: cast_nullable_to_non_nullable
+              as String?,
+      photoProfileUrl: freezed == photoProfileUrl
+          ? _value.photoProfileUrl
+          : photoProfileUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
+      roles: freezed == roles
+          ? _value._roles
+          : roles // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      firstLoginAt: freezed == firstLoginAt
+          ? _value.firstLoginAt
+          : firstLoginAt // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isFirstLogin: freezed == isFirstLogin
+          ? _value.isFirstLogin
+          : isFirstLogin // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String?,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as String?,
+      employeeProfile: null == employeeProfile
+          ? _value.employeeProfile
+          : employeeProfile // ignore: cast_nullable_to_non_nullable
+              as EmployeeProfileData,
+      employment: freezed == employment
+          ? _value.employment
+          : employment // ignore: cast_nullable_to_non_nullable
+              as Employment?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$UserWithEmployeeDataImpl implements _UserWithEmployeeData {
+  const _$UserWithEmployeeDataImpl(
+      {this.id,
+      @JsonKey(name: 'employee_id') this.employeeId,
+      this.code,
+      @JsonKey(name: 'photo_profile') this.photoProfile,
+      @JsonKey(name: 'photo_profile_url') this.photoProfileUrl,
+      this.name,
+      this.email,
+      final List<String>? roles,
+      @JsonKey(name: 'first_login_at') this.firstLoginAt,
+      @JsonKey(name: 'is_first_login') this.isFirstLogin,
+      @JsonKey(name: 'created_at') this.createdAt,
+      @JsonKey(name: 'updated_at') this.updatedAt,
+      @JsonKey(name: 'employee_profile') required this.employeeProfile,
+      this.employment})
+      : _roles = roles;
+
+  factory _$UserWithEmployeeDataImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UserWithEmployeeDataImplFromJson(json);
+
+// Fields from the top level of the JSON:
+  @override
+  final int? id;
+  @override
+  @JsonKey(name: 'employee_id')
+  final int? employeeId;
+  @override
+  final String? code;
+  @override
+  @JsonKey(name: 'photo_profile')
+  final String? photoProfile;
+  @override
+  @JsonKey(name: 'photo_profile_url')
+  final String? photoProfileUrl;
+  @override
+  final String? name;
+  @override
+  final String? email;
+  final List<String>? _roles;
+  @override
+  List<String>? get roles {
+    final value = _roles;
+    if (value == null) return null;
+    if (_roles is EqualUnmodifiableListView) return _roles;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  @JsonKey(name: 'first_login_at')
+  final String? firstLoginAt;
+  @override
+  @JsonKey(name: 'is_first_login')
+  final bool? isFirstLogin;
+  @override
+  @JsonKey(name: 'created_at')
+  final String? createdAt;
+  @override
+  @JsonKey(name: 'updated_at')
+  final String? updatedAt;
+// Nested objects:
+  @override
+  @JsonKey(name: 'employee_profile')
+  final EmployeeProfileData employeeProfile;
+// Renamed model
+  @override
+  final Employment? employment;
+
+  @override
+  String toString() {
+    return 'UserWithEmployeeData(id: $id, employeeId: $employeeId, code: $code, photoProfile: $photoProfile, photoProfileUrl: $photoProfileUrl, name: $name, email: $email, roles: $roles, firstLoginAt: $firstLoginAt, isFirstLogin: $isFirstLogin, createdAt: $createdAt, updatedAt: $updatedAt, employeeProfile: $employeeProfile, employment: $employment)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UserWithEmployeeDataImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.employeeId, employeeId) ||
+                other.employeeId == employeeId) &&
+            (identical(other.code, code) || other.code == code) &&
+            (identical(other.photoProfile, photoProfile) ||
+                other.photoProfile == photoProfile) &&
+            (identical(other.photoProfileUrl, photoProfileUrl) ||
+                other.photoProfileUrl == photoProfileUrl) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.email, email) || other.email == email) &&
+            const DeepCollectionEquality().equals(other._roles, _roles) &&
+            (identical(other.firstLoginAt, firstLoginAt) ||
+                other.firstLoginAt == firstLoginAt) &&
+            (identical(other.isFirstLogin, isFirstLogin) ||
+                other.isFirstLogin == isFirstLogin) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt) &&
+            (identical(other.employeeProfile, employeeProfile) ||
+                other.employeeProfile == employeeProfile) &&
+            (identical(other.employment, employment) ||
+                other.employment == employment));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      employeeId,
+      code,
+      photoProfile,
+      photoProfileUrl,
+      name,
+      email,
+      const DeepCollectionEquality().hash(_roles),
+      firstLoginAt,
+      isFirstLogin,
+      createdAt,
+      updatedAt,
+      employeeProfile,
+      employment);
+
+  /// Create a copy of UserWithEmployeeData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UserWithEmployeeDataImplCopyWith<_$UserWithEmployeeDataImpl>
+      get copyWith =>
+          __$$UserWithEmployeeDataImplCopyWithImpl<_$UserWithEmployeeDataImpl>(
+              this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$UserWithEmployeeDataImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _UserWithEmployeeData implements UserWithEmployeeData {
+  const factory _UserWithEmployeeData(
+      {final int? id,
+      @JsonKey(name: 'employee_id') final int? employeeId,
+      final String? code,
+      @JsonKey(name: 'photo_profile') final String? photoProfile,
+      @JsonKey(name: 'photo_profile_url') final String? photoProfileUrl,
+      final String? name,
+      final String? email,
+      final List<String>? roles,
+      @JsonKey(name: 'first_login_at') final String? firstLoginAt,
+      @JsonKey(name: 'is_first_login') final bool? isFirstLogin,
+      @JsonKey(name: 'created_at') final String? createdAt,
+      @JsonKey(name: 'updated_at') final String? updatedAt,
+      @JsonKey(name: 'employee_profile')
+      required final EmployeeProfileData employeeProfile,
+      final Employment? employment}) = _$UserWithEmployeeDataImpl;
+
+  factory _UserWithEmployeeData.fromJson(Map<String, dynamic> json) =
+      _$UserWithEmployeeDataImpl.fromJson;
+
+// Fields from the top level of the JSON:
+  @override
+  int? get id;
+  @override
+  @JsonKey(name: 'employee_id')
+  int? get employeeId;
+  @override
+  String? get code;
+  @override
+  @JsonKey(name: 'photo_profile')
+  String? get photoProfile;
+  @override
+  @JsonKey(name: 'photo_profile_url')
+  String? get photoProfileUrl;
+  @override
+  String? get name;
+  @override
+  String? get email;
+  @override
+  List<String>? get roles;
+  @override
+  @JsonKey(name: 'first_login_at')
+  String? get firstLoginAt;
+  @override
+  @JsonKey(name: 'is_first_login')
+  bool? get isFirstLogin;
+  @override
+  @JsonKey(name: 'created_at')
+  String? get createdAt;
+  @override
+  @JsonKey(name: 'updated_at')
+  String? get updatedAt; // Nested objects:
+  @override
+  @JsonKey(name: 'employee_profile')
+  EmployeeProfileData get employeeProfile; // Renamed model
+  @override
+  Employment? get employment;
+
+  /// Create a copy of UserWithEmployeeData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$UserWithEmployeeDataImplCopyWith<_$UserWithEmployeeDataImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+EmployeeProfileData _$EmployeeProfileDataFromJson(Map<String, dynamic> json) {
+  return _EmployeeProfileData.fromJson(json);
+}
+
+/// @nodoc
+mixin _$EmployeeProfileData {
+  int? get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'user_id')
-  int get userId => throw _privateConstructorUsedError;
+  int? get userId => throw _privateConstructorUsedError;
   @JsonKey(name: 'phone_number')
   String? get phoneNumber => throw _privateConstructorUsedError;
   String? get gender => throw _privateConstructorUsedError;
@@ -32,6 +714,8 @@ mixin _$EmployeeProfile {
   String? get placeOfBirth => throw _privateConstructorUsedError;
   @JsonKey(name: 'marital_status')
   int? get maritalStatus => throw _privateConstructorUsedError;
+  @JsonKey(name: 'marital_status_label')
+  String? get maritalStatusLabel => throw _privateConstructorUsedError;
   @JsonKey(name: 'blood_type')
   String? get bloodType => throw _privateConstructorUsedError;
   String? get height => throw _privateConstructorUsedError;
@@ -49,17 +733,12 @@ mixin _$EmployeeProfile {
   @JsonKey(name: 'personal_description')
   String? get personalDescription => throw _privateConstructorUsedError;
   @JsonKey(name: 'photo_profile')
-  String? get photoProfile =>
-      throw _privateConstructorUsedError; // --- NEW FIELD ---
+  String? get photoProfile => throw _privateConstructorUsedError;
   @JsonKey(name: 'photo_profile_url')
   String? get photoProfileUrl => throw _privateConstructorUsedError;
-  String? get code => throw _privateConstructorUsedError;
-  @JsonKey(name: 'marital_status_label')
-  String? get maritalStatusLabel => throw _privateConstructorUsedError;
-  UserProfile get user => throw _privateConstructorUsedError;
-  Employment? get employment =>
-      throw _privateConstructorUsedError; // --- NEW FIELD ---
-  Branch? get branch => throw _privateConstructorUsedError;
+  String? get code =>
+      throw _privateConstructorUsedError; // Removed UserProfile (user) and Employment as they are now in UserWithEmployeeData
+// Removed Branch as well if not applicable here
   @JsonKey(name: 'social_media_accounts')
   List<SocialMediaAccount>? get socialMediaAccounts =>
       throw _privateConstructorUsedError;
@@ -82,30 +761,31 @@ mixin _$EmployeeProfile {
   List<EmployeeDocument>? get employeeDocuments =>
       throw _privateConstructorUsedError;
 
-  /// Serializes this EmployeeProfile to a JSON map.
+  /// Serializes this EmployeeProfileData to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of EmployeeProfile
+  /// Create a copy of EmployeeProfileData
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $EmployeeProfileCopyWith<EmployeeProfile> get copyWith =>
+  $EmployeeProfileDataCopyWith<EmployeeProfileData> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $EmployeeProfileCopyWith<$Res> {
-  factory $EmployeeProfileCopyWith(
-          EmployeeProfile value, $Res Function(EmployeeProfile) then) =
-      _$EmployeeProfileCopyWithImpl<$Res, EmployeeProfile>;
+abstract class $EmployeeProfileDataCopyWith<$Res> {
+  factory $EmployeeProfileDataCopyWith(
+          EmployeeProfileData value, $Res Function(EmployeeProfileData) then) =
+      _$EmployeeProfileDataCopyWithImpl<$Res, EmployeeProfileData>;
   @useResult
   $Res call(
-      {int id,
-      @JsonKey(name: 'user_id') int userId,
+      {int? id,
+      @JsonKey(name: 'user_id') int? userId,
       @JsonKey(name: 'phone_number') String? phoneNumber,
       String? gender,
       @JsonKey(name: 'date_of_birth') String? dateOfBirth,
       @JsonKey(name: 'place_of_birth') String? placeOfBirth,
       @JsonKey(name: 'marital_status') int? maritalStatus,
+      @JsonKey(name: 'marital_status_label') String? maritalStatusLabel,
       @JsonKey(name: 'blood_type') String? bloodType,
       String? height,
       String? weight,
@@ -120,10 +800,6 @@ abstract class $EmployeeProfileCopyWith<$Res> {
       @JsonKey(name: 'photo_profile') String? photoProfile,
       @JsonKey(name: 'photo_profile_url') String? photoProfileUrl,
       String? code,
-      @JsonKey(name: 'marital_status_label') String? maritalStatusLabel,
-      UserProfile user,
-      Employment? employment,
-      Branch? branch,
       @JsonKey(name: 'social_media_accounts')
       List<SocialMediaAccount>? socialMediaAccounts,
       @JsonKey(name: 'bank_account') BankAccount? bankAccount,
@@ -138,34 +814,32 @@ abstract class $EmployeeProfileCopyWith<$Res> {
       @JsonKey(name: 'employee_documents')
       List<EmployeeDocument>? employeeDocuments});
 
-  $UserProfileCopyWith<$Res> get user;
-  $EmploymentCopyWith<$Res>? get employment;
-  $BranchCopyWith<$Res>? get branch;
   $BankAccountCopyWith<$Res>? get bankAccount;
 }
 
 /// @nodoc
-class _$EmployeeProfileCopyWithImpl<$Res, $Val extends EmployeeProfile>
-    implements $EmployeeProfileCopyWith<$Res> {
-  _$EmployeeProfileCopyWithImpl(this._value, this._then);
+class _$EmployeeProfileDataCopyWithImpl<$Res, $Val extends EmployeeProfileData>
+    implements $EmployeeProfileDataCopyWith<$Res> {
+  _$EmployeeProfileDataCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of EmployeeProfile
+  /// Create a copy of EmployeeProfileData
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? userId = null,
+    Object? id = freezed,
+    Object? userId = freezed,
     Object? phoneNumber = freezed,
     Object? gender = freezed,
     Object? dateOfBirth = freezed,
     Object? placeOfBirth = freezed,
     Object? maritalStatus = freezed,
+    Object? maritalStatusLabel = freezed,
     Object? bloodType = freezed,
     Object? height = freezed,
     Object? weight = freezed,
@@ -180,10 +854,6 @@ class _$EmployeeProfileCopyWithImpl<$Res, $Val extends EmployeeProfile>
     Object? photoProfile = freezed,
     Object? photoProfileUrl = freezed,
     Object? code = freezed,
-    Object? maritalStatusLabel = freezed,
-    Object? user = null,
-    Object? employment = freezed,
-    Object? branch = freezed,
     Object? socialMediaAccounts = freezed,
     Object? bankAccount = freezed,
     Object? teamMembers = freezed,
@@ -195,14 +865,14 @@ class _$EmployeeProfileCopyWithImpl<$Res, $Val extends EmployeeProfile>
     Object? employeeDocuments = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      userId: null == userId
+              as int?,
+      userId: freezed == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       phoneNumber: freezed == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
@@ -223,6 +893,10 @@ class _$EmployeeProfileCopyWithImpl<$Res, $Val extends EmployeeProfile>
           ? _value.maritalStatus
           : maritalStatus // ignore: cast_nullable_to_non_nullable
               as int?,
+      maritalStatusLabel: freezed == maritalStatusLabel
+          ? _value.maritalStatusLabel
+          : maritalStatusLabel // ignore: cast_nullable_to_non_nullable
+              as String?,
       bloodType: freezed == bloodType
           ? _value.bloodType
           : bloodType // ignore: cast_nullable_to_non_nullable
@@ -279,22 +953,6 @@ class _$EmployeeProfileCopyWithImpl<$Res, $Val extends EmployeeProfile>
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String?,
-      maritalStatusLabel: freezed == maritalStatusLabel
-          ? _value.maritalStatusLabel
-          : maritalStatusLabel // ignore: cast_nullable_to_non_nullable
-              as String?,
-      user: null == user
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as UserProfile,
-      employment: freezed == employment
-          ? _value.employment
-          : employment // ignore: cast_nullable_to_non_nullable
-              as Employment?,
-      branch: freezed == branch
-          ? _value.branch
-          : branch // ignore: cast_nullable_to_non_nullable
-              as Branch?,
       socialMediaAccounts: freezed == socialMediaAccounts
           ? _value.socialMediaAccounts
           : socialMediaAccounts // ignore: cast_nullable_to_non_nullable
@@ -334,45 +992,7 @@ class _$EmployeeProfileCopyWithImpl<$Res, $Val extends EmployeeProfile>
     ) as $Val);
   }
 
-  /// Create a copy of EmployeeProfile
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $UserProfileCopyWith<$Res> get user {
-    return $UserProfileCopyWith<$Res>(_value.user, (value) {
-      return _then(_value.copyWith(user: value) as $Val);
-    });
-  }
-
-  /// Create a copy of EmployeeProfile
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $EmploymentCopyWith<$Res>? get employment {
-    if (_value.employment == null) {
-      return null;
-    }
-
-    return $EmploymentCopyWith<$Res>(_value.employment!, (value) {
-      return _then(_value.copyWith(employment: value) as $Val);
-    });
-  }
-
-  /// Create a copy of EmployeeProfile
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $BranchCopyWith<$Res>? get branch {
-    if (_value.branch == null) {
-      return null;
-    }
-
-    return $BranchCopyWith<$Res>(_value.branch!, (value) {
-      return _then(_value.copyWith(branch: value) as $Val);
-    });
-  }
-
-  /// Create a copy of EmployeeProfile
+  /// Create a copy of EmployeeProfileData
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
@@ -388,21 +1008,22 @@ class _$EmployeeProfileCopyWithImpl<$Res, $Val extends EmployeeProfile>
 }
 
 /// @nodoc
-abstract class _$$EmployeeProfileImplCopyWith<$Res>
-    implements $EmployeeProfileCopyWith<$Res> {
-  factory _$$EmployeeProfileImplCopyWith(_$EmployeeProfileImpl value,
-          $Res Function(_$EmployeeProfileImpl) then) =
-      __$$EmployeeProfileImplCopyWithImpl<$Res>;
+abstract class _$$EmployeeProfileDataImplCopyWith<$Res>
+    implements $EmployeeProfileDataCopyWith<$Res> {
+  factory _$$EmployeeProfileDataImplCopyWith(_$EmployeeProfileDataImpl value,
+          $Res Function(_$EmployeeProfileDataImpl) then) =
+      __$$EmployeeProfileDataImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {int id,
-      @JsonKey(name: 'user_id') int userId,
+      {int? id,
+      @JsonKey(name: 'user_id') int? userId,
       @JsonKey(name: 'phone_number') String? phoneNumber,
       String? gender,
       @JsonKey(name: 'date_of_birth') String? dateOfBirth,
       @JsonKey(name: 'place_of_birth') String? placeOfBirth,
       @JsonKey(name: 'marital_status') int? maritalStatus,
+      @JsonKey(name: 'marital_status_label') String? maritalStatusLabel,
       @JsonKey(name: 'blood_type') String? bloodType,
       String? height,
       String? weight,
@@ -417,10 +1038,6 @@ abstract class _$$EmployeeProfileImplCopyWith<$Res>
       @JsonKey(name: 'photo_profile') String? photoProfile,
       @JsonKey(name: 'photo_profile_url') String? photoProfileUrl,
       String? code,
-      @JsonKey(name: 'marital_status_label') String? maritalStatusLabel,
-      UserProfile user,
-      Employment? employment,
-      Branch? branch,
       @JsonKey(name: 'social_media_accounts')
       List<SocialMediaAccount>? socialMediaAccounts,
       @JsonKey(name: 'bank_account') BankAccount? bankAccount,
@@ -436,35 +1053,30 @@ abstract class _$$EmployeeProfileImplCopyWith<$Res>
       List<EmployeeDocument>? employeeDocuments});
 
   @override
-  $UserProfileCopyWith<$Res> get user;
-  @override
-  $EmploymentCopyWith<$Res>? get employment;
-  @override
-  $BranchCopyWith<$Res>? get branch;
-  @override
   $BankAccountCopyWith<$Res>? get bankAccount;
 }
 
 /// @nodoc
-class __$$EmployeeProfileImplCopyWithImpl<$Res>
-    extends _$EmployeeProfileCopyWithImpl<$Res, _$EmployeeProfileImpl>
-    implements _$$EmployeeProfileImplCopyWith<$Res> {
-  __$$EmployeeProfileImplCopyWithImpl(
-      _$EmployeeProfileImpl _value, $Res Function(_$EmployeeProfileImpl) _then)
+class __$$EmployeeProfileDataImplCopyWithImpl<$Res>
+    extends _$EmployeeProfileDataCopyWithImpl<$Res, _$EmployeeProfileDataImpl>
+    implements _$$EmployeeProfileDataImplCopyWith<$Res> {
+  __$$EmployeeProfileDataImplCopyWithImpl(_$EmployeeProfileDataImpl _value,
+      $Res Function(_$EmployeeProfileDataImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of EmployeeProfile
+  /// Create a copy of EmployeeProfileData
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? userId = null,
+    Object? id = freezed,
+    Object? userId = freezed,
     Object? phoneNumber = freezed,
     Object? gender = freezed,
     Object? dateOfBirth = freezed,
     Object? placeOfBirth = freezed,
     Object? maritalStatus = freezed,
+    Object? maritalStatusLabel = freezed,
     Object? bloodType = freezed,
     Object? height = freezed,
     Object? weight = freezed,
@@ -479,10 +1091,6 @@ class __$$EmployeeProfileImplCopyWithImpl<$Res>
     Object? photoProfile = freezed,
     Object? photoProfileUrl = freezed,
     Object? code = freezed,
-    Object? maritalStatusLabel = freezed,
-    Object? user = null,
-    Object? employment = freezed,
-    Object? branch = freezed,
     Object? socialMediaAccounts = freezed,
     Object? bankAccount = freezed,
     Object? teamMembers = freezed,
@@ -493,15 +1101,15 @@ class __$$EmployeeProfileImplCopyWithImpl<$Res>
     Object? contactRefferences = freezed,
     Object? employeeDocuments = freezed,
   }) {
-    return _then(_$EmployeeProfileImpl(
-      id: null == id
+    return _then(_$EmployeeProfileDataImpl(
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      userId: null == userId
+              as int?,
+      userId: freezed == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       phoneNumber: freezed == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
@@ -522,6 +1130,10 @@ class __$$EmployeeProfileImplCopyWithImpl<$Res>
           ? _value.maritalStatus
           : maritalStatus // ignore: cast_nullable_to_non_nullable
               as int?,
+      maritalStatusLabel: freezed == maritalStatusLabel
+          ? _value.maritalStatusLabel
+          : maritalStatusLabel // ignore: cast_nullable_to_non_nullable
+              as String?,
       bloodType: freezed == bloodType
           ? _value.bloodType
           : bloodType // ignore: cast_nullable_to_non_nullable
@@ -578,22 +1190,6 @@ class __$$EmployeeProfileImplCopyWithImpl<$Res>
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String?,
-      maritalStatusLabel: freezed == maritalStatusLabel
-          ? _value.maritalStatusLabel
-          : maritalStatusLabel // ignore: cast_nullable_to_non_nullable
-              as String?,
-      user: null == user
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as UserProfile,
-      employment: freezed == employment
-          ? _value.employment
-          : employment // ignore: cast_nullable_to_non_nullable
-              as Employment?,
-      branch: freezed == branch
-          ? _value.branch
-          : branch // ignore: cast_nullable_to_non_nullable
-              as Branch?,
       socialMediaAccounts: freezed == socialMediaAccounts
           ? _value._socialMediaAccounts
           : socialMediaAccounts // ignore: cast_nullable_to_non_nullable
@@ -636,15 +1232,16 @@ class __$$EmployeeProfileImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$EmployeeProfileImpl implements _EmployeeProfile {
-  const _$EmployeeProfileImpl(
-      {required this.id,
-      @JsonKey(name: 'user_id') required this.userId,
+class _$EmployeeProfileDataImpl implements _EmployeeProfileData {
+  const _$EmployeeProfileDataImpl(
+      {this.id,
+      @JsonKey(name: 'user_id') this.userId,
       @JsonKey(name: 'phone_number') this.phoneNumber,
       this.gender,
       @JsonKey(name: 'date_of_birth') this.dateOfBirth,
       @JsonKey(name: 'place_of_birth') this.placeOfBirth,
       @JsonKey(name: 'marital_status') this.maritalStatus,
+      @JsonKey(name: 'marital_status_label') this.maritalStatusLabel,
       @JsonKey(name: 'blood_type') this.bloodType,
       this.height,
       this.weight,
@@ -659,10 +1256,6 @@ class _$EmployeeProfileImpl implements _EmployeeProfile {
       @JsonKey(name: 'photo_profile') this.photoProfile,
       @JsonKey(name: 'photo_profile_url') this.photoProfileUrl,
       this.code,
-      @JsonKey(name: 'marital_status_label') this.maritalStatusLabel,
-      required this.user,
-      this.employment,
-      this.branch,
       @JsonKey(name: 'social_media_accounts')
       final List<SocialMediaAccount>? socialMediaAccounts,
       @JsonKey(name: 'bank_account') this.bankAccount,
@@ -686,14 +1279,14 @@ class _$EmployeeProfileImpl implements _EmployeeProfile {
         _contactRefferences = contactRefferences,
         _employeeDocuments = employeeDocuments;
 
-  factory _$EmployeeProfileImpl.fromJson(Map<String, dynamic> json) =>
-      _$$EmployeeProfileImplFromJson(json);
+  factory _$EmployeeProfileDataImpl.fromJson(Map<String, dynamic> json) =>
+      _$$EmployeeProfileDataImplFromJson(json);
 
   @override
-  final int id;
+  final int? id;
   @override
   @JsonKey(name: 'user_id')
-  final int userId;
+  final int? userId;
   @override
   @JsonKey(name: 'phone_number')
   final String? phoneNumber;
@@ -708,6 +1301,9 @@ class _$EmployeeProfileImpl implements _EmployeeProfile {
   @override
   @JsonKey(name: 'marital_status')
   final int? maritalStatus;
+  @override
+  @JsonKey(name: 'marital_status_label')
+  final String? maritalStatusLabel;
   @override
   @JsonKey(name: 'blood_type')
   final String? bloodType;
@@ -738,23 +1334,16 @@ class _$EmployeeProfileImpl implements _EmployeeProfile {
   @override
   @JsonKey(name: 'photo_profile')
   final String? photoProfile;
-// --- NEW FIELD ---
   @override
   @JsonKey(name: 'photo_profile_url')
   final String? photoProfileUrl;
   @override
   final String? code;
-  @override
-  @JsonKey(name: 'marital_status_label')
-  final String? maritalStatusLabel;
-  @override
-  final UserProfile user;
-  @override
-  final Employment? employment;
-// --- NEW FIELD ---
-  @override
-  final Branch? branch;
+// Removed UserProfile (user) and Employment as they are now in UserWithEmployeeData
+// Removed Branch as well if not applicable here
   final List<SocialMediaAccount>? _socialMediaAccounts;
+// Removed UserProfile (user) and Employment as they are now in UserWithEmployeeData
+// Removed Branch as well if not applicable here
   @override
   @JsonKey(name: 'social_media_accounts')
   List<SocialMediaAccount>? get socialMediaAccounts {
@@ -849,14 +1438,14 @@ class _$EmployeeProfileImpl implements _EmployeeProfile {
 
   @override
   String toString() {
-    return 'EmployeeProfile(id: $id, userId: $userId, phoneNumber: $phoneNumber, gender: $gender, dateOfBirth: $dateOfBirth, placeOfBirth: $placeOfBirth, maritalStatus: $maritalStatus, bloodType: $bloodType, height: $height, weight: $weight, idNumber: $idNumber, npwp: $npwp, bpjs: $bpjs, citizenIdAddress: $citizenIdAddress, residentialAddress: $residentialAddress, hobby: $hobby, achievement: $achievement, personalDescription: $personalDescription, photoProfile: $photoProfile, photoProfileUrl: $photoProfileUrl, code: $code, maritalStatusLabel: $maritalStatusLabel, user: $user, employment: $employment, branch: $branch, socialMediaAccounts: $socialMediaAccounts, bankAccount: $bankAccount, teamMembers: $teamMembers, reportingRelationships: $reportingRelationships, workExperiences: $workExperiences, educations: $educations, families: $families, contactRefferences: $contactRefferences, employeeDocuments: $employeeDocuments)';
+    return 'EmployeeProfileData(id: $id, userId: $userId, phoneNumber: $phoneNumber, gender: $gender, dateOfBirth: $dateOfBirth, placeOfBirth: $placeOfBirth, maritalStatus: $maritalStatus, maritalStatusLabel: $maritalStatusLabel, bloodType: $bloodType, height: $height, weight: $weight, idNumber: $idNumber, npwp: $npwp, bpjs: $bpjs, citizenIdAddress: $citizenIdAddress, residentialAddress: $residentialAddress, hobby: $hobby, achievement: $achievement, personalDescription: $personalDescription, photoProfile: $photoProfile, photoProfileUrl: $photoProfileUrl, code: $code, socialMediaAccounts: $socialMediaAccounts, bankAccount: $bankAccount, teamMembers: $teamMembers, reportingRelationships: $reportingRelationships, workExperiences: $workExperiences, educations: $educations, families: $families, contactRefferences: $contactRefferences, employeeDocuments: $employeeDocuments)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$EmployeeProfileImpl &&
+            other is _$EmployeeProfileDataImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.phoneNumber, phoneNumber) ||
@@ -868,6 +1457,8 @@ class _$EmployeeProfileImpl implements _EmployeeProfile {
                 other.placeOfBirth == placeOfBirth) &&
             (identical(other.maritalStatus, maritalStatus) ||
                 other.maritalStatus == maritalStatus) &&
+            (identical(other.maritalStatusLabel, maritalStatusLabel) ||
+                other.maritalStatusLabel == maritalStatusLabel) &&
             (identical(other.bloodType, bloodType) ||
                 other.bloodType == bloodType) &&
             (identical(other.height, height) || other.height == height) &&
@@ -890,12 +1481,6 @@ class _$EmployeeProfileImpl implements _EmployeeProfile {
             (identical(other.photoProfileUrl, photoProfileUrl) ||
                 other.photoProfileUrl == photoProfileUrl) &&
             (identical(other.code, code) || other.code == code) &&
-            (identical(other.maritalStatusLabel, maritalStatusLabel) ||
-                other.maritalStatusLabel == maritalStatusLabel) &&
-            (identical(other.user, user) || other.user == user) &&
-            (identical(other.employment, employment) ||
-                other.employment == employment) &&
-            (identical(other.branch, branch) || other.branch == branch) &&
             const DeepCollectionEquality()
                 .equals(other._socialMediaAccounts, _socialMediaAccounts) &&
             (identical(other.bankAccount, bankAccount) ||
@@ -926,6 +1511,7 @@ class _$EmployeeProfileImpl implements _EmployeeProfile {
         dateOfBirth,
         placeOfBirth,
         maritalStatus,
+        maritalStatusLabel,
         bloodType,
         height,
         weight,
@@ -940,10 +1526,6 @@ class _$EmployeeProfileImpl implements _EmployeeProfile {
         photoProfile,
         photoProfileUrl,
         code,
-        maritalStatusLabel,
-        user,
-        employment,
-        branch,
         const DeepCollectionEquality().hash(_socialMediaAccounts),
         bankAccount,
         const DeepCollectionEquality().hash(_teamMembers),
@@ -955,32 +1537,33 @@ class _$EmployeeProfileImpl implements _EmployeeProfile {
         const DeepCollectionEquality().hash(_employeeDocuments)
       ]);
 
-  /// Create a copy of EmployeeProfile
+  /// Create a copy of EmployeeProfileData
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$EmployeeProfileImplCopyWith<_$EmployeeProfileImpl> get copyWith =>
-      __$$EmployeeProfileImplCopyWithImpl<_$EmployeeProfileImpl>(
+  _$$EmployeeProfileDataImplCopyWith<_$EmployeeProfileDataImpl> get copyWith =>
+      __$$EmployeeProfileDataImplCopyWithImpl<_$EmployeeProfileDataImpl>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$EmployeeProfileImplToJson(
+    return _$$EmployeeProfileDataImplToJson(
       this,
     );
   }
 }
 
-abstract class _EmployeeProfile implements EmployeeProfile {
-  const factory _EmployeeProfile(
-      {required final int id,
-      @JsonKey(name: 'user_id') required final int userId,
+abstract class _EmployeeProfileData implements EmployeeProfileData {
+  const factory _EmployeeProfileData(
+      {final int? id,
+      @JsonKey(name: 'user_id') final int? userId,
       @JsonKey(name: 'phone_number') final String? phoneNumber,
       final String? gender,
       @JsonKey(name: 'date_of_birth') final String? dateOfBirth,
       @JsonKey(name: 'place_of_birth') final String? placeOfBirth,
       @JsonKey(name: 'marital_status') final int? maritalStatus,
+      @JsonKey(name: 'marital_status_label') final String? maritalStatusLabel,
       @JsonKey(name: 'blood_type') final String? bloodType,
       final String? height,
       final String? weight,
@@ -995,10 +1578,6 @@ abstract class _EmployeeProfile implements EmployeeProfile {
       @JsonKey(name: 'photo_profile') final String? photoProfile,
       @JsonKey(name: 'photo_profile_url') final String? photoProfileUrl,
       final String? code,
-      @JsonKey(name: 'marital_status_label') final String? maritalStatusLabel,
-      required final UserProfile user,
-      final Employment? employment,
-      final Branch? branch,
       @JsonKey(name: 'social_media_accounts')
       final List<SocialMediaAccount>? socialMediaAccounts,
       @JsonKey(name: 'bank_account') final BankAccount? bankAccount,
@@ -1012,16 +1591,17 @@ abstract class _EmployeeProfile implements EmployeeProfile {
       @JsonKey(name: 'contact_refferences')
       final List<ContactReference>? contactRefferences,
       @JsonKey(name: 'employee_documents')
-      final List<EmployeeDocument>? employeeDocuments}) = _$EmployeeProfileImpl;
+      final List<EmployeeDocument>?
+          employeeDocuments}) = _$EmployeeProfileDataImpl;
 
-  factory _EmployeeProfile.fromJson(Map<String, dynamic> json) =
-      _$EmployeeProfileImpl.fromJson;
+  factory _EmployeeProfileData.fromJson(Map<String, dynamic> json) =
+      _$EmployeeProfileDataImpl.fromJson;
 
   @override
-  int get id;
+  int? get id;
   @override
   @JsonKey(name: 'user_id')
-  int get userId;
+  int? get userId;
   @override
   @JsonKey(name: 'phone_number')
   String? get phoneNumber;
@@ -1036,6 +1616,9 @@ abstract class _EmployeeProfile implements EmployeeProfile {
   @override
   @JsonKey(name: 'marital_status')
   int? get maritalStatus;
+  @override
+  @JsonKey(name: 'marital_status_label')
+  String? get maritalStatusLabel;
   @override
   @JsonKey(name: 'blood_type')
   String? get bloodType;
@@ -1065,21 +1648,14 @@ abstract class _EmployeeProfile implements EmployeeProfile {
   String? get personalDescription;
   @override
   @JsonKey(name: 'photo_profile')
-  String? get photoProfile; // --- NEW FIELD ---
+  String? get photoProfile;
   @override
   @JsonKey(name: 'photo_profile_url')
   String? get photoProfileUrl;
   @override
-  String? get code;
-  @override
-  @JsonKey(name: 'marital_status_label')
-  String? get maritalStatusLabel;
-  @override
-  UserProfile get user;
-  @override
-  Employment? get employment; // --- NEW FIELD ---
-  @override
-  Branch? get branch;
+  String?
+      get code; // Removed UserProfile (user) and Employment as they are now in UserWithEmployeeData
+// Removed Branch as well if not applicable here
   @override
   @JsonKey(name: 'social_media_accounts')
   List<SocialMediaAccount>? get socialMediaAccounts;
@@ -1106,11 +1682,11 @@ abstract class _EmployeeProfile implements EmployeeProfile {
   @JsonKey(name: 'employee_documents')
   List<EmployeeDocument>? get employeeDocuments;
 
-  /// Create a copy of EmployeeProfile
+  /// Create a copy of EmployeeProfileData
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$EmployeeProfileImplCopyWith<_$EmployeeProfileImpl> get copyWith =>
+  _$$EmployeeProfileDataImplCopyWith<_$EmployeeProfileDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1120,7 +1696,7 @@ Branch _$BranchFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Branch {
-  int get id => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get latitude => throw _privateConstructorUsedError;
   String? get longitude => throw _privateConstructorUsedError;
@@ -1141,7 +1717,7 @@ abstract class $BranchCopyWith<$Res> {
       _$BranchCopyWithImpl<$Res, Branch>;
   @useResult
   $Res call(
-      {int id,
+      {int? id,
       String? name,
       String? latitude,
       String? longitude,
@@ -1163,17 +1739,17 @@ class _$BranchCopyWithImpl<$Res, $Val extends Branch>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? name = freezed,
     Object? latitude = freezed,
     Object? longitude = freezed,
     Object? address = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -1202,7 +1778,7 @@ abstract class _$$BranchImplCopyWith<$Res> implements $BranchCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int id,
+      {int? id,
       String? name,
       String? latitude,
       String? longitude,
@@ -1222,17 +1798,17 @@ class __$$BranchImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? name = freezed,
     Object? latitude = freezed,
     Object? longitude = freezed,
     Object? address = freezed,
   }) {
     return _then(_$BranchImpl(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -1257,17 +1833,13 @@ class __$$BranchImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$BranchImpl implements _Branch {
   const _$BranchImpl(
-      {required this.id,
-      this.name,
-      this.latitude,
-      this.longitude,
-      this.address});
+      {this.id, this.name, this.latitude, this.longitude, this.address});
 
   factory _$BranchImpl.fromJson(Map<String, dynamic> json) =>
       _$$BranchImplFromJson(json);
 
   @override
-  final int id;
+  final int? id;
   @override
   final String? name;
   @override
@@ -1319,7 +1891,7 @@ class _$BranchImpl implements _Branch {
 
 abstract class _Branch implements Branch {
   const factory _Branch(
-      {required final int id,
+      {final int? id,
       final String? name,
       final String? latitude,
       final String? longitude,
@@ -1328,7 +1900,7 @@ abstract class _Branch implements Branch {
   factory _Branch.fromJson(Map<String, dynamic> json) = _$BranchImpl.fromJson;
 
   @override
-  int get id;
+  int? get id;
   @override
   String? get name;
   @override
@@ -1346,233 +1918,16 @@ abstract class _Branch implements Branch {
       throw _privateConstructorUsedError;
 }
 
-UserProfile _$UserProfileFromJson(Map<String, dynamic> json) {
-  return _UserProfile.fromJson(json);
-}
-
-/// @nodoc
-mixin _$UserProfile {
-  int get id => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
-  String get email => throw _privateConstructorUsedError;
-  @JsonKey(name: 'is_first_login')
-  bool? get isFirstLogin => throw _privateConstructorUsedError;
-
-  /// Serializes this UserProfile to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of UserProfile
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $UserProfileCopyWith<UserProfile> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $UserProfileCopyWith<$Res> {
-  factory $UserProfileCopyWith(
-          UserProfile value, $Res Function(UserProfile) then) =
-      _$UserProfileCopyWithImpl<$Res, UserProfile>;
-  @useResult
-  $Res call(
-      {int id,
-      String name,
-      String email,
-      @JsonKey(name: 'is_first_login') bool? isFirstLogin});
-}
-
-/// @nodoc
-class _$UserProfileCopyWithImpl<$Res, $Val extends UserProfile>
-    implements $UserProfileCopyWith<$Res> {
-  _$UserProfileCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of UserProfile
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? name = null,
-    Object? email = null,
-    Object? isFirstLogin = freezed,
-  }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      isFirstLogin: freezed == isFirstLogin
-          ? _value.isFirstLogin
-          : isFirstLogin // ignore: cast_nullable_to_non_nullable
-              as bool?,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$UserProfileImplCopyWith<$Res>
-    implements $UserProfileCopyWith<$Res> {
-  factory _$$UserProfileImplCopyWith(
-          _$UserProfileImpl value, $Res Function(_$UserProfileImpl) then) =
-      __$$UserProfileImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {int id,
-      String name,
-      String email,
-      @JsonKey(name: 'is_first_login') bool? isFirstLogin});
-}
-
-/// @nodoc
-class __$$UserProfileImplCopyWithImpl<$Res>
-    extends _$UserProfileCopyWithImpl<$Res, _$UserProfileImpl>
-    implements _$$UserProfileImplCopyWith<$Res> {
-  __$$UserProfileImplCopyWithImpl(
-      _$UserProfileImpl _value, $Res Function(_$UserProfileImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of UserProfile
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? name = null,
-    Object? email = null,
-    Object? isFirstLogin = freezed,
-  }) {
-    return _then(_$UserProfileImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      isFirstLogin: freezed == isFirstLogin
-          ? _value.isFirstLogin
-          : isFirstLogin // ignore: cast_nullable_to_non_nullable
-              as bool?,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$UserProfileImpl implements _UserProfile {
-  const _$UserProfileImpl(
-      {required this.id,
-      required this.name,
-      required this.email,
-      @JsonKey(name: 'is_first_login') this.isFirstLogin});
-
-  factory _$UserProfileImpl.fromJson(Map<String, dynamic> json) =>
-      _$$UserProfileImplFromJson(json);
-
-  @override
-  final int id;
-  @override
-  final String name;
-  @override
-  final String email;
-  @override
-  @JsonKey(name: 'is_first_login')
-  final bool? isFirstLogin;
-
-  @override
-  String toString() {
-    return 'UserProfile(id: $id, name: $name, email: $email, isFirstLogin: $isFirstLogin)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$UserProfileImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.email, email) || other.email == email) &&
-            (identical(other.isFirstLogin, isFirstLogin) ||
-                other.isFirstLogin == isFirstLogin));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, id, name, email, isFirstLogin);
-
-  /// Create a copy of UserProfile
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$UserProfileImplCopyWith<_$UserProfileImpl> get copyWith =>
-      __$$UserProfileImplCopyWithImpl<_$UserProfileImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$UserProfileImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _UserProfile implements UserProfile {
-  const factory _UserProfile(
-          {required final int id,
-          required final String name,
-          required final String email,
-          @JsonKey(name: 'is_first_login') final bool? isFirstLogin}) =
-      _$UserProfileImpl;
-
-  factory _UserProfile.fromJson(Map<String, dynamic> json) =
-      _$UserProfileImpl.fromJson;
-
-  @override
-  int get id;
-  @override
-  String get name;
-  @override
-  String get email;
-  @override
-  @JsonKey(name: 'is_first_login')
-  bool? get isFirstLogin;
-
-  /// Create a copy of UserProfile
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$UserProfileImplCopyWith<_$UserProfileImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 Employment _$EmploymentFromJson(Map<String, dynamic> json) {
   return _Employment.fromJson(json);
 }
 
 /// @nodoc
 mixin _$Employment {
-  int get id => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'employee_profile_id')
-  int? get employeeProfileId => throw _privateConstructorUsedError;
+  int? get employeeProfileId =>
+      throw _privateConstructorUsedError; // The following IDs are not in the sample JSON but are kept for completeness:
   @JsonKey(name: 'department_id')
   int? get departmentId => throw _privateConstructorUsedError;
   @JsonKey(name: 'job_level_id')
@@ -1612,7 +1967,7 @@ abstract class $EmploymentCopyWith<$Res> {
       _$EmploymentCopyWithImpl<$Res, Employment>;
   @useResult
   $Res call(
-      {int id,
+      {int? id,
       @JsonKey(name: 'employee_profile_id') int? employeeProfileId,
       @JsonKey(name: 'department_id') int? departmentId,
       @JsonKey(name: 'job_level_id') int? jobLevelId,
@@ -1647,7 +2002,7 @@ class _$EmploymentCopyWithImpl<$Res, $Val extends Employment>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? employeeProfileId = freezed,
     Object? departmentId = freezed,
     Object? jobLevelId = freezed,
@@ -1663,10 +2018,10 @@ class _$EmploymentCopyWithImpl<$Res, $Val extends Employment>
     Object? allowances = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       employeeProfileId: freezed == employeeProfileId
           ? _value.employeeProfileId
           : employeeProfileId // ignore: cast_nullable_to_non_nullable
@@ -1774,7 +2129,7 @@ abstract class _$$EmploymentImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
+      {int? id,
       @JsonKey(name: 'employee_profile_id') int? employeeProfileId,
       @JsonKey(name: 'department_id') int? departmentId,
       @JsonKey(name: 'job_level_id') int? jobLevelId,
@@ -1810,7 +2165,7 @@ class __$$EmploymentImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? employeeProfileId = freezed,
     Object? departmentId = freezed,
     Object? jobLevelId = freezed,
@@ -1826,10 +2181,10 @@ class __$$EmploymentImplCopyWithImpl<$Res>
     Object? allowances = freezed,
   }) {
     return _then(_$EmploymentImpl(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       employeeProfileId: freezed == employeeProfileId
           ? _value.employeeProfileId
           : employeeProfileId // ignore: cast_nullable_to_non_nullable
@@ -1890,7 +2245,7 @@ class __$$EmploymentImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$EmploymentImpl implements _Employment {
   const _$EmploymentImpl(
-      {required this.id,
+      {this.id,
       @JsonKey(name: 'employee_profile_id') this.employeeProfileId,
       @JsonKey(name: 'department_id') this.departmentId,
       @JsonKey(name: 'job_level_id') this.jobLevelId,
@@ -1910,10 +2265,11 @@ class _$EmploymentImpl implements _Employment {
       _$$EmploymentImplFromJson(json);
 
   @override
-  final int id;
+  final int? id;
   @override
   @JsonKey(name: 'employee_profile_id')
   final int? employeeProfileId;
+// The following IDs are not in the sample JSON but are kept for completeness:
   @override
   @JsonKey(name: 'department_id')
   final int? departmentId;
@@ -2029,7 +2385,7 @@ class _$EmploymentImpl implements _Employment {
 
 abstract class _Employment implements Employment {
   const factory _Employment(
-      {required final int id,
+      {final int? id,
       @JsonKey(name: 'employee_profile_id') final int? employeeProfileId,
       @JsonKey(name: 'department_id') final int? departmentId,
       @JsonKey(name: 'job_level_id') final int? jobLevelId,
@@ -2048,10 +2404,11 @@ abstract class _Employment implements Employment {
       _$EmploymentImpl.fromJson;
 
   @override
-  int get id;
+  int? get id;
   @override
   @JsonKey(name: 'employee_profile_id')
-  int? get employeeProfileId;
+  int?
+      get employeeProfileId; // The following IDs are not in the sample JSON but are kept for completeness:
   @override
   @JsonKey(name: 'department_id')
   int? get departmentId;
@@ -2100,7 +2457,7 @@ Department _$DepartmentFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Department {
-  int get id => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
 
@@ -2120,7 +2477,7 @@ abstract class $DepartmentCopyWith<$Res> {
           Department value, $Res Function(Department) then) =
       _$DepartmentCopyWithImpl<$Res, Department>;
   @useResult
-  $Res call({int id, String? name, String? description});
+  $Res call({int? id, String? name, String? description});
 }
 
 /// @nodoc
@@ -2138,15 +2495,15 @@ class _$DepartmentCopyWithImpl<$Res, $Val extends Department>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? name = freezed,
     Object? description = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -2167,7 +2524,7 @@ abstract class _$$DepartmentImplCopyWith<$Res>
       __$$DepartmentImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String? name, String? description});
+  $Res call({int? id, String? name, String? description});
 }
 
 /// @nodoc
@@ -2183,15 +2540,15 @@ class __$$DepartmentImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? name = freezed,
     Object? description = freezed,
   }) {
     return _then(_$DepartmentImpl(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -2207,13 +2564,13 @@ class __$$DepartmentImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$DepartmentImpl implements _Department {
-  const _$DepartmentImpl({required this.id, this.name, this.description});
+  const _$DepartmentImpl({this.id, this.name, this.description});
 
   factory _$DepartmentImpl.fromJson(Map<String, dynamic> json) =>
       _$$DepartmentImplFromJson(json);
 
   @override
-  final int id;
+  final int? id;
   @override
   final String? name;
   @override
@@ -2257,7 +2614,7 @@ class _$DepartmentImpl implements _Department {
 
 abstract class _Department implements Department {
   const factory _Department(
-      {required final int id,
+      {final int? id,
       final String? name,
       final String? description}) = _$DepartmentImpl;
 
@@ -2265,7 +2622,7 @@ abstract class _Department implements Department {
       _$DepartmentImpl.fromJson;
 
   @override
-  int get id;
+  int? get id;
   @override
   String? get name;
   @override
@@ -2285,7 +2642,7 @@ JobLevel _$JobLevelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$JobLevel {
-  int get id => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
 
@@ -2304,7 +2661,7 @@ abstract class $JobLevelCopyWith<$Res> {
   factory $JobLevelCopyWith(JobLevel value, $Res Function(JobLevel) then) =
       _$JobLevelCopyWithImpl<$Res, JobLevel>;
   @useResult
-  $Res call({int id, String? name, String? description});
+  $Res call({int? id, String? name, String? description});
 }
 
 /// @nodoc
@@ -2322,15 +2679,15 @@ class _$JobLevelCopyWithImpl<$Res, $Val extends JobLevel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? name = freezed,
     Object? description = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -2351,7 +2708,7 @@ abstract class _$$JobLevelImplCopyWith<$Res>
       __$$JobLevelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String? name, String? description});
+  $Res call({int? id, String? name, String? description});
 }
 
 /// @nodoc
@@ -2367,15 +2724,15 @@ class __$$JobLevelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? name = freezed,
     Object? description = freezed,
   }) {
     return _then(_$JobLevelImpl(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -2391,13 +2748,13 @@ class __$$JobLevelImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$JobLevelImpl implements _JobLevel {
-  const _$JobLevelImpl({required this.id, this.name, this.description});
+  const _$JobLevelImpl({this.id, this.name, this.description});
 
   factory _$JobLevelImpl.fromJson(Map<String, dynamic> json) =>
       _$$JobLevelImplFromJson(json);
 
   @override
-  final int id;
+  final int? id;
   @override
   final String? name;
   @override
@@ -2441,7 +2798,7 @@ class _$JobLevelImpl implements _JobLevel {
 
 abstract class _JobLevel implements JobLevel {
   const factory _JobLevel(
-      {required final int id,
+      {final int? id,
       final String? name,
       final String? description}) = _$JobLevelImpl;
 
@@ -2449,7 +2806,7 @@ abstract class _JobLevel implements JobLevel {
       _$JobLevelImpl.fromJson;
 
   @override
-  int get id;
+  int? get id;
   @override
   String? get name;
   @override
@@ -2469,7 +2826,7 @@ JobPosition _$JobPositionFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$JobPosition {
-  int get id => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   String? get status => throw _privateConstructorUsedError;
@@ -2490,7 +2847,7 @@ abstract class $JobPositionCopyWith<$Res> {
           JobPosition value, $Res Function(JobPosition) then) =
       _$JobPositionCopyWithImpl<$Res, JobPosition>;
   @useResult
-  $Res call({int id, String? name, String? description, String? status});
+  $Res call({int? id, String? name, String? description, String? status});
 }
 
 /// @nodoc
@@ -2508,16 +2865,16 @@ class _$JobPositionCopyWithImpl<$Res, $Val extends JobPosition>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? name = freezed,
     Object? description = freezed,
     Object? status = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -2542,7 +2899,7 @@ abstract class _$$JobPositionImplCopyWith<$Res>
       __$$JobPositionImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String? name, String? description, String? status});
+  $Res call({int? id, String? name, String? description, String? status});
 }
 
 /// @nodoc
@@ -2558,16 +2915,16 @@ class __$$JobPositionImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? name = freezed,
     Object? description = freezed,
     Object? status = freezed,
   }) {
     return _then(_$JobPositionImpl(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -2587,14 +2944,13 @@ class __$$JobPositionImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$JobPositionImpl implements _JobPosition {
-  const _$JobPositionImpl(
-      {required this.id, this.name, this.description, this.status});
+  const _$JobPositionImpl({this.id, this.name, this.description, this.status});
 
   factory _$JobPositionImpl.fromJson(Map<String, dynamic> json) =>
       _$$JobPositionImplFromJson(json);
 
   @override
-  final int id;
+  final int? id;
   @override
   final String? name;
   @override
@@ -2641,7 +2997,7 @@ class _$JobPositionImpl implements _JobPosition {
 
 abstract class _JobPosition implements JobPosition {
   const factory _JobPosition(
-      {required final int id,
+      {final int? id,
       final String? name,
       final String? description,
       final String? status}) = _$JobPositionImpl;
@@ -2650,7 +3006,7 @@ abstract class _JobPosition implements JobPosition {
       _$JobPositionImpl.fromJson;
 
   @override
-  int get id;
+  int? get id;
   @override
   String? get name;
   @override
@@ -2672,7 +3028,6 @@ Allowance _$AllowanceFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Allowance {
-// 'id' field does not exist in the new JSON
   @JsonKey(name: 'allowance_type_id')
   int? get allowanceTypeId => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
@@ -2795,7 +3150,6 @@ class _$AllowanceImpl implements _Allowance {
   factory _$AllowanceImpl.fromJson(Map<String, dynamic> json) =>
       _$$AllowanceImplFromJson(json);
 
-// 'id' field does not exist in the new JSON
   @override
   @JsonKey(name: 'allowance_type_id')
   final int? allowanceTypeId;
@@ -2853,7 +3207,6 @@ abstract class _Allowance implements Allowance {
   factory _Allowance.fromJson(Map<String, dynamic> json) =
       _$AllowanceImpl.fromJson;
 
-// 'id' field does not exist in the new JSON
   @override
   @JsonKey(name: 'allowance_type_id')
   int? get allowanceTypeId;
@@ -2877,7 +3230,7 @@ SocialMediaAccount _$SocialMediaAccountFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$SocialMediaAccount {
-  int get id => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'employee_profile_id')
   int? get employeeProfileId => throw _privateConstructorUsedError;
   String? get type => throw _privateConstructorUsedError;
@@ -2900,7 +3253,7 @@ abstract class $SocialMediaAccountCopyWith<$Res> {
       _$SocialMediaAccountCopyWithImpl<$Res, SocialMediaAccount>;
   @useResult
   $Res call(
-      {int id,
+      {int? id,
       @JsonKey(name: 'employee_profile_id') int? employeeProfileId,
       String? type,
       String? url});
@@ -2921,16 +3274,16 @@ class _$SocialMediaAccountCopyWithImpl<$Res, $Val extends SocialMediaAccount>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? employeeProfileId = freezed,
     Object? type = freezed,
     Object? url = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       employeeProfileId: freezed == employeeProfileId
           ? _value.employeeProfileId
           : employeeProfileId // ignore: cast_nullable_to_non_nullable
@@ -2956,7 +3309,7 @@ abstract class _$$SocialMediaAccountImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
+      {int? id,
       @JsonKey(name: 'employee_profile_id') int? employeeProfileId,
       String? type,
       String? url});
@@ -2975,16 +3328,16 @@ class __$$SocialMediaAccountImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? employeeProfileId = freezed,
     Object? type = freezed,
     Object? url = freezed,
   }) {
     return _then(_$SocialMediaAccountImpl(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       employeeProfileId: freezed == employeeProfileId
           ? _value.employeeProfileId
           : employeeProfileId // ignore: cast_nullable_to_non_nullable
@@ -3005,7 +3358,7 @@ class __$$SocialMediaAccountImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$SocialMediaAccountImpl implements _SocialMediaAccount {
   const _$SocialMediaAccountImpl(
-      {required this.id,
+      {this.id,
       @JsonKey(name: 'employee_profile_id') this.employeeProfileId,
       this.type,
       this.url});
@@ -3014,7 +3367,7 @@ class _$SocialMediaAccountImpl implements _SocialMediaAccount {
       _$$SocialMediaAccountImplFromJson(json);
 
   @override
-  final int id;
+  final int? id;
   @override
   @JsonKey(name: 'employee_profile_id')
   final int? employeeProfileId;
@@ -3064,7 +3417,7 @@ class _$SocialMediaAccountImpl implements _SocialMediaAccount {
 
 abstract class _SocialMediaAccount implements SocialMediaAccount {
   const factory _SocialMediaAccount(
-      {required final int id,
+      {final int? id,
       @JsonKey(name: 'employee_profile_id') final int? employeeProfileId,
       final String? type,
       final String? url}) = _$SocialMediaAccountImpl;
@@ -3073,7 +3426,7 @@ abstract class _SocialMediaAccount implements SocialMediaAccount {
       _$SocialMediaAccountImpl.fromJson;
 
   @override
-  int get id;
+  int? get id;
   @override
   @JsonKey(name: 'employee_profile_id')
   int? get employeeProfileId;
@@ -3096,7 +3449,7 @@ BankAccount _$BankAccountFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$BankAccount {
-  int get id => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'employee_profile_id')
   int? get employeeProfileId => throw _privateConstructorUsedError;
   @JsonKey(name: 'account_number')
@@ -3124,7 +3477,7 @@ abstract class $BankAccountCopyWith<$Res> {
       _$BankAccountCopyWithImpl<$Res, BankAccount>;
   @useResult
   $Res call(
-      {int id,
+      {int? id,
       @JsonKey(name: 'employee_profile_id') int? employeeProfileId,
       @JsonKey(name: 'account_number') String? accountNumber,
       @JsonKey(name: 'account_name') String? accountName,
@@ -3149,7 +3502,7 @@ class _$BankAccountCopyWithImpl<$Res, $Val extends BankAccount>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? employeeProfileId = freezed,
     Object? accountNumber = freezed,
     Object? accountName = freezed,
@@ -3157,10 +3510,10 @@ class _$BankAccountCopyWithImpl<$Res, $Val extends BankAccount>
     Object? bank = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       employeeProfileId: freezed == employeeProfileId
           ? _value.employeeProfileId
           : employeeProfileId // ignore: cast_nullable_to_non_nullable
@@ -3208,7 +3561,7 @@ abstract class _$$BankAccountImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
+      {int? id,
       @JsonKey(name: 'employee_profile_id') int? employeeProfileId,
       @JsonKey(name: 'account_number') String? accountNumber,
       @JsonKey(name: 'account_name') String? accountName,
@@ -3232,7 +3585,7 @@ class __$$BankAccountImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? employeeProfileId = freezed,
     Object? accountNumber = freezed,
     Object? accountName = freezed,
@@ -3240,10 +3593,10 @@ class __$$BankAccountImplCopyWithImpl<$Res>
     Object? bank = freezed,
   }) {
     return _then(_$BankAccountImpl(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       employeeProfileId: freezed == employeeProfileId
           ? _value.employeeProfileId
           : employeeProfileId // ignore: cast_nullable_to_non_nullable
@@ -3272,7 +3625,7 @@ class __$$BankAccountImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$BankAccountImpl implements _BankAccount {
   const _$BankAccountImpl(
-      {required this.id,
+      {this.id,
       @JsonKey(name: 'employee_profile_id') this.employeeProfileId,
       @JsonKey(name: 'account_number') this.accountNumber,
       @JsonKey(name: 'account_name') this.accountName,
@@ -3283,7 +3636,7 @@ class _$BankAccountImpl implements _BankAccount {
       _$$BankAccountImplFromJson(json);
 
   @override
-  final int id;
+  final int? id;
   @override
   @JsonKey(name: 'employee_profile_id')
   final int? employeeProfileId;
@@ -3343,7 +3696,7 @@ class _$BankAccountImpl implements _BankAccount {
 
 abstract class _BankAccount implements BankAccount {
   const factory _BankAccount(
-      {required final int id,
+      {final int? id,
       @JsonKey(name: 'employee_profile_id') final int? employeeProfileId,
       @JsonKey(name: 'account_number') final String? accountNumber,
       @JsonKey(name: 'account_name') final String? accountName,
@@ -3354,7 +3707,7 @@ abstract class _BankAccount implements BankAccount {
       _$BankAccountImpl.fromJson;
 
   @override
-  int get id;
+  int? get id;
   @override
   @JsonKey(name: 'employee_profile_id')
   int? get employeeProfileId;
@@ -3384,7 +3737,7 @@ Bank _$BankFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Bank {
-  int get id => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'bank_name')
   String? get bankName => throw _privateConstructorUsedError;
   String? get code => throw _privateConstructorUsedError;
@@ -3404,7 +3757,7 @@ abstract class $BankCopyWith<$Res> {
       _$BankCopyWithImpl<$Res, Bank>;
   @useResult
   $Res call(
-      {int id, @JsonKey(name: 'bank_name') String? bankName, String? code});
+      {int? id, @JsonKey(name: 'bank_name') String? bankName, String? code});
 }
 
 /// @nodoc
@@ -3422,15 +3775,15 @@ class _$BankCopyWithImpl<$Res, $Val extends Bank>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? bankName = freezed,
     Object? code = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       bankName: freezed == bankName
           ? _value.bankName
           : bankName // ignore: cast_nullable_to_non_nullable
@@ -3451,7 +3804,7 @@ abstract class _$$BankImplCopyWith<$Res> implements $BankCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int id, @JsonKey(name: 'bank_name') String? bankName, String? code});
+      {int? id, @JsonKey(name: 'bank_name') String? bankName, String? code});
 }
 
 /// @nodoc
@@ -3466,15 +3819,15 @@ class __$$BankImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? bankName = freezed,
     Object? code = freezed,
   }) {
     return _then(_$BankImpl(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       bankName: freezed == bankName
           ? _value.bankName
           : bankName // ignore: cast_nullable_to_non_nullable
@@ -3491,13 +3844,13 @@ class __$$BankImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$BankImpl implements _Bank {
   const _$BankImpl(
-      {required this.id, @JsonKey(name: 'bank_name') this.bankName, this.code});
+      {this.id, @JsonKey(name: 'bank_name') this.bankName, this.code});
 
   factory _$BankImpl.fromJson(Map<String, dynamic> json) =>
       _$$BankImplFromJson(json);
 
   @override
-  final int id;
+  final int? id;
   @override
   @JsonKey(name: 'bank_name')
   final String? bankName;
@@ -3542,14 +3895,14 @@ class _$BankImpl implements _Bank {
 
 abstract class _Bank implements Bank {
   const factory _Bank(
-      {required final int id,
+      {final int? id,
       @JsonKey(name: 'bank_name') final String? bankName,
       final String? code}) = _$BankImpl;
 
   factory _Bank.fromJson(Map<String, dynamic> json) = _$BankImpl.fromJson;
 
   @override
-  int get id;
+  int? get id;
   @override
   @JsonKey(name: 'bank_name')
   String? get bankName;
@@ -3570,7 +3923,7 @@ TeamMember _$TeamMemberFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$TeamMember {
-  int get id => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
 
   /// Serializes this TeamMember to a JSON map.
@@ -3589,7 +3942,7 @@ abstract class $TeamMemberCopyWith<$Res> {
           TeamMember value, $Res Function(TeamMember) then) =
       _$TeamMemberCopyWithImpl<$Res, TeamMember>;
   @useResult
-  $Res call({int id, String? name});
+  $Res call({int? id, String? name});
 }
 
 /// @nodoc
@@ -3607,14 +3960,14 @@ class _$TeamMemberCopyWithImpl<$Res, $Val extends TeamMember>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? name = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -3631,7 +3984,7 @@ abstract class _$$TeamMemberImplCopyWith<$Res>
       __$$TeamMemberImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String? name});
+  $Res call({int? id, String? name});
 }
 
 /// @nodoc
@@ -3647,14 +4000,14 @@ class __$$TeamMemberImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? name = freezed,
   }) {
     return _then(_$TeamMemberImpl(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -3666,13 +4019,13 @@ class __$$TeamMemberImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$TeamMemberImpl implements _TeamMember {
-  const _$TeamMemberImpl({required this.id, this.name});
+  const _$TeamMemberImpl({this.id, this.name});
 
   factory _$TeamMemberImpl.fromJson(Map<String, dynamic> json) =>
       _$$TeamMemberImplFromJson(json);
 
   @override
-  final int id;
+  final int? id;
   @override
   final String? name;
 
@@ -3711,14 +4064,14 @@ class _$TeamMemberImpl implements _TeamMember {
 }
 
 abstract class _TeamMember implements TeamMember {
-  const factory _TeamMember({required final int id, final String? name}) =
+  const factory _TeamMember({final int? id, final String? name}) =
       _$TeamMemberImpl;
 
   factory _TeamMember.fromJson(Map<String, dynamic> json) =
       _$TeamMemberImpl.fromJson;
 
   @override
-  int get id;
+  int? get id;
   @override
   String? get name;
 
@@ -3737,7 +4090,7 @@ ReportingRelationship _$ReportingRelationshipFromJson(
 
 /// @nodoc
 mixin _$ReportingRelationship {
-  int get id => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'direct_report_id')
   int? get directReportId => throw _privateConstructorUsedError;
   @JsonKey(name: 'relationship_type')
@@ -3761,7 +4114,7 @@ abstract class $ReportingRelationshipCopyWith<$Res> {
       _$ReportingRelationshipCopyWithImpl<$Res, ReportingRelationship>;
   @useResult
   $Res call(
-      {int id,
+      {int? id,
       @JsonKey(name: 'direct_report_id') int? directReportId,
       @JsonKey(name: 'relationship_type') String? relationshipType,
       String? name});
@@ -3783,16 +4136,16 @@ class _$ReportingRelationshipCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? directReportId = freezed,
     Object? relationshipType = freezed,
     Object? name = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       directReportId: freezed == directReportId
           ? _value.directReportId
           : directReportId // ignore: cast_nullable_to_non_nullable
@@ -3819,7 +4172,7 @@ abstract class _$$ReportingRelationshipImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
+      {int? id,
       @JsonKey(name: 'direct_report_id') int? directReportId,
       @JsonKey(name: 'relationship_type') String? relationshipType,
       String? name});
@@ -3839,16 +4192,16 @@ class __$$ReportingRelationshipImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? directReportId = freezed,
     Object? relationshipType = freezed,
     Object? name = freezed,
   }) {
     return _then(_$ReportingRelationshipImpl(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       directReportId: freezed == directReportId
           ? _value.directReportId
           : directReportId // ignore: cast_nullable_to_non_nullable
@@ -3869,7 +4222,7 @@ class __$$ReportingRelationshipImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ReportingRelationshipImpl implements _ReportingRelationship {
   const _$ReportingRelationshipImpl(
-      {required this.id,
+      {this.id,
       @JsonKey(name: 'direct_report_id') this.directReportId,
       @JsonKey(name: 'relationship_type') this.relationshipType,
       this.name});
@@ -3878,7 +4231,7 @@ class _$ReportingRelationshipImpl implements _ReportingRelationship {
       _$$ReportingRelationshipImplFromJson(json);
 
   @override
-  final int id;
+  final int? id;
   @override
   @JsonKey(name: 'direct_report_id')
   final int? directReportId;
@@ -3930,7 +4283,7 @@ class _$ReportingRelationshipImpl implements _ReportingRelationship {
 
 abstract class _ReportingRelationship implements ReportingRelationship {
   const factory _ReportingRelationship(
-      {required final int id,
+      {final int? id,
       @JsonKey(name: 'direct_report_id') final int? directReportId,
       @JsonKey(name: 'relationship_type') final String? relationshipType,
       final String? name}) = _$ReportingRelationshipImpl;
@@ -3939,7 +4292,7 @@ abstract class _ReportingRelationship implements ReportingRelationship {
       _$ReportingRelationshipImpl.fromJson;
 
   @override
-  int get id;
+  int? get id;
   @override
   @JsonKey(name: 'direct_report_id')
   int? get directReportId;
@@ -4113,7 +4466,7 @@ Education _$EducationFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Education {
-  int get id => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'employee_profile_id')
   int? get employeeProfileId => throw _privateConstructorUsedError;
   String? get category => throw _privateConstructorUsedError;
@@ -4145,7 +4498,7 @@ abstract class $EducationCopyWith<$Res> {
       _$EducationCopyWithImpl<$Res, Education>;
   @useResult
   $Res call(
-      {int id,
+      {int? id,
       @JsonKey(name: 'employee_profile_id') int? employeeProfileId,
       String? category,
       String? institution,
@@ -4173,7 +4526,7 @@ class _$EducationCopyWithImpl<$Res, $Val extends Education>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? employeeProfileId = freezed,
     Object? category = freezed,
     Object? institution = freezed,
@@ -4186,10 +4539,10 @@ class _$EducationCopyWithImpl<$Res, $Val extends Education>
     Object? maxGpa = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       employeeProfileId: freezed == employeeProfileId
           ? _value.employeeProfileId
           : employeeProfileId // ignore: cast_nullable_to_non_nullable
@@ -4243,7 +4596,7 @@ abstract class _$$EducationImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
+      {int? id,
       @JsonKey(name: 'employee_profile_id') int? employeeProfileId,
       String? category,
       String? institution,
@@ -4269,7 +4622,7 @@ class __$$EducationImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? employeeProfileId = freezed,
     Object? category = freezed,
     Object? institution = freezed,
@@ -4282,10 +4635,10 @@ class __$$EducationImplCopyWithImpl<$Res>
     Object? maxGpa = freezed,
   }) {
     return _then(_$EducationImpl(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       employeeProfileId: freezed == employeeProfileId
           ? _value.employeeProfileId
           : employeeProfileId // ignore: cast_nullable_to_non_nullable
@@ -4334,7 +4687,7 @@ class __$$EducationImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$EducationImpl implements _Education {
   const _$EducationImpl(
-      {required this.id,
+      {this.id,
       @JsonKey(name: 'employee_profile_id') this.employeeProfileId,
       this.category,
       this.institution,
@@ -4350,7 +4703,7 @@ class _$EducationImpl implements _Education {
       _$$EducationImplFromJson(json);
 
   @override
-  final int id;
+  final int? id;
   @override
   @JsonKey(name: 'employee_profile_id')
   final int? employeeProfileId;
@@ -4439,7 +4792,7 @@ class _$EducationImpl implements _Education {
 
 abstract class _Education implements Education {
   const factory _Education(
-      {required final int id,
+      {final int? id,
       @JsonKey(name: 'employee_profile_id') final int? employeeProfileId,
       final String? category,
       final String? institution,
@@ -4455,7 +4808,7 @@ abstract class _Education implements Education {
       _$EducationImpl.fromJson;
 
   @override
-  int get id;
+  int? get id;
   @override
   @JsonKey(name: 'employee_profile_id')
   int? get employeeProfileId;
@@ -4495,7 +4848,7 @@ FamilyEmployee _$FamilyEmployeeFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$FamilyEmployee {
-  int get id => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'employee_profile_id')
   int? get employeeProfileId => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
@@ -4528,7 +4881,7 @@ abstract class $FamilyEmployeeCopyWith<$Res> {
       _$FamilyEmployeeCopyWithImpl<$Res, FamilyEmployee>;
   @useResult
   $Res call(
-      {int id,
+      {int? id,
       @JsonKey(name: 'employee_profile_id') int? employeeProfileId,
       String? name,
       String? relationship,
@@ -4556,7 +4909,7 @@ class _$FamilyEmployeeCopyWithImpl<$Res, $Val extends FamilyEmployee>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? employeeProfileId = freezed,
     Object? name = freezed,
     Object? relationship = freezed,
@@ -4569,10 +4922,10 @@ class _$FamilyEmployeeCopyWithImpl<$Res, $Val extends FamilyEmployee>
     Object? company = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       employeeProfileId: freezed == employeeProfileId
           ? _value.employeeProfileId
           : employeeProfileId // ignore: cast_nullable_to_non_nullable
@@ -4626,7 +4979,7 @@ abstract class _$$FamilyEmployeeImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
+      {int? id,
       @JsonKey(name: 'employee_profile_id') int? employeeProfileId,
       String? name,
       String? relationship,
@@ -4652,7 +5005,7 @@ class __$$FamilyEmployeeImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? employeeProfileId = freezed,
     Object? name = freezed,
     Object? relationship = freezed,
@@ -4665,10 +5018,10 @@ class __$$FamilyEmployeeImplCopyWithImpl<$Res>
     Object? company = freezed,
   }) {
     return _then(_$FamilyEmployeeImpl(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       employeeProfileId: freezed == employeeProfileId
           ? _value.employeeProfileId
           : employeeProfileId // ignore: cast_nullable_to_non_nullable
@@ -4717,7 +5070,7 @@ class __$$FamilyEmployeeImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$FamilyEmployeeImpl implements _FamilyEmployee {
   const _$FamilyEmployeeImpl(
-      {required this.id,
+      {this.id,
       @JsonKey(name: 'employee_profile_id') this.employeeProfileId,
       this.name,
       this.relationship,
@@ -4733,7 +5086,7 @@ class _$FamilyEmployeeImpl implements _FamilyEmployee {
       _$$FamilyEmployeeImplFromJson(json);
 
   @override
-  final int id;
+  final int? id;
   @override
   @JsonKey(name: 'employee_profile_id')
   final int? employeeProfileId;
@@ -4823,7 +5176,7 @@ class _$FamilyEmployeeImpl implements _FamilyEmployee {
 
 abstract class _FamilyEmployee implements FamilyEmployee {
   const factory _FamilyEmployee(
-      {required final int id,
+      {final int? id,
       @JsonKey(name: 'employee_profile_id') final int? employeeProfileId,
       final String? name,
       final String? relationship,
@@ -4839,7 +5192,7 @@ abstract class _FamilyEmployee implements FamilyEmployee {
       _$FamilyEmployeeImpl.fromJson;
 
   @override
-  int get id;
+  int? get id;
   @override
   @JsonKey(name: 'employee_profile_id')
   int? get employeeProfileId;
@@ -5029,7 +5382,7 @@ EmployeeDocument _$EmployeeDocumentFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$EmployeeDocument {
-  int get id => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'employee_profile_id')
   int? get employeeProfileId => throw _privateConstructorUsedError;
   String? get type => throw _privateConstructorUsedError;
@@ -5066,7 +5419,7 @@ abstract class $EmployeeDocumentCopyWith<$Res> {
       _$EmployeeDocumentCopyWithImpl<$Res, EmployeeDocument>;
   @useResult
   $Res call(
-      {int id,
+      {int? id,
       @JsonKey(name: 'employee_profile_id') int? employeeProfileId,
       String? type,
       String? filename,
@@ -5096,7 +5449,7 @@ class _$EmployeeDocumentCopyWithImpl<$Res, $Val extends EmployeeDocument>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? employeeProfileId = freezed,
     Object? type = freezed,
     Object? filename = freezed,
@@ -5111,10 +5464,10 @@ class _$EmployeeDocumentCopyWithImpl<$Res, $Val extends EmployeeDocument>
     Object? url = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       employeeProfileId: freezed == employeeProfileId
           ? _value.employeeProfileId
           : employeeProfileId // ignore: cast_nullable_to_non_nullable
@@ -5176,7 +5529,7 @@ abstract class _$$EmployeeDocumentImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
+      {int? id,
       @JsonKey(name: 'employee_profile_id') int? employeeProfileId,
       String? type,
       String? filename,
@@ -5204,7 +5557,7 @@ class __$$EmployeeDocumentImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? employeeProfileId = freezed,
     Object? type = freezed,
     Object? filename = freezed,
@@ -5219,10 +5572,10 @@ class __$$EmployeeDocumentImplCopyWithImpl<$Res>
     Object? url = freezed,
   }) {
     return _then(_$EmployeeDocumentImpl(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       employeeProfileId: freezed == employeeProfileId
           ? _value.employeeProfileId
           : employeeProfileId // ignore: cast_nullable_to_non_nullable
@@ -5279,7 +5632,7 @@ class __$$EmployeeDocumentImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$EmployeeDocumentImpl implements _EmployeeDocument {
   const _$EmployeeDocumentImpl(
-      {required this.id,
+      {this.id,
       @JsonKey(name: 'employee_profile_id') this.employeeProfileId,
       this.type,
       this.filename,
@@ -5297,7 +5650,7 @@ class _$EmployeeDocumentImpl implements _EmployeeDocument {
       _$$EmployeeDocumentImplFromJson(json);
 
   @override
-  final int id;
+  final int? id;
   @override
   @JsonKey(name: 'employee_profile_id')
   final int? employeeProfileId;
@@ -5398,7 +5751,7 @@ class _$EmployeeDocumentImpl implements _EmployeeDocument {
 
 abstract class _EmployeeDocument implements EmployeeDocument {
   const factory _EmployeeDocument(
-      {required final int id,
+      {final int? id,
       @JsonKey(name: 'employee_profile_id') final int? employeeProfileId,
       final String? type,
       final String? filename,
@@ -5416,7 +5769,7 @@ abstract class _EmployeeDocument implements EmployeeDocument {
       _$EmployeeDocumentImpl.fromJson;
 
   @override
-  int get id;
+  int? get id;
   @override
   @JsonKey(name: 'employee_profile_id')
   int? get employeeProfileId;

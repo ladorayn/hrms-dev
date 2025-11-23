@@ -42,6 +42,7 @@ _$EmployeeProfileRequestImpl _$$EmployeeProfileRequestImplFromJson(
       accountNumber: json['account_number'] as String,
       accountName: json['account_name'] as String,
       countryCode: (json['country_code'] as num).toInt(),
+      photoProfile: json['photo_profile'] as String,
     );
 
 Map<String, dynamic> _$$EmployeeProfileRequestImplToJson(
@@ -78,6 +79,7 @@ Map<String, dynamic> _$$EmployeeProfileRequestImplToJson(
       'account_number': instance.accountNumber,
       'account_name': instance.accountName,
       'country_code': instance.countryCode,
+      'photo_profile': instance.photoProfile,
     };
 
 _$TeamMemberRequestImpl _$$TeamMemberRequestImplFromJson(

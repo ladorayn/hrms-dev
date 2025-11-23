@@ -1,22 +1,62 @@
-// features/profile/data/models/employee_profile_response.dart
-
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'employee_profile_response.freezed.dart';
 
 part 'employee_profile_response.g.dart';
 
-// Main "data" object
+// --- NEW TOP-LEVEL MODEL ---
+// Maps the primary JSON object which contains user, employee_profile, and employment data.
+
 @freezed
-class EmployeeProfile with _$EmployeeProfile {
-  const factory EmployeeProfile({
-    required int id,
-    @JsonKey(name: 'user_id') required int userId,
+class UserProfile with _$UserProfile {
+  const factory UserProfile({
+    UserWithEmployeeData? user,
+  }) = _UserProfile;
+
+  factory UserProfile.fromJson(Map<String, dynamic> json) =>
+      _$UserProfileFromJson(json);
+}
+
+@freezed
+class UserWithEmployeeData with _$UserWithEmployeeData {
+  const factory UserWithEmployeeData({
+    // Fields from the top level of the JSON:
+    int? id,
+    @JsonKey(name: 'employee_id') int? employeeId,
+    String? code,
+    @JsonKey(name: 'photo_profile') String? photoProfile,
+    @JsonKey(name: 'photo_profile_url') String? photoProfileUrl,
+    String? name,
+    String? email,
+    List<String>? roles,
+    @JsonKey(name: 'first_login_at') String? firstLoginAt,
+    @JsonKey(name: 'is_first_login') bool? isFirstLogin,
+    @JsonKey(name: 'created_at') String? createdAt,
+    @JsonKey(name: 'updated_at') String? updatedAt,
+    // Nested objects:
+    @JsonKey(name: 'employee_profile')
+    required EmployeeProfileData employeeProfile, // Renamed model
+    Employment? employment,
+    // Branch? branch, // Keep if branch is expected here in other responses
+  }) = _UserWithEmployeeData;
+
+  factory UserWithEmployeeData.fromJson(Map<String, dynamic> json) =>
+      _$UserWithEmployeeDataFromJson(json);
+}
+
+// --- RENAMED MODEL ---
+// Maps the nested "employee_profile" object from the JSON.
+@freezed
+class EmployeeProfileData with _$EmployeeProfileData {
+  const factory EmployeeProfileData({
+    int? id,
+    @JsonKey(name: 'user_id') int? userId,
     @JsonKey(name: 'phone_number') String? phoneNumber,
     String? gender,
     @JsonKey(name: 'date_of_birth') String? dateOfBirth,
     @JsonKey(name: 'place_of_birth') String? placeOfBirth,
     @JsonKey(name: 'marital_status') int? maritalStatus,
+    @JsonKey(name: 'marital_status_label') String? maritalStatusLabel,
     @JsonKey(name: 'blood_type') String? bloodType,
     String? height,
     String? weight,
@@ -29,14 +69,10 @@ class EmployeeProfile with _$EmployeeProfile {
     String? achievement,
     @JsonKey(name: 'personal_description') String? personalDescription,
     @JsonKey(name: 'photo_profile') String? photoProfile,
-    // --- NEW FIELD ---
     @JsonKey(name: 'photo_profile_url') String? photoProfileUrl,
     String? code,
-    @JsonKey(name: 'marital_status_label') String? maritalStatusLabel,
-    required UserProfile user,
-    Employment? employment,
-    // --- NEW FIELD ---
-    Branch? branch,
+    // Removed UserProfile (user) and Employment as they are now in UserWithEmployeeData
+    // Removed Branch as well if not applicable here
     @JsonKey(name: 'social_media_accounts')
     List<SocialMediaAccount>? socialMediaAccounts,
     @JsonKey(name: 'bank_account') BankAccount? bankAccount,
@@ -50,18 +86,20 @@ class EmployeeProfile with _$EmployeeProfile {
     List<ContactReference>? contactRefferences,
     @JsonKey(name: 'employee_documents')
     List<EmployeeDocument>? employeeDocuments,
-  }) = _EmployeeProfile;
+  }) = _EmployeeProfileData;
 
-  factory EmployeeProfile.fromJson(Map<String, dynamic> json) =>
-      _$EmployeeProfileFromJson(json);
+  factory EmployeeProfileData.fromJson(Map<String, dynamic> json) =>
+      _$EmployeeProfileDataFromJson(json);
 }
 
-// --- NEW MODEL ---
-// Nested Branch
+// --- REMOVED: UserProfile (Integrated into UserWithEmployeeData) ---
+
+// --- NESTED MODELS (Mostly Unchanged) ---
+
 @freezed
 class Branch with _$Branch {
   const factory Branch({
-    required int id,
+    int? id,
     String? name,
     String? latitude,
     String? longitude,
@@ -71,26 +109,12 @@ class Branch with _$Branch {
   factory Branch.fromJson(Map<String, dynamic> json) => _$BranchFromJson(json);
 }
 
-// Nested User
-@freezed
-class UserProfile with _$UserProfile {
-  const factory UserProfile({
-    required int id,
-    required String name,
-    required String email,
-    @JsonKey(name: 'is_first_login') bool? isFirstLogin,
-  }) = _UserProfile;
-
-  factory UserProfile.fromJson(Map<String, dynamic> json) =>
-      _$UserProfileFromJson(json);
-}
-
-// Nested Employment
 @freezed
 class Employment with _$Employment {
   const factory Employment({
-    required int id,
+    int? id,
     @JsonKey(name: 'employee_profile_id') int? employeeProfileId,
+    // The following IDs are not in the sample JSON but are kept for completeness:
     @JsonKey(name: 'department_id') int? departmentId,
     @JsonKey(name: 'job_level_id') int? jobLevelId,
     @JsonKey(name: 'job_position_id') int? jobPositionId,
@@ -109,11 +133,10 @@ class Employment with _$Employment {
       _$EmploymentFromJson(json);
 }
 
-// Nested Department
 @freezed
 class Department with _$Department {
   const factory Department({
-    required int id,
+    int? id,
     String? name,
     String? description,
   }) = _Department;
@@ -122,11 +145,10 @@ class Department with _$Department {
       _$DepartmentFromJson(json);
 }
 
-// Nested JobLevel
 @freezed
 class JobLevel with _$JobLevel {
   const factory JobLevel({
-    required int id,
+    int? id,
     String? name,
     String? description,
   }) = _JobLevel;
@@ -135,11 +157,10 @@ class JobLevel with _$JobLevel {
       _$JobLevelFromJson(json);
 }
 
-// Nested JobPosition
 @freezed
 class JobPosition with _$JobPosition {
   const factory JobPosition({
-    required int id,
+    int? id,
     String? name,
     String? description,
     String? status,
@@ -149,26 +170,22 @@ class JobPosition with _$JobPosition {
       _$JobPositionFromJson(json);
 }
 
-// --- UPDATED MODEL ---
-// Nested Allowance
 @freezed
 class Allowance with _$Allowance {
   const factory Allowance({
-    // 'id' field does not exist in the new JSON
     @JsonKey(name: 'allowance_type_id') int? allowanceTypeId,
     String? name,
-    @JsonKey(name: 'allowance_value') num? allowanceValue, // Changed to num
+    @JsonKey(name: 'allowance_value') num? allowanceValue,
   }) = _Allowance;
 
   factory Allowance.fromJson(Map<String, dynamic> json) =>
       _$AllowanceFromJson(json);
 }
 
-// Nested SocialMediaAccount
 @freezed
 class SocialMediaAccount with _$SocialMediaAccount {
   const factory SocialMediaAccount({
-    required int id,
+    int? id,
     @JsonKey(name: 'employee_profile_id') int? employeeProfileId,
     String? type,
     String? url,
@@ -178,11 +195,10 @@ class SocialMediaAccount with _$SocialMediaAccount {
       _$SocialMediaAccountFromJson(json);
 }
 
-// Nested BankAccount
 @freezed
 class BankAccount with _$BankAccount {
   const factory BankAccount({
-    required int id,
+    int? id,
     @JsonKey(name: 'employee_profile_id') int? employeeProfileId,
     @JsonKey(name: 'account_number') String? accountNumber,
     @JsonKey(name: 'account_name') String? accountName,
@@ -194,11 +210,10 @@ class BankAccount with _$BankAccount {
       _$BankAccountFromJson(json);
 }
 
-// Nested Bank
 @freezed
 class Bank with _$Bank {
   const factory Bank({
-    required int id,
+    int? id,
     @JsonKey(name: 'bank_name') String? bankName,
     String? code,
   }) = _Bank;
@@ -206,12 +221,10 @@ class Bank with _$Bank {
   factory Bank.fromJson(Map<String, dynamic> json) => _$BankFromJson(json);
 }
 
-// --- UPDATED MODEL ---
-// Nested TeamMember
 @freezed
 class TeamMember with _$TeamMember {
   const factory TeamMember({
-    required int id,
+    int? id,
     String? name,
   }) = _TeamMember;
 
@@ -219,22 +232,19 @@ class TeamMember with _$TeamMember {
       _$TeamMemberFromJson(json);
 }
 
-// --- UPDATED MODEL ---
-// Nested ReportingRelationship
 @freezed
 class ReportingRelationship with _$ReportingRelationship {
   const factory ReportingRelationship({
-    required int id,
+    int? id,
     @JsonKey(name: 'direct_report_id') int? directReportId,
     @JsonKey(name: 'relationship_type') String? relationshipType,
-    String? name, // New field
+    String? name,
   }) = _ReportingRelationship;
 
   factory ReportingRelationship.fromJson(Map<String, dynamic> json) =>
       _$ReportingRelationshipFromJson(json);
 }
 
-// Nested WorkExperience
 @freezed
 class WorkExperience with _$WorkExperience {
   const factory WorkExperience({
@@ -245,11 +255,10 @@ class WorkExperience with _$WorkExperience {
       _$WorkExperienceFromJson(json);
 }
 
-// Nested Education
 @freezed
 class Education with _$Education {
   const factory Education({
-    required int id,
+    int? id,
     @JsonKey(name: 'employee_profile_id') int? employeeProfileId,
     String? category,
     String? institution,
@@ -266,11 +275,10 @@ class Education with _$Education {
       _$EducationFromJson(json);
 }
 
-// Nested FamilyEmployee
 @freezed
 class FamilyEmployee with _$FamilyEmployee {
   const factory FamilyEmployee({
-    required int id,
+    int? id,
     @JsonKey(name: 'employee_profile_id') int? employeeProfileId,
     String? name,
     String? relationship,
@@ -287,7 +295,6 @@ class FamilyEmployee with _$FamilyEmployee {
       _$FamilyEmployeeFromJson(json);
 }
 
-// Nested ContactReference
 @freezed
 class ContactReference with _$ContactReference {
   const factory ContactReference({
@@ -298,12 +305,10 @@ class ContactReference with _$ContactReference {
       _$ContactReferenceFromJson(json);
 }
 
-// --- UPDATED MODEL ---
-// Nested EmployeeDocument
 @freezed
 class EmployeeDocument with _$EmployeeDocument {
   const factory EmployeeDocument({
-    required int id,
+    int? id,
     @JsonKey(name: 'employee_profile_id') int? employeeProfileId,
     String? type,
     String? filename,

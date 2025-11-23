@@ -1,5 +1,9 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:path/path.dart' as path;
 
 String calculateDuration(String? clockIn, String? clockOut) {
   if (clockIn == null ||
@@ -51,4 +55,23 @@ String? formatTimeForAPI(TimeOfDay? time) {
 String formatDateForAPI(DateTime? date) {
   if (date == null) return '';
   return DateFormat('yyyy-MM-dd').format(date);
+}
+
+Future<PlatformFile?> convertFileToPlatformFile(File? file) async {
+  if (file == null) {
+    return null;
+  }
+  // Get metadata from the File object
+  final String fileName = path.basename(file.path);
+  final int fileSize = await file.length();
+
+  // You must provide the path. The bytes are optional.
+  final PlatformFile platformFile = PlatformFile(
+    name: fileName,
+    path: file.path,
+    size: fileSize,
+    bytes: null, // Set to null for files not loaded into memory
+  );
+
+  return platformFile;
 }

@@ -24,7 +24,7 @@ final employeesUseCaseProvider =
 @riverpod
 class EmployeeDetail extends _$EmployeeDetail {
   @override
-  Future<EmployeeProfile> build({required int id}) async {
+  Future<UserProfile> build({required int id}) async {
     final usecase = ref.watch(employeesUseCaseProvider);
     return await usecase.getEmployeeProfile(id: id);
   }
@@ -33,7 +33,7 @@ class EmployeeDetail extends _$EmployeeDetail {
 @riverpod
 class EmployeeProfileEdit extends _$EmployeeProfileEdit {
   @override
-  FutureOr<EmployeeProfile?> build() {
+  FutureOr<UserProfile?> build() {
     // Return null (idle state) initially
     return null;
   }
@@ -60,5 +60,9 @@ class EmployeeProfileEdit extends _$EmployeeProfileEdit {
 
   void reset() {
     state = const AsyncData(null);
+  }
+
+  void setLoading() {
+    state = const AsyncLoading();
   }
 }

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "688050341408",
+    "project_id": "hrms-okjob-dev",
+    "storage_bucket": "hrms-okjob-dev.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:688050341408:android:24042985af287bbd87de45",
+        "android_client_info": {
+          "package_name": "com.okjob.hrms.hrms_mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwAungK2h0ZxRNFuHudkdmJYXBX__C-nQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

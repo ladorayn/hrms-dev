@@ -21,6 +21,7 @@ import 'package:hrms_mobile/features/auth/presentation/providers/company_profile
 import 'package:hrms_mobile/features/dashboard/presentation/widgets/offboarding_status_card.dart';
 import 'package:hrms_mobile/features/dashboard/presentation/widgets/recent_activity_tiles.dart';
 import 'package:hrms_mobile/features/offboarding/presentation/providers/offboarding_provider.dart';
+import 'package:hrms_mobile/features/profile/presentation/providers/profile_provider.dart';
 import 'package:intl/intl.dart';
 
 class DashboardScreen extends ConsumerWidget {
@@ -31,6 +32,8 @@ class DashboardScreen extends ConsumerWidget {
     final textTheme = Theme.of(context).textTheme;
     final todayAttendanceState = ref.watch(todayAttendanceProvider);
     final authP = ref.watch(authProvider);
+    final profileAsync =
+        ref.watch(employeeDetailProvider(id: authP.value?.id ?? 0));
     final companyP = ref.watch(companyProfileProvider);
     final recentActivityState = ref.watch(recentActivityProvider(limit: 10));
     final getDetail = ref.watch(getDetailAttendanceProvider(
@@ -155,7 +158,9 @@ class DashboardScreen extends ConsumerWidget {
                                 children: [
                                   Text(
                                     // Use the actual data from your provider
-                                    authP.value?.name ?? '-',
+                                    profileAsync.value?.user?.name ??
+                                        authP.value?.name ??
+                                        '-',
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 24.sp,
@@ -166,7 +171,9 @@ class DashboardScreen extends ConsumerWidget {
                                         .ellipsis, // <-- USE ELLIPSIS
                                   ),
                                   Text(
-                                    authP.value?.employment?.jobPosition
+                                    profileAsync.value?.user?.employment
+                                            ?.jobPosition?.name ??
+                                        authP.value?.employment?.jobPosition
                                             ?.name ??
                                         '-',
                                     style: const TextStyle(
@@ -180,16 +187,19 @@ class DashboardScreen extends ConsumerWidget {
                             CircleAvatar(
                               radius: 30.r,
                               backgroundColor: IColors.dark.accent,
-                              backgroundImage: (authP
-                                          .value?.photoProfileUrl?.isNotEmpty ??
+                              backgroundImage: (profileAsync.value?.user
+                                          ?.photoProfileUrl?.isNotEmpty ??
                                       false)
-                                  ? NetworkImage(authP.value!.photoProfileUrl!)
+                                  ? NetworkImage(profileAsync
+                                          .value?.user!.photoProfileUrl ??
+                                      '')
                                   : null,
-                              child: (authP.value?.photoProfileUrl?.isEmpty ??
-                                      true)
-                                  ? const Icon(Icons.person,
-                                      size: 30, color: Colors.white)
-                                  : null,
+                              child:
+                                  (profileAsync.value?.user?.photoProfileUrl ==
+                                          null)
+                                      ? const Icon(Icons.person,
+                                          size: 30, color: Colors.white)
+                                      : null,
                             ),
                           ],
                         ),

@@ -27,9 +27,9 @@ abstract class EmployeeRepository {
     String? perPage,
   });
 
-  Future<EmployeeProfile> getEmployeeProfile({required int id});
+  Future<UserProfile> getEmployeeProfile({required int id});
 
-  Future<EmployeeProfile> updateEmployeeProfile({
+  Future<UserProfile> updateEmployeeProfile({
     required int id,
     required EmployeeProfileRequest request,
   });
