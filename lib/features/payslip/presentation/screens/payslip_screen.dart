@@ -9,135 +9,172 @@ import 'package:hrms_mobile/core/enums/payslip_view_enum.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
+import 'package:hrms_mobile/features/payslip/data/models/response/payslip_list_response.dart'; // Added Import
+import 'package:hrms_mobile/features/payslip/presentation/providers/payslip_provider.dart'; // Added Import
 import 'package:hrms_mobile/features/payslip/presentation/widgets/payslip_view_status.dart';
 
 class PayslipScreen extends ConsumerWidget {
   const PayslipScreen({super.key});
 
-  @override
-  Widget build(BuildContext context, WidgetRef) {
+  void showModalPayslip(BuildContext context, PayslipDataList payslip) {
+    final title = payslip.payrun?.periodLabel ?? 'Payslip Period';
     final textTheme = Theme.of(context).textTheme;
-    final months = [
-      "August 2025",
-      "July 2025",
-      "June 2025",
-    ];
 
-    void showModalPayslip(String title) {
-      showModalBottomSheet(
-        context: context,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(8), topRight: Radius.circular(8)),
-        ),
-        builder: (context) => SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Text(title,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleLarge
-                        ?.copyWith(color: IColors.light.primary.main)),
-                const SizedBox(height: 16),
-                Padding(
+    final isViewGranted = payslip.viewAccessGranted ?? false;
+    final showRequestAccess =
+        (payslip.viewAccessStatus == 0 || payslip.viewAccessStatus == 3);
+    final viewType = getPayslipViewType(payslip.viewAccessStatus ?? 4);
+
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(8), topRight: Radius.circular(8)),
+      ),
+      builder: (context) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(title,
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge
+                      ?.copyWith(color: IColors.light.primary.main)),
+              const SizedBox(height: 16),
+              // --- View Payslip Section ---
+              GestureDetector(
+                onTap: () {
+                  if (isViewGranted) {
+                    globalNavigatorKey.currentContext?.pushNamed(
+                      RoutePaths.payslipViewName,
+                      extra: payslip,
+                    );
+                  }
+                },
+                child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 12.sp),
                   child: Row(
-                    spacing: 24.w,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
-                        spacing: 8.w,
                         children: [
                           Icon(
                             Icons.visibility,
                             color: IColors.light.primary.main,
                           ),
-                          Text("View Payslip"),
-                          PayslipViewStatus(type: PayslipViewType.locked),
+                          SizedBox(width: 8.w),
+                          const Text("View Payslip"),
+                          SizedBox(width: 8.w),
+                          PayslipViewStatus(
+                            type: viewType,
+                            payslip: payslip,
+                          ),
                         ],
                       ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: IColors.light.primary.main,
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
+                      if (showRequestAccess)
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: IColors.light.primary.main,
+                            foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            minimumSize: Size.zero,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 10),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                           ),
-                          minimumSize: Size.zero,
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 10),
-                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        ),
-                        onPressed: () {
-                          globalNavigatorKey.currentContext
-                              ?.pushNamed(RoutePaths.payslipViewRequestName);
-                        },
-                        child: Text(
-                          "Request Access",
-                          style: textTheme.labelSmall?.copyWith(
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
+                          onPressed: () {
+                            globalNavigatorKey.currentContext?.pushNamed(
+                              RoutePaths.payslipViewRequestName,
+                              extra: payslip,
+                            );
+                          },
+                          child: Text(
+                            "Request Access",
+                            style: textTheme.labelSmall?.copyWith(
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                            ),
                           ),
-                        ),
-                      )
+                        )
+                      else if (isViewGranted)
+                        IconButton(
+                          icon: Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            color: IColors.light.grayscale.g30,
+                          ),
+                          onPressed: () {
+                            globalNavigatorKey.currentContext?.pushNamed(
+                              RoutePaths.payslipViewName,
+                              extra: payslip,
+                            );
+                          },
+                        )
                     ],
                   ),
                 ),
-                Divider(color: IColors.light.grayscale.g10),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 12.sp),
-                  child: Row(
-                    spacing: 24.w,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        spacing: 8.w,
-                        children: [
-                          SvgPicture.asset(IAssets.printer),
-                          Text("Print Request"),
-                          PayslipViewStatus(type: PayslipViewType.locked),
-                        ],
+              ),
+              Divider(color: IColors.light.grayscale.g10),
+              // --- Print Request Section ---
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12.sp),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        SvgPicture.asset(IAssets.printer),
+                        SizedBox(width: 8.w),
+                        const Text("Print Request"),
+                      ],
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: IColors.light.primary.main,
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        minimumSize: Size.zero,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 10),
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: IColors.light.primary.main,
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          minimumSize: Size.zero,
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 10),
-                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      onPressed: () {
+                        globalNavigatorKey.currentContext?.pushNamed(
+                            RoutePaths.payslipPrintRequestName,
+                            extra: payslip);
+                      },
+                      child: Text(
+                        "Request Access",
+                        style: textTheme.labelSmall?.copyWith(
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
                         ),
-                        onPressed: () {
-                          globalNavigatorKey.currentContext
-                              ?.pushNamed(RoutePaths.payslipPrintRequestName);
-                        },
-                        child: Text(
-                          "Request Access",
-                          style: textTheme.labelSmall?.copyWith(
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
+                      ),
+                    )
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
-      );
-    }
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final textTheme = Theme.of(context).textTheme;
+
+    final payslipListAsync = ref.watch(payslipListProvider);
 
     return Scaffold(
-      appBar: IAppBar(title: "My Payslip"),
+      appBar: const IAppBar(title: "My Payslip"),
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xFFF8F8F8),
       body: SafeArea(
@@ -152,46 +189,64 @@ class PayslipScreen extends ConsumerWidget {
                     topLeft: Radius.circular(20),
                   ),
                 ),
-                child: Padding(
-                  padding: EdgeInsets.only(top: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 30.w),
-                        child: Text(
-                          "Last ${months.length} Month",
-                          style: textTheme.bodySmall
-                              ?.copyWith(color: Color(0xFF8E8E8E)),
-                        ),
-                      ),
-                      Expanded(
-                        child: ListView.separated(
-                            itemBuilder: (context, index) {
-                              return GestureDetector(
-                                onTap: () {
-                                  showModalPayslip(months[index]);
+                child: payslipListAsync.when(
+                  loading: () =>
+                      const Center(child: CircularProgressIndicator()),
+                  error: (err, stack) =>
+                      Center(child: Text('Error: ${err.toString()}')),
+                  data: (payslips) {
+                    final dataList = payslips
+                        .where((p) => p.payrun?.periodLabel != null)
+                        .toList();
+                    final count = dataList.length;
+
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 30.w),
+                            child: Text(
+                              // Use the actual count
+                              "Last $count Month${count != 1 ? 's' : ''}",
+                              style: textTheme.bodySmall
+                                  ?.copyWith(color: const Color(0xFF8E8E8E)),
+                            ),
+                          ),
+                          Expanded(
+                            child: ListView.separated(
+                                itemBuilder: (context, index) {
+                                  final payslip = dataList[index];
+                                  final title =
+                                      payslip.payrun?.periodLabel ?? 'N/A';
+
+                                  return GestureDetector(
+                                    onTap: () {
+                                      showModalPayslip(context, payslip);
+                                    },
+                                    child: ListTile(
+                                      title: Text(title),
+                                      trailing: Icon(
+                                        Icons.arrow_forward_ios,
+                                        size: 16,
+                                        color: IColors.light.grayscale.g20,
+                                      ),
+                                      contentPadding: EdgeInsets.symmetric(
+                                          horizontal: 30.w),
+                                    ),
+                                  );
                                 },
-                                child: ListTile(
-                                  title: Text(months[index]),
-                                  trailing: Icon(
-                                    Icons.arrow_forward_ios,
-                                    size: 16,
-                                    color: IColors.light.grayscale.g20,
-                                  ),
-                                  contentPadding:
-                                      EdgeInsets.symmetric(horizontal: 30.w),
-                                ),
-                              );
-                            },
-                            separatorBuilder: (context, index) {
-                              return Divider(
-                                  color: IColors.light.grayscale.g10);
-                            },
-                            itemCount: months.length),
-                      )
-                    ],
-                  ),
+                                separatorBuilder: (context, index) {
+                                  return Divider(
+                                      color: IColors.light.grayscale.g10);
+                                },
+                                itemCount: count),
+                          )
+                        ],
+                      ),
+                    );
+                  },
                 ),
               ),
             ),

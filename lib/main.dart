@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -17,13 +18,13 @@ import 'core/services/notifications/providers/push_notification_provider.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // 1. Initialize Firebase Core
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  if (!Platform.isIOS) {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
 
-  await LocalNotificationService.initializePlatformNotifications();
-
+    await LocalNotificationService.initializePlatformNotifications();
+  }
   // LOCK ORIENTATION DEVICE
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
@@ -48,8 +49,10 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
     _noScreenshot.screenshotOff();
 
-    final pushService = ref.read(pushNotificationServiceProvider);
-    pushService.initializePushNotifications();
+    if (!Platform.isIOS) {
+      final pushService = ref.read(pushNotificationServiceProvider);
+      pushService.initializePushNotifications();
+    }
   }
 
   @override

@@ -501,9 +501,11 @@ abstract class _LinksModel implements LinksModel {
 
 /// @nodoc
 mixin _$BasePaginatedResponse<T> {
-  int get code => throw _privateConstructorUsedError;
-  String get message => throw _privateConstructorUsedError;
+  String? get status => throw _privateConstructorUsedError;
+  int? get code => throw _privateConstructorUsedError;
+  String? get message => throw _privateConstructorUsedError;
   List<T> get data => throw _privateConstructorUsedError;
+  Pagination? get pagination => throw _privateConstructorUsedError;
   LinksModel? get links => throw _privateConstructorUsedError;
   MetaModel? get meta => throw _privateConstructorUsedError;
 
@@ -521,12 +523,15 @@ abstract class $BasePaginatedResponseCopyWith<T, $Res> {
       _$BasePaginatedResponseCopyWithImpl<T, $Res, BasePaginatedResponse<T>>;
   @useResult
   $Res call(
-      {int code,
-      String message,
+      {String? status,
+      int? code,
+      String? message,
       List<T> data,
+      Pagination? pagination,
       LinksModel? links,
       MetaModel? meta});
 
+  $PaginationCopyWith<$Res>? get pagination;
   $LinksModelCopyWith<$Res>? get links;
   $MetaModelCopyWith<$Res>? get meta;
 }
@@ -547,25 +552,35 @@ class _$BasePaginatedResponseCopyWithImpl<T, $Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? code = null,
-    Object? message = null,
+    Object? status = freezed,
+    Object? code = freezed,
+    Object? message = freezed,
     Object? data = null,
+    Object? pagination = freezed,
     Object? links = freezed,
     Object? meta = freezed,
   }) {
     return _then(_value.copyWith(
-      code: null == code
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
+      code: freezed == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
-              as int,
-      message: null == message
+              as int?,
+      message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       data: null == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as List<T>,
+      pagination: freezed == pagination
+          ? _value.pagination
+          : pagination // ignore: cast_nullable_to_non_nullable
+              as Pagination?,
       links: freezed == links
           ? _value.links
           : links // ignore: cast_nullable_to_non_nullable
@@ -575,6 +590,20 @@ class _$BasePaginatedResponseCopyWithImpl<T, $Res,
           : meta // ignore: cast_nullable_to_non_nullable
               as MetaModel?,
     ) as $Val);
+  }
+
+  /// Create a copy of BasePaginatedResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $PaginationCopyWith<$Res>? get pagination {
+    if (_value.pagination == null) {
+      return null;
+    }
+
+    return $PaginationCopyWith<$Res>(_value.pagination!, (value) {
+      return _then(_value.copyWith(pagination: value) as $Val);
+    });
   }
 
   /// Create a copy of BasePaginatedResponse
@@ -616,12 +645,16 @@ abstract class _$$BasePaginatedResponseImplCopyWith<T, $Res>
   @override
   @useResult
   $Res call(
-      {int code,
-      String message,
+      {String? status,
+      int? code,
+      String? message,
       List<T> data,
+      Pagination? pagination,
       LinksModel? links,
       MetaModel? meta});
 
+  @override
+  $PaginationCopyWith<$Res>? get pagination;
   @override
   $LinksModelCopyWith<$Res>? get links;
   @override
@@ -643,25 +676,35 @@ class __$$BasePaginatedResponseImplCopyWithImpl<T, $Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? code = null,
-    Object? message = null,
+    Object? status = freezed,
+    Object? code = freezed,
+    Object? message = freezed,
     Object? data = null,
+    Object? pagination = freezed,
     Object? links = freezed,
     Object? meta = freezed,
   }) {
     return _then(_$BasePaginatedResponseImpl<T>(
-      code: null == code
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
+      code: freezed == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
-              as int,
-      message: null == message
+              as int?,
+      message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       data: null == data
           ? _value._data
           : data // ignore: cast_nullable_to_non_nullable
               as List<T>,
+      pagination: freezed == pagination
+          ? _value.pagination
+          : pagination // ignore: cast_nullable_to_non_nullable
+              as Pagination?,
       links: freezed == links
           ? _value.links
           : links // ignore: cast_nullable_to_non_nullable
@@ -678,17 +721,21 @@ class __$$BasePaginatedResponseImplCopyWithImpl<T, $Res>
 
 class _$BasePaginatedResponseImpl<T> implements _BasePaginatedResponse<T> {
   const _$BasePaginatedResponseImpl(
-      {required this.code,
-      required this.message,
+      {this.status,
+      this.code,
+      this.message,
       required final List<T> data,
+      this.pagination,
       this.links,
       this.meta})
       : _data = data;
 
   @override
-  final int code;
+  final String? status;
   @override
-  final String message;
+  final int? code;
+  @override
+  final String? message;
   final List<T> _data;
   @override
   List<T> get data {
@@ -698,13 +745,15 @@ class _$BasePaginatedResponseImpl<T> implements _BasePaginatedResponse<T> {
   }
 
   @override
+  final Pagination? pagination;
+  @override
   final LinksModel? links;
   @override
   final MetaModel? meta;
 
   @override
   String toString() {
-    return 'BasePaginatedResponse<$T>(code: $code, message: $message, data: $data, links: $links, meta: $meta)';
+    return 'BasePaginatedResponse<$T>(status: $status, code: $code, message: $message, data: $data, pagination: $pagination, links: $links, meta: $meta)';
   }
 
   @override
@@ -712,16 +761,19 @@ class _$BasePaginatedResponseImpl<T> implements _BasePaginatedResponse<T> {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$BasePaginatedResponseImpl<T> &&
+            (identical(other.status, status) || other.status == status) &&
             (identical(other.code, code) || other.code == code) &&
             (identical(other.message, message) || other.message == message) &&
             const DeepCollectionEquality().equals(other._data, _data) &&
+            (identical(other.pagination, pagination) ||
+                other.pagination == pagination) &&
             (identical(other.links, links) || other.links == links) &&
             (identical(other.meta, meta) || other.meta == meta));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, code, message,
-      const DeepCollectionEquality().hash(_data), links, meta);
+  int get hashCode => Object.hash(runtimeType, status, code, message,
+      const DeepCollectionEquality().hash(_data), pagination, links, meta);
 
   /// Create a copy of BasePaginatedResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -735,18 +787,24 @@ class _$BasePaginatedResponseImpl<T> implements _BasePaginatedResponse<T> {
 
 abstract class _BasePaginatedResponse<T> implements BasePaginatedResponse<T> {
   const factory _BasePaginatedResponse(
-      {required final int code,
-      required final String message,
+      {final String? status,
+      final int? code,
+      final String? message,
       required final List<T> data,
+      final Pagination? pagination,
       final LinksModel? links,
       final MetaModel? meta}) = _$BasePaginatedResponseImpl<T>;
 
   @override
-  int get code;
+  String? get status;
   @override
-  String get message;
+  int? get code;
+  @override
+  String? get message;
   @override
   List<T> get data;
+  @override
+  Pagination? get pagination;
   @override
   LinksModel? get links;
   @override

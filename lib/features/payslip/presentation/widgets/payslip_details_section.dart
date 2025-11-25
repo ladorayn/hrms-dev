@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
+import 'package:hrms_mobile/features/payslip/data/models/response/payslip_list_response.dart';
+import 'package:hrms_mobile/features/payslip/data/models/response/payslip_request_view_response.dart';
 
 class PayslipDetailsSection extends StatelessWidget {
   const PayslipDetailsSection({
@@ -10,6 +12,8 @@ class PayslipDetailsSection extends StatelessWidget {
     required this.confidentialColor,
     required this.labelColor,
     required this.valueColor,
+    required this.detailData,
+    required this.payslip,
   });
 
   final TextTheme textTheme;
@@ -17,6 +21,8 @@ class PayslipDetailsSection extends StatelessWidget {
   final Color? confidentialColor;
   final Color? labelColor;
   final Color valueColor;
+  final PayslipDetailResponse? detailData;
+  final PayslipDataList? payslip;
 
   @override
   Widget build(BuildContext context) {
@@ -52,16 +58,20 @@ class PayslipDetailsSection extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _buildDetailItem(textTheme, labelColor, valueColor,
-                      "Payroll Period", "August 2025"),
-                  SizedBox(height: 16.h),
-                  _buildDetailItem(
-                      textTheme, labelColor, valueColor, "Employee ID", "002"),
-                  SizedBox(height: 16.h),
-                  _buildDetailItem(
-                      textTheme, labelColor, valueColor, "Job Level", "Staff"),
+                      "Payroll Period", payslip?.payrun?.periodLabel ?? '-'),
                   SizedBox(height: 16.h),
                   _buildDetailItem(textTheme, labelColor, valueColor,
-                      "Taxpayer ID Number (NPWP)", "12.345.678.9-012.000"),
+                      "Employee ID", "${detailData?.employee?.id ?? "N/A"}"),
+                  SizedBox(height: 16.h),
+                  _buildDetailItem(textTheme, labelColor, valueColor,
+                      "Job Level", detailData?.employee?.jobLevel ?? "N/A"),
+                  SizedBox(height: 16.h),
+                  _buildDetailItem(
+                      textTheme,
+                      labelColor,
+                      valueColor,
+                      "Taxpayer ID Number (NPWP)",
+                      detailData?.employee?.npwp ?? "N/A"),
                 ],
               ),
             ),
@@ -72,13 +82,17 @@ class PayslipDetailsSection extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _buildDetailItem(textTheme, labelColor, valueColor,
-                      "Employee Name", "Phoenix Baker"),
+                      "Employee Name", detailData?.employee?.name ?? "N/A"),
                   SizedBox(height: 16.h),
                   _buildDetailItem(textTheme, labelColor, valueColor,
-                      "Position", "Product Designer"),
+                      "Position", detailData?.employee?.jobTitle ?? "N/A"),
                   SizedBox(height: 16.h),
-                  _buildDetailItem(textTheme, labelColor, valueColor,
-                      "Department", "Product"),
+                  _buildDetailItem(
+                      textTheme,
+                      labelColor,
+                      valueColor,
+                      "Department",
+                      detailData?.employee?.department?.name ?? "N/A"),
                 ],
               ),
             ),

@@ -739,3 +739,517 @@ abstract class _Link implements Link {
   _$$LinkImplCopyWith<_$LinkImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+Pagination _$PaginationFromJson(Map<String, dynamic> json) {
+  return _Pagination.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Pagination {
+  @JsonKey(name: 'current_page')
+  int? get currentPage => throw _privateConstructorUsedError;
+  @JsonKey(name: 'current_page_url')
+  String? get currentPageUrl => throw _privateConstructorUsedError;
+  @JsonKey(name: 'per_page')
+  int? get perPage => throw _privateConstructorUsedError;
+  int? get total => throw _privateConstructorUsedError;
+  @JsonKey(name: 'last_page')
+  int? get lastPage => throw _privateConstructorUsedError;
+  int? get from => throw _privateConstructorUsedError;
+  int? get to => throw _privateConstructorUsedError;
+  @JsonKey(name: 'first')
+  String? get first => throw _privateConstructorUsedError;
+  @JsonKey(name: 'last')
+  String? get last => throw _privateConstructorUsedError;
+  @JsonKey(name: 'prev')
+  String? get prev => throw _privateConstructorUsedError;
+  @JsonKey(name: 'next')
+  String? get next => throw _privateConstructorUsedError;
+  @JsonKey(name: 'last_page_url')
+  String? get lastPageUrl => throw _privateConstructorUsedError;
+  @JsonKey(name: 'first_page_url')
+  String? get firstPageUrl => throw _privateConstructorUsedError;
+  @JsonKey(name: 'next_page_url')
+  String? get nextPageUrl => throw _privateConstructorUsedError;
+  String? get path => throw _privateConstructorUsedError;
+  @JsonKey(name: 'prev_page_url')
+  String? get prevPageUrl => throw _privateConstructorUsedError;
+
+  /// Serializes this Pagination to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of Pagination
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $PaginationCopyWith<Pagination> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $PaginationCopyWith<$Res> {
+  factory $PaginationCopyWith(
+          Pagination value, $Res Function(Pagination) then) =
+      _$PaginationCopyWithImpl<$Res, Pagination>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'current_page') int? currentPage,
+      @JsonKey(name: 'current_page_url') String? currentPageUrl,
+      @JsonKey(name: 'per_page') int? perPage,
+      int? total,
+      @JsonKey(name: 'last_page') int? lastPage,
+      int? from,
+      int? to,
+      @JsonKey(name: 'first') String? first,
+      @JsonKey(name: 'last') String? last,
+      @JsonKey(name: 'prev') String? prev,
+      @JsonKey(name: 'next') String? next,
+      @JsonKey(name: 'last_page_url') String? lastPageUrl,
+      @JsonKey(name: 'first_page_url') String? firstPageUrl,
+      @JsonKey(name: 'next_page_url') String? nextPageUrl,
+      String? path,
+      @JsonKey(name: 'prev_page_url') String? prevPageUrl});
+}
+
+/// @nodoc
+class _$PaginationCopyWithImpl<$Res, $Val extends Pagination>
+    implements $PaginationCopyWith<$Res> {
+  _$PaginationCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of Pagination
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? currentPage = freezed,
+    Object? currentPageUrl = freezed,
+    Object? perPage = freezed,
+    Object? total = freezed,
+    Object? lastPage = freezed,
+    Object? from = freezed,
+    Object? to = freezed,
+    Object? first = freezed,
+    Object? last = freezed,
+    Object? prev = freezed,
+    Object? next = freezed,
+    Object? lastPageUrl = freezed,
+    Object? firstPageUrl = freezed,
+    Object? nextPageUrl = freezed,
+    Object? path = freezed,
+    Object? prevPageUrl = freezed,
+  }) {
+    return _then(_value.copyWith(
+      currentPage: freezed == currentPage
+          ? _value.currentPage
+          : currentPage // ignore: cast_nullable_to_non_nullable
+              as int?,
+      currentPageUrl: freezed == currentPageUrl
+          ? _value.currentPageUrl
+          : currentPageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      perPage: freezed == perPage
+          ? _value.perPage
+          : perPage // ignore: cast_nullable_to_non_nullable
+              as int?,
+      total: freezed == total
+          ? _value.total
+          : total // ignore: cast_nullable_to_non_nullable
+              as int?,
+      lastPage: freezed == lastPage
+          ? _value.lastPage
+          : lastPage // ignore: cast_nullable_to_non_nullable
+              as int?,
+      from: freezed == from
+          ? _value.from
+          : from // ignore: cast_nullable_to_non_nullable
+              as int?,
+      to: freezed == to
+          ? _value.to
+          : to // ignore: cast_nullable_to_non_nullable
+              as int?,
+      first: freezed == first
+          ? _value.first
+          : first // ignore: cast_nullable_to_non_nullable
+              as String?,
+      last: freezed == last
+          ? _value.last
+          : last // ignore: cast_nullable_to_non_nullable
+              as String?,
+      prev: freezed == prev
+          ? _value.prev
+          : prev // ignore: cast_nullable_to_non_nullable
+              as String?,
+      next: freezed == next
+          ? _value.next
+          : next // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lastPageUrl: freezed == lastPageUrl
+          ? _value.lastPageUrl
+          : lastPageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      firstPageUrl: freezed == firstPageUrl
+          ? _value.firstPageUrl
+          : firstPageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      nextPageUrl: freezed == nextPageUrl
+          ? _value.nextPageUrl
+          : nextPageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      path: freezed == path
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
+              as String?,
+      prevPageUrl: freezed == prevPageUrl
+          ? _value.prevPageUrl
+          : prevPageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$PaginationImplCopyWith<$Res>
+    implements $PaginationCopyWith<$Res> {
+  factory _$$PaginationImplCopyWith(
+          _$PaginationImpl value, $Res Function(_$PaginationImpl) then) =
+      __$$PaginationImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'current_page') int? currentPage,
+      @JsonKey(name: 'current_page_url') String? currentPageUrl,
+      @JsonKey(name: 'per_page') int? perPage,
+      int? total,
+      @JsonKey(name: 'last_page') int? lastPage,
+      int? from,
+      int? to,
+      @JsonKey(name: 'first') String? first,
+      @JsonKey(name: 'last') String? last,
+      @JsonKey(name: 'prev') String? prev,
+      @JsonKey(name: 'next') String? next,
+      @JsonKey(name: 'last_page_url') String? lastPageUrl,
+      @JsonKey(name: 'first_page_url') String? firstPageUrl,
+      @JsonKey(name: 'next_page_url') String? nextPageUrl,
+      String? path,
+      @JsonKey(name: 'prev_page_url') String? prevPageUrl});
+}
+
+/// @nodoc
+class __$$PaginationImplCopyWithImpl<$Res>
+    extends _$PaginationCopyWithImpl<$Res, _$PaginationImpl>
+    implements _$$PaginationImplCopyWith<$Res> {
+  __$$PaginationImplCopyWithImpl(
+      _$PaginationImpl _value, $Res Function(_$PaginationImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of Pagination
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? currentPage = freezed,
+    Object? currentPageUrl = freezed,
+    Object? perPage = freezed,
+    Object? total = freezed,
+    Object? lastPage = freezed,
+    Object? from = freezed,
+    Object? to = freezed,
+    Object? first = freezed,
+    Object? last = freezed,
+    Object? prev = freezed,
+    Object? next = freezed,
+    Object? lastPageUrl = freezed,
+    Object? firstPageUrl = freezed,
+    Object? nextPageUrl = freezed,
+    Object? path = freezed,
+    Object? prevPageUrl = freezed,
+  }) {
+    return _then(_$PaginationImpl(
+      currentPage: freezed == currentPage
+          ? _value.currentPage
+          : currentPage // ignore: cast_nullable_to_non_nullable
+              as int?,
+      currentPageUrl: freezed == currentPageUrl
+          ? _value.currentPageUrl
+          : currentPageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      perPage: freezed == perPage
+          ? _value.perPage
+          : perPage // ignore: cast_nullable_to_non_nullable
+              as int?,
+      total: freezed == total
+          ? _value.total
+          : total // ignore: cast_nullable_to_non_nullable
+              as int?,
+      lastPage: freezed == lastPage
+          ? _value.lastPage
+          : lastPage // ignore: cast_nullable_to_non_nullable
+              as int?,
+      from: freezed == from
+          ? _value.from
+          : from // ignore: cast_nullable_to_non_nullable
+              as int?,
+      to: freezed == to
+          ? _value.to
+          : to // ignore: cast_nullable_to_non_nullable
+              as int?,
+      first: freezed == first
+          ? _value.first
+          : first // ignore: cast_nullable_to_non_nullable
+              as String?,
+      last: freezed == last
+          ? _value.last
+          : last // ignore: cast_nullable_to_non_nullable
+              as String?,
+      prev: freezed == prev
+          ? _value.prev
+          : prev // ignore: cast_nullable_to_non_nullable
+              as String?,
+      next: freezed == next
+          ? _value.next
+          : next // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lastPageUrl: freezed == lastPageUrl
+          ? _value.lastPageUrl
+          : lastPageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      firstPageUrl: freezed == firstPageUrl
+          ? _value.firstPageUrl
+          : firstPageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      nextPageUrl: freezed == nextPageUrl
+          ? _value.nextPageUrl
+          : nextPageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      path: freezed == path
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
+              as String?,
+      prevPageUrl: freezed == prevPageUrl
+          ? _value.prevPageUrl
+          : prevPageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$PaginationImpl implements _Pagination {
+  const _$PaginationImpl(
+      {@JsonKey(name: 'current_page') this.currentPage,
+      @JsonKey(name: 'current_page_url') this.currentPageUrl,
+      @JsonKey(name: 'per_page') this.perPage,
+      this.total,
+      @JsonKey(name: 'last_page') this.lastPage,
+      this.from,
+      this.to,
+      @JsonKey(name: 'first') this.first,
+      @JsonKey(name: 'last') this.last,
+      @JsonKey(name: 'prev') this.prev,
+      @JsonKey(name: 'next') this.next,
+      @JsonKey(name: 'last_page_url') this.lastPageUrl,
+      @JsonKey(name: 'first_page_url') this.firstPageUrl,
+      @JsonKey(name: 'next_page_url') this.nextPageUrl,
+      this.path,
+      @JsonKey(name: 'prev_page_url') this.prevPageUrl});
+
+  factory _$PaginationImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PaginationImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'current_page')
+  final int? currentPage;
+  @override
+  @JsonKey(name: 'current_page_url')
+  final String? currentPageUrl;
+  @override
+  @JsonKey(name: 'per_page')
+  final int? perPage;
+  @override
+  final int? total;
+  @override
+  @JsonKey(name: 'last_page')
+  final int? lastPage;
+  @override
+  final int? from;
+  @override
+  final int? to;
+  @override
+  @JsonKey(name: 'first')
+  final String? first;
+  @override
+  @JsonKey(name: 'last')
+  final String? last;
+  @override
+  @JsonKey(name: 'prev')
+  final String? prev;
+  @override
+  @JsonKey(name: 'next')
+  final String? next;
+  @override
+  @JsonKey(name: 'last_page_url')
+  final String? lastPageUrl;
+  @override
+  @JsonKey(name: 'first_page_url')
+  final String? firstPageUrl;
+  @override
+  @JsonKey(name: 'next_page_url')
+  final String? nextPageUrl;
+  @override
+  final String? path;
+  @override
+  @JsonKey(name: 'prev_page_url')
+  final String? prevPageUrl;
+
+  @override
+  String toString() {
+    return 'Pagination(currentPage: $currentPage, currentPageUrl: $currentPageUrl, perPage: $perPage, total: $total, lastPage: $lastPage, from: $from, to: $to, first: $first, last: $last, prev: $prev, next: $next, lastPageUrl: $lastPageUrl, firstPageUrl: $firstPageUrl, nextPageUrl: $nextPageUrl, path: $path, prevPageUrl: $prevPageUrl)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PaginationImpl &&
+            (identical(other.currentPage, currentPage) ||
+                other.currentPage == currentPage) &&
+            (identical(other.currentPageUrl, currentPageUrl) ||
+                other.currentPageUrl == currentPageUrl) &&
+            (identical(other.perPage, perPage) || other.perPage == perPage) &&
+            (identical(other.total, total) || other.total == total) &&
+            (identical(other.lastPage, lastPage) ||
+                other.lastPage == lastPage) &&
+            (identical(other.from, from) || other.from == from) &&
+            (identical(other.to, to) || other.to == to) &&
+            (identical(other.first, first) || other.first == first) &&
+            (identical(other.last, last) || other.last == last) &&
+            (identical(other.prev, prev) || other.prev == prev) &&
+            (identical(other.next, next) || other.next == next) &&
+            (identical(other.lastPageUrl, lastPageUrl) ||
+                other.lastPageUrl == lastPageUrl) &&
+            (identical(other.firstPageUrl, firstPageUrl) ||
+                other.firstPageUrl == firstPageUrl) &&
+            (identical(other.nextPageUrl, nextPageUrl) ||
+                other.nextPageUrl == nextPageUrl) &&
+            (identical(other.path, path) || other.path == path) &&
+            (identical(other.prevPageUrl, prevPageUrl) ||
+                other.prevPageUrl == prevPageUrl));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      currentPage,
+      currentPageUrl,
+      perPage,
+      total,
+      lastPage,
+      from,
+      to,
+      first,
+      last,
+      prev,
+      next,
+      lastPageUrl,
+      firstPageUrl,
+      nextPageUrl,
+      path,
+      prevPageUrl);
+
+  /// Create a copy of Pagination
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PaginationImplCopyWith<_$PaginationImpl> get copyWith =>
+      __$$PaginationImplCopyWithImpl<_$PaginationImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$PaginationImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Pagination implements Pagination {
+  const factory _Pagination(
+          {@JsonKey(name: 'current_page') final int? currentPage,
+          @JsonKey(name: 'current_page_url') final String? currentPageUrl,
+          @JsonKey(name: 'per_page') final int? perPage,
+          final int? total,
+          @JsonKey(name: 'last_page') final int? lastPage,
+          final int? from,
+          final int? to,
+          @JsonKey(name: 'first') final String? first,
+          @JsonKey(name: 'last') final String? last,
+          @JsonKey(name: 'prev') final String? prev,
+          @JsonKey(name: 'next') final String? next,
+          @JsonKey(name: 'last_page_url') final String? lastPageUrl,
+          @JsonKey(name: 'first_page_url') final String? firstPageUrl,
+          @JsonKey(name: 'next_page_url') final String? nextPageUrl,
+          final String? path,
+          @JsonKey(name: 'prev_page_url') final String? prevPageUrl}) =
+      _$PaginationImpl;
+
+  factory _Pagination.fromJson(Map<String, dynamic> json) =
+      _$PaginationImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'current_page')
+  int? get currentPage;
+  @override
+  @JsonKey(name: 'current_page_url')
+  String? get currentPageUrl;
+  @override
+  @JsonKey(name: 'per_page')
+  int? get perPage;
+  @override
+  int? get total;
+  @override
+  @JsonKey(name: 'last_page')
+  int? get lastPage;
+  @override
+  int? get from;
+  @override
+  int? get to;
+  @override
+  @JsonKey(name: 'first')
+  String? get first;
+  @override
+  @JsonKey(name: 'last')
+  String? get last;
+  @override
+  @JsonKey(name: 'prev')
+  String? get prev;
+  @override
+  @JsonKey(name: 'next')
+  String? get next;
+  @override
+  @JsonKey(name: 'last_page_url')
+  String? get lastPageUrl;
+  @override
+  @JsonKey(name: 'first_page_url')
+  String? get firstPageUrl;
+  @override
+  @JsonKey(name: 'next_page_url')
+  String? get nextPageUrl;
+  @override
+  String? get path;
+  @override
+  @JsonKey(name: 'prev_page_url')
+  String? get prevPageUrl;
+
+  /// Create a copy of Pagination
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$PaginationImplCopyWith<_$PaginationImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}

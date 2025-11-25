@@ -1,20 +1,15 @@
 // lib/core/widgets/leave_type_chip.dart
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hrms_mobile/application/theme/i_theme.dart';
 import 'package:hrms_mobile/core/enums/payslip_view_enum.dart';
-import 'package:hrms_mobile/features/payslip/data/models/response/payslip_list_response.dart';
 
-class PayslipViewStatus extends StatelessWidget {
-  final PayslipViewType type;
-  final PayslipDataList payslip;
+class PrintViewStatus extends StatelessWidget {
+  final PrintViewType type;
 
-  const PayslipViewStatus({
+  const PrintViewStatus({
     super.key,
     required this.type,
-    required this.payslip,
   });
 
   @override
@@ -29,16 +24,8 @@ class PayslipViewStatus extends StatelessWidget {
       ),
       child: Row(
         children: [
-          SvgPicture.asset(
-            type.icons,
-            colorFilter:
-                ColorFilter.mode(type.colors.foreground, BlendMode.srcIn),
-          ),
-          SizedBox(
-            width: 5.w,
-          ),
           Text(
-            type.displayName(payslip),
+            type.displayName,
             style: ITheme.light.textTheme.labelSmall?.copyWith(
               color: chipColors.foreground,
               fontWeight: FontWeight.w600,

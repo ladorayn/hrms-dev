@@ -67,6 +67,8 @@ class RoutePaths {
   static const payslipViewName = 'payslipView';
   static const payslipPrintRequest = '/payslip-print-request';
   static const payslipPrintRequestName = 'payslipPrintRequest';
+  static const payslipPrintSubmitted = '/payslip-print-submitted';
+  static const payslipPrintSubmittedName = 'payslipPrintSubmitted';
 
   // Profile
   static const profileDetail = '/profile-detail';

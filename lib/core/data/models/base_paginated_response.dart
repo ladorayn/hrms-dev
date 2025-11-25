@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hrms_mobile/core/data/models/paginated_response.dart';
 
 part 'base_paginated_response.freezed.dart';
 part 'base_paginated_response.g.dart';
@@ -36,9 +37,11 @@ class LinksModel with _$LinksModel {
 @Freezed(genericArgumentFactories: true)
 class BasePaginatedResponse<T> with _$BasePaginatedResponse<T> {
   const factory BasePaginatedResponse({
-    required int code,
-    required String message,
+    String? status,
+    int? code,
+    String? message,
     required List<T> data,
+    Pagination? pagination,
     LinksModel? links,
     MetaModel? meta,
   }) = _BasePaginatedResponse<T>;
@@ -56,13 +59,18 @@ class BasePaginatedResponse<T> with _$BasePaginatedResponse<T> {
         ? null
         : MetaModel.fromJson(json['meta'] as Map<String, dynamic>);
 
+    final pagination = json['pagination'] == null
+        ? null
+        : Pagination.fromJson(json['pagination'] as Map<String, dynamic>);
+
     if (json['data'] == null) {
       return _BasePaginatedResponse<T>(
         message: json['message'] as String,
-        code: json['code'] as int,
+        code: json['code'] as int?,
         data: emptyT(),
         links: links,
         meta: meta,
+        pagination: pagination,
       );
     }
 
@@ -70,9 +78,11 @@ class BasePaginatedResponse<T> with _$BasePaginatedResponse<T> {
     final parsedData = dataList.map((item) => fromJsonT(item)).toList();
 
     return _BasePaginatedResponse<T>(
-      code: json['code'] as int,
-      message: json['message'] as String,
+      status: json['status'],
+      code: json['code'] ?? 0,
+      message: json['message'] as String?,
       data: parsedData,
+      pagination: pagination,
       links: links,
       meta: meta,
     );

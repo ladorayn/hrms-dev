@@ -33,7 +33,9 @@ import 'package:hrms_mobile/features/offboarding/presentation/screens/offboardin
 import 'package:hrms_mobile/features/offboarding/presentation/screens/work_handover_screen.dart';
 import 'package:hrms_mobile/features/overtime_request/presentation/screens/overtime_history_edit_screen.dart';
 import 'package:hrms_mobile/features/overtime_request/presentation/screens/overtime_request_screen.dart';
+import 'package:hrms_mobile/features/payslip/data/models/response/payslip_list_response.dart';
 import 'package:hrms_mobile/features/payslip/presentation/screens/payslip_print_request_screen.dart';
+import 'package:hrms_mobile/features/payslip/presentation/screens/payslip_print_submitted_screen.dart';
 import 'package:hrms_mobile/features/payslip/presentation/screens/payslip_screen.dart';
 import 'package:hrms_mobile/features/payslip/presentation/screens/payslip_view_request_screen.dart';
 import 'package:hrms_mobile/features/payslip/presentation/screens/payslip_view_screen.dart';
@@ -262,17 +264,34 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: RoutePaths.payslipViewRequest,
         name: RoutePaths.payslipViewRequestName,
-        builder: (context, state) => const PayslipViewRequestScreen(),
+        builder: (context, state) {
+          final data = state.extra as PayslipDataList;
+          return PayslipViewRequestScreen(data: data);
+        },
       ),
       GoRoute(
         path: RoutePaths.payslipView,
         name: RoutePaths.payslipViewName,
-        builder: (context, state) => const PayslipViewScreen(),
+        builder: (context, state) {
+          final data = state.extra as PayslipDataList;
+          return PayslipViewScreen(payslip: data);
+        },
       ),
       GoRoute(
         path: RoutePaths.payslipPrintRequest,
         name: RoutePaths.payslipPrintRequestName,
-        builder: (context, state) => const PayslipPrintRequestScreen(),
+        builder: (context, state) {
+          final data = state.extra as PayslipDataList;
+          return PayslipPrintRequestScreen(data: data);
+        },
+      ),
+      GoRoute(
+        path: RoutePaths.payslipPrintSubmitted,
+        name: RoutePaths.payslipPrintSubmittedName,
+        builder: (context, state) {
+          final data = state.extra as PayslipDataList;
+          return PayslipPrintSubmittedScreen(data: data);
+        },
       ),
       GoRoute(
         path: RoutePaths.attendance,
@@ -295,14 +314,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: RoutePaths.selfAssessment,
         name: RoutePaths.selfAssessmentName,
-        builder: (context, state) =>
-            const SelfAssessmentScreen(), // Replace with your EmployeesScreen
+        builder: (context, state) => const SelfAssessmentScreen(),
       ),
       GoRoute(
         path: RoutePaths.assessmentForm,
         name: RoutePaths.assessmentFormName,
-        builder: (context, state) =>
-            const AssessmentFormScreen(), // Replace with your EmployeesScreen
+        builder: (context, state) => const AssessmentFormScreen(),
       ),
       GoRoute(
         path: RoutePaths.managerAssessment,

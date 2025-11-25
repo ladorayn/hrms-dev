@@ -42,3 +42,28 @@ class Link with _$Link {
 
   factory Link.fromJson(Map<String, dynamic> json) => _$LinkFromJson(json);
 }
+
+@freezed
+class Pagination with _$Pagination {
+  const factory Pagination({
+    @JsonKey(name: 'current_page') int? currentPage,
+    @JsonKey(name: 'current_page_url') String? currentPageUrl,
+    @JsonKey(name: 'per_page') int? perPage,
+    int? total,
+    @JsonKey(name: 'last_page') int? lastPage,
+    int? from,
+    int? to,
+    @JsonKey(name: 'first') String? first,
+    @JsonKey(name: 'last') String? last,
+    @JsonKey(name: 'prev') String? prev,
+    @JsonKey(name: 'next') String? next,
+    @JsonKey(name: 'last_page_url') String? lastPageUrl,
+    @JsonKey(name: 'first_page_url') String? firstPageUrl,
+    @JsonKey(name: 'next_page_url') String? nextPageUrl,
+    String? path,
+    @JsonKey(name: 'prev_page_url') String? prevPageUrl,
+  }) = _Pagination;
+
+  factory Pagination.fromJson(Map<String, dynamic> json) =>
+      _$PaginationFromJson(json);
+}
