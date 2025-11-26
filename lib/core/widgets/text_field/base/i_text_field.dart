@@ -228,8 +228,12 @@ class ITextFieldBase extends StatelessWidget {
       borderColor,
     );
 
+    final bool isFieldEnabled = enabled && !readOnly;
+
+    final VoidCallback? finalOnTap = readOnly ? () {} : onTap;
+
     return TextFormField(
-      enabled: enabled,
+      enabled: isFieldEnabled,
       key: textFieldKey,
       controller: controller,
       style: defaultContentStyle,
@@ -242,7 +246,7 @@ class ITextFieldBase extends StatelessWidget {
       keyboardType: keyboardType,
       textCapitalization: textCapitalization,
       enableInteractiveSelection: !useVirtualKeyboard,
-      onTap: onTap,
+      onTap: finalOnTap,
       obscureText: obscureText,
       onChanged: (value) {
         if (value.endsWith("  ")) {
@@ -276,7 +280,7 @@ class ITextFieldBase extends StatelessWidget {
         // Hides default error text space
         counterText: "",
         filled: true,
-        fillColor: enabled ? Colors.white : Colors.grey.shade200,
+        fillColor: isFieldEnabled ? Colors.white : Colors.grey.shade200,
       ),
     );
   }

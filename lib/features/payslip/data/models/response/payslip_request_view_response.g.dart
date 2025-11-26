@@ -77,9 +77,7 @@ _$PayslipDetailEmployeeImpl _$$PayslipDetailEmployeeImplFromJson(
       jobTitle: json['job_title'] as String?,
       jobLevel: json['job_level'] as String?,
       npwp: json['npwp'] as String?,
-      department: json['department'] == null
-          ? null
-          : Department.fromJson(json['department'] as Map<String, dynamic>),
+      department: json['department'] as String?,
     );
 
 Map<String, dynamic> _$$PayslipDetailEmployeeImplToJson(

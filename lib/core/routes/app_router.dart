@@ -1,6 +1,6 @@
 // core/navigation/app_router.dart
 
-import 'package:flutter/material.dart'; // Add this import for Placeholder
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/core/data/models/employees/employee_profile_response.dart';
@@ -39,6 +39,8 @@ import 'package:hrms_mobile/features/payslip/presentation/screens/payslip_print_
 import 'package:hrms_mobile/features/payslip/presentation/screens/payslip_screen.dart';
 import 'package:hrms_mobile/features/payslip/presentation/screens/payslip_view_request_screen.dart';
 import 'package:hrms_mobile/features/payslip/presentation/screens/payslip_view_screen.dart';
+import 'package:hrms_mobile/features/performance/data/models/response/assessment_list.dart'
+    as assessment;
 import 'package:hrms_mobile/features/performance/presentation/screens/assessment_form_manager_screen.dart';
 import 'package:hrms_mobile/features/performance/presentation/screens/assessment_form_screen.dart';
 import 'package:hrms_mobile/features/performance/presentation/screens/performance_screen.dart';
@@ -314,24 +316,48 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: RoutePaths.selfAssessment,
         name: RoutePaths.selfAssessmentName,
-        builder: (context, state) => const SelfAssessmentScreen(),
+        builder: (context, state) {
+          final data = state.extra as List<assessment.AssessmentList>;
+          return SelfAssessmentScreen(assessments: data);
+        },
       ),
       GoRoute(
         path: RoutePaths.assessmentForm,
         name: RoutePaths.assessmentFormName,
-        builder: (context, state) => const AssessmentFormScreen(),
+        builder: (context, state) {
+          final data = state.extra as assessment.AssessmentList;
+          return AssessmentFormScreen(assessment: data);
+        },
       ),
       GoRoute(
         path: RoutePaths.managerAssessment,
         name: RoutePaths.managerAssessmentName,
-        builder: (context, state) => const ManagerAssessmentLandingScreen(
-            quarterTitle: "Self Assessment-Q4 2025"),
+        builder: (context, state) {
+          final data = state.extra as assessment.AssessmentList;
+          return ManagerAssessmentLandingScreen(assessment: data);
+        },
       ),
       GoRoute(
         path: RoutePaths.assessmentManagerForm,
         name: RoutePaths.assessmentManagerFormName,
-        builder: (context, state) =>
-            const AssessmentFormManagerScreen(), // Replace with your EmployeesScreen
+        builder: (context, state) {
+          final data = state.extra as Map<String, dynamic>?;
+          if (data == null ||
+              data['member'] == null ||
+              data['period'] == null) {
+            return const Scaffold(
+                body: Center(child: Text('Error: Assessment data missing.')));
+          }
+
+          // Extract member and period from the map
+          final member = data['member'] as assessment.TeamMember;
+          final period = data['period'] as String;
+
+          return AssessmentFormManagerScreen(
+            member: member,
+            period: period,
+          );
+        },
       ),
       // --- ROUTES WITH THE BOTTOM NAV BAR (Using ShellRoute) ---
       ShellRoute(

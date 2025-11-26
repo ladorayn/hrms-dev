@@ -817,7 +817,7 @@ mixin _$PayslipDetailEmployee {
   @JsonKey(name: 'job_level')
   String? get jobLevel => throw _privateConstructorUsedError;
   String? get npwp => throw _privateConstructorUsedError;
-  Department? get department => throw _privateConstructorUsedError;
+  String? get department => throw _privateConstructorUsedError;
 
   /// Serializes this PayslipDetailEmployee to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -844,9 +844,7 @@ abstract class $PayslipDetailEmployeeCopyWith<$Res> {
       @JsonKey(name: 'job_title') String? jobTitle,
       @JsonKey(name: 'job_level') String? jobLevel,
       String? npwp,
-      Department? department});
-
-  $DepartmentCopyWith<$Res>? get department;
+      String? department});
 }
 
 /// @nodoc
@@ -911,22 +909,8 @@ class _$PayslipDetailEmployeeCopyWithImpl<$Res,
       department: freezed == department
           ? _value.department
           : department // ignore: cast_nullable_to_non_nullable
-              as Department?,
+              as String?,
     ) as $Val);
-  }
-
-  /// Create a copy of PayslipDetailEmployee
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $DepartmentCopyWith<$Res>? get department {
-    if (_value.department == null) {
-      return null;
-    }
-
-    return $DepartmentCopyWith<$Res>(_value.department!, (value) {
-      return _then(_value.copyWith(department: value) as $Val);
-    });
   }
 }
 
@@ -948,10 +932,7 @@ abstract class _$$PayslipDetailEmployeeImplCopyWith<$Res>
       @JsonKey(name: 'job_title') String? jobTitle,
       @JsonKey(name: 'job_level') String? jobLevel,
       String? npwp,
-      Department? department});
-
-  @override
-  $DepartmentCopyWith<$Res>? get department;
+      String? department});
 }
 
 /// @nodoc
@@ -1014,7 +995,7 @@ class __$$PayslipDetailEmployeeImplCopyWithImpl<$Res>
       department: freezed == department
           ? _value.department
           : department // ignore: cast_nullable_to_non_nullable
-              as Department?,
+              as String?,
     ));
   }
 }
@@ -1059,7 +1040,7 @@ class _$PayslipDetailEmployeeImpl implements _PayslipDetailEmployee {
   @override
   final String? npwp;
   @override
-  final Department? department;
+  final String? department;
 
   @override
   String toString() {
@@ -1119,7 +1100,7 @@ abstract class _PayslipDetailEmployee implements PayslipDetailEmployee {
       @JsonKey(name: 'job_title') final String? jobTitle,
       @JsonKey(name: 'job_level') final String? jobLevel,
       final String? npwp,
-      final Department? department}) = _$PayslipDetailEmployeeImpl;
+      final String? department}) = _$PayslipDetailEmployeeImpl;
 
   factory _PayslipDetailEmployee.fromJson(Map<String, dynamic> json) =
       _$PayslipDetailEmployeeImpl.fromJson;
@@ -1145,7 +1126,7 @@ abstract class _PayslipDetailEmployee implements PayslipDetailEmployee {
   @override
   String? get npwp;
   @override
-  Department? get department;
+  String? get department;
 
   /// Create a copy of PayslipDetailEmployee
   /// with the given fields replaced by the non-null parameter values.
@@ -1183,7 +1164,7 @@ mixin _$PayslipDetailResponse {
   @JsonKey(name: 'status_label')
   String? get statusLabel => throw _privateConstructorUsedError;
   @JsonKey(name: 'sent_at')
-  String? get sentAt => throw _privateConstructorUsedError; // Nullable
+  String? get sentAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
   String? get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'updated_at')
@@ -1193,7 +1174,7 @@ mixin _$PayslipDetailResponse {
   @JsonKey(name: 'payrun_id')
   int? get payrunId => throw _privateConstructorUsedError;
   @JsonKey(name: 'employee_id')
-  int? get employeeId => throw _privateConstructorUsedError; // Nullable
+  int? get employeeId => throw _privateConstructorUsedError;
   @JsonKey(name: 'employment_id')
   int? get employmentId => throw _privateConstructorUsedError;
   @JsonKey(name: 'can_be_edited')
@@ -1205,11 +1186,9 @@ mixin _$PayslipDetailResponse {
   @JsonKey(name: 'total_allowances')
   double? get totalAllowances => throw _privateConstructorUsedError;
   @JsonKey(name: 'total_overtime')
-  String? get totalOvertime =>
-      throw _privateConstructorUsedError; // Keeping as String as per JSON
+  String? get totalOvertime => throw _privateConstructorUsedError;
   @JsonKey(name: 'total_penalties')
-  String? get totalPenalties =>
-      throw _privateConstructorUsedError; // Keeping as String as per JSON
+  String? get totalPenalties => throw _privateConstructorUsedError;
   @JsonKey(name: 'total_additional_earnings')
   double? get totalAdditionalEarnings => throw _privateConstructorUsedError;
   @JsonKey(name: 'total_deductions')
@@ -1756,7 +1735,6 @@ class _$PayslipDetailResponseImpl implements _PayslipDetailResponse {
   @override
   @JsonKey(name: 'sent_at')
   final String? sentAt;
-// Nullable
   @override
   @JsonKey(name: 'created_at')
   final String? createdAt;
@@ -1772,7 +1750,6 @@ class _$PayslipDetailResponseImpl implements _PayslipDetailResponse {
   @override
   @JsonKey(name: 'employee_id')
   final int? employeeId;
-// Nullable
   @override
   @JsonKey(name: 'employment_id')
   final int? employmentId;
@@ -1791,11 +1768,9 @@ class _$PayslipDetailResponseImpl implements _PayslipDetailResponse {
   @override
   @JsonKey(name: 'total_overtime')
   final String? totalOvertime;
-// Keeping as String as per JSON
   @override
   @JsonKey(name: 'total_penalties')
   final String? totalPenalties;
-// Keeping as String as per JSON
   @override
   @JsonKey(name: 'total_additional_earnings')
   final double? totalAdditionalEarnings;
@@ -1989,7 +1964,7 @@ abstract class _PayslipDetailResponse implements PayslipDetailResponse {
   String? get statusLabel;
   @override
   @JsonKey(name: 'sent_at')
-  String? get sentAt; // Nullable
+  String? get sentAt;
   @override
   @JsonKey(name: 'created_at')
   String? get createdAt;
@@ -2004,7 +1979,7 @@ abstract class _PayslipDetailResponse implements PayslipDetailResponse {
   int? get payrunId;
   @override
   @JsonKey(name: 'employee_id')
-  int? get employeeId; // Nullable
+  int? get employeeId;
   @override
   @JsonKey(name: 'employment_id')
   int? get employmentId;
@@ -2022,10 +1997,10 @@ abstract class _PayslipDetailResponse implements PayslipDetailResponse {
   double? get totalAllowances;
   @override
   @JsonKey(name: 'total_overtime')
-  String? get totalOvertime; // Keeping as String as per JSON
+  String? get totalOvertime;
   @override
   @JsonKey(name: 'total_penalties')
-  String? get totalPenalties; // Keeping as String as per JSON
+  String? get totalPenalties;
   @override
   @JsonKey(name: 'total_additional_earnings')
   double? get totalAdditionalEarnings;

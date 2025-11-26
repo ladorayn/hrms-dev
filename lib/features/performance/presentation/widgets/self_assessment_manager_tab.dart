@@ -11,7 +11,14 @@ import 'package:hrms_mobile/features/offboarding/data/models/request/exit_form_r
 import 'package:hrms_mobile/features/performance/presentation/providers/performance_provider.dart';
 
 class AssessmentTabFormManagerScreen extends ConsumerStatefulWidget {
-  const AssessmentTabFormManagerScreen({super.key});
+  // 1. Add the isReadOnly property
+  final bool isReadOnly;
+
+  const AssessmentTabFormManagerScreen({
+    super.key,
+    // Require the isReadOnly property
+    required this.isReadOnly,
+  });
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -27,7 +34,7 @@ class _AssessmentTabFormManagerScreenState
   final Map<int, TextEditingController> _notesControllers = {};
 
   bool _isStateInitialized = false;
-  bool _isFormValid = false;
+  bool _isFormValid = false; // Still needed for validation logic if required
 
   // 2. Override wantKeepAlive to true
   @override
@@ -45,12 +52,14 @@ class _AssessmentTabFormManagerScreenState
   void _initializeState(List<FormFields> fields) {
     if (_isStateInitialized) return;
 
+    // --- Initialization logic remains the same (assuming this fetches saved data) ---
     for (final field in fields) {
       switch (field.type) {
         case 'checkbox':
           final optionsMap = <String, bool>{};
           if (field.options is List) {
             for (final option in (field.options as List).cast<String>()) {
+              // Assuming logic for checking saved value is applied here later
               optionsMap[option] = false;
             }
           }
@@ -88,6 +97,8 @@ class _AssessmentTabFormManagerScreenState
   }
 
   void _validateForm() {
+    // Validation logic can be simplified or skipped if always read-only,
+    // but keeping it for consistency if the form could be used for self-entry later.
     final formFields =
         ref.read(performanceFormFieldsProvider(formId: 1 ?? 0)).value;
 
@@ -100,7 +111,7 @@ class _AssessmentTabFormManagerScreenState
     for (final field in formFields) {
       if (field.isRequired) {
         bool isFieldValid = false;
-
+        // ... (existing validation logic)
         switch (field.type) {
           case 'checkbox':
             final answers = _checkboxAnswers[field.id];
@@ -140,6 +151,10 @@ class _AssessmentTabFormManagerScreenState
   }
 
   Future<void> _onSubmit() async {
+    // Since this tab is read-only, _onSubmit should generally be empty or removed.
+    // Keeping the original structure but guarding against accidental execution.
+    if (widget.isReadOnly) return;
+
     final List<SubmissionForm> submissions = [];
 
     _checkboxAnswers.forEach((fieldId, answers) {
@@ -231,6 +246,15 @@ class _AssessmentTabFormManagerScreenState
             },
           ),
         ),
+        // No footer button is needed here since it's read-only
+        if (widget.isReadOnly)
+          Container(
+            padding: EdgeInsets.all(16.w),
+            color: Colors.white,
+            child: Text(
+                'This is the employee\'s submitted assessment (Read-Only).',
+                style: TextStyle(color: IColors.light.grayscale.g60)),
+          ),
       ],
     );
   }
@@ -292,18 +316,28 @@ class _AssessmentTabFormManagerScreenState
     required bool value,
     required ValueChanged<bool?> onChanged,
   }) {
+    // Disable interaction if read-only
+    final ValueChanged<bool?>? handler = widget.isReadOnly ? null : onChanged;
+
     return InkWell(
-      onTap: () {
-        onChanged(!value);
-      },
+      onTap: handler != null ? () => handler(!value) : null,
       child: Row(
         children: [
           Checkbox(
             value: value,
-            onChanged: onChanged,
+            onChanged: handler,
             visualDensity: VisualDensity.compact,
+            // Visually disable the checkbox if read-only
+            activeColor: handler == null
+                ? IColors.light.grayscale.g30
+                : IColors.light.primary.main,
           ),
-          Expanded(child: Text(title)),
+          Expanded(
+              child: Text(title,
+                  style: TextStyle(
+                      color: handler == null
+                          ? IColors.light.grayscale.g60
+                          : Colors.black))),
         ],
       ),
     );
@@ -341,6 +375,7 @@ class _AssessmentTabFormManagerScreenState
   Widget _buildRatingSection(FormFields field) {
     final selectedRating = _ratingAnswers[field.id];
     final notesController = _notesControllers[field.id];
+    final bool isDisabled = widget.isReadOnly;
 
     if (field.options == null || field.options is! Map<String, dynamic>) {
       return const SizedBox.shrink();
@@ -358,40 +393,43 @@ class _AssessmentTabFormManagerScreenState
           children: List.generate(count, (index) {
             final rating = options.min + index;
             final isSelected = rating == selectedRating;
+
+            final buttonStyle = ElevatedButton.styleFrom(
+              backgroundColor: isSelected
+                  ? IColors.light.primary.main
+                  : (isDisabled ? IColors.light.grayscale.g10 : Colors.white),
+              foregroundColor:
+                  isSelected ? Colors.white : IColors.light.primary.main,
+              shape: RoundedRectangleBorder(
+                side: BorderSide(
+                    color: isDisabled
+                        ? IColors.light.grayscale.g30
+                        : IColors.light.primary.main),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              // Dim the button if disabled
+              elevation: isDisabled ? 0 : 2,
+            );
+
             return Expanded(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 4.w),
-                child: isSelected
-                    ? ElevatedButton(
-                        onPressed: () {
+                child: ElevatedButton(
+                  onPressed: isDisabled
+                      ? null
+                      : () {
                           setState(() => _ratingAnswers[field.id] = rating);
                           _validateForm();
                         },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: IColors.light.primary.main,
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            side: BorderSide(color: IColors.light.primary.main),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        child: Text('$rating'),
-                      )
-                    : ElevatedButton(
-                        onPressed: () {
-                          setState(() => _ratingAnswers[field.id] = rating);
-                          _validateForm();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          foregroundColor: IColors.light.primary.main,
-                          shape: RoundedRectangleBorder(
-                            side: BorderSide(color: IColors.light.primary.main),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        child: Text('$rating'),
-                      ),
+                  style: buttonStyle,
+                  child: Text('$rating',
+                      style: TextStyle(
+                          color: isDisabled
+                              ? IColors.light.grayscale.g60
+                              : (isSelected
+                                  ? Colors.white
+                                  : IColors.light.primary.main))),
+                ),
               ),
             );
           }),
@@ -401,6 +439,7 @@ class _AssessmentTabFormManagerScreenState
           ITextFieldTextArea(
             controller: notesController,
             hintText: '',
+            readOnly: isDisabled, // Apply read-only here
           ),
         ],
       ],
@@ -409,6 +448,8 @@ class _AssessmentTabFormManagerScreenState
 
   Widget _buildTextAreaSection(FormFields field) {
     final controller = _notesControllers[field.id];
+    final bool isDisabled = widget.isReadOnly;
+
     // If controller is null, return a placeholder or loader instead of shrinking
     if (controller == null) return const SizedBox.shrink();
 
@@ -419,6 +460,10 @@ class _AssessmentTabFormManagerScreenState
         ITextFieldTextArea(
           controller: controller,
           hintText: '',
+          readOnly: isDisabled, // Apply read-only here
+          // FIX: Explicitly set onTap to null to prevent focus/keyboard pop-up
+          // This should prevent the field from capturing focus when tapped.
+          onTap: isDisabled ? () {} : null,
         ),
       ],
     );

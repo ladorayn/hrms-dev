@@ -62,7 +62,7 @@ class PayslipDetailEmployee with _$PayslipDetailEmployee {
     @JsonKey(name: 'job_title') String? jobTitle,
     @JsonKey(name: 'job_level') String? jobLevel,
     String? npwp,
-    Department? department,
+    String? department,
   }) = _PayslipDetailEmployee;
 
   factory PayslipDetailEmployee.fromJson(Map<String, dynamic> json) =>
@@ -87,21 +87,19 @@ class PayslipDetailResponse with _$PayslipDetailResponse {
     String? currency,
     int? status,
     @JsonKey(name: 'status_label') String? statusLabel,
-    @JsonKey(name: 'sent_at') String? sentAt, // Nullable
+    @JsonKey(name: 'sent_at') String? sentAt,
     @JsonKey(name: 'created_at') String? createdAt,
     @JsonKey(name: 'updated_at') String? updatedAt,
     @JsonKey(name: 'tenant_id') int? tenantId,
     @JsonKey(name: 'payrun_id') int? payrunId,
-    @JsonKey(name: 'employee_id') int? employeeId, // Nullable
+    @JsonKey(name: 'employee_id') int? employeeId,
     @JsonKey(name: 'employment_id') int? employmentId,
     @JsonKey(name: 'can_be_edited') bool? canBeEdited,
     @JsonKey(name: 'can_be_approved') bool? canBeApproved,
     @JsonKey(name: 'can_be_voided') bool? canBeVoided,
     @JsonKey(name: 'total_allowances') double? totalAllowances,
-    @JsonKey(name: 'total_overtime')
-    String? totalOvertime, // Keeping as String as per JSON
-    @JsonKey(name: 'total_penalties')
-    String? totalPenalties, // Keeping as String as per JSON
+    @JsonKey(name: 'total_overtime') String? totalOvertime,
+    @JsonKey(name: 'total_penalties') String? totalPenalties,
     @JsonKey(name: 'total_additional_earnings') double? totalAdditionalEarnings,
     @JsonKey(name: 'total_deductions') double? totalDeductions,
   }) = _PayslipDetailResponse;

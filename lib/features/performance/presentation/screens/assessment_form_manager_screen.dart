@@ -3,26 +3,31 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
+import 'package:hrms_mobile/features/performance/data/models/response/assessment_list.dart';
 import 'package:hrms_mobile/features/performance/presentation/widgets/assessment_validation_manager_tab.dart';
 import 'package:hrms_mobile/features/performance/presentation/widgets/self_assessment_manager_tab.dart';
 import 'package:hrms_mobile/features/performance/presentation/widgets/team_member_information.dart';
 
 class AssessmentFormManagerScreen extends ConsumerWidget {
-  const AssessmentFormManagerScreen({super.key});
+  final TeamMember member;
+  final String period;
+
+  const AssessmentFormManagerScreen(
+      {super.key, required this.member, required this.period});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      appBar: IAppBar(title: "Team Member Self Assessment"),
+      appBar: IAppBar(title: "Self Assessment - $period"),
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xFFF8F8F8),
       body: DefaultTabController(
         length: 2,
         child: Column(
           children: [
-            TeamMemberInfoSection(),
+            TeamMemberInfoSection(member: member),
             SizedBox(height: 8.h),
 
             // --- Tab Bar ---
@@ -41,13 +46,13 @@ class AssessmentFormManagerScreen extends ConsumerWidget {
                 ],
               ),
             ),
-
-            // --- Tab View (Expanded to fill remaining space) ---
             Expanded(
               child: TabBarView(
                 children: [
                   // Make sure these widgets implement AutomaticKeepAliveClientMixin
-                  AssessmentTabFormManagerScreen(),
+                  AssessmentTabFormManagerScreen(
+                    isReadOnly: true,
+                  ),
                   AssessmentValidationFormTabManagerScreen(),
                 ],
               ),

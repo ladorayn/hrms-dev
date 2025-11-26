@@ -10,14 +10,15 @@ import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/core/widgets/i_footer_button.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
 import 'package:hrms_mobile/features/offboarding/data/models/request/exit_form_request.dart';
+import 'package:hrms_mobile/features/performance/data/models/response/assessment_list.dart';
 import 'package:hrms_mobile/features/performance/presentation/providers/performance_provider.dart';
 
 class AssessmentFormScreen extends ConsumerStatefulWidget {
-  // final performanceStatusResponse data;
+  final AssessmentList assessment;
 
   const AssessmentFormScreen({
     super.key,
-    // required this.data,
+    required this.assessment,
   });
 
   @override

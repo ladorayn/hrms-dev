@@ -8,64 +8,21 @@ import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
+import 'package:hrms_mobile/features/performance/data/models/response/assessment_list.dart';
 
 class ManagerAssessmentLandingScreen extends ConsumerWidget {
-  final String quarterTitle;
+  final AssessmentList assessment;
 
   const ManagerAssessmentLandingScreen({
     super.key,
-    required this.quarterTitle,
+    required this.assessment,
   });
-
-  // --- Dummy Data ---
-  final Map<String, dynamic> _myAssessmentData = const {
-    'title': 'Q4 2025',
-    'status': 'Incomplete',
-    'dueDate': 'November 2, 2025'
-  };
-
-  final List<Map<String, String>> _dummyTeamMembers = const [
-    {
-      'name': 'Olivia Rhye',
-      'role': 'Senior Product Designer',
-      'status': 'Incomplete',
-      'avatarUrl': 'https://i.pravatar.cc/150?img=1', // Placeholder
-      'alert': 'true',
-    },
-    {
-      'name': 'Candice Wu',
-      'role': 'Senior Product Designer',
-      'status': 'Incomplete',
-      'avatarUrl': 'https://i.pravatar.cc/150?img=2',
-      'alert': 'true',
-    },
-    {
-      'name': 'Demi Wilkinson',
-      'role': 'Senior Product Designer',
-      'status': 'Complete',
-      'avatarUrl': 'https://i.pravatar.cc/150?img=3',
-      'alert': 'true',
-    },
-    {
-      'name': 'Natali Craig',
-      'role': 'Junior Product Designer',
-      'status': 'Complete',
-      'avatarUrl': 'https://i.pravatar.cc/150?img=4',
-      'alert': 'false',
-    },
-    {
-      'name': 'Phoenix Baker',
-      'role': 'Junior Product Designer',
-      'status': 'Validated',
-      'avatarUrl': 'https://i.pravatar.cc/150?img=5',
-      'alert': 'false',
-    },
-  ];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final teamMembers = assessment.teamMember ?? [];
     return Scaffold(
-      appBar: IAppBar(title: "Self Assessment - $quarterTitle"),
+      appBar: IAppBar(title: "Self Assessment - ${assessment.period}"),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
@@ -78,11 +35,11 @@ class ManagerAssessmentLandingScreen extends ConsumerWidget {
                 children: [
                   _buildAssessmentTile(
                     context,
-                    item: _myAssessmentData,
+                    item: assessment,
                     onTap: () {
                       globalNavigatorKey.currentContext?.pushNamed(
                         RoutePaths.assessmentFormName,
-                        extra: {'assessmentId': 'manager_self'},
+                        extra: assessment,
                       );
                     },
                   ),
@@ -92,13 +49,17 @@ class ManagerAssessmentLandingScreen extends ConsumerWidget {
               _buildAssessmentSection(
                 context,
                 title: 'Team Member Self Assessment',
-                children: _dummyTeamMembers.map((member) {
+                children: teamMembers.map((member) {
                   return _buildTeamMemberTile(
                     context,
                     member: member,
                     onTap: () {
                       globalNavigatorKey.currentContext?.pushNamed(
                         RoutePaths.assessmentManagerFormName,
+                        extra: {
+                          "member": member,
+                          "period": assessment.period,
+                        },
                       );
                     },
                   );
@@ -135,13 +96,13 @@ class ManagerAssessmentLandingScreen extends ConsumerWidget {
 
   Widget _buildAssessmentTile(
     BuildContext context, {
-    required Map<String, dynamic> item,
+    required AssessmentList item,
     required VoidCallback onTap,
   }) {
     final textTheme = Theme.of(context).textTheme;
-    final title = item['title']!;
-    final status = item['status']!;
-    final dueDate = item['dueDate'];
+    final title = item.period ?? 'N/A';
+    final status = item.status ?? item.status ?? 'N/A'; // Use status label
+    final dueDate = item.dueDate ?? 'N/A';
 
     return GestureDetector(
       onTap: onTap,
@@ -159,7 +120,7 @@ class ManagerAssessmentLandingScreen extends ConsumerWidget {
               style: textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500),
             ),
             _buildStatusChip(context, status),
-            if (dueDate != null) _buildDueDateLabel(context, dueDate),
+            _buildDueDateLabel(context, dueDate),
           ],
         ),
         trailing: Icon(
@@ -174,20 +135,22 @@ class ManagerAssessmentLandingScreen extends ConsumerWidget {
 
   Widget _buildTeamMemberTile(
     BuildContext context, {
-    required Map<String, String> member,
+    required TeamMember member,
     required VoidCallback onTap,
   }) {
     final textTheme = Theme.of(context).textTheme;
-    final bool showAlert = member['alert'] == 'true';
+    final bool showAlert = false;
+    final statusLabel = member.statusLabel ?? 'N/A';
 
     return GestureDetector(
       onTap: onTap,
       child: ListTile(
         dense: true,
         visualDensity: VisualDensity.compact,
-        leading: CircleAvatar(
-          radius: 20.r,
-          backgroundImage: NetworkImage(member['avatarUrl']!),
+        leading: _buildProfileAvatar(
+          member.photoProfileUrl,
+          member.userName,
+          20.r,
         ),
         title: Wrap(
           spacing: 8.w,
@@ -195,17 +158,17 @@ class ManagerAssessmentLandingScreen extends ConsumerWidget {
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
             Text(
-              member['name']!,
+              member.userName ?? 'N/A',
               style: textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500),
             ),
-            _buildStatusChip(context, member['status']!),
+            _buildStatusChip(context, statusLabel),
             if (showAlert) ...[
               SvgPicture.asset(IAssets.alert),
             ],
           ],
         ),
         subtitle: Text(
-          member['role']!,
+          member.jobPositionName ?? 'N/A',
           style: textTheme.bodyMedium?.copyWith(
             color: IColors.light.grayscale.g60,
           ),
@@ -220,29 +183,53 @@ class ManagerAssessmentLandingScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildStatusChip(BuildContext context, String status) {
+  Widget _buildProfileAvatar(String? photoUrl, String? name, double radius) {
+    final hasValidUrl =
+        photoUrl != null && Uri.tryParse(photoUrl)?.hasAbsolutePath == true;
+    final initials =
+        name != null && name.isNotEmpty ? name[0].toUpperCase() : '?';
+
+    if (hasValidUrl) {
+      return CircleAvatar(
+        radius: radius,
+        backgroundImage: NetworkImage(photoUrl!),
+        onBackgroundImageError: (exception, stackTrace) {},
+        child: Container(),
+      );
+    } else {
+      return CircleAvatar(
+        radius: radius,
+        backgroundColor: IColors.light.primary.background,
+        child: Text(
+          initials,
+          style: TextStyle(
+            color: IColors.light.primary.main,
+            fontWeight: FontWeight.bold,
+            fontSize: radius,
+          ),
+        ),
+      );
+    }
+  }
+
+  Widget _buildStatusChip(BuildContext context, String statusLabel) {
     final textTheme = Theme.of(context).textTheme;
+    final String status = statusLabel.toLowerCase();
+    final bool isComplete = status == 'complete';
+    final bool isNotStarted = status == 'not started';
 
     Color color;
     Color bgColor;
 
-    switch (status) {
-      case 'Complete':
-        color = IColors.light.primary.hover;
-        bgColor = IColors.light.primary.background;
-        break;
-      case 'Validated':
-        color = IColors.light.success.hover;
-        bgColor = IColors.light.success.background;
-        break;
-      case 'Incomplete':
-        color = IColors.light.error.hover;
-        bgColor = IColors.light.error.background;
-        break;
-      default:
-        color = IColors.light.warning.main;
-        bgColor = IColors.light.warning.background;
-        break;
+    if (isComplete) {
+      color = IColors.light.success.main;
+      bgColor = IColors.light.success.background;
+    } else if (isNotStarted) {
+      color = IColors.light.grayscale.g60;
+      bgColor = IColors.light.grayscale.g10;
+    } else {
+      color = IColors.light.warning.main;
+      bgColor = IColors.light.warning.background;
     }
 
     return Container(
@@ -252,7 +239,7 @@ class ManagerAssessmentLandingScreen extends ConsumerWidget {
         borderRadius: BorderRadius.circular(12.r),
       ),
       child: Text(
-        status,
+        statusLabel,
         style: textTheme.bodySmall?.copyWith(
           color: color,
           fontWeight: FontWeight.w500,
