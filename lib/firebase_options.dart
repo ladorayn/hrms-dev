@@ -52,11 +52,12 @@ class DefaultFirebaseOptions {
     }
   }
 
+  // --- UPDATED ANDROID OPTIONS ---
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBwAungK2h0ZxRNFuHudkdmJYXBX__C-nQ',
-    appId: '1:688050341408:android:24042985af287bbd87de45',
-    messagingSenderId: '688050341408',
-    projectId: 'hrms-okjob-dev',
-    storageBucket: 'hrms-okjob-dev.firebasestorage.app',
+    apiKey: 'AIzaSyBoeNZLo4S_e6jucrn_oQzZSs5j5jpSQ5Y',
+    appId: '1:471772247202:android:0a6cfc70ad45ac98c193fb',
+    messagingSenderId: '471772247202',
+    projectId: 'hrms-local-kikik',
+    storageBucket: 'hrms-local-kikik.firebasestorage.app',
   );
 }

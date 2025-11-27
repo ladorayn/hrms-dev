@@ -1,43 +1,39 @@
+// import 'package:http/http.dart' as http; // <--- REMOVED: Replaced by Dio
+import 'package:dio/dio.dart'; // <--- ADDED: Use your consistent network library
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+// Assuming you have an error handler utility
+import 'package:hrms_mobile/core/errors/error_handler.dart';
 import 'package:hrms_mobile/core/services/notifications/local_notification_service.dart';
 
 // Top-level function for background messages (REQUIRED by FCM)
-// Must be defined outside of any class.
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // NOTE: Firebase.initializeApp() is not strictly needed here if you
-  // only rely on the passed message data and don't call other Firebase services.
   debugPrint('FCM Background Handler: ${message.messageId}');
-  // You can still perform tasks here, like saving to a database.
 }
 
 class PushNotificationService {
   final FirebaseMessaging _fcm = FirebaseMessaging.instance;
-
-  // Use a GlobalKey for navigation, as FCM listeners run outside of widget context
   final GlobalKey<NavigatorState> navigatorKey;
+  final Dio _dio;
 
-  PushNotificationService(this.navigatorKey);
+  PushNotificationService(this.navigatorKey, this._dio);
+
+  static const String _tokenRegistrationUrl = 'api/v1/user/fcm-token';
 
   Future<void> initializePushNotifications() async {
-    // 1. Set the top-level background message handler
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
-    // 2. Request platform permissions (iOS and newer Android)
     await _requestPermissions();
-
-    // 3. Get token and set up refresh listener for backend registration
     await _getTokenAndListenForRefresh();
-
-    // 4. Set up listeners for messages in all states (Foreground, Background, Terminated)
     _setupMessageListeners();
   }
 
   Future<void> _requestPermissions() async {
     NotificationSettings settings = await _fcm.requestPermission(
-      alert: true, badge: true, sound: true,
-      provisional: true, // Optional: for quiet notifications on iOS
+      alert: true,
+      badge: true,
+      sound: true,
+      provisional: true,
     );
 
     if (settings.authorizationStatus == AuthorizationStatus.authorized ||
@@ -47,43 +43,60 @@ class PushNotificationService {
       debugPrint('User declined permission.');
     }
 
-    // Request Android 13+ permission if needed (safe to call always)
     LocalNotificationService.requestPermissionAndroid13();
+  }
+
+  Future<void> sendTokenToBackend(String token) async {
+    try {
+      final response = await _dio.post(
+        _tokenRegistrationUrl,
+        data: {
+          'fcm_token': token,
+        },
+      );
+
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        debugPrint('FCM Token successfully registered/updated with BE.');
+      } else {
+        debugPrint(
+            'FCM Token registration returned unexpected status code: ${response.statusCode}');
+      }
+    } on DioException catch (e) {
+      throw handleDioError(e);
+    } catch (e) {
+      debugPrint('Error during FCM token registration (Non-Dio error): $e');
+    }
   }
 
   Future<void> _getTokenAndListenForRefresh() async {
     String? token = await _fcm.getToken();
-    debugPrint("FCM Registration Token: $token");
 
-    // !!! CRITICAL: SEND THIS TOKEN TO YOUR BACKEND !!!
-    // sendTokenToBackend(token);
+    if (token != null) {
+      debugPrint("FCM Registration Token: $token");
 
-    // Listen for token changes
-    _fcm.onTokenRefresh.listen((newToken) {
-      debugPrint("FCM Token Refreshed: $newToken");
-      // !!! CRITICAL: UPDATE BACKEND WITH NEW TOKEN !!!
-      // sendTokenToBackend(newToken);
-    });
+      await sendTokenToBackend(token);
+
+      _fcm.onTokenRefresh.listen((newToken) {
+        debugPrint("FCM Token Refreshed: $newToken");
+        sendTokenToBackend(newToken);
+      });
+    }
   }
 
   void _setupMessageListeners() {
-    // 4a. Handle message when app is in **TERMINATED** state and user taps notification
     _fcm.getInitialMessage().then((RemoteMessage? message) {
       if (message != null) {
         _handleNotificationTap(message, isLaunch: true);
       }
     });
 
-    // 4b. Handle message when app is in **BACKGROUND** state and user taps notification
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
       _handleNotificationTap(message, isLaunch: false);
     });
 
-    // 4c. Handle message when app is in **FOREGROUND** state
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       debugPrint('Foreground Message received: ${message.notification?.title}');
 
-      // Use the LocalNotificationService to display a heads-up notification banner
       LocalNotificationService.showFCMNotification(message);
     });
   }

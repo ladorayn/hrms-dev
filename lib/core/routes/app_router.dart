@@ -23,6 +23,7 @@ import 'package:hrms_mobile/features/auth/presentation/screens/reset_password/re
 import 'package:hrms_mobile/features/auth/presentation/screens/reset_password/reset_password_success_screen.dart';
 import 'package:hrms_mobile/features/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:hrms_mobile/features/dashboard/presentation/screens/main_screen.dart'; // You will create this file
+import 'package:hrms_mobile/features/inbox/presentation/screens/inbox_screen.dart';
 import 'package:hrms_mobile/features/leave_request/presentation/screens/leave_request_detail_screen.dart';
 import 'package:hrms_mobile/features/leave_request/presentation/screens/leave_request_form_screen.dart';
 import 'package:hrms_mobile/features/leave_request/presentation/screens/leave_request_screen.dart';
@@ -384,8 +385,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           // "Inbox" tab
           GoRoute(
             path: RoutePaths.inbox,
-            builder: (context, state) =>
-                const Scaffold(body: Center(child: Text('Inbox'))),
+            builder: (context, state) => const InboxScreen(),
           ),
           // "Profile" tab
           GoRoute(

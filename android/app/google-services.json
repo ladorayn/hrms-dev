@@ -1,13 +1,32 @@
 {
   "project_info": {
-    "project_number": "688050341408",
-    "project_id": "hrms-okjob-dev",
-    "storage_bucket": "hrms-okjob-dev.firebasestorage.app"
+    "project_number": "471772247202",
+    "project_id": "hrms-local-kikik",
+    "storage_bucket": "hrms-local-kikik.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:688050341408:android:24042985af287bbd87de45",
+        "mobilesdk_app_id": "1:471772247202:android:7573af47799fbc38c193fb",
+        "android_client_info": {
+          "package_name": "com.fcmtestapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoeNZLo4S_e6jucrn_oQzZSs5j5jpSQ5Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:471772247202:android:0a6cfc70ad45ac98c193fb",
         "android_client_info": {
           "package_name": "com.okjob.hrms.hrms_mobile"
         }
@@ -15,7 +34,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBwAungK2h0ZxRNFuHudkdmJYXBX__C-nQ"
+          "current_key": "AIzaSyBoeNZLo4S_e6jucrn_oQzZSs5j5jpSQ5Y"
         }
       ],
       "services": {
