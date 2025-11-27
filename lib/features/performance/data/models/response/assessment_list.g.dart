@@ -10,6 +10,7 @@ _$TeamMemberImpl _$$TeamMemberImplFromJson(Map<String, dynamic> json) =>
     _$TeamMemberImpl(
       id: (json['id'] as num?)?.toInt(),
       userName: json['user_name'] as String?,
+      formId: (json['form_id'] as num?)?.toInt(),
       jobPositionName: json['job_position_name'] as String?,
       jobLevelName: json['job_level_name'] as String?,
       departmentName: json['department_name'] as String?,
@@ -23,6 +24,7 @@ Map<String, dynamic> _$$TeamMemberImplToJson(_$TeamMemberImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'user_name': instance.userName,
+      'form_id': instance.formId,
       'job_position_name': instance.jobPositionName,
       'job_level_name': instance.jobLevelName,
       'department_name': instance.departmentName,
@@ -37,6 +39,7 @@ _$AssessmentListImpl _$$AssessmentListImplFromJson(Map<String, dynamic> json) =>
       id: (json['id'] as num?)?.toInt(),
       period: json['period'] as String?,
       status: json['status'] as String?,
+      formId: (json['form_id'] as num?)?.toInt(),
       dueDate: json['due_date'] as String?,
       teamMember: (json['team_member'] as List<dynamic>?)
           ?.map((e) => TeamMember.fromJson(e as Map<String, dynamic>))
@@ -49,6 +52,7 @@ Map<String, dynamic> _$$AssessmentListImplToJson(
       'id': instance.id,
       'period': instance.period,
       'status': instance.status,
+      'form_id': instance.formId,
       'due_date': instance.dueDate,
       'team_member': instance.teamMember,
     };

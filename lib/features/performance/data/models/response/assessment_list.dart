@@ -8,6 +8,7 @@ class TeamMember with _$TeamMember {
   const factory TeamMember({
     int? id,
     @JsonKey(name: 'user_name') String? userName,
+    @JsonKey(name: 'form_id') int? formId,
     @JsonKey(name: 'job_position_name') String? jobPositionName,
     @JsonKey(name: 'job_level_name') String? jobLevelName,
     @JsonKey(name: 'department_name') String? departmentName,
@@ -27,6 +28,7 @@ class AssessmentList with _$AssessmentList {
     int? id,
     String? period,
     String? status,
+    @JsonKey(name: 'form_id') int? formId,
     @JsonKey(name: 'due_date') String? dueDate,
     @JsonKey(name: 'team_member') List<TeamMember>? teamMember,
   }) = _AssessmentList;

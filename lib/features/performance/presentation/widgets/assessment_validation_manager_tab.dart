@@ -59,11 +59,11 @@ class _AssessmentValidationFormTabManagerScreenState
           break;
         case 'range':
           _ratingAnswers[field.id] = null;
-          if (field.metadata != null &&
-              field.metadata is Map<String, dynamic>) {
-            final metadata =
-                FieldMetadata.fromJson(field.metadata as Map<String, dynamic>);
-            if (metadata.isNote == true) {
+          final metadata = field.metadata;
+          if (metadata != null) {
+            final isNote = metadata['is_note'] == true;
+
+            if (isNote) {
               final controller = TextEditingController();
               controller.addListener(_validateForm);
               _notesControllers[field.id] = controller;

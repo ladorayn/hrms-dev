@@ -6,6 +6,52 @@ part of 'form_fields_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+_$FormFieldsGroupResponseImpl _$$FormFieldsGroupResponseImplFromJson(
+        Map<String, dynamic> json) =>
+    _$FormFieldsGroupResponseImpl(
+      status: json['status'] as String,
+      message: json['message'] as String,
+      data: (json['data'] as List<dynamic>)
+          .map((e) => FormFieldsGroup.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$$FormFieldsGroupResponseImplToJson(
+        _$FormFieldsGroupResponseImpl instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
+      'data': instance.data,
+    };
+
+_$FormFieldsGroupImpl _$$FormFieldsGroupImplFromJson(
+        Map<String, dynamic> json) =>
+    _$FormFieldsGroupImpl(
+      id: (json['id'] as num).toInt(),
+      name: json['name'] as String,
+      formId: (json['form_id'] as num).toInt(),
+      order: (json['order'] as num).toInt(),
+      metadata: json['metadata'] as Map<String, dynamic>?,
+      createdAt: json['created_at'] as String,
+      updatedAt: json['updated_at'] as String,
+      fields: (json['fields'] as List<dynamic>)
+          .map((e) => FormFields.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$$FormFieldsGroupImplToJson(
+        _$FormFieldsGroupImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'form_id': instance.formId,
+      'order': instance.order,
+      'metadata': instance.metadata,
+      'created_at': instance.createdAt,
+      'updated_at': instance.updatedAt,
+      'fields': instance.fields,
+    };
+
 _$FormFieldsImpl _$$FormFieldsImplFromJson(Map<String, dynamic> json) =>
     _$FormFieldsImpl(
       id: (json['id'] as num).toInt(),
@@ -19,7 +65,8 @@ _$FormFieldsImpl _$$FormFieldsImplFromJson(Map<String, dynamic> json) =>
       updatedAt: json['updated_at'] as String?,
       deletedAt: json['deleted_at'] as String?,
       description: json['description'] as String?,
-      metadata: json['metadata'],
+      metadata: json['metadata'] as Map<String, dynamic>?,
+      fieldGroupId: (json['field_group_id'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$FormFieldsImplToJson(_$FormFieldsImpl instance) =>
@@ -36,6 +83,7 @@ Map<String, dynamic> _$$FormFieldsImplToJson(_$FormFieldsImpl instance) =>
       'deleted_at': instance.deletedAt,
       'description': instance.description,
       'metadata': instance.metadata,
+      'field_group_id': instance.fieldGroupId,
     };
 
 _$FieldOptionsRangeImpl _$$FieldOptionsRangeImplFromJson(
@@ -50,14 +98,4 @@ Map<String, dynamic> _$$FieldOptionsRangeImplToJson(
     <String, dynamic>{
       'min': instance.min,
       'max': instance.max,
-    };
-
-_$FieldMetadataImpl _$$FieldMetadataImplFromJson(Map<String, dynamic> json) =>
-    _$FieldMetadataImpl(
-      isNote: json['is_note'] as bool?,
-    );
-
-Map<String, dynamic> _$$FieldMetadataImplToJson(_$FieldMetadataImpl instance) =>
-    <String, dynamic>{
-      'is_note': instance.isNote,
     };

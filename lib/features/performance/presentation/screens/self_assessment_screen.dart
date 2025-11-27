@@ -9,12 +9,9 @@ import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_list.dart';
 
 class SelfAssessmentScreen extends ConsumerWidget {
-  // Use the actual model type passed via extra
   final List<AssessmentList> assessments;
 
   const SelfAssessmentScreen({super.key, required this.assessments});
-
-  // Removed constant managerView = false;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -31,27 +28,23 @@ class SelfAssessmentScreen extends ConsumerWidget {
               child: ListView.separated(
                   padding: EdgeInsets.only(top: 20.h),
                   itemBuilder: (context, index) {
-                    // Use the actual data object
                     final item = assessments[index];
                     final title = item.period ?? 'N/A';
                     final status = item.status ?? 'unknown';
-                    // Use status_label for display if available, otherwise use status
-                    final statusLabel = item.status ?? status;
-                    final dueDate = item.dueDate; // Use dueDate directly
 
-                    // Dynamic check for Manager View
-                    // Manager view is TRUE if teamMember list exists and is not empty.
+                    final statusLabel = item.status ?? status;
+                    final dueDate = item.dueDate;
+
                     final isManagerView =
                         item.teamMember != null && item.teamMember!.isNotEmpty;
 
                     return GestureDetector(
                       onTap: () {
-                        // Navigate based on whether team members exist
                         globalNavigatorKey.currentContext?.pushNamed(
                           !isManagerView
                               ? RoutePaths.assessmentFormName
                               : RoutePaths.managerAssessmentName,
-                          extra: item, // Pass the specific assessment item
+                          extra: item,
                         );
                       },
                       child: ListTile(
@@ -69,7 +62,6 @@ class SelfAssessmentScreen extends ConsumerWidget {
                                   ?.copyWith(fontWeight: FontWeight.w500),
                             ),
                             _buildStatusChip(context, statusLabel),
-                            // Check if dueDate is present and not an empty string
                             if (dueDate != null && dueDate.isNotEmpty)
                               _buildDueDateLabel(context, dueDate),
                           ],
@@ -90,7 +82,6 @@ class SelfAssessmentScreen extends ConsumerWidget {
                       endIndent: 16.w,
                     );
                   },
-                  // Use the length of the actual data list
                   itemCount: assessments.length),
             )
           ],
@@ -101,7 +92,6 @@ class SelfAssessmentScreen extends ConsumerWidget {
 
   Widget _buildStatusChip(BuildContext context, String statusLabel) {
     final textTheme = Theme.of(context).textTheme;
-    // Determine color based on status label
     final bool isComplete = statusLabel.toLowerCase() == 'completed';
     final bool isNotStarted = statusLabel.toLowerCase() == 'not started';
 
@@ -112,10 +102,9 @@ class SelfAssessmentScreen extends ConsumerWidget {
       color = IColors.light.success.main;
       bgColor = IColors.light.success.background;
     } else if (isNotStarted) {
-      color = IColors.light.grayscale.g60; // Neutral color for not started
+      color = IColors.light.grayscale.g60;
       bgColor = IColors.light.grayscale.g10;
     } else {
-      // Default to warning/in-progress color
       color = IColors.light.warning.main;
       bgColor = IColors.light.warning.background;
     }

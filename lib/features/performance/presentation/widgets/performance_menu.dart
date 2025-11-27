@@ -46,7 +46,6 @@ class PerformanceMenu extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     final warningColor = IColors.light.warning.main;
 
-    // Define the base style for the chip
     final baseStyle = textTheme.bodySmall?.copyWith(
       color: warningColor,
       fontWeight: FontWeight.w500,
@@ -84,7 +83,6 @@ class PerformanceMenu extends StatelessWidget {
                 ],
               ),
             ),
-            // ------------------------
           ],
         ),
       ),

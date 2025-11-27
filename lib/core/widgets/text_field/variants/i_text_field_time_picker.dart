@@ -37,7 +37,6 @@ class _ITextFieldTimePickerState extends State<ITextFieldTimePicker> {
   @override
   void initState() {
     super.initState();
-    // If a controller is provided, use it. Otherwise, create a new one.
     _controller = widget.controller ?? TextEditingController();
     _selectedTime = widget.initialTime;
 
@@ -84,7 +83,6 @@ class _ITextFieldTimePickerState extends State<ITextFieldTimePicker> {
       setState(() {
         _selectedTime = picked;
         _setTextFromTimeOfDay(picked);
-        // Notify the parent widget of the change
         widget.onTimeChanged?.call(picked);
       });
     }
@@ -115,7 +113,7 @@ class _ITextFieldTimePickerState extends State<ITextFieldTimePicker> {
       controller: _controller,
       isRequired: widget.isRequired,
       label: widget.label,
-      readOnly: true,
+      readOnly: false,
       validator: widget.validator,
       borderColor: IColors.light.grayscale.g30,
       suffixIcon: Padding(

@@ -176,6 +176,176 @@ class _PerformanceFormFieldsProviderElement
   int get formId => (origin as PerformanceFormFieldsProvider).formId;
 }
 
+String _$performanceFormFieldsByGroupHash() =>
+    r'e1ca08738ade76567c09bab69c64ec5edcd597a1';
+
+abstract class _$PerformanceFormFieldsByGroup
+    extends BuildlessAutoDisposeAsyncNotifier<List<FormFieldsGroup>> {
+  late final int formId;
+
+  FutureOr<List<FormFieldsGroup>> build({
+    required int formId,
+  });
+}
+
+/// See also [PerformanceFormFieldsByGroup].
+@ProviderFor(PerformanceFormFieldsByGroup)
+const performanceFormFieldsByGroupProvider =
+    PerformanceFormFieldsByGroupFamily();
+
+/// See also [PerformanceFormFieldsByGroup].
+class PerformanceFormFieldsByGroupFamily
+    extends Family<AsyncValue<List<FormFieldsGroup>>> {
+  /// See also [PerformanceFormFieldsByGroup].
+  const PerformanceFormFieldsByGroupFamily();
+
+  /// See also [PerformanceFormFieldsByGroup].
+  PerformanceFormFieldsByGroupProvider call({
+    required int formId,
+  }) {
+    return PerformanceFormFieldsByGroupProvider(
+      formId: formId,
+    );
+  }
+
+  @override
+  PerformanceFormFieldsByGroupProvider getProviderOverride(
+    covariant PerformanceFormFieldsByGroupProvider provider,
+  ) {
+    return call(
+      formId: provider.formId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'performanceFormFieldsByGroupProvider';
+}
+
+/// See also [PerformanceFormFieldsByGroup].
+class PerformanceFormFieldsByGroupProvider
+    extends AutoDisposeAsyncNotifierProviderImpl<PerformanceFormFieldsByGroup,
+        List<FormFieldsGroup>> {
+  /// See also [PerformanceFormFieldsByGroup].
+  PerformanceFormFieldsByGroupProvider({
+    required int formId,
+  }) : this._internal(
+          () => PerformanceFormFieldsByGroup()..formId = formId,
+          from: performanceFormFieldsByGroupProvider,
+          name: r'performanceFormFieldsByGroupProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$performanceFormFieldsByGroupHash,
+          dependencies: PerformanceFormFieldsByGroupFamily._dependencies,
+          allTransitiveDependencies:
+              PerformanceFormFieldsByGroupFamily._allTransitiveDependencies,
+          formId: formId,
+        );
+
+  PerformanceFormFieldsByGroupProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.formId,
+  }) : super.internal();
+
+  final int formId;
+
+  @override
+  FutureOr<List<FormFieldsGroup>> runNotifierBuild(
+    covariant PerformanceFormFieldsByGroup notifier,
+  ) {
+    return notifier.build(
+      formId: formId,
+    );
+  }
+
+  @override
+  Override overrideWith(PerformanceFormFieldsByGroup Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: PerformanceFormFieldsByGroupProvider._internal(
+        () => create()..formId = formId,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        formId: formId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeAsyncNotifierProviderElement<PerformanceFormFieldsByGroup,
+      List<FormFieldsGroup>> createElement() {
+    return _PerformanceFormFieldsByGroupProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is PerformanceFormFieldsByGroupProvider &&
+        other.formId == formId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, formId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin PerformanceFormFieldsByGroupRef
+    on AutoDisposeAsyncNotifierProviderRef<List<FormFieldsGroup>> {
+  /// The parameter `formId` of this provider.
+  int get formId;
+}
+
+class _PerformanceFormFieldsByGroupProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<
+        PerformanceFormFieldsByGroup,
+        List<FormFieldsGroup>> with PerformanceFormFieldsByGroupRef {
+  _PerformanceFormFieldsByGroupProviderElement(super.provider);
+
+  @override
+  int get formId => (origin as PerformanceFormFieldsByGroupProvider).formId;
+}
+
+String _$assessmentFormSubmissionHash() =>
+    r'473bc092f1631f17047b949adfb1c8fdb15d9955';
+
+/// See also [AssessmentFormSubmission].
+@ProviderFor(AssessmentFormSubmission)
+final assessmentFormSubmissionProvider = AutoDisposeNotifierProvider<
+    AssessmentFormSubmission, AsyncValue<dynamic>>.internal(
+  AssessmentFormSubmission.new,
+  name: r'assessmentFormSubmissionProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$assessmentFormSubmissionHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$AssessmentFormSubmission = AutoDisposeNotifier<AsyncValue<dynamic>>;
 String _$assessmentListRHash() => r'e735a2e0b1247c60258d67144b2d29fcff425e42';
 
 /// See also [AssessmentListR].

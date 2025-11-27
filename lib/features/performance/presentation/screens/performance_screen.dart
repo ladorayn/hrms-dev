@@ -14,7 +14,6 @@ class PerformanceScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // 1. Watch the Assessment List Provider
     final assessmentListAsync = ref.watch(assessmentListRProvider);
 
     return Scaffold(
@@ -45,7 +44,6 @@ class PerformanceScreen extends ConsumerWidget {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.only(top: 20),
-                        // 2. Handle Loading, Error, and Data states
                         child: assessmentListAsync.when(
                           loading: () =>
                               const Center(child: CircularProgressIndicator()),
@@ -55,10 +53,7 @@ class PerformanceScreen extends ConsumerWidget {
                             return SingleChildScrollView(
                               child: Column(
                                 children: [
-                                  // 3. Dynamically generate menus from fetched data
                                   _buildAssessmentMenus(assessments),
-
-                                  // Static OKR Menu (as in original code)
                                   PerformanceMenu(
                                     icon: IAssets.okr,
                                     title: 'My OKR',
@@ -93,7 +88,7 @@ class PerformanceScreen extends ConsumerWidget {
       onTap: () {
         globalNavigatorKey.currentContext?.pushNamed(
           RoutePaths.selfAssessmentName,
-          extra: assessments, // Passing the data object
+          extra: assessments,
         );
       },
     );

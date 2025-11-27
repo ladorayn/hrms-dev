@@ -9,7 +9,7 @@ import 'package:hrms_mobile/core/data/models/form_fields_response.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/core/widgets/i_footer_button.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
-import 'package:hrms_mobile/features/offboarding/data/models/request/exit_form_request.dart';
+import 'package:hrms_mobile/features/performance/data/models/request/assessment_form_request.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_list.dart';
 import 'package:hrms_mobile/features/performance/presentation/providers/performance_provider.dart';
 
@@ -28,14 +28,20 @@ class AssessmentFormScreen extends ConsumerStatefulWidget {
 
 class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
   final Map<int, Map<String, bool>> _checkboxAnswers = {};
-
   final Map<int, int?> _ratingAnswers = {};
-
   final Map<int, TextEditingController> _notesControllers = {};
 
   bool _isStateInitialized = false;
-
   bool _isFormValid = false;
+
+  List<FormFields> get _allFields {
+    final formFieldsGroup = ref
+        .read(performanceFormFieldsByGroupProvider(
+            formId: widget.assessment.formId ?? 14))
+        .value;
+    if (formFieldsGroup == null) return [];
+    return formFieldsGroup.expand((group) => group.fields).toList();
+  }
 
   @override
   void dispose() {
@@ -46,39 +52,41 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
     super.dispose();
   }
 
-  void _initializeState(List<FormFields> fields) {
+  void _initializeState(List<FormFieldsGroup> formGroups) {
     if (_isStateInitialized) return;
 
-    for (final field in fields) {
-      switch (field.type) {
-        case 'checkbox':
-          final optionsMap = <String, bool>{};
-          if (field.options is List) {
-            for (final option in (field.options as List).cast<String>()) {
-              optionsMap[option] = false;
+    for (final group in formGroups) {
+      for (final field in group.fields) {
+        switch (field.type) {
+          case 'checkbox':
+            final optionsMap = <String, bool>{};
+            if (field.options is List) {
+              for (final option in (field.options as List).cast<String>()) {
+                optionsMap[option] = false;
+              }
             }
-          }
-          _checkboxAnswers[field.id] = optionsMap;
-          break;
-        case 'range':
-          _ratingAnswers[field.id] = null;
-          if (field.metadata != null &&
-              field.metadata is Map<String, dynamic>) {
-            final metadata =
-                FieldMetadata.fromJson(field.metadata as Map<String, dynamic>);
-            if (metadata.isNote == true) {
-              final controller = TextEditingController();
-              controller.addListener(_validateForm);
-              _notesControllers[field.id] = controller;
+            _checkboxAnswers[field.id] = optionsMap;
+            break;
+          case 'range':
+            _ratingAnswers[field.id] = null;
+            final metadata = field.metadata;
+            if (metadata != null) {
+              final isNote = metadata['is_note'] == true;
+
+              if (isNote) {
+                final controller = TextEditingController();
+                controller.addListener(_validateForm);
+                _notesControllers[field.id] = controller;
+              }
             }
-          }
-          break;
-        case 'textarea':
-        case 'text':
-          final controller = TextEditingController();
-          controller.addListener(_validateForm);
-          _notesControllers[field.id] = controller;
-          break;
+            break;
+          case 'textarea':
+          case 'text':
+            final controller = TextEditingController();
+            controller.addListener(_validateForm);
+            _notesControllers[field.id] = controller;
+            break;
+        }
       }
     }
     _isStateInitialized = true;
@@ -86,10 +94,10 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
   }
 
   void _validateForm() {
-    final formFields =
-        ref.read(performanceFormFieldsProvider(formId: 1 ?? 0)).value;
+    // Get fields from the helper method
+    final formFields = _allFields;
 
-    if (formFields == null) {
+    if (formFields.isEmpty) {
       setState(() => _isFormValid = false);
       return;
     }
@@ -130,14 +138,28 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
       }
     }
 
-    // Update the state with the result
     setState(() {
       _isFormValid = allRequiredFieldsAreValid;
     });
   }
 
-  Future<void> _onSubmit() async {
+  Future<void> _onSubmit(int statusSubmission) async {
     final List<SubmissionForm> submissions = [];
+
+    _ratingAnswers.forEach((fieldId, rating) {
+      final field = _allFields.firstWhere((f) => f.id == fieldId);
+      final hasNotes = field.metadata?['is_note'] == true;
+
+      submissions.add(SubmissionForm(
+        fieldId: fieldId,
+        value: rating.toString(),
+        additionalData: hasNotes
+            ? {
+                'notes': _notesControllers[fieldId]?.text ?? '',
+              }
+            : null,
+      ));
+    });
 
     _checkboxAnswers.forEach((fieldId, answers) {
       final selectedOptions = answers.entries
@@ -152,16 +174,6 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
       ));
     });
 
-    _ratingAnswers.forEach((fieldId, rating) {
-      submissions.add(SubmissionForm(
-        fieldId: fieldId,
-        value: rating.toString(),
-        additionalData: {
-          'notes': _notesControllers[fieldId]?.text ?? '',
-        },
-      ));
-    });
-
     _notesControllers.forEach((fieldId, controller) {
       if (!_ratingAnswers.containsKey(fieldId)) {
         submissions.add(SubmissionForm(
@@ -170,35 +182,36 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
         ));
       }
     });
-    context.pop();
 
-    // TODO: Add actual form submission logic here
-    // final request = ExitFormRequest(submissions: submissions);
-    // try {
-    //   await ref.read(exitFormSubmissionProvider.notifier).submitForm(
-    //       request: request, formId: 1 ?? 0, offboardingId: widget.data.id ?? 0);
-    //   if (mounted) {
-    //     ScaffoldMessenger.of(context).showSnackBar(
-    //       const SnackBar(content: Text('Form Submitted Successfully!')),
-    //     );
-    //     context.pop();
-    //   }
-    // } catch (e) {
-    //   if (mounted) {
-    //     context.pop();
-    //     ScaffoldMessenger.of(context).showSnackBar(
-    //       SnackBar(content: Text('Submission Failed: ${e.toString()}')),
-    //     );
-    //   }
-    // }
+    final request = AssessmentFormRequest(
+        submissions: submissions, status: statusSubmission);
+    try {
+      await ref.read(assessmentFormSubmissionProvider.notifier).submitForm(
+          request: request, assessmentId: widget.assessment.id ?? 0);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Form Submitted Successfully!')),
+        );
+        context.pop();
+      }
+    } catch (e) {
+      if (mounted) {
+        context.pop();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Submission Failed: ${e.toString()}')),
+        );
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final formFieldsAsync =
-        ref.watch(performanceFormFieldsProvider(formId: 1 ?? 0));
+    final formFieldsAsync = ref.watch(performanceFormFieldsByGroupProvider(
+        formId: widget.assessment.formId ?? 14));
 
-    ref.listen(performanceFormFieldsProvider(formId: 1 ?? 0), (previous, next) {
+    ref.listen(
+        performanceFormFieldsByGroupProvider(
+            formId: widget.assessment.formId ?? 14), (previous, next) {
       if (next.hasValue && !_isStateInitialized) {
         setState(() {
           _initializeState(next.value!);
@@ -207,36 +220,45 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
     });
 
     return Scaffold(
-      appBar: IAppBar(title: "Self Assessment - Q3 2025"),
+      appBar: IAppBar(title: "Self Assessment - ${widget.assessment.period}"),
       body: Column(
         children: [
           Expanded(
             child: formFieldsAsync.when(
               loading: () => const Center(child: CircularProgressIndicator()),
               error: (err, stack) => Center(child: Text('Error: $err')),
-              data: (formFields) {
-                return ListView.separated(
+              data: (formGroups) {
+                return ListView.builder(
                   padding:
                       EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-                  itemCount: formFields.length,
-                  separatorBuilder: (context, index) {
-                    return SizedBox(
-                      height: 16.h,
-                    );
-                  },
-                  itemBuilder: (context, index) {
-                    final field = formFields[index];
+                  itemCount: formGroups.length,
+                  itemBuilder: (context, groupIndex) {
+                    final group = formGroups[groupIndex];
 
-                    return Container(
-                      padding: EdgeInsets.all(12.sp),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8.r),
-                        border: Border.all(
-                          color: IColors.light.grayscale.g20,
-                        ),
-                        color: Colors.white,
-                      ),
-                      child: _buildDynamicField(field),
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // 1. Group Header
+                        _buildGroupHeader(group),
+
+                        // 2. Fields within the Group
+                        ...group.fields.map((field) {
+                          return Padding(
+                            padding: EdgeInsets.only(bottom: 16.h),
+                            child: Container(
+                              padding: EdgeInsets.all(12.sp),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8.r),
+                                border: Border.all(
+                                  color: IColors.light.grayscale.g20,
+                                ),
+                                color: Colors.white,
+                              ),
+                              child: _buildDynamicField(field),
+                            ),
+                          );
+                        }).toList(),
+                      ],
                     );
                   },
                 );
@@ -248,18 +270,32 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
             onPressed: _isFormValid
                 ? () {
                     if (_isStateInitialized) {
-                      _showPopUpConfirmationSubmission(context);
+                      _showPopUpConfirmationSubmission(context, 2);
                     }
                   }
                 : null,
             secondaryText: "Save as Draft",
             onSecondaryPressed: () {
               if (_isStateInitialized) {
-                _showPopUpConfirmationSubmission(context);
+                _showPopUpConfirmationSubmission(context, 1);
               }
             },
           )
         ],
+      ),
+    );
+  }
+
+  Widget _buildGroupHeader(FormFieldsGroup group) {
+    final textTheme = Theme.of(context).textTheme;
+    return Padding(
+      padding: EdgeInsets.only(bottom: 8.h, top: 8.h),
+      child: Text(
+        group.name,
+        style: textTheme.headlineSmall?.copyWith(
+          fontWeight: FontWeight.bold,
+          color: IColors.light.primary.main,
+        ),
       ),
     );
   }
@@ -308,7 +344,6 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
       case 'range':
         return _buildRatingSection(field);
       case 'textarea':
-        return _buildTextAreaSection(field);
       case 'text':
         return _buildTextAreaSection(field);
       default:
@@ -382,48 +417,54 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildFieldHeader(field),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: List.generate(count, (index) {
-            final rating = options.min + index;
-            final isSelected = rating == selectedRating;
-            return Expanded(
-              child: Padding(
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: List.generate(count, (index) {
+              final rating = options.min + index;
+              final isSelected = rating == selectedRating;
+              return Padding(
                 padding: EdgeInsets.symmetric(horizontal: 4.w),
-                child: isSelected
-                    ? ElevatedButton(
-                        onPressed: () {
-                          setState(() => _ratingAnswers[field.id] = rating);
-                          _validateForm();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: IColors.light.primary.main,
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            side: BorderSide(color: IColors.light.primary.main),
-                            borderRadius: BorderRadius.circular(8),
+                child: SizedBox(
+                  width: 40.w,
+                  child: isSelected
+                      ? ElevatedButton(
+                          onPressed: () {
+                            setState(() => _ratingAnswers[field.id] = rating);
+                            _validateForm();
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: IColors.light.primary.main,
+                            foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              side:
+                                  BorderSide(color: IColors.light.primary.main),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            padding: EdgeInsets.zero,
                           ),
-                        ),
-                        child: Text('$rating'),
-                      )
-                    : ElevatedButton(
-                        onPressed: () {
-                          setState(() => _ratingAnswers[field.id] = rating);
-                          _validateForm();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          foregroundColor: IColors.light.primary.main,
-                          shape: RoundedRectangleBorder(
+                          child: Text('$rating'),
+                        )
+                      : OutlinedButton(
+                          onPressed: () {
+                            setState(() => _ratingAnswers[field.id] = rating);
+                            _validateForm();
+                          },
+                          style: OutlinedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            foregroundColor: IColors.light.primary.main,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
                             side: BorderSide(color: IColors.light.primary.main),
-                            borderRadius: BorderRadius.circular(8),
+                            padding: EdgeInsets.zero,
                           ),
+                          child: Text('$rating'),
                         ),
-                        child: Text('$rating'),
-                      ),
-              ),
-            );
-          }),
+                ),
+              );
+            }),
+          ),
         ),
         if (notesController != null) ...[
           SizedBox(height: 12.h),
@@ -452,7 +493,8 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
     );
   }
 
-  Future<void> _showPopUpConfirmationSubmission(BuildContext context) {
+  Future<void> _showPopUpConfirmationSubmission(
+      BuildContext context, int statusSubmission) {
     final textTheme = Theme.of(context).textTheme;
     return showDialog(
       context: context,
@@ -505,7 +547,7 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
                     Expanded(
                         child: ElevatedButton(
                             onPressed: () {
-                              _onSubmit();
+                              _onSubmit(statusSubmission);
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: IColors.light.primary.main,

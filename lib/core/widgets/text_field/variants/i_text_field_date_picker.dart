@@ -104,7 +104,7 @@ class _ITextFieldDatePickerState extends State<ITextFieldDatePicker> {
       controller: _controller,
       isRequired: widget.isRequired,
       label: widget.label,
-      readOnly: true,
+      readOnly: false,
       validator: widget.validator,
       borderColor: IColors.light.grayscale.g30,
       suffixIcon: Padding(

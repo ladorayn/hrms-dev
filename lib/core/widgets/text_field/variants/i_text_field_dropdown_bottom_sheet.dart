@@ -24,7 +24,7 @@ class ITextFieldDropdownBottomSheet extends ITextFieldBase {
     super.prefixIcon,
     this.updateTextOnSelect = true,
   }) : super(
-          readOnly: true,
+          readOnly: false,
           suffixIcon: const Icon(Icons.keyboard_arrow_down),
           borderColor: IColors.light.grayscale.g30,
         );

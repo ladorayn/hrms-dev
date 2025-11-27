@@ -26,6 +26,8 @@ class ExitFormScreen extends ConsumerStatefulWidget {
 class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
   final Map<int, Map<String, bool>> _checkboxAnswers = {};
 
+  final Map<int, String?> _singleSelectionAnswers = {};
+
   final Map<int, int?> _ratingAnswers = {};
 
   final Map<int, TextEditingController> _notesControllers = {};
@@ -59,11 +61,11 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
           break;
         case 'range':
           _ratingAnswers[field.id] = null;
-          if (field.metadata != null &&
-              field.metadata is Map<String, dynamic>) {
-            final metadata =
-                FieldMetadata.fromJson(field.metadata as Map<String, dynamic>);
-            if (metadata.isNote == true) {
+          final metadata = field.metadata;
+          if (metadata != null) {
+            final isNote = metadata['is_note'] == true;
+
+            if (isNote) {
               final controller = TextEditingController();
               controller.addListener(_validateForm);
               _notesControllers[field.id] = controller;
@@ -76,6 +78,9 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
           controller.addListener(_validateForm);
           _notesControllers[field.id] = controller;
           break;
+        case 'select': // Single selection dropdown/picker
+        case 'radio': // Single selection radio group
+          _singleSelectionAnswers[field.id] = null;
       }
     }
     _isStateInitialized = true;
@@ -113,6 +118,13 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
           case 'text':
             final controller = _notesControllers[field.id];
             if (controller != null && controller.text.trim().isNotEmpty) {
+              isFieldValid = true;
+            }
+            break;
+
+          case 'select':
+          case 'radio':
+            if (_singleSelectionAnswers[field.id] != null) {
               isFieldValid = true;
             }
             break;
@@ -158,6 +170,15 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
           'notes': _notesControllers[fieldId]?.text ?? '',
         },
       ));
+    });
+
+    _singleSelectionAnswers.forEach((fieldId, selectedOption) {
+      if (selectedOption != null) {
+        submissions.add(SubmissionForm(
+          fieldId: fieldId,
+          value: selectedOption,
+        ));
+      }
     });
 
     _notesControllers.forEach((fieldId, controller) {
@@ -259,6 +280,9 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
         return _buildTextAreaSection(field);
       case 'text':
         return _buildTextAreaSection(field);
+      case 'select':
+      case 'radio':
+        return _buildSingleSelectionSection(field);
       default:
         return Text('Unknown field type: ${field.type}');
     }
@@ -403,6 +427,65 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
           label: 'Notes',
           hintText: '',
         ),
+      ],
+    );
+  }
+
+  Widget _buildSingleSelectionSection(FormFields field) {
+    if (field.options == null || field.options is! List) {
+      return const SizedBox.shrink();
+    }
+
+    final options = (field.options as List).cast<String>();
+    final selectedOption = _singleSelectionAnswers[field.id];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('${field.order}. ${field.label}',
+            style: Theme.of(context).textTheme.titleMedium),
+        SizedBox(height: 8.h),
+        // If it's a select field, you might prefer a dropdown/menu button
+        if (field.type == 'select')
+          DropdownButtonFormField<String>(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.r),
+              ),
+              contentPadding: EdgeInsets.symmetric(horizontal: 12.w),
+            ),
+            value: selectedOption,
+            hint: const Text('Pilih salah satu opsi'),
+            items: options.map((String option) {
+              return DropdownMenuItem<String>(
+                value: option,
+                child: Text(option),
+              );
+            }).toList(),
+            onChanged: (String? newValue) {
+              setState(() {
+                _singleSelectionAnswers[field.id] = newValue;
+              });
+              _validateForm();
+            },
+            isExpanded: true,
+          )
+        else // Treat 'radio' type as a list of RadioListTiles
+          ...options.map((option) {
+            return RadioListTile<String>(
+              title: Text(option),
+              value: option,
+              groupValue: selectedOption,
+              onChanged: (String? newValue) {
+                setState(() {
+                  _singleSelectionAnswers[field.id] = newValue;
+                });
+                _validateForm();
+              },
+              dense: true,
+              contentPadding: EdgeInsets.zero,
+            );
+          }).toList(),
       ],
     );
   }

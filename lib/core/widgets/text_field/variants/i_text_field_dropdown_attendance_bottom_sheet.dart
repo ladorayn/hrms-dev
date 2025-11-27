@@ -21,7 +21,7 @@ class ITextFieldDropdownAttendanceBottomSheet extends ITextFieldBase {
     required this.options,
     required this.onOptionSelected,
   }) : super(
-          readOnly: true,
+          readOnly: false,
           suffixIcon: const Icon(Icons.keyboard_arrow_down),
           borderColor: IColors.light.grayscale.g30,
         );

@@ -14,15 +14,6 @@ class TeamMemberInfoSection extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     final valueColor = Colors.black;
 
-    // String formattedDate = '-';
-    // if (profile.dateOfBirth != null) {
-    //   try {
-    //     formattedDate = DateTimeHelper.formatDate(profile.dateOfBirth!);
-    //   } catch (e) {
-    //     formattedDate = profile.dateOfBirth!;
-    //   }
-    // }
-
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(

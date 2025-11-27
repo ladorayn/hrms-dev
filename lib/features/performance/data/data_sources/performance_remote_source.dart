@@ -3,6 +3,7 @@ import 'package:hrms_mobile/core/constants/mock_values.dart';
 import 'package:hrms_mobile/core/data/models/base_response.dart';
 import 'package:hrms_mobile/core/data/models/form_fields_response.dart';
 import 'package:hrms_mobile/core/errors/error_handler.dart';
+import 'package:hrms_mobile/features/performance/data/models/request/assessment_form_request.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_list.dart';
 
 class PerformanceRemoteSource {
@@ -22,6 +23,43 @@ class PerformanceRemoteSource {
         (json) => (json as List)
             .map((item) => FormFields.fromJson(item as Map<String, dynamic>))
             .toList(),
+      );
+    } on DioException catch (e) {
+      throw handleDioError(e);
+    }
+  }
+
+  Future<BaseResponse<List<FormFieldsGroup>>> getFormFieldsByGroup(
+      {required int formId}) async {
+    try {
+      final response =
+          await _dio.get('api/v1/form/field/group', queryParameters: {
+        'form_id': formId,
+      });
+
+      return BaseResponse.fromJson(
+        response.data,
+        (json) => (json as List)
+            .map((item) =>
+                FormFieldsGroup.fromJson(item as Map<String, dynamic>))
+            .toList(),
+      );
+    } on DioException catch (e) {
+      throw handleDioError(e);
+    }
+  }
+
+  Future<BaseResponse<String>> assessmentFormSubmission(
+      {required AssessmentFormRequest request, required assessmentId}) async {
+    try {
+      final response = await _dio.post(
+        'api/ess/self-assessment/$assessmentId/submission',
+        data: request,
+      );
+
+      return BaseResponse.fromJson(
+        response.data,
+        (json) => json as String,
       );
     } on DioException catch (e) {
       throw handleDioError(e);

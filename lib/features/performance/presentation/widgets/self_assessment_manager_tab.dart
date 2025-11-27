@@ -11,12 +11,10 @@ import 'package:hrms_mobile/features/offboarding/data/models/request/exit_form_r
 import 'package:hrms_mobile/features/performance/presentation/providers/performance_provider.dart';
 
 class AssessmentTabFormManagerScreen extends ConsumerStatefulWidget {
-  // 1. Add the isReadOnly property
   final bool isReadOnly;
 
   const AssessmentTabFormManagerScreen({
     super.key,
-    // Require the isReadOnly property
     required this.isReadOnly,
   });
 
@@ -34,9 +32,8 @@ class _AssessmentTabFormManagerScreenState
   final Map<int, TextEditingController> _notesControllers = {};
 
   bool _isStateInitialized = false;
-  bool _isFormValid = false; // Still needed for validation logic if required
+  bool _isFormValid = false;
 
-  // 2. Override wantKeepAlive to true
   @override
   bool get wantKeepAlive => true;
 
@@ -52,14 +49,12 @@ class _AssessmentTabFormManagerScreenState
   void _initializeState(List<FormFields> fields) {
     if (_isStateInitialized) return;
 
-    // --- Initialization logic remains the same (assuming this fetches saved data) ---
     for (final field in fields) {
       switch (field.type) {
         case 'checkbox':
           final optionsMap = <String, bool>{};
           if (field.options is List) {
             for (final option in (field.options as List).cast<String>()) {
-              // Assuming logic for checking saved value is applied here later
               optionsMap[option] = false;
             }
           }
@@ -67,11 +62,11 @@ class _AssessmentTabFormManagerScreenState
           break;
         case 'range':
           _ratingAnswers[field.id] = null;
-          if (field.metadata != null &&
-              field.metadata is Map<String, dynamic>) {
-            final metadata =
-                FieldMetadata.fromJson(field.metadata as Map<String, dynamic>);
-            if (metadata.isNote == true) {
+          final metadata = field.metadata;
+          if (metadata != null) {
+            final isNote = metadata['is_note'] == true;
+
+            if (isNote) {
               final controller = TextEditingController();
               controller.addListener(_validateForm);
               _notesControllers[field.id] = controller;
@@ -87,7 +82,6 @@ class _AssessmentTabFormManagerScreenState
       }
     }
 
-    // Update state to prevent re-initialization and show the UI
     if (mounted) {
       setState(() {
         _isStateInitialized = true;
@@ -97,8 +91,6 @@ class _AssessmentTabFormManagerScreenState
   }
 
   void _validateForm() {
-    // Validation logic can be simplified or skipped if always read-only,
-    // but keeping it for consistency if the form could be used for self-entry later.
     final formFields =
         ref.read(performanceFormFieldsProvider(formId: 1 ?? 0)).value;
 
@@ -193,13 +185,11 @@ class _AssessmentTabFormManagerScreenState
 
   @override
   Widget build(BuildContext context) {
-    // 3. Call super.build(context)
     super.build(context);
 
     final formFieldsAsync =
-        ref.watch(performanceFormFieldsProvider(formId: 1 ?? 0));
+        ref.watch(performanceFormFieldsProvider(formId: 14 ?? 0));
 
-    // 4. Handle Data Initialization inside build using whenData
     formFieldsAsync.whenData((fields) {
       if (!_isStateInitialized) {
         // Use microtask to avoid calling setState during build

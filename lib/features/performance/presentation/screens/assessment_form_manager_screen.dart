@@ -29,8 +29,6 @@ class AssessmentFormManagerScreen extends ConsumerWidget {
           children: [
             TeamMemberInfoSection(member: member),
             SizedBox(height: 8.h),
-
-            // --- Tab Bar ---
             Container(
               color: Colors.white,
               child: TabBar(
@@ -49,7 +47,6 @@ class AssessmentFormManagerScreen extends ConsumerWidget {
             Expanded(
               child: TabBarView(
                 children: [
-                  // Make sure these widgets implement AutomaticKeepAliveClientMixin
                   AssessmentTabFormManagerScreen(
                     isReadOnly: true,
                   ),

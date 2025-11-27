@@ -23,6 +23,8 @@ mixin _$TeamMember {
   int? get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'user_name')
   String? get userName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'form_id')
+  int? get formId => throw _privateConstructorUsedError;
   @JsonKey(name: 'job_position_name')
   String? get jobPositionName => throw _privateConstructorUsedError;
   @JsonKey(name: 'job_level_name')
@@ -57,6 +59,7 @@ abstract class $TeamMemberCopyWith<$Res> {
   $Res call(
       {int? id,
       @JsonKey(name: 'user_name') String? userName,
+      @JsonKey(name: 'form_id') int? formId,
       @JsonKey(name: 'job_position_name') String? jobPositionName,
       @JsonKey(name: 'job_level_name') String? jobLevelName,
       @JsonKey(name: 'department_name') String? departmentName,
@@ -83,6 +86,7 @@ class _$TeamMemberCopyWithImpl<$Res, $Val extends TeamMember>
   $Res call({
     Object? id = freezed,
     Object? userName = freezed,
+    Object? formId = freezed,
     Object? jobPositionName = freezed,
     Object? jobLevelName = freezed,
     Object? departmentName = freezed,
@@ -100,6 +104,10 @@ class _$TeamMemberCopyWithImpl<$Res, $Val extends TeamMember>
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
               as String?,
+      formId: freezed == formId
+          ? _value.formId
+          : formId // ignore: cast_nullable_to_non_nullable
+              as int?,
       jobPositionName: freezed == jobPositionName
           ? _value.jobPositionName
           : jobPositionName // ignore: cast_nullable_to_non_nullable
@@ -143,6 +151,7 @@ abstract class _$$TeamMemberImplCopyWith<$Res>
   $Res call(
       {int? id,
       @JsonKey(name: 'user_name') String? userName,
+      @JsonKey(name: 'form_id') int? formId,
       @JsonKey(name: 'job_position_name') String? jobPositionName,
       @JsonKey(name: 'job_level_name') String? jobLevelName,
       @JsonKey(name: 'department_name') String? departmentName,
@@ -167,6 +176,7 @@ class __$$TeamMemberImplCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? userName = freezed,
+    Object? formId = freezed,
     Object? jobPositionName = freezed,
     Object? jobLevelName = freezed,
     Object? departmentName = freezed,
@@ -184,6 +194,10 @@ class __$$TeamMemberImplCopyWithImpl<$Res>
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
               as String?,
+      formId: freezed == formId
+          ? _value.formId
+          : formId // ignore: cast_nullable_to_non_nullable
+              as int?,
       jobPositionName: freezed == jobPositionName
           ? _value.jobPositionName
           : jobPositionName // ignore: cast_nullable_to_non_nullable
@@ -222,6 +236,7 @@ class _$TeamMemberImpl implements _TeamMember {
   const _$TeamMemberImpl(
       {this.id,
       @JsonKey(name: 'user_name') this.userName,
+      @JsonKey(name: 'form_id') this.formId,
       @JsonKey(name: 'job_position_name') this.jobPositionName,
       @JsonKey(name: 'job_level_name') this.jobLevelName,
       @JsonKey(name: 'department_name') this.departmentName,
@@ -238,6 +253,9 @@ class _$TeamMemberImpl implements _TeamMember {
   @override
   @JsonKey(name: 'user_name')
   final String? userName;
+  @override
+  @JsonKey(name: 'form_id')
+  final int? formId;
   @override
   @JsonKey(name: 'job_position_name')
   final String? jobPositionName;
@@ -262,7 +280,7 @@ class _$TeamMemberImpl implements _TeamMember {
 
   @override
   String toString() {
-    return 'TeamMember(id: $id, userName: $userName, jobPositionName: $jobPositionName, jobLevelName: $jobLevelName, departmentName: $departmentName, statusLabel: $statusLabel, photoProfileUrl: $photoProfileUrl, submittedOn: $submittedOn, validatedOn: $validatedOn)';
+    return 'TeamMember(id: $id, userName: $userName, formId: $formId, jobPositionName: $jobPositionName, jobLevelName: $jobLevelName, departmentName: $departmentName, statusLabel: $statusLabel, photoProfileUrl: $photoProfileUrl, submittedOn: $submittedOn, validatedOn: $validatedOn)';
   }
 
   @override
@@ -273,6 +291,7 @@ class _$TeamMemberImpl implements _TeamMember {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.userName, userName) ||
                 other.userName == userName) &&
+            (identical(other.formId, formId) || other.formId == formId) &&
             (identical(other.jobPositionName, jobPositionName) ||
                 other.jobPositionName == jobPositionName) &&
             (identical(other.jobLevelName, jobLevelName) ||
@@ -295,6 +314,7 @@ class _$TeamMemberImpl implements _TeamMember {
       runtimeType,
       id,
       userName,
+      formId,
       jobPositionName,
       jobLevelName,
       departmentName,
@@ -323,6 +343,7 @@ abstract class _TeamMember implements TeamMember {
   const factory _TeamMember(
           {final int? id,
           @JsonKey(name: 'user_name') final String? userName,
+          @JsonKey(name: 'form_id') final int? formId,
           @JsonKey(name: 'job_position_name') final String? jobPositionName,
           @JsonKey(name: 'job_level_name') final String? jobLevelName,
           @JsonKey(name: 'department_name') final String? departmentName,
@@ -340,6 +361,9 @@ abstract class _TeamMember implements TeamMember {
   @override
   @JsonKey(name: 'user_name')
   String? get userName;
+  @override
+  @JsonKey(name: 'form_id')
+  int? get formId;
   @override
   @JsonKey(name: 'job_position_name')
   String? get jobPositionName;
@@ -379,6 +403,8 @@ mixin _$AssessmentList {
   int? get id => throw _privateConstructorUsedError;
   String? get period => throw _privateConstructorUsedError;
   String? get status => throw _privateConstructorUsedError;
+  @JsonKey(name: 'form_id')
+  int? get formId => throw _privateConstructorUsedError;
   @JsonKey(name: 'due_date')
   String? get dueDate => throw _privateConstructorUsedError;
   @JsonKey(name: 'team_member')
@@ -404,6 +430,7 @@ abstract class $AssessmentListCopyWith<$Res> {
       {int? id,
       String? period,
       String? status,
+      @JsonKey(name: 'form_id') int? formId,
       @JsonKey(name: 'due_date') String? dueDate,
       @JsonKey(name: 'team_member') List<TeamMember>? teamMember});
 }
@@ -426,6 +453,7 @@ class _$AssessmentListCopyWithImpl<$Res, $Val extends AssessmentList>
     Object? id = freezed,
     Object? period = freezed,
     Object? status = freezed,
+    Object? formId = freezed,
     Object? dueDate = freezed,
     Object? teamMember = freezed,
   }) {
@@ -442,6 +470,10 @@ class _$AssessmentListCopyWithImpl<$Res, $Val extends AssessmentList>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String?,
+      formId: freezed == formId
+          ? _value.formId
+          : formId // ignore: cast_nullable_to_non_nullable
+              as int?,
       dueDate: freezed == dueDate
           ? _value.dueDate
           : dueDate // ignore: cast_nullable_to_non_nullable
@@ -466,6 +498,7 @@ abstract class _$$AssessmentListImplCopyWith<$Res>
       {int? id,
       String? period,
       String? status,
+      @JsonKey(name: 'form_id') int? formId,
       @JsonKey(name: 'due_date') String? dueDate,
       @JsonKey(name: 'team_member') List<TeamMember>? teamMember});
 }
@@ -486,6 +519,7 @@ class __$$AssessmentListImplCopyWithImpl<$Res>
     Object? id = freezed,
     Object? period = freezed,
     Object? status = freezed,
+    Object? formId = freezed,
     Object? dueDate = freezed,
     Object? teamMember = freezed,
   }) {
@@ -502,6 +536,10 @@ class __$$AssessmentListImplCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String?,
+      formId: freezed == formId
+          ? _value.formId
+          : formId // ignore: cast_nullable_to_non_nullable
+              as int?,
       dueDate: freezed == dueDate
           ? _value.dueDate
           : dueDate // ignore: cast_nullable_to_non_nullable
@@ -521,6 +559,7 @@ class _$AssessmentListImpl implements _AssessmentList {
       {this.id,
       this.period,
       this.status,
+      @JsonKey(name: 'form_id') this.formId,
       @JsonKey(name: 'due_date') this.dueDate,
       @JsonKey(name: 'team_member') final List<TeamMember>? teamMember})
       : _teamMember = teamMember;
@@ -534,6 +573,9 @@ class _$AssessmentListImpl implements _AssessmentList {
   final String? period;
   @override
   final String? status;
+  @override
+  @JsonKey(name: 'form_id')
+  final int? formId;
   @override
   @JsonKey(name: 'due_date')
   final String? dueDate;
@@ -550,7 +592,7 @@ class _$AssessmentListImpl implements _AssessmentList {
 
   @override
   String toString() {
-    return 'AssessmentList(id: $id, period: $period, status: $status, dueDate: $dueDate, teamMember: $teamMember)';
+    return 'AssessmentList(id: $id, period: $period, status: $status, formId: $formId, dueDate: $dueDate, teamMember: $teamMember)';
   }
 
   @override
@@ -561,6 +603,7 @@ class _$AssessmentListImpl implements _AssessmentList {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.period, period) || other.period == period) &&
             (identical(other.status, status) || other.status == status) &&
+            (identical(other.formId, formId) || other.formId == formId) &&
             (identical(other.dueDate, dueDate) || other.dueDate == dueDate) &&
             const DeepCollectionEquality()
                 .equals(other._teamMember, _teamMember));
@@ -568,8 +611,8 @@ class _$AssessmentListImpl implements _AssessmentList {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, period, status, dueDate,
-      const DeepCollectionEquality().hash(_teamMember));
+  int get hashCode => Object.hash(runtimeType, id, period, status, formId,
+      dueDate, const DeepCollectionEquality().hash(_teamMember));
 
   /// Create a copy of AssessmentList
   /// with the given fields replaced by the non-null parameter values.
@@ -593,6 +636,7 @@ abstract class _AssessmentList implements AssessmentList {
           {final int? id,
           final String? period,
           final String? status,
+          @JsonKey(name: 'form_id') final int? formId,
           @JsonKey(name: 'due_date') final String? dueDate,
           @JsonKey(name: 'team_member') final List<TeamMember>? teamMember}) =
       _$AssessmentListImpl;
@@ -606,6 +650,9 @@ abstract class _AssessmentList implements AssessmentList {
   String? get period;
   @override
   String? get status;
+  @override
+  @JsonKey(name: 'form_id')
+  int? get formId;
   @override
   @JsonKey(name: 'due_date')
   String? get dueDate;

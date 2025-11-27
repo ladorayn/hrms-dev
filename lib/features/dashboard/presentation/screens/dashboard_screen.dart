@@ -36,8 +36,13 @@ class DashboardScreen extends ConsumerWidget {
         ref.watch(employeeDetailProvider(id: authP.value?.id ?? 0));
     final companyP = ref.watch(companyProfileProvider);
     final recentActivityState = ref.watch(recentActivityProvider(limit: 10));
-    final getDetail = ref.watch(getDetailAttendanceProvider(
-        attendanceId: todayAttendanceState.value?.id.toString() ?? ''));
+    final String? attendanceId = todayAttendanceState.hasValue
+        ? todayAttendanceState.value?.id.toString()
+        : null;
+
+    final getDetail = attendanceId != null
+        ? ref.watch(getDetailAttendanceProvider(attendanceId: attendanceId))
+        : null;
 
     final getOffboardingStatus = ref.watch(offboardingStatusProvider);
 
@@ -370,86 +375,47 @@ class DashboardScreen extends ConsumerWidget {
                                       ),
                                     ),
                                   ),
-                                  getDetail.when(
-                                    loading: () => const SizedBox.shrink(),
-                                    error: (err, stack) {
-                                      debugPrint(
-                                          'Failed to get attendance detail for duration display: $err');
-                                      return const SizedBox.shrink();
-                                    },
-                                    data: (detail) {
-                                      if (detail?.clock.duration != null) {
-                                        return Container(
-                                          decoration: BoxDecoration(
-                                            color: IColors.light.primary.main,
-                                            border: Border.all(
-                                              color:
-                                                  IColors.light.primary.border,
-                                              width: 1,
+                                  // --- START FIX USAGE ---
+                                  if (getDetail == null)
+                                    const SizedBox.shrink()
+                                  else
+                                    getDetail.when(
+                                      loading: () => const SizedBox.shrink(),
+                                      error: (err, stack) {
+                                        debugPrint(
+                                            'Failed to get attendance detail for duration display: $err');
+                                        return const SizedBox.shrink();
+                                      },
+                                      data: (detail) {
+                                        if (detail?.clock.duration != null) {
+                                          return Container(
+                                            decoration: BoxDecoration(
+                                              color: IColors.light.primary.main,
+                                              border: Border.all(
+                                                color: IColors
+                                                    .light.primary.border,
+                                                width: 1,
+                                              ),
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                      bottomRight:
+                                                          Radius.circular(6),
+                                                      bottomLeft:
+                                                          Radius.circular(6)),
                                             ),
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                                    bottomRight:
-                                                        Radius.circular(6),
-                                                    bottomLeft:
-                                                        Radius.circular(6)),
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(12.0),
-                                            child: IntrinsicHeight(
-                                              child: Row(
-                                                children: [
-                                                  Expanded(
-                                                    child: Row(
-                                                      // spacing: 8, // Invalid property
-                                                      children: [
-                                                        Flexible(
-                                                          child: Text(
-                                                            "Working Time Duration",
-                                                            style: textTheme
-                                                                .labelSmall
-                                                                ?.copyWith(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize: 8.sp,
-                                                            ),
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .visible,
-                                                          ),
-                                                        ),
-                                                        SizedBox(width: 8),
-                                                        // Added SizedBox
-                                                        Text(
-                                                          "${getDetail.value?.clock.duration}",
-                                                          style: textTheme
-                                                              .labelSmall
-                                                              ?.copyWith(
-                                                            color: Colors.white,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 8.sp,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  if (detail?.clock
-                                                          .overtimeDuration !=
-                                                      null) ...[
-                                                    VerticalDivider(
-                                                      width: 20,
-                                                      thickness: 2,
-                                                      color: IColors
-                                                          .light.grayscale.g20,
-                                                    ),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(12.0),
+                                              child: IntrinsicHeight(
+                                                child: Row(
+                                                  children: [
                                                     Expanded(
                                                       child: Row(
                                                         // spacing: 8, // Invalid property
                                                         children: [
                                                           Flexible(
                                                             child: Text(
-                                                              "Overtime Duration",
+                                                              "Working Time Duration",
                                                               style: textTheme
                                                                   .labelSmall
                                                                   ?.copyWith(
@@ -459,16 +425,13 @@ class DashboardScreen extends ConsumerWidget {
                                                               ),
                                                               overflow:
                                                                   TextOverflow
-                                                                      .ellipsis,
+                                                                      .visible,
                                                             ),
                                                           ),
                                                           SizedBox(width: 8),
                                                           // Added SizedBox
                                                           Text(
-                                                            calculateDurationWithTotal(
-                                                                detail?.clock
-                                                                        .overtimeDuration ??
-                                                                    0),
+                                                            "${getDetail.value?.clock.duration}",
                                                             style: textTheme
                                                                 .labelSmall
                                                                 ?.copyWith(
@@ -483,17 +446,68 @@ class DashboardScreen extends ConsumerWidget {
                                                         ],
                                                       ),
                                                     ),
-                                                  ]
-                                                ],
+                                                    if (detail?.clock
+                                                            .overtimeDuration !=
+                                                        null) ...[
+                                                      VerticalDivider(
+                                                        width: 20,
+                                                        thickness: 2,
+                                                        color: IColors.light
+                                                            .grayscale.g20,
+                                                      ),
+                                                      Expanded(
+                                                        child: Row(
+                                                          // spacing: 8, // Invalid property
+                                                          children: [
+                                                            Flexible(
+                                                              child: Text(
+                                                                "Overtime Duration",
+                                                                style: textTheme
+                                                                    .labelSmall
+                                                                    ?.copyWith(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize:
+                                                                      8.sp,
+                                                                ),
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                              ),
+                                                            ),
+                                                            SizedBox(width: 8),
+                                                            // Added SizedBox
+                                                            Text(
+                                                              calculateDurationWithTotal(
+                                                                  detail?.clock
+                                                                          .overtimeDuration ??
+                                                                      0),
+                                                              style: textTheme
+                                                                  .labelSmall
+                                                                  ?.copyWith(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 8.sp,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ]
+                                                  ],
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        );
-                                      } else {
-                                        return const SizedBox.shrink();
-                                      }
-                                    },
-                                  ),
+                                          );
+                                        } else {
+                                          return const SizedBox.shrink();
+                                        }
+                                      },
+                                    ),
+                                  // --- END FIX USAGE ---
                                 ],
                               ),
                             ),
@@ -674,7 +688,7 @@ Widget _buildClockInButton(BuildContext context, WidgetRef ref) {
       onPressed: () async {
         await handleLocationVerification(context, AttendanceEnum.clockIn, ref);
       },
-      icon: Icon(
+      icon: const Icon(
         Icons.add,
         color: Colors.white,
       ),
