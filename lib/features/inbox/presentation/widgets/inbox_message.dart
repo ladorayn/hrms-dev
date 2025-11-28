@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
-import 'package:hrms_mobile/features/inbox/data/models/response/notification_response.dart'; // <--- UPDATED IMPORT
+import 'package:hrms_mobile/features/inbox/data/models/response/notification_response.dart';
 
 class InboxMessage extends StatelessWidget {
-  // Use the live BE model
   final NotificationResponse notification;
   final VoidCallback onTap;
   final bool showDivider;
@@ -16,28 +15,21 @@ class InboxMessage extends StatelessWidget {
     this.showDivider = true,
   });
 
-  // Helper to safely parse BE timestamp strings
   DateTime? _parseTimestamp(String? timestamp) {
     if (timestamp == null) return null;
-    try {
-      // Assuming ISO 8601 format (e.g., "2025-11-27T10:57:00.000Z")
-      return DateTime.tryParse(timestamp)?.toLocal();
-    } catch (_) {
-      return null;
-    }
+    return DateTime.tryParse(timestamp)?.toLocal();
   }
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    // Check if read_at is not null
     final isRead = notification.readAt != null;
     final timestamp = _parseTimestamp(notification.createdAt);
 
-    // Extract data safely
-    final title = notification.data?.title ?? 'No Title';
-    final body = notification.data?.message ?? 'No content available.';
+    final data = notification.data;
+    final title = data?.title ?? 'No Title';
+    final body = data?.message ?? 'No content available';
 
     final unreadColor = IColors.light.grayscale.g80;
     final readColor = IColors.light.grayscale.g50;
@@ -48,7 +40,6 @@ class InboxMessage extends StatelessWidget {
           onTap: onTap,
           leading: Padding(
             padding: EdgeInsets.only(top: 8.h),
-            // Unread indicator (matching the Figma dot)
             child: Icon(
               Icons.circle,
               size: 8.sp,
@@ -59,7 +50,6 @@ class InboxMessage extends StatelessWidget {
             title,
             style: textTheme.titleMedium?.copyWith(
               fontWeight: isRead ? FontWeight.w500 : FontWeight.w700,
-              // Bold when unread
               color: unreadColor,
             ),
           ),
@@ -68,14 +58,12 @@ class InboxMessage extends StatelessWidget {
             children: [
               SizedBox(height: 4.h),
               Text(
-                body, // Notification body text
+                body,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: textTheme.bodyMedium?.copyWith(
                   color: readColor,
-                  fontWeight: isRead
-                      ? FontWeight.w400
-                      : FontWeight.w500, // Medium weight when unread
+                  fontWeight: isRead ? FontWeight.w400 : FontWeight.w500,
                 ),
               ),
               SizedBox(height: 8.h),
@@ -89,16 +77,14 @@ class InboxMessage extends StatelessWidget {
     );
   }
 
-  // New trailing content combining date and arrow
   Widget _buildTrailingContent(
       BuildContext context, DateTime? timestamp, bool isRead) {
     final textTheme = Theme.of(context).textTheme;
+
     String dateLabel = 'N/A';
     if (timestamp != null) {
-      // Format to 'Oct 8' or similar compact date
       dateLabel =
-          '${timestamp.month.toString().padLeft(2, '0')}/${timestamp.day.toString().padLeft(2, '0')}';
-      // You might use package:intl for better date formatting (e.g., DateFormat.MMMd().format(timestamp))
+          "${timestamp.month.toString().padLeft(2, '0')}/${timestamp.day.toString().padLeft(2, '0')}";
     }
 
     return Column(

@@ -1,8 +1,8 @@
 // import 'package:http/http.dart' as http; // <--- REMOVED: Replaced by Dio
 import 'package:dio/dio.dart'; // <--- ADDED: Use your consistent network library
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
-// Assuming you have an error handler utility
+import 'package:flutter/material.dart'; // Assuming you have an error handler utility
+import 'package:hrms_mobile/core/data/models/notifications/fcm_registration_request.dart';
 import 'package:hrms_mobile/core/errors/error_handler.dart';
 import 'package:hrms_mobile/core/services/notifications/local_notification_service.dart';
 
@@ -47,12 +47,11 @@ class PushNotificationService {
   }
 
   Future<void> sendTokenToBackend(String token) async {
+    final request = FCMRegistrationRequest(fcmToken: token);
     try {
-      final response = await _dio.post(
+      final response = await _dio.put(
         _tokenRegistrationUrl,
-        data: {
-          'fcm_token': token,
-        },
+        data: request,
       );
 
       if (response.statusCode! >= 200 && response.statusCode! < 300) {

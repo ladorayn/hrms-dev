@@ -1,25 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
-import 'package:hrms_mobile/features/inbox/presentation/providers/inbox_provider.dart'; // <--- NEW IMPORT
+import 'package:hrms_mobile/features/inbox/data/models/response/notification_response.dart';
+import 'package:hrms_mobile/features/inbox/presentation/providers/inbox_provider.dart';
 import 'package:hrms_mobile/features/inbox/presentation/widgets/inbox_message.dart';
-
-// Removed unused import:
-// import 'package:hrms_mobile/core/services/notifications/notification_model.dart';
 
 class InboxScreen extends ConsumerWidget {
   const InboxScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // 1. Watch the live data from the Riverpod provider
     final notificationsAsync = ref.watch(recentNotificationsProvider);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       appBar: IAppBar(
-        // Title will be calculated dynamically based on loading state
         title: notificationsAsync.when(
           data: (notifications) {
             final unreadCount =
@@ -53,28 +49,25 @@ class InboxScreen extends ConsumerWidget {
                 );
               }
 
-              // We don't need the local notifier here, as marking read will be a use case call
-              // final notifier = ref.read(notificationStoreProvider.notifier);
-
               return ListView.builder(
                 padding: const EdgeInsets.only(top: 20),
                 itemCount: notifications.length,
                 itemBuilder: (context, index) {
                   final notification = notifications[index];
+                  final data = notification.data;
 
                   return InboxMessage(
                     notification: notification,
                     showDivider: index < notifications.length - 1,
                     onTap: () {
-                      // TODO: Implement Mark As Read UseCase call here
-                      // e.g., ref.read(inboxUseCaseProvider).markAsRead(notification.id!);
+                      debugPrint("=== NOTIFICATION TAPPED ===");
+                      debugPrint("ID = ${notification.id}");
+                      debugPrint("Title = ${data?.title}");
+                      debugPrint("Code = ${data?.code}");
+                      debugPrint("Payload = ${data?.data}");
 
-                      // TODO: Implement Deep Linking based on the NotificationData
-                      final payload = notification.data?.data;
-                      if (payload != null) {
-                        debugPrint(
-                            "Tapped notification: ${notification.id}. Payload: $payload");
-                        // PushNotificationService.navigateFromNotification(payload);
+                      if (data?.data != null) {
+                        _handleDeepLink(context, data!.data, data.code);
                       }
                     },
                   );
@@ -82,12 +75,82 @@ class InboxScreen extends ConsumerWidget {
               );
             },
             loading: () => const Center(child: CircularProgressIndicator()),
-            error: (err, stack) => Center(
-              child: Text("No notifications in your inbox."),
-            ),
+            error: (e, stack) {
+              return const Center(child: Text("Something went wrong"));
+            },
           ),
         ),
       ),
     );
+  }
+
+  // NEXT DEVELOPMENT
+  void _handleDeepLink(
+    BuildContext context,
+    NotificationPayload payload,
+    String rawCode,
+  ) {
+    final code = NotificationCode.values.firstWhere(
+      (c) => c.name == rawCode,
+      orElse: () => NotificationCode.UNKNOWN,
+    );
+
+    switch (code) {
+      case NotificationCode.LEAVE_SUBMITTED:
+        // payload.mapOrNull(
+        //   leaveSubmitted: (p) {
+        //     context.push("/leave-history"); // Or details page if you have it
+        //   },
+        // );
+        break;
+
+      // -------------------------
+      // LEAVE UPDATED
+      // -------------------------
+      case NotificationCode.LEAVE_UPDATED:
+        // payload.mapOrNull(
+        //   leaveUpdated: (p) {
+        //     context.push("/leave-history");
+        //   },
+        // );
+        break;
+
+      // -------------------------
+      // PAYSLIP AVAILABLE
+      // -------------------------
+      case NotificationCode.PAYSLIP_AVAILABLE:
+        // payload.mapOrNull(
+        //   payslipAvailable: (p) {
+        //     context.push("/payslip/${p.period}");
+        //   },
+        // );
+        break;
+
+      // -------------------------
+      // PERFORMANCE SUBMITTED
+      // -------------------------
+      case NotificationCode.PERFORMANCE_SUBMITTED:
+        // context.push("/performance");
+        break;
+
+      // -------------------------
+      // OVERTIME SUBMITTED
+      // -------------------------
+      case NotificationCode.OVERTIME_SUBMITTED:
+        // payload.mapOrNull(
+        //   overtimeSubmitted: (p) {
+        //     context.push("/overtime-history");
+        //   },
+        // );
+        break;
+
+      // -------------------------
+      // UNKNOWN OR UNHANDLED
+      // -------------------------
+      case NotificationCode.UNKNOWN:
+      default:
+        debugPrint("⚠️ Unhandled notification code: $rawCode");
+        break;
+    }
   }
 }
