@@ -73,156 +73,183 @@ NotificationPayload _$NotificationPayloadFromJson(Map<String, dynamic> json) {
 mixin _$NotificationPayload {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String email, String result) emailVerification,
-    required TResult Function(String email) resetPasswordRequested,
-    required TResult Function(String time) passwordUpdated,
-    required TResult Function(String device, String location, String time)
+    required TResult Function(String? email, String? result) emailVerification,
+    required TResult Function(String? email) resetPasswordRequested,
+    required TResult Function(String? time) passwordUpdated,
+    required TResult Function(String? device, String? location, String? time)
         loginDevice,
     required TResult Function(
-            String actor, String fields, String status, String time)
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)
         profileUpdated,
-    required TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         departmentChanged,
-    required TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(
+            @JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         managerChanged,
-    required TResult Function(String status, String deadline)
+    required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String date, String time, String interviewer)
+    required TResult Function(String? date, String? time, String? interviewer)
         exitInterviewSchedule,
     required TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)
+            @JsonKey(name: "start_time") String? startTime, int? minutes)
         attendanceReminder,
-    required TResult Function(int grace) attendanceNotPresent,
+    required TResult Function(int? grace) attendanceNotPresent,
     required TResult Function(
-            String date, String start, String end, String approver)
+            String? date, String? start, String? end, String? approver)
         overtimeSubmitted,
-    required TResult Function(String date, String status, String actor)
+    required TResult Function(String? date, String? status, String? actor)
         overtimeUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)
         leaveSubmitted,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)
         leaveUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)
         leaveReminder,
-    required TResult Function(@JsonKey(name: "days_left") int daysLeft,
-            int balance, String deadline)
+    required TResult Function(@JsonKey(name: "days_left") int? daysLeft,
+            int? balance, String? deadline)
         leaveExpiring,
-    required TResult Function(String period) payslipAvailable,
-    required TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)
+    required TResult Function(String? period) payslipAvailable,
+    required TResult Function(
+            @JsonKey(name: "request_type") String? requestType,
+            String? period,
+            String? status)
         payslipRequestUpdated,
     required TResult Function(
-            String period, @JsonKey(name: "due_date") String dueDate)
+            String? period, @JsonKey(name: "due_date") String? dueDate)
         performanceFormOpen,
     required TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)
+            @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
-    required TResult Function(String period) performancePublished,
+    required TResult Function(String? period) performancePublished,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String email, String result)? emailVerification,
-    TResult? Function(String email)? resetPasswordRequested,
-    TResult? Function(String time)? passwordUpdated,
-    TResult? Function(String device, String location, String time)? loginDevice,
-    TResult? Function(String actor, String fields, String status, String time)?
+    TResult? Function(String? email, String? result)? emailVerification,
+    TResult? Function(String? email)? resetPasswordRequested,
+    TResult? Function(String? time)? passwordUpdated,
+    TResult? Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult? Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult? Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult? Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult? Function(String status, String deadline)? offboardingStarted,
-    TResult? Function(String date, String time, String interviewer)?
+    TResult? Function(String? status, String? deadline)? offboardingStarted,
+    TResult? Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult? Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult? Function(int grace)? attendanceNotPresent,
-    TResult? Function(String date, String start, String end, String approver)?
+    TResult? Function(int? grace)? attendanceNotPresent,
+    TResult? Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult? Function(String date, String status, String actor)?
+    TResult? Function(String? date, String? status, String? actor)?
         overtimeUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult? Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult? Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult? Function(String period)? payslipAvailable,
-    TResult? Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult? Function(String? period)? payslipAvailable,
+    TResult? Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult? Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult? Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult? Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
-    TResult? Function(String period)? performancePublished,
+    TResult? Function(String? period)? performancePublished,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email, String result)? emailVerification,
-    TResult Function(String email)? resetPasswordRequested,
-    TResult Function(String time)? passwordUpdated,
-    TResult Function(String device, String location, String time)? loginDevice,
-    TResult Function(String actor, String fields, String status, String time)?
+    TResult Function(String? email, String? result)? emailVerification,
+    TResult Function(String? email)? resetPasswordRequested,
+    TResult Function(String? time)? passwordUpdated,
+    TResult Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult Function(String status, String deadline)? offboardingStarted,
-    TResult Function(String date, String time, String interviewer)?
+    TResult Function(String? status, String? deadline)? offboardingStarted,
+    TResult Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult Function(int grace)? attendanceNotPresent,
-    TResult Function(String date, String start, String end, String approver)?
+    TResult Function(int? grace)? attendanceNotPresent,
+    TResult Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult Function(String date, String status, String actor)? overtimeUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult Function(String? date, String? status, String? actor)?
+        overtimeUpdated,
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult Function(String period)? payslipAvailable,
-    TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult Function(String? period)? payslipAvailable,
+    TResult Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
-    TResult Function(String period)? performancePublished,
+    TResult Function(String? period)? performancePublished,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -355,7 +382,7 @@ abstract class _$$EmailVerificationPayloadImplCopyWith<$Res> {
           $Res Function(_$EmailVerificationPayloadImpl) then) =
       __$$EmailVerificationPayloadImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String email, String result});
+  $Res call({String? email, String? result});
 }
 
 /// @nodoc
@@ -373,43 +400,55 @@ class __$$EmailVerificationPayloadImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? email = null,
-    Object? result = null,
+    Object? email = freezed,
+    Object? result = freezed,
   }) {
     return _then(_$EmailVerificationPayloadImpl(
-      email: null == email
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      result: null == result
+              as String?,
+      result: freezed == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$EmailVerificationPayloadImpl implements EmailVerificationPayload {
+class _$EmailVerificationPayloadImpl
+    with DiagnosticableTreeMixin
+    implements EmailVerificationPayload {
   const _$EmailVerificationPayloadImpl(
-      {required this.email, required this.result, final String? $type})
+      {this.email, this.result, final String? $type})
       : $type = $type ?? 'emailVerification';
 
   factory _$EmailVerificationPayloadImpl.fromJson(Map<String, dynamic> json) =>
       _$$EmailVerificationPayloadImplFromJson(json);
 
   @override
-  final String email;
+  final String? email;
   @override
-  final String result;
+  final String? result;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'NotificationPayload.emailVerification(email: $email, result: $result)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(
+          DiagnosticsProperty('type', 'NotificationPayload.emailVerification'))
+      ..add(DiagnosticsProperty('email', email))
+      ..add(DiagnosticsProperty('result', result));
   }
 
   @override
@@ -437,57 +476,65 @@ class _$EmailVerificationPayloadImpl implements EmailVerificationPayload {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String email, String result) emailVerification,
-    required TResult Function(String email) resetPasswordRequested,
-    required TResult Function(String time) passwordUpdated,
-    required TResult Function(String device, String location, String time)
+    required TResult Function(String? email, String? result) emailVerification,
+    required TResult Function(String? email) resetPasswordRequested,
+    required TResult Function(String? time) passwordUpdated,
+    required TResult Function(String? device, String? location, String? time)
         loginDevice,
     required TResult Function(
-            String actor, String fields, String status, String time)
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)
         profileUpdated,
-    required TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         departmentChanged,
-    required TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(
+            @JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         managerChanged,
-    required TResult Function(String status, String deadline)
+    required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String date, String time, String interviewer)
+    required TResult Function(String? date, String? time, String? interviewer)
         exitInterviewSchedule,
     required TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)
+            @JsonKey(name: "start_time") String? startTime, int? minutes)
         attendanceReminder,
-    required TResult Function(int grace) attendanceNotPresent,
+    required TResult Function(int? grace) attendanceNotPresent,
     required TResult Function(
-            String date, String start, String end, String approver)
+            String? date, String? start, String? end, String? approver)
         overtimeSubmitted,
-    required TResult Function(String date, String status, String actor)
+    required TResult Function(String? date, String? status, String? actor)
         overtimeUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)
         leaveSubmitted,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)
         leaveUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)
         leaveReminder,
-    required TResult Function(@JsonKey(name: "days_left") int daysLeft,
-            int balance, String deadline)
+    required TResult Function(@JsonKey(name: "days_left") int? daysLeft,
+            int? balance, String? deadline)
         leaveExpiring,
-    required TResult Function(String period) payslipAvailable,
-    required TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)
+    required TResult Function(String? period) payslipAvailable,
+    required TResult Function(
+            @JsonKey(name: "request_type") String? requestType,
+            String? period,
+            String? status)
         payslipRequestUpdated,
     required TResult Function(
-            String period, @JsonKey(name: "due_date") String dueDate)
+            String? period, @JsonKey(name: "due_date") String? dueDate)
         performanceFormOpen,
     required TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)
+            @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
-    required TResult Function(String period) performancePublished,
+    required TResult Function(String? period) performancePublished,
   }) {
     return emailVerification(email, result);
   }
@@ -495,52 +542,61 @@ class _$EmailVerificationPayloadImpl implements EmailVerificationPayload {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String email, String result)? emailVerification,
-    TResult? Function(String email)? resetPasswordRequested,
-    TResult? Function(String time)? passwordUpdated,
-    TResult? Function(String device, String location, String time)? loginDevice,
-    TResult? Function(String actor, String fields, String status, String time)?
+    TResult? Function(String? email, String? result)? emailVerification,
+    TResult? Function(String? email)? resetPasswordRequested,
+    TResult? Function(String? time)? passwordUpdated,
+    TResult? Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult? Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult? Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult? Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult? Function(String status, String deadline)? offboardingStarted,
-    TResult? Function(String date, String time, String interviewer)?
+    TResult? Function(String? status, String? deadline)? offboardingStarted,
+    TResult? Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult? Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult? Function(int grace)? attendanceNotPresent,
-    TResult? Function(String date, String start, String end, String approver)?
+    TResult? Function(int? grace)? attendanceNotPresent,
+    TResult? Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult? Function(String date, String status, String actor)?
+    TResult? Function(String? date, String? status, String? actor)?
         overtimeUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult? Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult? Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult? Function(String period)? payslipAvailable,
-    TResult? Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult? Function(String? period)? payslipAvailable,
+    TResult? Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult? Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult? Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult? Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
-    TResult? Function(String period)? performancePublished,
+    TResult? Function(String? period)? performancePublished,
   }) {
     return emailVerification?.call(email, result);
   }
@@ -548,51 +604,61 @@ class _$EmailVerificationPayloadImpl implements EmailVerificationPayload {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email, String result)? emailVerification,
-    TResult Function(String email)? resetPasswordRequested,
-    TResult Function(String time)? passwordUpdated,
-    TResult Function(String device, String location, String time)? loginDevice,
-    TResult Function(String actor, String fields, String status, String time)?
+    TResult Function(String? email, String? result)? emailVerification,
+    TResult Function(String? email)? resetPasswordRequested,
+    TResult Function(String? time)? passwordUpdated,
+    TResult Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult Function(String status, String deadline)? offboardingStarted,
-    TResult Function(String date, String time, String interviewer)?
+    TResult Function(String? status, String? deadline)? offboardingStarted,
+    TResult Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult Function(int grace)? attendanceNotPresent,
-    TResult Function(String date, String start, String end, String approver)?
+    TResult Function(int? grace)? attendanceNotPresent,
+    TResult Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult Function(String date, String status, String actor)? overtimeUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult Function(String? date, String? status, String? actor)?
+        overtimeUpdated,
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult Function(String period)? payslipAvailable,
-    TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult Function(String? period)? payslipAvailable,
+    TResult Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
-    TResult Function(String period)? performancePublished,
+    TResult Function(String? period)? performancePublished,
     required TResult orElse(),
   }) {
     if (emailVerification != null) {
@@ -719,14 +785,14 @@ class _$EmailVerificationPayloadImpl implements EmailVerificationPayload {
 
 abstract class EmailVerificationPayload implements NotificationPayload {
   const factory EmailVerificationPayload(
-      {required final String email,
-      required final String result}) = _$EmailVerificationPayloadImpl;
+      {final String? email,
+      final String? result}) = _$EmailVerificationPayloadImpl;
 
   factory EmailVerificationPayload.fromJson(Map<String, dynamic> json) =
       _$EmailVerificationPayloadImpl.fromJson;
 
-  String get email;
-  String get result;
+  String? get email;
+  String? get result;
 
   /// Create a copy of NotificationPayload
   /// with the given fields replaced by the non-null parameter values.
@@ -742,7 +808,7 @@ abstract class _$$ResetPasswordRequestedPayloadImplCopyWith<$Res> {
           $Res Function(_$ResetPasswordRequestedPayloadImpl) then) =
       __$$ResetPasswordRequestedPayloadImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String email});
+  $Res call({String? email});
 }
 
 /// @nodoc
@@ -760,13 +826,13 @@ class __$$ResetPasswordRequestedPayloadImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? email = null,
+    Object? email = freezed,
   }) {
     return _then(_$ResetPasswordRequestedPayloadImpl(
-      email: null == email
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -774,9 +840,9 @@ class __$$ResetPasswordRequestedPayloadImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ResetPasswordRequestedPayloadImpl
+    with DiagnosticableTreeMixin
     implements ResetPasswordRequestedPayload {
-  const _$ResetPasswordRequestedPayloadImpl(
-      {required this.email, final String? $type})
+  const _$ResetPasswordRequestedPayloadImpl({this.email, final String? $type})
       : $type = $type ?? 'resetPasswordRequested';
 
   factory _$ResetPasswordRequestedPayloadImpl.fromJson(
@@ -784,14 +850,23 @@ class _$ResetPasswordRequestedPayloadImpl
       _$$ResetPasswordRequestedPayloadImplFromJson(json);
 
   @override
-  final String email;
+  final String? email;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'NotificationPayload.resetPasswordRequested(email: $email)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty(
+          'type', 'NotificationPayload.resetPasswordRequested'))
+      ..add(DiagnosticsProperty('email', email));
   }
 
   @override
@@ -819,57 +894,65 @@ class _$ResetPasswordRequestedPayloadImpl
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String email, String result) emailVerification,
-    required TResult Function(String email) resetPasswordRequested,
-    required TResult Function(String time) passwordUpdated,
-    required TResult Function(String device, String location, String time)
+    required TResult Function(String? email, String? result) emailVerification,
+    required TResult Function(String? email) resetPasswordRequested,
+    required TResult Function(String? time) passwordUpdated,
+    required TResult Function(String? device, String? location, String? time)
         loginDevice,
     required TResult Function(
-            String actor, String fields, String status, String time)
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)
         profileUpdated,
-    required TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         departmentChanged,
-    required TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(
+            @JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         managerChanged,
-    required TResult Function(String status, String deadline)
+    required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String date, String time, String interviewer)
+    required TResult Function(String? date, String? time, String? interviewer)
         exitInterviewSchedule,
     required TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)
+            @JsonKey(name: "start_time") String? startTime, int? minutes)
         attendanceReminder,
-    required TResult Function(int grace) attendanceNotPresent,
+    required TResult Function(int? grace) attendanceNotPresent,
     required TResult Function(
-            String date, String start, String end, String approver)
+            String? date, String? start, String? end, String? approver)
         overtimeSubmitted,
-    required TResult Function(String date, String status, String actor)
+    required TResult Function(String? date, String? status, String? actor)
         overtimeUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)
         leaveSubmitted,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)
         leaveUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)
         leaveReminder,
-    required TResult Function(@JsonKey(name: "days_left") int daysLeft,
-            int balance, String deadline)
+    required TResult Function(@JsonKey(name: "days_left") int? daysLeft,
+            int? balance, String? deadline)
         leaveExpiring,
-    required TResult Function(String period) payslipAvailable,
-    required TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)
+    required TResult Function(String? period) payslipAvailable,
+    required TResult Function(
+            @JsonKey(name: "request_type") String? requestType,
+            String? period,
+            String? status)
         payslipRequestUpdated,
     required TResult Function(
-            String period, @JsonKey(name: "due_date") String dueDate)
+            String? period, @JsonKey(name: "due_date") String? dueDate)
         performanceFormOpen,
     required TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)
+            @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
-    required TResult Function(String period) performancePublished,
+    required TResult Function(String? period) performancePublished,
   }) {
     return resetPasswordRequested(email);
   }
@@ -877,52 +960,61 @@ class _$ResetPasswordRequestedPayloadImpl
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String email, String result)? emailVerification,
-    TResult? Function(String email)? resetPasswordRequested,
-    TResult? Function(String time)? passwordUpdated,
-    TResult? Function(String device, String location, String time)? loginDevice,
-    TResult? Function(String actor, String fields, String status, String time)?
+    TResult? Function(String? email, String? result)? emailVerification,
+    TResult? Function(String? email)? resetPasswordRequested,
+    TResult? Function(String? time)? passwordUpdated,
+    TResult? Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult? Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult? Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult? Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult? Function(String status, String deadline)? offboardingStarted,
-    TResult? Function(String date, String time, String interviewer)?
+    TResult? Function(String? status, String? deadline)? offboardingStarted,
+    TResult? Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult? Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult? Function(int grace)? attendanceNotPresent,
-    TResult? Function(String date, String start, String end, String approver)?
+    TResult? Function(int? grace)? attendanceNotPresent,
+    TResult? Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult? Function(String date, String status, String actor)?
+    TResult? Function(String? date, String? status, String? actor)?
         overtimeUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult? Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult? Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult? Function(String period)? payslipAvailable,
-    TResult? Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult? Function(String? period)? payslipAvailable,
+    TResult? Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult? Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult? Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult? Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
-    TResult? Function(String period)? performancePublished,
+    TResult? Function(String? period)? performancePublished,
   }) {
     return resetPasswordRequested?.call(email);
   }
@@ -930,51 +1022,61 @@ class _$ResetPasswordRequestedPayloadImpl
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email, String result)? emailVerification,
-    TResult Function(String email)? resetPasswordRequested,
-    TResult Function(String time)? passwordUpdated,
-    TResult Function(String device, String location, String time)? loginDevice,
-    TResult Function(String actor, String fields, String status, String time)?
+    TResult Function(String? email, String? result)? emailVerification,
+    TResult Function(String? email)? resetPasswordRequested,
+    TResult Function(String? time)? passwordUpdated,
+    TResult Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult Function(String status, String deadline)? offboardingStarted,
-    TResult Function(String date, String time, String interviewer)?
+    TResult Function(String? status, String? deadline)? offboardingStarted,
+    TResult Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult Function(int grace)? attendanceNotPresent,
-    TResult Function(String date, String start, String end, String approver)?
+    TResult Function(int? grace)? attendanceNotPresent,
+    TResult Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult Function(String date, String status, String actor)? overtimeUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult Function(String? date, String? status, String? actor)?
+        overtimeUpdated,
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult Function(String period)? payslipAvailable,
-    TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult Function(String? period)? payslipAvailable,
+    TResult Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
-    TResult Function(String period)? performancePublished,
+    TResult Function(String? period)? performancePublished,
     required TResult orElse(),
   }) {
     if (resetPasswordRequested != null) {
@@ -1100,13 +1202,13 @@ class _$ResetPasswordRequestedPayloadImpl
 }
 
 abstract class ResetPasswordRequestedPayload implements NotificationPayload {
-  const factory ResetPasswordRequestedPayload({required final String email}) =
+  const factory ResetPasswordRequestedPayload({final String? email}) =
       _$ResetPasswordRequestedPayloadImpl;
 
   factory ResetPasswordRequestedPayload.fromJson(Map<String, dynamic> json) =
       _$ResetPasswordRequestedPayloadImpl.fromJson;
 
-  String get email;
+  String? get email;
 
   /// Create a copy of NotificationPayload
   /// with the given fields replaced by the non-null parameter values.
@@ -1123,7 +1225,7 @@ abstract class _$$PasswordUpdatedPayloadImplCopyWith<$Res> {
           $Res Function(_$PasswordUpdatedPayloadImpl) then) =
       __$$PasswordUpdatedPayloadImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String time});
+  $Res call({String? time});
 }
 
 /// @nodoc
@@ -1141,35 +1243,45 @@ class __$$PasswordUpdatedPayloadImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? time = null,
+    Object? time = freezed,
   }) {
     return _then(_$PasswordUpdatedPayloadImpl(
-      time: null == time
+      time: freezed == time
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$PasswordUpdatedPayloadImpl implements PasswordUpdatedPayload {
-  const _$PasswordUpdatedPayloadImpl({required this.time, final String? $type})
+class _$PasswordUpdatedPayloadImpl
+    with DiagnosticableTreeMixin
+    implements PasswordUpdatedPayload {
+  const _$PasswordUpdatedPayloadImpl({this.time, final String? $type})
       : $type = $type ?? 'passwordUpdated';
 
   factory _$PasswordUpdatedPayloadImpl.fromJson(Map<String, dynamic> json) =>
       _$$PasswordUpdatedPayloadImplFromJson(json);
 
   @override
-  final String time;
+  final String? time;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'NotificationPayload.passwordUpdated(time: $time)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'NotificationPayload.passwordUpdated'))
+      ..add(DiagnosticsProperty('time', time));
   }
 
   @override
@@ -1196,57 +1308,65 @@ class _$PasswordUpdatedPayloadImpl implements PasswordUpdatedPayload {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String email, String result) emailVerification,
-    required TResult Function(String email) resetPasswordRequested,
-    required TResult Function(String time) passwordUpdated,
-    required TResult Function(String device, String location, String time)
+    required TResult Function(String? email, String? result) emailVerification,
+    required TResult Function(String? email) resetPasswordRequested,
+    required TResult Function(String? time) passwordUpdated,
+    required TResult Function(String? device, String? location, String? time)
         loginDevice,
     required TResult Function(
-            String actor, String fields, String status, String time)
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)
         profileUpdated,
-    required TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         departmentChanged,
-    required TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(
+            @JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         managerChanged,
-    required TResult Function(String status, String deadline)
+    required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String date, String time, String interviewer)
+    required TResult Function(String? date, String? time, String? interviewer)
         exitInterviewSchedule,
     required TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)
+            @JsonKey(name: "start_time") String? startTime, int? minutes)
         attendanceReminder,
-    required TResult Function(int grace) attendanceNotPresent,
+    required TResult Function(int? grace) attendanceNotPresent,
     required TResult Function(
-            String date, String start, String end, String approver)
+            String? date, String? start, String? end, String? approver)
         overtimeSubmitted,
-    required TResult Function(String date, String status, String actor)
+    required TResult Function(String? date, String? status, String? actor)
         overtimeUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)
         leaveSubmitted,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)
         leaveUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)
         leaveReminder,
-    required TResult Function(@JsonKey(name: "days_left") int daysLeft,
-            int balance, String deadline)
+    required TResult Function(@JsonKey(name: "days_left") int? daysLeft,
+            int? balance, String? deadline)
         leaveExpiring,
-    required TResult Function(String period) payslipAvailable,
-    required TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)
+    required TResult Function(String? period) payslipAvailable,
+    required TResult Function(
+            @JsonKey(name: "request_type") String? requestType,
+            String? period,
+            String? status)
         payslipRequestUpdated,
     required TResult Function(
-            String period, @JsonKey(name: "due_date") String dueDate)
+            String? period, @JsonKey(name: "due_date") String? dueDate)
         performanceFormOpen,
     required TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)
+            @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
-    required TResult Function(String period) performancePublished,
+    required TResult Function(String? period) performancePublished,
   }) {
     return passwordUpdated(time);
   }
@@ -1254,52 +1374,61 @@ class _$PasswordUpdatedPayloadImpl implements PasswordUpdatedPayload {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String email, String result)? emailVerification,
-    TResult? Function(String email)? resetPasswordRequested,
-    TResult? Function(String time)? passwordUpdated,
-    TResult? Function(String device, String location, String time)? loginDevice,
-    TResult? Function(String actor, String fields, String status, String time)?
+    TResult? Function(String? email, String? result)? emailVerification,
+    TResult? Function(String? email)? resetPasswordRequested,
+    TResult? Function(String? time)? passwordUpdated,
+    TResult? Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult? Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult? Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult? Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult? Function(String status, String deadline)? offboardingStarted,
-    TResult? Function(String date, String time, String interviewer)?
+    TResult? Function(String? status, String? deadline)? offboardingStarted,
+    TResult? Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult? Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult? Function(int grace)? attendanceNotPresent,
-    TResult? Function(String date, String start, String end, String approver)?
+    TResult? Function(int? grace)? attendanceNotPresent,
+    TResult? Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult? Function(String date, String status, String actor)?
+    TResult? Function(String? date, String? status, String? actor)?
         overtimeUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult? Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult? Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult? Function(String period)? payslipAvailable,
-    TResult? Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult? Function(String? period)? payslipAvailable,
+    TResult? Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult? Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult? Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult? Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
-    TResult? Function(String period)? performancePublished,
+    TResult? Function(String? period)? performancePublished,
   }) {
     return passwordUpdated?.call(time);
   }
@@ -1307,51 +1436,61 @@ class _$PasswordUpdatedPayloadImpl implements PasswordUpdatedPayload {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email, String result)? emailVerification,
-    TResult Function(String email)? resetPasswordRequested,
-    TResult Function(String time)? passwordUpdated,
-    TResult Function(String device, String location, String time)? loginDevice,
-    TResult Function(String actor, String fields, String status, String time)?
+    TResult Function(String? email, String? result)? emailVerification,
+    TResult Function(String? email)? resetPasswordRequested,
+    TResult Function(String? time)? passwordUpdated,
+    TResult Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult Function(String status, String deadline)? offboardingStarted,
-    TResult Function(String date, String time, String interviewer)?
+    TResult Function(String? status, String? deadline)? offboardingStarted,
+    TResult Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult Function(int grace)? attendanceNotPresent,
-    TResult Function(String date, String start, String end, String approver)?
+    TResult Function(int? grace)? attendanceNotPresent,
+    TResult Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult Function(String date, String status, String actor)? overtimeUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult Function(String? date, String? status, String? actor)?
+        overtimeUpdated,
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult Function(String period)? payslipAvailable,
-    TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult Function(String? period)? payslipAvailable,
+    TResult Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
-    TResult Function(String period)? performancePublished,
+    TResult Function(String? period)? performancePublished,
     required TResult orElse(),
   }) {
     if (passwordUpdated != null) {
@@ -1477,13 +1616,13 @@ class _$PasswordUpdatedPayloadImpl implements PasswordUpdatedPayload {
 }
 
 abstract class PasswordUpdatedPayload implements NotificationPayload {
-  const factory PasswordUpdatedPayload({required final String time}) =
+  const factory PasswordUpdatedPayload({final String? time}) =
       _$PasswordUpdatedPayloadImpl;
 
   factory PasswordUpdatedPayload.fromJson(Map<String, dynamic> json) =
       _$PasswordUpdatedPayloadImpl.fromJson;
 
-  String get time;
+  String? get time;
 
   /// Create a copy of NotificationPayload
   /// with the given fields replaced by the non-null parameter values.
@@ -1498,7 +1637,7 @@ abstract class _$$LoginDevicePayloadImplCopyWith<$Res> {
           $Res Function(_$LoginDevicePayloadImpl) then) =
       __$$LoginDevicePayloadImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String device, String location, String time});
+  $Res call({String? device, String? location, String? time});
 }
 
 /// @nodoc
@@ -1514,53 +1653,62 @@ class __$$LoginDevicePayloadImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? device = null,
-    Object? location = null,
-    Object? time = null,
+    Object? device = freezed,
+    Object? location = freezed,
+    Object? time = freezed,
   }) {
     return _then(_$LoginDevicePayloadImpl(
-      device: null == device
+      device: freezed == device
           ? _value.device
           : device // ignore: cast_nullable_to_non_nullable
-              as String,
-      location: null == location
+              as String?,
+      location: freezed == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
-              as String,
-      time: null == time
+              as String?,
+      time: freezed == time
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$LoginDevicePayloadImpl implements LoginDevicePayload {
+class _$LoginDevicePayloadImpl
+    with DiagnosticableTreeMixin
+    implements LoginDevicePayload {
   const _$LoginDevicePayloadImpl(
-      {required this.device,
-      required this.location,
-      required this.time,
-      final String? $type})
+      {this.device, this.location, this.time, final String? $type})
       : $type = $type ?? 'loginDevice';
 
   factory _$LoginDevicePayloadImpl.fromJson(Map<String, dynamic> json) =>
       _$$LoginDevicePayloadImplFromJson(json);
 
   @override
-  final String device;
+  final String? device;
   @override
-  final String location;
+  final String? location;
   @override
-  final String time;
+  final String? time;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'NotificationPayload.loginDevice(device: $device, location: $location, time: $time)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'NotificationPayload.loginDevice'))
+      ..add(DiagnosticsProperty('device', device))
+      ..add(DiagnosticsProperty('location', location))
+      ..add(DiagnosticsProperty('time', time));
   }
 
   @override
@@ -1590,57 +1738,65 @@ class _$LoginDevicePayloadImpl implements LoginDevicePayload {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String email, String result) emailVerification,
-    required TResult Function(String email) resetPasswordRequested,
-    required TResult Function(String time) passwordUpdated,
-    required TResult Function(String device, String location, String time)
+    required TResult Function(String? email, String? result) emailVerification,
+    required TResult Function(String? email) resetPasswordRequested,
+    required TResult Function(String? time) passwordUpdated,
+    required TResult Function(String? device, String? location, String? time)
         loginDevice,
     required TResult Function(
-            String actor, String fields, String status, String time)
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)
         profileUpdated,
-    required TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         departmentChanged,
-    required TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(
+            @JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         managerChanged,
-    required TResult Function(String status, String deadline)
+    required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String date, String time, String interviewer)
+    required TResult Function(String? date, String? time, String? interviewer)
         exitInterviewSchedule,
     required TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)
+            @JsonKey(name: "start_time") String? startTime, int? minutes)
         attendanceReminder,
-    required TResult Function(int grace) attendanceNotPresent,
+    required TResult Function(int? grace) attendanceNotPresent,
     required TResult Function(
-            String date, String start, String end, String approver)
+            String? date, String? start, String? end, String? approver)
         overtimeSubmitted,
-    required TResult Function(String date, String status, String actor)
+    required TResult Function(String? date, String? status, String? actor)
         overtimeUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)
         leaveSubmitted,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)
         leaveUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)
         leaveReminder,
-    required TResult Function(@JsonKey(name: "days_left") int daysLeft,
-            int balance, String deadline)
+    required TResult Function(@JsonKey(name: "days_left") int? daysLeft,
+            int? balance, String? deadline)
         leaveExpiring,
-    required TResult Function(String period) payslipAvailable,
-    required TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)
+    required TResult Function(String? period) payslipAvailable,
+    required TResult Function(
+            @JsonKey(name: "request_type") String? requestType,
+            String? period,
+            String? status)
         payslipRequestUpdated,
     required TResult Function(
-            String period, @JsonKey(name: "due_date") String dueDate)
+            String? period, @JsonKey(name: "due_date") String? dueDate)
         performanceFormOpen,
     required TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)
+            @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
-    required TResult Function(String period) performancePublished,
+    required TResult Function(String? period) performancePublished,
   }) {
     return loginDevice(device, location, time);
   }
@@ -1648,52 +1804,61 @@ class _$LoginDevicePayloadImpl implements LoginDevicePayload {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String email, String result)? emailVerification,
-    TResult? Function(String email)? resetPasswordRequested,
-    TResult? Function(String time)? passwordUpdated,
-    TResult? Function(String device, String location, String time)? loginDevice,
-    TResult? Function(String actor, String fields, String status, String time)?
+    TResult? Function(String? email, String? result)? emailVerification,
+    TResult? Function(String? email)? resetPasswordRequested,
+    TResult? Function(String? time)? passwordUpdated,
+    TResult? Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult? Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult? Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult? Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult? Function(String status, String deadline)? offboardingStarted,
-    TResult? Function(String date, String time, String interviewer)?
+    TResult? Function(String? status, String? deadline)? offboardingStarted,
+    TResult? Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult? Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult? Function(int grace)? attendanceNotPresent,
-    TResult? Function(String date, String start, String end, String approver)?
+    TResult? Function(int? grace)? attendanceNotPresent,
+    TResult? Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult? Function(String date, String status, String actor)?
+    TResult? Function(String? date, String? status, String? actor)?
         overtimeUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult? Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult? Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult? Function(String period)? payslipAvailable,
-    TResult? Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult? Function(String? period)? payslipAvailable,
+    TResult? Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult? Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult? Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult? Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
-    TResult? Function(String period)? performancePublished,
+    TResult? Function(String? period)? performancePublished,
   }) {
     return loginDevice?.call(device, location, time);
   }
@@ -1701,51 +1866,61 @@ class _$LoginDevicePayloadImpl implements LoginDevicePayload {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email, String result)? emailVerification,
-    TResult Function(String email)? resetPasswordRequested,
-    TResult Function(String time)? passwordUpdated,
-    TResult Function(String device, String location, String time)? loginDevice,
-    TResult Function(String actor, String fields, String status, String time)?
+    TResult Function(String? email, String? result)? emailVerification,
+    TResult Function(String? email)? resetPasswordRequested,
+    TResult Function(String? time)? passwordUpdated,
+    TResult Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult Function(String status, String deadline)? offboardingStarted,
-    TResult Function(String date, String time, String interviewer)?
+    TResult Function(String? status, String? deadline)? offboardingStarted,
+    TResult Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult Function(int grace)? attendanceNotPresent,
-    TResult Function(String date, String start, String end, String approver)?
+    TResult Function(int? grace)? attendanceNotPresent,
+    TResult Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult Function(String date, String status, String actor)? overtimeUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult Function(String? date, String? status, String? actor)?
+        overtimeUpdated,
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult Function(String period)? payslipAvailable,
-    TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult Function(String? period)? payslipAvailable,
+    TResult Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
-    TResult Function(String period)? performancePublished,
+    TResult Function(String? period)? performancePublished,
     required TResult orElse(),
   }) {
     if (loginDevice != null) {
@@ -1872,16 +2047,16 @@ class _$LoginDevicePayloadImpl implements LoginDevicePayload {
 
 abstract class LoginDevicePayload implements NotificationPayload {
   const factory LoginDevicePayload(
-      {required final String device,
-      required final String location,
-      required final String time}) = _$LoginDevicePayloadImpl;
+      {final String? device,
+      final String? location,
+      final String? time}) = _$LoginDevicePayloadImpl;
 
   factory LoginDevicePayload.fromJson(Map<String, dynamic> json) =
       _$LoginDevicePayloadImpl.fromJson;
 
-  String get device;
-  String get location;
-  String get time;
+  String? get device;
+  String? get location;
+  String? get time;
 
   /// Create a copy of NotificationPayload
   /// with the given fields replaced by the non-null parameter values.
@@ -1897,7 +2072,13 @@ abstract class _$$ProfileUpdatedPayloadImplCopyWith<$Res> {
           $Res Function(_$ProfileUpdatedPayloadImpl) then) =
       __$$ProfileUpdatedPayloadImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String actor, String fields, String status, String time});
+  $Res call(
+      {String? actor,
+      String? fields,
+      String? status,
+      String? time,
+      @JsonKey(name: "user_id") String? userId,
+      String? email});
 }
 
 /// @nodoc
@@ -1913,40 +2094,54 @@ class __$$ProfileUpdatedPayloadImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? actor = null,
-    Object? fields = null,
-    Object? status = null,
-    Object? time = null,
+    Object? actor = freezed,
+    Object? fields = freezed,
+    Object? status = freezed,
+    Object? time = freezed,
+    Object? userId = freezed,
+    Object? email = freezed,
   }) {
     return _then(_$ProfileUpdatedPayloadImpl(
-      actor: null == actor
+      actor: freezed == actor
           ? _value.actor
           : actor // ignore: cast_nullable_to_non_nullable
-              as String,
-      fields: null == fields
+              as String?,
+      fields: freezed == fields
           ? _value.fields
           : fields // ignore: cast_nullable_to_non_nullable
-              as String,
-      status: null == status
+              as String?,
+      status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as String,
-      time: null == time
+              as String?,
+      time: freezed == time
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      userId: freezed == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$ProfileUpdatedPayloadImpl implements ProfileUpdatedPayload {
+class _$ProfileUpdatedPayloadImpl
+    with DiagnosticableTreeMixin
+    implements ProfileUpdatedPayload {
   const _$ProfileUpdatedPayloadImpl(
-      {required this.actor,
-      required this.fields,
-      required this.status,
-      required this.time,
+      {this.actor,
+      this.fields,
+      this.status,
+      this.time,
+      @JsonKey(name: "user_id") this.userId,
+      this.email,
       final String? $type})
       : $type = $type ?? 'profileUpdated';
 
@@ -1954,20 +2149,38 @@ class _$ProfileUpdatedPayloadImpl implements ProfileUpdatedPayload {
       _$$ProfileUpdatedPayloadImplFromJson(json);
 
   @override
-  final String actor;
+  final String? actor;
   @override
-  final String fields;
+  final String? fields;
   @override
-  final String status;
+  final String? status;
   @override
-  final String time;
+  final String? time;
+  @override
+  @JsonKey(name: "user_id")
+  final String? userId;
+  @override
+  final String? email;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
-  String toString() {
-    return 'NotificationPayload.profileUpdated(actor: $actor, fields: $fields, status: $status, time: $time)';
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'NotificationPayload.profileUpdated(actor: $actor, fields: $fields, status: $status, time: $time, userId: $userId, email: $email)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'NotificationPayload.profileUpdated'))
+      ..add(DiagnosticsProperty('actor', actor))
+      ..add(DiagnosticsProperty('fields', fields))
+      ..add(DiagnosticsProperty('status', status))
+      ..add(DiagnosticsProperty('time', time))
+      ..add(DiagnosticsProperty('userId', userId))
+      ..add(DiagnosticsProperty('email', email));
   }
 
   @override
@@ -1978,12 +2191,15 @@ class _$ProfileUpdatedPayloadImpl implements ProfileUpdatedPayload {
             (identical(other.actor, actor) || other.actor == actor) &&
             (identical(other.fields, fields) || other.fields == fields) &&
             (identical(other.status, status) || other.status == status) &&
-            (identical(other.time, time) || other.time == time));
+            (identical(other.time, time) || other.time == time) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.email, email) || other.email == email));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, actor, fields, status, time);
+  int get hashCode =>
+      Object.hash(runtimeType, actor, fields, status, time, userId, email);
 
   /// Create a copy of NotificationPayload
   /// with the given fields replaced by the non-null parameter values.
@@ -1997,166 +2213,193 @@ class _$ProfileUpdatedPayloadImpl implements ProfileUpdatedPayload {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String email, String result) emailVerification,
-    required TResult Function(String email) resetPasswordRequested,
-    required TResult Function(String time) passwordUpdated,
-    required TResult Function(String device, String location, String time)
+    required TResult Function(String? email, String? result) emailVerification,
+    required TResult Function(String? email) resetPasswordRequested,
+    required TResult Function(String? time) passwordUpdated,
+    required TResult Function(String? device, String? location, String? time)
         loginDevice,
     required TResult Function(
-            String actor, String fields, String status, String time)
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)
         profileUpdated,
-    required TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         departmentChanged,
-    required TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(
+            @JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         managerChanged,
-    required TResult Function(String status, String deadline)
+    required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String date, String time, String interviewer)
+    required TResult Function(String? date, String? time, String? interviewer)
         exitInterviewSchedule,
     required TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)
+            @JsonKey(name: "start_time") String? startTime, int? minutes)
         attendanceReminder,
-    required TResult Function(int grace) attendanceNotPresent,
+    required TResult Function(int? grace) attendanceNotPresent,
     required TResult Function(
-            String date, String start, String end, String approver)
+            String? date, String? start, String? end, String? approver)
         overtimeSubmitted,
-    required TResult Function(String date, String status, String actor)
+    required TResult Function(String? date, String? status, String? actor)
         overtimeUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)
         leaveSubmitted,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)
         leaveUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)
         leaveReminder,
-    required TResult Function(@JsonKey(name: "days_left") int daysLeft,
-            int balance, String deadline)
+    required TResult Function(@JsonKey(name: "days_left") int? daysLeft,
+            int? balance, String? deadline)
         leaveExpiring,
-    required TResult Function(String period) payslipAvailable,
-    required TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)
+    required TResult Function(String? period) payslipAvailable,
+    required TResult Function(
+            @JsonKey(name: "request_type") String? requestType,
+            String? period,
+            String? status)
         payslipRequestUpdated,
     required TResult Function(
-            String period, @JsonKey(name: "due_date") String dueDate)
+            String? period, @JsonKey(name: "due_date") String? dueDate)
         performanceFormOpen,
     required TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)
+            @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
-    required TResult Function(String period) performancePublished,
+    required TResult Function(String? period) performancePublished,
   }) {
-    return profileUpdated(actor, fields, status, time);
+    return profileUpdated(actor, fields, status, time, userId, email);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String email, String result)? emailVerification,
-    TResult? Function(String email)? resetPasswordRequested,
-    TResult? Function(String time)? passwordUpdated,
-    TResult? Function(String device, String location, String time)? loginDevice,
-    TResult? Function(String actor, String fields, String status, String time)?
+    TResult? Function(String? email, String? result)? emailVerification,
+    TResult? Function(String? email)? resetPasswordRequested,
+    TResult? Function(String? time)? passwordUpdated,
+    TResult? Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult? Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult? Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult? Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult? Function(String status, String deadline)? offboardingStarted,
-    TResult? Function(String date, String time, String interviewer)?
+    TResult? Function(String? status, String? deadline)? offboardingStarted,
+    TResult? Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult? Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult? Function(int grace)? attendanceNotPresent,
-    TResult? Function(String date, String start, String end, String approver)?
+    TResult? Function(int? grace)? attendanceNotPresent,
+    TResult? Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult? Function(String date, String status, String actor)?
+    TResult? Function(String? date, String? status, String? actor)?
         overtimeUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult? Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult? Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult? Function(String period)? payslipAvailable,
-    TResult? Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult? Function(String? period)? payslipAvailable,
+    TResult? Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult? Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult? Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult? Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
-    TResult? Function(String period)? performancePublished,
+    TResult? Function(String? period)? performancePublished,
   }) {
-    return profileUpdated?.call(actor, fields, status, time);
+    return profileUpdated?.call(actor, fields, status, time, userId, email);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email, String result)? emailVerification,
-    TResult Function(String email)? resetPasswordRequested,
-    TResult Function(String time)? passwordUpdated,
-    TResult Function(String device, String location, String time)? loginDevice,
-    TResult Function(String actor, String fields, String status, String time)?
+    TResult Function(String? email, String? result)? emailVerification,
+    TResult Function(String? email)? resetPasswordRequested,
+    TResult Function(String? time)? passwordUpdated,
+    TResult Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult Function(String status, String deadline)? offboardingStarted,
-    TResult Function(String date, String time, String interviewer)?
+    TResult Function(String? status, String? deadline)? offboardingStarted,
+    TResult Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult Function(int grace)? attendanceNotPresent,
-    TResult Function(String date, String start, String end, String approver)?
+    TResult Function(int? grace)? attendanceNotPresent,
+    TResult Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult Function(String date, String status, String actor)? overtimeUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult Function(String? date, String? status, String? actor)?
+        overtimeUpdated,
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult Function(String period)? payslipAvailable,
-    TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult Function(String? period)? payslipAvailable,
+    TResult Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
-    TResult Function(String period)? performancePublished,
+    TResult Function(String? period)? performancePublished,
     required TResult orElse(),
   }) {
     if (profileUpdated != null) {
-      return profileUpdated(actor, fields, status, time);
+      return profileUpdated(actor, fields, status, time, userId, email);
     }
     return orElse();
   }
@@ -2279,18 +2522,23 @@ class _$ProfileUpdatedPayloadImpl implements ProfileUpdatedPayload {
 
 abstract class ProfileUpdatedPayload implements NotificationPayload {
   const factory ProfileUpdatedPayload(
-      {required final String actor,
-      required final String fields,
-      required final String status,
-      required final String time}) = _$ProfileUpdatedPayloadImpl;
+      {final String? actor,
+      final String? fields,
+      final String? status,
+      final String? time,
+      @JsonKey(name: "user_id") final String? userId,
+      final String? email}) = _$ProfileUpdatedPayloadImpl;
 
   factory ProfileUpdatedPayload.fromJson(Map<String, dynamic> json) =
       _$ProfileUpdatedPayloadImpl.fromJson;
 
-  String get actor;
-  String get fields;
-  String get status;
-  String get time;
+  String? get actor;
+  String? get fields;
+  String? get status;
+  String? get time;
+  @JsonKey(name: "user_id")
+  String? get userId;
+  String? get email;
 
   /// Create a copy of NotificationPayload
   /// with the given fields replaced by the non-null parameter values.
@@ -2307,9 +2555,9 @@ abstract class _$$DepartmentChangedPayloadImplCopyWith<$Res> {
       __$$DepartmentChangedPayloadImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {String department,
-      String team,
-      @JsonKey(name: "effective_date") String effectiveDate});
+      {String? department,
+      String? team,
+      @JsonKey(name: "effective_date") String? effectiveDate});
 }
 
 /// @nodoc
@@ -2327,34 +2575,36 @@ class __$$DepartmentChangedPayloadImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? department = null,
-    Object? team = null,
-    Object? effectiveDate = null,
+    Object? department = freezed,
+    Object? team = freezed,
+    Object? effectiveDate = freezed,
   }) {
     return _then(_$DepartmentChangedPayloadImpl(
-      department: null == department
+      department: freezed == department
           ? _value.department
           : department // ignore: cast_nullable_to_non_nullable
-              as String,
-      team: null == team
+              as String?,
+      team: freezed == team
           ? _value.team
           : team // ignore: cast_nullable_to_non_nullable
-              as String,
-      effectiveDate: null == effectiveDate
+              as String?,
+      effectiveDate: freezed == effectiveDate
           ? _value.effectiveDate
           : effectiveDate // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$DepartmentChangedPayloadImpl implements DepartmentChangedPayload {
+class _$DepartmentChangedPayloadImpl
+    with DiagnosticableTreeMixin
+    implements DepartmentChangedPayload {
   const _$DepartmentChangedPayloadImpl(
-      {required this.department,
-      required this.team,
-      @JsonKey(name: "effective_date") required this.effectiveDate,
+      {this.department,
+      this.team,
+      @JsonKey(name: "effective_date") this.effectiveDate,
       final String? $type})
       : $type = $type ?? 'departmentChanged';
 
@@ -2362,19 +2612,30 @@ class _$DepartmentChangedPayloadImpl implements DepartmentChangedPayload {
       _$$DepartmentChangedPayloadImplFromJson(json);
 
   @override
-  final String department;
+  final String? department;
   @override
-  final String team;
+  final String? team;
   @override
   @JsonKey(name: "effective_date")
-  final String effectiveDate;
+  final String? effectiveDate;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'NotificationPayload.departmentChanged(department: $department, team: $team, effectiveDate: $effectiveDate)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(
+          DiagnosticsProperty('type', 'NotificationPayload.departmentChanged'))
+      ..add(DiagnosticsProperty('department', department))
+      ..add(DiagnosticsProperty('team', team))
+      ..add(DiagnosticsProperty('effectiveDate', effectiveDate));
   }
 
   @override
@@ -2405,57 +2666,65 @@ class _$DepartmentChangedPayloadImpl implements DepartmentChangedPayload {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String email, String result) emailVerification,
-    required TResult Function(String email) resetPasswordRequested,
-    required TResult Function(String time) passwordUpdated,
-    required TResult Function(String device, String location, String time)
+    required TResult Function(String? email, String? result) emailVerification,
+    required TResult Function(String? email) resetPasswordRequested,
+    required TResult Function(String? time) passwordUpdated,
+    required TResult Function(String? device, String? location, String? time)
         loginDevice,
     required TResult Function(
-            String actor, String fields, String status, String time)
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)
         profileUpdated,
-    required TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         departmentChanged,
-    required TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(
+            @JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         managerChanged,
-    required TResult Function(String status, String deadline)
+    required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String date, String time, String interviewer)
+    required TResult Function(String? date, String? time, String? interviewer)
         exitInterviewSchedule,
     required TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)
+            @JsonKey(name: "start_time") String? startTime, int? minutes)
         attendanceReminder,
-    required TResult Function(int grace) attendanceNotPresent,
+    required TResult Function(int? grace) attendanceNotPresent,
     required TResult Function(
-            String date, String start, String end, String approver)
+            String? date, String? start, String? end, String? approver)
         overtimeSubmitted,
-    required TResult Function(String date, String status, String actor)
+    required TResult Function(String? date, String? status, String? actor)
         overtimeUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)
         leaveSubmitted,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)
         leaveUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)
         leaveReminder,
-    required TResult Function(@JsonKey(name: "days_left") int daysLeft,
-            int balance, String deadline)
+    required TResult Function(@JsonKey(name: "days_left") int? daysLeft,
+            int? balance, String? deadline)
         leaveExpiring,
-    required TResult Function(String period) payslipAvailable,
-    required TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)
+    required TResult Function(String? period) payslipAvailable,
+    required TResult Function(
+            @JsonKey(name: "request_type") String? requestType,
+            String? period,
+            String? status)
         payslipRequestUpdated,
     required TResult Function(
-            String period, @JsonKey(name: "due_date") String dueDate)
+            String? period, @JsonKey(name: "due_date") String? dueDate)
         performanceFormOpen,
     required TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)
+            @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
-    required TResult Function(String period) performancePublished,
+    required TResult Function(String? period) performancePublished,
   }) {
     return departmentChanged(department, team, effectiveDate);
   }
@@ -2463,52 +2732,61 @@ class _$DepartmentChangedPayloadImpl implements DepartmentChangedPayload {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String email, String result)? emailVerification,
-    TResult? Function(String email)? resetPasswordRequested,
-    TResult? Function(String time)? passwordUpdated,
-    TResult? Function(String device, String location, String time)? loginDevice,
-    TResult? Function(String actor, String fields, String status, String time)?
+    TResult? Function(String? email, String? result)? emailVerification,
+    TResult? Function(String? email)? resetPasswordRequested,
+    TResult? Function(String? time)? passwordUpdated,
+    TResult? Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult? Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult? Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult? Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult? Function(String status, String deadline)? offboardingStarted,
-    TResult? Function(String date, String time, String interviewer)?
+    TResult? Function(String? status, String? deadline)? offboardingStarted,
+    TResult? Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult? Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult? Function(int grace)? attendanceNotPresent,
-    TResult? Function(String date, String start, String end, String approver)?
+    TResult? Function(int? grace)? attendanceNotPresent,
+    TResult? Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult? Function(String date, String status, String actor)?
+    TResult? Function(String? date, String? status, String? actor)?
         overtimeUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult? Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult? Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult? Function(String period)? payslipAvailable,
-    TResult? Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult? Function(String? period)? payslipAvailable,
+    TResult? Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult? Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult? Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult? Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
-    TResult? Function(String period)? performancePublished,
+    TResult? Function(String? period)? performancePublished,
   }) {
     return departmentChanged?.call(department, team, effectiveDate);
   }
@@ -2516,51 +2794,61 @@ class _$DepartmentChangedPayloadImpl implements DepartmentChangedPayload {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email, String result)? emailVerification,
-    TResult Function(String email)? resetPasswordRequested,
-    TResult Function(String time)? passwordUpdated,
-    TResult Function(String device, String location, String time)? loginDevice,
-    TResult Function(String actor, String fields, String status, String time)?
+    TResult Function(String? email, String? result)? emailVerification,
+    TResult Function(String? email)? resetPasswordRequested,
+    TResult Function(String? time)? passwordUpdated,
+    TResult Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult Function(String status, String deadline)? offboardingStarted,
-    TResult Function(String date, String time, String interviewer)?
+    TResult Function(String? status, String? deadline)? offboardingStarted,
+    TResult Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult Function(int grace)? attendanceNotPresent,
-    TResult Function(String date, String start, String end, String approver)?
+    TResult Function(int? grace)? attendanceNotPresent,
+    TResult Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult Function(String date, String status, String actor)? overtimeUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult Function(String? date, String? status, String? actor)?
+        overtimeUpdated,
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult Function(String period)? payslipAvailable,
-    TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult Function(String? period)? payslipAvailable,
+    TResult Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
-    TResult Function(String period)? performancePublished,
+    TResult Function(String? period)? performancePublished,
     required TResult orElse(),
   }) {
     if (departmentChanged != null) {
@@ -2687,18 +2975,18 @@ class _$DepartmentChangedPayloadImpl implements DepartmentChangedPayload {
 
 abstract class DepartmentChangedPayload implements NotificationPayload {
   const factory DepartmentChangedPayload(
-      {required final String department,
-      required final String team,
-      @JsonKey(name: "effective_date")
-      required final String effectiveDate}) = _$DepartmentChangedPayloadImpl;
+          {final String? department,
+          final String? team,
+          @JsonKey(name: "effective_date") final String? effectiveDate}) =
+      _$DepartmentChangedPayloadImpl;
 
   factory DepartmentChangedPayload.fromJson(Map<String, dynamic> json) =
       _$DepartmentChangedPayloadImpl.fromJson;
 
-  String get department;
-  String get team;
+  String? get department;
+  String? get team;
   @JsonKey(name: "effective_date")
-  String get effectiveDate;
+  String? get effectiveDate;
 
   /// Create a copy of NotificationPayload
   /// with the given fields replaced by the non-null parameter values.
@@ -2715,8 +3003,8 @@ abstract class _$$ManagerChangedPayloadImplCopyWith<$Res> {
       __$$ManagerChangedPayloadImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {@JsonKey(name: "manager_name") String managerName,
-      @JsonKey(name: "effective_date") String effectiveDate});
+      {@JsonKey(name: "manager_name") String? managerName,
+      @JsonKey(name: "effective_date") String? effectiveDate});
 }
 
 /// @nodoc
@@ -2732,28 +3020,30 @@ class __$$ManagerChangedPayloadImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? managerName = null,
-    Object? effectiveDate = null,
+    Object? managerName = freezed,
+    Object? effectiveDate = freezed,
   }) {
     return _then(_$ManagerChangedPayloadImpl(
-      managerName: null == managerName
+      managerName: freezed == managerName
           ? _value.managerName
           : managerName // ignore: cast_nullable_to_non_nullable
-              as String,
-      effectiveDate: null == effectiveDate
+              as String?,
+      effectiveDate: freezed == effectiveDate
           ? _value.effectiveDate
           : effectiveDate // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$ManagerChangedPayloadImpl implements ManagerChangedPayload {
+class _$ManagerChangedPayloadImpl
+    with DiagnosticableTreeMixin
+    implements ManagerChangedPayload {
   const _$ManagerChangedPayloadImpl(
-      {@JsonKey(name: "manager_name") required this.managerName,
-      @JsonKey(name: "effective_date") required this.effectiveDate,
+      {@JsonKey(name: "manager_name") this.managerName,
+      @JsonKey(name: "effective_date") this.effectiveDate,
       final String? $type})
       : $type = $type ?? 'managerChanged';
 
@@ -2762,17 +3052,26 @@ class _$ManagerChangedPayloadImpl implements ManagerChangedPayload {
 
   @override
   @JsonKey(name: "manager_name")
-  final String managerName;
+  final String? managerName;
   @override
   @JsonKey(name: "effective_date")
-  final String effectiveDate;
+  final String? effectiveDate;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'NotificationPayload.managerChanged(managerName: $managerName, effectiveDate: $effectiveDate)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'NotificationPayload.managerChanged'))
+      ..add(DiagnosticsProperty('managerName', managerName))
+      ..add(DiagnosticsProperty('effectiveDate', effectiveDate));
   }
 
   @override
@@ -2802,57 +3101,65 @@ class _$ManagerChangedPayloadImpl implements ManagerChangedPayload {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String email, String result) emailVerification,
-    required TResult Function(String email) resetPasswordRequested,
-    required TResult Function(String time) passwordUpdated,
-    required TResult Function(String device, String location, String time)
+    required TResult Function(String? email, String? result) emailVerification,
+    required TResult Function(String? email) resetPasswordRequested,
+    required TResult Function(String? time) passwordUpdated,
+    required TResult Function(String? device, String? location, String? time)
         loginDevice,
     required TResult Function(
-            String actor, String fields, String status, String time)
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)
         profileUpdated,
-    required TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         departmentChanged,
-    required TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(
+            @JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         managerChanged,
-    required TResult Function(String status, String deadline)
+    required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String date, String time, String interviewer)
+    required TResult Function(String? date, String? time, String? interviewer)
         exitInterviewSchedule,
     required TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)
+            @JsonKey(name: "start_time") String? startTime, int? minutes)
         attendanceReminder,
-    required TResult Function(int grace) attendanceNotPresent,
+    required TResult Function(int? grace) attendanceNotPresent,
     required TResult Function(
-            String date, String start, String end, String approver)
+            String? date, String? start, String? end, String? approver)
         overtimeSubmitted,
-    required TResult Function(String date, String status, String actor)
+    required TResult Function(String? date, String? status, String? actor)
         overtimeUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)
         leaveSubmitted,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)
         leaveUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)
         leaveReminder,
-    required TResult Function(@JsonKey(name: "days_left") int daysLeft,
-            int balance, String deadline)
+    required TResult Function(@JsonKey(name: "days_left") int? daysLeft,
+            int? balance, String? deadline)
         leaveExpiring,
-    required TResult Function(String period) payslipAvailable,
-    required TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)
+    required TResult Function(String? period) payslipAvailable,
+    required TResult Function(
+            @JsonKey(name: "request_type") String? requestType,
+            String? period,
+            String? status)
         payslipRequestUpdated,
     required TResult Function(
-            String period, @JsonKey(name: "due_date") String dueDate)
+            String? period, @JsonKey(name: "due_date") String? dueDate)
         performanceFormOpen,
     required TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)
+            @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
-    required TResult Function(String period) performancePublished,
+    required TResult Function(String? period) performancePublished,
   }) {
     return managerChanged(managerName, effectiveDate);
   }
@@ -2860,52 +3167,61 @@ class _$ManagerChangedPayloadImpl implements ManagerChangedPayload {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String email, String result)? emailVerification,
-    TResult? Function(String email)? resetPasswordRequested,
-    TResult? Function(String time)? passwordUpdated,
-    TResult? Function(String device, String location, String time)? loginDevice,
-    TResult? Function(String actor, String fields, String status, String time)?
+    TResult? Function(String? email, String? result)? emailVerification,
+    TResult? Function(String? email)? resetPasswordRequested,
+    TResult? Function(String? time)? passwordUpdated,
+    TResult? Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult? Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult? Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult? Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult? Function(String status, String deadline)? offboardingStarted,
-    TResult? Function(String date, String time, String interviewer)?
+    TResult? Function(String? status, String? deadline)? offboardingStarted,
+    TResult? Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult? Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult? Function(int grace)? attendanceNotPresent,
-    TResult? Function(String date, String start, String end, String approver)?
+    TResult? Function(int? grace)? attendanceNotPresent,
+    TResult? Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult? Function(String date, String status, String actor)?
+    TResult? Function(String? date, String? status, String? actor)?
         overtimeUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult? Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult? Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult? Function(String period)? payslipAvailable,
-    TResult? Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult? Function(String? period)? payslipAvailable,
+    TResult? Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult? Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult? Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult? Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
-    TResult? Function(String period)? performancePublished,
+    TResult? Function(String? period)? performancePublished,
   }) {
     return managerChanged?.call(managerName, effectiveDate);
   }
@@ -2913,51 +3229,61 @@ class _$ManagerChangedPayloadImpl implements ManagerChangedPayload {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email, String result)? emailVerification,
-    TResult Function(String email)? resetPasswordRequested,
-    TResult Function(String time)? passwordUpdated,
-    TResult Function(String device, String location, String time)? loginDevice,
-    TResult Function(String actor, String fields, String status, String time)?
+    TResult Function(String? email, String? result)? emailVerification,
+    TResult Function(String? email)? resetPasswordRequested,
+    TResult Function(String? time)? passwordUpdated,
+    TResult Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult Function(String status, String deadline)? offboardingStarted,
-    TResult Function(String date, String time, String interviewer)?
+    TResult Function(String? status, String? deadline)? offboardingStarted,
+    TResult Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult Function(int grace)? attendanceNotPresent,
-    TResult Function(String date, String start, String end, String approver)?
+    TResult Function(int? grace)? attendanceNotPresent,
+    TResult Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult Function(String date, String status, String actor)? overtimeUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult Function(String? date, String? status, String? actor)?
+        overtimeUpdated,
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult Function(String period)? payslipAvailable,
-    TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult Function(String? period)? payslipAvailable,
+    TResult Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
-    TResult Function(String period)? performancePublished,
+    TResult Function(String? period)? performancePublished,
     required TResult orElse(),
   }) {
     if (managerChanged != null) {
@@ -3084,17 +3410,17 @@ class _$ManagerChangedPayloadImpl implements ManagerChangedPayload {
 
 abstract class ManagerChangedPayload implements NotificationPayload {
   const factory ManagerChangedPayload(
-      {@JsonKey(name: "manager_name") required final String managerName,
-      @JsonKey(name: "effective_date")
-      required final String effectiveDate}) = _$ManagerChangedPayloadImpl;
+          {@JsonKey(name: "manager_name") final String? managerName,
+          @JsonKey(name: "effective_date") final String? effectiveDate}) =
+      _$ManagerChangedPayloadImpl;
 
   factory ManagerChangedPayload.fromJson(Map<String, dynamic> json) =
       _$ManagerChangedPayloadImpl.fromJson;
 
   @JsonKey(name: "manager_name")
-  String get managerName;
+  String? get managerName;
   @JsonKey(name: "effective_date")
-  String get effectiveDate;
+  String? get effectiveDate;
 
   /// Create a copy of NotificationPayload
   /// with the given fields replaced by the non-null parameter values.
@@ -3110,7 +3436,7 @@ abstract class _$$OffboardingStartedPayloadImplCopyWith<$Res> {
           $Res Function(_$OffboardingStartedPayloadImpl) then) =
       __$$OffboardingStartedPayloadImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String status, String deadline});
+  $Res call({String? status, String? deadline});
 }
 
 /// @nodoc
@@ -3128,43 +3454,55 @@ class __$$OffboardingStartedPayloadImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? status = null,
-    Object? deadline = null,
+    Object? status = freezed,
+    Object? deadline = freezed,
   }) {
     return _then(_$OffboardingStartedPayloadImpl(
-      status: null == status
+      status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as String,
-      deadline: null == deadline
+              as String?,
+      deadline: freezed == deadline
           ? _value.deadline
           : deadline // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$OffboardingStartedPayloadImpl implements OffboardingStartedPayload {
+class _$OffboardingStartedPayloadImpl
+    with DiagnosticableTreeMixin
+    implements OffboardingStartedPayload {
   const _$OffboardingStartedPayloadImpl(
-      {required this.status, required this.deadline, final String? $type})
+      {this.status, this.deadline, final String? $type})
       : $type = $type ?? 'offboardingStarted';
 
   factory _$OffboardingStartedPayloadImpl.fromJson(Map<String, dynamic> json) =>
       _$$OffboardingStartedPayloadImplFromJson(json);
 
   @override
-  final String status;
+  final String? status;
   @override
-  final String deadline;
+  final String? deadline;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'NotificationPayload.offboardingStarted(status: $status, deadline: $deadline)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(
+          DiagnosticsProperty('type', 'NotificationPayload.offboardingStarted'))
+      ..add(DiagnosticsProperty('status', status))
+      ..add(DiagnosticsProperty('deadline', deadline));
   }
 
   @override
@@ -3193,57 +3531,65 @@ class _$OffboardingStartedPayloadImpl implements OffboardingStartedPayload {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String email, String result) emailVerification,
-    required TResult Function(String email) resetPasswordRequested,
-    required TResult Function(String time) passwordUpdated,
-    required TResult Function(String device, String location, String time)
+    required TResult Function(String? email, String? result) emailVerification,
+    required TResult Function(String? email) resetPasswordRequested,
+    required TResult Function(String? time) passwordUpdated,
+    required TResult Function(String? device, String? location, String? time)
         loginDevice,
     required TResult Function(
-            String actor, String fields, String status, String time)
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)
         profileUpdated,
-    required TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         departmentChanged,
-    required TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(
+            @JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         managerChanged,
-    required TResult Function(String status, String deadline)
+    required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String date, String time, String interviewer)
+    required TResult Function(String? date, String? time, String? interviewer)
         exitInterviewSchedule,
     required TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)
+            @JsonKey(name: "start_time") String? startTime, int? minutes)
         attendanceReminder,
-    required TResult Function(int grace) attendanceNotPresent,
+    required TResult Function(int? grace) attendanceNotPresent,
     required TResult Function(
-            String date, String start, String end, String approver)
+            String? date, String? start, String? end, String? approver)
         overtimeSubmitted,
-    required TResult Function(String date, String status, String actor)
+    required TResult Function(String? date, String? status, String? actor)
         overtimeUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)
         leaveSubmitted,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)
         leaveUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)
         leaveReminder,
-    required TResult Function(@JsonKey(name: "days_left") int daysLeft,
-            int balance, String deadline)
+    required TResult Function(@JsonKey(name: "days_left") int? daysLeft,
+            int? balance, String? deadline)
         leaveExpiring,
-    required TResult Function(String period) payslipAvailable,
-    required TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)
+    required TResult Function(String? period) payslipAvailable,
+    required TResult Function(
+            @JsonKey(name: "request_type") String? requestType,
+            String? period,
+            String? status)
         payslipRequestUpdated,
     required TResult Function(
-            String period, @JsonKey(name: "due_date") String dueDate)
+            String? period, @JsonKey(name: "due_date") String? dueDate)
         performanceFormOpen,
     required TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)
+            @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
-    required TResult Function(String period) performancePublished,
+    required TResult Function(String? period) performancePublished,
   }) {
     return offboardingStarted(status, deadline);
   }
@@ -3251,52 +3597,61 @@ class _$OffboardingStartedPayloadImpl implements OffboardingStartedPayload {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String email, String result)? emailVerification,
-    TResult? Function(String email)? resetPasswordRequested,
-    TResult? Function(String time)? passwordUpdated,
-    TResult? Function(String device, String location, String time)? loginDevice,
-    TResult? Function(String actor, String fields, String status, String time)?
+    TResult? Function(String? email, String? result)? emailVerification,
+    TResult? Function(String? email)? resetPasswordRequested,
+    TResult? Function(String? time)? passwordUpdated,
+    TResult? Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult? Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult? Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult? Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult? Function(String status, String deadline)? offboardingStarted,
-    TResult? Function(String date, String time, String interviewer)?
+    TResult? Function(String? status, String? deadline)? offboardingStarted,
+    TResult? Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult? Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult? Function(int grace)? attendanceNotPresent,
-    TResult? Function(String date, String start, String end, String approver)?
+    TResult? Function(int? grace)? attendanceNotPresent,
+    TResult? Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult? Function(String date, String status, String actor)?
+    TResult? Function(String? date, String? status, String? actor)?
         overtimeUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult? Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult? Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult? Function(String period)? payslipAvailable,
-    TResult? Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult? Function(String? period)? payslipAvailable,
+    TResult? Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult? Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult? Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult? Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
-    TResult? Function(String period)? performancePublished,
+    TResult? Function(String? period)? performancePublished,
   }) {
     return offboardingStarted?.call(status, deadline);
   }
@@ -3304,51 +3659,61 @@ class _$OffboardingStartedPayloadImpl implements OffboardingStartedPayload {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email, String result)? emailVerification,
-    TResult Function(String email)? resetPasswordRequested,
-    TResult Function(String time)? passwordUpdated,
-    TResult Function(String device, String location, String time)? loginDevice,
-    TResult Function(String actor, String fields, String status, String time)?
+    TResult Function(String? email, String? result)? emailVerification,
+    TResult Function(String? email)? resetPasswordRequested,
+    TResult Function(String? time)? passwordUpdated,
+    TResult Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult Function(String status, String deadline)? offboardingStarted,
-    TResult Function(String date, String time, String interviewer)?
+    TResult Function(String? status, String? deadline)? offboardingStarted,
+    TResult Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult Function(int grace)? attendanceNotPresent,
-    TResult Function(String date, String start, String end, String approver)?
+    TResult Function(int? grace)? attendanceNotPresent,
+    TResult Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult Function(String date, String status, String actor)? overtimeUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult Function(String? date, String? status, String? actor)?
+        overtimeUpdated,
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult Function(String period)? payslipAvailable,
-    TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult Function(String? period)? payslipAvailable,
+    TResult Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
-    TResult Function(String period)? performancePublished,
+    TResult Function(String? period)? performancePublished,
     required TResult orElse(),
   }) {
     if (offboardingStarted != null) {
@@ -3475,14 +3840,14 @@ class _$OffboardingStartedPayloadImpl implements OffboardingStartedPayload {
 
 abstract class OffboardingStartedPayload implements NotificationPayload {
   const factory OffboardingStartedPayload(
-      {required final String status,
-      required final String deadline}) = _$OffboardingStartedPayloadImpl;
+      {final String? status,
+      final String? deadline}) = _$OffboardingStartedPayloadImpl;
 
   factory OffboardingStartedPayload.fromJson(Map<String, dynamic> json) =
       _$OffboardingStartedPayloadImpl.fromJson;
 
-  String get status;
-  String get deadline;
+  String? get status;
+  String? get deadline;
 
   /// Create a copy of NotificationPayload
   /// with the given fields replaced by the non-null parameter values.
@@ -3498,7 +3863,7 @@ abstract class _$$ExitInterviewSchedulePayloadImplCopyWith<$Res> {
           $Res Function(_$ExitInterviewSchedulePayloadImpl) then) =
       __$$ExitInterviewSchedulePayloadImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String date, String time, String interviewer});
+  $Res call({String? date, String? time, String? interviewer});
 }
 
 /// @nodoc
@@ -3516,23 +3881,23 @@ class __$$ExitInterviewSchedulePayloadImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? date = null,
-    Object? time = null,
-    Object? interviewer = null,
+    Object? date = freezed,
+    Object? time = freezed,
+    Object? interviewer = freezed,
   }) {
     return _then(_$ExitInterviewSchedulePayloadImpl(
-      date: null == date
+      date: freezed == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
-              as String,
-      time: null == time
+              as String?,
+      time: freezed == time
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
-              as String,
-      interviewer: null == interviewer
+              as String?,
+      interviewer: freezed == interviewer
           ? _value.interviewer
           : interviewer // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -3540,12 +3905,10 @@ class __$$ExitInterviewSchedulePayloadImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ExitInterviewSchedulePayloadImpl
+    with DiagnosticableTreeMixin
     implements ExitInterviewSchedulePayload {
   const _$ExitInterviewSchedulePayloadImpl(
-      {required this.date,
-      required this.time,
-      required this.interviewer,
-      final String? $type})
+      {this.date, this.time, this.interviewer, final String? $type})
       : $type = $type ?? 'exitInterviewSchedule';
 
   factory _$ExitInterviewSchedulePayloadImpl.fromJson(
@@ -3553,18 +3916,29 @@ class _$ExitInterviewSchedulePayloadImpl
       _$$ExitInterviewSchedulePayloadImplFromJson(json);
 
   @override
-  final String date;
+  final String? date;
   @override
-  final String time;
+  final String? time;
   @override
-  final String interviewer;
+  final String? interviewer;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'NotificationPayload.exitInterviewSchedule(date: $date, time: $time, interviewer: $interviewer)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty(
+          'type', 'NotificationPayload.exitInterviewSchedule'))
+      ..add(DiagnosticsProperty('date', date))
+      ..add(DiagnosticsProperty('time', time))
+      ..add(DiagnosticsProperty('interviewer', interviewer));
   }
 
   @override
@@ -3595,57 +3969,65 @@ class _$ExitInterviewSchedulePayloadImpl
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String email, String result) emailVerification,
-    required TResult Function(String email) resetPasswordRequested,
-    required TResult Function(String time) passwordUpdated,
-    required TResult Function(String device, String location, String time)
+    required TResult Function(String? email, String? result) emailVerification,
+    required TResult Function(String? email) resetPasswordRequested,
+    required TResult Function(String? time) passwordUpdated,
+    required TResult Function(String? device, String? location, String? time)
         loginDevice,
     required TResult Function(
-            String actor, String fields, String status, String time)
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)
         profileUpdated,
-    required TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         departmentChanged,
-    required TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(
+            @JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         managerChanged,
-    required TResult Function(String status, String deadline)
+    required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String date, String time, String interviewer)
+    required TResult Function(String? date, String? time, String? interviewer)
         exitInterviewSchedule,
     required TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)
+            @JsonKey(name: "start_time") String? startTime, int? minutes)
         attendanceReminder,
-    required TResult Function(int grace) attendanceNotPresent,
+    required TResult Function(int? grace) attendanceNotPresent,
     required TResult Function(
-            String date, String start, String end, String approver)
+            String? date, String? start, String? end, String? approver)
         overtimeSubmitted,
-    required TResult Function(String date, String status, String actor)
+    required TResult Function(String? date, String? status, String? actor)
         overtimeUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)
         leaveSubmitted,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)
         leaveUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)
         leaveReminder,
-    required TResult Function(@JsonKey(name: "days_left") int daysLeft,
-            int balance, String deadline)
+    required TResult Function(@JsonKey(name: "days_left") int? daysLeft,
+            int? balance, String? deadline)
         leaveExpiring,
-    required TResult Function(String period) payslipAvailable,
-    required TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)
+    required TResult Function(String? period) payslipAvailable,
+    required TResult Function(
+            @JsonKey(name: "request_type") String? requestType,
+            String? period,
+            String? status)
         payslipRequestUpdated,
     required TResult Function(
-            String period, @JsonKey(name: "due_date") String dueDate)
+            String? period, @JsonKey(name: "due_date") String? dueDate)
         performanceFormOpen,
     required TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)
+            @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
-    required TResult Function(String period) performancePublished,
+    required TResult Function(String? period) performancePublished,
   }) {
     return exitInterviewSchedule(date, time, interviewer);
   }
@@ -3653,52 +4035,61 @@ class _$ExitInterviewSchedulePayloadImpl
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String email, String result)? emailVerification,
-    TResult? Function(String email)? resetPasswordRequested,
-    TResult? Function(String time)? passwordUpdated,
-    TResult? Function(String device, String location, String time)? loginDevice,
-    TResult? Function(String actor, String fields, String status, String time)?
+    TResult? Function(String? email, String? result)? emailVerification,
+    TResult? Function(String? email)? resetPasswordRequested,
+    TResult? Function(String? time)? passwordUpdated,
+    TResult? Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult? Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult? Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult? Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult? Function(String status, String deadline)? offboardingStarted,
-    TResult? Function(String date, String time, String interviewer)?
+    TResult? Function(String? status, String? deadline)? offboardingStarted,
+    TResult? Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult? Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult? Function(int grace)? attendanceNotPresent,
-    TResult? Function(String date, String start, String end, String approver)?
+    TResult? Function(int? grace)? attendanceNotPresent,
+    TResult? Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult? Function(String date, String status, String actor)?
+    TResult? Function(String? date, String? status, String? actor)?
         overtimeUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult? Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult? Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult? Function(String period)? payslipAvailable,
-    TResult? Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult? Function(String? period)? payslipAvailable,
+    TResult? Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult? Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult? Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult? Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
-    TResult? Function(String period)? performancePublished,
+    TResult? Function(String? period)? performancePublished,
   }) {
     return exitInterviewSchedule?.call(date, time, interviewer);
   }
@@ -3706,51 +4097,61 @@ class _$ExitInterviewSchedulePayloadImpl
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email, String result)? emailVerification,
-    TResult Function(String email)? resetPasswordRequested,
-    TResult Function(String time)? passwordUpdated,
-    TResult Function(String device, String location, String time)? loginDevice,
-    TResult Function(String actor, String fields, String status, String time)?
+    TResult Function(String? email, String? result)? emailVerification,
+    TResult Function(String? email)? resetPasswordRequested,
+    TResult Function(String? time)? passwordUpdated,
+    TResult Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult Function(String status, String deadline)? offboardingStarted,
-    TResult Function(String date, String time, String interviewer)?
+    TResult Function(String? status, String? deadline)? offboardingStarted,
+    TResult Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult Function(int grace)? attendanceNotPresent,
-    TResult Function(String date, String start, String end, String approver)?
+    TResult Function(int? grace)? attendanceNotPresent,
+    TResult Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult Function(String date, String status, String actor)? overtimeUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult Function(String? date, String? status, String? actor)?
+        overtimeUpdated,
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult Function(String period)? payslipAvailable,
-    TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult Function(String? period)? payslipAvailable,
+    TResult Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
-    TResult Function(String period)? performancePublished,
+    TResult Function(String? period)? performancePublished,
     required TResult orElse(),
   }) {
     if (exitInterviewSchedule != null) {
@@ -3877,16 +4278,16 @@ class _$ExitInterviewSchedulePayloadImpl
 
 abstract class ExitInterviewSchedulePayload implements NotificationPayload {
   const factory ExitInterviewSchedulePayload(
-      {required final String date,
-      required final String time,
-      required final String interviewer}) = _$ExitInterviewSchedulePayloadImpl;
+      {final String? date,
+      final String? time,
+      final String? interviewer}) = _$ExitInterviewSchedulePayloadImpl;
 
   factory ExitInterviewSchedulePayload.fromJson(Map<String, dynamic> json) =
       _$ExitInterviewSchedulePayloadImpl.fromJson;
 
-  String get date;
-  String get time;
-  String get interviewer;
+  String? get date;
+  String? get time;
+  String? get interviewer;
 
   /// Create a copy of NotificationPayload
   /// with the given fields replaced by the non-null parameter values.
@@ -3903,7 +4304,7 @@ abstract class _$$AttendanceReminderPayloadImplCopyWith<$Res> {
           $Res Function(_$AttendanceReminderPayloadImpl) then) =
       __$$AttendanceReminderPayloadImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({@JsonKey(name: "start_time") String startTime, int minutes});
+  $Res call({@JsonKey(name: "start_time") String? startTime, int? minutes});
 }
 
 /// @nodoc
@@ -3921,28 +4322,30 @@ class __$$AttendanceReminderPayloadImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? startTime = null,
-    Object? minutes = null,
+    Object? startTime = freezed,
+    Object? minutes = freezed,
   }) {
     return _then(_$AttendanceReminderPayloadImpl(
-      startTime: null == startTime
+      startTime: freezed == startTime
           ? _value.startTime
           : startTime // ignore: cast_nullable_to_non_nullable
-              as String,
-      minutes: null == minutes
+              as String?,
+      minutes: freezed == minutes
           ? _value.minutes
           : minutes // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$AttendanceReminderPayloadImpl implements AttendanceReminderPayload {
+class _$AttendanceReminderPayloadImpl
+    with DiagnosticableTreeMixin
+    implements AttendanceReminderPayload {
   const _$AttendanceReminderPayloadImpl(
-      {@JsonKey(name: "start_time") required this.startTime,
-      required this.minutes,
+      {@JsonKey(name: "start_time") this.startTime,
+      this.minutes,
       final String? $type})
       : $type = $type ?? 'attendanceReminder';
 
@@ -3951,16 +4354,26 @@ class _$AttendanceReminderPayloadImpl implements AttendanceReminderPayload {
 
   @override
   @JsonKey(name: "start_time")
-  final String startTime;
+  final String? startTime;
   @override
-  final int minutes;
+  final int? minutes;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'NotificationPayload.attendanceReminder(startTime: $startTime, minutes: $minutes)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(
+          DiagnosticsProperty('type', 'NotificationPayload.attendanceReminder'))
+      ..add(DiagnosticsProperty('startTime', startTime))
+      ..add(DiagnosticsProperty('minutes', minutes));
   }
 
   @override
@@ -3989,57 +4402,65 @@ class _$AttendanceReminderPayloadImpl implements AttendanceReminderPayload {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String email, String result) emailVerification,
-    required TResult Function(String email) resetPasswordRequested,
-    required TResult Function(String time) passwordUpdated,
-    required TResult Function(String device, String location, String time)
+    required TResult Function(String? email, String? result) emailVerification,
+    required TResult Function(String? email) resetPasswordRequested,
+    required TResult Function(String? time) passwordUpdated,
+    required TResult Function(String? device, String? location, String? time)
         loginDevice,
     required TResult Function(
-            String actor, String fields, String status, String time)
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)
         profileUpdated,
-    required TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         departmentChanged,
-    required TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(
+            @JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         managerChanged,
-    required TResult Function(String status, String deadline)
+    required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String date, String time, String interviewer)
+    required TResult Function(String? date, String? time, String? interviewer)
         exitInterviewSchedule,
     required TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)
+            @JsonKey(name: "start_time") String? startTime, int? minutes)
         attendanceReminder,
-    required TResult Function(int grace) attendanceNotPresent,
+    required TResult Function(int? grace) attendanceNotPresent,
     required TResult Function(
-            String date, String start, String end, String approver)
+            String? date, String? start, String? end, String? approver)
         overtimeSubmitted,
-    required TResult Function(String date, String status, String actor)
+    required TResult Function(String? date, String? status, String? actor)
         overtimeUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)
         leaveSubmitted,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)
         leaveUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)
         leaveReminder,
-    required TResult Function(@JsonKey(name: "days_left") int daysLeft,
-            int balance, String deadline)
+    required TResult Function(@JsonKey(name: "days_left") int? daysLeft,
+            int? balance, String? deadline)
         leaveExpiring,
-    required TResult Function(String period) payslipAvailable,
-    required TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)
+    required TResult Function(String? period) payslipAvailable,
+    required TResult Function(
+            @JsonKey(name: "request_type") String? requestType,
+            String? period,
+            String? status)
         payslipRequestUpdated,
     required TResult Function(
-            String period, @JsonKey(name: "due_date") String dueDate)
+            String? period, @JsonKey(name: "due_date") String? dueDate)
         performanceFormOpen,
     required TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)
+            @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
-    required TResult Function(String period) performancePublished,
+    required TResult Function(String? period) performancePublished,
   }) {
     return attendanceReminder(startTime, minutes);
   }
@@ -4047,52 +4468,61 @@ class _$AttendanceReminderPayloadImpl implements AttendanceReminderPayload {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String email, String result)? emailVerification,
-    TResult? Function(String email)? resetPasswordRequested,
-    TResult? Function(String time)? passwordUpdated,
-    TResult? Function(String device, String location, String time)? loginDevice,
-    TResult? Function(String actor, String fields, String status, String time)?
+    TResult? Function(String? email, String? result)? emailVerification,
+    TResult? Function(String? email)? resetPasswordRequested,
+    TResult? Function(String? time)? passwordUpdated,
+    TResult? Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult? Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult? Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult? Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult? Function(String status, String deadline)? offboardingStarted,
-    TResult? Function(String date, String time, String interviewer)?
+    TResult? Function(String? status, String? deadline)? offboardingStarted,
+    TResult? Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult? Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult? Function(int grace)? attendanceNotPresent,
-    TResult? Function(String date, String start, String end, String approver)?
+    TResult? Function(int? grace)? attendanceNotPresent,
+    TResult? Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult? Function(String date, String status, String actor)?
+    TResult? Function(String? date, String? status, String? actor)?
         overtimeUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult? Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult? Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult? Function(String period)? payslipAvailable,
-    TResult? Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult? Function(String? period)? payslipAvailable,
+    TResult? Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult? Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult? Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult? Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
-    TResult? Function(String period)? performancePublished,
+    TResult? Function(String? period)? performancePublished,
   }) {
     return attendanceReminder?.call(startTime, minutes);
   }
@@ -4100,51 +4530,61 @@ class _$AttendanceReminderPayloadImpl implements AttendanceReminderPayload {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email, String result)? emailVerification,
-    TResult Function(String email)? resetPasswordRequested,
-    TResult Function(String time)? passwordUpdated,
-    TResult Function(String device, String location, String time)? loginDevice,
-    TResult Function(String actor, String fields, String status, String time)?
+    TResult Function(String? email, String? result)? emailVerification,
+    TResult Function(String? email)? resetPasswordRequested,
+    TResult Function(String? time)? passwordUpdated,
+    TResult Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult Function(String status, String deadline)? offboardingStarted,
-    TResult Function(String date, String time, String interviewer)?
+    TResult Function(String? status, String? deadline)? offboardingStarted,
+    TResult Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult Function(int grace)? attendanceNotPresent,
-    TResult Function(String date, String start, String end, String approver)?
+    TResult Function(int? grace)? attendanceNotPresent,
+    TResult Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult Function(String date, String status, String actor)? overtimeUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult Function(String? date, String? status, String? actor)?
+        overtimeUpdated,
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult Function(String period)? payslipAvailable,
-    TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult Function(String? period)? payslipAvailable,
+    TResult Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
-    TResult Function(String period)? performancePublished,
+    TResult Function(String? period)? performancePublished,
     required TResult orElse(),
   }) {
     if (attendanceReminder != null) {
@@ -4271,15 +4711,15 @@ class _$AttendanceReminderPayloadImpl implements AttendanceReminderPayload {
 
 abstract class AttendanceReminderPayload implements NotificationPayload {
   const factory AttendanceReminderPayload(
-      {@JsonKey(name: "start_time") required final String startTime,
-      required final int minutes}) = _$AttendanceReminderPayloadImpl;
+      {@JsonKey(name: "start_time") final String? startTime,
+      final int? minutes}) = _$AttendanceReminderPayloadImpl;
 
   factory AttendanceReminderPayload.fromJson(Map<String, dynamic> json) =
       _$AttendanceReminderPayloadImpl.fromJson;
 
   @JsonKey(name: "start_time")
-  String get startTime;
-  int get minutes;
+  String? get startTime;
+  int? get minutes;
 
   /// Create a copy of NotificationPayload
   /// with the given fields replaced by the non-null parameter values.
@@ -4295,7 +4735,7 @@ abstract class _$$AttendanceNotPresentPayloadImplCopyWith<$Res> {
           $Res Function(_$AttendanceNotPresentPayloadImpl) then) =
       __$$AttendanceNotPresentPayloadImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int grace});
+  $Res call({int? grace});
 }
 
 /// @nodoc
@@ -4313,22 +4753,23 @@ class __$$AttendanceNotPresentPayloadImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? grace = null,
+    Object? grace = freezed,
   }) {
     return _then(_$AttendanceNotPresentPayloadImpl(
-      grace: null == grace
+      grace: freezed == grace
           ? _value.grace
           : grace // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$AttendanceNotPresentPayloadImpl implements AttendanceNotPresentPayload {
-  const _$AttendanceNotPresentPayloadImpl(
-      {required this.grace, final String? $type})
+class _$AttendanceNotPresentPayloadImpl
+    with DiagnosticableTreeMixin
+    implements AttendanceNotPresentPayload {
+  const _$AttendanceNotPresentPayloadImpl({this.grace, final String? $type})
       : $type = $type ?? 'attendanceNotPresent';
 
   factory _$AttendanceNotPresentPayloadImpl.fromJson(
@@ -4336,14 +4777,23 @@ class _$AttendanceNotPresentPayloadImpl implements AttendanceNotPresentPayload {
       _$$AttendanceNotPresentPayloadImplFromJson(json);
 
   @override
-  final int grace;
+  final int? grace;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'NotificationPayload.attendanceNotPresent(grace: $grace)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty(
+          'type', 'NotificationPayload.attendanceNotPresent'))
+      ..add(DiagnosticsProperty('grace', grace));
   }
 
   @override
@@ -4370,57 +4820,65 @@ class _$AttendanceNotPresentPayloadImpl implements AttendanceNotPresentPayload {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String email, String result) emailVerification,
-    required TResult Function(String email) resetPasswordRequested,
-    required TResult Function(String time) passwordUpdated,
-    required TResult Function(String device, String location, String time)
+    required TResult Function(String? email, String? result) emailVerification,
+    required TResult Function(String? email) resetPasswordRequested,
+    required TResult Function(String? time) passwordUpdated,
+    required TResult Function(String? device, String? location, String? time)
         loginDevice,
     required TResult Function(
-            String actor, String fields, String status, String time)
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)
         profileUpdated,
-    required TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         departmentChanged,
-    required TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(
+            @JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         managerChanged,
-    required TResult Function(String status, String deadline)
+    required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String date, String time, String interviewer)
+    required TResult Function(String? date, String? time, String? interviewer)
         exitInterviewSchedule,
     required TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)
+            @JsonKey(name: "start_time") String? startTime, int? minutes)
         attendanceReminder,
-    required TResult Function(int grace) attendanceNotPresent,
+    required TResult Function(int? grace) attendanceNotPresent,
     required TResult Function(
-            String date, String start, String end, String approver)
+            String? date, String? start, String? end, String? approver)
         overtimeSubmitted,
-    required TResult Function(String date, String status, String actor)
+    required TResult Function(String? date, String? status, String? actor)
         overtimeUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)
         leaveSubmitted,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)
         leaveUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)
         leaveReminder,
-    required TResult Function(@JsonKey(name: "days_left") int daysLeft,
-            int balance, String deadline)
+    required TResult Function(@JsonKey(name: "days_left") int? daysLeft,
+            int? balance, String? deadline)
         leaveExpiring,
-    required TResult Function(String period) payslipAvailable,
-    required TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)
+    required TResult Function(String? period) payslipAvailable,
+    required TResult Function(
+            @JsonKey(name: "request_type") String? requestType,
+            String? period,
+            String? status)
         payslipRequestUpdated,
     required TResult Function(
-            String period, @JsonKey(name: "due_date") String dueDate)
+            String? period, @JsonKey(name: "due_date") String? dueDate)
         performanceFormOpen,
     required TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)
+            @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
-    required TResult Function(String period) performancePublished,
+    required TResult Function(String? period) performancePublished,
   }) {
     return attendanceNotPresent(grace);
   }
@@ -4428,52 +4886,61 @@ class _$AttendanceNotPresentPayloadImpl implements AttendanceNotPresentPayload {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String email, String result)? emailVerification,
-    TResult? Function(String email)? resetPasswordRequested,
-    TResult? Function(String time)? passwordUpdated,
-    TResult? Function(String device, String location, String time)? loginDevice,
-    TResult? Function(String actor, String fields, String status, String time)?
+    TResult? Function(String? email, String? result)? emailVerification,
+    TResult? Function(String? email)? resetPasswordRequested,
+    TResult? Function(String? time)? passwordUpdated,
+    TResult? Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult? Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult? Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult? Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult? Function(String status, String deadline)? offboardingStarted,
-    TResult? Function(String date, String time, String interviewer)?
+    TResult? Function(String? status, String? deadline)? offboardingStarted,
+    TResult? Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult? Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult? Function(int grace)? attendanceNotPresent,
-    TResult? Function(String date, String start, String end, String approver)?
+    TResult? Function(int? grace)? attendanceNotPresent,
+    TResult? Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult? Function(String date, String status, String actor)?
+    TResult? Function(String? date, String? status, String? actor)?
         overtimeUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult? Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult? Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult? Function(String period)? payslipAvailable,
-    TResult? Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult? Function(String? period)? payslipAvailable,
+    TResult? Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult? Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult? Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult? Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
-    TResult? Function(String period)? performancePublished,
+    TResult? Function(String? period)? performancePublished,
   }) {
     return attendanceNotPresent?.call(grace);
   }
@@ -4481,51 +4948,61 @@ class _$AttendanceNotPresentPayloadImpl implements AttendanceNotPresentPayload {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email, String result)? emailVerification,
-    TResult Function(String email)? resetPasswordRequested,
-    TResult Function(String time)? passwordUpdated,
-    TResult Function(String device, String location, String time)? loginDevice,
-    TResult Function(String actor, String fields, String status, String time)?
+    TResult Function(String? email, String? result)? emailVerification,
+    TResult Function(String? email)? resetPasswordRequested,
+    TResult Function(String? time)? passwordUpdated,
+    TResult Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult Function(String status, String deadline)? offboardingStarted,
-    TResult Function(String date, String time, String interviewer)?
+    TResult Function(String? status, String? deadline)? offboardingStarted,
+    TResult Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult Function(int grace)? attendanceNotPresent,
-    TResult Function(String date, String start, String end, String approver)?
+    TResult Function(int? grace)? attendanceNotPresent,
+    TResult Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult Function(String date, String status, String actor)? overtimeUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult Function(String? date, String? status, String? actor)?
+        overtimeUpdated,
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult Function(String period)? payslipAvailable,
-    TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult Function(String? period)? payslipAvailable,
+    TResult Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
-    TResult Function(String period)? performancePublished,
+    TResult Function(String? period)? performancePublished,
     required TResult orElse(),
   }) {
     if (attendanceNotPresent != null) {
@@ -4651,13 +5128,13 @@ class _$AttendanceNotPresentPayloadImpl implements AttendanceNotPresentPayload {
 }
 
 abstract class AttendanceNotPresentPayload implements NotificationPayload {
-  const factory AttendanceNotPresentPayload({required final int grace}) =
+  const factory AttendanceNotPresentPayload({final int? grace}) =
       _$AttendanceNotPresentPayloadImpl;
 
   factory AttendanceNotPresentPayload.fromJson(Map<String, dynamic> json) =
       _$AttendanceNotPresentPayloadImpl.fromJson;
 
-  int get grace;
+  int? get grace;
 
   /// Create a copy of NotificationPayload
   /// with the given fields replaced by the non-null parameter values.
@@ -4673,7 +5150,7 @@ abstract class _$$OvertimeSubmittedPayloadImplCopyWith<$Res> {
           $Res Function(_$OvertimeSubmittedPayloadImpl) then) =
       __$$OvertimeSubmittedPayloadImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String date, String start, String end, String approver});
+  $Res call({String? date, String? start, String? end, String? approver});
 }
 
 /// @nodoc
@@ -4691,61 +5168,71 @@ class __$$OvertimeSubmittedPayloadImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? date = null,
-    Object? start = null,
-    Object? end = null,
-    Object? approver = null,
+    Object? date = freezed,
+    Object? start = freezed,
+    Object? end = freezed,
+    Object? approver = freezed,
   }) {
     return _then(_$OvertimeSubmittedPayloadImpl(
-      date: null == date
+      date: freezed == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
-              as String,
-      start: null == start
+              as String?,
+      start: freezed == start
           ? _value.start
           : start // ignore: cast_nullable_to_non_nullable
-              as String,
-      end: null == end
+              as String?,
+      end: freezed == end
           ? _value.end
           : end // ignore: cast_nullable_to_non_nullable
-              as String,
-      approver: null == approver
+              as String?,
+      approver: freezed == approver
           ? _value.approver
           : approver // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$OvertimeSubmittedPayloadImpl implements OvertimeSubmittedPayload {
+class _$OvertimeSubmittedPayloadImpl
+    with DiagnosticableTreeMixin
+    implements OvertimeSubmittedPayload {
   const _$OvertimeSubmittedPayloadImpl(
-      {required this.date,
-      required this.start,
-      required this.end,
-      required this.approver,
-      final String? $type})
+      {this.date, this.start, this.end, this.approver, final String? $type})
       : $type = $type ?? 'overtimeSubmitted';
 
   factory _$OvertimeSubmittedPayloadImpl.fromJson(Map<String, dynamic> json) =>
       _$$OvertimeSubmittedPayloadImplFromJson(json);
 
   @override
-  final String date;
+  final String? date;
   @override
-  final String start;
+  final String? start;
   @override
-  final String end;
+  final String? end;
   @override
-  final String approver;
+  final String? approver;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'NotificationPayload.overtimeSubmitted(date: $date, start: $start, end: $end, approver: $approver)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(
+          DiagnosticsProperty('type', 'NotificationPayload.overtimeSubmitted'))
+      ..add(DiagnosticsProperty('date', date))
+      ..add(DiagnosticsProperty('start', start))
+      ..add(DiagnosticsProperty('end', end))
+      ..add(DiagnosticsProperty('approver', approver));
   }
 
   @override
@@ -4776,57 +5263,65 @@ class _$OvertimeSubmittedPayloadImpl implements OvertimeSubmittedPayload {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String email, String result) emailVerification,
-    required TResult Function(String email) resetPasswordRequested,
-    required TResult Function(String time) passwordUpdated,
-    required TResult Function(String device, String location, String time)
+    required TResult Function(String? email, String? result) emailVerification,
+    required TResult Function(String? email) resetPasswordRequested,
+    required TResult Function(String? time) passwordUpdated,
+    required TResult Function(String? device, String? location, String? time)
         loginDevice,
     required TResult Function(
-            String actor, String fields, String status, String time)
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)
         profileUpdated,
-    required TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         departmentChanged,
-    required TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(
+            @JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         managerChanged,
-    required TResult Function(String status, String deadline)
+    required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String date, String time, String interviewer)
+    required TResult Function(String? date, String? time, String? interviewer)
         exitInterviewSchedule,
     required TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)
+            @JsonKey(name: "start_time") String? startTime, int? minutes)
         attendanceReminder,
-    required TResult Function(int grace) attendanceNotPresent,
+    required TResult Function(int? grace) attendanceNotPresent,
     required TResult Function(
-            String date, String start, String end, String approver)
+            String? date, String? start, String? end, String? approver)
         overtimeSubmitted,
-    required TResult Function(String date, String status, String actor)
+    required TResult Function(String? date, String? status, String? actor)
         overtimeUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)
         leaveSubmitted,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)
         leaveUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)
         leaveReminder,
-    required TResult Function(@JsonKey(name: "days_left") int daysLeft,
-            int balance, String deadline)
+    required TResult Function(@JsonKey(name: "days_left") int? daysLeft,
+            int? balance, String? deadline)
         leaveExpiring,
-    required TResult Function(String period) payslipAvailable,
-    required TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)
+    required TResult Function(String? period) payslipAvailable,
+    required TResult Function(
+            @JsonKey(name: "request_type") String? requestType,
+            String? period,
+            String? status)
         payslipRequestUpdated,
     required TResult Function(
-            String period, @JsonKey(name: "due_date") String dueDate)
+            String? period, @JsonKey(name: "due_date") String? dueDate)
         performanceFormOpen,
     required TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)
+            @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
-    required TResult Function(String period) performancePublished,
+    required TResult Function(String? period) performancePublished,
   }) {
     return overtimeSubmitted(date, start, end, approver);
   }
@@ -4834,52 +5329,61 @@ class _$OvertimeSubmittedPayloadImpl implements OvertimeSubmittedPayload {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String email, String result)? emailVerification,
-    TResult? Function(String email)? resetPasswordRequested,
-    TResult? Function(String time)? passwordUpdated,
-    TResult? Function(String device, String location, String time)? loginDevice,
-    TResult? Function(String actor, String fields, String status, String time)?
+    TResult? Function(String? email, String? result)? emailVerification,
+    TResult? Function(String? email)? resetPasswordRequested,
+    TResult? Function(String? time)? passwordUpdated,
+    TResult? Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult? Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult? Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult? Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult? Function(String status, String deadline)? offboardingStarted,
-    TResult? Function(String date, String time, String interviewer)?
+    TResult? Function(String? status, String? deadline)? offboardingStarted,
+    TResult? Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult? Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult? Function(int grace)? attendanceNotPresent,
-    TResult? Function(String date, String start, String end, String approver)?
+    TResult? Function(int? grace)? attendanceNotPresent,
+    TResult? Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult? Function(String date, String status, String actor)?
+    TResult? Function(String? date, String? status, String? actor)?
         overtimeUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult? Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult? Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult? Function(String period)? payslipAvailable,
-    TResult? Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult? Function(String? period)? payslipAvailable,
+    TResult? Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult? Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult? Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult? Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
-    TResult? Function(String period)? performancePublished,
+    TResult? Function(String? period)? performancePublished,
   }) {
     return overtimeSubmitted?.call(date, start, end, approver);
   }
@@ -4887,51 +5391,61 @@ class _$OvertimeSubmittedPayloadImpl implements OvertimeSubmittedPayload {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email, String result)? emailVerification,
-    TResult Function(String email)? resetPasswordRequested,
-    TResult Function(String time)? passwordUpdated,
-    TResult Function(String device, String location, String time)? loginDevice,
-    TResult Function(String actor, String fields, String status, String time)?
+    TResult Function(String? email, String? result)? emailVerification,
+    TResult Function(String? email)? resetPasswordRequested,
+    TResult Function(String? time)? passwordUpdated,
+    TResult Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult Function(String status, String deadline)? offboardingStarted,
-    TResult Function(String date, String time, String interviewer)?
+    TResult Function(String? status, String? deadline)? offboardingStarted,
+    TResult Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult Function(int grace)? attendanceNotPresent,
-    TResult Function(String date, String start, String end, String approver)?
+    TResult Function(int? grace)? attendanceNotPresent,
+    TResult Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult Function(String date, String status, String actor)? overtimeUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult Function(String? date, String? status, String? actor)?
+        overtimeUpdated,
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult Function(String period)? payslipAvailable,
-    TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult Function(String? period)? payslipAvailable,
+    TResult Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
-    TResult Function(String period)? performancePublished,
+    TResult Function(String? period)? performancePublished,
     required TResult orElse(),
   }) {
     if (overtimeSubmitted != null) {
@@ -5058,18 +5572,18 @@ class _$OvertimeSubmittedPayloadImpl implements OvertimeSubmittedPayload {
 
 abstract class OvertimeSubmittedPayload implements NotificationPayload {
   const factory OvertimeSubmittedPayload(
-      {required final String date,
-      required final String start,
-      required final String end,
-      required final String approver}) = _$OvertimeSubmittedPayloadImpl;
+      {final String? date,
+      final String? start,
+      final String? end,
+      final String? approver}) = _$OvertimeSubmittedPayloadImpl;
 
   factory OvertimeSubmittedPayload.fromJson(Map<String, dynamic> json) =
       _$OvertimeSubmittedPayloadImpl.fromJson;
 
-  String get date;
-  String get start;
-  String get end;
-  String get approver;
+  String? get date;
+  String? get start;
+  String? get end;
+  String? get approver;
 
   /// Create a copy of NotificationPayload
   /// with the given fields replaced by the non-null parameter values.
@@ -5085,7 +5599,7 @@ abstract class _$$OvertimeUpdatedPayloadImplCopyWith<$Res> {
           $Res Function(_$OvertimeUpdatedPayloadImpl) then) =
       __$$OvertimeUpdatedPayloadImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String date, String status, String actor});
+  $Res call({String? date, String? status, String? actor});
 }
 
 /// @nodoc
@@ -5103,53 +5617,62 @@ class __$$OvertimeUpdatedPayloadImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? date = null,
-    Object? status = null,
-    Object? actor = null,
+    Object? date = freezed,
+    Object? status = freezed,
+    Object? actor = freezed,
   }) {
     return _then(_$OvertimeUpdatedPayloadImpl(
-      date: null == date
+      date: freezed == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
-              as String,
-      status: null == status
+              as String?,
+      status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as String,
-      actor: null == actor
+              as String?,
+      actor: freezed == actor
           ? _value.actor
           : actor // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$OvertimeUpdatedPayloadImpl implements OvertimeUpdatedPayload {
+class _$OvertimeUpdatedPayloadImpl
+    with DiagnosticableTreeMixin
+    implements OvertimeUpdatedPayload {
   const _$OvertimeUpdatedPayloadImpl(
-      {required this.date,
-      required this.status,
-      required this.actor,
-      final String? $type})
+      {this.date, this.status, this.actor, final String? $type})
       : $type = $type ?? 'overtimeUpdated';
 
   factory _$OvertimeUpdatedPayloadImpl.fromJson(Map<String, dynamic> json) =>
       _$$OvertimeUpdatedPayloadImplFromJson(json);
 
   @override
-  final String date;
+  final String? date;
   @override
-  final String status;
+  final String? status;
   @override
-  final String actor;
+  final String? actor;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'NotificationPayload.overtimeUpdated(date: $date, status: $status, actor: $actor)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'NotificationPayload.overtimeUpdated'))
+      ..add(DiagnosticsProperty('date', date))
+      ..add(DiagnosticsProperty('status', status))
+      ..add(DiagnosticsProperty('actor', actor));
   }
 
   @override
@@ -5178,57 +5701,65 @@ class _$OvertimeUpdatedPayloadImpl implements OvertimeUpdatedPayload {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String email, String result) emailVerification,
-    required TResult Function(String email) resetPasswordRequested,
-    required TResult Function(String time) passwordUpdated,
-    required TResult Function(String device, String location, String time)
+    required TResult Function(String? email, String? result) emailVerification,
+    required TResult Function(String? email) resetPasswordRequested,
+    required TResult Function(String? time) passwordUpdated,
+    required TResult Function(String? device, String? location, String? time)
         loginDevice,
     required TResult Function(
-            String actor, String fields, String status, String time)
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)
         profileUpdated,
-    required TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         departmentChanged,
-    required TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(
+            @JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         managerChanged,
-    required TResult Function(String status, String deadline)
+    required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String date, String time, String interviewer)
+    required TResult Function(String? date, String? time, String? interviewer)
         exitInterviewSchedule,
     required TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)
+            @JsonKey(name: "start_time") String? startTime, int? minutes)
         attendanceReminder,
-    required TResult Function(int grace) attendanceNotPresent,
+    required TResult Function(int? grace) attendanceNotPresent,
     required TResult Function(
-            String date, String start, String end, String approver)
+            String? date, String? start, String? end, String? approver)
         overtimeSubmitted,
-    required TResult Function(String date, String status, String actor)
+    required TResult Function(String? date, String? status, String? actor)
         overtimeUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)
         leaveSubmitted,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)
         leaveUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)
         leaveReminder,
-    required TResult Function(@JsonKey(name: "days_left") int daysLeft,
-            int balance, String deadline)
+    required TResult Function(@JsonKey(name: "days_left") int? daysLeft,
+            int? balance, String? deadline)
         leaveExpiring,
-    required TResult Function(String period) payslipAvailable,
-    required TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)
+    required TResult Function(String? period) payslipAvailable,
+    required TResult Function(
+            @JsonKey(name: "request_type") String? requestType,
+            String? period,
+            String? status)
         payslipRequestUpdated,
     required TResult Function(
-            String period, @JsonKey(name: "due_date") String dueDate)
+            String? period, @JsonKey(name: "due_date") String? dueDate)
         performanceFormOpen,
     required TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)
+            @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
-    required TResult Function(String period) performancePublished,
+    required TResult Function(String? period) performancePublished,
   }) {
     return overtimeUpdated(date, status, actor);
   }
@@ -5236,52 +5767,61 @@ class _$OvertimeUpdatedPayloadImpl implements OvertimeUpdatedPayload {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String email, String result)? emailVerification,
-    TResult? Function(String email)? resetPasswordRequested,
-    TResult? Function(String time)? passwordUpdated,
-    TResult? Function(String device, String location, String time)? loginDevice,
-    TResult? Function(String actor, String fields, String status, String time)?
+    TResult? Function(String? email, String? result)? emailVerification,
+    TResult? Function(String? email)? resetPasswordRequested,
+    TResult? Function(String? time)? passwordUpdated,
+    TResult? Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult? Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult? Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult? Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult? Function(String status, String deadline)? offboardingStarted,
-    TResult? Function(String date, String time, String interviewer)?
+    TResult? Function(String? status, String? deadline)? offboardingStarted,
+    TResult? Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult? Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult? Function(int grace)? attendanceNotPresent,
-    TResult? Function(String date, String start, String end, String approver)?
+    TResult? Function(int? grace)? attendanceNotPresent,
+    TResult? Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult? Function(String date, String status, String actor)?
+    TResult? Function(String? date, String? status, String? actor)?
         overtimeUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult? Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult? Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult? Function(String period)? payslipAvailable,
-    TResult? Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult? Function(String? period)? payslipAvailable,
+    TResult? Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult? Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult? Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult? Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
-    TResult? Function(String period)? performancePublished,
+    TResult? Function(String? period)? performancePublished,
   }) {
     return overtimeUpdated?.call(date, status, actor);
   }
@@ -5289,51 +5829,61 @@ class _$OvertimeUpdatedPayloadImpl implements OvertimeUpdatedPayload {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email, String result)? emailVerification,
-    TResult Function(String email)? resetPasswordRequested,
-    TResult Function(String time)? passwordUpdated,
-    TResult Function(String device, String location, String time)? loginDevice,
-    TResult Function(String actor, String fields, String status, String time)?
+    TResult Function(String? email, String? result)? emailVerification,
+    TResult Function(String? email)? resetPasswordRequested,
+    TResult Function(String? time)? passwordUpdated,
+    TResult Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult Function(String status, String deadline)? offboardingStarted,
-    TResult Function(String date, String time, String interviewer)?
+    TResult Function(String? status, String? deadline)? offboardingStarted,
+    TResult Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult Function(int grace)? attendanceNotPresent,
-    TResult Function(String date, String start, String end, String approver)?
+    TResult Function(int? grace)? attendanceNotPresent,
+    TResult Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult Function(String date, String status, String actor)? overtimeUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult Function(String? date, String? status, String? actor)?
+        overtimeUpdated,
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult Function(String period)? payslipAvailable,
-    TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult Function(String? period)? payslipAvailable,
+    TResult Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
-    TResult Function(String period)? performancePublished,
+    TResult Function(String? period)? performancePublished,
     required TResult orElse(),
   }) {
     if (overtimeUpdated != null) {
@@ -5460,16 +6010,16 @@ class _$OvertimeUpdatedPayloadImpl implements OvertimeUpdatedPayload {
 
 abstract class OvertimeUpdatedPayload implements NotificationPayload {
   const factory OvertimeUpdatedPayload(
-      {required final String date,
-      required final String status,
-      required final String actor}) = _$OvertimeUpdatedPayloadImpl;
+      {final String? date,
+      final String? status,
+      final String? actor}) = _$OvertimeUpdatedPayloadImpl;
 
   factory OvertimeUpdatedPayload.fromJson(Map<String, dynamic> json) =
       _$OvertimeUpdatedPayloadImpl.fromJson;
 
-  String get date;
-  String get status;
-  String get actor;
+  String? get date;
+  String? get status;
+  String? get actor;
 
   /// Create a copy of NotificationPayload
   /// with the given fields replaced by the non-null parameter values.
@@ -5486,10 +6036,10 @@ abstract class _$$LeaveSubmittedPayloadImplCopyWith<$Res> {
       __$$LeaveSubmittedPayloadImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {@JsonKey(name: "leave_type") String leaveType,
-      String start,
-      String end,
-      String approver});
+      {@JsonKey(name: "leave_type") String? leaveType,
+      String? start,
+      String? end,
+      String? approver});
 }
 
 /// @nodoc
@@ -5505,40 +6055,42 @@ class __$$LeaveSubmittedPayloadImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? leaveType = null,
-    Object? start = null,
-    Object? end = null,
-    Object? approver = null,
+    Object? leaveType = freezed,
+    Object? start = freezed,
+    Object? end = freezed,
+    Object? approver = freezed,
   }) {
     return _then(_$LeaveSubmittedPayloadImpl(
-      leaveType: null == leaveType
+      leaveType: freezed == leaveType
           ? _value.leaveType
           : leaveType // ignore: cast_nullable_to_non_nullable
-              as String,
-      start: null == start
+              as String?,
+      start: freezed == start
           ? _value.start
           : start // ignore: cast_nullable_to_non_nullable
-              as String,
-      end: null == end
+              as String?,
+      end: freezed == end
           ? _value.end
           : end // ignore: cast_nullable_to_non_nullable
-              as String,
-      approver: null == approver
+              as String?,
+      approver: freezed == approver
           ? _value.approver
           : approver // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$LeaveSubmittedPayloadImpl implements LeaveSubmittedPayload {
+class _$LeaveSubmittedPayloadImpl
+    with DiagnosticableTreeMixin
+    implements LeaveSubmittedPayload {
   const _$LeaveSubmittedPayloadImpl(
-      {@JsonKey(name: "leave_type") required this.leaveType,
-      required this.start,
-      required this.end,
-      required this.approver,
+      {@JsonKey(name: "leave_type") this.leaveType,
+      this.start,
+      this.end,
+      this.approver,
       final String? $type})
       : $type = $type ?? 'leaveSubmitted';
 
@@ -5547,20 +6099,31 @@ class _$LeaveSubmittedPayloadImpl implements LeaveSubmittedPayload {
 
   @override
   @JsonKey(name: "leave_type")
-  final String leaveType;
+  final String? leaveType;
   @override
-  final String start;
+  final String? start;
   @override
-  final String end;
+  final String? end;
   @override
-  final String approver;
+  final String? approver;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'NotificationPayload.leaveSubmitted(leaveType: $leaveType, start: $start, end: $end, approver: $approver)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'NotificationPayload.leaveSubmitted'))
+      ..add(DiagnosticsProperty('leaveType', leaveType))
+      ..add(DiagnosticsProperty('start', start))
+      ..add(DiagnosticsProperty('end', end))
+      ..add(DiagnosticsProperty('approver', approver));
   }
 
   @override
@@ -5592,57 +6155,65 @@ class _$LeaveSubmittedPayloadImpl implements LeaveSubmittedPayload {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String email, String result) emailVerification,
-    required TResult Function(String email) resetPasswordRequested,
-    required TResult Function(String time) passwordUpdated,
-    required TResult Function(String device, String location, String time)
+    required TResult Function(String? email, String? result) emailVerification,
+    required TResult Function(String? email) resetPasswordRequested,
+    required TResult Function(String? time) passwordUpdated,
+    required TResult Function(String? device, String? location, String? time)
         loginDevice,
     required TResult Function(
-            String actor, String fields, String status, String time)
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)
         profileUpdated,
-    required TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         departmentChanged,
-    required TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(
+            @JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         managerChanged,
-    required TResult Function(String status, String deadline)
+    required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String date, String time, String interviewer)
+    required TResult Function(String? date, String? time, String? interviewer)
         exitInterviewSchedule,
     required TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)
+            @JsonKey(name: "start_time") String? startTime, int? minutes)
         attendanceReminder,
-    required TResult Function(int grace) attendanceNotPresent,
+    required TResult Function(int? grace) attendanceNotPresent,
     required TResult Function(
-            String date, String start, String end, String approver)
+            String? date, String? start, String? end, String? approver)
         overtimeSubmitted,
-    required TResult Function(String date, String status, String actor)
+    required TResult Function(String? date, String? status, String? actor)
         overtimeUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)
         leaveSubmitted,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)
         leaveUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)
         leaveReminder,
-    required TResult Function(@JsonKey(name: "days_left") int daysLeft,
-            int balance, String deadline)
+    required TResult Function(@JsonKey(name: "days_left") int? daysLeft,
+            int? balance, String? deadline)
         leaveExpiring,
-    required TResult Function(String period) payslipAvailable,
-    required TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)
+    required TResult Function(String? period) payslipAvailable,
+    required TResult Function(
+            @JsonKey(name: "request_type") String? requestType,
+            String? period,
+            String? status)
         payslipRequestUpdated,
     required TResult Function(
-            String period, @JsonKey(name: "due_date") String dueDate)
+            String? period, @JsonKey(name: "due_date") String? dueDate)
         performanceFormOpen,
     required TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)
+            @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
-    required TResult Function(String period) performancePublished,
+    required TResult Function(String? period) performancePublished,
   }) {
     return leaveSubmitted(leaveType, start, end, approver);
   }
@@ -5650,52 +6221,61 @@ class _$LeaveSubmittedPayloadImpl implements LeaveSubmittedPayload {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String email, String result)? emailVerification,
-    TResult? Function(String email)? resetPasswordRequested,
-    TResult? Function(String time)? passwordUpdated,
-    TResult? Function(String device, String location, String time)? loginDevice,
-    TResult? Function(String actor, String fields, String status, String time)?
+    TResult? Function(String? email, String? result)? emailVerification,
+    TResult? Function(String? email)? resetPasswordRequested,
+    TResult? Function(String? time)? passwordUpdated,
+    TResult? Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult? Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult? Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult? Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult? Function(String status, String deadline)? offboardingStarted,
-    TResult? Function(String date, String time, String interviewer)?
+    TResult? Function(String? status, String? deadline)? offboardingStarted,
+    TResult? Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult? Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult? Function(int grace)? attendanceNotPresent,
-    TResult? Function(String date, String start, String end, String approver)?
+    TResult? Function(int? grace)? attendanceNotPresent,
+    TResult? Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult? Function(String date, String status, String actor)?
+    TResult? Function(String? date, String? status, String? actor)?
         overtimeUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult? Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult? Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult? Function(String period)? payslipAvailable,
-    TResult? Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult? Function(String? period)? payslipAvailable,
+    TResult? Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult? Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult? Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult? Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
-    TResult? Function(String period)? performancePublished,
+    TResult? Function(String? period)? performancePublished,
   }) {
     return leaveSubmitted?.call(leaveType, start, end, approver);
   }
@@ -5703,51 +6283,61 @@ class _$LeaveSubmittedPayloadImpl implements LeaveSubmittedPayload {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email, String result)? emailVerification,
-    TResult Function(String email)? resetPasswordRequested,
-    TResult Function(String time)? passwordUpdated,
-    TResult Function(String device, String location, String time)? loginDevice,
-    TResult Function(String actor, String fields, String status, String time)?
+    TResult Function(String? email, String? result)? emailVerification,
+    TResult Function(String? email)? resetPasswordRequested,
+    TResult Function(String? time)? passwordUpdated,
+    TResult Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult Function(String status, String deadline)? offboardingStarted,
-    TResult Function(String date, String time, String interviewer)?
+    TResult Function(String? status, String? deadline)? offboardingStarted,
+    TResult Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult Function(int grace)? attendanceNotPresent,
-    TResult Function(String date, String start, String end, String approver)?
+    TResult Function(int? grace)? attendanceNotPresent,
+    TResult Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult Function(String date, String status, String actor)? overtimeUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult Function(String? date, String? status, String? actor)?
+        overtimeUpdated,
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult Function(String period)? payslipAvailable,
-    TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult Function(String? period)? payslipAvailable,
+    TResult Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
-    TResult Function(String period)? performancePublished,
+    TResult Function(String? period)? performancePublished,
     required TResult orElse(),
   }) {
     if (leaveSubmitted != null) {
@@ -5874,19 +6464,19 @@ class _$LeaveSubmittedPayloadImpl implements LeaveSubmittedPayload {
 
 abstract class LeaveSubmittedPayload implements NotificationPayload {
   const factory LeaveSubmittedPayload(
-      {@JsonKey(name: "leave_type") required final String leaveType,
-      required final String start,
-      required final String end,
-      required final String approver}) = _$LeaveSubmittedPayloadImpl;
+      {@JsonKey(name: "leave_type") final String? leaveType,
+      final String? start,
+      final String? end,
+      final String? approver}) = _$LeaveSubmittedPayloadImpl;
 
   factory LeaveSubmittedPayload.fromJson(Map<String, dynamic> json) =
       _$LeaveSubmittedPayloadImpl.fromJson;
 
   @JsonKey(name: "leave_type")
-  String get leaveType;
-  String get start;
-  String get end;
-  String get approver;
+  String? get leaveType;
+  String? get start;
+  String? get end;
+  String? get approver;
 
   /// Create a copy of NotificationPayload
   /// with the given fields replaced by the non-null parameter values.
@@ -5902,10 +6492,10 @@ abstract class _$$LeaveUpdatedPayloadImplCopyWith<$Res> {
       __$$LeaveUpdatedPayloadImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {@JsonKey(name: "leave_type") String leaveType,
-      String start,
-      String end,
-      String status});
+      {@JsonKey(name: "leave_type") String? leaveType,
+      String? start,
+      String? end,
+      String? status});
 }
 
 /// @nodoc
@@ -5921,40 +6511,42 @@ class __$$LeaveUpdatedPayloadImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? leaveType = null,
-    Object? start = null,
-    Object? end = null,
-    Object? status = null,
+    Object? leaveType = freezed,
+    Object? start = freezed,
+    Object? end = freezed,
+    Object? status = freezed,
   }) {
     return _then(_$LeaveUpdatedPayloadImpl(
-      leaveType: null == leaveType
+      leaveType: freezed == leaveType
           ? _value.leaveType
           : leaveType // ignore: cast_nullable_to_non_nullable
-              as String,
-      start: null == start
+              as String?,
+      start: freezed == start
           ? _value.start
           : start // ignore: cast_nullable_to_non_nullable
-              as String,
-      end: null == end
+              as String?,
+      end: freezed == end
           ? _value.end
           : end // ignore: cast_nullable_to_non_nullable
-              as String,
-      status: null == status
+              as String?,
+      status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$LeaveUpdatedPayloadImpl implements LeaveUpdatedPayload {
+class _$LeaveUpdatedPayloadImpl
+    with DiagnosticableTreeMixin
+    implements LeaveUpdatedPayload {
   const _$LeaveUpdatedPayloadImpl(
-      {@JsonKey(name: "leave_type") required this.leaveType,
-      required this.start,
-      required this.end,
-      required this.status,
+      {@JsonKey(name: "leave_type") this.leaveType,
+      this.start,
+      this.end,
+      this.status,
       final String? $type})
       : $type = $type ?? 'leaveUpdated';
 
@@ -5963,20 +6555,31 @@ class _$LeaveUpdatedPayloadImpl implements LeaveUpdatedPayload {
 
   @override
   @JsonKey(name: "leave_type")
-  final String leaveType;
+  final String? leaveType;
   @override
-  final String start;
+  final String? start;
   @override
-  final String end;
+  final String? end;
   @override
-  final String status;
+  final String? status;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'NotificationPayload.leaveUpdated(leaveType: $leaveType, start: $start, end: $end, status: $status)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'NotificationPayload.leaveUpdated'))
+      ..add(DiagnosticsProperty('leaveType', leaveType))
+      ..add(DiagnosticsProperty('start', start))
+      ..add(DiagnosticsProperty('end', end))
+      ..add(DiagnosticsProperty('status', status));
   }
 
   @override
@@ -6007,57 +6610,65 @@ class _$LeaveUpdatedPayloadImpl implements LeaveUpdatedPayload {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String email, String result) emailVerification,
-    required TResult Function(String email) resetPasswordRequested,
-    required TResult Function(String time) passwordUpdated,
-    required TResult Function(String device, String location, String time)
+    required TResult Function(String? email, String? result) emailVerification,
+    required TResult Function(String? email) resetPasswordRequested,
+    required TResult Function(String? time) passwordUpdated,
+    required TResult Function(String? device, String? location, String? time)
         loginDevice,
     required TResult Function(
-            String actor, String fields, String status, String time)
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)
         profileUpdated,
-    required TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         departmentChanged,
-    required TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(
+            @JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         managerChanged,
-    required TResult Function(String status, String deadline)
+    required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String date, String time, String interviewer)
+    required TResult Function(String? date, String? time, String? interviewer)
         exitInterviewSchedule,
     required TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)
+            @JsonKey(name: "start_time") String? startTime, int? minutes)
         attendanceReminder,
-    required TResult Function(int grace) attendanceNotPresent,
+    required TResult Function(int? grace) attendanceNotPresent,
     required TResult Function(
-            String date, String start, String end, String approver)
+            String? date, String? start, String? end, String? approver)
         overtimeSubmitted,
-    required TResult Function(String date, String status, String actor)
+    required TResult Function(String? date, String? status, String? actor)
         overtimeUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)
         leaveSubmitted,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)
         leaveUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)
         leaveReminder,
-    required TResult Function(@JsonKey(name: "days_left") int daysLeft,
-            int balance, String deadline)
+    required TResult Function(@JsonKey(name: "days_left") int? daysLeft,
+            int? balance, String? deadline)
         leaveExpiring,
-    required TResult Function(String period) payslipAvailable,
-    required TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)
+    required TResult Function(String? period) payslipAvailable,
+    required TResult Function(
+            @JsonKey(name: "request_type") String? requestType,
+            String? period,
+            String? status)
         payslipRequestUpdated,
     required TResult Function(
-            String period, @JsonKey(name: "due_date") String dueDate)
+            String? period, @JsonKey(name: "due_date") String? dueDate)
         performanceFormOpen,
     required TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)
+            @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
-    required TResult Function(String period) performancePublished,
+    required TResult Function(String? period) performancePublished,
   }) {
     return leaveUpdated(leaveType, start, end, status);
   }
@@ -6065,52 +6676,61 @@ class _$LeaveUpdatedPayloadImpl implements LeaveUpdatedPayload {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String email, String result)? emailVerification,
-    TResult? Function(String email)? resetPasswordRequested,
-    TResult? Function(String time)? passwordUpdated,
-    TResult? Function(String device, String location, String time)? loginDevice,
-    TResult? Function(String actor, String fields, String status, String time)?
+    TResult? Function(String? email, String? result)? emailVerification,
+    TResult? Function(String? email)? resetPasswordRequested,
+    TResult? Function(String? time)? passwordUpdated,
+    TResult? Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult? Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult? Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult? Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult? Function(String status, String deadline)? offboardingStarted,
-    TResult? Function(String date, String time, String interviewer)?
+    TResult? Function(String? status, String? deadline)? offboardingStarted,
+    TResult? Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult? Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult? Function(int grace)? attendanceNotPresent,
-    TResult? Function(String date, String start, String end, String approver)?
+    TResult? Function(int? grace)? attendanceNotPresent,
+    TResult? Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult? Function(String date, String status, String actor)?
+    TResult? Function(String? date, String? status, String? actor)?
         overtimeUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult? Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult? Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult? Function(String period)? payslipAvailable,
-    TResult? Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult? Function(String? period)? payslipAvailable,
+    TResult? Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult? Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult? Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult? Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
-    TResult? Function(String period)? performancePublished,
+    TResult? Function(String? period)? performancePublished,
   }) {
     return leaveUpdated?.call(leaveType, start, end, status);
   }
@@ -6118,51 +6738,61 @@ class _$LeaveUpdatedPayloadImpl implements LeaveUpdatedPayload {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email, String result)? emailVerification,
-    TResult Function(String email)? resetPasswordRequested,
-    TResult Function(String time)? passwordUpdated,
-    TResult Function(String device, String location, String time)? loginDevice,
-    TResult Function(String actor, String fields, String status, String time)?
+    TResult Function(String? email, String? result)? emailVerification,
+    TResult Function(String? email)? resetPasswordRequested,
+    TResult Function(String? time)? passwordUpdated,
+    TResult Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult Function(String status, String deadline)? offboardingStarted,
-    TResult Function(String date, String time, String interviewer)?
+    TResult Function(String? status, String? deadline)? offboardingStarted,
+    TResult Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult Function(int grace)? attendanceNotPresent,
-    TResult Function(String date, String start, String end, String approver)?
+    TResult Function(int? grace)? attendanceNotPresent,
+    TResult Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult Function(String date, String status, String actor)? overtimeUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult Function(String? date, String? status, String? actor)?
+        overtimeUpdated,
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult Function(String period)? payslipAvailable,
-    TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult Function(String? period)? payslipAvailable,
+    TResult Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
-    TResult Function(String period)? performancePublished,
+    TResult Function(String? period)? performancePublished,
     required TResult orElse(),
   }) {
     if (leaveUpdated != null) {
@@ -6289,19 +6919,19 @@ class _$LeaveUpdatedPayloadImpl implements LeaveUpdatedPayload {
 
 abstract class LeaveUpdatedPayload implements NotificationPayload {
   const factory LeaveUpdatedPayload(
-      {@JsonKey(name: "leave_type") required final String leaveType,
-      required final String start,
-      required final String end,
-      required final String status}) = _$LeaveUpdatedPayloadImpl;
+      {@JsonKey(name: "leave_type") final String? leaveType,
+      final String? start,
+      final String? end,
+      final String? status}) = _$LeaveUpdatedPayloadImpl;
 
   factory LeaveUpdatedPayload.fromJson(Map<String, dynamic> json) =
       _$LeaveUpdatedPayloadImpl.fromJson;
 
   @JsonKey(name: "leave_type")
-  String get leaveType;
-  String get start;
-  String get end;
-  String get status;
+  String? get leaveType;
+  String? get start;
+  String? get end;
+  String? get status;
 
   /// Create a copy of NotificationPayload
   /// with the given fields replaced by the non-null parameter values.
@@ -6317,9 +6947,9 @@ abstract class _$$LeaveReminderPayloadImplCopyWith<$Res> {
       __$$LeaveReminderPayloadImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {@JsonKey(name: "leave_type") String leaveType,
-      String relativeDay,
-      String date});
+      {@JsonKey(name: "leave_type") String? leaveType,
+      String? relativeDay,
+      String? date});
 }
 
 /// @nodoc
@@ -6335,34 +6965,36 @@ class __$$LeaveReminderPayloadImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? leaveType = null,
-    Object? relativeDay = null,
-    Object? date = null,
+    Object? leaveType = freezed,
+    Object? relativeDay = freezed,
+    Object? date = freezed,
   }) {
     return _then(_$LeaveReminderPayloadImpl(
-      leaveType: null == leaveType
+      leaveType: freezed == leaveType
           ? _value.leaveType
           : leaveType // ignore: cast_nullable_to_non_nullable
-              as String,
-      relativeDay: null == relativeDay
+              as String?,
+      relativeDay: freezed == relativeDay
           ? _value.relativeDay
           : relativeDay // ignore: cast_nullable_to_non_nullable
-              as String,
-      date: null == date
+              as String?,
+      date: freezed == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$LeaveReminderPayloadImpl implements LeaveReminderPayload {
+class _$LeaveReminderPayloadImpl
+    with DiagnosticableTreeMixin
+    implements LeaveReminderPayload {
   const _$LeaveReminderPayloadImpl(
-      {@JsonKey(name: "leave_type") required this.leaveType,
-      required this.relativeDay,
-      required this.date,
+      {@JsonKey(name: "leave_type") this.leaveType,
+      this.relativeDay,
+      this.date,
       final String? $type})
       : $type = $type ?? 'leaveReminder';
 
@@ -6371,18 +7003,28 @@ class _$LeaveReminderPayloadImpl implements LeaveReminderPayload {
 
   @override
   @JsonKey(name: "leave_type")
-  final String leaveType;
+  final String? leaveType;
   @override
-  final String relativeDay;
+  final String? relativeDay;
   @override
-  final String date;
+  final String? date;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'NotificationPayload.leaveReminder(leaveType: $leaveType, relativeDay: $relativeDay, date: $date)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'NotificationPayload.leaveReminder'))
+      ..add(DiagnosticsProperty('leaveType', leaveType))
+      ..add(DiagnosticsProperty('relativeDay', relativeDay))
+      ..add(DiagnosticsProperty('date', date));
   }
 
   @override
@@ -6414,57 +7056,65 @@ class _$LeaveReminderPayloadImpl implements LeaveReminderPayload {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String email, String result) emailVerification,
-    required TResult Function(String email) resetPasswordRequested,
-    required TResult Function(String time) passwordUpdated,
-    required TResult Function(String device, String location, String time)
+    required TResult Function(String? email, String? result) emailVerification,
+    required TResult Function(String? email) resetPasswordRequested,
+    required TResult Function(String? time) passwordUpdated,
+    required TResult Function(String? device, String? location, String? time)
         loginDevice,
     required TResult Function(
-            String actor, String fields, String status, String time)
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)
         profileUpdated,
-    required TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         departmentChanged,
-    required TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(
+            @JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         managerChanged,
-    required TResult Function(String status, String deadline)
+    required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String date, String time, String interviewer)
+    required TResult Function(String? date, String? time, String? interviewer)
         exitInterviewSchedule,
     required TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)
+            @JsonKey(name: "start_time") String? startTime, int? minutes)
         attendanceReminder,
-    required TResult Function(int grace) attendanceNotPresent,
+    required TResult Function(int? grace) attendanceNotPresent,
     required TResult Function(
-            String date, String start, String end, String approver)
+            String? date, String? start, String? end, String? approver)
         overtimeSubmitted,
-    required TResult Function(String date, String status, String actor)
+    required TResult Function(String? date, String? status, String? actor)
         overtimeUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)
         leaveSubmitted,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)
         leaveUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)
         leaveReminder,
-    required TResult Function(@JsonKey(name: "days_left") int daysLeft,
-            int balance, String deadline)
+    required TResult Function(@JsonKey(name: "days_left") int? daysLeft,
+            int? balance, String? deadline)
         leaveExpiring,
-    required TResult Function(String period) payslipAvailable,
-    required TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)
+    required TResult Function(String? period) payslipAvailable,
+    required TResult Function(
+            @JsonKey(name: "request_type") String? requestType,
+            String? period,
+            String? status)
         payslipRequestUpdated,
     required TResult Function(
-            String period, @JsonKey(name: "due_date") String dueDate)
+            String? period, @JsonKey(name: "due_date") String? dueDate)
         performanceFormOpen,
     required TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)
+            @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
-    required TResult Function(String period) performancePublished,
+    required TResult Function(String? period) performancePublished,
   }) {
     return leaveReminder(leaveType, relativeDay, date);
   }
@@ -6472,52 +7122,61 @@ class _$LeaveReminderPayloadImpl implements LeaveReminderPayload {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String email, String result)? emailVerification,
-    TResult? Function(String email)? resetPasswordRequested,
-    TResult? Function(String time)? passwordUpdated,
-    TResult? Function(String device, String location, String time)? loginDevice,
-    TResult? Function(String actor, String fields, String status, String time)?
+    TResult? Function(String? email, String? result)? emailVerification,
+    TResult? Function(String? email)? resetPasswordRequested,
+    TResult? Function(String? time)? passwordUpdated,
+    TResult? Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult? Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult? Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult? Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult? Function(String status, String deadline)? offboardingStarted,
-    TResult? Function(String date, String time, String interviewer)?
+    TResult? Function(String? status, String? deadline)? offboardingStarted,
+    TResult? Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult? Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult? Function(int grace)? attendanceNotPresent,
-    TResult? Function(String date, String start, String end, String approver)?
+    TResult? Function(int? grace)? attendanceNotPresent,
+    TResult? Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult? Function(String date, String status, String actor)?
+    TResult? Function(String? date, String? status, String? actor)?
         overtimeUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult? Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult? Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult? Function(String period)? payslipAvailable,
-    TResult? Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult? Function(String? period)? payslipAvailable,
+    TResult? Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult? Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult? Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult? Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
-    TResult? Function(String period)? performancePublished,
+    TResult? Function(String? period)? performancePublished,
   }) {
     return leaveReminder?.call(leaveType, relativeDay, date);
   }
@@ -6525,51 +7184,61 @@ class _$LeaveReminderPayloadImpl implements LeaveReminderPayload {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email, String result)? emailVerification,
-    TResult Function(String email)? resetPasswordRequested,
-    TResult Function(String time)? passwordUpdated,
-    TResult Function(String device, String location, String time)? loginDevice,
-    TResult Function(String actor, String fields, String status, String time)?
+    TResult Function(String? email, String? result)? emailVerification,
+    TResult Function(String? email)? resetPasswordRequested,
+    TResult Function(String? time)? passwordUpdated,
+    TResult Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult Function(String status, String deadline)? offboardingStarted,
-    TResult Function(String date, String time, String interviewer)?
+    TResult Function(String? status, String? deadline)? offboardingStarted,
+    TResult Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult Function(int grace)? attendanceNotPresent,
-    TResult Function(String date, String start, String end, String approver)?
+    TResult Function(int? grace)? attendanceNotPresent,
+    TResult Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult Function(String date, String status, String actor)? overtimeUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult Function(String? date, String? status, String? actor)?
+        overtimeUpdated,
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult Function(String period)? payslipAvailable,
-    TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult Function(String? period)? payslipAvailable,
+    TResult Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
-    TResult Function(String period)? performancePublished,
+    TResult Function(String? period)? performancePublished,
     required TResult orElse(),
   }) {
     if (leaveReminder != null) {
@@ -6696,17 +7365,17 @@ class _$LeaveReminderPayloadImpl implements LeaveReminderPayload {
 
 abstract class LeaveReminderPayload implements NotificationPayload {
   const factory LeaveReminderPayload(
-      {@JsonKey(name: "leave_type") required final String leaveType,
-      required final String relativeDay,
-      required final String date}) = _$LeaveReminderPayloadImpl;
+      {@JsonKey(name: "leave_type") final String? leaveType,
+      final String? relativeDay,
+      final String? date}) = _$LeaveReminderPayloadImpl;
 
   factory LeaveReminderPayload.fromJson(Map<String, dynamic> json) =
       _$LeaveReminderPayloadImpl.fromJson;
 
   @JsonKey(name: "leave_type")
-  String get leaveType;
-  String get relativeDay;
-  String get date;
+  String? get leaveType;
+  String? get relativeDay;
+  String? get date;
 
   /// Create a copy of NotificationPayload
   /// with the given fields replaced by the non-null parameter values.
@@ -6722,7 +7391,9 @@ abstract class _$$LeaveExpiringPayloadImplCopyWith<$Res> {
       __$$LeaveExpiringPayloadImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {@JsonKey(name: "days_left") int daysLeft, int balance, String deadline});
+      {@JsonKey(name: "days_left") int? daysLeft,
+      int? balance,
+      String? deadline});
 }
 
 /// @nodoc
@@ -6738,34 +7409,36 @@ class __$$LeaveExpiringPayloadImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? daysLeft = null,
-    Object? balance = null,
-    Object? deadline = null,
+    Object? daysLeft = freezed,
+    Object? balance = freezed,
+    Object? deadline = freezed,
   }) {
     return _then(_$LeaveExpiringPayloadImpl(
-      daysLeft: null == daysLeft
+      daysLeft: freezed == daysLeft
           ? _value.daysLeft
           : daysLeft // ignore: cast_nullable_to_non_nullable
-              as int,
-      balance: null == balance
+              as int?,
+      balance: freezed == balance
           ? _value.balance
           : balance // ignore: cast_nullable_to_non_nullable
-              as int,
-      deadline: null == deadline
+              as int?,
+      deadline: freezed == deadline
           ? _value.deadline
           : deadline // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$LeaveExpiringPayloadImpl implements LeaveExpiringPayload {
+class _$LeaveExpiringPayloadImpl
+    with DiagnosticableTreeMixin
+    implements LeaveExpiringPayload {
   const _$LeaveExpiringPayloadImpl(
-      {@JsonKey(name: "days_left") required this.daysLeft,
-      required this.balance,
-      required this.deadline,
+      {@JsonKey(name: "days_left") this.daysLeft,
+      this.balance,
+      this.deadline,
       final String? $type})
       : $type = $type ?? 'leaveExpiring';
 
@@ -6774,18 +7447,28 @@ class _$LeaveExpiringPayloadImpl implements LeaveExpiringPayload {
 
   @override
   @JsonKey(name: "days_left")
-  final int daysLeft;
+  final int? daysLeft;
   @override
-  final int balance;
+  final int? balance;
   @override
-  final String deadline;
+  final String? deadline;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'NotificationPayload.leaveExpiring(daysLeft: $daysLeft, balance: $balance, deadline: $deadline)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'NotificationPayload.leaveExpiring'))
+      ..add(DiagnosticsProperty('daysLeft', daysLeft))
+      ..add(DiagnosticsProperty('balance', balance))
+      ..add(DiagnosticsProperty('deadline', deadline));
   }
 
   @override
@@ -6817,57 +7500,65 @@ class _$LeaveExpiringPayloadImpl implements LeaveExpiringPayload {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String email, String result) emailVerification,
-    required TResult Function(String email) resetPasswordRequested,
-    required TResult Function(String time) passwordUpdated,
-    required TResult Function(String device, String location, String time)
+    required TResult Function(String? email, String? result) emailVerification,
+    required TResult Function(String? email) resetPasswordRequested,
+    required TResult Function(String? time) passwordUpdated,
+    required TResult Function(String? device, String? location, String? time)
         loginDevice,
     required TResult Function(
-            String actor, String fields, String status, String time)
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)
         profileUpdated,
-    required TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         departmentChanged,
-    required TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(
+            @JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         managerChanged,
-    required TResult Function(String status, String deadline)
+    required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String date, String time, String interviewer)
+    required TResult Function(String? date, String? time, String? interviewer)
         exitInterviewSchedule,
     required TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)
+            @JsonKey(name: "start_time") String? startTime, int? minutes)
         attendanceReminder,
-    required TResult Function(int grace) attendanceNotPresent,
+    required TResult Function(int? grace) attendanceNotPresent,
     required TResult Function(
-            String date, String start, String end, String approver)
+            String? date, String? start, String? end, String? approver)
         overtimeSubmitted,
-    required TResult Function(String date, String status, String actor)
+    required TResult Function(String? date, String? status, String? actor)
         overtimeUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)
         leaveSubmitted,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)
         leaveUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)
         leaveReminder,
-    required TResult Function(@JsonKey(name: "days_left") int daysLeft,
-            int balance, String deadline)
+    required TResult Function(@JsonKey(name: "days_left") int? daysLeft,
+            int? balance, String? deadline)
         leaveExpiring,
-    required TResult Function(String period) payslipAvailable,
-    required TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)
+    required TResult Function(String? period) payslipAvailable,
+    required TResult Function(
+            @JsonKey(name: "request_type") String? requestType,
+            String? period,
+            String? status)
         payslipRequestUpdated,
     required TResult Function(
-            String period, @JsonKey(name: "due_date") String dueDate)
+            String? period, @JsonKey(name: "due_date") String? dueDate)
         performanceFormOpen,
     required TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)
+            @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
-    required TResult Function(String period) performancePublished,
+    required TResult Function(String? period) performancePublished,
   }) {
     return leaveExpiring(daysLeft, balance, deadline);
   }
@@ -6875,52 +7566,61 @@ class _$LeaveExpiringPayloadImpl implements LeaveExpiringPayload {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String email, String result)? emailVerification,
-    TResult? Function(String email)? resetPasswordRequested,
-    TResult? Function(String time)? passwordUpdated,
-    TResult? Function(String device, String location, String time)? loginDevice,
-    TResult? Function(String actor, String fields, String status, String time)?
+    TResult? Function(String? email, String? result)? emailVerification,
+    TResult? Function(String? email)? resetPasswordRequested,
+    TResult? Function(String? time)? passwordUpdated,
+    TResult? Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult? Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult? Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult? Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult? Function(String status, String deadline)? offboardingStarted,
-    TResult? Function(String date, String time, String interviewer)?
+    TResult? Function(String? status, String? deadline)? offboardingStarted,
+    TResult? Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult? Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult? Function(int grace)? attendanceNotPresent,
-    TResult? Function(String date, String start, String end, String approver)?
+    TResult? Function(int? grace)? attendanceNotPresent,
+    TResult? Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult? Function(String date, String status, String actor)?
+    TResult? Function(String? date, String? status, String? actor)?
         overtimeUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult? Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult? Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult? Function(String period)? payslipAvailable,
-    TResult? Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult? Function(String? period)? payslipAvailable,
+    TResult? Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult? Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult? Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult? Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
-    TResult? Function(String period)? performancePublished,
+    TResult? Function(String? period)? performancePublished,
   }) {
     return leaveExpiring?.call(daysLeft, balance, deadline);
   }
@@ -6928,51 +7628,61 @@ class _$LeaveExpiringPayloadImpl implements LeaveExpiringPayload {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email, String result)? emailVerification,
-    TResult Function(String email)? resetPasswordRequested,
-    TResult Function(String time)? passwordUpdated,
-    TResult Function(String device, String location, String time)? loginDevice,
-    TResult Function(String actor, String fields, String status, String time)?
+    TResult Function(String? email, String? result)? emailVerification,
+    TResult Function(String? email)? resetPasswordRequested,
+    TResult Function(String? time)? passwordUpdated,
+    TResult Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult Function(String status, String deadline)? offboardingStarted,
-    TResult Function(String date, String time, String interviewer)?
+    TResult Function(String? status, String? deadline)? offboardingStarted,
+    TResult Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult Function(int grace)? attendanceNotPresent,
-    TResult Function(String date, String start, String end, String approver)?
+    TResult Function(int? grace)? attendanceNotPresent,
+    TResult Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult Function(String date, String status, String actor)? overtimeUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult Function(String? date, String? status, String? actor)?
+        overtimeUpdated,
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult Function(String period)? payslipAvailable,
-    TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult Function(String? period)? payslipAvailable,
+    TResult Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
-    TResult Function(String period)? performancePublished,
+    TResult Function(String? period)? performancePublished,
     required TResult orElse(),
   }) {
     if (leaveExpiring != null) {
@@ -7099,17 +7809,17 @@ class _$LeaveExpiringPayloadImpl implements LeaveExpiringPayload {
 
 abstract class LeaveExpiringPayload implements NotificationPayload {
   const factory LeaveExpiringPayload(
-      {@JsonKey(name: "days_left") required final int daysLeft,
-      required final int balance,
-      required final String deadline}) = _$LeaveExpiringPayloadImpl;
+      {@JsonKey(name: "days_left") final int? daysLeft,
+      final int? balance,
+      final String? deadline}) = _$LeaveExpiringPayloadImpl;
 
   factory LeaveExpiringPayload.fromJson(Map<String, dynamic> json) =
       _$LeaveExpiringPayloadImpl.fromJson;
 
   @JsonKey(name: "days_left")
-  int get daysLeft;
-  int get balance;
-  String get deadline;
+  int? get daysLeft;
+  int? get balance;
+  String? get deadline;
 
   /// Create a copy of NotificationPayload
   /// with the given fields replaced by the non-null parameter values.
@@ -7125,7 +7835,7 @@ abstract class _$$PayslipAvailablePayloadImplCopyWith<$Res> {
           $Res Function(_$PayslipAvailablePayloadImpl) then) =
       __$$PayslipAvailablePayloadImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String period});
+  $Res call({String? period});
 }
 
 /// @nodoc
@@ -7143,36 +7853,45 @@ class __$$PayslipAvailablePayloadImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? period = null,
+    Object? period = freezed,
   }) {
     return _then(_$PayslipAvailablePayloadImpl(
-      period: null == period
+      period: freezed == period
           ? _value.period
           : period // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$PayslipAvailablePayloadImpl implements PayslipAvailablePayload {
-  const _$PayslipAvailablePayloadImpl(
-      {required this.period, final String? $type})
+class _$PayslipAvailablePayloadImpl
+    with DiagnosticableTreeMixin
+    implements PayslipAvailablePayload {
+  const _$PayslipAvailablePayloadImpl({this.period, final String? $type})
       : $type = $type ?? 'payslipAvailable';
 
   factory _$PayslipAvailablePayloadImpl.fromJson(Map<String, dynamic> json) =>
       _$$PayslipAvailablePayloadImplFromJson(json);
 
   @override
-  final String period;
+  final String? period;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'NotificationPayload.payslipAvailable(period: $period)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'NotificationPayload.payslipAvailable'))
+      ..add(DiagnosticsProperty('period', period));
   }
 
   @override
@@ -7199,57 +7918,65 @@ class _$PayslipAvailablePayloadImpl implements PayslipAvailablePayload {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String email, String result) emailVerification,
-    required TResult Function(String email) resetPasswordRequested,
-    required TResult Function(String time) passwordUpdated,
-    required TResult Function(String device, String location, String time)
+    required TResult Function(String? email, String? result) emailVerification,
+    required TResult Function(String? email) resetPasswordRequested,
+    required TResult Function(String? time) passwordUpdated,
+    required TResult Function(String? device, String? location, String? time)
         loginDevice,
     required TResult Function(
-            String actor, String fields, String status, String time)
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)
         profileUpdated,
-    required TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         departmentChanged,
-    required TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(
+            @JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         managerChanged,
-    required TResult Function(String status, String deadline)
+    required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String date, String time, String interviewer)
+    required TResult Function(String? date, String? time, String? interviewer)
         exitInterviewSchedule,
     required TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)
+            @JsonKey(name: "start_time") String? startTime, int? minutes)
         attendanceReminder,
-    required TResult Function(int grace) attendanceNotPresent,
+    required TResult Function(int? grace) attendanceNotPresent,
     required TResult Function(
-            String date, String start, String end, String approver)
+            String? date, String? start, String? end, String? approver)
         overtimeSubmitted,
-    required TResult Function(String date, String status, String actor)
+    required TResult Function(String? date, String? status, String? actor)
         overtimeUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)
         leaveSubmitted,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)
         leaveUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)
         leaveReminder,
-    required TResult Function(@JsonKey(name: "days_left") int daysLeft,
-            int balance, String deadline)
+    required TResult Function(@JsonKey(name: "days_left") int? daysLeft,
+            int? balance, String? deadline)
         leaveExpiring,
-    required TResult Function(String period) payslipAvailable,
-    required TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)
+    required TResult Function(String? period) payslipAvailable,
+    required TResult Function(
+            @JsonKey(name: "request_type") String? requestType,
+            String? period,
+            String? status)
         payslipRequestUpdated,
     required TResult Function(
-            String period, @JsonKey(name: "due_date") String dueDate)
+            String? period, @JsonKey(name: "due_date") String? dueDate)
         performanceFormOpen,
     required TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)
+            @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
-    required TResult Function(String period) performancePublished,
+    required TResult Function(String? period) performancePublished,
   }) {
     return payslipAvailable(period);
   }
@@ -7257,52 +7984,61 @@ class _$PayslipAvailablePayloadImpl implements PayslipAvailablePayload {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String email, String result)? emailVerification,
-    TResult? Function(String email)? resetPasswordRequested,
-    TResult? Function(String time)? passwordUpdated,
-    TResult? Function(String device, String location, String time)? loginDevice,
-    TResult? Function(String actor, String fields, String status, String time)?
+    TResult? Function(String? email, String? result)? emailVerification,
+    TResult? Function(String? email)? resetPasswordRequested,
+    TResult? Function(String? time)? passwordUpdated,
+    TResult? Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult? Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult? Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult? Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult? Function(String status, String deadline)? offboardingStarted,
-    TResult? Function(String date, String time, String interviewer)?
+    TResult? Function(String? status, String? deadline)? offboardingStarted,
+    TResult? Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult? Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult? Function(int grace)? attendanceNotPresent,
-    TResult? Function(String date, String start, String end, String approver)?
+    TResult? Function(int? grace)? attendanceNotPresent,
+    TResult? Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult? Function(String date, String status, String actor)?
+    TResult? Function(String? date, String? status, String? actor)?
         overtimeUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult? Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult? Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult? Function(String period)? payslipAvailable,
-    TResult? Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult? Function(String? period)? payslipAvailable,
+    TResult? Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult? Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult? Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult? Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
-    TResult? Function(String period)? performancePublished,
+    TResult? Function(String? period)? performancePublished,
   }) {
     return payslipAvailable?.call(period);
   }
@@ -7310,51 +8046,61 @@ class _$PayslipAvailablePayloadImpl implements PayslipAvailablePayload {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email, String result)? emailVerification,
-    TResult Function(String email)? resetPasswordRequested,
-    TResult Function(String time)? passwordUpdated,
-    TResult Function(String device, String location, String time)? loginDevice,
-    TResult Function(String actor, String fields, String status, String time)?
+    TResult Function(String? email, String? result)? emailVerification,
+    TResult Function(String? email)? resetPasswordRequested,
+    TResult Function(String? time)? passwordUpdated,
+    TResult Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult Function(String status, String deadline)? offboardingStarted,
-    TResult Function(String date, String time, String interviewer)?
+    TResult Function(String? status, String? deadline)? offboardingStarted,
+    TResult Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult Function(int grace)? attendanceNotPresent,
-    TResult Function(String date, String start, String end, String approver)?
+    TResult Function(int? grace)? attendanceNotPresent,
+    TResult Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult Function(String date, String status, String actor)? overtimeUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult Function(String? date, String? status, String? actor)?
+        overtimeUpdated,
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult Function(String period)? payslipAvailable,
-    TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult Function(String? period)? payslipAvailable,
+    TResult Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
-    TResult Function(String period)? performancePublished,
+    TResult Function(String? period)? performancePublished,
     required TResult orElse(),
   }) {
     if (payslipAvailable != null) {
@@ -7480,13 +8226,13 @@ class _$PayslipAvailablePayloadImpl implements PayslipAvailablePayload {
 }
 
 abstract class PayslipAvailablePayload implements NotificationPayload {
-  const factory PayslipAvailablePayload({required final String period}) =
+  const factory PayslipAvailablePayload({final String? period}) =
       _$PayslipAvailablePayloadImpl;
 
   factory PayslipAvailablePayload.fromJson(Map<String, dynamic> json) =
       _$PayslipAvailablePayloadImpl.fromJson;
 
-  String get period;
+  String? get period;
 
   /// Create a copy of NotificationPayload
   /// with the given fields replaced by the non-null parameter values.
@@ -7503,9 +8249,9 @@ abstract class _$$PayslipRequestUpdatedPayloadImplCopyWith<$Res> {
       __$$PayslipRequestUpdatedPayloadImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {@JsonKey(name: "request_type") String requestType,
-      String period,
-      String status});
+      {@JsonKey(name: "request_type") String? requestType,
+      String? period,
+      String? status});
 }
 
 /// @nodoc
@@ -7523,23 +8269,23 @@ class __$$PayslipRequestUpdatedPayloadImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? requestType = null,
-    Object? period = null,
-    Object? status = null,
+    Object? requestType = freezed,
+    Object? period = freezed,
+    Object? status = freezed,
   }) {
     return _then(_$PayslipRequestUpdatedPayloadImpl(
-      requestType: null == requestType
+      requestType: freezed == requestType
           ? _value.requestType
           : requestType // ignore: cast_nullable_to_non_nullable
-              as String,
-      period: null == period
+              as String?,
+      period: freezed == period
           ? _value.period
           : period // ignore: cast_nullable_to_non_nullable
-              as String,
-      status: null == status
+              as String?,
+      status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -7547,11 +8293,12 @@ class __$$PayslipRequestUpdatedPayloadImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$PayslipRequestUpdatedPayloadImpl
+    with DiagnosticableTreeMixin
     implements PayslipRequestUpdatedPayload {
   const _$PayslipRequestUpdatedPayloadImpl(
-      {@JsonKey(name: "request_type") required this.requestType,
-      required this.period,
-      required this.status,
+      {@JsonKey(name: "request_type") this.requestType,
+      this.period,
+      this.status,
       final String? $type})
       : $type = $type ?? 'payslipRequestUpdated';
 
@@ -7561,18 +8308,29 @@ class _$PayslipRequestUpdatedPayloadImpl
 
   @override
   @JsonKey(name: "request_type")
-  final String requestType;
+  final String? requestType;
   @override
-  final String period;
+  final String? period;
   @override
-  final String status;
+  final String? status;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'NotificationPayload.payslipRequestUpdated(requestType: $requestType, period: $period, status: $status)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty(
+          'type', 'NotificationPayload.payslipRequestUpdated'))
+      ..add(DiagnosticsProperty('requestType', requestType))
+      ..add(DiagnosticsProperty('period', period))
+      ..add(DiagnosticsProperty('status', status));
   }
 
   @override
@@ -7603,57 +8361,65 @@ class _$PayslipRequestUpdatedPayloadImpl
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String email, String result) emailVerification,
-    required TResult Function(String email) resetPasswordRequested,
-    required TResult Function(String time) passwordUpdated,
-    required TResult Function(String device, String location, String time)
+    required TResult Function(String? email, String? result) emailVerification,
+    required TResult Function(String? email) resetPasswordRequested,
+    required TResult Function(String? time) passwordUpdated,
+    required TResult Function(String? device, String? location, String? time)
         loginDevice,
     required TResult Function(
-            String actor, String fields, String status, String time)
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)
         profileUpdated,
-    required TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         departmentChanged,
-    required TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(
+            @JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         managerChanged,
-    required TResult Function(String status, String deadline)
+    required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String date, String time, String interviewer)
+    required TResult Function(String? date, String? time, String? interviewer)
         exitInterviewSchedule,
     required TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)
+            @JsonKey(name: "start_time") String? startTime, int? minutes)
         attendanceReminder,
-    required TResult Function(int grace) attendanceNotPresent,
+    required TResult Function(int? grace) attendanceNotPresent,
     required TResult Function(
-            String date, String start, String end, String approver)
+            String? date, String? start, String? end, String? approver)
         overtimeSubmitted,
-    required TResult Function(String date, String status, String actor)
+    required TResult Function(String? date, String? status, String? actor)
         overtimeUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)
         leaveSubmitted,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)
         leaveUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)
         leaveReminder,
-    required TResult Function(@JsonKey(name: "days_left") int daysLeft,
-            int balance, String deadline)
+    required TResult Function(@JsonKey(name: "days_left") int? daysLeft,
+            int? balance, String? deadline)
         leaveExpiring,
-    required TResult Function(String period) payslipAvailable,
-    required TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)
+    required TResult Function(String? period) payslipAvailable,
+    required TResult Function(
+            @JsonKey(name: "request_type") String? requestType,
+            String? period,
+            String? status)
         payslipRequestUpdated,
     required TResult Function(
-            String period, @JsonKey(name: "due_date") String dueDate)
+            String? period, @JsonKey(name: "due_date") String? dueDate)
         performanceFormOpen,
     required TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)
+            @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
-    required TResult Function(String period) performancePublished,
+    required TResult Function(String? period) performancePublished,
   }) {
     return payslipRequestUpdated(requestType, period, status);
   }
@@ -7661,52 +8427,61 @@ class _$PayslipRequestUpdatedPayloadImpl
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String email, String result)? emailVerification,
-    TResult? Function(String email)? resetPasswordRequested,
-    TResult? Function(String time)? passwordUpdated,
-    TResult? Function(String device, String location, String time)? loginDevice,
-    TResult? Function(String actor, String fields, String status, String time)?
+    TResult? Function(String? email, String? result)? emailVerification,
+    TResult? Function(String? email)? resetPasswordRequested,
+    TResult? Function(String? time)? passwordUpdated,
+    TResult? Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult? Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult? Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult? Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult? Function(String status, String deadline)? offboardingStarted,
-    TResult? Function(String date, String time, String interviewer)?
+    TResult? Function(String? status, String? deadline)? offboardingStarted,
+    TResult? Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult? Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult? Function(int grace)? attendanceNotPresent,
-    TResult? Function(String date, String start, String end, String approver)?
+    TResult? Function(int? grace)? attendanceNotPresent,
+    TResult? Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult? Function(String date, String status, String actor)?
+    TResult? Function(String? date, String? status, String? actor)?
         overtimeUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult? Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult? Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult? Function(String period)? payslipAvailable,
-    TResult? Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult? Function(String? period)? payslipAvailable,
+    TResult? Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult? Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult? Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult? Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
-    TResult? Function(String period)? performancePublished,
+    TResult? Function(String? period)? performancePublished,
   }) {
     return payslipRequestUpdated?.call(requestType, period, status);
   }
@@ -7714,51 +8489,61 @@ class _$PayslipRequestUpdatedPayloadImpl
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email, String result)? emailVerification,
-    TResult Function(String email)? resetPasswordRequested,
-    TResult Function(String time)? passwordUpdated,
-    TResult Function(String device, String location, String time)? loginDevice,
-    TResult Function(String actor, String fields, String status, String time)?
+    TResult Function(String? email, String? result)? emailVerification,
+    TResult Function(String? email)? resetPasswordRequested,
+    TResult Function(String? time)? passwordUpdated,
+    TResult Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult Function(String status, String deadline)? offboardingStarted,
-    TResult Function(String date, String time, String interviewer)?
+    TResult Function(String? status, String? deadline)? offboardingStarted,
+    TResult Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult Function(int grace)? attendanceNotPresent,
-    TResult Function(String date, String start, String end, String approver)?
+    TResult Function(int? grace)? attendanceNotPresent,
+    TResult Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult Function(String date, String status, String actor)? overtimeUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult Function(String? date, String? status, String? actor)?
+        overtimeUpdated,
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult Function(String period)? payslipAvailable,
-    TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult Function(String? period)? payslipAvailable,
+    TResult Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
-    TResult Function(String period)? performancePublished,
+    TResult Function(String? period)? performancePublished,
     required TResult orElse(),
   }) {
     if (payslipRequestUpdated != null) {
@@ -7885,17 +8670,17 @@ class _$PayslipRequestUpdatedPayloadImpl
 
 abstract class PayslipRequestUpdatedPayload implements NotificationPayload {
   const factory PayslipRequestUpdatedPayload(
-      {@JsonKey(name: "request_type") required final String requestType,
-      required final String period,
-      required final String status}) = _$PayslipRequestUpdatedPayloadImpl;
+      {@JsonKey(name: "request_type") final String? requestType,
+      final String? period,
+      final String? status}) = _$PayslipRequestUpdatedPayloadImpl;
 
   factory PayslipRequestUpdatedPayload.fromJson(Map<String, dynamic> json) =
       _$PayslipRequestUpdatedPayloadImpl.fromJson;
 
   @JsonKey(name: "request_type")
-  String get requestType;
-  String get period;
-  String get status;
+  String? get requestType;
+  String? get period;
+  String? get status;
 
   /// Create a copy of NotificationPayload
   /// with the given fields replaced by the non-null parameter values.
@@ -7912,7 +8697,7 @@ abstract class _$$PerformanceFormOpenPayloadImplCopyWith<$Res> {
           $Res Function(_$PerformanceFormOpenPayloadImpl) then) =
       __$$PerformanceFormOpenPayloadImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String period, @JsonKey(name: "due_date") String dueDate});
+  $Res call({String? period, @JsonKey(name: "due_date") String? dueDate});
 }
 
 /// @nodoc
@@ -7930,28 +8715,30 @@ class __$$PerformanceFormOpenPayloadImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? period = null,
-    Object? dueDate = null,
+    Object? period = freezed,
+    Object? dueDate = freezed,
   }) {
     return _then(_$PerformanceFormOpenPayloadImpl(
-      period: null == period
+      period: freezed == period
           ? _value.period
           : period // ignore: cast_nullable_to_non_nullable
-              as String,
-      dueDate: null == dueDate
+              as String?,
+      dueDate: freezed == dueDate
           ? _value.dueDate
           : dueDate // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$PerformanceFormOpenPayloadImpl implements PerformanceFormOpenPayload {
+class _$PerformanceFormOpenPayloadImpl
+    with DiagnosticableTreeMixin
+    implements PerformanceFormOpenPayload {
   const _$PerformanceFormOpenPayloadImpl(
-      {required this.period,
-      @JsonKey(name: "due_date") required this.dueDate,
+      {this.period,
+      @JsonKey(name: "due_date") this.dueDate,
       final String? $type})
       : $type = $type ?? 'performanceFormOpen';
 
@@ -7960,17 +8747,27 @@ class _$PerformanceFormOpenPayloadImpl implements PerformanceFormOpenPayload {
       _$$PerformanceFormOpenPayloadImplFromJson(json);
 
   @override
-  final String period;
+  final String? period;
   @override
   @JsonKey(name: "due_date")
-  final String dueDate;
+  final String? dueDate;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'NotificationPayload.performanceFormOpen(period: $period, dueDate: $dueDate)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty(
+          'type', 'NotificationPayload.performanceFormOpen'))
+      ..add(DiagnosticsProperty('period', period))
+      ..add(DiagnosticsProperty('dueDate', dueDate));
   }
 
   @override
@@ -7998,57 +8795,65 @@ class _$PerformanceFormOpenPayloadImpl implements PerformanceFormOpenPayload {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String email, String result) emailVerification,
-    required TResult Function(String email) resetPasswordRequested,
-    required TResult Function(String time) passwordUpdated,
-    required TResult Function(String device, String location, String time)
+    required TResult Function(String? email, String? result) emailVerification,
+    required TResult Function(String? email) resetPasswordRequested,
+    required TResult Function(String? time) passwordUpdated,
+    required TResult Function(String? device, String? location, String? time)
         loginDevice,
     required TResult Function(
-            String actor, String fields, String status, String time)
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)
         profileUpdated,
-    required TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         departmentChanged,
-    required TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(
+            @JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         managerChanged,
-    required TResult Function(String status, String deadline)
+    required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String date, String time, String interviewer)
+    required TResult Function(String? date, String? time, String? interviewer)
         exitInterviewSchedule,
     required TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)
+            @JsonKey(name: "start_time") String? startTime, int? minutes)
         attendanceReminder,
-    required TResult Function(int grace) attendanceNotPresent,
+    required TResult Function(int? grace) attendanceNotPresent,
     required TResult Function(
-            String date, String start, String end, String approver)
+            String? date, String? start, String? end, String? approver)
         overtimeSubmitted,
-    required TResult Function(String date, String status, String actor)
+    required TResult Function(String? date, String? status, String? actor)
         overtimeUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)
         leaveSubmitted,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)
         leaveUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)
         leaveReminder,
-    required TResult Function(@JsonKey(name: "days_left") int daysLeft,
-            int balance, String deadline)
+    required TResult Function(@JsonKey(name: "days_left") int? daysLeft,
+            int? balance, String? deadline)
         leaveExpiring,
-    required TResult Function(String period) payslipAvailable,
-    required TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)
+    required TResult Function(String? period) payslipAvailable,
+    required TResult Function(
+            @JsonKey(name: "request_type") String? requestType,
+            String? period,
+            String? status)
         payslipRequestUpdated,
     required TResult Function(
-            String period, @JsonKey(name: "due_date") String dueDate)
+            String? period, @JsonKey(name: "due_date") String? dueDate)
         performanceFormOpen,
     required TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)
+            @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
-    required TResult Function(String period) performancePublished,
+    required TResult Function(String? period) performancePublished,
   }) {
     return performanceFormOpen(period, dueDate);
   }
@@ -8056,52 +8861,61 @@ class _$PerformanceFormOpenPayloadImpl implements PerformanceFormOpenPayload {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String email, String result)? emailVerification,
-    TResult? Function(String email)? resetPasswordRequested,
-    TResult? Function(String time)? passwordUpdated,
-    TResult? Function(String device, String location, String time)? loginDevice,
-    TResult? Function(String actor, String fields, String status, String time)?
+    TResult? Function(String? email, String? result)? emailVerification,
+    TResult? Function(String? email)? resetPasswordRequested,
+    TResult? Function(String? time)? passwordUpdated,
+    TResult? Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult? Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult? Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult? Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult? Function(String status, String deadline)? offboardingStarted,
-    TResult? Function(String date, String time, String interviewer)?
+    TResult? Function(String? status, String? deadline)? offboardingStarted,
+    TResult? Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult? Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult? Function(int grace)? attendanceNotPresent,
-    TResult? Function(String date, String start, String end, String approver)?
+    TResult? Function(int? grace)? attendanceNotPresent,
+    TResult? Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult? Function(String date, String status, String actor)?
+    TResult? Function(String? date, String? status, String? actor)?
         overtimeUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult? Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult? Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult? Function(String period)? payslipAvailable,
-    TResult? Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult? Function(String? period)? payslipAvailable,
+    TResult? Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult? Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult? Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult? Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
-    TResult? Function(String period)? performancePublished,
+    TResult? Function(String? period)? performancePublished,
   }) {
     return performanceFormOpen?.call(period, dueDate);
   }
@@ -8109,51 +8923,61 @@ class _$PerformanceFormOpenPayloadImpl implements PerformanceFormOpenPayload {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email, String result)? emailVerification,
-    TResult Function(String email)? resetPasswordRequested,
-    TResult Function(String time)? passwordUpdated,
-    TResult Function(String device, String location, String time)? loginDevice,
-    TResult Function(String actor, String fields, String status, String time)?
+    TResult Function(String? email, String? result)? emailVerification,
+    TResult Function(String? email)? resetPasswordRequested,
+    TResult Function(String? time)? passwordUpdated,
+    TResult Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult Function(String status, String deadline)? offboardingStarted,
-    TResult Function(String date, String time, String interviewer)?
+    TResult Function(String? status, String? deadline)? offboardingStarted,
+    TResult Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult Function(int grace)? attendanceNotPresent,
-    TResult Function(String date, String start, String end, String approver)?
+    TResult Function(int? grace)? attendanceNotPresent,
+    TResult Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult Function(String date, String status, String actor)? overtimeUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult Function(String? date, String? status, String? actor)?
+        overtimeUpdated,
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult Function(String period)? payslipAvailable,
-    TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult Function(String? period)? payslipAvailable,
+    TResult Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
-    TResult Function(String period)? performancePublished,
+    TResult Function(String? period)? performancePublished,
     required TResult orElse(),
   }) {
     if (performanceFormOpen != null) {
@@ -8280,16 +9104,16 @@ class _$PerformanceFormOpenPayloadImpl implements PerformanceFormOpenPayload {
 
 abstract class PerformanceFormOpenPayload implements NotificationPayload {
   const factory PerformanceFormOpenPayload(
-          {required final String period,
-          @JsonKey(name: "due_date") required final String dueDate}) =
+          {final String? period,
+          @JsonKey(name: "due_date") final String? dueDate}) =
       _$PerformanceFormOpenPayloadImpl;
 
   factory PerformanceFormOpenPayload.fromJson(Map<String, dynamic> json) =
       _$PerformanceFormOpenPayloadImpl.fromJson;
 
-  String get period;
+  String? get period;
   @JsonKey(name: "due_date")
-  String get dueDate;
+  String? get dueDate;
 
   /// Create a copy of NotificationPayload
   /// with the given fields replaced by the non-null parameter values.
@@ -8308,7 +9132,7 @@ abstract class _$$PerformanceReminderPayloadImplCopyWith<$Res> {
   $Res call(
       {int? daysLeft,
       int? daysOverdue,
-      @JsonKey(name: "due_date") String dueDate});
+      @JsonKey(name: "due_date") String? dueDate});
 }
 
 /// @nodoc
@@ -8328,7 +9152,7 @@ class __$$PerformanceReminderPayloadImplCopyWithImpl<$Res>
   $Res call({
     Object? daysLeft = freezed,
     Object? daysOverdue = freezed,
-    Object? dueDate = null,
+    Object? dueDate = freezed,
   }) {
     return _then(_$PerformanceReminderPayloadImpl(
       daysLeft: freezed == daysLeft
@@ -8339,21 +9163,23 @@ class __$$PerformanceReminderPayloadImplCopyWithImpl<$Res>
           ? _value.daysOverdue
           : daysOverdue // ignore: cast_nullable_to_non_nullable
               as int?,
-      dueDate: null == dueDate
+      dueDate: freezed == dueDate
           ? _value.dueDate
           : dueDate // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$PerformanceReminderPayloadImpl implements PerformanceReminderPayload {
+class _$PerformanceReminderPayloadImpl
+    with DiagnosticableTreeMixin
+    implements PerformanceReminderPayload {
   const _$PerformanceReminderPayloadImpl(
       {this.daysLeft,
       this.daysOverdue,
-      @JsonKey(name: "due_date") required this.dueDate,
+      @JsonKey(name: "due_date") this.dueDate,
       final String? $type})
       : $type = $type ?? 'performanceReminder';
 
@@ -8367,14 +9193,25 @@ class _$PerformanceReminderPayloadImpl implements PerformanceReminderPayload {
   final int? daysOverdue;
   @override
   @JsonKey(name: "due_date")
-  final String dueDate;
+  final String? dueDate;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'NotificationPayload.performanceReminder(daysLeft: $daysLeft, daysOverdue: $daysOverdue, dueDate: $dueDate)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty(
+          'type', 'NotificationPayload.performanceReminder'))
+      ..add(DiagnosticsProperty('daysLeft', daysLeft))
+      ..add(DiagnosticsProperty('daysOverdue', daysOverdue))
+      ..add(DiagnosticsProperty('dueDate', dueDate));
   }
 
   @override
@@ -8405,57 +9242,65 @@ class _$PerformanceReminderPayloadImpl implements PerformanceReminderPayload {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String email, String result) emailVerification,
-    required TResult Function(String email) resetPasswordRequested,
-    required TResult Function(String time) passwordUpdated,
-    required TResult Function(String device, String location, String time)
+    required TResult Function(String? email, String? result) emailVerification,
+    required TResult Function(String? email) resetPasswordRequested,
+    required TResult Function(String? time) passwordUpdated,
+    required TResult Function(String? device, String? location, String? time)
         loginDevice,
     required TResult Function(
-            String actor, String fields, String status, String time)
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)
         profileUpdated,
-    required TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         departmentChanged,
-    required TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(
+            @JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         managerChanged,
-    required TResult Function(String status, String deadline)
+    required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String date, String time, String interviewer)
+    required TResult Function(String? date, String? time, String? interviewer)
         exitInterviewSchedule,
     required TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)
+            @JsonKey(name: "start_time") String? startTime, int? minutes)
         attendanceReminder,
-    required TResult Function(int grace) attendanceNotPresent,
+    required TResult Function(int? grace) attendanceNotPresent,
     required TResult Function(
-            String date, String start, String end, String approver)
+            String? date, String? start, String? end, String? approver)
         overtimeSubmitted,
-    required TResult Function(String date, String status, String actor)
+    required TResult Function(String? date, String? status, String? actor)
         overtimeUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)
         leaveSubmitted,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)
         leaveUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)
         leaveReminder,
-    required TResult Function(@JsonKey(name: "days_left") int daysLeft,
-            int balance, String deadline)
+    required TResult Function(@JsonKey(name: "days_left") int? daysLeft,
+            int? balance, String? deadline)
         leaveExpiring,
-    required TResult Function(String period) payslipAvailable,
-    required TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)
+    required TResult Function(String? period) payslipAvailable,
+    required TResult Function(
+            @JsonKey(name: "request_type") String? requestType,
+            String? period,
+            String? status)
         payslipRequestUpdated,
     required TResult Function(
-            String period, @JsonKey(name: "due_date") String dueDate)
+            String? period, @JsonKey(name: "due_date") String? dueDate)
         performanceFormOpen,
     required TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)
+            @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
-    required TResult Function(String period) performancePublished,
+    required TResult Function(String? period) performancePublished,
   }) {
     return performanceReminder(daysLeft, daysOverdue, dueDate);
   }
@@ -8463,52 +9308,61 @@ class _$PerformanceReminderPayloadImpl implements PerformanceReminderPayload {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String email, String result)? emailVerification,
-    TResult? Function(String email)? resetPasswordRequested,
-    TResult? Function(String time)? passwordUpdated,
-    TResult? Function(String device, String location, String time)? loginDevice,
-    TResult? Function(String actor, String fields, String status, String time)?
+    TResult? Function(String? email, String? result)? emailVerification,
+    TResult? Function(String? email)? resetPasswordRequested,
+    TResult? Function(String? time)? passwordUpdated,
+    TResult? Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult? Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult? Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult? Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult? Function(String status, String deadline)? offboardingStarted,
-    TResult? Function(String date, String time, String interviewer)?
+    TResult? Function(String? status, String? deadline)? offboardingStarted,
+    TResult? Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult? Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult? Function(int grace)? attendanceNotPresent,
-    TResult? Function(String date, String start, String end, String approver)?
+    TResult? Function(int? grace)? attendanceNotPresent,
+    TResult? Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult? Function(String date, String status, String actor)?
+    TResult? Function(String? date, String? status, String? actor)?
         overtimeUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult? Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult? Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult? Function(String period)? payslipAvailable,
-    TResult? Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult? Function(String? period)? payslipAvailable,
+    TResult? Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult? Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult? Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult? Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
-    TResult? Function(String period)? performancePublished,
+    TResult? Function(String? period)? performancePublished,
   }) {
     return performanceReminder?.call(daysLeft, daysOverdue, dueDate);
   }
@@ -8516,51 +9370,61 @@ class _$PerformanceReminderPayloadImpl implements PerformanceReminderPayload {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email, String result)? emailVerification,
-    TResult Function(String email)? resetPasswordRequested,
-    TResult Function(String time)? passwordUpdated,
-    TResult Function(String device, String location, String time)? loginDevice,
-    TResult Function(String actor, String fields, String status, String time)?
+    TResult Function(String? email, String? result)? emailVerification,
+    TResult Function(String? email)? resetPasswordRequested,
+    TResult Function(String? time)? passwordUpdated,
+    TResult Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult Function(String status, String deadline)? offboardingStarted,
-    TResult Function(String date, String time, String interviewer)?
+    TResult Function(String? status, String? deadline)? offboardingStarted,
+    TResult Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult Function(int grace)? attendanceNotPresent,
-    TResult Function(String date, String start, String end, String approver)?
+    TResult Function(int? grace)? attendanceNotPresent,
+    TResult Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult Function(String date, String status, String actor)? overtimeUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult Function(String? date, String? status, String? actor)?
+        overtimeUpdated,
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult Function(String period)? payslipAvailable,
-    TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult Function(String? period)? payslipAvailable,
+    TResult Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
-    TResult Function(String period)? performancePublished,
+    TResult Function(String? period)? performancePublished,
     required TResult orElse(),
   }) {
     if (performanceReminder != null) {
@@ -8689,7 +9553,7 @@ abstract class PerformanceReminderPayload implements NotificationPayload {
   const factory PerformanceReminderPayload(
           {final int? daysLeft,
           final int? daysOverdue,
-          @JsonKey(name: "due_date") required final String dueDate}) =
+          @JsonKey(name: "due_date") final String? dueDate}) =
       _$PerformanceReminderPayloadImpl;
 
   factory PerformanceReminderPayload.fromJson(Map<String, dynamic> json) =
@@ -8698,7 +9562,7 @@ abstract class PerformanceReminderPayload implements NotificationPayload {
   int? get daysLeft;
   int? get daysOverdue;
   @JsonKey(name: "due_date")
-  String get dueDate;
+  String? get dueDate;
 
   /// Create a copy of NotificationPayload
   /// with the given fields replaced by the non-null parameter values.
@@ -8731,7 +9595,9 @@ class __$$PerformanceSubmittedPayloadImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PerformanceSubmittedPayloadImpl implements PerformanceSubmittedPayload {
+class _$PerformanceSubmittedPayloadImpl
+    with DiagnosticableTreeMixin
+    implements PerformanceSubmittedPayload {
   const _$PerformanceSubmittedPayloadImpl({final String? $type})
       : $type = $type ?? 'performanceSubmitted';
 
@@ -8743,8 +9609,16 @@ class _$PerformanceSubmittedPayloadImpl implements PerformanceSubmittedPayload {
   final String $type;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'NotificationPayload.performanceSubmitted()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty(
+          'type', 'NotificationPayload.performanceSubmitted'));
   }
 
   @override
@@ -8761,57 +9635,65 @@ class _$PerformanceSubmittedPayloadImpl implements PerformanceSubmittedPayload {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String email, String result) emailVerification,
-    required TResult Function(String email) resetPasswordRequested,
-    required TResult Function(String time) passwordUpdated,
-    required TResult Function(String device, String location, String time)
+    required TResult Function(String? email, String? result) emailVerification,
+    required TResult Function(String? email) resetPasswordRequested,
+    required TResult Function(String? time) passwordUpdated,
+    required TResult Function(String? device, String? location, String? time)
         loginDevice,
     required TResult Function(
-            String actor, String fields, String status, String time)
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)
         profileUpdated,
-    required TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         departmentChanged,
-    required TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(
+            @JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         managerChanged,
-    required TResult Function(String status, String deadline)
+    required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String date, String time, String interviewer)
+    required TResult Function(String? date, String? time, String? interviewer)
         exitInterviewSchedule,
     required TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)
+            @JsonKey(name: "start_time") String? startTime, int? minutes)
         attendanceReminder,
-    required TResult Function(int grace) attendanceNotPresent,
+    required TResult Function(int? grace) attendanceNotPresent,
     required TResult Function(
-            String date, String start, String end, String approver)
+            String? date, String? start, String? end, String? approver)
         overtimeSubmitted,
-    required TResult Function(String date, String status, String actor)
+    required TResult Function(String? date, String? status, String? actor)
         overtimeUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)
         leaveSubmitted,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)
         leaveUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)
         leaveReminder,
-    required TResult Function(@JsonKey(name: "days_left") int daysLeft,
-            int balance, String deadline)
+    required TResult Function(@JsonKey(name: "days_left") int? daysLeft,
+            int? balance, String? deadline)
         leaveExpiring,
-    required TResult Function(String period) payslipAvailable,
-    required TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)
+    required TResult Function(String? period) payslipAvailable,
+    required TResult Function(
+            @JsonKey(name: "request_type") String? requestType,
+            String? period,
+            String? status)
         payslipRequestUpdated,
     required TResult Function(
-            String period, @JsonKey(name: "due_date") String dueDate)
+            String? period, @JsonKey(name: "due_date") String? dueDate)
         performanceFormOpen,
     required TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)
+            @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
-    required TResult Function(String period) performancePublished,
+    required TResult Function(String? period) performancePublished,
   }) {
     return performanceSubmitted();
   }
@@ -8819,52 +9701,61 @@ class _$PerformanceSubmittedPayloadImpl implements PerformanceSubmittedPayload {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String email, String result)? emailVerification,
-    TResult? Function(String email)? resetPasswordRequested,
-    TResult? Function(String time)? passwordUpdated,
-    TResult? Function(String device, String location, String time)? loginDevice,
-    TResult? Function(String actor, String fields, String status, String time)?
+    TResult? Function(String? email, String? result)? emailVerification,
+    TResult? Function(String? email)? resetPasswordRequested,
+    TResult? Function(String? time)? passwordUpdated,
+    TResult? Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult? Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult? Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult? Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult? Function(String status, String deadline)? offboardingStarted,
-    TResult? Function(String date, String time, String interviewer)?
+    TResult? Function(String? status, String? deadline)? offboardingStarted,
+    TResult? Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult? Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult? Function(int grace)? attendanceNotPresent,
-    TResult? Function(String date, String start, String end, String approver)?
+    TResult? Function(int? grace)? attendanceNotPresent,
+    TResult? Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult? Function(String date, String status, String actor)?
+    TResult? Function(String? date, String? status, String? actor)?
         overtimeUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult? Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult? Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult? Function(String period)? payslipAvailable,
-    TResult? Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult? Function(String? period)? payslipAvailable,
+    TResult? Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult? Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult? Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult? Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
-    TResult? Function(String period)? performancePublished,
+    TResult? Function(String? period)? performancePublished,
   }) {
     return performanceSubmitted?.call();
   }
@@ -8872,51 +9763,61 @@ class _$PerformanceSubmittedPayloadImpl implements PerformanceSubmittedPayload {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email, String result)? emailVerification,
-    TResult Function(String email)? resetPasswordRequested,
-    TResult Function(String time)? passwordUpdated,
-    TResult Function(String device, String location, String time)? loginDevice,
-    TResult Function(String actor, String fields, String status, String time)?
+    TResult Function(String? email, String? result)? emailVerification,
+    TResult Function(String? email)? resetPasswordRequested,
+    TResult Function(String? time)? passwordUpdated,
+    TResult Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult Function(String status, String deadline)? offboardingStarted,
-    TResult Function(String date, String time, String interviewer)?
+    TResult Function(String? status, String? deadline)? offboardingStarted,
+    TResult Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult Function(int grace)? attendanceNotPresent,
-    TResult Function(String date, String start, String end, String approver)?
+    TResult Function(int? grace)? attendanceNotPresent,
+    TResult Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult Function(String date, String status, String actor)? overtimeUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult Function(String? date, String? status, String? actor)?
+        overtimeUpdated,
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult Function(String period)? payslipAvailable,
-    TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult Function(String? period)? payslipAvailable,
+    TResult Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
-    TResult Function(String period)? performancePublished,
+    TResult Function(String? period)? performancePublished,
     required TResult orElse(),
   }) {
     if (performanceSubmitted != null) {
@@ -9056,7 +9957,7 @@ abstract class _$$PerformancePublishedPayloadImplCopyWith<$Res> {
           $Res Function(_$PerformancePublishedPayloadImpl) then) =
       __$$PerformancePublishedPayloadImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String period});
+  $Res call({String? period});
 }
 
 /// @nodoc
@@ -9074,22 +9975,23 @@ class __$$PerformancePublishedPayloadImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? period = null,
+    Object? period = freezed,
   }) {
     return _then(_$PerformancePublishedPayloadImpl(
-      period: null == period
+      period: freezed == period
           ? _value.period
           : period // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$PerformancePublishedPayloadImpl implements PerformancePublishedPayload {
-  const _$PerformancePublishedPayloadImpl(
-      {required this.period, final String? $type})
+class _$PerformancePublishedPayloadImpl
+    with DiagnosticableTreeMixin
+    implements PerformancePublishedPayload {
+  const _$PerformancePublishedPayloadImpl({this.period, final String? $type})
       : $type = $type ?? 'performancePublished';
 
   factory _$PerformancePublishedPayloadImpl.fromJson(
@@ -9097,14 +9999,23 @@ class _$PerformancePublishedPayloadImpl implements PerformancePublishedPayload {
       _$$PerformancePublishedPayloadImplFromJson(json);
 
   @override
-  final String period;
+  final String? period;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'NotificationPayload.performancePublished(period: $period)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty(
+          'type', 'NotificationPayload.performancePublished'))
+      ..add(DiagnosticsProperty('period', period));
   }
 
   @override
@@ -9131,57 +10042,65 @@ class _$PerformancePublishedPayloadImpl implements PerformancePublishedPayload {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String email, String result) emailVerification,
-    required TResult Function(String email) resetPasswordRequested,
-    required TResult Function(String time) passwordUpdated,
-    required TResult Function(String device, String location, String time)
+    required TResult Function(String? email, String? result) emailVerification,
+    required TResult Function(String? email) resetPasswordRequested,
+    required TResult Function(String? time) passwordUpdated,
+    required TResult Function(String? device, String? location, String? time)
         loginDevice,
     required TResult Function(
-            String actor, String fields, String status, String time)
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)
         profileUpdated,
-    required TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         departmentChanged,
-    required TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)
+    required TResult Function(
+            @JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)
         managerChanged,
-    required TResult Function(String status, String deadline)
+    required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String date, String time, String interviewer)
+    required TResult Function(String? date, String? time, String? interviewer)
         exitInterviewSchedule,
     required TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)
+            @JsonKey(name: "start_time") String? startTime, int? minutes)
         attendanceReminder,
-    required TResult Function(int grace) attendanceNotPresent,
+    required TResult Function(int? grace) attendanceNotPresent,
     required TResult Function(
-            String date, String start, String end, String approver)
+            String? date, String? start, String? end, String? approver)
         overtimeSubmitted,
-    required TResult Function(String date, String status, String actor)
+    required TResult Function(String? date, String? status, String? actor)
         overtimeUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)
         leaveSubmitted,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)
         leaveUpdated,
-    required TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)
         leaveReminder,
-    required TResult Function(@JsonKey(name: "days_left") int daysLeft,
-            int balance, String deadline)
+    required TResult Function(@JsonKey(name: "days_left") int? daysLeft,
+            int? balance, String? deadline)
         leaveExpiring,
-    required TResult Function(String period) payslipAvailable,
-    required TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)
+    required TResult Function(String? period) payslipAvailable,
+    required TResult Function(
+            @JsonKey(name: "request_type") String? requestType,
+            String? period,
+            String? status)
         payslipRequestUpdated,
     required TResult Function(
-            String period, @JsonKey(name: "due_date") String dueDate)
+            String? period, @JsonKey(name: "due_date") String? dueDate)
         performanceFormOpen,
     required TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)
+            @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
-    required TResult Function(String period) performancePublished,
+    required TResult Function(String? period) performancePublished,
   }) {
     return performancePublished(period);
   }
@@ -9189,52 +10108,61 @@ class _$PerformancePublishedPayloadImpl implements PerformancePublishedPayload {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String email, String result)? emailVerification,
-    TResult? Function(String email)? resetPasswordRequested,
-    TResult? Function(String time)? passwordUpdated,
-    TResult? Function(String device, String location, String time)? loginDevice,
-    TResult? Function(String actor, String fields, String status, String time)?
+    TResult? Function(String? email, String? result)? emailVerification,
+    TResult? Function(String? email)? resetPasswordRequested,
+    TResult? Function(String? time)? passwordUpdated,
+    TResult? Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult? Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult? Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult? Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult? Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult? Function(String status, String deadline)? offboardingStarted,
-    TResult? Function(String date, String time, String interviewer)?
+    TResult? Function(String? status, String? deadline)? offboardingStarted,
+    TResult? Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult? Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult? Function(int grace)? attendanceNotPresent,
-    TResult? Function(String date, String start, String end, String approver)?
+    TResult? Function(int? grace)? attendanceNotPresent,
+    TResult? Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult? Function(String date, String status, String actor)?
+    TResult? Function(String? date, String? status, String? actor)?
         overtimeUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult? Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult? Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult? Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult? Function(String period)? payslipAvailable,
-    TResult? Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult? Function(String? period)? payslipAvailable,
+    TResult? Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult? Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult? Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult? Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
-    TResult? Function(String period)? performancePublished,
+    TResult? Function(String? period)? performancePublished,
   }) {
     return performancePublished?.call(period);
   }
@@ -9242,51 +10170,61 @@ class _$PerformancePublishedPayloadImpl implements PerformancePublishedPayload {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email, String result)? emailVerification,
-    TResult Function(String email)? resetPasswordRequested,
-    TResult Function(String time)? passwordUpdated,
-    TResult Function(String device, String location, String time)? loginDevice,
-    TResult Function(String actor, String fields, String status, String time)?
+    TResult Function(String? email, String? result)? emailVerification,
+    TResult Function(String? email)? resetPasswordRequested,
+    TResult Function(String? time)? passwordUpdated,
+    TResult Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
         profileUpdated,
-    TResult Function(String department, String team,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         departmentChanged,
-    TResult Function(@JsonKey(name: "manager_name") String managerName,
-            @JsonKey(name: "effective_date") String effectiveDate)?
+    TResult Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
-    TResult Function(String status, String deadline)? offboardingStarted,
-    TResult Function(String date, String time, String interviewer)?
+    TResult Function(String? status, String? deadline)? offboardingStarted,
+    TResult Function(String? date, String? time, String? interviewer)?
         exitInterviewSchedule,
     TResult Function(
-            @JsonKey(name: "start_time") String startTime, int minutes)?
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
         attendanceReminder,
-    TResult Function(int grace)? attendanceNotPresent,
-    TResult Function(String date, String start, String end, String approver)?
+    TResult Function(int? grace)? attendanceNotPresent,
+    TResult Function(
+            String? date, String? start, String? end, String? approver)?
         overtimeSubmitted,
-    TResult Function(String date, String status, String actor)? overtimeUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String approver)?
+    TResult Function(String? date, String? status, String? actor)?
+        overtimeUpdated,
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
         leaveSubmitted,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String start, String end, String status)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
         leaveUpdated,
-    TResult Function(@JsonKey(name: "leave_type") String leaveType,
-            String relativeDay, String date)?
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
         leaveReminder,
-    TResult Function(@JsonKey(name: "days_left") int daysLeft, int balance,
-            String deadline)?
+    TResult Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
         leaveExpiring,
-    TResult Function(String period)? payslipAvailable,
-    TResult Function(@JsonKey(name: "request_type") String requestType,
-            String period, String status)?
+    TResult Function(String? period)? payslipAvailable,
+    TResult Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
         payslipRequestUpdated,
-    TResult Function(String period, @JsonKey(name: "due_date") String dueDate)?
+    TResult Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
         performanceFormOpen,
     TResult Function(int? daysLeft, int? daysOverdue,
-            @JsonKey(name: "due_date") String dueDate)?
+            @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
-    TResult Function(String period)? performancePublished,
+    TResult Function(String? period)? performancePublished,
     required TResult orElse(),
   }) {
     if (performancePublished != null) {
@@ -9412,13 +10350,13 @@ class _$PerformancePublishedPayloadImpl implements PerformancePublishedPayload {
 }
 
 abstract class PerformancePublishedPayload implements NotificationPayload {
-  const factory PerformancePublishedPayload({required final String period}) =
+  const factory PerformancePublishedPayload({final String? period}) =
       _$PerformancePublishedPayloadImpl;
 
   factory PerformancePublishedPayload.fromJson(Map<String, dynamic> json) =
       _$PerformancePublishedPayloadImpl.fromJson;
 
-  String get period;
+  String? get period;
 
   /// Create a copy of NotificationPayload
   /// with the given fields replaced by the non-null parameter values.
@@ -9550,7 +10488,9 @@ class __$$NotificationDataImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$NotificationDataImpl implements _NotificationData {
+class _$NotificationDataImpl
+    with DiagnosticableTreeMixin
+    implements _NotificationData {
   const _$NotificationDataImpl(
       {this.title, this.message, required this.code, required this.data});
 
@@ -9567,8 +10507,19 @@ class _$NotificationDataImpl implements _NotificationData {
   final dynamic data;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'NotificationData(title: $title, message: $message, code: $code, data: $data)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'NotificationData'))
+      ..add(DiagnosticsProperty('title', title))
+      ..add(DiagnosticsProperty('message', message))
+      ..add(DiagnosticsProperty('code', code))
+      ..add(DiagnosticsProperty('data', data));
   }
 
   @override
@@ -9812,7 +10763,9 @@ class __$$NotificationResponseImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$NotificationResponseImpl implements _NotificationResponse {
+class _$NotificationResponseImpl
+    with DiagnosticableTreeMixin
+    implements _NotificationResponse {
   const _$NotificationResponseImpl(
       {this.id,
       @JsonKey(name: "notifiable_id") this.notifiableId,
@@ -9842,8 +10795,21 @@ class _$NotificationResponseImpl implements _NotificationResponse {
   final String? updatedAt;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'NotificationResponse(id: $id, notifiableId: $notifiableId, data: $data, readAt: $readAt, createdAt: $createdAt, updatedAt: $updatedAt)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'NotificationResponse'))
+      ..add(DiagnosticsProperty('id', id))
+      ..add(DiagnosticsProperty('notifiableId', notifiableId))
+      ..add(DiagnosticsProperty('data', data))
+      ..add(DiagnosticsProperty('readAt', readAt))
+      ..add(DiagnosticsProperty('createdAt', createdAt))
+      ..add(DiagnosticsProperty('updatedAt', updatedAt));
   }
 
   @override

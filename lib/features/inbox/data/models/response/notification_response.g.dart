@@ -9,8 +9,8 @@ part of 'notification_response.dart';
 _$EmailVerificationPayloadImpl _$$EmailVerificationPayloadImplFromJson(
         Map<String, dynamic> json) =>
     _$EmailVerificationPayloadImpl(
-      email: json['email'] as String,
-      result: json['result'] as String,
+      email: json['email'] as String?,
+      result: json['result'] as String?,
       $type: json['type'] as String?,
     );
 
@@ -25,7 +25,7 @@ Map<String, dynamic> _$$EmailVerificationPayloadImplToJson(
 _$ResetPasswordRequestedPayloadImpl
     _$$ResetPasswordRequestedPayloadImplFromJson(Map<String, dynamic> json) =>
         _$ResetPasswordRequestedPayloadImpl(
-          email: json['email'] as String,
+          email: json['email'] as String?,
           $type: json['type'] as String?,
         );
 
@@ -39,7 +39,7 @@ Map<String, dynamic> _$$ResetPasswordRequestedPayloadImplToJson(
 _$PasswordUpdatedPayloadImpl _$$PasswordUpdatedPayloadImplFromJson(
         Map<String, dynamic> json) =>
     _$PasswordUpdatedPayloadImpl(
-      time: json['time'] as String,
+      time: json['time'] as String?,
       $type: json['type'] as String?,
     );
 
@@ -53,9 +53,9 @@ Map<String, dynamic> _$$PasswordUpdatedPayloadImplToJson(
 _$LoginDevicePayloadImpl _$$LoginDevicePayloadImplFromJson(
         Map<String, dynamic> json) =>
     _$LoginDevicePayloadImpl(
-      device: json['device'] as String,
-      location: json['location'] as String,
-      time: json['time'] as String,
+      device: json['device'] as String?,
+      location: json['location'] as String?,
+      time: json['time'] as String?,
       $type: json['type'] as String?,
     );
 
@@ -71,10 +71,12 @@ Map<String, dynamic> _$$LoginDevicePayloadImplToJson(
 _$ProfileUpdatedPayloadImpl _$$ProfileUpdatedPayloadImplFromJson(
         Map<String, dynamic> json) =>
     _$ProfileUpdatedPayloadImpl(
-      actor: json['actor'] as String,
-      fields: json['fields'] as String,
-      status: json['status'] as String,
-      time: json['time'] as String,
+      actor: json['actor'] as String?,
+      fields: json['fields'] as String?,
+      status: json['status'] as String?,
+      time: json['time'] as String?,
+      userId: json['user_id'] as String?,
+      email: json['email'] as String?,
       $type: json['type'] as String?,
     );
 
@@ -85,15 +87,17 @@ Map<String, dynamic> _$$ProfileUpdatedPayloadImplToJson(
       'fields': instance.fields,
       'status': instance.status,
       'time': instance.time,
+      'user_id': instance.userId,
+      'email': instance.email,
       'type': instance.$type,
     };
 
 _$DepartmentChangedPayloadImpl _$$DepartmentChangedPayloadImplFromJson(
         Map<String, dynamic> json) =>
     _$DepartmentChangedPayloadImpl(
-      department: json['department'] as String,
-      team: json['team'] as String,
-      effectiveDate: json['effective_date'] as String,
+      department: json['department'] as String?,
+      team: json['team'] as String?,
+      effectiveDate: json['effective_date'] as String?,
       $type: json['type'] as String?,
     );
 
@@ -109,8 +113,8 @@ Map<String, dynamic> _$$DepartmentChangedPayloadImplToJson(
 _$ManagerChangedPayloadImpl _$$ManagerChangedPayloadImplFromJson(
         Map<String, dynamic> json) =>
     _$ManagerChangedPayloadImpl(
-      managerName: json['manager_name'] as String,
-      effectiveDate: json['effective_date'] as String,
+      managerName: json['manager_name'] as String?,
+      effectiveDate: json['effective_date'] as String?,
       $type: json['type'] as String?,
     );
 
@@ -125,8 +129,8 @@ Map<String, dynamic> _$$ManagerChangedPayloadImplToJson(
 _$OffboardingStartedPayloadImpl _$$OffboardingStartedPayloadImplFromJson(
         Map<String, dynamic> json) =>
     _$OffboardingStartedPayloadImpl(
-      status: json['status'] as String,
-      deadline: json['deadline'] as String,
+      status: json['status'] as String?,
+      deadline: json['deadline'] as String?,
       $type: json['type'] as String?,
     );
 
@@ -141,9 +145,9 @@ Map<String, dynamic> _$$OffboardingStartedPayloadImplToJson(
 _$ExitInterviewSchedulePayloadImpl _$$ExitInterviewSchedulePayloadImplFromJson(
         Map<String, dynamic> json) =>
     _$ExitInterviewSchedulePayloadImpl(
-      date: json['date'] as String,
-      time: json['time'] as String,
-      interviewer: json['interviewer'] as String,
+      date: json['date'] as String?,
+      time: json['time'] as String?,
+      interviewer: json['interviewer'] as String?,
       $type: json['type'] as String?,
     );
 
@@ -159,8 +163,8 @@ Map<String, dynamic> _$$ExitInterviewSchedulePayloadImplToJson(
 _$AttendanceReminderPayloadImpl _$$AttendanceReminderPayloadImplFromJson(
         Map<String, dynamic> json) =>
     _$AttendanceReminderPayloadImpl(
-      startTime: json['start_time'] as String,
-      minutes: (json['minutes'] as num).toInt(),
+      startTime: json['start_time'] as String?,
+      minutes: (json['minutes'] as num?)?.toInt(),
       $type: json['type'] as String?,
     );
 
@@ -175,7 +179,7 @@ Map<String, dynamic> _$$AttendanceReminderPayloadImplToJson(
 _$AttendanceNotPresentPayloadImpl _$$AttendanceNotPresentPayloadImplFromJson(
         Map<String, dynamic> json) =>
     _$AttendanceNotPresentPayloadImpl(
-      grace: (json['grace'] as num).toInt(),
+      grace: (json['grace'] as num?)?.toInt(),
       $type: json['type'] as String?,
     );
 
@@ -189,10 +193,10 @@ Map<String, dynamic> _$$AttendanceNotPresentPayloadImplToJson(
 _$OvertimeSubmittedPayloadImpl _$$OvertimeSubmittedPayloadImplFromJson(
         Map<String, dynamic> json) =>
     _$OvertimeSubmittedPayloadImpl(
-      date: json['date'] as String,
-      start: json['start'] as String,
-      end: json['end'] as String,
-      approver: json['approver'] as String,
+      date: json['date'] as String?,
+      start: json['start'] as String?,
+      end: json['end'] as String?,
+      approver: json['approver'] as String?,
       $type: json['type'] as String?,
     );
 
@@ -209,9 +213,9 @@ Map<String, dynamic> _$$OvertimeSubmittedPayloadImplToJson(
 _$OvertimeUpdatedPayloadImpl _$$OvertimeUpdatedPayloadImplFromJson(
         Map<String, dynamic> json) =>
     _$OvertimeUpdatedPayloadImpl(
-      date: json['date'] as String,
-      status: json['status'] as String,
-      actor: json['actor'] as String,
+      date: json['date'] as String?,
+      status: json['status'] as String?,
+      actor: json['actor'] as String?,
       $type: json['type'] as String?,
     );
 
@@ -227,10 +231,10 @@ Map<String, dynamic> _$$OvertimeUpdatedPayloadImplToJson(
 _$LeaveSubmittedPayloadImpl _$$LeaveSubmittedPayloadImplFromJson(
         Map<String, dynamic> json) =>
     _$LeaveSubmittedPayloadImpl(
-      leaveType: json['leave_type'] as String,
-      start: json['start'] as String,
-      end: json['end'] as String,
-      approver: json['approver'] as String,
+      leaveType: json['leave_type'] as String?,
+      start: json['start'] as String?,
+      end: json['end'] as String?,
+      approver: json['approver'] as String?,
       $type: json['type'] as String?,
     );
 
@@ -247,10 +251,10 @@ Map<String, dynamic> _$$LeaveSubmittedPayloadImplToJson(
 _$LeaveUpdatedPayloadImpl _$$LeaveUpdatedPayloadImplFromJson(
         Map<String, dynamic> json) =>
     _$LeaveUpdatedPayloadImpl(
-      leaveType: json['leave_type'] as String,
-      start: json['start'] as String,
-      end: json['end'] as String,
-      status: json['status'] as String,
+      leaveType: json['leave_type'] as String?,
+      start: json['start'] as String?,
+      end: json['end'] as String?,
+      status: json['status'] as String?,
       $type: json['type'] as String?,
     );
 
@@ -267,9 +271,9 @@ Map<String, dynamic> _$$LeaveUpdatedPayloadImplToJson(
 _$LeaveReminderPayloadImpl _$$LeaveReminderPayloadImplFromJson(
         Map<String, dynamic> json) =>
     _$LeaveReminderPayloadImpl(
-      leaveType: json['leave_type'] as String,
-      relativeDay: json['relativeDay'] as String,
-      date: json['date'] as String,
+      leaveType: json['leave_type'] as String?,
+      relativeDay: json['relativeDay'] as String?,
+      date: json['date'] as String?,
       $type: json['type'] as String?,
     );
 
@@ -285,9 +289,9 @@ Map<String, dynamic> _$$LeaveReminderPayloadImplToJson(
 _$LeaveExpiringPayloadImpl _$$LeaveExpiringPayloadImplFromJson(
         Map<String, dynamic> json) =>
     _$LeaveExpiringPayloadImpl(
-      daysLeft: (json['days_left'] as num).toInt(),
-      balance: (json['balance'] as num).toInt(),
-      deadline: json['deadline'] as String,
+      daysLeft: (json['days_left'] as num?)?.toInt(),
+      balance: (json['balance'] as num?)?.toInt(),
+      deadline: json['deadline'] as String?,
       $type: json['type'] as String?,
     );
 
@@ -303,7 +307,7 @@ Map<String, dynamic> _$$LeaveExpiringPayloadImplToJson(
 _$PayslipAvailablePayloadImpl _$$PayslipAvailablePayloadImplFromJson(
         Map<String, dynamic> json) =>
     _$PayslipAvailablePayloadImpl(
-      period: json['period'] as String,
+      period: json['period'] as String?,
       $type: json['type'] as String?,
     );
 
@@ -317,9 +321,9 @@ Map<String, dynamic> _$$PayslipAvailablePayloadImplToJson(
 _$PayslipRequestUpdatedPayloadImpl _$$PayslipRequestUpdatedPayloadImplFromJson(
         Map<String, dynamic> json) =>
     _$PayslipRequestUpdatedPayloadImpl(
-      requestType: json['request_type'] as String,
-      period: json['period'] as String,
-      status: json['status'] as String,
+      requestType: json['request_type'] as String?,
+      period: json['period'] as String?,
+      status: json['status'] as String?,
       $type: json['type'] as String?,
     );
 
@@ -335,8 +339,8 @@ Map<String, dynamic> _$$PayslipRequestUpdatedPayloadImplToJson(
 _$PerformanceFormOpenPayloadImpl _$$PerformanceFormOpenPayloadImplFromJson(
         Map<String, dynamic> json) =>
     _$PerformanceFormOpenPayloadImpl(
-      period: json['period'] as String,
-      dueDate: json['due_date'] as String,
+      period: json['period'] as String?,
+      dueDate: json['due_date'] as String?,
       $type: json['type'] as String?,
     );
 
@@ -353,7 +357,7 @@ _$PerformanceReminderPayloadImpl _$$PerformanceReminderPayloadImplFromJson(
     _$PerformanceReminderPayloadImpl(
       daysLeft: (json['daysLeft'] as num?)?.toInt(),
       daysOverdue: (json['daysOverdue'] as num?)?.toInt(),
-      dueDate: json['due_date'] as String,
+      dueDate: json['due_date'] as String?,
       $type: json['type'] as String?,
     );
 
@@ -381,7 +385,7 @@ Map<String, dynamic> _$$PerformanceSubmittedPayloadImplToJson(
 _$PerformancePublishedPayloadImpl _$$PerformancePublishedPayloadImplFromJson(
         Map<String, dynamic> json) =>
     _$PerformancePublishedPayloadImpl(
-      period: json['period'] as String,
+      period: json['period'] as String?,
       $type: json['type'] as String?,
     );
 

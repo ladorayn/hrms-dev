@@ -1,166 +1,221 @@
+import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'notification_response.freezed.dart';
+
 part 'notification_response.g.dart';
 
+String _toCamelCase(String snakeCase) {
+  final parts = snakeCase.toLowerCase().split('_');
+  if (parts.isEmpty) return '';
+  return [
+    parts.first,
+    ...parts.skip(1).map((word) {
+      if (word.isEmpty) return '';
+      return word[0].toUpperCase() + word.substring(1);
+    })
+  ].join();
+}
+
 enum NotificationCode {
-  UNKNOWN,
-  EMAIL_VERIFICATION,
-  RESET_PASSWORD_REQUESTED,
-  PASSWORD_UPDATED,
-  LOGIN_DEVICE,
-  PROFILE_UPDATED,
-  DEPARTMENT_CHANGED,
-  MANAGER_CHANGED,
-  OFFBOARDING_STARTED,
-  EXIT_INTERVIEW_SCHEDULE,
-  ATTENDANCE_REMINDER,
-  ATTENDANCE_NOT_PRESENT,
-  OVERTIME_SUBMITTED,
-  OVERTIME_UPDATED,
-  LEAVE_SUBMITTED,
-  LEAVE_UPDATED,
-  LEAVE_REMINDER,
-  LEAVE_EXPIRING,
-  PAYSLIP_AVAILABLE,
-  PAYSLIP_REQUEST_UPDATED,
-  PERFORMANCE_FORM_OPEN,
-  PERFORMANCE_REMINDER,
-  PERFORMANCE_SUBMITTED,
-  PERFORMANCE_PUBLISHED
+  // Security
+  @JsonValue('EMAIL_VERIFICATION')
+  emailVerification,
+  @JsonValue('RESET_PASSWORD_REQUESTED')
+  resetPasswordRequested,
+  @JsonValue('PASSWORD_UPDATED')
+  passwordUpdated,
+  @JsonValue('LOGIN_DEVICE')
+  loginDevice,
+
+  // Employee Profile & Dokumen
+  @JsonValue('PROFILE_UPDATED')
+  profileUpdated,
+  @JsonValue('DEPARTMENT_CHANGED')
+  departmentChanged,
+  @JsonValue('MANAGER_CHANGED')
+  managerChanged,
+
+  // Offboarding
+  @JsonValue('OFFBOARDING_STARTED')
+  offboardingStarted,
+  @JsonValue('EXIT_INTERVIEW_SCHEDULE')
+  exitInterviewSchedule,
+
+  // Attendance, Timesheet, Overtime
+  @JsonValue('ATTENDANCE_REMINDER')
+  attendanceReminder,
+  @JsonValue('ATTENDANCE_NOT_PRESENT')
+  attendanceNotPresent,
+  @JsonValue('OVERTIME_SUBMITTED')
+  overtimeSubmitted,
+  @JsonValue('OVERTIME_UPDATED')
+  overtimeUpdated,
+
+  // Leave
+  @JsonValue('LEAVE_SUBMITTED')
+  leaveSubmitted,
+  @JsonValue('LEAVE_UPDATED')
+  leaveUpdated,
+  @JsonValue('LEAVE_REMINDER')
+  leaveReminder,
+  @JsonValue('LEAVE_EXPIRING')
+  leaveExpiring,
+
+  // Payroll
+  @JsonValue('PAYSLIP_AVAILABLE')
+  payslipAvailable,
+  @JsonValue('PAYSLIP_REQUEST_UPDATED')
+  payslipRequestUpdated,
+
+  // Performance
+  @JsonValue('PERFORMANCE_FORM_OPEN')
+  performanceFormOpen,
+  @JsonValue('PERFORMANCE_REMINDER')
+  performanceReminder,
+  @JsonValue('PERFORMANCE_SUBMITTED')
+  performanceSubmitted,
+  @JsonValue('PERFORMANCE_PUBLISHED')
+  performancePublished,
+
+  // Default fallback
+  @JsonValue('UNKNOWN')
+  unknown,
 }
 
 @Freezed(unionKey: 'type')
 class NotificationPayload with _$NotificationPayload {
+  // Security
   const factory NotificationPayload.emailVerification({
-    required String email,
-    required String result,
+    String? email,
+    String? result,
   }) = EmailVerificationPayload;
 
   const factory NotificationPayload.resetPasswordRequested({
-    required String email,
+    String? email,
   }) = ResetPasswordRequestedPayload;
 
   const factory NotificationPayload.passwordUpdated({
-    required String time,
+    String? time,
   }) = PasswordUpdatedPayload;
 
   const factory NotificationPayload.loginDevice({
-    required String device,
-    required String location,
-    required String time,
+    String? device,
+    String? location,
+    String? time,
   }) = LoginDevicePayload;
 
-  // PROFILE
+  // PROFILE & STRUCTURE
   const factory NotificationPayload.profileUpdated({
-    required String actor,
-    required String fields,
-    required String status,
-    required String time,
+    String? actor,
+    String? fields,
+    String? status,
+    String? time,
+    @JsonKey(name: "user_id") String? userId,
+    String? email,
   }) = ProfileUpdatedPayload;
 
   const factory NotificationPayload.departmentChanged({
-    required String department,
-    required String team,
-    @JsonKey(name: "effective_date") required String effectiveDate,
+    String? department,
+    String? team,
+    @JsonKey(name: "effective_date") String? effectiveDate,
   }) = DepartmentChangedPayload;
 
   const factory NotificationPayload.managerChanged({
-    @JsonKey(name: "manager_name") required String managerName,
-    @JsonKey(name: "effective_date") required String effectiveDate,
+    @JsonKey(name: "manager_name") String? managerName,
+    @JsonKey(name: "effective_date") String? effectiveDate,
   }) = ManagerChangedPayload;
 
   // OFFBOARDING
   const factory NotificationPayload.offboardingStarted({
-    required String status,
-    required String deadline,
+    String? status,
+    String? deadline,
   }) = OffboardingStartedPayload;
 
   const factory NotificationPayload.exitInterviewSchedule({
-    required String date,
-    required String time,
-    required String interviewer,
+    String? date,
+    String? time,
+    String? interviewer,
   }) = ExitInterviewSchedulePayload;
 
-  // ATTENDANCE
+  // ATTENDANCE & OVERTIME
   const factory NotificationPayload.attendanceReminder({
-    @JsonKey(name: "start_time") required String startTime,
-    required int minutes,
+    @JsonKey(name: "start_time") String? startTime,
+    int? minutes,
   }) = AttendanceReminderPayload;
 
   const factory NotificationPayload.attendanceNotPresent({
-    required int grace,
+    int? grace,
   }) = AttendanceNotPresentPayload;
 
-  // OVERTIME
   const factory NotificationPayload.overtimeSubmitted({
-    required String date,
-    required String start,
-    required String end,
-    required String approver,
+    String? date,
+    String? start,
+    String? end,
+    String? approver,
   }) = OvertimeSubmittedPayload;
 
   const factory NotificationPayload.overtimeUpdated({
-    required String date,
-    required String status,
-    required String actor,
+    String? date,
+    String? status,
+    String? actor,
   }) = OvertimeUpdatedPayload;
 
   // LEAVE
   const factory NotificationPayload.leaveSubmitted({
-    @JsonKey(name: "leave_type") required String leaveType,
-    required String start,
-    required String end,
-    required String approver,
+    @JsonKey(name: "leave_type") String? leaveType,
+    String? start,
+    String? end,
+    String? approver,
   }) = LeaveSubmittedPayload;
 
   const factory NotificationPayload.leaveUpdated({
-    @JsonKey(name: "leave_type") required String leaveType,
-    required String start,
-    required String end,
-    required String status,
+    @JsonKey(name: "leave_type") String? leaveType,
+    String? start,
+    String? end,
+    String? status,
   }) = LeaveUpdatedPayload;
 
   const factory NotificationPayload.leaveReminder({
-    @JsonKey(name: "leave_type") required String leaveType,
-    required String relativeDay,
-    required String date,
+    @JsonKey(name: "leave_type") String? leaveType,
+    String? relativeDay,
+    String? date,
   }) = LeaveReminderPayload;
 
   const factory NotificationPayload.leaveExpiring({
-    @JsonKey(name: "days_left") required int daysLeft,
-    required int balance,
-    required String deadline,
+    @JsonKey(name: "days_left") int? daysLeft,
+    int? balance,
+    String? deadline,
   }) = LeaveExpiringPayload;
 
   // PAYROLL
   const factory NotificationPayload.payslipAvailable({
-    required String period,
+    String? period,
   }) = PayslipAvailablePayload;
 
   const factory NotificationPayload.payslipRequestUpdated({
-    @JsonKey(name: "request_type") required String requestType,
-    required String period,
-    required String status,
+    @JsonKey(name: "request_type") String? requestType,
+    String? period,
+    String? status,
   }) = PayslipRequestUpdatedPayload;
 
   // PERFORMANCE
   const factory NotificationPayload.performanceFormOpen({
-    required String period,
-    @JsonKey(name: "due_date") required String dueDate,
+    String? period,
+    @JsonKey(name: "due_date") String? dueDate,
   }) = PerformanceFormOpenPayload;
 
   const factory NotificationPayload.performanceReminder({
     int? daysLeft,
     int? daysOverdue,
-    @JsonKey(name: "due_date") required String dueDate,
+    @JsonKey(name: "due_date") String? dueDate,
   }) = PerformanceReminderPayload;
 
   const factory NotificationPayload.performanceSubmitted() =
       PerformanceSubmittedPayload;
 
   const factory NotificationPayload.performancePublished({
-    required String period,
+    String? period,
   }) = PerformancePublishedPayload;
 
   // DEFAULT FREEZED JSON
@@ -175,42 +230,40 @@ class NotificationDataConverter
   @override
   NotificationData fromJson(Map<String, dynamic> json) {
     final rawCode = (json["code"] as String?) ?? "";
-
-    final code = NotificationCode.values.firstWhere(
-      (c) => c.name == rawCode,
-      orElse: () => NotificationCode.UNKNOWN,
-    );
-
     final rawPayload = json["data"];
 
-    if (code == NotificationCode.UNKNOWN) {
+    if (rawCode.isEmpty ||
+        rawPayload == null ||
+        rawPayload is! Map<String, dynamic>) {
       return NotificationData(
         title: json["title"],
         message: json["message"],
         code: rawCode,
-        data: rawPayload, // <==== return as-is
+        data: rawPayload,
       );
     }
 
-    if (rawPayload is Map<String, dynamic>) {
-      final payloadJson = {
-        ...rawPayload,
-        "type": code.name,
-      };
+    final discriminatorValue = _toCamelCase(rawCode);
 
-      return NotificationData(
-        title: json["title"],
-        message: json["message"],
-        code: rawCode,
-        data: NotificationPayload.fromJson(payloadJson),
-      );
+    final payloadJson = {
+      ...rawPayload,
+      "type": discriminatorValue,
+    };
+
+    NotificationPayload? payload;
+    try {
+      payload = NotificationPayload.fromJson(payloadJson);
+    } catch (e, stack) {
+      debugPrint(
+          "ERROR: Could not create NotificationPayload using code '$rawCode'.");
+      debugPrint("Parsing Error: $e");
     }
 
     return NotificationData(
       title: json["title"],
       message: json["message"],
       code: rawCode,
-      data: rawPayload,
+      data: payload ?? rawPayload,
     );
   }
 

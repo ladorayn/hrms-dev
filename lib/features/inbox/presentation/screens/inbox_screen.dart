@@ -17,12 +17,7 @@ class InboxScreen extends ConsumerWidget {
       backgroundColor: Colors.white,
       appBar: IAppBar(
         title: notificationsAsync.when(
-          data: (notifications) {
-            final unreadCount =
-                notifications.where((n) => n.readAt == null).length;
-            // return "Inbox ($unreadCount)";
-            return "Inbox";
-          },
+          data: (notifications) => "Inbox",
           loading: () => "Inbox",
           error: (_, __) => "Inbox",
         ),
@@ -66,8 +61,9 @@ class InboxScreen extends ConsumerWidget {
                       debugPrint("Code = ${data?.code}");
                       debugPrint("Payload = ${data?.data}");
 
-                      if (data?.data != null) {
-                        _handleDeepLink(context, data!.data, data.code);
+                      final payload = data?.data;
+                      if (payload is NotificationPayload) {
+                        _handleDeepLink(context, payload, data!.code);
                       }
                     },
                   );
@@ -76,6 +72,7 @@ class InboxScreen extends ConsumerWidget {
             },
             loading: () => const Center(child: CircularProgressIndicator()),
             error: (e, stack) {
+              debugPrint("ERROR: $e");
               return const Center(child: Text("Something went wrong"));
             },
           ),
@@ -84,70 +81,127 @@ class InboxScreen extends ConsumerWidget {
     );
   }
 
-  // NEXT DEVELOPMENT
+  // ============================
+  // 🔗 DEEP LINK HANDLER
+  // ============================
   void _handleDeepLink(
     BuildContext context,
     NotificationPayload payload,
     String rawCode,
   ) {
+    // Convert UPPERCASE BE → enum camelCase
     final code = NotificationCode.values.firstWhere(
-      (c) => c.name == rawCode,
-      orElse: () => NotificationCode.UNKNOWN,
+      (c) => c.name.toUpperCase() == rawCode.toUpperCase(),
+      orElse: () => NotificationCode.unknown,
     );
 
     switch (code) {
-      case NotificationCode.LEAVE_SUBMITTED:
-        // payload.mapOrNull(
-        //   leaveSubmitted: (p) {
-        //     context.push("/leave-history"); // Or details page if you have it
-        //   },
-        // );
+      // =====================================================
+      // LEAVE
+      // =====================================================
+      case NotificationCode.leaveSubmitted:
+        payload.mapOrNull(
+          leaveSubmitted: (p) {
+            // context.push("/leave-history");
+          },
+        );
         break;
 
-      // -------------------------
-      // LEAVE UPDATED
-      // -------------------------
-      case NotificationCode.LEAVE_UPDATED:
-        // payload.mapOrNull(
-        //   leaveUpdated: (p) {
-        //     context.push("/leave-history");
-        //   },
-        // );
+      case NotificationCode.leaveUpdated:
+        payload.mapOrNull(
+          leaveUpdated: (p) {
+            // context.push("/leave-history");
+          },
+        );
         break;
 
-      // -------------------------
-      // PAYSLIP AVAILABLE
-      // -------------------------
-      case NotificationCode.PAYSLIP_AVAILABLE:
-        // payload.mapOrNull(
-        //   payslipAvailable: (p) {
-        //     context.push("/payslip/${p.period}");
-        //   },
-        // );
+      case NotificationCode.leaveReminder:
+      case NotificationCode.leaveExpiring:
+        // context.push("/leave-balance");
         break;
 
-      // -------------------------
-      // PERFORMANCE SUBMITTED
-      // -------------------------
-      case NotificationCode.PERFORMANCE_SUBMITTED:
+      // =====================================================
+      // PAYROLL
+      // =====================================================
+      case NotificationCode.payslipAvailable:
+        payload.mapOrNull(
+          payslipAvailable: (p) {
+            // context.push("/payslip/${p.period}");
+          },
+        );
+        break;
+
+      case NotificationCode.payslipRequestUpdated:
+        // context.push("/payslip");
+        break;
+
+      // =====================================================
+      // PERFORMANCE
+      // =====================================================
+      case NotificationCode.performanceSubmitted:
         // context.push("/performance");
         break;
 
-      // -------------------------
-      // OVERTIME SUBMITTED
-      // -------------------------
-      case NotificationCode.OVERTIME_SUBMITTED:
-        // payload.mapOrNull(
-        //   overtimeSubmitted: (p) {
-        //     context.push("/overtime-history");
-        //   },
-        // );
+      case NotificationCode.performanceFormOpen:
+      case NotificationCode.performanceReminder:
+      case NotificationCode.performancePublished:
+        // context.push("/performance");
         break;
 
-      // -------------------------
-      // UNKNOWN OR UNHANDLED
-      // -------------------------
-      case NotificationCode.UNKNOWN:
+      // =====================================================
+      // OVERTIME
+      // =====================================================
+      case NotificationCode.overtimeSubmitted:
+        payload.mapOrNull(
+          overtimeSubmitted: (p) {
+            // context.push("/overtime-history");
+          },
+        );
+        break;
+
+      case NotificationCode.overtimeUpdated:
+        // context.push("/overtime-history");
+        break;
+
+      // =====================================================
+      // PROFILE
+      // =====================================================
+      case NotificationCode.profileUpdated:
+      case NotificationCode.departmentChanged:
+      case NotificationCode.managerChanged:
+        // context.push("/profile");
+        break;
+
+      // =====================================================
+      // SECURITY
+      // =====================================================
+      case NotificationCode.emailVerification:
+      case NotificationCode.resetPasswordRequested:
+      case NotificationCode.passwordUpdated:
+      case NotificationCode.loginDevice:
+        // context.push("/security");
+        break;
+
+      // =====================================================
+      // ATTENDANCE
+      // =====================================================
+      case NotificationCode.attendanceReminder:
+      case NotificationCode.attendanceNotPresent:
+        // context.push("/attendance");
+        break;
+
+      // =====================================================
+      // OFFBOARDING
+      // =====================================================
+      case NotificationCode.offboardingStarted:
+      case NotificationCode.exitInterviewSchedule:
+        // context.push("/offboarding");
+        break;
+
+      // =====================================================
+      // DEFAULT
+      // =====================================================
+      case NotificationCode.unknown:
       default:
         debugPrint("⚠️ Unhandled notification code: $rawCode");
         break;
