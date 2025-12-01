@@ -1,6 +1,8 @@
 import 'package:hrms_mobile/core/data/models/form_fields_response.dart';
 import 'package:hrms_mobile/features/performance/data/data_sources/performance_remote_source.dart';
+import 'package:hrms_mobile/features/performance/data/models/request/assessment_answer_request.dart';
 import 'package:hrms_mobile/features/performance/data/models/request/assessment_form_request.dart';
+import 'package:hrms_mobile/features/performance/data/models/response/assessment_answer.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_list.dart';
 import 'package:hrms_mobile/features/performance/domain/repositories/performance_repository.dart';
 
@@ -50,6 +52,18 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
   @override
   Future<List<AssessmentList>> getAssessmentList() async {
     final response = await remoteSource.getAssessmentList();
+
+    if (response.status == 'success') {
+      return response.data;
+    } else {
+      throw Exception('API Error: ${response.message}');
+    }
+  }
+
+  @override
+  Future<AssessmentAnswer> getAssessmentAnswer(
+      {AssessmentAnswerRequest? request}) async {
+    final response = await remoteSource.getAssessmentAnswer(request: request);
 
     if (response.status == 'success') {
       return response.data;

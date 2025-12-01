@@ -19,18 +19,19 @@ class AssessmentValidationFormTabManagerScreen extends ConsumerStatefulWidget {
       _AssessmentValidationFormTabManagerScreenState();
 }
 
-// 1. Add the Mixin here
 class _AssessmentValidationFormTabManagerScreenState
     extends ConsumerState<AssessmentValidationFormTabManagerScreen>
     with AutomaticKeepAliveClientMixin {
   final Map<int, Map<String, bool>> _checkboxAnswers = {};
+  final Map<int, String?> _singleSelectionAnswers = {}; // ADDED
   final Map<int, int?> _ratingAnswers = {};
   final Map<int, TextEditingController> _notesControllers = {};
 
   bool _isStateInitialized = false;
   bool _isFormValid = false;
+  final bool isReadOnly =
+      true; // Validation form is based on employee's submission, so treat inputs as read-only.
 
-  // 2. Override wantKeepAlive to true
   @override
   bool get wantKeepAlive => true;
 
@@ -76,10 +77,13 @@ class _AssessmentValidationFormTabManagerScreenState
           controller.addListener(_validateForm);
           _notesControllers[field.id] = controller;
           break;
+        case 'select': // ADDED
+        case 'radio': // ADDED
+          _singleSelectionAnswers[field.id] = null;
+          break;
       }
     }
 
-    // Update state to prevent re-initialization and show the UI
     if (mounted) {
       setState(() {
         _isStateInitialized = true;
@@ -121,6 +125,12 @@ class _AssessmentValidationFormTabManagerScreenState
               isFieldValid = true;
             }
             break;
+          case 'select': // ADDED
+          case 'radio': // ADDED
+            if (_singleSelectionAnswers[field.id] != null) {
+              isFieldValid = true;
+            }
+            break;
           default:
             isFieldValid = true;
             break;
@@ -141,6 +151,9 @@ class _AssessmentValidationFormTabManagerScreenState
   }
 
   Future<void> _onSubmit() async {
+    // This is the validation tab, submission should trigger the approval flow.
+    // For now, we only populate the submission data.
+
     final List<SubmissionForm> submissions = [];
 
     _checkboxAnswers.forEach((fieldId, answers) {
@@ -166,6 +179,16 @@ class _AssessmentValidationFormTabManagerScreenState
       ));
     });
 
+    // ADDED: Single Selection Submission Logic
+    _singleSelectionAnswers.forEach((fieldId, selectedOption) {
+      if (selectedOption != null) {
+        submissions.add(SubmissionForm(
+          fieldId: fieldId,
+          value: selectedOption,
+        ));
+      }
+    });
+
     _notesControllers.forEach((fieldId, controller) {
       if (!_ratingAnswers.containsKey(fieldId)) {
         submissions.add(SubmissionForm(
@@ -174,21 +197,20 @@ class _AssessmentValidationFormTabManagerScreenState
         ));
       }
     });
+
+    // You would typically call a validation/approval API here
     context.pop();
   }
 
   @override
   Widget build(BuildContext context) {
-    // 3. Call super.build(context)
     super.build(context);
 
     final formFieldsAsync =
         ref.watch(performanceFormFieldsProvider(formId: 1 ?? 0));
 
-    // 4. Handle Data Initialization inside build using whenData
     formFieldsAsync.whenData((fields) {
       if (!_isStateInitialized) {
-        // Use microtask to avoid calling setState during build
         Future.microtask(() => _initializeState(fields));
       }
     });
@@ -200,7 +222,6 @@ class _AssessmentValidationFormTabManagerScreenState
             loading: () => const Center(child: CircularProgressIndicator()),
             error: (err, stack) => Center(child: Text('Error: $err')),
             data: (formFields) {
-              // 5. Guard: Do not build list if state isn't ready (prevents shrinking/null errors)
               if (!_isStateInitialized) {
                 return const Center(child: CircularProgressIndicator());
               }
@@ -234,7 +255,7 @@ class _AssessmentValidationFormTabManagerScreenState
         ),
         IFooterButton(
           text: "Validate Self Assessment",
-          onPressed: () {},
+          onPressed: _isFormValid ? _onSubmit : null,
         )
       ],
     );
@@ -284,9 +305,11 @@ class _AssessmentValidationFormTabManagerScreenState
       case 'range':
         return _buildRatingSection(field);
       case 'textarea':
-        return _buildTextAreaSection(field);
       case 'text':
         return _buildTextAreaSection(field);
+      case 'select': // ADDED
+      case 'radio': // ADDED
+        return _buildSingleSelectionSection(field); // ADDED
       default:
         return Text('Unknown field type: ${field.type}');
     }
@@ -297,18 +320,22 @@ class _AssessmentValidationFormTabManagerScreenState
     required bool value,
     required ValueChanged<bool?> onChanged,
   }) {
+    // This is a validation view, so interactions are disabled (read-only)
+    const ValueChanged<bool?>? handler = null;
+
     return InkWell(
-      onTap: () {
-        onChanged(!value);
-      },
+      onTap: null,
       child: Row(
         children: [
           Checkbox(
             value: value,
-            onChanged: onChanged,
+            onChanged: handler,
             visualDensity: VisualDensity.compact,
+            activeColor: IColors.light.grayscale.g30, // Visually disabled color
           ),
-          Expanded(child: Text(title)),
+          Expanded(
+              child: Text(title,
+                  style: TextStyle(color: IColors.light.grayscale.g60))),
         ],
       ),
     );
@@ -346,6 +373,7 @@ class _AssessmentValidationFormTabManagerScreenState
   Widget _buildRatingSection(FormFields field) {
     final selectedRating = _ratingAnswers[field.id];
     final notesController = _notesControllers[field.id];
+    final bool isDisabled = true; // Always disabled in validation tab
 
     if (field.options == null || field.options is! Map<String, dynamic>) {
       return const SizedBox.shrink();
@@ -363,40 +391,33 @@ class _AssessmentValidationFormTabManagerScreenState
           children: List.generate(count, (index) {
             final rating = options.min + index;
             final isSelected = rating == selectedRating;
+
+            final buttonStyle = ElevatedButton.styleFrom(
+              backgroundColor: isSelected
+                  ? IColors.light.primary.main
+                  : IColors.light.grayscale.g10, // Disabled color
+              foregroundColor:
+                  isSelected ? Colors.white : IColors.light.primary.main,
+              shape: RoundedRectangleBorder(
+                side: BorderSide(
+                    color: IColors.light.grayscale.g30), // Disabled border
+                borderRadius: BorderRadius.circular(8),
+              ),
+              elevation: 0, // Disabled elevation
+            );
+
             return Expanded(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 4.w),
-                child: isSelected
-                    ? ElevatedButton(
-                        onPressed: () {
-                          setState(() => _ratingAnswers[field.id] = rating);
-                          _validateForm();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: IColors.light.primary.main,
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            side: BorderSide(color: IColors.light.primary.main),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        child: Text('$rating'),
-                      )
-                    : ElevatedButton(
-                        onPressed: () {
-                          setState(() => _ratingAnswers[field.id] = rating);
-                          _validateForm();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          foregroundColor: IColors.light.primary.main,
-                          shape: RoundedRectangleBorder(
-                            side: BorderSide(color: IColors.light.primary.main),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        child: Text('$rating'),
-                      ),
+                child: ElevatedButton(
+                  onPressed: null, // Disable press
+                  style: buttonStyle,
+                  child: Text('$rating',
+                      style: TextStyle(
+                          color: isSelected
+                              ? Colors.white
+                              : IColors.light.grayscale.g60)),
+                ),
               ),
             );
           }),
@@ -406,6 +427,7 @@ class _AssessmentValidationFormTabManagerScreenState
           ITextFieldTextArea(
             controller: notesController,
             hintText: '',
+            readOnly: true, // Always read-only
           ),
         ],
       ],
@@ -424,7 +446,73 @@ class _AssessmentValidationFormTabManagerScreenState
         ITextFieldTextArea(
           controller: controller,
           hintText: '',
+          readOnly: true, // Always read-only
+          onTap: null,
         ),
+      ],
+    );
+  }
+
+  // ADDED: Single Selection Section (Read-Only)
+  Widget _buildSingleSelectionSection(FormFields field) {
+    if (field.options == null || field.options is! List) {
+      return const SizedBox.shrink();
+    }
+
+    final options = (field.options as List).cast<String>();
+    final selectedOption = _singleSelectionAnswers[field.id];
+    const bool isDisabled = true;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildFieldHeader(field),
+        SizedBox(height: 8.h),
+        // If it's a select field, use a DropdownButtonFormField (Read-Only)
+        if (field.type == 'select')
+          DropdownButtonFormField<String>(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.r),
+              ),
+              contentPadding: EdgeInsets.symmetric(horizontal: 12.w),
+            ),
+            value: selectedOption,
+            hint: Text(selectedOption ?? 'N/A',
+                style: TextStyle(color: IColors.light.grayscale.g60)),
+            items: options.map((String option) {
+              return DropdownMenuItem<String>(
+                value: option,
+                child: Text(option),
+              );
+            }).toList(),
+            onChanged: null,
+            // Disable changes
+            isExpanded: true,
+            style: TextStyle(
+              color: IColors.light.grayscale.g60,
+            ),
+            dropdownColor: Colors.white,
+            iconDisabledColor: IColors.light.grayscale.g30,
+            iconEnabledColor: IColors.light.grayscale.g30,
+          )
+        else // Treat 'radio' type as a list of RadioListTiles (Read-Only)
+          ...options.map((option) {
+            return RadioListTile<String>(
+              title: Text(option,
+                  style: TextStyle(
+                      color: selectedOption == option
+                          ? IColors.light.primary.main
+                          : IColors.light.grayscale.g60)),
+              value: option,
+              groupValue: selectedOption,
+              onChanged: null,
+              // Disable changes
+              dense: true,
+              contentPadding: EdgeInsets.zero,
+              activeColor: IColors.light.primary.main,
+            );
+          }).toList(),
       ],
     );
   }

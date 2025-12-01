@@ -6,10 +6,13 @@ import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/data/models/form_fields_response.dart';
+import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/core/widgets/i_footer_button.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
+import 'package:hrms_mobile/features/performance/data/models/request/assessment_answer_request.dart';
 import 'package:hrms_mobile/features/performance/data/models/request/assessment_form_request.dart';
+import 'package:hrms_mobile/features/performance/data/models/response/assessment_answer.dart'; // Import FormAnswer
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_list.dart';
 import 'package:hrms_mobile/features/performance/presentation/providers/performance_provider.dart';
 
@@ -28,6 +31,7 @@ class AssessmentFormScreen extends ConsumerStatefulWidget {
 
 class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
   final Map<int, Map<String, bool>> _checkboxAnswers = {};
+  final Map<int, String?> _singleSelectionAnswers = {};
   final Map<int, int?> _ratingAnswers = {};
   final Map<int, TextEditingController> _notesControllers = {};
 
@@ -52,9 +56,12 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
     super.dispose();
   }
 
-  void _initializeState(List<FormFieldsGroup> formGroups) {
+  // MODIFIED: Added FormAnswer to signature
+  void _initializeState(
+      List<FormFieldsGroup> formGroups, FormAnswer? formAnswer) {
     if (_isStateInitialized) return;
 
+    // 1. Initial State Setup (Set defaults/initial controllers)
     for (final group in formGroups) {
       for (final field in group.fields) {
         switch (field.type) {
@@ -86,15 +93,118 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
             controller.addListener(_validateForm);
             _notesControllers[field.id] = controller;
             break;
+          case 'select':
+          case 'radio':
+            _singleSelectionAnswers[field.id] = null;
+            break;
         }
       }
     }
+
+    // 2. Populate State from Existing Answers
+    _populateFieldsFromAnswers(formAnswer);
+
     _isStateInitialized = true;
     _validateForm();
   }
 
+  // NEW METHOD: Handle population from existing answers
+  void _populateFieldsFromAnswers(FormAnswer? formAnswer) {
+    final answerFields = formAnswer?.fields ?? [];
+
+    if (answerFields.isEmpty) return;
+
+    for (final answer in answerFields) {
+      final fieldId = answer.fieldId;
+      if (fieldId == null) continue;
+
+      // Find the corresponding FormField object
+      final field = _allFields.firstWhere((f) => f.id == fieldId,
+          orElse: () => const FormFields(id: -1, isRequired: false, order: 0));
+
+      if (field.id == -1) continue; // Skip if no matching field is found
+
+      switch (field.type) {
+        case 'checkbox':
+          _populateCheckboxAnswer(fieldId, answer);
+          break;
+        case 'range':
+          _populateRatingAnswer(fieldId, answer);
+          break;
+        case 'textarea':
+        case 'text':
+          _populateTextAnswer(fieldId, answer);
+          break;
+        case 'select':
+        case 'radio':
+          _populateSingleSelectionAnswer(fieldId, answer);
+          break;
+      }
+    }
+  }
+
+  // NEW METHOD: Populate Checkbox
+  void _populateCheckboxAnswer(int fieldId, FieldsAnswer answer) {
+    // Ensure the state map exists for this field
+    final currentAnswers = _checkboxAnswers[fieldId];
+    if (currentAnswers == null) return;
+
+    // Answer value is usually a List<String> of selected options
+    final selectedOptions = answer.value as List<String>;
+
+    for (final option in selectedOptions) {
+      // Set to true only if the option exists in the field's configuration
+      if (currentAnswers.containsKey(option)) {
+        currentAnswers[option] = true;
+      }
+    }
+  }
+
+  // NEW METHOD: Populate Range/Rating
+  void _populateRatingAnswer(int fieldId, FieldsAnswer answer) {
+    // 1. Set the rating value
+    final ratingValue = answer.value;
+    if (ratingValue is String) {
+      final rating = int.tryParse(ratingValue);
+      if (rating != null) {
+        _ratingAnswers[fieldId] = rating;
+      }
+    }
+
+    // 2. Check for notes in additionalData
+    if (answer.additionalData is Map<String, dynamic>) {
+      final additionalData = answer.additionalData as Map<String, dynamic>;
+      final notes = additionalData['notes'];
+
+      if (notes is String) {
+        // Find the corresponding FormField to check if it has a note controller
+        final field = _allFields.firstWhere((f) => f.id == fieldId);
+        final hasNotes = field.metadata?['is_note'] == true;
+
+        if (hasNotes && _notesControllers.containsKey(fieldId)) {
+          _notesControllers[fieldId]!.text = notes;
+        }
+      }
+    }
+  }
+
+  // NEW METHOD: Populate Text/Textarea
+  void _populateTextAnswer(int fieldId, FieldsAnswer answer) {
+    final textValue = answer.value;
+    if (textValue is String && _notesControllers.containsKey(fieldId)) {
+      _notesControllers[fieldId]!.text = textValue;
+    }
+  }
+
+  // NEW METHOD: Populate Select/Radio
+  void _populateSingleSelectionAnswer(int fieldId, FieldsAnswer answer) {
+    final selectedOption = answer.value;
+    if (selectedOption is String) {
+      _singleSelectionAnswers[fieldId] = selectedOption;
+    }
+  }
+
   void _validateForm() {
-    // Get fields from the helper method
     final formFields = _allFields;
 
     if (formFields.isEmpty) {
@@ -123,6 +233,12 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
           case 'text':
             final controller = _notesControllers[field.id];
             if (controller != null && controller.text.trim().isNotEmpty) {
+              isFieldValid = true;
+            }
+            break;
+          case 'select':
+          case 'radio':
+            if (_singleSelectionAnswers[field.id] != null) {
               isFieldValid = true;
             }
             break;
@@ -174,6 +290,16 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
       ));
     });
 
+    // ADDED: Single Selection Submission Logic
+    _singleSelectionAnswers.forEach((fieldId, selectedOption) {
+      if (selectedOption != null) {
+        submissions.add(SubmissionForm(
+          fieldId: fieldId,
+          value: selectedOption,
+        ));
+      }
+    });
+
     _notesControllers.forEach((fieldId, controller) {
       if (!_ratingAnswers.containsKey(fieldId)) {
         submissions.add(SubmissionForm(
@@ -192,7 +318,7 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Form Submitted Successfully!')),
         );
-        context.pop();
+        context.pushReplacementNamed(RoutePaths.selfAssessmentName);
       }
     } catch (e) {
       if (mounted) {
@@ -209,12 +335,23 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
     final formFieldsAsync = ref.watch(performanceFormFieldsByGroupProvider(
         formId: widget.assessment.formId ?? 14));
 
+    // MODIFIED: Use ref.watch to monitor for answers data
+    final formAnswered = ref
+        .watch(performanceAssessmentAnswerProvider(
+            request: AssessmentAnswerRequest(
+          employeeSelfAssessment: "${widget.assessment.id}",
+          formId: widget.assessment.id,
+        )))
+        .value;
+
+    // MODIFIED: Pass formAnswered.data into _initializeState
     ref.listen(
         performanceFormFieldsByGroupProvider(
             formId: widget.assessment.formId ?? 14), (previous, next) {
       if (next.hasValue && !_isStateInitialized) {
         setState(() {
-          _initializeState(next.value!);
+          // Pass form fields data AND the FormAnswer data
+          _initializeState(next.value!, formAnswered?.data);
         });
       }
     });
@@ -238,10 +375,7 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // 1. Group Header
                         _buildGroupHeader(group),
-
-                        // 2. Fields within the Group
                         ...group.fields.map((field) {
                           return Padding(
                             padding: EdgeInsets.only(bottom: 16.h),
@@ -346,6 +480,9 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
       case 'textarea':
       case 'text':
         return _buildTextAreaSection(field);
+      case 'select':
+      case 'radio':
+        return _buildSingleSelectionSection(field);
       default:
         return Text('Unknown field type: ${field.type}');
     }
@@ -389,6 +526,7 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
         ...options.map((option) {
           return _buildCustomCheckbox(
             title: option,
+            // Use the value from the state map, initialized via _populate
             value: answers[option]!,
             onChanged: (bool? value) {
               setState(() {
@@ -489,6 +627,66 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
           controller: controller,
           hintText: '',
         ),
+      ],
+    );
+  }
+
+  Widget _buildSingleSelectionSection(FormFields field) {
+    if (field.options == null || field.options is! List) {
+      return const SizedBox.shrink();
+    }
+
+    final options = (field.options as List).cast<String>();
+    final selectedOption = _singleSelectionAnswers[field.id];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildFieldHeader(field),
+        SizedBox(height: 8.h),
+        // If it's a select field, use a DropdownButtonFormField
+        if (field.type == 'select')
+          DropdownButtonFormField<String>(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.r),
+              ),
+              contentPadding: EdgeInsets.symmetric(horizontal: 12.w),
+            ),
+            // Use the pre-populated value from the state map
+            value: selectedOption,
+            hint: const Text('Select an option'),
+            items: options.map((String option) {
+              return DropdownMenuItem<String>(
+                value: option,
+                child: Text(option),
+              );
+            }).toList(),
+            onChanged: (String? newValue) {
+              setState(() {
+                _singleSelectionAnswers[field.id] = newValue;
+              });
+              _validateForm();
+            },
+            isExpanded: true,
+          )
+        else
+          ...options.map((option) {
+            return RadioListTile<String>(
+              title: Text(option),
+              value: option,
+              // Use the pre-populated value from the state map
+              groupValue: selectedOption,
+              onChanged: (String? newValue) {
+                setState(() {
+                  _singleSelectionAnswers[field.id] = newValue;
+                });
+                _validateForm();
+              },
+              dense: true,
+              contentPadding: EdgeInsets.zero,
+            );
+          }).toList(),
       ],
     );
   }

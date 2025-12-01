@@ -1,5 +1,7 @@
 import 'package:hrms_mobile/core/data/models/form_fields_response.dart';
+import 'package:hrms_mobile/features/performance/data/models/request/assessment_answer_request.dart';
 import 'package:hrms_mobile/features/performance/data/models/request/assessment_form_request.dart';
+import 'package:hrms_mobile/features/performance/data/models/response/assessment_answer.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_list.dart';
 import 'package:hrms_mobile/features/performance/domain/repositories/performance_repository.dart';
 
@@ -24,5 +26,10 @@ class PerformanceUsecases {
 
   Future<List<AssessmentList>> getAssessmentList() {
     return repository.getAssessmentList();
+  }
+
+  Future<AssessmentAnswer> getAssessmentAnswer(
+      {AssessmentAnswerRequest? request}) {
+    return repository.getAssessmentAnswer(request: request);
   }
 }

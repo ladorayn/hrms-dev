@@ -28,6 +28,8 @@ class _AssessmentTabFormManagerScreenState
     extends ConsumerState<AssessmentTabFormManagerScreen>
     with AutomaticKeepAliveClientMixin {
   final Map<int, Map<String, bool>> _checkboxAnswers = {};
+  final Map<int, String?> _singleSelectionAnswers =
+      {}; // ADDED: Single selection state
   final Map<int, int?> _ratingAnswers = {};
   final Map<int, TextEditingController> _notesControllers = {};
 
@@ -79,6 +81,10 @@ class _AssessmentTabFormManagerScreenState
           controller.addListener(_validateForm);
           _notesControllers[field.id] = controller;
           break;
+        case 'select': // ADDED
+        case 'radio': // ADDED
+          _singleSelectionAnswers[field.id] = null;
+          break;
       }
     }
 
@@ -103,7 +109,7 @@ class _AssessmentTabFormManagerScreenState
     for (final field in formFields) {
       if (field.isRequired) {
         bool isFieldValid = false;
-        // ... (existing validation logic)
+
         switch (field.type) {
           case 'checkbox':
             final answers = _checkboxAnswers[field.id];
@@ -120,6 +126,12 @@ class _AssessmentTabFormManagerScreenState
           case 'text':
             final controller = _notesControllers[field.id];
             if (controller != null && controller.text.trim().isNotEmpty) {
+              isFieldValid = true;
+            }
+            break;
+          case 'select': // ADDED
+          case 'radio': // ADDED
+            if (_singleSelectionAnswers[field.id] != null) {
               isFieldValid = true;
             }
             break;
@@ -143,8 +155,6 @@ class _AssessmentTabFormManagerScreenState
   }
 
   Future<void> _onSubmit() async {
-    // Since this tab is read-only, _onSubmit should generally be empty or removed.
-    // Keeping the original structure but guarding against accidental execution.
     if (widget.isReadOnly) return;
 
     final List<SubmissionForm> submissions = [];
@@ -172,6 +182,16 @@ class _AssessmentTabFormManagerScreenState
       ));
     });
 
+    // ADDED: Single Selection Submission Logic
+    _singleSelectionAnswers.forEach((fieldId, selectedOption) {
+      if (selectedOption != null) {
+        submissions.add(SubmissionForm(
+          fieldId: fieldId,
+          value: selectedOption,
+        ));
+      }
+    });
+
     _notesControllers.forEach((fieldId, controller) {
       if (!_ratingAnswers.containsKey(fieldId)) {
         submissions.add(SubmissionForm(
@@ -180,6 +200,8 @@ class _AssessmentTabFormManagerScreenState
         ));
       }
     });
+    // This onSubmit likely needs to trigger a validation/submission event for the manager's role
+    // For now, we pop the context as it's a tab, but real submission logic is needed here.
     context.pop();
   }
 
@@ -192,7 +214,6 @@ class _AssessmentTabFormManagerScreenState
 
     formFieldsAsync.whenData((fields) {
       if (!_isStateInitialized) {
-        // Use microtask to avoid calling setState during build
         Future.microtask(() => _initializeState(fields));
       }
     });
@@ -204,7 +225,6 @@ class _AssessmentTabFormManagerScreenState
             loading: () => const Center(child: CircularProgressIndicator()),
             error: (err, stack) => Center(child: Text('Error: $err')),
             data: (formFields) {
-              // 5. Guard: Do not build list if state isn't ready (prevents shrinking/null errors)
               if (!_isStateInitialized) {
                 return const Center(child: CircularProgressIndicator());
               }
@@ -236,7 +256,6 @@ class _AssessmentTabFormManagerScreenState
             },
           ),
         ),
-        // No footer button is needed here since it's read-only
         if (widget.isReadOnly)
           Container(
             padding: EdgeInsets.all(16.w),
@@ -293,9 +312,11 @@ class _AssessmentTabFormManagerScreenState
       case 'range':
         return _buildRatingSection(field);
       case 'textarea':
-        return _buildTextAreaSection(field);
       case 'text':
         return _buildTextAreaSection(field);
+      case 'select': // ADDED
+      case 'radio': // ADDED
+        return _buildSingleSelectionSection(field); // ADDED
       default:
         return Text('Unknown field type: ${field.type}');
     }
@@ -306,7 +327,6 @@ class _AssessmentTabFormManagerScreenState
     required bool value,
     required ValueChanged<bool?> onChanged,
   }) {
-    // Disable interaction if read-only
     final ValueChanged<bool?>? handler = widget.isReadOnly ? null : onChanged;
 
     return InkWell(
@@ -317,7 +337,6 @@ class _AssessmentTabFormManagerScreenState
             value: value,
             onChanged: handler,
             visualDensity: VisualDensity.compact,
-            // Visually disable the checkbox if read-only
             activeColor: handler == null
                 ? IColors.light.grayscale.g30
                 : IColors.light.primary.main,
@@ -397,7 +416,6 @@ class _AssessmentTabFormManagerScreenState
                         : IColors.light.primary.main),
                 borderRadius: BorderRadius.circular(8),
               ),
-              // Dim the button if disabled
               elevation: isDisabled ? 0 : 2,
             );
 
@@ -429,7 +447,7 @@ class _AssessmentTabFormManagerScreenState
           ITextFieldTextArea(
             controller: notesController,
             hintText: '',
-            readOnly: isDisabled, // Apply read-only here
+            readOnly: isDisabled,
           ),
         ],
       ],
@@ -440,7 +458,6 @@ class _AssessmentTabFormManagerScreenState
     final controller = _notesControllers[field.id];
     final bool isDisabled = widget.isReadOnly;
 
-    // If controller is null, return a placeholder or loader instead of shrinking
     if (controller == null) return const SizedBox.shrink();
 
     return Column(
@@ -450,11 +467,85 @@ class _AssessmentTabFormManagerScreenState
         ITextFieldTextArea(
           controller: controller,
           hintText: '',
-          readOnly: isDisabled, // Apply read-only here
-          // FIX: Explicitly set onTap to null to prevent focus/keyboard pop-up
-          // This should prevent the field from capturing focus when tapped.
+          readOnly: isDisabled,
           onTap: isDisabled ? () {} : null,
         ),
+      ],
+    );
+  }
+
+  // ADDED: Single Selection Section
+  Widget _buildSingleSelectionSection(FormFields field) {
+    if (field.options == null || field.options is! List) {
+      return const SizedBox.shrink();
+    }
+
+    final options = (field.options as List).cast<String>();
+    final selectedOption = _singleSelectionAnswers[field.id];
+    final bool isDisabled = widget.isReadOnly;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildFieldHeader(field),
+        SizedBox(height: 8.h),
+        // If it's a select field, use a DropdownButtonFormField
+        if (field.type == 'select')
+          DropdownButtonFormField<String>(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.r),
+              ),
+              contentPadding: EdgeInsets.symmetric(horizontal: 12.w),
+            ),
+            value: selectedOption,
+            hint: const Text('Select an option'),
+            items: options.map((String option) {
+              return DropdownMenuItem<String>(
+                value: option,
+                child: Text(option),
+              );
+            }).toList(),
+            onChanged: isDisabled
+                ? null
+                : (String? newValue) {
+                    setState(() {
+                      _singleSelectionAnswers[field.id] = newValue;
+                    });
+                    _validateForm();
+                  },
+            isExpanded: true,
+            // Visually disable the dropdown
+            style: TextStyle(
+              color: isDisabled ? IColors.light.grayscale.g60 : Colors.black,
+            ),
+            dropdownColor: Colors.white,
+            iconDisabledColor: IColors.light.grayscale.g30,
+            iconEnabledColor: IColors.light.grayscale.g80,
+          )
+        else // Treat 'radio' type as a list of RadioListTiles
+          ...options.map((option) {
+            return RadioListTile<String>(
+              title: Text(option,
+                  style: TextStyle(
+                      color: isDisabled
+                          ? IColors.light.grayscale.g60
+                          : Colors.black)),
+              value: option,
+              groupValue: selectedOption,
+              onChanged: isDisabled
+                  ? null
+                  : (String? newValue) {
+                      setState(() {
+                        _singleSelectionAnswers[field.id] = newValue;
+                      });
+                      _validateForm();
+                    },
+              dense: true,
+              contentPadding: EdgeInsets.zero,
+              activeColor: IColors.light.primary.main,
+            );
+          }).toList(),
       ],
     );
   }

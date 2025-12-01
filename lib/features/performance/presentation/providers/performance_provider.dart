@@ -1,7 +1,9 @@
 import 'package:hrms_mobile/core/data/models/form_fields_response.dart';
 import 'package:hrms_mobile/core/network/dio_provider.dart';
 import 'package:hrms_mobile/features/performance/data/data_sources/performance_remote_source.dart';
+import 'package:hrms_mobile/features/performance/data/models/request/assessment_answer_request.dart';
 import 'package:hrms_mobile/features/performance/data/models/request/assessment_form_request.dart';
+import 'package:hrms_mobile/features/performance/data/models/response/assessment_answer.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_list.dart';
 import 'package:hrms_mobile/features/performance/data/repositories/performance_repository_impl.dart';
 import 'package:hrms_mobile/features/performance/domain/usecases/performance_usecases.dart';
@@ -38,6 +40,15 @@ class PerformanceFormFieldsByGroup extends _$PerformanceFormFieldsByGroup {
   Future<List<FormFieldsGroup>> build({required int formId}) async {
     final usecase = ref.watch(performanceUseCaseProvider);
     return await usecase.getFormFieldsByGroup(formId: formId);
+  }
+}
+
+@riverpod
+class PerformanceAssessmentAnswer extends _$PerformanceAssessmentAnswer {
+  @override
+  Future<AssessmentAnswer> build({AssessmentAnswerRequest? request}) async {
+    final usecase = ref.watch(performanceUseCaseProvider);
+    return await usecase.getAssessmentAnswer(request: request);
   }
 }
 
