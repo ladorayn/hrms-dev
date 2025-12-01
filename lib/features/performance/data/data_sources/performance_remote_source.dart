@@ -95,7 +95,7 @@ class PerformanceRemoteSource {
       };
 
       final response = await _dio.get(
-        'api/ess/self-assessment/${request?.employeeSelfAssessment}',
+        'api/ess/self-assessment/${request?.employeeSelfAssessment}/submission',
         queryParameters: queryParameters,
       );
 
