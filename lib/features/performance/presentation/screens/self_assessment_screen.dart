@@ -92,7 +92,8 @@ class SelfAssessmentScreen extends ConsumerWidget {
 
   Widget _buildStatusChip(BuildContext context, String statusLabel) {
     final textTheme = Theme.of(context).textTheme;
-    final bool isComplete = statusLabel.toLowerCase() == 'completed';
+    final bool isComplete = statusLabel.toLowerCase() == 'completed' ||
+        statusLabel.toLowerCase() == 'validated';
     final bool isNotStarted = statusLabel.toLowerCase() == 'not started';
 
     Color color;

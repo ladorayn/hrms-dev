@@ -216,7 +216,7 @@ class ManagerAssessmentLandingScreen extends ConsumerWidget {
   Widget _buildStatusChip(BuildContext context, String statusLabel) {
     final textTheme = Theme.of(context).textTheme;
     final String status = statusLabel.toLowerCase();
-    final bool isComplete = status == 'complete';
+    final bool isComplete = status == 'completed' || status == 'validated';
     final bool isNotStarted = status == 'not started';
 
     Color color;
