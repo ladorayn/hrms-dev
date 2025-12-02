@@ -22,6 +22,20 @@ Map<String, dynamic> _$$AssessmentFormRequestImplToJson(
       'submissions': instance.submissions,
     };
 
+_$AssessmentFormValidateRequestImpl
+    _$$AssessmentFormValidateRequestImplFromJson(Map<String, dynamic> json) =>
+        _$AssessmentFormValidateRequestImpl(
+          submissions: (json['submissions'] as List<dynamic>)
+              .map((e) => SubmissionForm.fromJson(e as Map<String, dynamic>))
+              .toList(),
+        );
+
+Map<String, dynamic> _$$AssessmentFormValidateRequestImplToJson(
+        _$AssessmentFormValidateRequestImpl instance) =>
+    <String, dynamic>{
+      'submissions': instance.submissions,
+    };
+
 _$SubmissionFormImpl _$$SubmissionFormImplFromJson(Map<String, dynamic> json) =>
     _$SubmissionFormImpl(
       fieldId: (json['field_id'] as num).toInt(),

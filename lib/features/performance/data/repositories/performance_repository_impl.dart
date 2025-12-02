@@ -50,6 +50,20 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
   }
 
   @override
+  Future<String> assessmentFormValidateSubmission(
+      {required AssessmentFormValidateRequest request,
+      required assessmentId}) async {
+    final response = await remoteSource.assessmentFormValidateSubmission(
+        request: request, assessmentId: assessmentId);
+
+    if (response.status == 'success') {
+      return response.data;
+    } else {
+      throw Exception('API Error: ${response.message}');
+    }
+  }
+
+  @override
   Future<List<AssessmentList>> getAssessmentList() async {
     final response = await remoteSource.getAssessmentList();
 

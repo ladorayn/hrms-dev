@@ -68,6 +68,24 @@ class PerformanceRemoteSource {
     }
   }
 
+  Future<BaseResponse<String>> assessmentFormValidateSubmission(
+      {required AssessmentFormValidateRequest request,
+      required assessmentId}) async {
+    try {
+      final response = await _dio.post(
+        'api/ess/self-assessment/$assessmentId/submission/validate',
+        data: request,
+      );
+
+      return BaseResponse.fromJson(
+        response.data,
+        (json) => json as String,
+      );
+    } on DioException catch (e) {
+      throw handleDioError(e);
+    }
+  }
+
   Future<BaseResponse<List<AssessmentList>>> getAssessmentList() async {
     try {
       final response = await _dio.get(

@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/data/models/form_fields_response.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
-import 'package:hrms_mobile/features/offboarding/data/models/request/exit_form_request.dart';
 import 'package:hrms_mobile/features/performance/data/models/request/assessment_answer_request.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_answer.dart';
 import 'package:hrms_mobile/features/performance/presentation/providers/performance_provider.dart';
@@ -15,8 +13,6 @@ import 'package:hrms_mobile/features/performance/presentation/providers/performa
 class AssessmentTabFormManagerScreen extends ConsumerStatefulWidget {
   final bool isReadOnly;
   final int formId;
-
-  // ⭐ ADDED: Parameter to fetch specific employee assessment answers
   final int employeeSelfAssessmentId;
 
   const AssessmentTabFormManagerScreen({
@@ -42,7 +38,6 @@ class _AssessmentTabFormManagerScreenState
   bool _isStateInitialized = false;
   bool _isFormValid = false;
 
-  // ⭐ MODIFIED: Use the grouped fields provider
   List<FormFields> get _allFields {
     final formFieldsGroup = ref
         .read(performanceFormFieldsByGroupProvider(formId: widget.formId))
@@ -63,7 +58,6 @@ class _AssessmentTabFormManagerScreenState
     super.dispose();
   }
 
-  // ⭐ MODIFIED: Accepts List<FormFieldsGroup> for grouped form structure
   void _initializeState(
       List<FormFieldsGroup> formGroups, FormAnswer? formAnswer) {
     if (_isStateInitialized) return;
@@ -213,7 +207,6 @@ class _AssessmentTabFormManagerScreenState
   // --- Validation and Submission ---
 
   void _validateForm() {
-    // ⭐ MODIFIED: Use the grouped fields provider and flatten the result
     final formFieldsGroup = ref
         .read(performanceFormFieldsByGroupProvider(formId: widget.formId))
         .value;
@@ -227,11 +220,9 @@ class _AssessmentTabFormManagerScreenState
 
     bool allRequiredFieldsAreValid = true;
     for (final field in formFields) {
-      // Validation should only apply if the form is NOT read-only
       if (field.isRequired && !widget.isReadOnly) {
         bool isFieldValid = false;
 
-        // ... (existing validation logic remains) ...
         switch (field.type) {
           case 'checkbox':
             final answers = _checkboxAnswers[field.id];
@@ -276,71 +267,19 @@ class _AssessmentTabFormManagerScreenState
     }
   }
 
-  Future<void> _onSubmit() async {
-    if (widget.isReadOnly) return;
-
-    final List<SubmissionForm> submissions = [];
-
-    // ... (existing submission logic remains) ...
-    _checkboxAnswers.forEach((fieldId, answers) {
-      final selectedOptions = answers.entries
-          .where((e) => e.value == true)
-          .map((e) => e.key)
-          .toList();
-
-      submissions.add(SubmissionForm(
-        fieldId: fieldId,
-        value: selectedOptions,
-        additionalData: selectedOptions,
-      ));
-    });
-
-    _ratingAnswers.forEach((fieldId, rating) {
-      submissions.add(SubmissionForm(
-        fieldId: fieldId,
-        value: rating.toString(),
-        additionalData: {
-          'notes': _notesControllers[fieldId]?.text ?? '',
-        },
-      ));
-    });
-
-    _singleSelectionAnswers.forEach((fieldId, selectedOption) {
-      if (selectedOption != null) {
-        submissions.add(SubmissionForm(
-          fieldId: fieldId,
-          value: selectedOption,
-        ));
-      }
-    });
-
-    _notesControllers.forEach((fieldId, controller) {
-      if (!_ratingAnswers.containsKey(fieldId)) {
-        submissions.add(SubmissionForm(
-          fieldId: fieldId,
-          value: controller.text,
-        ));
-      }
-    });
-    context.pop();
-  }
-
   @override
   Widget build(BuildContext context) {
     super.build(context);
 
-    // ⭐ MODIFIED: Fetch fields using grouped provider
     final formFieldsAsync =
         ref.watch(performanceFormFieldsByGroupProvider(formId: widget.formId));
 
-    // ⭐ FETCH ANSWERS
     final formAnsweredAsync = ref.watch(performanceAssessmentAnswerProvider(
         request: AssessmentAnswerRequest(
       employeeSelfAssessment: "${widget.employeeSelfAssessmentId}",
       formId: widget.formId,
     )));
 
-    // ⭐ INITIALIZATION LOGIC (Race Condition Fix)
     if (formFieldsAsync.hasValue &&
         formAnsweredAsync.hasValue &&
         !_isStateInitialized) {
@@ -360,12 +299,10 @@ class _AssessmentTabFormManagerScreenState
     return Column(
       children: [
         Expanded(
-          // ⭐ MODIFIED: Show loader until BOTH fields and answers are initialized
           child: formFieldsAsync.when(
             loading: () => const Center(child: CircularProgressIndicator()),
             error: (err, stack) => Center(child: Text('Error: $err')),
             data: (formGroups) {
-              // Wait for initialization to complete, which depends on answer data too
               if (!_isStateInitialized) {
                 return formAnsweredAsync.when(
                   loading: () =>
@@ -376,7 +313,6 @@ class _AssessmentTabFormManagerScreenState
                 );
               }
 
-              // ⭐ MODIFIED: Iterate through groups and then fields within the groups
               return ListView.builder(
                 padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
                 itemCount: formGroups.length,
@@ -386,7 +322,7 @@ class _AssessmentTabFormManagerScreenState
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _buildGroupHeader(group), // ADDED: Group Header
+                      _buildGroupHeader(group),
                       ...group.fields.map((field) {
                         return Padding(
                           padding: EdgeInsets.only(bottom: 16.h),
@@ -565,43 +501,46 @@ class _AssessmentTabFormManagerScreenState
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildFieldHeader(field),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: List.generate(count, (index) {
-            final rating = options.min + index;
-            final isSelected = rating == selectedRating;
-            final buttonStyle = ElevatedButton.styleFrom(
-              backgroundColor: isSelected
-                  ? IColors.light.primary.main
-                  : (isDisabled ? IColors.light.grayscale.g10 : Colors.white),
-              foregroundColor:
-                  isSelected ? Colors.white : IColors.light.primary.main,
-              shape: RoundedRectangleBorder(
-                side: BorderSide(
-                    color: isDisabled
-                        ? IColors.light.grayscale.g30
-                        : IColors.light.primary.main),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              elevation: isDisabled ? 0 : 2,
-            );
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: List.generate(count, (index) {
+              final rating = options.min + index;
+              final isSelected = rating == selectedRating;
 
-            return Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 4.w),
-                child: ElevatedButton(
-                  onPressed: isDisabled
-                      ? () {}
-                      : () {
-                          setState(() => _ratingAnswers[field.id] = rating);
-                          _validateForm();
-                        },
-                  style: buttonStyle,
-                  child: Text('$rating'),
+              final buttonStyle = ElevatedButton.styleFrom(
+                backgroundColor: isSelected
+                    ? IColors.light.primary.main
+                    : (isDisabled ? IColors.light.grayscale.g10 : Colors.white),
+                foregroundColor:
+                    isSelected ? Colors.white : IColors.light.primary.main,
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(
+                      color: isDisabled
+                          ? IColors.light.grayscale.g30
+                          : IColors.light.primary.main),
+                  borderRadius: BorderRadius.circular(8),
                 ),
-              ),
-            );
-          }),
+                elevation: isDisabled ? 0 : 2,
+              );
+
+              return Padding(
+                padding: EdgeInsets.symmetric(horizontal: 4.w),
+                child: SizedBox(
+                  child: ElevatedButton(
+                    onPressed: isDisabled
+                        ? () {}
+                        : () {
+                            setState(() => _ratingAnswers[field.id] = rating);
+                            _validateForm();
+                          },
+                    style: buttonStyle,
+                    child: Text('$rating'),
+                  ),
+                ),
+              );
+            }),
+          ),
         ),
         if (notesController != null) ...[
           SizedBox(height: 12.h),

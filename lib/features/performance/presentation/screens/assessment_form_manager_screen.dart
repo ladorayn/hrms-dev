@@ -11,9 +11,13 @@ import 'package:hrms_mobile/features/performance/presentation/widgets/team_membe
 class AssessmentFormManagerScreen extends ConsumerWidget {
   final TeamMember member;
   final String period;
+  final AssessmentList assessment;
 
   const AssessmentFormManagerScreen(
-      {super.key, required this.member, required this.period});
+      {super.key,
+      required this.member,
+      required this.period,
+      required this.assessment});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -55,6 +59,8 @@ class AssessmentFormManagerScreen extends ConsumerWidget {
                   AssessmentValidationFormTabManagerScreen(
                     formId: member.formId ?? 0,
                     employeeSelfAssessmentId: member.id ?? 0,
+                    assessment: assessment,
+                    memberData: member,
                   ),
                 ],
               ),

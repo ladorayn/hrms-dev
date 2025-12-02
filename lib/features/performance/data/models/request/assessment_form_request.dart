@@ -15,6 +15,16 @@ class AssessmentFormRequest with _$AssessmentFormRequest {
 }
 
 @freezed
+class AssessmentFormValidateRequest with _$AssessmentFormValidateRequest {
+  const factory AssessmentFormValidateRequest({
+    required List<SubmissionForm> submissions,
+  }) = _AssessmentFormValidateRequest;
+
+  factory AssessmentFormValidateRequest.fromJson(Map<String, dynamic> json) =>
+      _$AssessmentFormValidateRequestFromJson(json);
+}
+
+@freezed
 class SubmissionForm with _$SubmissionForm {
   const factory SubmissionForm({
     @JsonKey(name: 'field_id') required int fieldId,

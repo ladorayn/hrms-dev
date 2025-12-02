@@ -24,6 +24,12 @@ class PerformanceUsecases {
         request: request, assessmentId: assessmentId);
   }
 
+  Future<String> assessmentFormValidateSubmission(
+      {required AssessmentFormValidateRequest request, required assessmentId}) {
+    return repository.assessmentFormValidateSubmission(
+        request: request, assessmentId: assessmentId);
+  }
+
   Future<List<AssessmentList>> getAssessmentList() {
     return repository.getAssessmentList();
   }

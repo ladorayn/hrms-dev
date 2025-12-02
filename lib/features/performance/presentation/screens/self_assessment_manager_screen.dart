@@ -59,6 +59,7 @@ class ManagerAssessmentLandingScreen extends ConsumerWidget {
                         extra: {
                           "member": member,
                           "period": assessment.period,
+                          "assessment": assessment,
                         },
                       );
                     },

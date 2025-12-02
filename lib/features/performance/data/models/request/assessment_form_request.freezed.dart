@@ -196,6 +196,179 @@ abstract class _AssessmentFormRequest implements AssessmentFormRequest {
       get copyWith => throw _privateConstructorUsedError;
 }
 
+AssessmentFormValidateRequest _$AssessmentFormValidateRequestFromJson(
+    Map<String, dynamic> json) {
+  return _AssessmentFormValidateRequest.fromJson(json);
+}
+
+/// @nodoc
+mixin _$AssessmentFormValidateRequest {
+  List<SubmissionForm> get submissions => throw _privateConstructorUsedError;
+
+  /// Serializes this AssessmentFormValidateRequest to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of AssessmentFormValidateRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $AssessmentFormValidateRequestCopyWith<AssessmentFormValidateRequest>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $AssessmentFormValidateRequestCopyWith<$Res> {
+  factory $AssessmentFormValidateRequestCopyWith(
+          AssessmentFormValidateRequest value,
+          $Res Function(AssessmentFormValidateRequest) then) =
+      _$AssessmentFormValidateRequestCopyWithImpl<$Res,
+          AssessmentFormValidateRequest>;
+  @useResult
+  $Res call({List<SubmissionForm> submissions});
+}
+
+/// @nodoc
+class _$AssessmentFormValidateRequestCopyWithImpl<$Res,
+        $Val extends AssessmentFormValidateRequest>
+    implements $AssessmentFormValidateRequestCopyWith<$Res> {
+  _$AssessmentFormValidateRequestCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of AssessmentFormValidateRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? submissions = null,
+  }) {
+    return _then(_value.copyWith(
+      submissions: null == submissions
+          ? _value.submissions
+          : submissions // ignore: cast_nullable_to_non_nullable
+              as List<SubmissionForm>,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$AssessmentFormValidateRequestImplCopyWith<$Res>
+    implements $AssessmentFormValidateRequestCopyWith<$Res> {
+  factory _$$AssessmentFormValidateRequestImplCopyWith(
+          _$AssessmentFormValidateRequestImpl value,
+          $Res Function(_$AssessmentFormValidateRequestImpl) then) =
+      __$$AssessmentFormValidateRequestImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({List<SubmissionForm> submissions});
+}
+
+/// @nodoc
+class __$$AssessmentFormValidateRequestImplCopyWithImpl<$Res>
+    extends _$AssessmentFormValidateRequestCopyWithImpl<$Res,
+        _$AssessmentFormValidateRequestImpl>
+    implements _$$AssessmentFormValidateRequestImplCopyWith<$Res> {
+  __$$AssessmentFormValidateRequestImplCopyWithImpl(
+      _$AssessmentFormValidateRequestImpl _value,
+      $Res Function(_$AssessmentFormValidateRequestImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AssessmentFormValidateRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? submissions = null,
+  }) {
+    return _then(_$AssessmentFormValidateRequestImpl(
+      submissions: null == submissions
+          ? _value._submissions
+          : submissions // ignore: cast_nullable_to_non_nullable
+              as List<SubmissionForm>,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$AssessmentFormValidateRequestImpl
+    implements _AssessmentFormValidateRequest {
+  const _$AssessmentFormValidateRequestImpl(
+      {required final List<SubmissionForm> submissions})
+      : _submissions = submissions;
+
+  factory _$AssessmentFormValidateRequestImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$AssessmentFormValidateRequestImplFromJson(json);
+
+  final List<SubmissionForm> _submissions;
+  @override
+  List<SubmissionForm> get submissions {
+    if (_submissions is EqualUnmodifiableListView) return _submissions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_submissions);
+  }
+
+  @override
+  String toString() {
+    return 'AssessmentFormValidateRequest(submissions: $submissions)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AssessmentFormValidateRequestImpl &&
+            const DeepCollectionEquality()
+                .equals(other._submissions, _submissions));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_submissions));
+
+  /// Create a copy of AssessmentFormValidateRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AssessmentFormValidateRequestImplCopyWith<
+          _$AssessmentFormValidateRequestImpl>
+      get copyWith => __$$AssessmentFormValidateRequestImplCopyWithImpl<
+          _$AssessmentFormValidateRequestImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$AssessmentFormValidateRequestImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _AssessmentFormValidateRequest
+    implements AssessmentFormValidateRequest {
+  const factory _AssessmentFormValidateRequest(
+          {required final List<SubmissionForm> submissions}) =
+      _$AssessmentFormValidateRequestImpl;
+
+  factory _AssessmentFormValidateRequest.fromJson(Map<String, dynamic> json) =
+      _$AssessmentFormValidateRequestImpl.fromJson;
+
+  @override
+  List<SubmissionForm> get submissions;
+
+  /// Create a copy of AssessmentFormValidateRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$AssessmentFormValidateRequestImplCopyWith<
+          _$AssessmentFormValidateRequestImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
 SubmissionForm _$SubmissionFormFromJson(Map<String, dynamic> json) {
   return _SubmissionForm.fromJson(json);
 }

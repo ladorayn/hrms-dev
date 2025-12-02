@@ -16,4 +16,7 @@ abstract class PerformanceRepository {
 
   Future<String> assessmentFormSubmission(
       {required AssessmentFormRequest request, required assessmentId});
+
+  Future<String> assessmentFormValidateSubmission(
+      {required AssessmentFormValidateRequest request, required assessmentId});
 }

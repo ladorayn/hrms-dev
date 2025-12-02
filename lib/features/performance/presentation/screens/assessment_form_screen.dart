@@ -340,7 +340,6 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
         )))
         .value;
 
-    // ⭐ FIX: Race condition check
     if (formFieldsAsync.hasValue &&
         formAnswered != null &&
         !_isStateInitialized) {
@@ -414,11 +413,13 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
                     }
                   : null,
               secondaryText: "Save as Draft",
-              onSecondaryPressed: () {
-                if (_isStateInitialized) {
-                  _showPopUpConfirmationSubmission(context, 1);
-                }
-              },
+              onSecondaryPressed: _isFormValid
+                  ? () {
+                      if (_isStateInitialized) {
+                        _showPopUpConfirmationSubmission(context, 1);
+                      }
+                    }
+                  : null,
             )
           else
             Container(
@@ -566,7 +567,6 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
     );
   }
 
-  // ⭐ MODIFIED: Rating section for read-only status
   Widget _buildRatingSection(FormFields field) {
     final selectedRating = _ratingAnswers[field.id];
     final notesController = _notesControllers[field.id];

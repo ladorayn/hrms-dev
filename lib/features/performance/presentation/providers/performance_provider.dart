@@ -81,6 +81,34 @@ class AssessmentFormSubmission extends _$AssessmentFormSubmission {
 }
 
 @riverpod
+class AssessmentFormValidateSubmission
+    extends _$AssessmentFormValidateSubmission {
+  @override
+  AsyncValue<dynamic> build() => const AsyncData(null);
+
+  Future<void> submitForm({
+    required AssessmentFormValidateRequest request,
+    required assessmentId,
+  }) async {
+    state = const AsyncLoading();
+    final usecase = ref.watch(performanceUseCaseProvider);
+
+    try {
+      final response = await usecase.assessmentFormValidateSubmission(
+          request: request, assessmentId: assessmentId);
+      state = AsyncData(response);
+    } catch (e, s) {
+      state = AsyncError(e, s);
+      rethrow;
+    }
+  }
+
+  void reset() {
+    state = const AsyncData(null);
+  }
+}
+
+@riverpod
 class AssessmentListR extends _$AssessmentListR {
   @override
   Future<List<AssessmentList>> build() async {

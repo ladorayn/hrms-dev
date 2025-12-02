@@ -498,6 +498,24 @@ final assessmentFormSubmissionProvider = AutoDisposeNotifierProvider<
 );
 
 typedef _$AssessmentFormSubmission = AutoDisposeNotifier<AsyncValue<dynamic>>;
+String _$assessmentFormValidateSubmissionHash() =>
+    r'b76ed161928cbcdc80d7627572573b8a48160cd4';
+
+/// See also [AssessmentFormValidateSubmission].
+@ProviderFor(AssessmentFormValidateSubmission)
+final assessmentFormValidateSubmissionProvider = AutoDisposeNotifierProvider<
+    AssessmentFormValidateSubmission, AsyncValue<dynamic>>.internal(
+  AssessmentFormValidateSubmission.new,
+  name: r'assessmentFormValidateSubmissionProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$assessmentFormValidateSubmissionHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$AssessmentFormValidateSubmission
+    = AutoDisposeNotifier<AsyncValue<dynamic>>;
 String _$assessmentListRHash() => r'e735a2e0b1247c60258d67144b2d29fcff425e42';
 
 /// See also [AssessmentListR].
