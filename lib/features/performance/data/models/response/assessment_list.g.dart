@@ -15,9 +15,9 @@ _$TeamMemberImpl _$$TeamMemberImplFromJson(Map<String, dynamic> json) =>
       jobLevelName: json['job_level_name'] as String?,
       departmentName: json['department_name'] as String?,
       statusLabel: json['status_label'] as String?,
-      photoProfileUrl: json['photo_profile_url'] as String?,
-      submittedOn: json['submitted_on'] as String?,
-      validatedOn: json['validated_on'] as String?,
+      photoProfile: json['photo_profile'] as String?,
+      submittedAt: json['submitted_at'] as String?,
+      validatedAt: json['validated_at'] as String?,
     );
 
 Map<String, dynamic> _$$TeamMemberImplToJson(_$TeamMemberImpl instance) =>
@@ -29,9 +29,9 @@ Map<String, dynamic> _$$TeamMemberImplToJson(_$TeamMemberImpl instance) =>
       'job_level_name': instance.jobLevelName,
       'department_name': instance.departmentName,
       'status_label': instance.statusLabel,
-      'photo_profile_url': instance.photoProfileUrl,
-      'submitted_on': instance.submittedOn,
-      'validated_on': instance.validatedOn,
+      'photo_profile': instance.photoProfile,
+      'submitted_at': instance.submittedAt,
+      'validated_at': instance.validatedAt,
     };
 
 _$AssessmentListImpl _$$AssessmentListImplFromJson(Map<String, dynamic> json) =>

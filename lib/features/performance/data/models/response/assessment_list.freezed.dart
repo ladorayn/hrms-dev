@@ -33,12 +33,12 @@ mixin _$TeamMember {
   String? get departmentName => throw _privateConstructorUsedError;
   @JsonKey(name: 'status_label')
   String? get statusLabel => throw _privateConstructorUsedError;
-  @JsonKey(name: 'photo_profile_url')
-  String? get photoProfileUrl => throw _privateConstructorUsedError;
-  @JsonKey(name: 'submitted_on')
-  String? get submittedOn => throw _privateConstructorUsedError;
-  @JsonKey(name: 'validated_on')
-  String? get validatedOn => throw _privateConstructorUsedError;
+  @JsonKey(name: 'photo_profile')
+  String? get photoProfile => throw _privateConstructorUsedError;
+  @JsonKey(name: 'submitted_at')
+  String? get submittedAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'validated_at')
+  String? get validatedAt => throw _privateConstructorUsedError;
 
   /// Serializes this TeamMember to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -64,9 +64,9 @@ abstract class $TeamMemberCopyWith<$Res> {
       @JsonKey(name: 'job_level_name') String? jobLevelName,
       @JsonKey(name: 'department_name') String? departmentName,
       @JsonKey(name: 'status_label') String? statusLabel,
-      @JsonKey(name: 'photo_profile_url') String? photoProfileUrl,
-      @JsonKey(name: 'submitted_on') String? submittedOn,
-      @JsonKey(name: 'validated_on') String? validatedOn});
+      @JsonKey(name: 'photo_profile') String? photoProfile,
+      @JsonKey(name: 'submitted_at') String? submittedAt,
+      @JsonKey(name: 'validated_at') String? validatedAt});
 }
 
 /// @nodoc
@@ -91,9 +91,9 @@ class _$TeamMemberCopyWithImpl<$Res, $Val extends TeamMember>
     Object? jobLevelName = freezed,
     Object? departmentName = freezed,
     Object? statusLabel = freezed,
-    Object? photoProfileUrl = freezed,
-    Object? submittedOn = freezed,
-    Object? validatedOn = freezed,
+    Object? photoProfile = freezed,
+    Object? submittedAt = freezed,
+    Object? validatedAt = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -124,17 +124,17 @@ class _$TeamMemberCopyWithImpl<$Res, $Val extends TeamMember>
           ? _value.statusLabel
           : statusLabel // ignore: cast_nullable_to_non_nullable
               as String?,
-      photoProfileUrl: freezed == photoProfileUrl
-          ? _value.photoProfileUrl
-          : photoProfileUrl // ignore: cast_nullable_to_non_nullable
+      photoProfile: freezed == photoProfile
+          ? _value.photoProfile
+          : photoProfile // ignore: cast_nullable_to_non_nullable
               as String?,
-      submittedOn: freezed == submittedOn
-          ? _value.submittedOn
-          : submittedOn // ignore: cast_nullable_to_non_nullable
+      submittedAt: freezed == submittedAt
+          ? _value.submittedAt
+          : submittedAt // ignore: cast_nullable_to_non_nullable
               as String?,
-      validatedOn: freezed == validatedOn
-          ? _value.validatedOn
-          : validatedOn // ignore: cast_nullable_to_non_nullable
+      validatedAt: freezed == validatedAt
+          ? _value.validatedAt
+          : validatedAt // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -156,9 +156,9 @@ abstract class _$$TeamMemberImplCopyWith<$Res>
       @JsonKey(name: 'job_level_name') String? jobLevelName,
       @JsonKey(name: 'department_name') String? departmentName,
       @JsonKey(name: 'status_label') String? statusLabel,
-      @JsonKey(name: 'photo_profile_url') String? photoProfileUrl,
-      @JsonKey(name: 'submitted_on') String? submittedOn,
-      @JsonKey(name: 'validated_on') String? validatedOn});
+      @JsonKey(name: 'photo_profile') String? photoProfile,
+      @JsonKey(name: 'submitted_at') String? submittedAt,
+      @JsonKey(name: 'validated_at') String? validatedAt});
 }
 
 /// @nodoc
@@ -181,9 +181,9 @@ class __$$TeamMemberImplCopyWithImpl<$Res>
     Object? jobLevelName = freezed,
     Object? departmentName = freezed,
     Object? statusLabel = freezed,
-    Object? photoProfileUrl = freezed,
-    Object? submittedOn = freezed,
-    Object? validatedOn = freezed,
+    Object? photoProfile = freezed,
+    Object? submittedAt = freezed,
+    Object? validatedAt = freezed,
   }) {
     return _then(_$TeamMemberImpl(
       id: freezed == id
@@ -214,17 +214,17 @@ class __$$TeamMemberImplCopyWithImpl<$Res>
           ? _value.statusLabel
           : statusLabel // ignore: cast_nullable_to_non_nullable
               as String?,
-      photoProfileUrl: freezed == photoProfileUrl
-          ? _value.photoProfileUrl
-          : photoProfileUrl // ignore: cast_nullable_to_non_nullable
+      photoProfile: freezed == photoProfile
+          ? _value.photoProfile
+          : photoProfile // ignore: cast_nullable_to_non_nullable
               as String?,
-      submittedOn: freezed == submittedOn
-          ? _value.submittedOn
-          : submittedOn // ignore: cast_nullable_to_non_nullable
+      submittedAt: freezed == submittedAt
+          ? _value.submittedAt
+          : submittedAt // ignore: cast_nullable_to_non_nullable
               as String?,
-      validatedOn: freezed == validatedOn
-          ? _value.validatedOn
-          : validatedOn // ignore: cast_nullable_to_non_nullable
+      validatedAt: freezed == validatedAt
+          ? _value.validatedAt
+          : validatedAt // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -241,9 +241,9 @@ class _$TeamMemberImpl implements _TeamMember {
       @JsonKey(name: 'job_level_name') this.jobLevelName,
       @JsonKey(name: 'department_name') this.departmentName,
       @JsonKey(name: 'status_label') this.statusLabel,
-      @JsonKey(name: 'photo_profile_url') this.photoProfileUrl,
-      @JsonKey(name: 'submitted_on') this.submittedOn,
-      @JsonKey(name: 'validated_on') this.validatedOn});
+      @JsonKey(name: 'photo_profile') this.photoProfile,
+      @JsonKey(name: 'submitted_at') this.submittedAt,
+      @JsonKey(name: 'validated_at') this.validatedAt});
 
   factory _$TeamMemberImpl.fromJson(Map<String, dynamic> json) =>
       _$$TeamMemberImplFromJson(json);
@@ -269,18 +269,18 @@ class _$TeamMemberImpl implements _TeamMember {
   @JsonKey(name: 'status_label')
   final String? statusLabel;
   @override
-  @JsonKey(name: 'photo_profile_url')
-  final String? photoProfileUrl;
+  @JsonKey(name: 'photo_profile')
+  final String? photoProfile;
   @override
-  @JsonKey(name: 'submitted_on')
-  final String? submittedOn;
+  @JsonKey(name: 'submitted_at')
+  final String? submittedAt;
   @override
-  @JsonKey(name: 'validated_on')
-  final String? validatedOn;
+  @JsonKey(name: 'validated_at')
+  final String? validatedAt;
 
   @override
   String toString() {
-    return 'TeamMember(id: $id, userName: $userName, formId: $formId, jobPositionName: $jobPositionName, jobLevelName: $jobLevelName, departmentName: $departmentName, statusLabel: $statusLabel, photoProfileUrl: $photoProfileUrl, submittedOn: $submittedOn, validatedOn: $validatedOn)';
+    return 'TeamMember(id: $id, userName: $userName, formId: $formId, jobPositionName: $jobPositionName, jobLevelName: $jobLevelName, departmentName: $departmentName, statusLabel: $statusLabel, photoProfile: $photoProfile, submittedAt: $submittedAt, validatedAt: $validatedAt)';
   }
 
   @override
@@ -300,12 +300,12 @@ class _$TeamMemberImpl implements _TeamMember {
                 other.departmentName == departmentName) &&
             (identical(other.statusLabel, statusLabel) ||
                 other.statusLabel == statusLabel) &&
-            (identical(other.photoProfileUrl, photoProfileUrl) ||
-                other.photoProfileUrl == photoProfileUrl) &&
-            (identical(other.submittedOn, submittedOn) ||
-                other.submittedOn == submittedOn) &&
-            (identical(other.validatedOn, validatedOn) ||
-                other.validatedOn == validatedOn));
+            (identical(other.photoProfile, photoProfile) ||
+                other.photoProfile == photoProfile) &&
+            (identical(other.submittedAt, submittedAt) ||
+                other.submittedAt == submittedAt) &&
+            (identical(other.validatedAt, validatedAt) ||
+                other.validatedAt == validatedAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -319,9 +319,9 @@ class _$TeamMemberImpl implements _TeamMember {
       jobLevelName,
       departmentName,
       statusLabel,
-      photoProfileUrl,
-      submittedOn,
-      validatedOn);
+      photoProfile,
+      submittedAt,
+      validatedAt);
 
   /// Create a copy of TeamMember
   /// with the given fields replaced by the non-null parameter values.
@@ -348,9 +348,9 @@ abstract class _TeamMember implements TeamMember {
           @JsonKey(name: 'job_level_name') final String? jobLevelName,
           @JsonKey(name: 'department_name') final String? departmentName,
           @JsonKey(name: 'status_label') final String? statusLabel,
-          @JsonKey(name: 'photo_profile_url') final String? photoProfileUrl,
-          @JsonKey(name: 'submitted_on') final String? submittedOn,
-          @JsonKey(name: 'validated_on') final String? validatedOn}) =
+          @JsonKey(name: 'photo_profile') final String? photoProfile,
+          @JsonKey(name: 'submitted_at') final String? submittedAt,
+          @JsonKey(name: 'validated_at') final String? validatedAt}) =
       _$TeamMemberImpl;
 
   factory _TeamMember.fromJson(Map<String, dynamic> json) =
@@ -377,14 +377,14 @@ abstract class _TeamMember implements TeamMember {
   @JsonKey(name: 'status_label')
   String? get statusLabel;
   @override
-  @JsonKey(name: 'photo_profile_url')
-  String? get photoProfileUrl;
+  @JsonKey(name: 'photo_profile')
+  String? get photoProfile;
   @override
-  @JsonKey(name: 'submitted_on')
-  String? get submittedOn;
+  @JsonKey(name: 'submitted_at')
+  String? get submittedAt;
   @override
-  @JsonKey(name: 'validated_on')
-  String? get validatedOn;
+  @JsonKey(name: 'validated_at')
+  String? get validatedAt;
 
   /// Create a copy of TeamMember
   /// with the given fields replaced by the non-null parameter values.

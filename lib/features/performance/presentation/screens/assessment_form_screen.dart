@@ -6,10 +6,13 @@ import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/data/models/form_fields_response.dart';
+import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/core/widgets/i_footer_button.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
+import 'package:hrms_mobile/features/performance/data/models/request/assessment_answer_request.dart';
 import 'package:hrms_mobile/features/performance/data/models/request/assessment_form_request.dart';
+import 'package:hrms_mobile/features/performance/data/models/response/assessment_answer.dart'; // Import FormAnswer
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_list.dart';
 import 'package:hrms_mobile/features/performance/presentation/providers/performance_provider.dart';
 
@@ -28,11 +31,14 @@ class AssessmentFormScreen extends ConsumerStatefulWidget {
 
 class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
   final Map<int, Map<String, bool>> _checkboxAnswers = {};
+  final Map<int, String?> _singleSelectionAnswers = {};
   final Map<int, int?> _ratingAnswers = {};
   final Map<int, TextEditingController> _notesControllers = {};
 
   bool _isStateInitialized = false;
   bool _isFormValid = false;
+
+  bool get _isFormReadOnly => widget.assessment.status == "Completed";
 
   List<FormFields> get _allFields {
     final formFieldsGroup = ref
@@ -52,7 +58,8 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
     super.dispose();
   }
 
-  void _initializeState(List<FormFieldsGroup> formGroups) {
+  void _initializeState(
+      List<FormFieldsGroup> formGroups, FormAnswer? formAnswer) {
     if (_isStateInitialized) return;
 
     for (final group in formGroups) {
@@ -86,15 +93,114 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
             controller.addListener(_validateForm);
             _notesControllers[field.id] = controller;
             break;
+          case 'select':
+          case 'radio':
+            _singleSelectionAnswers[field.id] = null;
+            break;
         }
       }
     }
+
+    _populateFieldsFromAnswers(formAnswer);
+
     _isStateInitialized = true;
     _validateForm();
   }
 
+  void _populateFieldsFromAnswers(FormAnswer? formAnswer) {
+    final answerData = formAnswer;
+
+    final answerFields = answerData != null ? answerData.fields ?? [] : [];
+
+    if (answerFields.isEmpty) return;
+
+    for (final answer in answerFields) {
+      final fieldId = answer.fieldId;
+      if (fieldId == null) continue;
+
+      final field = _allFields.firstWhere((f) => f.id == fieldId,
+          orElse: () => const FormFields(id: -1, isRequired: false, order: 0));
+
+      if (field.id == -1) continue;
+
+      switch (field.type) {
+        case 'checkbox':
+          _populateCheckboxAnswer(fieldId, answer);
+          break;
+        case 'range':
+          _populateRatingAnswer(fieldId, answer);
+          break;
+        case 'textarea':
+        case 'text':
+          _populateTextAnswer(fieldId, answer);
+          break;
+        case 'select':
+        case 'radio':
+          _populateSingleSelectionAnswer(fieldId, answer);
+          break;
+      }
+    }
+  }
+
+  void _populateCheckboxAnswer(int fieldId, FieldsAnswer answer) {
+    final currentAnswers = _checkboxAnswers[fieldId];
+    if (currentAnswers == null) return;
+
+    final selectedOptions = answer.value;
+
+    if (selectedOptions is List) {
+      for (final option in selectedOptions.cast<String>()) {
+        if (currentAnswers.containsKey(option)) {
+          currentAnswers[option] = true;
+        }
+      }
+    }
+  }
+
+  void _populateRatingAnswer(int fieldId, FieldsAnswer answer) {
+    final ratingValue = answer.value;
+
+    int? rating;
+    if (ratingValue is String) {
+      rating = int.tryParse(ratingValue);
+    } else if (ratingValue is int) {
+      rating = ratingValue;
+    }
+
+    if (rating != null) {
+      _ratingAnswers[fieldId] = rating;
+    }
+
+    if (answer.additionalData is Map<String, dynamic>) {
+      final additionalData = answer.additionalData as Map<String, dynamic>;
+      final notes = additionalData['notes'];
+
+      if (notes is String) {
+        final field = _allFields.firstWhere((f) => f.id == fieldId);
+        final hasNotes = field.metadata?['is_note'] == true;
+
+        if (hasNotes && _notesControllers.containsKey(fieldId)) {
+          _notesControllers[fieldId]!.text = notes;
+        }
+      }
+    }
+  }
+
+  void _populateTextAnswer(int fieldId, FieldsAnswer answer) {
+    final textValue = answer.value;
+    if (textValue is String && _notesControllers.containsKey(fieldId)) {
+      _notesControllers[fieldId]!.text = textValue;
+    }
+  }
+
+  void _populateSingleSelectionAnswer(int fieldId, FieldsAnswer answer) {
+    final selectedOption = answer.value;
+    if (selectedOption is String) {
+      _singleSelectionAnswers[fieldId] = selectedOption;
+    }
+  }
+
   void _validateForm() {
-    // Get fields from the helper method
     final formFields = _allFields;
 
     if (formFields.isEmpty) {
@@ -104,7 +210,8 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
 
     bool allRequiredFieldsAreValid = true;
     for (final field in formFields) {
-      if (field.isRequired) {
+      // Validation only runs if the form is NOT read-only
+      if (field.isRequired && !_isFormReadOnly) {
         bool isFieldValid = false;
 
         switch (field.type) {
@@ -123,6 +230,12 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
           case 'text':
             final controller = _notesControllers[field.id];
             if (controller != null && controller.text.trim().isNotEmpty) {
+              isFieldValid = true;
+            }
+            break;
+          case 'select':
+          case 'radio':
+            if (_singleSelectionAnswers[field.id] != null) {
               isFieldValid = true;
             }
             break;
@@ -174,6 +287,15 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
       ));
     });
 
+    _singleSelectionAnswers.forEach((fieldId, selectedOption) {
+      if (selectedOption != null) {
+        submissions.add(SubmissionForm(
+          fieldId: fieldId,
+          value: selectedOption,
+        ));
+      }
+    });
+
     _notesControllers.forEach((fieldId, controller) {
       if (!_ratingAnswers.containsKey(fieldId)) {
         submissions.add(SubmissionForm(
@@ -189,10 +311,11 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
       await ref.read(assessmentFormSubmissionProvider.notifier).submitForm(
           request: request, assessmentId: widget.assessment.id ?? 0);
       if (mounted) {
+        ref.invalidate(assessmentListRProvider);
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Form Submitted Successfully!')),
         );
-        context.pop();
+        context.go(RoutePaths.performance);
       }
     } catch (e) {
       if (mounted) {
@@ -209,15 +332,28 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
     final formFieldsAsync = ref.watch(performanceFormFieldsByGroupProvider(
         formId: widget.assessment.formId ?? 14));
 
-    ref.listen(
-        performanceFormFieldsByGroupProvider(
-            formId: widget.assessment.formId ?? 14), (previous, next) {
-      if (next.hasValue && !_isStateInitialized) {
+    final formAnswered = ref
+        .watch(performanceAssessmentAnswerProvider(
+            request: AssessmentAnswerRequest(
+          employeeSelfAssessment: "${widget.assessment.id}",
+          formId: widget.assessment.formId,
+        )))
+        .value;
+
+    if (formFieldsAsync.hasValue &&
+        formAnswered != null &&
+        !_isStateInitialized) {
+      final formGroups = formFieldsAsync.value!;
+
+      final FormAnswer? firstAnswer =
+          formAnswered.isNotEmpty ? formAnswered[0].data : null;
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         setState(() {
-          _initializeState(next.value!);
+          _initializeState(formGroups, firstAnswer);
         });
-      }
-    });
+      });
+    }
 
     return Scaffold(
       appBar: IAppBar(title: "Self Assessment - ${widget.assessment.period}"),
@@ -228,6 +364,10 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
               loading: () => const Center(child: CircularProgressIndicator()),
               error: (err, stack) => Center(child: Text('Error: $err')),
               data: (formGroups) {
+                if (!_isStateInitialized) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+
                 return ListView.builder(
                   padding:
                       EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
@@ -238,10 +378,7 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // 1. Group Header
                         _buildGroupHeader(group),
-
-                        // 2. Fields within the Group
                         ...group.fields.map((field) {
                           return Padding(
                             padding: EdgeInsets.only(bottom: 16.h),
@@ -265,22 +402,38 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
               },
             ),
           ),
-          IFooterButton(
-            text: "Submit Self Assessment",
-            onPressed: _isFormValid
-                ? () {
-                    if (_isStateInitialized) {
-                      _showPopUpConfirmationSubmission(context, 2);
+          if (!_isFormReadOnly)
+            IFooterButton(
+              text: "Submit Self Assessment",
+              onPressed: _isFormValid
+                  ? () {
+                      if (_isStateInitialized) {
+                        _showPopUpConfirmationSubmission(context, 2);
+                      }
                     }
-                  }
-                : null,
-            secondaryText: "Save as Draft",
-            onSecondaryPressed: () {
-              if (_isStateInitialized) {
-                _showPopUpConfirmationSubmission(context, 1);
-              }
-            },
-          )
+                  : null,
+              secondaryText: "Save as Draft",
+              onSecondaryPressed: _isFormValid
+                  ? () {
+                      if (_isStateInitialized) {
+                        _showPopUpConfirmationSubmission(context, 1);
+                      }
+                    }
+                  : null,
+            )
+          else
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+              color: IColors.light.grayscale.g10,
+              child: Center(
+                child: Text(
+                  'This assessment is already completed and read-only.',
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        color: IColors.light.grayscale.g60,
+                      ),
+                ),
+              ),
+            ),
         ],
       ),
     );
@@ -346,6 +499,9 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
       case 'textarea':
       case 'text':
         return _buildTextAreaSection(field);
+      case 'select':
+      case 'radio':
+        return _buildSingleSelectionSection(field);
       default:
         return Text('Unknown field type: ${field.type}');
     }
@@ -356,18 +512,27 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
     required bool value,
     required ValueChanged<bool?> onChanged,
   }) {
+    final ValueChanged<bool?>? handler = _isFormReadOnly ? null : onChanged;
+
     return InkWell(
-      onTap: () {
-        onChanged(!value);
-      },
+      onTap: handler != null ? () => handler(!value) : null,
       child: Row(
         children: [
           Checkbox(
             value: value,
-            onChanged: onChanged,
+            onChanged: handler,
             visualDensity: VisualDensity.compact,
+            activeColor: _isFormReadOnly
+                ? IColors.light.grayscale.g30
+                : IColors.light.primary.main,
           ),
-          Expanded(child: Text(title)),
+          Expanded(
+              child: Text(title,
+                  style: TextStyle(
+                    color: _isFormReadOnly
+                        ? IColors.light.grayscale.g60
+                        : Colors.black,
+                  ))),
         ],
       ),
     );
@@ -389,7 +554,7 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
         ...options.map((option) {
           return _buildCustomCheckbox(
             title: option,
-            value: answers[option]!,
+            value: answers[option] ?? false,
             onChanged: (bool? value) {
               setState(() {
                 answers[option] = value!;
@@ -397,7 +562,7 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
               _validateForm();
             },
           );
-        }),
+        }).toList(),
       ],
     );
   }
@@ -405,6 +570,7 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
   Widget _buildRatingSection(FormFields field) {
     final selectedRating = _ratingAnswers[field.id];
     final notesController = _notesControllers[field.id];
+    final bool isDisabled = _isFormReadOnly;
 
     if (field.options == null || field.options is! Map<String, dynamic>) {
       return const SizedBox.shrink();
@@ -423,44 +589,37 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
             children: List.generate(count, (index) {
               final rating = options.min + index;
               final isSelected = rating == selectedRating;
+
+              final buttonStyle = ElevatedButton.styleFrom(
+                backgroundColor: isSelected
+                    ? IColors.light.primary.main
+                    : (isDisabled ? IColors.light.grayscale.g10 : Colors.white),
+                foregroundColor:
+                    isSelected ? Colors.white : IColors.light.primary.main,
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(
+                      color: isDisabled
+                          ? IColors.light.grayscale.g30
+                          : IColors.light.primary.main),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                elevation: isDisabled ? 0 : 2,
+              );
+
               return Padding(
                 padding: EdgeInsets.symmetric(horizontal: 4.w),
                 child: SizedBox(
-                  width: 40.w,
-                  child: isSelected
-                      ? ElevatedButton(
-                          onPressed: () {
+                  child: ElevatedButton(
+                    // ⭐ DISABLE onPressed if read-only
+                    onPressed: isDisabled
+                        ? () {}
+                        : () {
                             setState(() => _ratingAnswers[field.id] = rating);
                             _validateForm();
                           },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: IColors.light.primary.main,
-                            foregroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              side:
-                                  BorderSide(color: IColors.light.primary.main),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            padding: EdgeInsets.zero,
-                          ),
-                          child: Text('$rating'),
-                        )
-                      : OutlinedButton(
-                          onPressed: () {
-                            setState(() => _ratingAnswers[field.id] = rating);
-                            _validateForm();
-                          },
-                          style: OutlinedButton.styleFrom(
-                            backgroundColor: Colors.white,
-                            foregroundColor: IColors.light.primary.main,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            side: BorderSide(color: IColors.light.primary.main),
-                            padding: EdgeInsets.zero,
-                          ),
-                          child: Text('$rating'),
-                        ),
+                    style: buttonStyle,
+                    child: Text('$rating'),
+                  ),
                 ),
               );
             }),
@@ -471,6 +630,7 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
           ITextFieldTextArea(
             controller: notesController,
             hintText: '',
+            readOnly: isDisabled,
           ),
         ],
       ],
@@ -479,6 +639,8 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
 
   Widget _buildTextAreaSection(FormFields field) {
     final controller = _notesControllers[field.id];
+    final bool isDisabled = _isFormReadOnly;
+
     if (controller == null) return const SizedBox.shrink();
 
     return Column(
@@ -488,7 +650,84 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
         ITextFieldTextArea(
           controller: controller,
           hintText: '',
+          readOnly: isDisabled,
         ),
+      ],
+    );
+  }
+
+  Widget _buildSingleSelectionSection(FormFields field) {
+    if (field.options == null || field.options is! List) {
+      return const SizedBox.shrink();
+    }
+
+    final options = (field.options as List).cast<String>();
+    final selectedOption = _singleSelectionAnswers[field.id];
+    final bool isDisabled = _isFormReadOnly;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildFieldHeader(field),
+        SizedBox(height: 8.h),
+        // DropdownButtonFormField
+        if (field.type == 'select')
+          DropdownButtonFormField<String>(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.r),
+              ),
+              contentPadding: EdgeInsets.symmetric(horizontal: 12.w),
+            ),
+            value: selectedOption,
+            hint: const Text('Select an option'),
+            items: options.map((String option) {
+              return DropdownMenuItem<String>(
+                value: option,
+                child: Text(option),
+              );
+            }).toList(),
+            onChanged: isDisabled
+                ? null
+                : (String? newValue) {
+                    setState(() {
+                      _singleSelectionAnswers[field.id] = newValue;
+                    });
+                    _validateForm();
+                  },
+            isExpanded: true,
+            style: TextStyle(
+              color: isDisabled ? IColors.light.grayscale.g60 : Colors.black,
+            ),
+            iconDisabledColor: IColors.light.grayscale.g30,
+            iconEnabledColor: isDisabled
+                ? IColors.light.grayscale.g30
+                : IColors.light.grayscale.g80,
+          )
+        else
+          // RadioListTile
+          ...options.map((option) {
+            return RadioListTile<String>(
+              title: Text(option,
+                  style: TextStyle(
+                    color:
+                        isDisabled ? IColors.light.grayscale.g60 : Colors.black,
+                  )),
+              value: option,
+              groupValue: selectedOption,
+              onChanged: isDisabled
+                  ? null
+                  : (String? newValue) {
+                      setState(() {
+                        _singleSelectionAnswers[field.id] = newValue;
+                      });
+                      _validateForm();
+                    },
+              dense: true,
+              contentPadding: EdgeInsets.zero,
+              activeColor: IColors.light.primary.main,
+            );
+          }).toList(),
       ],
     );
   }

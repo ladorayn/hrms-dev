@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hrms_mobile/core/util/datetime_utils.dart';
 import 'package:hrms_mobile/core/widgets/label_value.dart';
 import 'package:hrms_mobile/core/widgets/section_title.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_list.dart';
@@ -68,12 +69,18 @@ class TeamMemberInfoSection extends StatelessWidget {
                   Expanded(
                       child: LabelValue(
                           label: "Submitted on",
-                          value: member.submittedOn ?? 'N/A')),
+                          value: member.submittedAt != null
+                              ? DateTimeHelper.formatDateAndTime24H(
+                                  member.submittedAt!)
+                              : 'N/A')),
                   SizedBox(width: 16.w),
                   Expanded(
                       child: LabelValue(
                           label: "Validated on",
-                          value: member.validatedOn ?? 'N/A')),
+                          value: member.validatedAt != null
+                              ? DateTimeHelper.formatDateAndTime24H(
+                                  member.validatedAt!)
+                              : 'N/A')),
                 ],
               ),
             ],

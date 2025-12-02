@@ -18,6 +18,12 @@ class DateTimeHelper {
     return DateFormat("d MMMM, yyyy").format(dateTime);
   }
 
+  /// Converts "2025-12-01T14:27:34.000000Z" into "December 1, 2025 14:27"
+  static String formatDateAndTime24H(String rawDate) {
+    final dateTime = DateTime.parse(rawDate);
+    return DateFormat("MMMM d, yyyy HH:mm").format(dateTime);
+  }
+
   static String formatTime(String rawDate) {
     final dateTime = DateTime.parse(rawDate);
     return DateFormat("hh:mm a").format(dateTime);

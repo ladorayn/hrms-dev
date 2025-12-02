@@ -345,18 +345,21 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           final data = state.extra as Map<String, dynamic>?;
           if (data == null ||
               data['member'] == null ||
+              data['assessment'] == null ||
               data['period'] == null) {
             return const Scaffold(
                 body: Center(child: Text('Error: Assessment data missing.')));
           }
 
-          // Extract member and period from the map
           final member = data['member'] as assessment.TeamMember;
           final period = data['period'] as String;
+          final assessmentData =
+              data['assessment'] as assessment.AssessmentList;
 
           return AssessmentFormManagerScreen(
             member: member,
             period: period,
+            assessment: assessmentData,
           );
         },
       ),

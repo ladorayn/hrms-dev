@@ -329,6 +329,158 @@ class _PerformanceFormFieldsByGroupProviderElement
   int get formId => (origin as PerformanceFormFieldsByGroupProvider).formId;
 }
 
+String _$performanceAssessmentAnswerHash() =>
+    r'90678e38f99da6187cb290e90b597cd84fdbf7c4';
+
+abstract class _$PerformanceAssessmentAnswer
+    extends BuildlessAutoDisposeAsyncNotifier<List<AssessmentAnswer>> {
+  late final AssessmentAnswerRequest? request;
+
+  FutureOr<List<AssessmentAnswer>> build({
+    AssessmentAnswerRequest? request,
+  });
+}
+
+/// See also [PerformanceAssessmentAnswer].
+@ProviderFor(PerformanceAssessmentAnswer)
+const performanceAssessmentAnswerProvider = PerformanceAssessmentAnswerFamily();
+
+/// See also [PerformanceAssessmentAnswer].
+class PerformanceAssessmentAnswerFamily
+    extends Family<AsyncValue<List<AssessmentAnswer>>> {
+  /// See also [PerformanceAssessmentAnswer].
+  const PerformanceAssessmentAnswerFamily();
+
+  /// See also [PerformanceAssessmentAnswer].
+  PerformanceAssessmentAnswerProvider call({
+    AssessmentAnswerRequest? request,
+  }) {
+    return PerformanceAssessmentAnswerProvider(
+      request: request,
+    );
+  }
+
+  @override
+  PerformanceAssessmentAnswerProvider getProviderOverride(
+    covariant PerformanceAssessmentAnswerProvider provider,
+  ) {
+    return call(
+      request: provider.request,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'performanceAssessmentAnswerProvider';
+}
+
+/// See also [PerformanceAssessmentAnswer].
+class PerformanceAssessmentAnswerProvider
+    extends AutoDisposeAsyncNotifierProviderImpl<PerformanceAssessmentAnswer,
+        List<AssessmentAnswer>> {
+  /// See also [PerformanceAssessmentAnswer].
+  PerformanceAssessmentAnswerProvider({
+    AssessmentAnswerRequest? request,
+  }) : this._internal(
+          () => PerformanceAssessmentAnswer()..request = request,
+          from: performanceAssessmentAnswerProvider,
+          name: r'performanceAssessmentAnswerProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$performanceAssessmentAnswerHash,
+          dependencies: PerformanceAssessmentAnswerFamily._dependencies,
+          allTransitiveDependencies:
+              PerformanceAssessmentAnswerFamily._allTransitiveDependencies,
+          request: request,
+        );
+
+  PerformanceAssessmentAnswerProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.request,
+  }) : super.internal();
+
+  final AssessmentAnswerRequest? request;
+
+  @override
+  FutureOr<List<AssessmentAnswer>> runNotifierBuild(
+    covariant PerformanceAssessmentAnswer notifier,
+  ) {
+    return notifier.build(
+      request: request,
+    );
+  }
+
+  @override
+  Override overrideWith(PerformanceAssessmentAnswer Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: PerformanceAssessmentAnswerProvider._internal(
+        () => create()..request = request,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        request: request,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeAsyncNotifierProviderElement<PerformanceAssessmentAnswer,
+      List<AssessmentAnswer>> createElement() {
+    return _PerformanceAssessmentAnswerProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is PerformanceAssessmentAnswerProvider &&
+        other.request == request;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, request.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin PerformanceAssessmentAnswerRef
+    on AutoDisposeAsyncNotifierProviderRef<List<AssessmentAnswer>> {
+  /// The parameter `request` of this provider.
+  AssessmentAnswerRequest? get request;
+}
+
+class _PerformanceAssessmentAnswerProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<PerformanceAssessmentAnswer,
+        List<AssessmentAnswer>> with PerformanceAssessmentAnswerRef {
+  _PerformanceAssessmentAnswerProviderElement(super.provider);
+
+  @override
+  AssessmentAnswerRequest? get request =>
+      (origin as PerformanceAssessmentAnswerProvider).request;
+}
+
 String _$assessmentFormSubmissionHash() =>
     r'473bc092f1631f17047b949adfb1c8fdb15d9955';
 
@@ -346,6 +498,24 @@ final assessmentFormSubmissionProvider = AutoDisposeNotifierProvider<
 );
 
 typedef _$AssessmentFormSubmission = AutoDisposeNotifier<AsyncValue<dynamic>>;
+String _$assessmentFormValidateSubmissionHash() =>
+    r'b76ed161928cbcdc80d7627572573b8a48160cd4';
+
+/// See also [AssessmentFormValidateSubmission].
+@ProviderFor(AssessmentFormValidateSubmission)
+final assessmentFormValidateSubmissionProvider = AutoDisposeNotifierProvider<
+    AssessmentFormValidateSubmission, AsyncValue<dynamic>>.internal(
+  AssessmentFormValidateSubmission.new,
+  name: r'assessmentFormValidateSubmissionProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$assessmentFormValidateSubmissionHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$AssessmentFormValidateSubmission
+    = AutoDisposeNotifier<AsyncValue<dynamic>>;
 String _$assessmentListRHash() => r'e735a2e0b1247c60258d67144b2d29fcff425e42';
 
 /// See also [AssessmentListR].
