@@ -1,6 +1,79 @@
 // Hardcoded JSON structure to mimic the successful API response
 // for a performance assessment, based on user-provided images.
 
+const Map<String, dynamic> mockSupervisorAssesstments = {
+  "status": "success",
+  "message": "Supervisor assessments retrieved successfully",
+  "data": [
+    {
+      "id": 2,
+      "user": {
+        "id": 1,
+        "name": "Superadmin ESS",
+        "email": "superadmin@example.com",
+        "phone": null,
+        "employee_id": 1,
+        "employee_code": "00000001",
+        "avatar_url": null
+      },
+      "current_position": {
+        "id": 1,
+        "name": "Junior Foreman Production",
+        "description": "Entry-level foreman in production.",
+        "status": "1",
+        "created_at": "2025-09-10T15:26:13.000000Z",
+        "updated_at": "2025-09-10T15:26:13.000000Z",
+        "deleted_at": null,
+        "is_root": false
+      },
+      "current_level": {
+        "id": 2,
+        "name": "Senior Staff",
+        "description": "Experienced staff with more responsibilities.",
+        "created_at": "2025-09-10T15:26:13.000000Z",
+        "updated_at": "2025-09-10T15:26:13.000000Z",
+        "deleted_at": null
+      },
+      "target_position": {
+        "id": 1,
+        "name": "Junior Foreman Production",
+        "description": "Entry-level foreman in production.",
+        "status": "1",
+        "created_at": "2025-09-10T15:26:13.000000Z",
+        "updated_at": "2025-09-10T15:26:13.000000Z",
+        "deleted_at": null,
+        "is_root": false
+      },
+      "target_level": {
+        "id": 1,
+        "name": "Staff",
+        "description": "Entry-level staff position.",
+        "created_at": "2025-09-10T15:26:13.000000Z",
+        "updated_at": "2025-09-10T15:26:13.000000Z",
+        "deleted_at": null
+      },
+      "status": 0,
+      "status_label": "Not Started",
+      "schedule": null,
+      "form": {"id": 14, "name": "Form Supervisor Ases"},
+      "created_at": "2025-11-28 16:13:39",
+      "updated_at": "2025-11-28 16:28:34"
+    }
+  ],
+  "pagination": {
+    "current_page": 1,
+    "per_page": 15,
+    "total": 1,
+    "last_page": 1,
+    "from": 1,
+    "to": 1,
+    "first": "http://127.0.0.1:8000/api/ess/supervisor-assessments?page=1",
+    "last": "http://127.0.0.1:8000/api/ess/supervisor-assessments?page=1",
+    "prev": null,
+    "next": null
+  }
+};
+
 const Map<String, dynamic> mockAnswer = {
   "status": "success",
   "message": "Submissions fetched successfully",

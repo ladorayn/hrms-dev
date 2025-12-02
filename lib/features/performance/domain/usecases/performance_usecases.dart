@@ -3,6 +3,7 @@ import 'package:hrms_mobile/features/performance/data/models/request/assessment_
 import 'package:hrms_mobile/features/performance/data/models/request/assessment_form_request.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_answer.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_list.dart';
+import 'package:hrms_mobile/features/performance/data/models/response/supervisor_assessment.dart';
 import 'package:hrms_mobile/features/performance/domain/repositories/performance_repository.dart';
 
 class PerformanceUsecases {
@@ -37,5 +38,9 @@ class PerformanceUsecases {
   Future<List<AssessmentAnswer>> getAssessmentAnswer(
       {AssessmentAnswerRequest? request}) {
     return repository.getAssessmentAnswer(request: request);
+  }
+
+  Future<List<SupervisorAssessment>> getSupervisorAssessments() {
+    return repository.getSupervisorAssessments();
   }
 }

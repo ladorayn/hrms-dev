@@ -42,11 +42,15 @@ import 'package:hrms_mobile/features/payslip/presentation/screens/payslip_view_r
 import 'package:hrms_mobile/features/payslip/presentation/screens/payslip_view_screen.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_list.dart'
     as assessment;
+import 'package:hrms_mobile/features/performance/data/models/response/supervisor_assessment.dart';
 import 'package:hrms_mobile/features/performance/presentation/screens/assessment_form_manager_screen.dart';
 import 'package:hrms_mobile/features/performance/presentation/screens/assessment_form_screen.dart';
 import 'package:hrms_mobile/features/performance/presentation/screens/performance_screen.dart';
 import 'package:hrms_mobile/features/performance/presentation/screens/self_assessment_manager_screen.dart';
 import 'package:hrms_mobile/features/performance/presentation/screens/self_assessment_screen.dart';
+import 'package:hrms_mobile/features/performance/presentation/screens/supervisor_assessment_detail_screen.dart';
+import 'package:hrms_mobile/features/performance/presentation/screens/supervisor_assessment_form_screen.dart';
+import 'package:hrms_mobile/features/performance/presentation/screens/supervisor_assessments_screen.dart';
 import 'package:hrms_mobile/features/profile/presentation/screens/profile_detail_screen.dart';
 import 'package:hrms_mobile/features/profile/presentation/screens/profile_edit_screen.dart';
 import 'package:hrms_mobile/features/profile/presentation/screens/profile_screen.dart';
@@ -361,6 +365,31 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             period: period,
             assessment: assessmentData,
           );
+        },
+      ),
+      GoRoute(
+        path: RoutePaths.supervisorAssessment,
+        name: RoutePaths.supervisorAssessmentName,
+        builder: (context, state) {
+          final data = state.extra as List<SupervisorAssessment>;
+          return SupervisorAssessmentsScreen(assessments: data);
+        },
+      ),
+      GoRoute(
+        path: RoutePaths.supervisorAssessmentDetail,
+        name: RoutePaths.supervisorAssessmentDetailName,
+        builder: (context, state) {
+          final data = state.extra as SupervisorAssessment;
+          return SupervisorAssessmentDetailScreen(assessment: data);
+        },
+      ),
+
+      GoRoute(
+        path: RoutePaths.supervisorAssessmentForm,
+        name: RoutePaths.supervisorAssessmentFormName,
+        builder: (context, state) {
+          final data = state.extra as SupervisorAssessment;
+          return SupervisorAssessmentFormScreen(assessment: data);
         },
       ),
       // --- ROUTES WITH THE BOTTOM NAV BAR (Using ShellRoute) ---

@@ -3,6 +3,7 @@ import 'package:hrms_mobile/features/performance/data/models/request/assessment_
 import 'package:hrms_mobile/features/performance/data/models/request/assessment_form_request.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_answer.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_list.dart';
+import 'package:hrms_mobile/features/performance/data/models/response/supervisor_assessment.dart';
 
 abstract class PerformanceRepository {
   Future<List<FormFields>> getFormFields({required int formId});
@@ -19,4 +20,6 @@ abstract class PerformanceRepository {
 
   Future<String> assessmentFormValidateSubmission(
       {required AssessmentFormValidateRequest request, required assessmentId});
+
+  Future<List<SupervisorAssessment>> getSupervisorAssessments();
 }

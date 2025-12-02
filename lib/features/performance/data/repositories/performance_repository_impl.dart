@@ -4,6 +4,7 @@ import 'package:hrms_mobile/features/performance/data/models/request/assessment_
 import 'package:hrms_mobile/features/performance/data/models/request/assessment_form_request.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_answer.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_list.dart';
+import 'package:hrms_mobile/features/performance/data/models/response/supervisor_assessment.dart';
 import 'package:hrms_mobile/features/performance/domain/repositories/performance_repository.dart';
 
 class PerformanceRepositoryImpl implements PerformanceRepository {
@@ -84,5 +85,11 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
     } else {
       throw Exception('API Error: ${response.message}');
     }
+  }
+
+  @override
+  Future<List<SupervisorAssessment>> getSupervisorAssessments() async {
+    final response = await remoteSource.getSupervisorAssessments();
+    return response.data;
   }
 }

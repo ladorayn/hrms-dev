@@ -5,6 +5,7 @@ import 'package:hrms_mobile/features/performance/data/models/request/assessment_
 import 'package:hrms_mobile/features/performance/data/models/request/assessment_form_request.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_answer.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_list.dart';
+import 'package:hrms_mobile/features/performance/data/models/response/supervisor_assessment.dart';
 import 'package:hrms_mobile/features/performance/data/repositories/performance_repository_impl.dart';
 import 'package:hrms_mobile/features/performance/domain/usecases/performance_usecases.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -114,5 +115,15 @@ class AssessmentListR extends _$AssessmentListR {
   Future<List<AssessmentList>> build() async {
     final usecase = ref.watch(performanceUseCaseProvider);
     return await usecase.getAssessmentList();
+  }
+}
+
+@riverpod
+class PerformanceSupervisorAssessments
+    extends _$PerformanceSupervisorAssessments {
+  @override
+  Future<List<SupervisorAssessment>> build() async {
+    final usecase = ref.watch(performanceUseCaseProvider);
+    return await usecase.getSupervisorAssessments();
   }
 }

@@ -532,5 +532,24 @@ final assessmentListRProvider = AutoDisposeAsyncNotifierProvider<
 );
 
 typedef _$AssessmentListR = AutoDisposeAsyncNotifier<List<AssessmentList>>;
+String _$performanceSupervisorAssessmentsHash() =>
+    r'8a3ae3864bbe700bd3476251b89dbf959bb1fb46';
+
+/// See also [PerformanceSupervisorAssessments].
+@ProviderFor(PerformanceSupervisorAssessments)
+final performanceSupervisorAssessmentsProvider =
+    AutoDisposeAsyncNotifierProvider<PerformanceSupervisorAssessments,
+        List<SupervisorAssessment>>.internal(
+  PerformanceSupervisorAssessments.new,
+  name: r'performanceSupervisorAssessmentsProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$performanceSupervisorAssessmentsHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$PerformanceSupervisorAssessments
+    = AutoDisposeAsyncNotifier<List<SupervisorAssessment>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

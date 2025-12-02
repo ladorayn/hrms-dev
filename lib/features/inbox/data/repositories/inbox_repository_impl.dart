@@ -12,7 +12,6 @@ class InboxRepositoryImpl implements InboxRepository {
   @override
   Future<List<NotificationResponse>> getNotifications() async {
     final response = await remoteSource.getNotifications();
-    print("JIAK RESPONSE ${response.data}");
     return response.data;
   }
 }

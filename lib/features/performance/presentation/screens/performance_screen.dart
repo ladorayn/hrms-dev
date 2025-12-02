@@ -15,6 +15,52 @@ class PerformanceScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final assessmentListAsync = ref.watch(assessmentListRProvider);
+    final supervisorAssessmentAsync =
+        ref.watch(performanceSupervisorAssessmentsProvider);
+
+    if (assessmentListAsync.isLoading || supervisorAssessmentAsync.isLoading) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    if (assessmentListAsync.hasError) {
+      return Scaffold(
+        body: Center(
+            child: Text(
+                'Error loading Self Assessments: ${assessmentListAsync.error}')),
+      );
+    }
+    final assessments = assessmentListAsync.value!;
+
+    final supervisorData = supervisorAssessmentAsync.value;
+    final isSupervisorDataReady = supervisorAssessmentAsync.hasValue;
+    final supervisorError = supervisorAssessmentAsync.hasError
+        ? supervisorAssessmentAsync.error
+        : null;
+
+    // --- Define Supervisor Menu Behavior ---
+
+    final supervisorOnTap = isSupervisorDataReady
+        ? () {
+            globalNavigatorKey.currentContext?.pushNamed(
+              RoutePaths.supervisorAssessmentName,
+              extra: supervisorData,
+            );
+          }
+        : () {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  supervisorAssessmentAsync.isLoading
+                      ? 'Loading supervisor assessments...'
+                      : supervisorError != null
+                          ? 'Error loading supervisor assessments: $supervisorError'
+                          : 'Supervisor assessments data not available.',
+                ),
+              ),
+            );
+          };
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -44,25 +90,25 @@ class PerformanceScreen extends ConsumerWidget {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.only(top: 20),
-                        child: assessmentListAsync.when(
-                          loading: () =>
-                              const Center(child: CircularProgressIndicator()),
-                          error: (err, stack) => Center(
-                              child: Text('Error loading assessments: $err')),
-                          data: (assessments) {
-                            return SingleChildScrollView(
-                              child: Column(
-                                children: [
-                                  _buildAssessmentMenus(assessments),
-                                  PerformanceMenu(
-                                    icon: IAssets.okr,
-                                    title: 'My OKR',
-                                    onTap: () {},
-                                  ),
-                                ],
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              _buildAssessmentMenus(assessments),
+                              PerformanceMenu(
+                                icon: IAssets.okr,
+                                title: 'My OKR',
+                                onTap: () {},
                               ),
-                            );
-                          },
+                              PerformanceMenu(
+                                icon: IAssets.supervisorAssessment,
+                                title: 'Supervisor Assessment',
+                                onTap: supervisorOnTap,
+                                // isLoading: supervisorAssessmentAsync.isLoading,
+                                // Optional: Add visual indicator for error if needed
+                                // hasError: supervisorAssessmentAsync.hasError,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -75,6 +121,8 @@ class PerformanceScreen extends ConsumerWidget {
       ),
     );
   }
+
+  // --- Helper Method ---
 
   Widget _buildAssessmentMenus(List<AssessmentList> assessments) {
     final recentAssessment = assessments.isNotEmpty ? assessments[0] : null;
