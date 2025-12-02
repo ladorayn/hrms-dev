@@ -24,9 +24,14 @@ class Auth extends _$Auth {
     return null;
   }
 
-  Future<void> onLoginSuccess(UserProfileResponse userProfileResponse) async {
+  Future<void> onLoginSuccess(UserProfileResponse userProfileResponse,
+      int? profileId, String? profile) async {
+    final updatedUserProfileResponse = userProfileResponse.copyWith(
+      profileId: profileId,
+      profile: profile,
+    );
     final prefs = await SharedPreferences.getInstance();
-    final userJson = json.encode(userProfileResponse.toJson());
+    final userJson = json.encode(updatedUserProfileResponse.toJson());
     await prefs.setString(StorageKeys.user, userJson);
     state = AsyncData(userProfileResponse);
   }

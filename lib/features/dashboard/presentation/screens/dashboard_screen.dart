@@ -100,8 +100,6 @@ class DashboardScreen extends ConsumerWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xFFF8F8F8),
-      // --- START REFACTOR ---
-      // Replaced the root Column with NestedScrollView
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[

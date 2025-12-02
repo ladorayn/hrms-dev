@@ -6,7 +6,24 @@ part of 'face_registration_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$faceRegistrationHash() => r'b90ffffae59ac046844badf0a4c7da2b489e55dd';
+String _$uploadFaceNotifierHash() =>
+    r'561d9c1334b1ffedc468a3827af81e1ac8b22fb8';
+
+/// See also [UploadFaceNotifier].
+@ProviderFor(UploadFaceNotifier)
+final uploadFaceNotifierProvider = AutoDisposeNotifierProvider<
+    UploadFaceNotifier, AsyncValue<UploadFace?>>.internal(
+  UploadFaceNotifier.new,
+  name: r'uploadFaceNotifierProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$uploadFaceNotifierHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$UploadFaceNotifier = AutoDisposeNotifier<AsyncValue<UploadFace?>>;
+String _$faceRegistrationHash() => r'15b24a9c0c13d497cc54fd428c4384222370038e';
 
 /// See also [FaceRegistration].
 @ProviderFor(FaceRegistration)

@@ -33,7 +33,8 @@ final leaveUseCaseProvider =
 
 final generalRemoteSourceProvider = Provider<GeneralRemoteSource>((ref) {
   final dio = ref.watch(dioProvider);
-  return GeneralRemoteSource(dio);
+  final faceDio = ref.watch(faceDioProvider);
+  return GeneralRemoteSource(dio, faceDio);
 });
 
 final generalRepoProvider = Provider<GeneralRepository>((ref) {
@@ -51,32 +52,6 @@ final generalUsecaseProvider = Provider((ref) {
 @riverpod
 Future<LeaveBalanceResponse> leaveBalance(Ref ref) {
   return ref.watch(leaveUseCaseProvider).getLeaveBalance();
-}
-
-@riverpod
-class FileUploadNotifier extends _$FileUploadNotifier {
-  @override
-  AsyncValue<UploadFile?> build() {
-    return const AsyncData(null);
-  }
-
-  Future<UploadFile> uploadFile(PlatformFile file) async {
-    state = const AsyncLoading();
-    final usecase = ref.read(generalUsecaseProvider);
-
-    try {
-      final response = await usecase.uploadFile(file: file);
-      state = AsyncData(response);
-      return response;
-    } catch (e, s) {
-      state = AsyncError(e, s);
-      rethrow;
-    }
-  }
-
-  void reset() {
-    state = const AsyncData(null);
-  }
 }
 
 @riverpod
@@ -105,6 +80,32 @@ class LeaveRequestSubmission extends _$LeaveRequestSubmission {
 
   void setLoading() {
     state = const AsyncLoading();
+  }
+}
+
+@riverpod
+class FileUploadNotifier extends _$FileUploadNotifier {
+  @override
+  AsyncValue<UploadFile?> build() {
+    return const AsyncData(null);
+  }
+
+  Future<UploadFile> uploadFile(PlatformFile file) async {
+    state = const AsyncLoading();
+    final usecase = ref.read(generalUsecaseProvider);
+
+    try {
+      final response = await usecase.uploadFile(file: file);
+      state = AsyncData(response);
+      return response;
+    } catch (e, s) {
+      state = AsyncError(e, s);
+      rethrow;
+    }
+  }
+
+  void reset() {
+    state = const AsyncData(null);
   }
 }
 

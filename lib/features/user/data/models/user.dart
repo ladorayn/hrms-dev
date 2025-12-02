@@ -19,6 +19,8 @@ class UserProfileResponse with _$UserProfileResponse {
     @JsonKey(name: 'first_login_at') String? firstLoginAt,
     @JsonKey(name: 'is_first_login') bool? isFirstLogin,
     @JsonKey(name: 'employee_profile') EmployeeProfile? employeeProfile,
+    @JsonKey(name: 'profile_id') int? profileId,
+    @JsonKey(name: 'profile') String? profile,
     Employment? employment,
   }) = _UserProfileResponse;
 

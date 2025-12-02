@@ -1,6 +1,13 @@
 import 'package:hrms_mobile/application/assets/i_assets.dart';
 
-enum FaceStep { front, right, left, success, failed }
+enum FaceStep {
+  front,
+  right,
+  left,
+  uploading,
+  success,
+  failed
+} // ⭐ ADDED uploading step
 
 extension FaceStepX on FaceStep {
   String get instruction {
@@ -11,6 +18,8 @@ extension FaceStepX on FaceStep {
         return "Slowly turn your head to the right and keep it within the frame";
       case FaceStep.left:
         return "Slowly turn your head to the left and keep it within the frame";
+      case FaceStep.uploading: // ⭐ NEW Instruction
+        return "Uploading photo and verifying face...";
       case FaceStep.failed:
         return "Face Registration Failed!";
       case FaceStep.success:
@@ -26,6 +35,8 @@ extension FaceStepX on FaceStep {
         return IAssets.faceRight;
       case FaceStep.left:
         return IAssets.faceLeft;
+      case FaceStep.uploading: // ⭐ NEW Asset (using default empty)
+        return '';
       case FaceStep.success:
       case FaceStep.failed:
         return '';
@@ -40,6 +51,8 @@ extension FaceStepX on FaceStep {
         return "Take Right Photo";
       case FaceStep.left:
         return "Take Left Photo";
+      case FaceStep.uploading: // ⭐ NEW Button Text (empty while loading)
+        return "Uploading...";
       case FaceStep.failed:
         return "Try Again";
       case FaceStep.success:
@@ -47,6 +60,8 @@ extension FaceStepX on FaceStep {
     }
   }
 }
+
+// --- Verification Step remains unchanged ---
 
 enum VerificationStep {
   initial,

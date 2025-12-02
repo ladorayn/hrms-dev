@@ -56,7 +56,8 @@ class Login extends _$Login {
       final userProfile =
           await ref.read(userProfileProvider.notifier).fetchProfile();
 
-      await ref.read(authProvider.notifier).onLoginSuccess(userProfile);
+      await ref.read(authProvider.notifier).onLoginSuccess(userProfile,
+          loginResponse.user.profileId, loginResponse.user.profile);
 
       state = state.copyWith(isLoading: false);
       return true;

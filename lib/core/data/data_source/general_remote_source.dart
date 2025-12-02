@@ -1,13 +1,18 @@
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:hrms_mobile/core/constants/mock_values.dart';
 import 'package:hrms_mobile/core/data/models/base_response.dart';
+import 'package:hrms_mobile/core/data/models/face_recognition/face_profile_response.dart';
+import 'package:hrms_mobile/core/data/models/face_recognition/face_verify_response.dart';
+import 'package:hrms_mobile/core/data/models/face_recognition/upload_face_response.dart';
 import 'package:hrms_mobile/core/data/models/upload_file_response.dart';
 import 'package:hrms_mobile/core/errors/error_handler.dart';
 
 class GeneralRemoteSource {
   final Dio _dio;
+  final Dio _faceDio;
 
-  GeneralRemoteSource(this._dio);
+  GeneralRemoteSource(this._dio, this._faceDio);
 
   Future<BaseResponse<UploadFile>> uploadFile(
       {required PlatformFile file}) async {
@@ -27,6 +32,75 @@ class GeneralRemoteSource {
       return BaseResponse.fromJson(
         response.data,
         (json) => UploadFile.fromJson(
+          json as Map<String, dynamic>,
+        ),
+      );
+    } on DioException catch (e) {
+      throw handleDioError(e);
+    }
+  }
+
+  Future<BaseResponse<UploadFace>> uploadFace(
+      {required PlatformFile file}) async {
+    try {
+      final formData = FormData.fromMap({
+        'file': await MultipartFile.fromFile(
+          file.path!,
+          filename: file.name,
+        ),
+      });
+
+      // final response = await _faceDio.post(
+      //   'api/v1/faces',
+      //   data: formData,
+      // );
+
+      return BaseResponse.fromJson(
+        mockUploadFace,
+        (json) => UploadFace.fromJson(
+          json as Map<String, dynamic>,
+        ),
+      );
+    } on DioException catch (e) {
+      throw handleDioError(e);
+    }
+  }
+
+  Future<BaseResponse<FaceVerify>> verifyFace(
+      {required PlatformFile file}) async {
+    try {
+      final formData = FormData.fromMap({
+        'file': await MultipartFile.fromFile(
+          file.path!,
+          filename: file.name,
+        ),
+      });
+
+      // final response = await _faceDio.post(
+      //   'api/v1/faces/verify',
+      //   data: formData,
+      // );
+
+      return BaseResponse.fromJson(
+        mockVerifyFace,
+        (json) => FaceVerify.fromJson(
+          json as Map<String, dynamic>,
+        ),
+      );
+    } on DioException catch (e) {
+      throw handleDioError(e);
+    }
+  }
+
+  Future<BaseResponse<UserProfileData>> getFacesProfile() async {
+    try {
+      // final response = await _faceDio.get(
+      //   'api/v1/faces/profile',
+      // );
+
+      return BaseResponse.fromJson(
+        mockFacesProfile,
+        (json) => UserProfileData.fromJson(
           json as Map<String, dynamic>,
         ),
       );

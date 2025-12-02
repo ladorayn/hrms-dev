@@ -1,6 +1,74 @@
 // Hardcoded JSON structure to mimic the successful API response
 // for a performance assessment, based on user-provided images.
 
+const Map<String, dynamic> mockFacesProfile = {
+  "status": "success",
+  "message": "Profile fetched successfully",
+  "data": {
+    "name": "Super Admin",
+    "email": "superadmin@example.com",
+    "id": 1,
+    "created_at": "2025-12-01T10:27:51",
+    "updated_at": "2025-12-01T10:28:14",
+    "faces": [
+      {
+        "id": 1,
+        "user_id": 1,
+        "is_active": true,
+        "quality_score": 79.37,
+        "source": 0,
+        "created_by": 1,
+        "image_path": "uploads/a10f366a-fbe0-4d61-ae1b-7a293b825179.png",
+        "image_url":
+            "http://127.0.0.1:8000/uploads/a10f366a-fbe0-4d61-ae1b-7a293b825179.png",
+        "created_at": null,
+        "updated_at": null
+      },
+      {
+        "id": 2,
+        "user_id": 1,
+        "is_active": true,
+        "quality_score": 79.37,
+        "source": 0,
+        "created_by": 1,
+        "image_path": "uploads/7327b08c-0bdd-483a-8b70-6ff5f3d9e31f.png",
+        "image_url":
+            "http://127.0.0.1:8000/uploads/7327b08c-0bdd-483a-8b70-6ff5f3d9e31f.png",
+        "created_at": null,
+        "updated_at": null
+      }
+    ]
+  }
+};
+
+const Map<String, dynamic> mockVerifyFace = {
+  "status": "success",
+  "message": "Photo verification completed",
+  "data": {
+    "is_match": false,
+    "similarity_score": 0.0,
+    "threshold": 0.6,
+    "message":
+        "Face verification failed. Similarity score: 0.0000 (threshold: 0.6)",
+    "matched_embedding_id": 1
+  }
+};
+
+const Map<String, dynamic> mockUploadFace = {
+  "status": "success",
+  "message": "Photo uploaded successfully",
+  "data": {
+    "photo_path": "uploads/7327b08c-0bdd-483a-8b70-6ff5f3d9e31f.png",
+    "message": "Photo uploaded successfully"
+  }
+};
+
+const Map<String, dynamic> mockLocation = {
+  "status": "success",
+  "message": "Location validation performed",
+  "data": {"is_valid": true, "distance": 4129086.1650573094, "max_radius": 1000}
+};
+
 const Map<String, dynamic> mockSupervisorAssesstments = {
   "status": "success",
   "message": "Supervisor assessments retrieved successfully",

@@ -35,6 +35,10 @@ mixin _$UserProfileResponse {
   bool? get isFirstLogin => throw _privateConstructorUsedError;
   @JsonKey(name: 'employee_profile')
   EmployeeProfile? get employeeProfile => throw _privateConstructorUsedError;
+  @JsonKey(name: 'profile_id')
+  int? get profileId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'profile')
+  String? get profile => throw _privateConstructorUsedError;
   Employment? get employment => throw _privateConstructorUsedError;
 
   /// Serializes this UserProfileResponse to a JSON map.
@@ -64,6 +68,8 @@ abstract class $UserProfileResponseCopyWith<$Res> {
       @JsonKey(name: 'first_login_at') String? firstLoginAt,
       @JsonKey(name: 'is_first_login') bool? isFirstLogin,
       @JsonKey(name: 'employee_profile') EmployeeProfile? employeeProfile,
+      @JsonKey(name: 'profile_id') int? profileId,
+      @JsonKey(name: 'profile') String? profile,
       Employment? employment});
 
   $EmployeeProfileCopyWith<$Res>? get employeeProfile;
@@ -95,6 +101,8 @@ class _$UserProfileResponseCopyWithImpl<$Res, $Val extends UserProfileResponse>
     Object? firstLoginAt = freezed,
     Object? isFirstLogin = freezed,
     Object? employeeProfile = freezed,
+    Object? profileId = freezed,
+    Object? profile = freezed,
     Object? employment = freezed,
   }) {
     return _then(_value.copyWith(
@@ -138,6 +146,14 @@ class _$UserProfileResponseCopyWithImpl<$Res, $Val extends UserProfileResponse>
           ? _value.employeeProfile
           : employeeProfile // ignore: cast_nullable_to_non_nullable
               as EmployeeProfile?,
+      profileId: freezed == profileId
+          ? _value.profileId
+          : profileId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      profile: freezed == profile
+          ? _value.profile
+          : profile // ignore: cast_nullable_to_non_nullable
+              as String?,
       employment: freezed == employment
           ? _value.employment
           : employment // ignore: cast_nullable_to_non_nullable
@@ -193,6 +209,8 @@ abstract class _$$UserProfileResponseImplCopyWith<$Res>
       @JsonKey(name: 'first_login_at') String? firstLoginAt,
       @JsonKey(name: 'is_first_login') bool? isFirstLogin,
       @JsonKey(name: 'employee_profile') EmployeeProfile? employeeProfile,
+      @JsonKey(name: 'profile_id') int? profileId,
+      @JsonKey(name: 'profile') String? profile,
       Employment? employment});
 
   @override
@@ -224,6 +242,8 @@ class __$$UserProfileResponseImplCopyWithImpl<$Res>
     Object? firstLoginAt = freezed,
     Object? isFirstLogin = freezed,
     Object? employeeProfile = freezed,
+    Object? profileId = freezed,
+    Object? profile = freezed,
     Object? employment = freezed,
   }) {
     return _then(_$UserProfileResponseImpl(
@@ -267,6 +287,14 @@ class __$$UserProfileResponseImplCopyWithImpl<$Res>
           ? _value.employeeProfile
           : employeeProfile // ignore: cast_nullable_to_non_nullable
               as EmployeeProfile?,
+      profileId: freezed == profileId
+          ? _value.profileId
+          : profileId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      profile: freezed == profile
+          ? _value.profile
+          : profile // ignore: cast_nullable_to_non_nullable
+              as String?,
       employment: freezed == employment
           ? _value.employment
           : employment // ignore: cast_nullable_to_non_nullable
@@ -289,6 +317,8 @@ class _$UserProfileResponseImpl implements _UserProfileResponse {
       @JsonKey(name: 'first_login_at') this.firstLoginAt,
       @JsonKey(name: 'is_first_login') this.isFirstLogin,
       @JsonKey(name: 'employee_profile') this.employeeProfile,
+      @JsonKey(name: 'profile_id') this.profileId,
+      @JsonKey(name: 'profile') this.profile,
       this.employment})
       : _roles = roles;
 
@@ -329,11 +359,17 @@ class _$UserProfileResponseImpl implements _UserProfileResponse {
   @JsonKey(name: 'employee_profile')
   final EmployeeProfile? employeeProfile;
   @override
+  @JsonKey(name: 'profile_id')
+  final int? profileId;
+  @override
+  @JsonKey(name: 'profile')
+  final String? profile;
+  @override
   final Employment? employment;
 
   @override
   String toString() {
-    return 'UserProfileResponse(id: $id, employeeId: $employeeId, code: $code, photoProfileUrl: $photoProfileUrl, name: $name, email: $email, roles: $roles, firstLoginAt: $firstLoginAt, isFirstLogin: $isFirstLogin, employeeProfile: $employeeProfile, employment: $employment)';
+    return 'UserProfileResponse(id: $id, employeeId: $employeeId, code: $code, photoProfileUrl: $photoProfileUrl, name: $name, email: $email, roles: $roles, firstLoginAt: $firstLoginAt, isFirstLogin: $isFirstLogin, employeeProfile: $employeeProfile, profileId: $profileId, profile: $profile, employment: $employment)';
   }
 
   @override
@@ -356,6 +392,9 @@ class _$UserProfileResponseImpl implements _UserProfileResponse {
                 other.isFirstLogin == isFirstLogin) &&
             (identical(other.employeeProfile, employeeProfile) ||
                 other.employeeProfile == employeeProfile) &&
+            (identical(other.profileId, profileId) ||
+                other.profileId == profileId) &&
+            (identical(other.profile, profile) || other.profile == profile) &&
             (identical(other.employment, employment) ||
                 other.employment == employment));
   }
@@ -374,6 +413,8 @@ class _$UserProfileResponseImpl implements _UserProfileResponse {
       firstLoginAt,
       isFirstLogin,
       employeeProfile,
+      profileId,
+      profile,
       employment);
 
   /// Create a copy of UserProfileResponse
@@ -405,6 +446,8 @@ abstract class _UserProfileResponse implements UserProfileResponse {
       @JsonKey(name: 'first_login_at') final String? firstLoginAt,
       @JsonKey(name: 'is_first_login') final bool? isFirstLogin,
       @JsonKey(name: 'employee_profile') final EmployeeProfile? employeeProfile,
+      @JsonKey(name: 'profile_id') final int? profileId,
+      @JsonKey(name: 'profile') final String? profile,
       final Employment? employment}) = _$UserProfileResponseImpl;
 
   factory _UserProfileResponse.fromJson(Map<String, dynamic> json) =
@@ -435,6 +478,12 @@ abstract class _UserProfileResponse implements UserProfileResponse {
   @override
   @JsonKey(name: 'employee_profile')
   EmployeeProfile? get employeeProfile;
+  @override
+  @JsonKey(name: 'profile_id')
+  int? get profileId;
+  @override
+  @JsonKey(name: 'profile')
+  String? get profile;
   @override
   Employment? get employment;
 

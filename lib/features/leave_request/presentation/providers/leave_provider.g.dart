@@ -23,23 +23,6 @@ final leaveBalanceProvider =
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef LeaveBalanceRef = AutoDisposeFutureProviderRef<LeaveBalanceResponse>;
-String _$fileUploadNotifierHash() =>
-    r'cbd2642fcba937b9925649f801a08599f6cfca25';
-
-/// See also [FileUploadNotifier].
-@ProviderFor(FileUploadNotifier)
-final fileUploadNotifierProvider = AutoDisposeNotifierProvider<
-    FileUploadNotifier, AsyncValue<UploadFile?>>.internal(
-  FileUploadNotifier.new,
-  name: r'fileUploadNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$fileUploadNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef _$FileUploadNotifier = AutoDisposeNotifier<AsyncValue<UploadFile?>>;
 String _$leaveRequestSubmissionHash() =>
     r'86787fe9f610a025e44f3bdb429e0ccb8990129d';
 
@@ -57,6 +40,23 @@ final leaveRequestSubmissionProvider = AutoDisposeNotifierProvider<
 );
 
 typedef _$LeaveRequestSubmission = AutoDisposeNotifier<AsyncValue<dynamic>>;
+String _$fileUploadNotifierHash() =>
+    r'cbd2642fcba937b9925649f801a08599f6cfca25';
+
+/// See also [FileUploadNotifier].
+@ProviderFor(FileUploadNotifier)
+final fileUploadNotifierProvider = AutoDisposeNotifierProvider<
+    FileUploadNotifier, AsyncValue<UploadFile?>>.internal(
+  FileUploadNotifier.new,
+  name: r'fileUploadNotifierProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$fileUploadNotifierHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$FileUploadNotifier = AutoDisposeNotifier<AsyncValue<UploadFile?>>;
 String _$leaveTypesHash() => r'22b14ca47a5c6200de1e20ea0340a51b8fe94d6e';
 
 /// See also [LeaveTypes].

@@ -17,6 +17,7 @@ import '../providers/face_registration_provider.dart';
 
 class FaceRegistrationScreen extends ConsumerWidget {
   final AttendanceEnum activity;
+
   const FaceRegistrationScreen({super.key, required this.activity});
 
   @override
@@ -146,15 +147,17 @@ class FaceRegistrationScreen extends ConsumerWidget {
                     ref.read(faceRegistrationProvider.notifier).retry();
                     break;
                   default:
-                    final picker = ImagePicker();
-                    final picked = await picker.pickImage(
-                      source: ImageSource.camera,
-                      preferredCameraDevice: CameraDevice.front,
-                    );
-                    if (picked != null) {
-                      ref
-                          .read(faceRegistrationProvider.notifier)
-                          .savePhoto(picked.path);
+                    if (state.step != FaceStep.uploading) {
+                      final picker = ImagePicker();
+                      final picked = await picker.pickImage(
+                        source: ImageSource.camera,
+                        preferredCameraDevice: CameraDevice.front,
+                      );
+                      if (picked != null) {
+                        await ref
+                            .read(faceRegistrationProvider.notifier)
+                            .savePhoto(picked.path);
+                      }
                     }
                 }
               },

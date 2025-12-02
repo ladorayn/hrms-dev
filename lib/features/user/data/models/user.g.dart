@@ -23,6 +23,8 @@ _$UserProfileResponseImpl _$$UserProfileResponseImplFromJson(
           ? null
           : EmployeeProfile.fromJson(
               json['employee_profile'] as Map<String, dynamic>),
+      profileId: (json['profile_id'] as num?)?.toInt(),
+      profile: json['profile'] as String?,
       employment: json['employment'] == null
           ? null
           : Employment.fromJson(json['employment'] as Map<String, dynamic>),
@@ -41,5 +43,7 @@ Map<String, dynamic> _$$UserProfileResponseImplToJson(
       'first_login_at': instance.firstLoginAt,
       'is_first_login': instance.isFirstLogin,
       'employee_profile': instance.employeeProfile,
+      'profile_id': instance.profileId,
+      'profile': instance.profile,
       'employment': instance.employment,
     };

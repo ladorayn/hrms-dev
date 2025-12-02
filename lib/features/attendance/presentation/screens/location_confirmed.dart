@@ -8,9 +8,11 @@ import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/core/widgets/i_footer_button.dart';
+import 'package:hrms_mobile/features/auth/presentation/providers/auth/auth_provider.dart';
 
 class LocationConfirmedScreen extends ConsumerWidget {
   final AttendanceEnum activity;
+
   const LocationConfirmedScreen({
     super.key,
     required this.activity,
@@ -19,6 +21,7 @@ class LocationConfirmedScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = Theme.of(context).textTheme;
+    final authP = ref.watch(authProvider);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -68,10 +71,17 @@ class LocationConfirmedScreen extends ConsumerWidget {
           ),
           IFooterButton(
             onPressed: () {
-              globalNavigatorKey.currentContext
-                  ?.pushNamed(RoutePaths.faceVerification, extra: activity);
+              if (authP.value?.profile != null) {
+                globalNavigatorKey.currentContext
+                    ?.pushNamed(RoutePaths.faceVerification, extra: activity);
+              } else {
+                globalNavigatorKey.currentContext
+                    ?.pushNamed(RoutePaths.faceRegistration, extra: activity);
+              }
             },
-            text: "Start Verification",
+            text: authP.value?.profile != null
+                ? "Start Verification"
+                : "Register Your Face",
           ),
         ],
       ),
