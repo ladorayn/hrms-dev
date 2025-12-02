@@ -8,14 +8,22 @@ import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/data/models/form_fields_response.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
 import 'package:hrms_mobile/features/offboarding/data/models/request/exit_form_request.dart';
+import 'package:hrms_mobile/features/performance/data/models/request/assessment_answer_request.dart';
+import 'package:hrms_mobile/features/performance/data/models/response/assessment_answer.dart';
 import 'package:hrms_mobile/features/performance/presentation/providers/performance_provider.dart';
 
 class AssessmentTabFormManagerScreen extends ConsumerStatefulWidget {
   final bool isReadOnly;
+  final int formId;
+
+  // ⭐ ADDED: Parameter to fetch specific employee assessment answers
+  final int employeeSelfAssessmentId;
 
   const AssessmentTabFormManagerScreen({
     super.key,
     required this.isReadOnly,
+    required this.formId,
+    required this.employeeSelfAssessmentId,
   });
 
   @override
@@ -23,18 +31,25 @@ class AssessmentTabFormManagerScreen extends ConsumerStatefulWidget {
       _AssessmentTabFormManagerScreenState();
 }
 
-// 1. Add the Mixin here
 class _AssessmentTabFormManagerScreenState
     extends ConsumerState<AssessmentTabFormManagerScreen>
     with AutomaticKeepAliveClientMixin {
   final Map<int, Map<String, bool>> _checkboxAnswers = {};
-  final Map<int, String?> _singleSelectionAnswers =
-      {}; // ADDED: Single selection state
+  final Map<int, String?> _singleSelectionAnswers = {};
   final Map<int, int?> _ratingAnswers = {};
   final Map<int, TextEditingController> _notesControllers = {};
 
   bool _isStateInitialized = false;
   bool _isFormValid = false;
+
+  // ⭐ MODIFIED: Use the grouped fields provider
+  List<FormFields> get _allFields {
+    final formFieldsGroup = ref
+        .read(performanceFormFieldsByGroupProvider(formId: widget.formId))
+        .value;
+    if (formFieldsGroup == null) return [];
+    return formFieldsGroup.expand((group) => group.fields).toList();
+  }
 
   @override
   bool get wantKeepAlive => true;
@@ -48,10 +63,14 @@ class _AssessmentTabFormManagerScreenState
     super.dispose();
   }
 
-  void _initializeState(List<FormFields> fields) {
+  // ⭐ MODIFIED: Accepts List<FormFieldsGroup> for grouped form structure
+  void _initializeState(
+      List<FormFieldsGroup> formGroups, FormAnswer? formAnswer) {
     if (_isStateInitialized) return;
 
-    for (final field in fields) {
+    final allFields = formGroups.expand((group) => group.fields).toList();
+
+    for (final field in allFields) {
       switch (field.type) {
         case 'checkbox':
           final optionsMap = <String, bool>{};
@@ -81,12 +100,14 @@ class _AssessmentTabFormManagerScreenState
           controller.addListener(_validateForm);
           _notesControllers[field.id] = controller;
           break;
-        case 'select': // ADDED
-        case 'radio': // ADDED
+        case 'select':
+        case 'radio':
           _singleSelectionAnswers[field.id] = null;
           break;
       }
     }
+
+    _populateFieldsFromAnswers(formAnswer);
 
     if (mounted) {
       setState(() {
@@ -96,20 +117,121 @@ class _AssessmentTabFormManagerScreenState
     }
   }
 
-  void _validateForm() {
-    final formFields =
-        ref.read(performanceFormFieldsProvider(formId: 1 ?? 0)).value;
+  // --- Answer Population Methods ---
 
-    if (formFields == null) {
+  void _populateFieldsFromAnswers(FormAnswer? formAnswer) {
+    final answerFields = formAnswer != null ? formAnswer.fields ?? [] : [];
+
+    if (answerFields.isEmpty) return;
+
+    for (final answer in answerFields) {
+      final fieldId = answer.fieldId;
+      if (fieldId == null) continue;
+
+      final field = _allFields.firstWhere((f) => f.id == fieldId,
+          orElse: () => const FormFields(id: -1, isRequired: false, order: 0));
+
+      if (field.id == -1) continue;
+
+      switch (field.type) {
+        case 'checkbox':
+          _populateCheckboxAnswer(fieldId, answer);
+          break;
+        case 'range':
+          _populateRatingAnswer(fieldId, answer);
+          break;
+        case 'textarea':
+        case 'text':
+          _populateTextAnswer(fieldId, answer);
+          break;
+        case 'select':
+        case 'radio':
+          _populateSingleSelectionAnswer(fieldId, answer);
+          break;
+      }
+    }
+  }
+
+  void _populateCheckboxAnswer(int fieldId, FieldsAnswer answer) {
+    final currentAnswers = _checkboxAnswers[fieldId];
+    if (currentAnswers == null) return;
+
+    final selectedOptions = answer.value;
+
+    if (selectedOptions is List) {
+      for (final option in selectedOptions.cast<String>()) {
+        if (currentAnswers.containsKey(option)) {
+          currentAnswers[option] = true;
+        }
+      }
+    }
+  }
+
+  void _populateRatingAnswer(int fieldId, FieldsAnswer answer) {
+    final ratingValue = answer.value;
+
+    int? rating;
+    if (ratingValue is String) {
+      rating = int.tryParse(ratingValue);
+    } else if (ratingValue is int) {
+      rating = ratingValue;
+    }
+
+    if (rating != null) {
+      _ratingAnswers[fieldId] = rating;
+    }
+
+    if (answer.additionalData is Map<String, dynamic>) {
+      final additionalData = answer.additionalData as Map<String, dynamic>;
+      final notes = additionalData['notes'];
+
+      if (notes is String) {
+        final field = _allFields.firstWhere((f) => f.id == fieldId);
+        final hasNotes = field.metadata?['is_note'] == true;
+
+        if (hasNotes && _notesControllers.containsKey(fieldId)) {
+          _notesControllers[fieldId]!.text = notes;
+        }
+      }
+    }
+  }
+
+  void _populateTextAnswer(int fieldId, FieldsAnswer answer) {
+    final textValue = answer.value;
+    if (textValue is String && _notesControllers.containsKey(fieldId)) {
+      _notesControllers[fieldId]!.text = textValue;
+    }
+  }
+
+  void _populateSingleSelectionAnswer(int fieldId, FieldsAnswer answer) {
+    final selectedOption = answer.value;
+    if (selectedOption is String) {
+      _singleSelectionAnswers[fieldId] = selectedOption;
+    }
+  }
+
+  // --- Validation and Submission ---
+
+  void _validateForm() {
+    // ⭐ MODIFIED: Use the grouped fields provider and flatten the result
+    final formFieldsGroup = ref
+        .read(performanceFormFieldsByGroupProvider(formId: widget.formId))
+        .value;
+
+    if (formFieldsGroup == null) {
       if (mounted) setState(() => _isFormValid = false);
       return;
     }
 
+    final formFields = formFieldsGroup.expand((group) => group.fields).toList();
+
     bool allRequiredFieldsAreValid = true;
     for (final field in formFields) {
-      if (field.isRequired) {
+      // Validation should only apply if the form is NOT read-only
+      if (field.isRequired && !widget.isReadOnly) {
         bool isFieldValid = false;
 
+        // ... (existing validation logic remains) ...
         switch (field.type) {
           case 'checkbox':
             final answers = _checkboxAnswers[field.id];
@@ -129,8 +251,8 @@ class _AssessmentTabFormManagerScreenState
               isFieldValid = true;
             }
             break;
-          case 'select': // ADDED
-          case 'radio': // ADDED
+          case 'select':
+          case 'radio':
             if (_singleSelectionAnswers[field.id] != null) {
               isFieldValid = true;
             }
@@ -159,6 +281,7 @@ class _AssessmentTabFormManagerScreenState
 
     final List<SubmissionForm> submissions = [];
 
+    // ... (existing submission logic remains) ...
     _checkboxAnswers.forEach((fieldId, answers) {
       final selectedOptions = answers.entries
           .where((e) => e.value == true)
@@ -182,7 +305,6 @@ class _AssessmentTabFormManagerScreenState
       ));
     });
 
-    // ADDED: Single Selection Submission Logic
     _singleSelectionAnswers.forEach((fieldId, selectedOption) {
       if (selectedOption != null) {
         submissions.add(SubmissionForm(
@@ -200,8 +322,6 @@ class _AssessmentTabFormManagerScreenState
         ));
       }
     });
-    // This onSubmit likely needs to trigger a validation/submission event for the manager's role
-    // For now, we pop the context as it's a tab, but real submission logic is needed here.
     context.pop();
   }
 
@@ -209,47 +329,81 @@ class _AssessmentTabFormManagerScreenState
   Widget build(BuildContext context) {
     super.build(context);
 
+    // ⭐ MODIFIED: Fetch fields using grouped provider
     final formFieldsAsync =
-        ref.watch(performanceFormFieldsProvider(formId: 14 ?? 0));
+        ref.watch(performanceFormFieldsByGroupProvider(formId: widget.formId));
 
-    formFieldsAsync.whenData((fields) {
-      if (!_isStateInitialized) {
-        Future.microtask(() => _initializeState(fields));
-      }
-    });
+    // ⭐ FETCH ANSWERS
+    final formAnsweredAsync = ref.watch(performanceAssessmentAnswerProvider(
+        request: AssessmentAnswerRequest(
+      employeeSelfAssessment: "${widget.employeeSelfAssessmentId}",
+      formId: widget.formId,
+    )));
+
+    // ⭐ INITIALIZATION LOGIC (Race Condition Fix)
+    if (formFieldsAsync.hasValue &&
+        formAnsweredAsync.hasValue &&
+        !_isStateInitialized) {
+      final formGroups = formFieldsAsync.value!;
+
+      final answerList = formAnsweredAsync.value;
+      final FormAnswer? firstAnswer =
+          answerList != null && answerList.isNotEmpty
+              ? answerList[0].data
+              : null;
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _initializeState(formGroups, firstAnswer);
+      });
+    }
 
     return Column(
       children: [
         Expanded(
+          // ⭐ MODIFIED: Show loader until BOTH fields and answers are initialized
           child: formFieldsAsync.when(
             loading: () => const Center(child: CircularProgressIndicator()),
             error: (err, stack) => Center(child: Text('Error: $err')),
-            data: (formFields) {
+            data: (formGroups) {
+              // Wait for initialization to complete, which depends on answer data too
               if (!_isStateInitialized) {
-                return const Center(child: CircularProgressIndicator());
+                return formAnsweredAsync.when(
+                  loading: () =>
+                      const Center(child: CircularProgressIndicator()),
+                  error: (err, stack) =>
+                      Center(child: Text('Error (Answers): $err')),
+                  data: (_) => const Center(child: CircularProgressIndicator()),
+                );
               }
 
-              return ListView.separated(
+              // ⭐ MODIFIED: Iterate through groups and then fields within the groups
+              return ListView.builder(
                 padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-                itemCount: formFields.length,
-                separatorBuilder: (context, index) {
-                  return SizedBox(
-                    height: 16.h,
-                  );
-                },
-                itemBuilder: (context, index) {
-                  final field = formFields[index];
+                itemCount: formGroups.length,
+                itemBuilder: (context, groupIndex) {
+                  final group = formGroups[groupIndex];
 
-                  return Container(
-                    padding: EdgeInsets.all(12.sp),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8.r),
-                      border: Border.all(
-                        color: IColors.light.grayscale.g20,
-                      ),
-                      color: Colors.white,
-                    ),
-                    child: _buildDynamicField(field),
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildGroupHeader(group), // ADDED: Group Header
+                      ...group.fields.map((field) {
+                        return Padding(
+                          padding: EdgeInsets.only(bottom: 16.h),
+                          child: Container(
+                            padding: EdgeInsets.all(12.sp),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8.r),
+                              border: Border.all(
+                                color: IColors.light.grayscale.g20,
+                              ),
+                              color: Colors.white,
+                            ),
+                            child: _buildDynamicField(field),
+                          ),
+                        );
+                      }).toList(),
+                    ],
                   );
                 },
               );
@@ -265,6 +419,22 @@ class _AssessmentTabFormManagerScreenState
                 style: TextStyle(color: IColors.light.grayscale.g60)),
           ),
       ],
+    );
+  }
+
+  // --- Widget Builders (Group Header Added) ---
+
+  Widget _buildGroupHeader(FormFieldsGroup group) {
+    final textTheme = Theme.of(context).textTheme;
+    return Padding(
+      padding: EdgeInsets.only(bottom: 8.h, top: 8.h),
+      child: Text(
+        group.name,
+        style: textTheme.headlineSmall?.copyWith(
+          fontWeight: FontWeight.bold,
+          color: IColors.light.primary.main,
+        ),
+      ),
     );
   }
 
@@ -314,9 +484,9 @@ class _AssessmentTabFormManagerScreenState
       case 'textarea':
       case 'text':
         return _buildTextAreaSection(field);
-      case 'select': // ADDED
-      case 'radio': // ADDED
-        return _buildSingleSelectionSection(field); // ADDED
+      case 'select':
+      case 'radio':
+        return _buildSingleSelectionSection(field);
       default:
         return Text('Unknown field type: ${field.type}');
     }
@@ -330,16 +500,14 @@ class _AssessmentTabFormManagerScreenState
     final ValueChanged<bool?>? handler = widget.isReadOnly ? null : onChanged;
 
     return InkWell(
-      onTap: handler != null ? () => handler(!value) : null,
+      onTap: handler != null ? () => handler(!value) : () => {},
       child: Row(
         children: [
           Checkbox(
             value: value,
             onChanged: handler,
             visualDensity: VisualDensity.compact,
-            activeColor: handler == null
-                ? IColors.light.grayscale.g30
-                : IColors.light.primary.main,
+            activeColor: IColors.light.primary.main,
           ),
           Expanded(
               child: Text(title,
@@ -368,7 +536,7 @@ class _AssessmentTabFormManagerScreenState
         ...options.map((option) {
           return _buildCustomCheckbox(
             title: option,
-            value: answers[option]!,
+            value: answers[option] ?? false,
             onChanged: (bool? value) {
               setState(() {
                 answers[option] = value!;
@@ -402,7 +570,6 @@ class _AssessmentTabFormManagerScreenState
           children: List.generate(count, (index) {
             final rating = options.min + index;
             final isSelected = rating == selectedRating;
-
             final buttonStyle = ElevatedButton.styleFrom(
               backgroundColor: isSelected
                   ? IColors.light.primary.main
@@ -424,19 +591,13 @@ class _AssessmentTabFormManagerScreenState
                 padding: EdgeInsets.symmetric(horizontal: 4.w),
                 child: ElevatedButton(
                   onPressed: isDisabled
-                      ? null
+                      ? () {}
                       : () {
                           setState(() => _ratingAnswers[field.id] = rating);
                           _validateForm();
                         },
                   style: buttonStyle,
-                  child: Text('$rating',
-                      style: TextStyle(
-                          color: isDisabled
-                              ? IColors.light.grayscale.g60
-                              : (isSelected
-                                  ? Colors.white
-                                  : IColors.light.primary.main))),
+                  child: Text('$rating'),
                 ),
               ),
             );
@@ -466,7 +627,7 @@ class _AssessmentTabFormManagerScreenState
         _buildFieldHeader(field),
         ITextFieldTextArea(
           controller: controller,
-          hintText: '',
+          hintText: isDisabled && controller.text.isEmpty ? 'N/A' : '',
           readOnly: isDisabled,
           onTap: isDisabled ? () {} : null,
         ),
@@ -474,7 +635,6 @@ class _AssessmentTabFormManagerScreenState
     );
   }
 
-  // ADDED: Single Selection Section
   Widget _buildSingleSelectionSection(FormFields field) {
     if (field.options == null || field.options is! List) {
       return const SizedBox.shrink();
@@ -489,7 +649,6 @@ class _AssessmentTabFormManagerScreenState
       children: [
         _buildFieldHeader(field),
         SizedBox(height: 8.h),
-        // If it's a select field, use a DropdownButtonFormField
         if (field.type == 'select')
           DropdownButtonFormField<String>(
             decoration: InputDecoration(
@@ -499,7 +658,10 @@ class _AssessmentTabFormManagerScreenState
               contentPadding: EdgeInsets.symmetric(horizontal: 12.w),
             ),
             value: selectedOption,
-            hint: const Text('Select an option'),
+            hint: isDisabled && selectedOption != null
+                ? Text(selectedOption,
+                    style: TextStyle(color: IColors.light.grayscale.g60))
+                : const Text('Select an option'),
             items: options.map((String option) {
               return DropdownMenuItem<String>(
                 value: option,
@@ -515,7 +677,6 @@ class _AssessmentTabFormManagerScreenState
                     _validateForm();
                   },
             isExpanded: true,
-            // Visually disable the dropdown
             style: TextStyle(
               color: isDisabled ? IColors.light.grayscale.g60 : Colors.black,
             ),

@@ -46,7 +46,8 @@ class PerformanceFormFieldsByGroup extends _$PerformanceFormFieldsByGroup {
 @riverpod
 class PerformanceAssessmentAnswer extends _$PerformanceAssessmentAnswer {
   @override
-  Future<AssessmentAnswer> build({AssessmentAnswerRequest? request}) async {
+  Future<List<AssessmentAnswer>> build(
+      {AssessmentAnswerRequest? request}) async {
     final usecase = ref.watch(performanceUseCaseProvider);
     return await usecase.getAssessmentAnswer(request: request);
   }

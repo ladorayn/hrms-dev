@@ -148,7 +148,7 @@ class ManagerAssessmentLandingScreen extends ConsumerWidget {
         dense: true,
         visualDensity: VisualDensity.compact,
         leading: _buildProfileAvatar(
-          member.photoProfileUrl,
+          member.photoProfile,
           member.userName,
           20.r,
         ),

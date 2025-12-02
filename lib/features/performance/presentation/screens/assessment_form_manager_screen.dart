@@ -49,8 +49,13 @@ class AssessmentFormManagerScreen extends ConsumerWidget {
                 children: [
                   AssessmentTabFormManagerScreen(
                     isReadOnly: true,
+                    formId: member.formId ?? 0,
+                    employeeSelfAssessmentId: member.id ?? 0,
                   ),
-                  AssessmentValidationFormTabManagerScreen(),
+                  AssessmentValidationFormTabManagerScreen(
+                    formId: member.formId ?? 0,
+                    employeeSelfAssessmentId: member.id ?? 0,
+                  ),
                 ],
               ),
             )

@@ -330,13 +330,13 @@ class _PerformanceFormFieldsByGroupProviderElement
 }
 
 String _$performanceAssessmentAnswerHash() =>
-    r'a09c13e645f0490c1bdc7349c9c7e4ea7cb3b549';
+    r'90678e38f99da6187cb290e90b597cd84fdbf7c4';
 
 abstract class _$PerformanceAssessmentAnswer
-    extends BuildlessAutoDisposeAsyncNotifier<AssessmentAnswer> {
+    extends BuildlessAutoDisposeAsyncNotifier<List<AssessmentAnswer>> {
   late final AssessmentAnswerRequest? request;
 
-  FutureOr<AssessmentAnswer> build({
+  FutureOr<List<AssessmentAnswer>> build({
     AssessmentAnswerRequest? request,
   });
 }
@@ -347,7 +347,7 @@ const performanceAssessmentAnswerProvider = PerformanceAssessmentAnswerFamily();
 
 /// See also [PerformanceAssessmentAnswer].
 class PerformanceAssessmentAnswerFamily
-    extends Family<AsyncValue<AssessmentAnswer>> {
+    extends Family<AsyncValue<List<AssessmentAnswer>>> {
   /// See also [PerformanceAssessmentAnswer].
   const PerformanceAssessmentAnswerFamily();
 
@@ -387,7 +387,7 @@ class PerformanceAssessmentAnswerFamily
 /// See also [PerformanceAssessmentAnswer].
 class PerformanceAssessmentAnswerProvider
     extends AutoDisposeAsyncNotifierProviderImpl<PerformanceAssessmentAnswer,
-        AssessmentAnswer> {
+        List<AssessmentAnswer>> {
   /// See also [PerformanceAssessmentAnswer].
   PerformanceAssessmentAnswerProvider({
     AssessmentAnswerRequest? request,
@@ -418,7 +418,7 @@ class PerformanceAssessmentAnswerProvider
   final AssessmentAnswerRequest? request;
 
   @override
-  FutureOr<AssessmentAnswer> runNotifierBuild(
+  FutureOr<List<AssessmentAnswer>> runNotifierBuild(
     covariant PerformanceAssessmentAnswer notifier,
   ) {
     return notifier.build(
@@ -444,7 +444,7 @@ class PerformanceAssessmentAnswerProvider
 
   @override
   AutoDisposeAsyncNotifierProviderElement<PerformanceAssessmentAnswer,
-      AssessmentAnswer> createElement() {
+      List<AssessmentAnswer>> createElement() {
     return _PerformanceAssessmentAnswerProviderElement(this);
   }
 
@@ -466,14 +466,14 @@ class PerformanceAssessmentAnswerProvider
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 mixin PerformanceAssessmentAnswerRef
-    on AutoDisposeAsyncNotifierProviderRef<AssessmentAnswer> {
+    on AutoDisposeAsyncNotifierProviderRef<List<AssessmentAnswer>> {
   /// The parameter `request` of this provider.
   AssessmentAnswerRequest? get request;
 }
 
 class _PerformanceAssessmentAnswerProviderElement
     extends AutoDisposeAsyncNotifierProviderElement<PerformanceAssessmentAnswer,
-        AssessmentAnswer> with PerformanceAssessmentAnswerRef {
+        List<AssessmentAnswer>> with PerformanceAssessmentAnswerRef {
   _PerformanceAssessmentAnswerProviderElement(super.provider);
 
   @override

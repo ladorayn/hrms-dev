@@ -68,12 +68,12 @@ class TeamMemberInfoSection extends StatelessWidget {
                   Expanded(
                       child: LabelValue(
                           label: "Submitted on",
-                          value: member.submittedOn ?? 'N/A')),
+                          value: member.submittedAt ?? 'N/A')),
                   SizedBox(width: 16.w),
                   Expanded(
                       child: LabelValue(
                           label: "Validated on",
-                          value: member.validatedOn ?? 'N/A')),
+                          value: member.validatedAt ?? 'N/A')),
                 ],
               ),
             ],

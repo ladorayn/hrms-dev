@@ -13,9 +13,9 @@ class TeamMember with _$TeamMember {
     @JsonKey(name: 'job_level_name') String? jobLevelName,
     @JsonKey(name: 'department_name') String? departmentName,
     @JsonKey(name: 'status_label') String? statusLabel,
-    @JsonKey(name: 'photo_profile_url') String? photoProfileUrl,
-    @JsonKey(name: 'submitted_on') String? submittedOn,
-    @JsonKey(name: 'validated_on') String? validatedOn,
+    @JsonKey(name: 'photo_profile') String? photoProfile,
+    @JsonKey(name: 'submitted_at') String? submittedAt,
+    @JsonKey(name: 'validated_at') String? validatedAt,
   }) = _TeamMember;
 
   factory TeamMember.fromJson(Map<String, dynamic> json) =>

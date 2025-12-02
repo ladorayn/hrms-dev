@@ -86,7 +86,7 @@ class PerformanceRemoteSource {
     }
   }
 
-  Future<BaseResponse<AssessmentAnswer>> getAssessmentAnswer(
+  Future<BaseResponse<List<AssessmentAnswer>>> getAssessmentAnswer(
       {AssessmentAnswerRequest? request}) async {
     try {
       final Map<String, dynamic> queryParameters = {
@@ -99,8 +99,13 @@ class PerformanceRemoteSource {
         queryParameters: queryParameters,
       );
 
-      return BaseResponse.fromJson(response.data,
-          (item) => AssessmentAnswer.fromJson(item as Map<String, dynamic>));
+      return BaseResponse.fromJson(
+        response.data,
+        (json) => (json as List)
+            .map((item) =>
+                AssessmentAnswer.fromJson(item as Map<String, dynamic>))
+            .toList(),
+      );
     } on DioException catch (e) {
       throw handleDioError(e);
     }

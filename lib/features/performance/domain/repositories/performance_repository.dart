@@ -11,7 +11,7 @@ abstract class PerformanceRepository {
 
   Future<List<AssessmentList>> getAssessmentList();
 
-  Future<AssessmentAnswer> getAssessmentAnswer(
+  Future<List<AssessmentAnswer>> getAssessmentAnswer(
       {AssessmentAnswerRequest? request});
 
   Future<String> assessmentFormSubmission(

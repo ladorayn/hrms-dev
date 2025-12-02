@@ -61,7 +61,7 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
   }
 
   @override
-  Future<AssessmentAnswer> getAssessmentAnswer(
+  Future<List<AssessmentAnswer>> getAssessmentAnswer(
       {AssessmentAnswerRequest? request}) async {
     final response = await remoteSource.getAssessmentAnswer(request: request);
 

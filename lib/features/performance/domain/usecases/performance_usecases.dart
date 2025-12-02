@@ -28,7 +28,7 @@ class PerformanceUsecases {
     return repository.getAssessmentList();
   }
 
-  Future<AssessmentAnswer> getAssessmentAnswer(
+  Future<List<AssessmentAnswer>> getAssessmentAnswer(
       {AssessmentAnswerRequest? request}) {
     return repository.getAssessmentAnswer(request: request);
   }
