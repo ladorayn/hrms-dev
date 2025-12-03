@@ -3,6 +3,11 @@ import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hrms_mobile/core/data/data_source/general_remote_source.dart';
+import 'package:hrms_mobile/core/data/models/face_recognition/face_profile_response.dart';
+import 'package:hrms_mobile/core/data/repositories/general_repository/general_repository.dart';
+import 'package:hrms_mobile/core/data/repositories/general_repository/general_repository_impl.dart';
+import 'package:hrms_mobile/core/data/usecases/general/general_usecases.dart';
 import 'package:hrms_mobile/core/enums/attendance_enum.dart';
 import 'package:hrms_mobile/core/errors/exceptions.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
@@ -73,6 +78,24 @@ final getWorkingShiftsUseCaseProvider = Provider(
 
 final validateLocationUseCaseProvider = Provider(
     (ref) => ValidateLocationUseCase(ref.watch(attendanceRepoProvider)));
+
+final generalRemoteSourceProvider = Provider<GeneralRemoteSource>((ref) {
+  final dio = ref.watch(dioProvider);
+  final faceDio = ref.watch(faceDioProvider);
+  return GeneralRemoteSource(dio, faceDio);
+});
+
+final generalRepoProvider = Provider<GeneralRepository>((ref) {
+  final remoteSource = ref.watch(generalRemoteSourceProvider);
+  return GeneralRepositoryImpl(
+    remoteSource: remoteSource,
+  );
+});
+
+final generalUsecaseProvider = Provider((ref) {
+  final repository = ref.watch(generalRepoProvider);
+  return GeneralUsecases(repository);
+});
 
 @Riverpod(keepAlive: true)
 class Attendance extends _$Attendance {
@@ -411,5 +434,14 @@ class UpdateAttendance extends _$UpdateAttendance {
       state = state.copyWith(isLoading: false);
       rethrow;
     }
+  }
+}
+
+@riverpod
+class FacesProfile extends _$FacesProfile {
+  @override
+  Future<UserProfileData> build() async {
+    final usecase = ref.watch(generalUsecaseProvider);
+    return await usecase.getFacesProfile();
   }
 }

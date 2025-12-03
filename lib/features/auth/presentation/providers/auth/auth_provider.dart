@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/core/constants/storage_keys.dart';
+import 'package:hrms_mobile/core/data/models/face_recognition/face_profile_response.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/features/attendance/presentation/providers/attendance_provider.dart';
@@ -24,16 +25,14 @@ class Auth extends _$Auth {
     return null;
   }
 
-  Future<void> onLoginSuccess(UserProfileResponse userProfileResponse,
-      int? profileId, String? profile) async {
-    final updatedUserProfileResponse = userProfileResponse.copyWith(
-      profileId: profileId,
-      profile: profile,
-    );
+  Future<void> onLoginSuccess(
+      UserProfileResponse userProfileResponse, UserProfileData? profile) async {
+    final updatedUserProfileResponse =
+        userProfileResponse.copyWith(faces: profile?.faces);
     final prefs = await SharedPreferences.getInstance();
     final userJson = json.encode(updatedUserProfileResponse.toJson());
     await prefs.setString(StorageKeys.user, userJson);
-    state = AsyncData(userProfileResponse);
+    state = AsyncData(updatedUserProfileResponse);
   }
 
   Future<void> onLogout() async {

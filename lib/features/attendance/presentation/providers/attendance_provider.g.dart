@@ -1334,5 +1334,20 @@ final updateAttendanceProvider = AutoDisposeNotifierProvider<UpdateAttendance,
 );
 
 typedef _$UpdateAttendance = AutoDisposeNotifier<UpdateAttendanceState>;
+String _$facesProfileHash() => r'7ced0e1a5530f40e20f7209d12055cd8816bd66c';
+
+/// See also [FacesProfile].
+@ProviderFor(FacesProfile)
+final facesProfileProvider =
+    AutoDisposeAsyncNotifierProvider<FacesProfile, UserProfileData>.internal(
+  FacesProfile.new,
+  name: r'facesProfileProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$facesProfileHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$FacesProfile = AutoDisposeAsyncNotifier<UserProfileData>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

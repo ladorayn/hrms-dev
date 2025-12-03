@@ -17,12 +17,14 @@ import '../providers/face_registration_provider.dart';
 
 class FaceRegistrationScreen extends ConsumerWidget {
   final AttendanceEnum activity;
+  final int initialFaceCount;
 
-  const FaceRegistrationScreen({super.key, required this.activity});
+  const FaceRegistrationScreen(
+      {super.key, required this.activity, required this.initialFaceCount});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen(faceRegistrationProvider, (previous, next) {
+    ref.listen(faceRegistrationProvider(initialFaceCount), (previous, next) {
       if (next.step == FaceStep.success) {
         Future.delayed(const Duration(milliseconds: 1200), () {
           if (globalNavigatorKey.currentContext != null &&
@@ -33,7 +35,7 @@ class FaceRegistrationScreen extends ConsumerWidget {
         });
       }
     });
-    final state = ref.watch(faceRegistrationProvider);
+    final state = ref.watch(faceRegistrationProvider(initialFaceCount));
     final isSuccess = state.step == FaceStep.success;
     final isFailed = state.step == FaceStep.failed;
 
@@ -144,7 +146,11 @@ class FaceRegistrationScreen extends ConsumerWidget {
                     globalNavigatorKey.currentContext?.pop();
                     break;
                   case FaceStep.failed:
-                    ref.read(faceRegistrationProvider.notifier).retry();
+                    ref
+                        .read(
+                            faceRegistrationProvider(initialFaceCount).notifier)
+                        .retry();
+
                     break;
                   default:
                     if (state.step != FaceStep.uploading) {
@@ -155,7 +161,8 @@ class FaceRegistrationScreen extends ConsumerWidget {
                       );
                       if (picked != null) {
                         await ref
-                            .read(faceRegistrationProvider.notifier)
+                            .read(faceRegistrationProvider(initialFaceCount)
+                                .notifier)
                             .savePhoto(picked.path);
                       }
                     }

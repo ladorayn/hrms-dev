@@ -9,6 +9,7 @@ import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/features/app/presentation/screens/splash_screen.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/detail_attendance/attendance_detail_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/overtime/overtime_detail_response_model.dart';
+import 'package:hrms_mobile/features/attendance/presentation/providers/face_registration_provider.dart';
 import 'package:hrms_mobile/features/attendance/presentation/screens/attendance_and_overtime_screen.dart';
 import 'package:hrms_mobile/features/attendance/presentation/screens/attendance_form_screen.dart';
 import 'package:hrms_mobile/features/attendance/presentation/screens/attendance_history_edit_screen.dart';
@@ -183,8 +184,19 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: RoutePaths.faceRegistration,
         name: RoutePaths.faceRegistration,
         builder: (context, state) {
-          final activity = state.extra as AttendanceEnum;
-          return FaceRegistrationScreen(activity: activity);
+          final extra = state.extra as Map<String, dynamic>;
+          final activity = extra['activity'] as AttendanceEnum;
+          final initialFaceCount = extra['initialFaceCount'] as int;
+
+          return ProviderScope(
+            overrides: [
+              faceRegistrationProvider(initialFaceCount).overrideWith(
+                () => FaceRegistration(),
+              )
+            ],
+            child: FaceRegistrationScreen(
+                activity: activity, initialFaceCount: initialFaceCount),
+          );
         },
       ),
       GoRoute(

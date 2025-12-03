@@ -29,23 +29,21 @@ class GeneralRepositoryImpl implements GeneralRepository {
     }
   }
 
-  // ⭐ ADDED: Verify Face implementation
   @override
   Future<FaceVerify> verifyFace({required PlatformFile file}) async {
     final response = await remoteSource.verifyFace(file: file);
-    if (response.status == 'success' && response.data != null) {
-      return response.data!;
+    if (response.status == 'success') {
+      return response.data;
     } else {
       throw Exception('API Error: ${response.message}');
     }
   }
 
-  // ⭐ ADDED: Get Faces Profile implementation
   @override
   Future<UserProfileData> getFacesProfile() async {
     final response = await remoteSource.getFacesProfile();
-    if (response.status == 'success' && response.data != null) {
-      return response.data!;
+    if (response.status == 'success') {
+      return response.data;
     } else {
       throw Exception('API Error: ${response.message}');
     }

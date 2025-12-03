@@ -9,6 +9,7 @@ import 'package:hrms_mobile/core/data/usecases/general/general_usecases.dart';
 import 'package:hrms_mobile/core/enums/face_step_enum.dart';
 import 'package:hrms_mobile/core/network/dio_provider.dart';
 import 'package:hrms_mobile/features/attendance/domain/entities/face_registration_state.dart';
+import 'package:hrms_mobile/features/auth/presentation/providers/auth/auth_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'face_registration_provider.g.dart';
@@ -60,10 +61,25 @@ class UploadFaceNotifier extends _$UploadFaceNotifier {
 @riverpod
 class FaceRegistration extends _$FaceRegistration {
   @override
-  FaceRegistrationState build() {
-    return const FaceRegistrationState(
-      step: FaceStep.front,
-      photos: [null, null, null],
+  FaceRegistrationState build(int initialFaceCount) {
+    FaceStep startingStep;
+    double startingProgress;
+
+    if (initialFaceCount == 1) {
+      startingStep = FaceStep.right;
+      startingProgress = 1.0 / 3.0;
+    } else if (initialFaceCount == 2) {
+      startingStep = FaceStep.left;
+      startingProgress = 2.0 / 3.0;
+    } else {
+      startingStep = FaceStep.front;
+      startingProgress = 0.0;
+    }
+
+    return FaceRegistrationState(
+      step: startingStep,
+      photos: const [null, null, null],
+      progress: startingProgress,
     );
   }
 
@@ -83,7 +99,7 @@ class FaceRegistration extends _$FaceRegistration {
 
     final uploadNotifier = ref.read(uploadFaceNotifierProvider.notifier);
 
-    state = state.copyWith(progress: 0.1, step: FaceStep.uploading);
+    state = state.copyWith(progress: (index) / 3.0, step: FaceStep.uploading);
 
     try {
       await uploadNotifier.uploadFace(platformFile);
@@ -99,6 +115,17 @@ class FaceRegistration extends _$FaceRegistration {
         nextStep = FaceStep.left;
       } else if (index == 2) {
         nextStep = FaceStep.success;
+
+        final generalUsecase = ref.read(generalUsecaseProvider);
+        final facesProfile = await generalUsecase.getFacesProfile();
+
+        final currentProfile = ref.read(authProvider).value;
+
+        if (currentProfile != null) {
+          await ref
+              .read(authProvider.notifier)
+              .onLoginSuccess(currentProfile, facesProfile);
+        }
       } else {
         return;
       }
@@ -113,6 +140,7 @@ class FaceRegistration extends _$FaceRegistration {
       );
       updatedPhotos[index] = null;
       state = state.copyWith(photos: updatedPhotos);
+      rethrow;
     }
   }
 

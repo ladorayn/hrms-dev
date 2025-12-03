@@ -16,18 +16,22 @@ import '../providers/face_verification_provider.dart';
 
 class FaceVerificationScreen extends ConsumerWidget {
   final AttendanceEnum activity;
-  const FaceVerificationScreen({super.key, required this.activity});
+
+  const FaceVerificationScreen({
+    super.key,
+    required this.activity,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // Listen for the success state to auto-navigate
-    ref.listen(faceVerificationProvider, (previous, next) {
+    ref.listen(faceVerificationProvider, (prev, next) {
       if (next.step == VerificationStep.success) {
         Future.delayed(const Duration(milliseconds: 1200), () {
-          if (globalNavigatorKey.currentContext != null &&
-              globalNavigatorKey.currentContext!.mounted) {
-            globalNavigatorKey.currentContext
-                ?.pushNamed(RoutePaths.attendanceForm, extra: activity);
+          if (globalNavigatorKey.currentContext?.mounted ?? false) {
+            globalNavigatorKey.currentContext?.pushNamed(
+              RoutePaths.attendanceForm,
+              extra: activity,
+            );
           }
         });
       }
@@ -35,9 +39,10 @@ class FaceVerificationScreen extends ConsumerWidget {
 
     final state = ref.watch(faceVerificationProvider);
     final notifier = ref.read(faceVerificationProvider.notifier);
-    final textTheme = Theme.of(context).textTheme;
+
     final isFailed = state.step == VerificationStep.failed;
     final isSuccess = state.step == VerificationStep.success;
+    final isLoading = state.step == VerificationStep.loading;
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -68,20 +73,22 @@ class FaceVerificationScreen extends ConsumerWidget {
                           ),
                         ),
                       ),
+
+                      // Photo
                       CircleAvatar(
                         radius: 140,
                         backgroundImage: state.photoPath != null
                             ? FileImage(File(state.photoPath!))
                             : null,
                         child: state.photoPath == null
-                            ? Icon(Icons.person, size: 80)
+                            ? const Icon(Icons.person, size: 80)
                             : null,
                       ),
-                      if (state.step == VerificationStep.loading)
-                        const CircularProgressIndicator(),
 
-                      // Show checkmark on success
-                      if (state.step == VerificationStep.success)
+                      if (isLoading)
+                        const CircularProgressIndicator(strokeWidth: 5),
+
+                      if (isSuccess)
                         Container(
                           width: 280,
                           height: 280,
@@ -91,17 +98,13 @@ class FaceVerificationScreen extends ConsumerWidget {
                           ),
                           child: const Icon(
                             Icons.check_circle,
-                            color: Colors.blue,
+                            color: Colors.white,
                             size: 80,
                           ),
                         ),
                     ],
                   ),
-                  SizedBox(
-                      height: state.step == VerificationStep.success ||
-                              state.step == VerificationStep.loading
-                          ? 100
-                          : 40),
+                  const SizedBox(height: 40),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24),
                     child: Text(
@@ -121,18 +124,11 @@ class FaceVerificationScreen extends ConsumerWidget {
               ),
             ),
           ),
-          // Only show the button when it's needed (initial or failed state)
-          if (state.step == VerificationStep.success ||
-              state.step == VerificationStep.loading)
-            SizedBox(
-              height: 60,
-            ),
-          if (state.step == VerificationStep.initial ||
-              state.step == VerificationStep.failed)
+          if (!isSuccess && !isLoading)
             IFooterButton(
               text: state.step.buttonText,
               onPressed: () async {
-                if (state.step == VerificationStep.failed) {
+                if (isFailed) {
                   notifier.retry();
                   return;
                 }
@@ -142,11 +138,13 @@ class FaceVerificationScreen extends ConsumerWidget {
                   source: ImageSource.camera,
                   preferredCameraDevice: CameraDevice.front,
                 );
+
                 if (picked != null) {
                   notifier.takePhoto(picked.path);
                 }
               },
             ),
+          if (isSuccess || isLoading) const SizedBox(height: 60),
         ],
       ),
     );

@@ -6,7 +6,24 @@ part of 'face_verification_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$faceVerificationHash() => r'0ec0f71abdb2f2fcf58499259c37b12508f2b23b';
+String _$verifyFaceNotifierHash() =>
+    r'05af9c6ee26852d5641a4067c4cf767d65c18cd9';
+
+/// See also [VerifyFaceNotifier].
+@ProviderFor(VerifyFaceNotifier)
+final verifyFaceNotifierProvider = AutoDisposeNotifierProvider<
+    VerifyFaceNotifier, AsyncValue<FaceVerify?>>.internal(
+  VerifyFaceNotifier.new,
+  name: r'verifyFaceNotifierProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$verifyFaceNotifierHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$VerifyFaceNotifier = AutoDisposeNotifier<AsyncValue<FaceVerify?>>;
+String _$faceVerificationHash() => r'f67369995f80e6b40f40c7633516d3c2e2abe262';
 
 /// See also [FaceVerification].
 @ProviderFor(FaceVerification)

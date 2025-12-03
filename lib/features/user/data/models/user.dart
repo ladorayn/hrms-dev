@@ -1,5 +1,6 @@
 // user.dart
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hrms_mobile/core/data/models/face_recognition/face_profile_response.dart';
 import 'package:hrms_mobile/features/user/data/models/employment/employment.dart';
 import 'package:hrms_mobile/features/user/data/models/employment/profile/employee_profile.dart';
 
@@ -19,8 +20,7 @@ class UserProfileResponse with _$UserProfileResponse {
     @JsonKey(name: 'first_login_at') String? firstLoginAt,
     @JsonKey(name: 'is_first_login') bool? isFirstLogin,
     @JsonKey(name: 'employee_profile') EmployeeProfile? employeeProfile,
-    @JsonKey(name: 'profile_id') int? profileId,
-    @JsonKey(name: 'profile') String? profile,
+    @JsonKey(name: 'faces') List<FaceData>? faces,
     Employment? employment,
   }) = _UserProfileResponse;
 

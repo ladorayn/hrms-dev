@@ -1,7 +1,12 @@
 import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/core/constants/storage_keys.dart';
+import 'package:hrms_mobile/core/data/data_source/general_remote_source.dart';
+import 'package:hrms_mobile/core/data/repositories/general_repository/general_repository.dart';
+import 'package:hrms_mobile/core/data/repositories/general_repository/general_repository_impl.dart';
+import 'package:hrms_mobile/core/data/usecases/general/general_usecases.dart';
 import 'package:hrms_mobile/core/errors/exceptions.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
+import 'package:hrms_mobile/core/network/dio_provider.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/features/auth/domain/entities/login_state.dart';
 import 'package:hrms_mobile/features/auth/domain/usecases/login_usecase.dart';
@@ -18,6 +23,24 @@ part 'login_provider.g.dart';
 final loginUseCaseProvider = Provider((ref) {
   final repo = ref.watch(authRepositoryProvider);
   return LoginUseCase(repo);
+});
+
+final generalRemoteSourceProvider = Provider<GeneralRemoteSource>((ref) {
+  final dio = ref.watch(dioProvider);
+  final faceDio = ref.watch(faceDioProvider);
+  return GeneralRemoteSource(dio, faceDio);
+});
+
+final generalRepoProvider = Provider<GeneralRepository>((ref) {
+  final remoteSource = ref.watch(generalRemoteSourceProvider);
+  return GeneralRepositoryImpl(
+    remoteSource: remoteSource,
+  );
+});
+
+final generalUsecaseProvider = Provider((ref) {
+  final repository = ref.watch(generalRepoProvider);
+  return GeneralUsecases(repository);
 });
 
 @riverpod
@@ -46,6 +69,10 @@ class Login extends _$Login {
         return false;
       }
 
+      final generalUsecase = ref.read(generalUsecaseProvider);
+
+      final facesProfile = await generalUsecase.getFacesProfile();
+
       final companyProfile =
           await ref.read(companyProfileProvider.notifier).fetchCompanyProfile();
 
@@ -56,8 +83,10 @@ class Login extends _$Login {
       final userProfile =
           await ref.read(userProfileProvider.notifier).fetchProfile();
 
-      await ref.read(authProvider.notifier).onLoginSuccess(userProfile,
-          loginResponse.user.profileId, loginResponse.user.profile);
+      await ref.read(authProvider.notifier).onLoginSuccess(
+            userProfile,
+            facesProfile,
+          );
 
       state = state.copyWith(isLoading: false);
       return true;
