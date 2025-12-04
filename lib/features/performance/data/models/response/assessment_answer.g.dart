@@ -85,3 +85,33 @@ Map<String, dynamic> _$$AssessmentAnswerImplToJson(
       'updated_at': instance.updatedAt,
       'validated_for': instance.validatedFor,
     };
+
+_$SupervisorAssessmentAnswerImpl _$$SupervisorAssessmentAnswerImplFromJson(
+        Map<String, dynamic> json) =>
+    _$SupervisorAssessmentAnswerImpl(
+      id: (json['id'] as num?)?.toInt(),
+      formId: (json['form_id'] as num?)?.toInt(),
+      submittedBy: (json['submitted_by'] as num?)?.toInt(),
+      formableType: json['formable_type'] as String?,
+      formableId: (json['formable_id'] as num?)?.toInt(),
+      data: (json['data'] as List<dynamic>?)
+          ?.map((e) => SubmissionForm.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      createdAt: json['created_at'] as String?,
+      updatedAt: json['updated_at'] as String?,
+      validatedFor: (json['validated_for'] as num?)?.toInt(),
+    );
+
+Map<String, dynamic> _$$SupervisorAssessmentAnswerImplToJson(
+        _$SupervisorAssessmentAnswerImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'form_id': instance.formId,
+      'submitted_by': instance.submittedBy,
+      'formable_type': instance.formableType,
+      'formable_id': instance.formableId,
+      'data': instance.data,
+      'created_at': instance.createdAt,
+      'updated_at': instance.updatedAt,
+      'validated_for': instance.validatedFor,
+    };

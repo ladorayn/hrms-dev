@@ -3,20 +3,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'form_fields_response.freezed.dart';
 part 'form_fields_response.g.dart';
 
-// --- NEW TOP-LEVEL RESPONSE MODEL ---
-@freezed
-class FormFieldsGroupResponse with _$FormFieldsGroupResponse {
-  const factory FormFieldsGroupResponse({
-    required String status,
-    required String message,
-    required List<FormFieldsGroup> data,
-  }) = _FormFieldsGroupResponse;
-
-  factory FormFieldsGroupResponse.fromJson(Map<String, dynamic> json) =>
-      _$FormFieldsGroupResponseFromJson(json);
-}
-
-// --- NEW GROUP MODEL (The main object in the 'data' array) ---
 @freezed
 class FormFieldsGroup with _$FormFieldsGroup {
   const factory FormFieldsGroup({
@@ -24,10 +10,10 @@ class FormFieldsGroup with _$FormFieldsGroup {
     required String name,
     @JsonKey(name: 'form_id') required int formId,
     required int order,
-    Map<String, dynamic>? metadata, // Stays dynamic
+    Map<String, dynamic>? metadata,
     @JsonKey(name: 'created_at') required String createdAt,
     @JsonKey(name: 'updated_at') required String updatedAt,
-    required List<FormFields> fields, // List of your existing FormFields
+    required List<FormFields> fields,
   }) = _FormFieldsGroup;
 
   factory FormFieldsGroup.fromJson(Map<String, dynamic> json) =>
@@ -67,17 +53,21 @@ class FieldOptionsRange with _$FieldOptionsRange {
       _$FieldOptionsRangeFromJson(json);
 }
 
-// --- DEPRECATE/REMOVE FieldMetadata ---
-// You no longer need a separate FieldMetadata class if you use Map<String, dynamic>
-// for the metadata field in FormFields.
-/*
 @freezed
-class FieldMetadata with _$FieldMetadata {
-  const factory FieldMetadata({
-    @JsonKey(name: 'is_note') bool? isNote,
-  }) = _FieldMetadata;
+class FormDetailResponse with _$FormDetailResponse {
+  const factory FormDetailResponse({
+    required int id,
+    required String name,
+    required String code,
+    String? description,
+    @JsonKey(name: 'created_at') required String createdAt,
+    @JsonKey(name: 'updated_at') required String updatedAt,
+    required int type,
+    @JsonKey(name: 'deleted_at') String? deletedAt,
+    @JsonKey(name: 'type_label') String? typeLabel,
+    required List<FormFieldsGroup> groups,
+  }) = _FormDetailResponse;
 
-  factory FieldMetadata.fromJson(Map<String, dynamic> json) =>
-      _$FieldMetadataFromJson(json);
+  factory FormDetailResponse.fromJson(Map<String, dynamic> json) =>
+      _$FormDetailResponseFromJson(json);
 }
-*/

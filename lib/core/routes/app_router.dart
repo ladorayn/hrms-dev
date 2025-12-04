@@ -400,8 +400,14 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: RoutePaths.supervisorAssessmentForm,
         name: RoutePaths.supervisorAssessmentFormName,
         builder: (context, state) {
-          final data = state.extra as SupervisorAssessment;
-          return SupervisorAssessmentFormScreen(assessment: data);
+          final data = state.extra as Map<String, dynamic>;
+          final detail = data['detail'] as SupervisorAssessmentDetail;
+          final assessor = data['assessor'] as Assessor;
+
+          return SupervisorAssessmentFormScreen(
+            assessment: detail,
+            assessor: assessor,
+          );
         },
       ),
       // --- ROUTES WITH THE BOTTOM NAV BAR (Using ShellRoute) ---

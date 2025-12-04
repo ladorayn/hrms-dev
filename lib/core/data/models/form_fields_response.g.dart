@@ -6,24 +6,6 @@ part of 'form_fields_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$FormFieldsGroupResponseImpl _$$FormFieldsGroupResponseImplFromJson(
-        Map<String, dynamic> json) =>
-    _$FormFieldsGroupResponseImpl(
-      status: json['status'] as String,
-      message: json['message'] as String,
-      data: (json['data'] as List<dynamic>)
-          .map((e) => FormFieldsGroup.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
-
-Map<String, dynamic> _$$FormFieldsGroupResponseImplToJson(
-        _$FormFieldsGroupResponseImpl instance) =>
-    <String, dynamic>{
-      'status': instance.status,
-      'message': instance.message,
-      'data': instance.data,
-    };
-
 _$FormFieldsGroupImpl _$$FormFieldsGroupImplFromJson(
         Map<String, dynamic> json) =>
     _$FormFieldsGroupImpl(
@@ -98,4 +80,36 @@ Map<String, dynamic> _$$FieldOptionsRangeImplToJson(
     <String, dynamic>{
       'min': instance.min,
       'max': instance.max,
+    };
+
+_$FormDetailResponseImpl _$$FormDetailResponseImplFromJson(
+        Map<String, dynamic> json) =>
+    _$FormDetailResponseImpl(
+      id: (json['id'] as num).toInt(),
+      name: json['name'] as String,
+      code: json['code'] as String,
+      description: json['description'] as String?,
+      createdAt: json['created_at'] as String,
+      updatedAt: json['updated_at'] as String,
+      type: (json['type'] as num).toInt(),
+      deletedAt: json['deleted_at'] as String?,
+      typeLabel: json['type_label'] as String?,
+      groups: (json['groups'] as List<dynamic>)
+          .map((e) => FormFieldsGroup.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$$FormDetailResponseImplToJson(
+        _$FormDetailResponseImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'code': instance.code,
+      'description': instance.description,
+      'created_at': instance.createdAt,
+      'updated_at': instance.updatedAt,
+      'type': instance.type,
+      'deleted_at': instance.deletedAt,
+      'type_label': instance.typeLabel,
+      'groups': instance.groups,
     };

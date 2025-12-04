@@ -1,5 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../request/assessment_form_request.dart';
+
 part 'assessment_answer.freezed.dart';
 part 'assessment_answer.g.dart';
 
@@ -57,4 +59,22 @@ class AssessmentAnswer with _$AssessmentAnswer {
 
   factory AssessmentAnswer.fromJson(Map<String, dynamic> json) =>
       _$AssessmentAnswerFromJson(json);
+}
+
+@freezed
+class SupervisorAssessmentAnswer with _$SupervisorAssessmentAnswer {
+  const factory SupervisorAssessmentAnswer({
+    int? id,
+    @JsonKey(name: 'form_id') int? formId,
+    @JsonKey(name: 'submitted_by') int? submittedBy,
+    @JsonKey(name: 'formable_type') String? formableType,
+    @JsonKey(name: 'formable_id') int? formableId,
+    List<SubmissionForm>? data,
+    @JsonKey(name: 'created_at') String? createdAt,
+    @JsonKey(name: 'updated_at') String? updatedAt,
+    @JsonKey(name: 'validated_for') int? validatedFor,
+  }) = _SupervisorAssessmentAnswer;
+
+  factory SupervisorAssessmentAnswer.fromJson(Map<String, dynamic> json) =>
+      _$SupervisorAssessmentAnswerFromJson(json);
 }

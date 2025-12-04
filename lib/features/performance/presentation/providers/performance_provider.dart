@@ -1,4 +1,8 @@
+import 'package:hrms_mobile/core/data/data_source/general_remote_source.dart';
 import 'package:hrms_mobile/core/data/models/form_fields_response.dart';
+import 'package:hrms_mobile/core/data/repositories/general_repository/general_repository.dart';
+import 'package:hrms_mobile/core/data/repositories/general_repository/general_repository_impl.dart';
+import 'package:hrms_mobile/core/data/usecases/general/general_usecases.dart';
 import 'package:hrms_mobile/core/network/dio_provider.dart';
 import 'package:hrms_mobile/features/performance/data/data_sources/performance_remote_source.dart';
 import 'package:hrms_mobile/features/performance/data/models/request/assessment_answer_request.dart';
@@ -25,6 +29,24 @@ final performanceRepoProvider = Provider<PerformanceRepositoryImpl>((ref) {
 
 final performanceUseCaseProvider =
     Provider((ref) => PerformanceUsecases(ref.watch(performanceRepoProvider)));
+
+final generalRemoteSourceProvider = Provider<GeneralRemoteSource>((ref) {
+  final dio = ref.watch(dioProvider);
+  final faceDio = ref.watch(faceDioProvider);
+  return GeneralRemoteSource(dio, faceDio);
+});
+
+final generalRepoProvider = Provider<GeneralRepository>((ref) {
+  final remoteSource = ref.watch(generalRemoteSourceProvider);
+  return GeneralRepositoryImpl(
+    remoteSource: remoteSource,
+  );
+});
+
+final generalUsecaseProvider = Provider((ref) {
+  final repository = ref.watch(generalRepoProvider);
+  return GeneralUsecases(repository);
+});
 
 @riverpod
 class PerformanceFormFields extends _$PerformanceFormFields {
@@ -55,6 +77,17 @@ class PerformanceAssessmentAnswer extends _$PerformanceAssessmentAnswer {
 }
 
 @riverpod
+class PerformanceSupervisorAssessmentAnswer
+    extends _$PerformanceSupervisorAssessmentAnswer {
+  @override
+  Future<SupervisorAssessmentAnswer> build(
+      {AssessmentAnswerRequest? request}) async {
+    final usecase = ref.watch(performanceUseCaseProvider);
+    return await usecase.getSupervisorAssessmentAnswer(request: request);
+  }
+}
+
+@riverpod
 class AssessmentFormSubmission extends _$AssessmentFormSubmission {
   @override
   AsyncValue<dynamic> build() => const AsyncData(null);
@@ -68,6 +101,34 @@ class AssessmentFormSubmission extends _$AssessmentFormSubmission {
 
     try {
       final response = await usecase.assessmentFormSubmission(
+          request: request, assessmentId: assessmentId);
+      state = AsyncData(response);
+    } catch (e, s) {
+      state = AsyncError(e, s);
+      rethrow;
+    }
+  }
+
+  void reset() {
+    state = const AsyncData(null);
+  }
+}
+
+@riverpod
+class SupervisorAssessmentFormSubmission
+    extends _$SupervisorAssessmentFormSubmission {
+  @override
+  AsyncValue<dynamic> build() => const AsyncData(null);
+
+  Future<void> submitForm({
+    required AssessmentFormRequest request,
+    required assessmentId,
+  }) async {
+    state = const AsyncLoading();
+    final usecase = ref.watch(performanceUseCaseProvider);
+
+    try {
+      final response = await usecase.supervisorAssessmentFormSubmission(
           request: request, assessmentId: assessmentId);
       state = AsyncData(response);
     } catch (e, s) {
@@ -125,5 +186,27 @@ class PerformanceSupervisorAssessments
   Future<List<SupervisorAssessment>> build() async {
     final usecase = ref.watch(performanceUseCaseProvider);
     return await usecase.getSupervisorAssessments();
+  }
+}
+
+@riverpod
+class PerformanceSupervisorAssessmentDetail
+    extends _$PerformanceSupervisorAssessmentDetail {
+  @override
+  Future<SupervisorAssessmentDetail> build(
+      {required dynamic supervisorAssessmentId}) async {
+    final usecase = ref.watch(performanceUseCaseProvider);
+    return await usecase.getSupervisorAssessmentDetail(
+        supervisorAssessmentId: supervisorAssessmentId);
+  }
+}
+
+@riverpod
+class PerformanceSupervisorAssessmentGetForm
+    extends _$PerformanceSupervisorAssessmentGetForm {
+  @override
+  Future<FormDetailResponse> build({required dynamic formId}) async {
+    final usecase = ref.watch(generalUsecaseProvider);
+    return await usecase.getDetailFormFields(formId: formId);
   }
 }

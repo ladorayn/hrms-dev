@@ -1,6 +1,158 @@
 // Hardcoded JSON structure to mimic the successful API response
 // for a performance assessment, based on user-provided images.
 
+const Map<String, dynamic> mockSuperAssessDetail = {
+  "status": "success",
+  "message": "Supervisor assessment retrieved successfully",
+  "data": {
+    "id": 4,
+    "user": {
+      "id": 1,
+      "name": "Superadmin ESS",
+      "email": "superadmin@example.com",
+      "phone": null,
+      "employee_id": 1,
+      "employee_code": "00000001",
+      "avatar_url": null
+    },
+    "employee_start_date": "2026-04-21",
+    "current_position": {
+      "id": 1,
+      "name": "Junior Foreman Production",
+      "description": "Entry-level foreman in production.",
+      "status": "1",
+      "created_at": "2025-09-10T15:26:13.000000Z",
+      "updated_at": "2025-09-10T15:26:13.000000Z",
+      "deleted_at": null,
+      "is_root": false
+    },
+    "current_level": {
+      "id": 2,
+      "name": "Senior Staff",
+      "description": "Experienced staff with more responsibilities.",
+      "created_at": "2025-09-10T15:26:13.000000Z",
+      "updated_at": "2025-09-10T15:26:13.000000Z",
+      "deleted_at": null,
+      "level": 0
+    },
+    "current_department": {"id": 3, "name": "Finance"},
+    "target_position": {
+      "id": 1,
+      "name": "Junior Foreman Production",
+      "description": "Entry-level foreman in production.",
+      "status": "1",
+      "created_at": "2025-09-10T15:26:13.000000Z",
+      "updated_at": "2025-09-10T15:26:13.000000Z",
+      "deleted_at": null,
+      "is_root": false
+    },
+    "target_level": {
+      "id": 1,
+      "name": "CEOs",
+      "description": "Leader of all department",
+      "created_at": "2025-09-10T15:26:13.000000Z",
+      "updated_at": "2025-12-01T19:05:33.000000Z",
+      "deleted_at": null,
+      "level": 2
+    },
+    "status": 4,
+    "status_label": "Completed",
+    "schedule": {
+      "id": 15,
+      "date": "2025-12-02T00:00:00.000000Z",
+      "start_time": "10:00:00",
+      "end_time": "10:30:00",
+      "participants": [
+        {
+          "id": 2,
+          "name": "John Doe",
+          "email": "john.doe@example.com",
+          "phone": null,
+          "employee_id": 2,
+          "employee_code": "01010101",
+          "avatar_url": null
+        },
+        {
+          "id": 1,
+          "name": "Superadmin ESS",
+          "email": "superadmin@example.com",
+          "phone": null,
+          "employee_id": 1,
+          "employee_code": "00000001",
+          "avatar_url": null
+        }
+      ],
+      "notes": "jangan telat ya",
+      "created_at": "2025-12-02 07:05:28",
+      "updated_at": "2025-12-02 07:05:38"
+    },
+    "assessors": [
+      {
+        "id": 9,
+        "supervisor_assessment_id": 4,
+        "user_id": 1,
+        "score": null,
+        "notes": null,
+        "created_at": "2025-11-28T16:38:56.000000Z",
+        "updated_at": "2025-12-02T17:36:25.000000Z",
+        "status": 2,
+        "status_label": "Completed"
+      }
+    ],
+    "form": {"id": 14, "name": "Form Supervisor Ases"},
+    "final_submission": {
+      "id": 90,
+      "form_id": 14,
+      "submitted_by": 1,
+      "formable_type": "App\\Models\\SupervisorAssessment",
+      "formable_id": 4,
+      "data": {
+        "type": "merging_answers",
+        "fields": [
+          {
+            "value": 8,
+            "field_id": 86,
+            "assessor_id": 9,
+            "additional_data": ["ok"],
+            "form_submission_id": 89
+          },
+          {
+            "value": 7,
+            "field_id": 87,
+            "assessor_id": 9,
+            "additional_data": null,
+            "form_submission_id": 89
+          },
+          {
+            "value": "ini paragrf",
+            "field_id": 88,
+            "assessor_id": 9,
+            "additional_data": null,
+            "form_submission_id": 89
+          },
+          {
+            "value": "ini paragrf 2",
+            "field_id": 89,
+            "assessor_id": 9,
+            "additional_data": null,
+            "form_submission_id": 89
+          }
+        ],
+        "sources": [
+          {"form_submission_id": 89}
+        ],
+        "merged_at": "2025-12-02T17:47:45.222438Z",
+        "merged_by": "system"
+      },
+      "created_at": "2025-12-02T17:44:47.000000Z",
+      "updated_at": "2025-12-02T17:47:45.000000Z",
+      "validated_for": null
+    },
+    "created_at": "2025-11-28 16:38:56",
+    "updated_at": "2025-12-02 17:07:41"
+  }
+};
+
 const Map<String, dynamic> mockFacesProfile = {
   "status": "success",
   "message": "Profile fetched successfully",

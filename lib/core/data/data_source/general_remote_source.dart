@@ -4,6 +4,7 @@ import 'package:hrms_mobile/core/data/models/base_response.dart';
 import 'package:hrms_mobile/core/data/models/face_recognition/face_profile_response.dart';
 import 'package:hrms_mobile/core/data/models/face_recognition/face_verify_response.dart';
 import 'package:hrms_mobile/core/data/models/face_recognition/upload_face_response.dart';
+import 'package:hrms_mobile/core/data/models/form_fields_response.dart';
 import 'package:hrms_mobile/core/data/models/upload_file_response.dart';
 import 'package:hrms_mobile/core/errors/error_handler.dart';
 import 'package:http_parser/http_parser.dart';
@@ -113,6 +114,22 @@ class GeneralRemoteSource {
       return BaseResponse.fromJson(
         response.data,
         (json) => UserProfileData.fromJson(
+          json as Map<String, dynamic>,
+        ),
+      );
+    } on DioException catch (e) {
+      throw handleDioError(e);
+    }
+  }
+
+  Future<BaseResponse<FormDetailResponse>> getDetailFormFields(
+      {required int formId}) async {
+    try {
+      final response = await _dio.get('api/v1/forms/$formId');
+
+      return BaseResponse.fromJson(
+        response.data,
+        (json) => FormDetailResponse.fromJson(
           json as Map<String, dynamic>,
         ),
       );

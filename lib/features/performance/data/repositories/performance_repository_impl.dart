@@ -51,6 +51,19 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
   }
 
   @override
+  Future<String> supervisorAssessmentFormSubmission(
+      {required AssessmentFormRequest request, required assessmentId}) async {
+    final response = await remoteSource.supervisorAssessmentFormSubmission(
+        request: request, assessmentId: assessmentId);
+
+    if (response.status == 'success') {
+      return response.data;
+    } else {
+      throw Exception('API Error: ${response.message}');
+    }
+  }
+
+  @override
   Future<String> assessmentFormValidateSubmission(
       {required AssessmentFormValidateRequest request,
       required assessmentId}) async {
@@ -80,6 +93,20 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
       {AssessmentAnswerRequest? request}) async {
     final response = await remoteSource.getAssessmentAnswer(request: request);
 
+    print("SINI PAKK $response");
+    if (response.status == 'success') {
+      return response.data;
+    } else {
+      throw Exception('API Error: ${response.message}');
+    }
+  }
+
+  @override
+  Future<SupervisorAssessmentAnswer> getSupervisorAssessmentAnswer(
+      {AssessmentAnswerRequest? request}) async {
+    final response =
+        await remoteSource.getSupervisorAssessmentAnswer(request: request);
+
     if (response.status == 'success') {
       return response.data;
     } else {
@@ -91,5 +118,17 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
   Future<List<SupervisorAssessment>> getSupervisorAssessments() async {
     final response = await remoteSource.getSupervisorAssessments();
     return response.data;
+  }
+
+  @override
+  Future<SupervisorAssessmentDetail> getSupervisorAssessmentDetail(
+      {required dynamic supervisorAssessmentId}) async {
+    final response = await remoteSource.getSupervisorAssessmentDetail(
+        supervisorAssessmentId: supervisorAssessmentId);
+    if (response.status == 'success') {
+      return response.data;
+    } else {
+      throw Exception('API Error: ${response.message}');
+    }
   }
 }

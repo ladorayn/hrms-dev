@@ -1,35 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
-import 'package:hrms_mobile/features/performance/data/models/response/supervisor_assessment.dart';
+import 'package:hrms_mobile/features/auth/presentation/providers/auth/auth_provider.dart';
+import 'package:hrms_mobile/features/performance/data/models/response/supervisor_assessment.dart'; // Contains SupervisorAssessmentDetail
 
-class AssessmentFormCard extends StatelessWidget {
-  final SupervisorAssessment assessment;
-  final VoidCallback onTap;
+class AssessmentFormCard extends ConsumerWidget {
+  final SupervisorAssessmentDetail assessmentDetail;
+  final void Function(Assessor? assessor) onTap;
 
   const AssessmentFormCard(
-      {super.key, required this.assessment, required this.onTap});
+      {super.key, required this.assessmentDetail, required this.onTap});
 
   @override
-  Widget build(BuildContext context) {
-    final formName = assessment.form?.name ?? 'Assessment Form';
-    final statusLabel = assessment.statusLabel ?? 'N/A';
+  Widget build(BuildContext context, WidgetRef ref) {
+    final authP = ref.watch(authProvider);
+    final userId = authP.value?.id;
+    final formName = assessmentDetail.form?.name ?? 'Assessment Form';
 
-    Color statusColor;
-    Color statusBgColor;
+    String displayedStatusLabel = 'N/A';
 
-    if (statusLabel.toLowerCase() == 'not started') {
-      statusColor = IColors.light.warning.main;
-      statusBgColor = IColors.light.warning.background;
+    final assessorEntry = assessmentDetail.assessors?.firstWhere(
+      (assessor) => assessor.userId == userId,
+      orElse: () => Assessor(),
+    );
+
+    if (assessorEntry != null) {
+      displayedStatusLabel = assessorEntry.statusLabel ?? 'N/A';
     } else {
-      statusColor = IColors.light.success.main;
-      statusBgColor = IColors.light.success.background;
+      displayedStatusLabel = assessmentDetail.statusLabel ?? 'N/A';
     }
 
     return GestureDetector(
-      onTap: onTap,
+      onTap: () => onTap(assessorEntry),
       child: Container(
         padding: EdgeInsets.all(16.w),
         decoration: BoxDecoration(
@@ -52,7 +57,7 @@ class AssessmentFormCard extends StatelessWidget {
                   ),
                   SizedBox(height: 4.h),
                   // Status Chip
-                  _buildStatusChip(context, statusLabel),
+                  _buildStatusChip(context, displayedStatusLabel),
                 ],
               ),
             ),

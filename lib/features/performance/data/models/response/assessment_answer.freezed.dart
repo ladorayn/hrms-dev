@@ -1044,3 +1044,372 @@ abstract class _AssessmentAnswer implements AssessmentAnswer {
   _$$AssessmentAnswerImplCopyWith<_$AssessmentAnswerImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+SupervisorAssessmentAnswer _$SupervisorAssessmentAnswerFromJson(
+    Map<String, dynamic> json) {
+  return _SupervisorAssessmentAnswer.fromJson(json);
+}
+
+/// @nodoc
+mixin _$SupervisorAssessmentAnswer {
+  int? get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'form_id')
+  int? get formId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'submitted_by')
+  int? get submittedBy => throw _privateConstructorUsedError;
+  @JsonKey(name: 'formable_type')
+  String? get formableType => throw _privateConstructorUsedError;
+  @JsonKey(name: 'formable_id')
+  int? get formableId => throw _privateConstructorUsedError;
+  List<SubmissionForm>? get data => throw _privateConstructorUsedError;
+  @JsonKey(name: 'created_at')
+  String? get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'updated_at')
+  String? get updatedAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'validated_for')
+  int? get validatedFor => throw _privateConstructorUsedError;
+
+  /// Serializes this SupervisorAssessmentAnswer to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of SupervisorAssessmentAnswer
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $SupervisorAssessmentAnswerCopyWith<SupervisorAssessmentAnswer>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $SupervisorAssessmentAnswerCopyWith<$Res> {
+  factory $SupervisorAssessmentAnswerCopyWith(SupervisorAssessmentAnswer value,
+          $Res Function(SupervisorAssessmentAnswer) then) =
+      _$SupervisorAssessmentAnswerCopyWithImpl<$Res,
+          SupervisorAssessmentAnswer>;
+  @useResult
+  $Res call(
+      {int? id,
+      @JsonKey(name: 'form_id') int? formId,
+      @JsonKey(name: 'submitted_by') int? submittedBy,
+      @JsonKey(name: 'formable_type') String? formableType,
+      @JsonKey(name: 'formable_id') int? formableId,
+      List<SubmissionForm>? data,
+      @JsonKey(name: 'created_at') String? createdAt,
+      @JsonKey(name: 'updated_at') String? updatedAt,
+      @JsonKey(name: 'validated_for') int? validatedFor});
+}
+
+/// @nodoc
+class _$SupervisorAssessmentAnswerCopyWithImpl<$Res,
+        $Val extends SupervisorAssessmentAnswer>
+    implements $SupervisorAssessmentAnswerCopyWith<$Res> {
+  _$SupervisorAssessmentAnswerCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of SupervisorAssessmentAnswer
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? formId = freezed,
+    Object? submittedBy = freezed,
+    Object? formableType = freezed,
+    Object? formableId = freezed,
+    Object? data = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+    Object? validatedFor = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      formId: freezed == formId
+          ? _value.formId
+          : formId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      submittedBy: freezed == submittedBy
+          ? _value.submittedBy
+          : submittedBy // ignore: cast_nullable_to_non_nullable
+              as int?,
+      formableType: freezed == formableType
+          ? _value.formableType
+          : formableType // ignore: cast_nullable_to_non_nullable
+              as String?,
+      formableId: freezed == formableId
+          ? _value.formableId
+          : formableId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      data: freezed == data
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as List<SubmissionForm>?,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String?,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as String?,
+      validatedFor: freezed == validatedFor
+          ? _value.validatedFor
+          : validatedFor // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$SupervisorAssessmentAnswerImplCopyWith<$Res>
+    implements $SupervisorAssessmentAnswerCopyWith<$Res> {
+  factory _$$SupervisorAssessmentAnswerImplCopyWith(
+          _$SupervisorAssessmentAnswerImpl value,
+          $Res Function(_$SupervisorAssessmentAnswerImpl) then) =
+      __$$SupervisorAssessmentAnswerImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {int? id,
+      @JsonKey(name: 'form_id') int? formId,
+      @JsonKey(name: 'submitted_by') int? submittedBy,
+      @JsonKey(name: 'formable_type') String? formableType,
+      @JsonKey(name: 'formable_id') int? formableId,
+      List<SubmissionForm>? data,
+      @JsonKey(name: 'created_at') String? createdAt,
+      @JsonKey(name: 'updated_at') String? updatedAt,
+      @JsonKey(name: 'validated_for') int? validatedFor});
+}
+
+/// @nodoc
+class __$$SupervisorAssessmentAnswerImplCopyWithImpl<$Res>
+    extends _$SupervisorAssessmentAnswerCopyWithImpl<$Res,
+        _$SupervisorAssessmentAnswerImpl>
+    implements _$$SupervisorAssessmentAnswerImplCopyWith<$Res> {
+  __$$SupervisorAssessmentAnswerImplCopyWithImpl(
+      _$SupervisorAssessmentAnswerImpl _value,
+      $Res Function(_$SupervisorAssessmentAnswerImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of SupervisorAssessmentAnswer
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? formId = freezed,
+    Object? submittedBy = freezed,
+    Object? formableType = freezed,
+    Object? formableId = freezed,
+    Object? data = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+    Object? validatedFor = freezed,
+  }) {
+    return _then(_$SupervisorAssessmentAnswerImpl(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      formId: freezed == formId
+          ? _value.formId
+          : formId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      submittedBy: freezed == submittedBy
+          ? _value.submittedBy
+          : submittedBy // ignore: cast_nullable_to_non_nullable
+              as int?,
+      formableType: freezed == formableType
+          ? _value.formableType
+          : formableType // ignore: cast_nullable_to_non_nullable
+              as String?,
+      formableId: freezed == formableId
+          ? _value.formableId
+          : formableId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      data: freezed == data
+          ? _value._data
+          : data // ignore: cast_nullable_to_non_nullable
+              as List<SubmissionForm>?,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String?,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as String?,
+      validatedFor: freezed == validatedFor
+          ? _value.validatedFor
+          : validatedFor // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$SupervisorAssessmentAnswerImpl implements _SupervisorAssessmentAnswer {
+  const _$SupervisorAssessmentAnswerImpl(
+      {this.id,
+      @JsonKey(name: 'form_id') this.formId,
+      @JsonKey(name: 'submitted_by') this.submittedBy,
+      @JsonKey(name: 'formable_type') this.formableType,
+      @JsonKey(name: 'formable_id') this.formableId,
+      final List<SubmissionForm>? data,
+      @JsonKey(name: 'created_at') this.createdAt,
+      @JsonKey(name: 'updated_at') this.updatedAt,
+      @JsonKey(name: 'validated_for') this.validatedFor})
+      : _data = data;
+
+  factory _$SupervisorAssessmentAnswerImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$SupervisorAssessmentAnswerImplFromJson(json);
+
+  @override
+  final int? id;
+  @override
+  @JsonKey(name: 'form_id')
+  final int? formId;
+  @override
+  @JsonKey(name: 'submitted_by')
+  final int? submittedBy;
+  @override
+  @JsonKey(name: 'formable_type')
+  final String? formableType;
+  @override
+  @JsonKey(name: 'formable_id')
+  final int? formableId;
+  final List<SubmissionForm>? _data;
+  @override
+  List<SubmissionForm>? get data {
+    final value = _data;
+    if (value == null) return null;
+    if (_data is EqualUnmodifiableListView) return _data;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  @JsonKey(name: 'created_at')
+  final String? createdAt;
+  @override
+  @JsonKey(name: 'updated_at')
+  final String? updatedAt;
+  @override
+  @JsonKey(name: 'validated_for')
+  final int? validatedFor;
+
+  @override
+  String toString() {
+    return 'SupervisorAssessmentAnswer(id: $id, formId: $formId, submittedBy: $submittedBy, formableType: $formableType, formableId: $formableId, data: $data, createdAt: $createdAt, updatedAt: $updatedAt, validatedFor: $validatedFor)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SupervisorAssessmentAnswerImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.formId, formId) || other.formId == formId) &&
+            (identical(other.submittedBy, submittedBy) ||
+                other.submittedBy == submittedBy) &&
+            (identical(other.formableType, formableType) ||
+                other.formableType == formableType) &&
+            (identical(other.formableId, formableId) ||
+                other.formableId == formableId) &&
+            const DeepCollectionEquality().equals(other._data, _data) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt) &&
+            (identical(other.validatedFor, validatedFor) ||
+                other.validatedFor == validatedFor));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      formId,
+      submittedBy,
+      formableType,
+      formableId,
+      const DeepCollectionEquality().hash(_data),
+      createdAt,
+      updatedAt,
+      validatedFor);
+
+  /// Create a copy of SupervisorAssessmentAnswer
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SupervisorAssessmentAnswerImplCopyWith<_$SupervisorAssessmentAnswerImpl>
+      get copyWith => __$$SupervisorAssessmentAnswerImplCopyWithImpl<
+          _$SupervisorAssessmentAnswerImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$SupervisorAssessmentAnswerImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _SupervisorAssessmentAnswer
+    implements SupervisorAssessmentAnswer {
+  const factory _SupervisorAssessmentAnswer(
+          {final int? id,
+          @JsonKey(name: 'form_id') final int? formId,
+          @JsonKey(name: 'submitted_by') final int? submittedBy,
+          @JsonKey(name: 'formable_type') final String? formableType,
+          @JsonKey(name: 'formable_id') final int? formableId,
+          final List<SubmissionForm>? data,
+          @JsonKey(name: 'created_at') final String? createdAt,
+          @JsonKey(name: 'updated_at') final String? updatedAt,
+          @JsonKey(name: 'validated_for') final int? validatedFor}) =
+      _$SupervisorAssessmentAnswerImpl;
+
+  factory _SupervisorAssessmentAnswer.fromJson(Map<String, dynamic> json) =
+      _$SupervisorAssessmentAnswerImpl.fromJson;
+
+  @override
+  int? get id;
+  @override
+  @JsonKey(name: 'form_id')
+  int? get formId;
+  @override
+  @JsonKey(name: 'submitted_by')
+  int? get submittedBy;
+  @override
+  @JsonKey(name: 'formable_type')
+  String? get formableType;
+  @override
+  @JsonKey(name: 'formable_id')
+  int? get formableId;
+  @override
+  List<SubmissionForm>? get data;
+  @override
+  @JsonKey(name: 'created_at')
+  String? get createdAt;
+  @override
+  @JsonKey(name: 'updated_at')
+  String? get updatedAt;
+  @override
+  @JsonKey(name: 'validated_for')
+  int? get validatedFor;
+
+  /// Create a copy of SupervisorAssessmentAnswer
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$SupervisorAssessmentAnswerImplCopyWith<_$SupervisorAssessmentAnswerImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}

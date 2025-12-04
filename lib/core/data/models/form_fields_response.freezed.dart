@@ -14,207 +14,6 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-FormFieldsGroupResponse _$FormFieldsGroupResponseFromJson(
-    Map<String, dynamic> json) {
-  return _FormFieldsGroupResponse.fromJson(json);
-}
-
-/// @nodoc
-mixin _$FormFieldsGroupResponse {
-  String get status => throw _privateConstructorUsedError;
-  String get message => throw _privateConstructorUsedError;
-  List<FormFieldsGroup> get data => throw _privateConstructorUsedError;
-
-  /// Serializes this FormFieldsGroupResponse to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of FormFieldsGroupResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $FormFieldsGroupResponseCopyWith<FormFieldsGroupResponse> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $FormFieldsGroupResponseCopyWith<$Res> {
-  factory $FormFieldsGroupResponseCopyWith(FormFieldsGroupResponse value,
-          $Res Function(FormFieldsGroupResponse) then) =
-      _$FormFieldsGroupResponseCopyWithImpl<$Res, FormFieldsGroupResponse>;
-  @useResult
-  $Res call({String status, String message, List<FormFieldsGroup> data});
-}
-
-/// @nodoc
-class _$FormFieldsGroupResponseCopyWithImpl<$Res,
-        $Val extends FormFieldsGroupResponse>
-    implements $FormFieldsGroupResponseCopyWith<$Res> {
-  _$FormFieldsGroupResponseCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of FormFieldsGroupResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? status = null,
-    Object? message = null,
-    Object? data = null,
-  }) {
-    return _then(_value.copyWith(
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String,
-      message: null == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String,
-      data: null == data
-          ? _value.data
-          : data // ignore: cast_nullable_to_non_nullable
-              as List<FormFieldsGroup>,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$FormFieldsGroupResponseImplCopyWith<$Res>
-    implements $FormFieldsGroupResponseCopyWith<$Res> {
-  factory _$$FormFieldsGroupResponseImplCopyWith(
-          _$FormFieldsGroupResponseImpl value,
-          $Res Function(_$FormFieldsGroupResponseImpl) then) =
-      __$$FormFieldsGroupResponseImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({String status, String message, List<FormFieldsGroup> data});
-}
-
-/// @nodoc
-class __$$FormFieldsGroupResponseImplCopyWithImpl<$Res>
-    extends _$FormFieldsGroupResponseCopyWithImpl<$Res,
-        _$FormFieldsGroupResponseImpl>
-    implements _$$FormFieldsGroupResponseImplCopyWith<$Res> {
-  __$$FormFieldsGroupResponseImplCopyWithImpl(
-      _$FormFieldsGroupResponseImpl _value,
-      $Res Function(_$FormFieldsGroupResponseImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of FormFieldsGroupResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? status = null,
-    Object? message = null,
-    Object? data = null,
-  }) {
-    return _then(_$FormFieldsGroupResponseImpl(
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String,
-      message: null == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String,
-      data: null == data
-          ? _value._data
-          : data // ignore: cast_nullable_to_non_nullable
-              as List<FormFieldsGroup>,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$FormFieldsGroupResponseImpl implements _FormFieldsGroupResponse {
-  const _$FormFieldsGroupResponseImpl(
-      {required this.status,
-      required this.message,
-      required final List<FormFieldsGroup> data})
-      : _data = data;
-
-  factory _$FormFieldsGroupResponseImpl.fromJson(Map<String, dynamic> json) =>
-      _$$FormFieldsGroupResponseImplFromJson(json);
-
-  @override
-  final String status;
-  @override
-  final String message;
-  final List<FormFieldsGroup> _data;
-  @override
-  List<FormFieldsGroup> get data {
-    if (_data is EqualUnmodifiableListView) return _data;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_data);
-  }
-
-  @override
-  String toString() {
-    return 'FormFieldsGroupResponse(status: $status, message: $message, data: $data)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$FormFieldsGroupResponseImpl &&
-            (identical(other.status, status) || other.status == status) &&
-            (identical(other.message, message) || other.message == message) &&
-            const DeepCollectionEquality().equals(other._data, _data));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, status, message, const DeepCollectionEquality().hash(_data));
-
-  /// Create a copy of FormFieldsGroupResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$FormFieldsGroupResponseImplCopyWith<_$FormFieldsGroupResponseImpl>
-      get copyWith => __$$FormFieldsGroupResponseImplCopyWithImpl<
-          _$FormFieldsGroupResponseImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$FormFieldsGroupResponseImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _FormFieldsGroupResponse implements FormFieldsGroupResponse {
-  const factory _FormFieldsGroupResponse(
-          {required final String status,
-          required final String message,
-          required final List<FormFieldsGroup> data}) =
-      _$FormFieldsGroupResponseImpl;
-
-  factory _FormFieldsGroupResponse.fromJson(Map<String, dynamic> json) =
-      _$FormFieldsGroupResponseImpl.fromJson;
-
-  @override
-  String get status;
-  @override
-  String get message;
-  @override
-  List<FormFieldsGroup> get data;
-
-  /// Create a copy of FormFieldsGroupResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$FormFieldsGroupResponseImplCopyWith<_$FormFieldsGroupResponseImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
 FormFieldsGroup _$FormFieldsGroupFromJson(Map<String, dynamic> json) {
   return _FormFieldsGroup.fromJson(json);
 }
@@ -226,8 +25,7 @@ mixin _$FormFieldsGroup {
   @JsonKey(name: 'form_id')
   int get formId => throw _privateConstructorUsedError;
   int get order => throw _privateConstructorUsedError;
-  Map<String, dynamic>? get metadata =>
-      throw _privateConstructorUsedError; // Stays dynamic
+  Map<String, dynamic>? get metadata => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
   String get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'updated_at')
@@ -437,7 +235,6 @@ class _$FormFieldsGroupImpl implements _FormFieldsGroup {
     return EqualUnmodifiableMapView(value);
   }
 
-// Stays dynamic
   @override
   @JsonKey(name: 'created_at')
   final String createdAt;
@@ -528,7 +325,7 @@ abstract class _FormFieldsGroup implements FormFieldsGroup {
   @override
   int get order;
   @override
-  Map<String, dynamic>? get metadata; // Stays dynamic
+  Map<String, dynamic>? get metadata;
   @override
   @JsonKey(name: 'created_at')
   String get createdAt;
@@ -1152,5 +949,373 @@ abstract class _FieldOptionsRange implements FieldOptionsRange {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FieldOptionsRangeImplCopyWith<_$FieldOptionsRangeImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+FormDetailResponse _$FormDetailResponseFromJson(Map<String, dynamic> json) {
+  return _FormDetailResponse.fromJson(json);
+}
+
+/// @nodoc
+mixin _$FormDetailResponse {
+  int get id => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
+  String get code => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
+  @JsonKey(name: 'created_at')
+  String get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'updated_at')
+  String get updatedAt => throw _privateConstructorUsedError;
+  int get type => throw _privateConstructorUsedError;
+  @JsonKey(name: 'deleted_at')
+  String? get deletedAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'type_label')
+  String? get typeLabel => throw _privateConstructorUsedError;
+  List<FormFieldsGroup> get groups => throw _privateConstructorUsedError;
+
+  /// Serializes this FormDetailResponse to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of FormDetailResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $FormDetailResponseCopyWith<FormDetailResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $FormDetailResponseCopyWith<$Res> {
+  factory $FormDetailResponseCopyWith(
+          FormDetailResponse value, $Res Function(FormDetailResponse) then) =
+      _$FormDetailResponseCopyWithImpl<$Res, FormDetailResponse>;
+  @useResult
+  $Res call(
+      {int id,
+      String name,
+      String code,
+      String? description,
+      @JsonKey(name: 'created_at') String createdAt,
+      @JsonKey(name: 'updated_at') String updatedAt,
+      int type,
+      @JsonKey(name: 'deleted_at') String? deletedAt,
+      @JsonKey(name: 'type_label') String? typeLabel,
+      List<FormFieldsGroup> groups});
+}
+
+/// @nodoc
+class _$FormDetailResponseCopyWithImpl<$Res, $Val extends FormDetailResponse>
+    implements $FormDetailResponseCopyWith<$Res> {
+  _$FormDetailResponseCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of FormDetailResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? name = null,
+    Object? code = null,
+    Object? description = freezed,
+    Object? createdAt = null,
+    Object? updatedAt = null,
+    Object? type = null,
+    Object? deletedAt = freezed,
+    Object? typeLabel = freezed,
+    Object? groups = null,
+  }) {
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      code: null == code
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as String,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as int,
+      deletedAt: freezed == deletedAt
+          ? _value.deletedAt
+          : deletedAt // ignore: cast_nullable_to_non_nullable
+              as String?,
+      typeLabel: freezed == typeLabel
+          ? _value.typeLabel
+          : typeLabel // ignore: cast_nullable_to_non_nullable
+              as String?,
+      groups: null == groups
+          ? _value.groups
+          : groups // ignore: cast_nullable_to_non_nullable
+              as List<FormFieldsGroup>,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$FormDetailResponseImplCopyWith<$Res>
+    implements $FormDetailResponseCopyWith<$Res> {
+  factory _$$FormDetailResponseImplCopyWith(_$FormDetailResponseImpl value,
+          $Res Function(_$FormDetailResponseImpl) then) =
+      __$$FormDetailResponseImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {int id,
+      String name,
+      String code,
+      String? description,
+      @JsonKey(name: 'created_at') String createdAt,
+      @JsonKey(name: 'updated_at') String updatedAt,
+      int type,
+      @JsonKey(name: 'deleted_at') String? deletedAt,
+      @JsonKey(name: 'type_label') String? typeLabel,
+      List<FormFieldsGroup> groups});
+}
+
+/// @nodoc
+class __$$FormDetailResponseImplCopyWithImpl<$Res>
+    extends _$FormDetailResponseCopyWithImpl<$Res, _$FormDetailResponseImpl>
+    implements _$$FormDetailResponseImplCopyWith<$Res> {
+  __$$FormDetailResponseImplCopyWithImpl(_$FormDetailResponseImpl _value,
+      $Res Function(_$FormDetailResponseImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of FormDetailResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? name = null,
+    Object? code = null,
+    Object? description = freezed,
+    Object? createdAt = null,
+    Object? updatedAt = null,
+    Object? type = null,
+    Object? deletedAt = freezed,
+    Object? typeLabel = freezed,
+    Object? groups = null,
+  }) {
+    return _then(_$FormDetailResponseImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      code: null == code
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as String,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as int,
+      deletedAt: freezed == deletedAt
+          ? _value.deletedAt
+          : deletedAt // ignore: cast_nullable_to_non_nullable
+              as String?,
+      typeLabel: freezed == typeLabel
+          ? _value.typeLabel
+          : typeLabel // ignore: cast_nullable_to_non_nullable
+              as String?,
+      groups: null == groups
+          ? _value._groups
+          : groups // ignore: cast_nullable_to_non_nullable
+              as List<FormFieldsGroup>,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$FormDetailResponseImpl implements _FormDetailResponse {
+  const _$FormDetailResponseImpl(
+      {required this.id,
+      required this.name,
+      required this.code,
+      this.description,
+      @JsonKey(name: 'created_at') required this.createdAt,
+      @JsonKey(name: 'updated_at') required this.updatedAt,
+      required this.type,
+      @JsonKey(name: 'deleted_at') this.deletedAt,
+      @JsonKey(name: 'type_label') this.typeLabel,
+      required final List<FormFieldsGroup> groups})
+      : _groups = groups;
+
+  factory _$FormDetailResponseImpl.fromJson(Map<String, dynamic> json) =>
+      _$$FormDetailResponseImplFromJson(json);
+
+  @override
+  final int id;
+  @override
+  final String name;
+  @override
+  final String code;
+  @override
+  final String? description;
+  @override
+  @JsonKey(name: 'created_at')
+  final String createdAt;
+  @override
+  @JsonKey(name: 'updated_at')
+  final String updatedAt;
+  @override
+  final int type;
+  @override
+  @JsonKey(name: 'deleted_at')
+  final String? deletedAt;
+  @override
+  @JsonKey(name: 'type_label')
+  final String? typeLabel;
+  final List<FormFieldsGroup> _groups;
+  @override
+  List<FormFieldsGroup> get groups {
+    if (_groups is EqualUnmodifiableListView) return _groups;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_groups);
+  }
+
+  @override
+  String toString() {
+    return 'FormDetailResponse(id: $id, name: $name, code: $code, description: $description, createdAt: $createdAt, updatedAt: $updatedAt, type: $type, deletedAt: $deletedAt, typeLabel: $typeLabel, groups: $groups)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$FormDetailResponseImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.code, code) || other.code == code) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt) &&
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.deletedAt, deletedAt) ||
+                other.deletedAt == deletedAt) &&
+            (identical(other.typeLabel, typeLabel) ||
+                other.typeLabel == typeLabel) &&
+            const DeepCollectionEquality().equals(other._groups, _groups));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      name,
+      code,
+      description,
+      createdAt,
+      updatedAt,
+      type,
+      deletedAt,
+      typeLabel,
+      const DeepCollectionEquality().hash(_groups));
+
+  /// Create a copy of FormDetailResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$FormDetailResponseImplCopyWith<_$FormDetailResponseImpl> get copyWith =>
+      __$$FormDetailResponseImplCopyWithImpl<_$FormDetailResponseImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$FormDetailResponseImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _FormDetailResponse implements FormDetailResponse {
+  const factory _FormDetailResponse(
+      {required final int id,
+      required final String name,
+      required final String code,
+      final String? description,
+      @JsonKey(name: 'created_at') required final String createdAt,
+      @JsonKey(name: 'updated_at') required final String updatedAt,
+      required final int type,
+      @JsonKey(name: 'deleted_at') final String? deletedAt,
+      @JsonKey(name: 'type_label') final String? typeLabel,
+      required final List<FormFieldsGroup> groups}) = _$FormDetailResponseImpl;
+
+  factory _FormDetailResponse.fromJson(Map<String, dynamic> json) =
+      _$FormDetailResponseImpl.fromJson;
+
+  @override
+  int get id;
+  @override
+  String get name;
+  @override
+  String get code;
+  @override
+  String? get description;
+  @override
+  @JsonKey(name: 'created_at')
+  String get createdAt;
+  @override
+  @JsonKey(name: 'updated_at')
+  String get updatedAt;
+  @override
+  int get type;
+  @override
+  @JsonKey(name: 'deleted_at')
+  String? get deletedAt;
+  @override
+  @JsonKey(name: 'type_label')
+  String? get typeLabel;
+  @override
+  List<FormFieldsGroup> get groups;
+
+  /// Create a copy of FormDetailResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$FormDetailResponseImplCopyWith<_$FormDetailResponseImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

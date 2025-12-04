@@ -69,8 +69,6 @@ class AssessmentFormBuilder extends StatelessWidget {
     );
   }
 
-  // --- Widget Builders (Moved from Parent) ---
-
   Widget _buildGroupHeader(BuildContext context, FormFieldsGroup group) {
     final textTheme = Theme.of(context).textTheme;
     return Padding(
@@ -90,7 +88,18 @@ class AssessmentFormBuilder extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('${field.label}', style: textTheme.titleMedium),
+        Row(
+          children: [
+            Text('${field.label}', style: textTheme.titleMedium),
+            SizedBox(
+              width: 5.w,
+            ),
+            Text(
+              '(${field.metadata?['score_weight']}%)',
+              style: textTheme.titleMedium?.copyWith(color: Color(0xFF8E8E8E)),
+            ),
+          ],
+        ),
         if (field.description != null && field.description!.isNotEmpty)
           Padding(
             padding: EdgeInsets.only(top: 4.h, bottom: 8.h),
@@ -242,7 +251,7 @@ class AssessmentFormBuilder extends StatelessWidget {
                 child: SizedBox(
                   child: ElevatedButton(
                     onPressed: isDisabled
-                        ? null
+                        ? () {}
                         : () {
                             updateParentState(() {
                               ratingAnswers[field.id] = rating;
@@ -250,13 +259,7 @@ class AssessmentFormBuilder extends StatelessWidget {
                             validateForm();
                           },
                     style: buttonStyle,
-                    child: Text('$rating',
-                        style: TextStyle(
-                            color: isDisabled
-                                ? IColors.light.grayscale.g60
-                                : (isSelected
-                                    ? Colors.white
-                                    : IColors.light.primary.main))),
+                    child: Text('$rating'),
                   ),
                 ),
               );
@@ -381,6 +384,7 @@ class FormSubmissionMapper {
     required RatingMap ratingAnswers,
     required NotesMap notesControllers,
     required List<FormFields> allFields,
+    bool isRatingNum = false,
   }) {
     final List<SubmissionForm> submissions = [];
 
@@ -390,7 +394,7 @@ class FormSubmissionMapper {
 
       submissions.add(SubmissionForm(
         fieldId: fieldId,
-        value: rating.toString(),
+        value: isRatingNum ? rating : rating.toString(),
         additionalData: hasNotes
             ? {
                 'notes': notesControllers[fieldId]?.text ?? '',

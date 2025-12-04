@@ -70,6 +70,23 @@ class PerformanceRemoteSource {
     }
   }
 
+  Future<BaseResponse<String>> supervisorAssessmentFormSubmission(
+      {required AssessmentFormRequest request, required assessmentId}) async {
+    try {
+      final response = await _dio.post(
+        'api/ess/supervisor-assessments/$assessmentId/submit',
+        data: request,
+      );
+
+      return BaseResponse.fromJson(
+        response.data,
+        (json) => json as String,
+      );
+    } on DioException catch (e) {
+      throw handleDioError(e);
+    }
+  }
+
   Future<BaseResponse<String>> assessmentFormValidateSubmission(
       {required AssessmentFormValidateRequest request,
       required assessmentId}) async {
@@ -131,15 +148,54 @@ class PerformanceRemoteSource {
     }
   }
 
+  Future<BaseResponse<SupervisorAssessmentAnswer>>
+      getSupervisorAssessmentAnswer({AssessmentAnswerRequest? request}) async {
+    try {
+      final Map<String, dynamic> queryParameters = {
+        'form_id': request?.formId,
+        'submitted_by': request?.submittedBy,
+      };
+
+      final response = await _dio.get(
+        'api/ess/supervisor-assessments/${request?.employeeSelfAssessment}/my-submission',
+        queryParameters: queryParameters,
+      );
+
+      return BaseResponse.fromJson(
+          response.data,
+          (json) => SupervisorAssessmentAnswer.fromJson(
+              json as Map<String, dynamic>));
+    } on DioException catch (e) {
+      throw handleDioError(e);
+    }
+  }
+
   Future<BasePaginatedResponse<SupervisorAssessment>>
       getSupervisorAssessments() async {
     try {
-      // final response = await _dio.get('api/ess/supervisor-assessments');
+      final response = await _dio.get('api/ess/supervisor-assessments');
 
       return BasePaginatedResponse.fromJson(
-        mockSupervisorAssesstments,
+        response.data,
         (json) => SupervisorAssessment.fromJson(json as Map<String, dynamic>),
         emptyT: () => List.empty(),
+      );
+    } on DioException catch (e) {
+      throw handleDioError(e);
+    }
+  }
+
+  Future<BaseResponse<SupervisorAssessmentDetail>>
+      getSupervisorAssessmentDetail(
+          {required dynamic supervisorAssessmentId}) async {
+    try {
+      final response = await _dio
+          .get('api/ess/supervisor-assessments/$supervisorAssessmentId');
+
+      return BaseResponse.fromJson(
+        response.data,
+        (json) =>
+            SupervisorAssessmentDetail.fromJson(json as Map<String, dynamic>),
       );
     } on DioException catch (e) {
       throw handleDioError(e);

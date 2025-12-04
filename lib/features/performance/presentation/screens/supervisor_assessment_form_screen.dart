@@ -6,12 +6,13 @@ import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/data/models/form_fields_response.dart';
+import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/widgets/form_builder.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/core/widgets/i_footer_button.dart';
 import 'package:hrms_mobile/features/performance/data/models/request/assessment_answer_request.dart';
-import 'package:hrms_mobile/features/performance/data/models/response/assessment_answer.dart';
-import 'package:hrms_mobile/features/performance/data/models/response/supervisor_assessment.dart'; // NEW INPUT MODEL
+import 'package:hrms_mobile/features/performance/data/models/request/assessment_form_request.dart';
+import 'package:hrms_mobile/features/performance/data/models/response/supervisor_assessment.dart';
 import 'package:hrms_mobile/features/performance/presentation/providers/performance_provider.dart';
 
 typedef AnswerMap = Map<int, Map<String, bool>>;
@@ -21,11 +22,13 @@ typedef NotesMap = Map<int, TextEditingController>;
 typedef FieldUpdater = void Function(VoidCallback fn);
 
 class SupervisorAssessmentFormScreen extends ConsumerStatefulWidget {
-  final SupervisorAssessment assessment;
+  final SupervisorAssessmentDetail assessment;
+  final Assessor assessor;
 
   const SupervisorAssessmentFormScreen({
     super.key,
     required this.assessment,
+    required this.assessor,
   });
 
   @override
@@ -43,18 +46,7 @@ class _SupervisorAssessmentFormScreenState
   bool _isStateInitialized = false;
   bool _isFormValid = false;
 
-  bool get _isFormReadOnly => widget.assessment.statusLabel == "Completed";
-
-  int? get _assessedEmployeeId => widget.assessment.user?.id;
-
-  List<FormFields> get _allFields {
-    final formFieldsGroup = ref
-        .read(performanceFormFieldsByGroupProvider(
-            formId: widget.assessment.form?.id ?? 0))
-        .value;
-    if (formFieldsGroup == null) return [];
-    return formFieldsGroup.expand((group) => group.fields).toList();
-  }
+  bool get _isFormReadOnly => widget.assessor.statusLabel == "Completed";
 
   @override
   void dispose() {
@@ -66,10 +58,12 @@ class _SupervisorAssessmentFormScreenState
   }
 
   void _initializeState(
-      List<FormFieldsGroup> formGroups, FormAnswer? formAnswer) {
+      FormDetailResponse formGroups,
+      List<SubmissionForm>? formAnswerSubmissions,
+      List<FormFields> allFormFields) {
     if (_isStateInitialized) return;
 
-    for (final group in formGroups) {
+    for (final group in formGroups.groups) {
       for (final field in group.fields) {
         switch (field.type) {
           case 'checkbox':
@@ -108,25 +102,24 @@ class _SupervisorAssessmentFormScreenState
       }
     }
 
-    _populateFieldsFromAnswers(formAnswer);
+    _populateFieldsFromAnswers(formAnswerSubmissions, allFormFields);
 
     _isStateInitialized = true;
     _validateForm();
   }
 
-  void _populateFieldsFromAnswers(FormAnswer? formAnswer) {
-    final answerData = formAnswer;
-
-    final answerFields = answerData != null ? answerData.fields ?? [] : [];
+  void _populateFieldsFromAnswers(List<SubmissionForm>? formAnswerSubmissions,
+      List<FormFields> allFormFields) {
+    final answerFields = formAnswerSubmissions ?? [];
 
     if (answerFields.isEmpty) return;
 
     for (final answer in answerFields) {
       final fieldId = answer.fieldId;
-      if (fieldId == null) continue;
 
-      final field = _allFields.firstWhere((f) => f.id == fieldId,
-          orElse: () => const FormFields(id: -1, isRequired: false, order: 0));
+      final field = allFormFields.firstWhere((f) {
+        return f.id == fieldId;
+      }, orElse: () => const FormFields(id: -1, isRequired: false, order: 0));
 
       if (field.id == -1) continue;
 
@@ -149,7 +142,7 @@ class _SupervisorAssessmentFormScreenState
     }
   }
 
-  void _populateCheckboxAnswer(int fieldId, FieldsAnswer answer) {
+  void _populateCheckboxAnswer(int fieldId, SubmissionForm answer) {
     final currentAnswers = _checkboxAnswers[fieldId];
     if (currentAnswers == null) return;
 
@@ -164,7 +157,7 @@ class _SupervisorAssessmentFormScreenState
     }
   }
 
-  void _populateRatingAnswer(int fieldId, FieldsAnswer answer) {
+  void _populateRatingAnswer(int fieldId, SubmissionForm answer) {
     final ratingValue = answer.value;
 
     int? rating;
@@ -183,24 +176,21 @@ class _SupervisorAssessmentFormScreenState
       final notes = additionalData['notes'];
 
       if (notes is String) {
-        final field = _allFields.firstWhere((f) => f.id == fieldId);
-        final hasNotes = field.metadata?['is_note'] == true;
-
-        if (hasNotes && _notesControllers.containsKey(fieldId)) {
+        if (_notesControllers.containsKey(fieldId)) {
           _notesControllers[fieldId]!.text = notes;
         }
       }
     }
   }
 
-  void _populateTextAnswer(int fieldId, FieldsAnswer answer) {
+  void _populateTextAnswer(int fieldId, SubmissionForm answer) {
     final textValue = answer.value;
     if (textValue is String && _notesControllers.containsKey(fieldId)) {
       _notesControllers[fieldId]!.text = textValue;
     }
   }
 
-  void _populateSingleSelectionAnswer(int fieldId, FieldsAnswer answer) {
+  void _populateSingleSelectionAnswer(int fieldId, SubmissionForm answer) {
     final selectedOption = answer.value;
     if (selectedOption is String) {
       _singleSelectionAnswers[fieldId] = selectedOption;
@@ -208,7 +198,16 @@ class _SupervisorAssessmentFormScreenState
   }
 
   void _validateForm() {
-    final formFields = _allFields;
+    final formFieldsGroup = ref
+        .read(performanceSupervisorAssessmentGetFormProvider(
+            formId: widget.assessment.form?.id ?? 0))
+        .value;
+
+    List<FormFields> formFields = [];
+    if (formFieldsGroup != null) {
+      formFields =
+          formFieldsGroup.groups.expand((group) => group.fields).toList();
+    }
 
     if (formFields.isEmpty) {
       setState(() => _isFormValid = false);
@@ -263,77 +262,97 @@ class _SupervisorAssessmentFormScreenState
   }
 
   Future<void> _onSubmit(int statusSubmission) async {
+    final formFieldsGroup = ref
+        .read(performanceSupervisorAssessmentGetFormProvider(
+            formId: widget.assessment.form?.id ?? 0))
+        .value;
+
+    List<FormFields> allFieldsForSubmission = [];
+    if (formFieldsGroup != null) {
+      allFieldsForSubmission =
+          formFieldsGroup.groups.expand((group) => group.fields).toList();
+    }
+
     final submissions = FormSubmissionMapper.mapAnswersToSubmissions(
       checkboxAnswers: _checkboxAnswers,
       singleSelectionAnswers: _singleSelectionAnswers,
       ratingAnswers: _ratingAnswers,
       notesControllers: _notesControllers,
-      allFields: _allFields,
+      allFields: allFieldsForSubmission,
+      isRatingNum: true,
     );
 
-    // final request = AssessmentFormRequest(
-    //     submissions: submissions, status: statusSubmission);
-    // try {
-    //   // ⭐ NEW: Use the supervisor/validation submission provider
-    //   await ref
-    //       .read(assessmentFormValidateSubmissionProvider.notifier)
-    //       .submitForm(
-    //           request: request, assessmentId: widget.assessment.id ?? 0);
-    //
-    //   if (mounted) {
-    //     // Invalidate both lists since a supervisor action might affect both
-    //     ref.invalidate(assessmentListRProvider);
-    //     ref.invalidate(performanceSupervisorAssessmentsProvider);
-    //
-    //     ScaffoldMessenger.of(context).showSnackBar(
-    //       const SnackBar(
-    //           content: Text('Supervisor Assessment Submitted Successfully!')),
-    //     );
-    //     context.go(RoutePaths.performance);
-    //   }
-    // } catch (e) {
-    //   if (mounted) {
-    //     context.pop();
-    //     ScaffoldMessenger.of(context).showSnackBar(
-    //       SnackBar(content: Text('Submission Failed: ${e.toString()}')),
-    //     );
-    //   }
-    // }
+    final request = AssessmentFormRequest(
+        submissions: submissions, status: statusSubmission);
+    try {
+      await ref
+          .read(supervisorAssessmentFormSubmissionProvider.notifier)
+          .submitForm(
+              request: request, assessmentId: widget.assessment.id ?? 0);
+
+      if (mounted) {
+        ref.invalidate(assessmentListRProvider);
+        ref.invalidate(performanceSupervisorAssessmentsProvider);
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+              content: Text('Supervisor Assessment Submitted Successfully!')),
+        );
+        context.go(RoutePaths.performance);
+      }
+    } catch (e) {
+      if (mounted) {
+        context.pop();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Submission Failed: ${e.toString()}')),
+        );
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final employeeName = widget.assessment.user?.name ?? 'Employee N/A';
-    final formName = widget.assessment.form?.name ?? 'Assessment Form';
+    final formFieldsAsync = ref.watch(
+        performanceSupervisorAssessmentGetFormProvider(
+            formId: widget.assessment.form?.id ?? 0));
 
-    final formFieldsAsync = ref.watch(performanceFormFieldsByGroupProvider(
-        formId: widget.assessment.form?.id ?? 0));
-
-    final formAnswered = ref
-        .watch(performanceAssessmentAnswerProvider(
+    final formAnswerAsync =
+        ref.watch(performanceSupervisorAssessmentAnswerProvider(
             request: AssessmentAnswerRequest(
-          employeeSelfAssessment: "${widget.assessment.id}",
-          formId: widget.assessment.form?.id,
-        )))
-        .value;
+      employeeSelfAssessment: "${widget.assessment.id}",
+      formId: widget.assessment.form?.id,
+    )));
 
-    if (formFieldsAsync.hasValue &&
-        formAnswered != null &&
-        !_isStateInitialized) {
+    List<SubmissionForm>? formAnsweredSubmissions;
+    bool answersReady = false;
+
+    if (formAnswerAsync.hasValue) {
+      formAnsweredSubmissions = formAnswerAsync.value?.data;
+      answersReady = true;
+    } else if (formAnswerAsync.hasError) {
+      formAnsweredSubmissions = null;
+      answersReady = true;
+    }
+
+    if (formFieldsAsync.hasValue && answersReady && !_isStateInitialized) {
       final formGroups = formFieldsAsync.value!;
 
-      final FormAnswer? firstAnswer =
-          formAnswered.isNotEmpty ? formAnswered[0].data : null;
+      final List<FormFields> allFormFields =
+          formGroups.groups.expand((group) => group.fields).toList();
 
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        setState(() {
-          _initializeState(formGroups, firstAnswer);
+      if (allFormFields.isNotEmpty) {
+        final List<SubmissionForm>? answersToPopulate = formAnsweredSubmissions;
+
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          setState(() {
+            _initializeState(formGroups, answersToPopulate, allFormFields);
+          });
         });
-      });
+      }
     }
 
     return Scaffold(
-      appBar: IAppBar(title: "Supervisor Assessment - $employeeName"),
+      appBar: IAppBar(title: "Supervisor Assessment"),
       body: Column(
         children: [
           Expanded(
@@ -344,8 +363,9 @@ class _SupervisorAssessmentFormScreenState
                 if (!_isStateInitialized) {
                   return const Center(child: CircularProgressIndicator());
                 }
+
                 return AssessmentFormBuilder(
-                  formGroups: formGroups,
+                  formGroups: formGroups.groups,
                   isReadOnly: _isFormReadOnly,
                   checkboxAnswers: _checkboxAnswers,
                   singleSelectionAnswers: _singleSelectionAnswers,
@@ -364,8 +384,7 @@ class _SupervisorAssessmentFormScreenState
               onPressed: _isFormValid
                   ? () {
                       if (_isStateInitialized) {
-                        _showPopUpConfirmationSubmission(
-                            context, 2); // Status 2 for submission
+                        _showPopUpConfirmationSubmission(context, 2);
                       }
                     }
                   : null,
@@ -373,8 +392,7 @@ class _SupervisorAssessmentFormScreenState
               onSecondaryPressed: _isFormValid
                   ? () {
                       if (_isStateInitialized) {
-                        _showPopUpConfirmationSubmission(
-                            context, 1); // Status 1 for draft
+                        _showPopUpConfirmationSubmission(context, 1);
                       }
                     }
                   : null,

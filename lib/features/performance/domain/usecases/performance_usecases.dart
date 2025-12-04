@@ -25,6 +25,12 @@ class PerformanceUsecases {
         request: request, assessmentId: assessmentId);
   }
 
+  Future<String> supervisorAssessmentFormSubmission(
+      {required AssessmentFormRequest request, required assessmentId}) {
+    return repository.supervisorAssessmentFormSubmission(
+        request: request, assessmentId: assessmentId);
+  }
+
   Future<String> assessmentFormValidateSubmission(
       {required AssessmentFormValidateRequest request, required assessmentId}) {
     return repository.assessmentFormValidateSubmission(
@@ -40,7 +46,18 @@ class PerformanceUsecases {
     return repository.getAssessmentAnswer(request: request);
   }
 
+  Future<SupervisorAssessmentAnswer> getSupervisorAssessmentAnswer(
+      {AssessmentAnswerRequest? request}) {
+    return repository.getSupervisorAssessmentAnswer(request: request);
+  }
+
   Future<List<SupervisorAssessment>> getSupervisorAssessments() {
     return repository.getSupervisorAssessments();
+  }
+
+  Future<SupervisorAssessmentDetail> getSupervisorAssessmentDetail(
+      {required dynamic supervisorAssessmentId}) {
+    return repository.getSupervisorAssessmentDetail(
+        supervisorAssessmentId: supervisorAssessmentId);
   }
 }

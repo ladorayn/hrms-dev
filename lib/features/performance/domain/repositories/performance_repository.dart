@@ -15,11 +15,20 @@ abstract class PerformanceRepository {
   Future<List<AssessmentAnswer>> getAssessmentAnswer(
       {AssessmentAnswerRequest? request});
 
+  Future<SupervisorAssessmentAnswer> getSupervisorAssessmentAnswer(
+      {AssessmentAnswerRequest? request});
+
   Future<String> assessmentFormSubmission(
+      {required AssessmentFormRequest request, required assessmentId});
+
+  Future<String> supervisorAssessmentFormSubmission(
       {required AssessmentFormRequest request, required assessmentId});
 
   Future<String> assessmentFormValidateSubmission(
       {required AssessmentFormValidateRequest request, required assessmentId});
 
   Future<List<SupervisorAssessment>> getSupervisorAssessments();
+
+  Future<SupervisorAssessmentDetail> getSupervisorAssessmentDetail(
+      {required dynamic supervisorAssessmentId});
 }

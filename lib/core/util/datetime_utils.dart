@@ -12,7 +12,7 @@ class DateTimeHelper {
     return DateFormat("MMMM d, yyyy").format(dateTime);
   }
 
-  /// Converts `"2025-09-30 20:58:00"` into `"5 August, 2025"`
+  /// Converts `"2025-09-30 20:58:00"` into `"30 September, 2025"`
   static String formatDateTime(String rawDate) {
     final dateTime = DateTime.parse(rawDate);
     return DateFormat("d MMMM, yyyy").format(dateTime);
@@ -24,9 +24,35 @@ class DateTimeHelper {
     return DateFormat("MMMM d, yyyy HH:mm").format(dateTime);
   }
 
+  // Converts "2025-12-01T14:27:34.000000Z" into "02:27 PM"
   static String formatTime(String rawDate) {
     final dateTime = DateTime.parse(rawDate);
     return DateFormat("hh:mm a").format(dateTime);
+  }
+
+  // --- NEW Helper Methods for Assessment Schedule ---
+
+  /// Converts "2025-12-02T00:00:00.000000Z" into "December 2, 2025"
+  static String formatDateFromISO(String rawISO) {
+    final dateTime = DateTime.parse(rawISO);
+    return DateFormat("MMMM d, yyyy").format(dateTime);
+  }
+
+  /// Converts a raw time string like "10:30:00" into "10:30 AM"
+  static String formatTimeFromRaw(String rawTime) {
+    try {
+      final parts = rawTime.split(':');
+      final hour = int.parse(parts[0]);
+      final minute = int.parse(parts[1]);
+
+      final now = DateTime.now();
+      final dateTimeWithTime =
+          DateTime(now.year, now.month, now.day, hour, minute);
+
+      return DateFormat("hh:mm a").format(dateTimeWithTime);
+    } catch (_) {
+      return rawTime;
+    }
   }
 
   static TimeOfDay? parseTimeOfDay(String? time) {
