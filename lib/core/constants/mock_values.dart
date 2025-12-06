@@ -556,3 +556,60 @@ const Map<String, dynamic> mockOKRList = {
     }
   ]
 };
+
+final mockOKRItems = [
+  {
+    "title": "Penilaian Kompetensi Teknis",
+    "okr": [
+      {
+        "time": "1h",
+        "desc": "Mengurangi waktu henti mesin per minggu hingga di bawah 2 jam",
+        "status": 1,
+        "memberCount": 7,
+        "progress": 10.toDouble(),
+      },
+      {
+        "time": "1h",
+        "desc":
+            "Meningkatkan rasio output per shift sebesar 15% dibandingkan Q2",
+        "status": 2,
+        "memberCount": 4,
+        "progress": 40.toDouble(),
+      },
+      {
+        "time": "1h",
+        "desc": "Menyelesaikan pelatihan 5R untuk semua operator lini 1 dan 2",
+        "status": 3,
+        "memberCount": 2,
+        "progress": 86.toDouble(),
+      }
+    ]
+  },
+  {
+    "title": "Menurunkan jumlah cacat produk (defect rate)",
+    "okr": [
+      {
+        "time": "1h",
+        "desc": "Mengurangi waktu henti mesin per minggu hingga di bawah 2 jam",
+        "status": 1,
+        "memberCount": 7,
+        "progress": 10.toDouble(),
+      },
+      {
+        "time": "1h",
+        "desc":
+            "Meningkatkan rasio output per shift sebesar 15% dibandingkan Q2",
+        "status": 2,
+        "memberCount": 4,
+        "progress": 40.toDouble(),
+      },
+      {
+        "time": "1h",
+        "desc": "Menyelesaikan pelatihan 5R untuk semua operator lini 1 dan 2",
+        "status": 3,
+        "memberCount": 2,
+        "progress": 86.toDouble(),
+      }
+    ]
+  }
+];

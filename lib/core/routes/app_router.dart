@@ -47,7 +47,9 @@ import 'package:hrms_mobile/features/performance/data/models/response/okr_list.d
 import 'package:hrms_mobile/features/performance/data/models/response/supervisor_assessment.dart';
 import 'package:hrms_mobile/features/performance/presentation/screens/assessment_form_manager_screen.dart';
 import 'package:hrms_mobile/features/performance/presentation/screens/assessment_form_screen.dart';
+import 'package:hrms_mobile/features/performance/presentation/screens/key_result_okr_screen.dart';
 import 'package:hrms_mobile/features/performance/presentation/screens/okr_list_screen.dart';
+import 'package:hrms_mobile/features/performance/presentation/screens/okr_screen.dart';
 import 'package:hrms_mobile/features/performance/presentation/screens/performance_screen.dart';
 import 'package:hrms_mobile/features/performance/presentation/screens/self_assessment_manager_screen.dart';
 import 'package:hrms_mobile/features/performance/presentation/screens/self_assessment_screen.dart';
@@ -420,6 +422,47 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           final data = state.extra as List<OKRList>;
           return OKRListScreen(
             okrs: data,
+          );
+        },
+      ),
+
+      GoRoute(
+        path: RoutePaths.okr,
+        name: RoutePaths.okrName,
+        builder: (context, state) {
+          final data = state.extra as Map<String, dynamic>?;
+          if (data == null || data['okr'] == null || data['period'] == null) {
+            return const Scaffold(
+                body: Center(child: Text('Error: OKR data missing.')));
+          }
+
+          final period = data['period'] as String;
+          final okr = data['okr'] as OKRList;
+
+          return OKRScreen(
+            okr: okr,
+            period: period,
+          );
+        },
+      ),
+
+      GoRoute(
+        path: RoutePaths.okrKeyResult,
+        name: RoutePaths.okrKeyResultName,
+        builder: (context, state) {
+          final data = state.extra as Map<String, dynamic>?;
+          final objectiveTitle = data?['objectiveTitle'] as String;
+          final memberCount = data?['memberCount'] as int;
+          final statusCode = data?['statusCode'] as int;
+          final progress = data?['progress'] as double;
+          final keyResultDesc = data?['keyResultDesc'] as String;
+
+          return KeyResultDataScreen(
+            objectiveTitle: objectiveTitle,
+            memberCount: memberCount,
+            statusCode: statusCode,
+            progress: progress,
+            keyResultDesc: keyResultDesc,
           );
         },
       ),

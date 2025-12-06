@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
+import 'package:hrms_mobile/core/navigation/global_navigator.dart';
+import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/okr_list.dart';
 
@@ -33,7 +36,15 @@ class OKRListScreen extends ConsumerWidget {
                     final dueDate = item.dueDate;
 
                     return GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        globalNavigatorKey.currentContext?.pushNamed(
+                          RoutePaths.okrName,
+                          extra: {
+                            "period": item.period,
+                            "okr": item,
+                          },
+                        );
+                      },
                       child: ListTile(
                         dense: true,
                         visualDensity: VisualDensity.compact,

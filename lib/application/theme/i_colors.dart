@@ -77,6 +77,7 @@ class IColors {
       g20: const Color(0xFFD9D9D9),
       g10: const Color(0xFFEDEDED),
       g0: const Color(0xFFFFFFFF),
+      gNew: const Color(0xFF8E8E8E),
     ),
   );
 
@@ -237,6 +238,7 @@ class GrayscaleColors {
   final Color g20;
   final Color g10;
   final Color g0; // Lightest (White)
+  final Color gNew;
 
   GrayscaleColors({
     required this.g100,
@@ -250,5 +252,6 @@ class GrayscaleColors {
     required this.g20,
     required this.g10,
     required this.g0,
+    required this.gNew,
   });
 }
