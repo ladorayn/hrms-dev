@@ -1040,5 +1040,21 @@ class _PerformanceSupervisorAssessmentGetFormProviderElement
   dynamic get formId =>
       (origin as PerformanceSupervisorAssessmentGetFormProvider).formId;
 }
+
+String _$oKRListRHash() => r'f942571d75c316f0f39cf4b6ed558962c22014fd';
+
+/// See also [OKRListR].
+@ProviderFor(OKRListR)
+final oKRListRProvider =
+    AutoDisposeAsyncNotifierProvider<OKRListR, List<OKRList>>.internal(
+  OKRListR.new,
+  name: r'oKRListRProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$oKRListRHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$OKRListR = AutoDisposeAsyncNotifier<List<OKRList>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

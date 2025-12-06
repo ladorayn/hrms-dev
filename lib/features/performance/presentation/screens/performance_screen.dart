@@ -15,10 +15,13 @@ class PerformanceScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final assessmentListAsync = ref.watch(assessmentListRProvider);
+    final okrListAsync = ref.watch(oKRListRProvider);
     final supervisorAssessmentAsync =
         ref.watch(performanceSupervisorAssessmentsProvider);
 
-    if (assessmentListAsync.isLoading || supervisorAssessmentAsync.isLoading) {
+    if (assessmentListAsync.isLoading ||
+        supervisorAssessmentAsync.isLoading ||
+        okrListAsync.isLoading) {
       return const Scaffold(
         body: Center(child: CircularProgressIndicator()),
       );
@@ -31,7 +34,14 @@ class PerformanceScreen extends ConsumerWidget {
                 'Error loading Self Assessments: ${assessmentListAsync.error}')),
       );
     }
+
+    if (okrListAsync.hasError) {
+      return Scaffold(
+        body: Center(child: Text('Error loading OKR: ${okrListAsync.error}')),
+      );
+    }
     final assessments = assessmentListAsync.value!;
+    final okrs = okrListAsync.value!;
 
     final supervisorData = supervisorAssessmentAsync.value;
     final isSupervisorDataReady = supervisorAssessmentAsync.hasValue;
@@ -97,7 +107,12 @@ class PerformanceScreen extends ConsumerWidget {
                               PerformanceMenu(
                                 icon: IAssets.okr,
                                 title: 'My OKR',
-                                onTap: () {},
+                                onTap: () {
+                                  globalNavigatorKey.currentContext?.pushNamed(
+                                    RoutePaths.okrListName,
+                                    extra: okrs,
+                                  );
+                                },
                               ),
                               PerformanceMenu(
                                 icon: IAssets.supervisorAssessment,

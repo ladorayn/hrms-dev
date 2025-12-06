@@ -43,9 +43,11 @@ import 'package:hrms_mobile/features/payslip/presentation/screens/payslip_view_r
 import 'package:hrms_mobile/features/payslip/presentation/screens/payslip_view_screen.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_list.dart'
     as assessment;
+import 'package:hrms_mobile/features/performance/data/models/response/okr_list.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/supervisor_assessment.dart';
 import 'package:hrms_mobile/features/performance/presentation/screens/assessment_form_manager_screen.dart';
 import 'package:hrms_mobile/features/performance/presentation/screens/assessment_form_screen.dart';
+import 'package:hrms_mobile/features/performance/presentation/screens/okr_list_screen.dart';
 import 'package:hrms_mobile/features/performance/presentation/screens/performance_screen.dart';
 import 'package:hrms_mobile/features/performance/presentation/screens/self_assessment_manager_screen.dart';
 import 'package:hrms_mobile/features/performance/presentation/screens/self_assessment_screen.dart';
@@ -407,6 +409,17 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           return SupervisorAssessmentFormScreen(
             assessment: detail,
             assessor: assessor,
+          );
+        },
+      ),
+
+      GoRoute(
+        path: RoutePaths.okrList,
+        name: RoutePaths.okrListName,
+        builder: (context, state) {
+          final data = state.extra as List<OKRList>;
+          return OKRListScreen(
+            okrs: data,
           );
         },
       ),

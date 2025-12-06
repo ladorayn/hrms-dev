@@ -528,3 +528,31 @@ const Map<String, dynamic> mockFormFieldsData = {
     }
   ]
 };
+
+const Map<String, dynamic> mockOKRList = {
+  "status": "success",
+  "message": "Successfully fetch okr list",
+  "data": [
+    {
+      "id": 1,
+      "period": "Q4 2025",
+      "status": "Not Started",
+      "form_id": 1,
+      "due_date": "June 18, 2025",
+    },
+    {
+      "id": 2,
+      "period": "Q3 2025",
+      "status": "Not Started",
+      "form_id": 1,
+      "due_date": "June 18, 2025",
+    },
+    {
+      "id": 3,
+      "period": "Q2 2025",
+      "status": "Not Started",
+      "form_id": 1,
+      "due_date": "June 18, 2025",
+    }
+  ]
+};
