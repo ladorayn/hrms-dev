@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/data/models/form_fields_response.dart';
+import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/widgets/form_builder.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
@@ -298,7 +299,8 @@ class _SupervisorAssessmentFormScreenState
           const SnackBar(
               content: Text('Supervisor Assessment Submitted Successfully!')),
         );
-        context.go(RoutePaths.performance);
+        ref.invalidate(performanceSupervisorAssessmentsProvider);
+        globalNavigatorKey.currentContext?.go(RoutePaths.performance);
       }
     } catch (e) {
       if (mounted) {
@@ -380,7 +382,7 @@ class _SupervisorAssessmentFormScreenState
           // Conditional Footer Button
           if (!_isFormReadOnly)
             IFooterButton(
-              text: "Validate Assessment",
+              text: "Submit Form",
               onPressed: _isFormValid
                   ? () {
                       if (_isStateInitialized) {
@@ -418,8 +420,7 @@ class _SupervisorAssessmentFormScreenState
   Future<void> _showPopUpConfirmationSubmission(
       BuildContext context, int statusSubmission) {
     final textTheme = Theme.of(context).textTheme;
-    final buttonText =
-        statusSubmission == 2 ? "Submit Validation" : "Save Draft";
+    final buttonText = statusSubmission == 2 ? "Submit" : "Save Draft";
 
     return showDialog(
       context: context,
@@ -439,7 +440,7 @@ class _SupervisorAssessmentFormScreenState
                 SizedBox(height: 16.h),
                 Text(
                   statusSubmission == 2
-                      ? 'Are you sure you want to submit this validation?'
+                      ? 'Are you sure you want to submit this supervisor assessment form?'
                       : 'Are you sure you want to save this draft?',
                   textAlign: TextAlign.center,
                   style: textTheme.titleSmall

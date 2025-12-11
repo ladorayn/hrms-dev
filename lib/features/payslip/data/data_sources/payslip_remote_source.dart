@@ -43,7 +43,7 @@ class PayslipRemoteSource {
     }
   }
 
-  Future<BaseResponse<PayslipDetailResponse>> requestViewPayslip(
+  Future<BaseResponse<dynamic>> requestViewPayslip(
       {required PayslipRequest request, required int id}) async {
     try {
       final response = await _dio.post(
@@ -53,14 +53,14 @@ class PayslipRemoteSource {
 
       return BaseResponse.fromJson(
         response.data,
-        (json) => PayslipDetailResponse.fromJson(json as Map<String, dynamic>),
+        (json) => json,
       );
     } on DioException catch (e) {
       throw handleDioError(e);
     }
   }
 
-  Future<BaseResponse<PayslipDetailResponse>> requestPrintPayslip(
+  Future<BaseResponse<dynamic>> requestPrintPayslip(
       {required PayslipRequest request, required int id}) async {
     try {
       final response = await _dio.post(
@@ -70,7 +70,7 @@ class PayslipRemoteSource {
 
       return BaseResponse.fromJson(
         response.data,
-        (json) => PayslipDetailResponse.fromJson(json as Map<String, dynamic>),
+        (json) => json,
       );
     } on DioException catch (e) {
       throw handleDioError(e);

@@ -387,8 +387,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: RoutePaths.supervisorAssessment,
         name: RoutePaths.supervisorAssessmentName,
         builder: (context, state) {
-          final data = state.extra as List<SupervisorAssessment>;
-          return SupervisorAssessmentsScreen(assessments: data);
+          // final data = state.extra as List<SupervisorAssessment>;
+          return SupervisorAssessmentsScreen();
         },
       ),
       GoRoute(

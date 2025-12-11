@@ -3,7 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/okr_list.dart';
-import 'package:hrms_mobile/features/performance/presentation/widgets/okr_tab.dart';
+import 'package:hrms_mobile/features/performance/presentation/widgets/okr/dashboard_tab.dart';
+import 'package:hrms_mobile/features/performance/presentation/widgets/okr/okr_tab.dart';
 
 class OKRScreen extends ConsumerWidget {
   final String period;
@@ -42,7 +43,7 @@ class OKRScreen extends ConsumerWidget {
               child: TabBarView(
                 children: [
                   OKRTab(),
-                  OKRTab(),
+                  DashboardTab(),
                 ],
               ),
             )

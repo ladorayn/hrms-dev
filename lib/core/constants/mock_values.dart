@@ -613,3 +613,101 @@ final mockOKRItems = [
     ]
   }
 ];
+
+const mockRequestView = {
+  "status": "success",
+  "message":
+      "View access requested successfully, wait until the admin process your request",
+  "data": null
+};
+
+const mockPayslip = {
+  "status": "success",
+  "message": "Payslips retrieved successfully",
+  "data": [
+    {
+      "id": 285,
+      "payrun": {
+        "id": 14,
+        "period_year": 2024,
+        "period_month": 11,
+        "period_label": "November 2024",
+        "status": 2,
+        "status_label": "Final",
+        "sent_at": null
+      },
+      "view_access_status": 0,
+      "view_access_status_label": "Pending",
+      "view_access_granted": false,
+      "view_access_days_remaining": null,
+      "print_access_status": 0,
+      "print_access_status_label": "Pending"
+    },
+    {
+      "id": 276,
+      "payrun": {
+        "id": 13,
+        "period_year": 2025,
+        "period_month": 4,
+        "period_label": "April 2025",
+        "status": 2,
+        "status_label": "Final",
+        "sent_at": null
+      },
+      "view_access_status": 2,
+      "view_access_status_label": "Granted",
+      "view_access_granted": false,
+      "view_access_days_remaining": 0,
+      "print_access_status": 1,
+      "print_access_status_label": "Processed"
+    },
+    {
+      "id": 267,
+      "payrun": {
+        "id": 12,
+        "period_year": 2025,
+        "period_month": 3,
+        "period_label": "March 2025",
+        "status": 2,
+        "status_label": "Final",
+        "sent_at": null
+      },
+      "view_access_status": 2,
+      "view_access_status_label": "Granted",
+      "view_access_granted": false,
+      "view_access_days_remaining": 0,
+      "print_access_status": 1,
+      "print_access_status_label": "Processed"
+    },
+    {
+      "id": 240,
+      "payrun": {
+        "id": 9,
+        "period_year": 2025,
+        "period_month": 8,
+        "period_label": "August 2025",
+        "status": 2,
+        "status_label": "Final",
+        "sent_at": null
+      },
+      "view_access_status": 2,
+      "view_access_status_label": "Granted",
+      "view_access_granted": false,
+      "view_access_days_remaining": 0,
+      "print_access_status": 0,
+      "print_access_status_label": "Pending"
+    }
+  ],
+  "pagination": {
+    "current_page": 1,
+    "per_page": 50,
+    "total": 4,
+    "last_page": 1,
+    "from": 1,
+    "to": 4,
+    "first": "http://api.okejobhub.fun/api/ess/payslip?page=1",
+    "last": "http://api.okejobhub.fun/api/ess/payslip?page=1",
+    "prev": null,
+    "next": null
+  }
+};
