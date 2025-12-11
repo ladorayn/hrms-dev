@@ -275,7 +275,6 @@ class OvertimeRequestCard extends StatelessWidget {
         date.day == now.day) {
       return "Today, ${date.day}";
     }
-    // As it's currently October 2025, showing the month is helpful
     return DateFormat('E, d').format(date);
   }
 
@@ -285,7 +284,7 @@ class OvertimeRequestCard extends StatelessWidget {
       final time = DateFormat('HH:mm').parse(timeStr);
       return DateFormat('hh:mm a').format(time);
     } catch (e) {
-      return timeStr; // Return original string if parsing fails
+      return timeStr;
     }
   }
 
@@ -316,8 +315,6 @@ class OvertimeRequestCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-
-    print("TEST ${item.statusLabel}");
 
     return Container(
       padding: const EdgeInsets.only(left: 12, right: 12, bottom: 12),

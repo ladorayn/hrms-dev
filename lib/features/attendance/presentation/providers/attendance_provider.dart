@@ -391,8 +391,8 @@ class ShiftList extends _$ShiftList {
 @riverpod
 class WorkingShiftList extends _$WorkingShiftList {
   @override
-  FutureOr<WorkingShiftResponseModel> build(String? date) {
-    return ref.watch(getWorkingShiftsUseCaseProvider)(date);
+  FutureOr<WorkingShiftResponseModel> build(String? userId, String? date) {
+    return ref.watch(getWorkingShiftsUseCaseProvider)(userId, date);
   }
 }
 
@@ -412,10 +412,10 @@ class UpdateAttendance extends _$UpdateAttendance {
     return const UpdateAttendanceState();
   }
 
-  Future<bool> updateAttendance({
-    required String attendanceId,
-    required UpdateAttendanceRequestModel request,
-  }) async {
+  Future<bool> updateAttendance(
+      {required String attendanceId,
+      required UpdateAttendanceRequestModel request,
+      String? periodToInvalidate}) async {
     state = state.copyWith(isLoading: true, errors: {});
 
     try {
@@ -423,6 +423,15 @@ class UpdateAttendance extends _$UpdateAttendance {
           .read(attendanceRepoProvider)
           .updateAttendance(attendanceId: attendanceId, request: request);
       state = state.copyWith(isLoading: false);
+      final period =
+          periodToInvalidate ?? DateFormat('yyyy-MM').format(DateTime.now());
+
+      ref.invalidate(
+        paginatedAttendanceHistoryProvider(period: period, status: null),
+      );
+      ref.invalidate(
+        attendanceStatsProvider(period: period),
+      );
       globalNavigatorKey.currentContext?.pop();
       return true;
     } on ValidationException catch (e) {

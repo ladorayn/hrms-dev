@@ -27,13 +27,11 @@ class OvertimeRequestScreen extends ConsumerStatefulWidget {
 }
 
 class _OvertimeRequestScreenState extends ConsumerState<OvertimeRequestScreen> {
-  // --- Controllers ---
   final _attendanceDateController = TextEditingController();
   final _notesController = TextEditingController();
   final _clockInController = TextEditingController();
   final _clockOutController = TextEditingController();
 
-  // --- State for selected values ---
   DateTime? _selectedDate;
   TimeOfDay? _selectedClockIn;
   TimeOfDay? _selectedClockOut;
@@ -53,7 +51,6 @@ class _OvertimeRequestScreenState extends ConsumerState<OvertimeRequestScreen> {
     super.initState();
   }
 
-  // --- Submission Logic ---
   Future<void> _submitOvertime() async {
     final request = OvertimeRequest(
       overtimeDate: formatDateForAPI(_selectedDate),
@@ -62,17 +59,16 @@ class _OvertimeRequestScreenState extends ConsumerState<OvertimeRequestScreen> {
       notes: _notesController.text,
     );
 
-    // 2. Call the notifier's method
     final success = await ref
         .read(overtimeRequestNotifierProvider.notifier)
         .submitRequest(request);
 
-    // 3. Handle success
     if (success && mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
             content: Text('Overtime request submitted successfully!')),
       );
+      ref.invalidate(recentActivityProvider(limit: 10));
       context.pop();
     }
   }
@@ -118,7 +114,6 @@ class _OvertimeRequestScreenState extends ConsumerState<OvertimeRequestScreen> {
         children: [
           Expanded(
             child: SingleChildScrollView(
-              // Added for better small-screen support
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -200,7 +195,7 @@ class _OvertimeRequestScreenState extends ConsumerState<OvertimeRequestScreen> {
                   SizedBox(height: 10.h),
                   ITextFieldTextArea(
                     label: "Overtime Notes",
-                    controller: _notesController, // Connect the controller
+                    controller: _notesController,
                     isRequired: true,
                     errorText: validationErrors['notes'],
                   ),

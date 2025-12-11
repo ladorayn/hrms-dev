@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:hrms_mobile/core/constants/mock_values.dart';
 import 'package:hrms_mobile/core/data/models/base_paginated_response.dart';
 import 'package:hrms_mobile/core/data/models/base_response.dart';
 import 'package:hrms_mobile/core/data/models/paginated_response.dart';
@@ -74,10 +75,11 @@ class AttendanceRemoteSource {
   }
 
   Future<BaseResponse<WorkingShiftResponseModel>> getTodayShifts(
-      {String? date}) async {
+      {String? userId, String? date}) async {
     try {
       final Map<String, dynamic> queryParameters = {
         'date': date,
+        'user_id': userId
       };
 
       final response = await _dio.get('api/v1/setting/shift/shift-date',
@@ -205,7 +207,7 @@ class AttendanceRemoteSource {
       final Map<String, dynamic> queryParameters = {};
 
       if (period != null) {
-        queryParameters['date_format'] = period;
+        queryParameters['period'] = period;
       }
 
       final response = await _dio.get(
@@ -300,7 +302,7 @@ class AttendanceRemoteSource {
       final Map<String, dynamic> queryParameters = {};
 
       if (period != null) {
-        queryParameters['date_format'] = period;
+        queryParameters['period'] = period;
       }
 
       final response = await _dio.get(
@@ -326,7 +328,7 @@ class AttendanceRemoteSource {
       );
 
       return BaseResponse.fromJson(
-        response.data,
+        mockLocation,
         (json) => ValidateLocationResponseModel.fromJson(
             json as Map<String, dynamic>),
       );

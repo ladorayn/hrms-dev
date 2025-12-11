@@ -3,9 +3,10 @@ import 'package:hrms_mobile/features/attendance/domain/repositories/attendance_r
 
 class GetWorkingShiftsUseCase {
   final AttendanceRepository _repository;
+
   GetWorkingShiftsUseCase(this._repository);
 
-  Future<WorkingShiftResponseModel> call(String? date) async {
-    return _repository.getTodayShift(date: date);
+  Future<WorkingShiftResponseModel> call(String? userId, String? date) async {
+    return _repository.getTodayShift(userId: userId, date: date);
   }
 }
