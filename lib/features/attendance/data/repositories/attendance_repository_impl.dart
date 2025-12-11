@@ -66,8 +66,10 @@ class AttendanceRepositoryImpl implements AttendanceRepository {
   }
 
   @override
-  Future<WorkingShiftResponseModel> getTodayShift({String? date}) async {
-    final response = await remoteSource.getTodayShifts(date: date);
+  Future<WorkingShiftResponseModel> getTodayShift(
+      {String? userId, String? date}) async {
+    final response =
+        await remoteSource.getTodayShifts(userId: userId, date: date);
     if (response.status == 'success') {
       return response.data;
     } else {

@@ -15,6 +15,7 @@ import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_a
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_time_picker.dart';
 import 'package:hrms_mobile/features/attendance/data/models/request/update_attendance/update_attendance_request_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/detail_attendance/attendance_detail_response_model.dart';
+import 'package:hrms_mobile/features/auth/presentation/providers/auth/auth_provider.dart';
 import 'package:intl/intl.dart';
 
 import '../providers/attendance_provider.dart';
@@ -87,8 +88,10 @@ class _AttendanceEditFormScreenState
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    final shiftListState =
-        ref.watch(workingShiftListProvider(widget.attendance.attendanceDate));
+    final authP = ref.watch(authProvider);
+
+    final shiftListState = ref.watch(workingShiftListProvider(
+        "${authP.value?.id}", widget.attendance.attendanceDate));
 
     final updateState = ref.watch(updateAttendanceProvider);
     final isLoading = updateState.isLoading;
@@ -139,11 +142,15 @@ class _AttendanceEditFormScreenState
           notes: _notesController.text,
         );
 
-        final success =
-            await ref.read(updateAttendanceProvider.notifier).updateAttendance(
-                  attendanceId: widget.attendance.id.toString(),
-                  request: request,
-                );
+        final String attendancePeriod = DateFormat('yyyy-MM')
+            .format(DateTime.parse(widget.attendance.attendanceDate));
+
+        final success = await ref
+            .read(updateAttendanceProvider.notifier)
+            .updateAttendance(
+                attendanceId: widget.attendance.id.toString(),
+                request: request,
+                periodToInvalidate: attendancePeriod);
 
         if (success) {
           ScaffoldMessenger.of(context).showSnackBar(

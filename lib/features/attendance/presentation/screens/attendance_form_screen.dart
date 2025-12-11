@@ -13,12 +13,14 @@ import 'package:hrms_mobile/features/attendance/data/models/request/clock_in/clo
 import 'package:hrms_mobile/features/attendance/data/models/request/clock_out/clock_out_request_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/attendance/attendance_response_model.dart';
 import 'package:hrms_mobile/features/attendance/presentation/widgets/attendance_form.dart';
+import 'package:hrms_mobile/features/auth/presentation/providers/auth/auth_provider.dart';
 import 'package:intl/intl.dart';
 
 import '../providers/attendance_provider.dart';
 
 class AttendanceFormScreen extends ConsumerStatefulWidget {
   final AttendanceEnum activity;
+
   const AttendanceFormScreen({
     super.key,
     required this.activity,
@@ -54,6 +56,8 @@ class _AttendanceFormScreenState extends ConsumerState<AttendanceFormScreen> {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
+    final authP = ref.watch(authProvider);
+
     ref.listen<AsyncValue<AttendanceData?>>(todayAttendanceProvider,
         (_, state) {
       state.when(
@@ -64,14 +68,12 @@ class _AttendanceFormScreenState extends ConsumerState<AttendanceFormScreen> {
         data: (attendanceData) {
           if (attendanceData != null) {
             ref.invalidate(recentActivityProvider);
-            context.go(RoutePaths.dashboard); // On success, navigate
+            context.go(RoutePaths.dashboard);
           }
         },
         loading: () {},
       );
     });
-
-    final shiftListState = ref.watch(workingShiftListProvider(""));
 
     final attendanceState = ref.watch(attendanceProvider);
 
@@ -94,15 +96,19 @@ class _AttendanceFormScreenState extends ConsumerState<AttendanceFormScreen> {
 
     // Format for UI
     String? clockInFormattedDate;
+    String? clockInFormattedDateParam;
     String? clockInFormattedTime;
 
     String? clockOutFormattedDate;
+    String? clockOutFormattedParam;
     String? clockOutFormattedTime;
 
     if (effectiveClockInTime != null) {
       clockInFormattedDate =
           DateFormat('d MMMM, y').format(effectiveClockInTime);
       clockInFormattedTime = DateFormat('hh:mm a').format(effectiveClockInTime);
+      clockInFormattedDateParam =
+          DateFormat('yyyy-MM-dd').format(effectiveClockInTime);
     }
 
     if (effectiveClockOutTime != null) {
@@ -110,7 +116,19 @@ class _AttendanceFormScreenState extends ConsumerState<AttendanceFormScreen> {
           DateFormat('d MMMM, y').format(effectiveClockOutTime);
       clockOutFormattedTime =
           DateFormat('hh:mm a').format(effectiveClockOutTime);
+      clockOutFormattedParam =
+          DateFormat('yyyy-MM-dd').format(effectiveClockOutTime);
     }
+
+    final date = (widget.activity == AttendanceEnum.clockIn)
+        ? clockInFormattedDateParam ?? ''
+        : clockOutFormattedParam ?? '';
+
+    final shiftListState = ref.watch(workingShiftListProvider(
+      "${authP.value?.id}",
+      date,
+    ));
+
     return Scaffold(
       appBar: IAppBar(
         title: widget.activity.title,

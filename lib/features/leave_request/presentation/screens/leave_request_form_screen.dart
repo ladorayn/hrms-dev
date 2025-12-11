@@ -2,7 +2,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart'; // Import for context.pop()
+import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/core/errors/exceptions.dart';
 import 'package:hrms_mobile/core/widgets/file_picker.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
@@ -10,12 +10,10 @@ import 'package:hrms_mobile/core/widgets/i_footer_button.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_date_picker.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_dropdown_bottom_sheet.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
+import 'package:hrms_mobile/features/leave_request/data/models/request/leave_request.dart';
+import 'package:hrms_mobile/features/leave_request/data/models/response/leave_type_response.dart';
 import 'package:hrms_mobile/features/leave_request/presentation/providers/leave_provider.dart';
-import 'package:intl/intl.dart'; // Import for date formatting
-
-// Import your request model
-import '../../data/models/request/leave_request.dart';
-import '../../data/models/response/leave_type_response.dart';
+import 'package:intl/intl.dart';
 
 class LeaveRequestFormScreen extends ConsumerStatefulWidget {
   const LeaveRequestFormScreen({
@@ -107,6 +105,8 @@ class _LeaveRequestFormScreenState
           const SnackBar(
               content: Text('Leave request submitted successfully!')),
         );
+        ref.invalidate(leaveBalanceProvider);
+        ref.invalidate(leaveHistoriesProvider);
         context.pop();
       }
     } catch (e) {
@@ -114,7 +114,6 @@ class _LeaveRequestFormScreenState
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Leave request submitted failed!')),
         );
-        context.pop();
       }
     }
   }
