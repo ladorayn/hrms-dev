@@ -4,6 +4,7 @@ import 'package:hrms_mobile/features/performance/data/models/request/assessment_
 import 'package:hrms_mobile/features/performance/data/models/request/assessment_form_request.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_answer.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_list.dart';
+import 'package:hrms_mobile/features/performance/data/models/response/okr_list.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/supervisor_assessment.dart';
 import 'package:hrms_mobile/features/performance/domain/repositories/performance_repository.dart';
 
@@ -93,7 +94,6 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
       {AssessmentAnswerRequest? request}) async {
     final response = await remoteSource.getAssessmentAnswer(request: request);
 
-    print("SINI PAKK $response");
     if (response.status == 'success') {
       return response.data;
     } else {
@@ -125,6 +125,17 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
       {required dynamic supervisorAssessmentId}) async {
     final response = await remoteSource.getSupervisorAssessmentDetail(
         supervisorAssessmentId: supervisorAssessmentId);
+    if (response.status == 'success') {
+      return response.data;
+    } else {
+      throw Exception('API Error: ${response.message}');
+    }
+  }
+
+  @override
+  Future<List<OKRList>> getOKRList() async {
+    final response = await remoteSource.getOKRList();
+
     if (response.status == 'success') {
       return response.data;
     } else {

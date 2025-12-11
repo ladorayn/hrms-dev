@@ -17,15 +17,24 @@ import 'package:hrms_mobile/features/attendance/domain/entities/attendance.dart'
 
 abstract class AttendanceRepository {
   Future<AttendanceData> clockIn(ClockInRequestModel request);
+
   Future<AttendanceData> clockOut(
       int attendanceId, ClockOutRequestModel request);
+
   Future<List<AttendanceModel>> getHistory();
+
   Future<List<ShiftModel>> getShift();
-  Future<WorkingShiftResponseModel> getTodayShift({String? date});
+
+  Future<WorkingShiftResponseModel> getTodayShift(
+      {String? userId, String? date});
+
   Future<BasePaginatedResponse<ActivityLogModel>> getActivityLogs();
+
   Future<BasePaginatedResponse<ActivityLogModel>> getActivityLogsByUrl(
       String url);
+
   Future<AttendanceDetail> getDetailAttendance(String attendanceId);
+
   Future<PaginatedResponse<AttendanceDetail>> getAttendanceHistory({
     int page,
     int perPage,
@@ -33,19 +42,26 @@ abstract class AttendanceRepository {
     String? status,
     String? date,
   });
+
   Future<PaginatedResponse<AttendanceDetail>> getAttendanceHistoryByUrl(
       String url);
+
   Future<AttendanceStatistics> getAttendanceStats({String? period});
+
   Future<AttendanceDetail> updateAttendance(
       {required String attendanceId, UpdateAttendanceRequestModel? request});
+
   Future<PaginatedResponse<OvertimeDetail>> getOvertimeHistory({
     int page,
     int perPage,
     String? period,
     String? status,
   });
+
   Future<PaginatedResponse<OvertimeDetail>> getOvertimeHistoryByUrl(String url);
+
   Future<OvertimeStatistics> getOvertimeStats({String? period});
+
   Future<ValidateLocationResponseModel> validateLocation(
     ValidateLocationRequestModel request,
   );

@@ -8,6 +8,7 @@ import 'package:hrms_mobile/features/performance/data/models/request/assessment_
 import 'package:hrms_mobile/features/performance/data/models/request/assessment_form_request.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_answer.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_list.dart';
+import 'package:hrms_mobile/features/performance/data/models/response/okr_list.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/supervisor_assessment.dart';
 
 class PerformanceRemoteSource {
@@ -196,6 +197,23 @@ class PerformanceRemoteSource {
         response.data,
         (json) =>
             SupervisorAssessmentDetail.fromJson(json as Map<String, dynamic>),
+      );
+    } on DioException catch (e) {
+      throw handleDioError(e);
+    }
+  }
+
+  Future<BaseResponse<List<OKRList>>> getOKRList() async {
+    try {
+      // final response = await _dio.get(
+      //   'api/ess/okr',
+      // );
+
+      return BaseResponse.fromJson(
+        mockOKRList,
+        (json) => (json as List)
+            .map((item) => OKRList.fromJson(item as Map<String, dynamic>))
+            .toList(),
       );
     } on DioException catch (e) {
       throw handleDioError(e);

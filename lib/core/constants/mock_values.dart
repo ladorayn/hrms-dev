@@ -528,3 +528,186 @@ const Map<String, dynamic> mockFormFieldsData = {
     }
   ]
 };
+
+const Map<String, dynamic> mockOKRList = {
+  "status": "success",
+  "message": "Successfully fetch okr list",
+  "data": [
+    {
+      "id": 1,
+      "period": "Q4 2025",
+      "status": "Not Started",
+      "form_id": 1,
+      "due_date": "June 18, 2025",
+    },
+    {
+      "id": 2,
+      "period": "Q3 2025",
+      "status": "Not Started",
+      "form_id": 1,
+      "due_date": "June 18, 2025",
+    },
+    {
+      "id": 3,
+      "period": "Q2 2025",
+      "status": "Not Started",
+      "form_id": 1,
+      "due_date": "June 18, 2025",
+    }
+  ]
+};
+
+final mockOKRItems = [
+  {
+    "title": "Penilaian Kompetensi Teknis",
+    "okr": [
+      {
+        "time": "1h",
+        "desc": "Mengurangi waktu henti mesin per minggu hingga di bawah 2 jam",
+        "status": 1,
+        "memberCount": 7,
+        "progress": 10.toDouble(),
+      },
+      {
+        "time": "1h",
+        "desc":
+            "Meningkatkan rasio output per shift sebesar 15% dibandingkan Q2",
+        "status": 2,
+        "memberCount": 4,
+        "progress": 40.toDouble(),
+      },
+      {
+        "time": "1h",
+        "desc": "Menyelesaikan pelatihan 5R untuk semua operator lini 1 dan 2",
+        "status": 3,
+        "memberCount": 2,
+        "progress": 86.toDouble(),
+      }
+    ]
+  },
+  {
+    "title": "Menurunkan jumlah cacat produk (defect rate)",
+    "okr": [
+      {
+        "time": "1h",
+        "desc": "Mengurangi waktu henti mesin per minggu hingga di bawah 2 jam",
+        "status": 1,
+        "memberCount": 7,
+        "progress": 10.toDouble(),
+      },
+      {
+        "time": "1h",
+        "desc":
+            "Meningkatkan rasio output per shift sebesar 15% dibandingkan Q2",
+        "status": 2,
+        "memberCount": 4,
+        "progress": 40.toDouble(),
+      },
+      {
+        "time": "1h",
+        "desc": "Menyelesaikan pelatihan 5R untuk semua operator lini 1 dan 2",
+        "status": 3,
+        "memberCount": 2,
+        "progress": 86.toDouble(),
+      }
+    ]
+  }
+];
+
+const mockRequestView = {
+  "status": "success",
+  "message":
+      "View access requested successfully, wait until the admin process your request",
+  "data": null
+};
+
+const mockPayslip = {
+  "status": "success",
+  "message": "Payslips retrieved successfully",
+  "data": [
+    {
+      "id": 285,
+      "payrun": {
+        "id": 14,
+        "period_year": 2024,
+        "period_month": 11,
+        "period_label": "November 2024",
+        "status": 2,
+        "status_label": "Final",
+        "sent_at": null
+      },
+      "view_access_status": 0,
+      "view_access_status_label": "Pending",
+      "view_access_granted": false,
+      "view_access_days_remaining": null,
+      "print_access_status": 0,
+      "print_access_status_label": "Pending"
+    },
+    {
+      "id": 276,
+      "payrun": {
+        "id": 13,
+        "period_year": 2025,
+        "period_month": 4,
+        "period_label": "April 2025",
+        "status": 2,
+        "status_label": "Final",
+        "sent_at": null
+      },
+      "view_access_status": 2,
+      "view_access_status_label": "Granted",
+      "view_access_granted": false,
+      "view_access_days_remaining": 0,
+      "print_access_status": 1,
+      "print_access_status_label": "Processed"
+    },
+    {
+      "id": 267,
+      "payrun": {
+        "id": 12,
+        "period_year": 2025,
+        "period_month": 3,
+        "period_label": "March 2025",
+        "status": 2,
+        "status_label": "Final",
+        "sent_at": null
+      },
+      "view_access_status": 2,
+      "view_access_status_label": "Granted",
+      "view_access_granted": false,
+      "view_access_days_remaining": 0,
+      "print_access_status": 1,
+      "print_access_status_label": "Processed"
+    },
+    {
+      "id": 240,
+      "payrun": {
+        "id": 9,
+        "period_year": 2025,
+        "period_month": 8,
+        "period_label": "August 2025",
+        "status": 2,
+        "status_label": "Final",
+        "sent_at": null
+      },
+      "view_access_status": 2,
+      "view_access_status_label": "Granted",
+      "view_access_granted": false,
+      "view_access_days_remaining": 0,
+      "print_access_status": 0,
+      "print_access_status_label": "Pending"
+    }
+  ],
+  "pagination": {
+    "current_page": 1,
+    "per_page": 50,
+    "total": 4,
+    "last_page": 1,
+    "from": 1,
+    "to": 4,
+    "first": "http://api.okejobhub.fun/api/ess/payslip?page=1",
+    "last": "http://api.okejobhub.fun/api/ess/payslip?page=1",
+    "prev": null,
+    "next": null
+  }
+};

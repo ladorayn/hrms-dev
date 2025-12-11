@@ -92,4 +92,11 @@ class RoutePaths {
       'supervisorAssessmentDetailName';
   static const supervisorAssessmentForm = '/supervisor-assessment-form';
   static const supervisorAssessmentFormName = 'supervisorAssessmentFormName';
+
+  static const okrList = '/okr-list';
+  static const okrListName = 'okrListName';
+  static const okr = '/okr';
+  static const okrName = 'okrName';
+  static const okrKeyResult = '/okr-key-result';
+  static const okrKeyResultName = 'okrKeyResultName';
 }

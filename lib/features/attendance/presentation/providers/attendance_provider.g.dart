@@ -1021,13 +1021,15 @@ final shiftListProvider =
 );
 
 typedef _$ShiftList = AutoDisposeAsyncNotifier<List<ShiftModel>>;
-String _$workingShiftListHash() => r'0100744e648c679482f10ed96c61a68da2f9d156';
+String _$workingShiftListHash() => r'f7178f957b17f7ca49b0ef4814e4c9dd63afc299';
 
 abstract class _$WorkingShiftList
     extends BuildlessAutoDisposeAsyncNotifier<WorkingShiftResponseModel> {
+  late final String? userId;
   late final String? date;
 
   FutureOr<WorkingShiftResponseModel> build(
+    String? userId,
     String? date,
   );
 }
@@ -1044,9 +1046,11 @@ class WorkingShiftListFamily
 
   /// See also [WorkingShiftList].
   WorkingShiftListProvider call(
+    String? userId,
     String? date,
   ) {
     return WorkingShiftListProvider(
+      userId,
       date,
     );
   }
@@ -1056,6 +1060,7 @@ class WorkingShiftListFamily
     covariant WorkingShiftListProvider provider,
   ) {
     return call(
+      provider.userId,
       provider.date,
     );
   }
@@ -1080,9 +1085,12 @@ class WorkingShiftListProvider extends AutoDisposeAsyncNotifierProviderImpl<
     WorkingShiftList, WorkingShiftResponseModel> {
   /// See also [WorkingShiftList].
   WorkingShiftListProvider(
+    String? userId,
     String? date,
   ) : this._internal(
-          () => WorkingShiftList()..date = date,
+          () => WorkingShiftList()
+            ..userId = userId
+            ..date = date,
           from: workingShiftListProvider,
           name: r'workingShiftListProvider',
           debugGetCreateSourceHash:
@@ -1092,6 +1100,7 @@ class WorkingShiftListProvider extends AutoDisposeAsyncNotifierProviderImpl<
           dependencies: WorkingShiftListFamily._dependencies,
           allTransitiveDependencies:
               WorkingShiftListFamily._allTransitiveDependencies,
+          userId: userId,
           date: date,
         );
 
@@ -1102,9 +1111,11 @@ class WorkingShiftListProvider extends AutoDisposeAsyncNotifierProviderImpl<
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
+    required this.userId,
     required this.date,
   }) : super.internal();
 
+  final String? userId;
   final String? date;
 
   @override
@@ -1112,6 +1123,7 @@ class WorkingShiftListProvider extends AutoDisposeAsyncNotifierProviderImpl<
     covariant WorkingShiftList notifier,
   ) {
     return notifier.build(
+      userId,
       date,
     );
   }
@@ -1121,12 +1133,15 @@ class WorkingShiftListProvider extends AutoDisposeAsyncNotifierProviderImpl<
     return ProviderOverride(
       origin: this,
       override: WorkingShiftListProvider._internal(
-        () => create()..date = date,
+        () => create()
+          ..userId = userId
+          ..date = date,
         from: from,
         name: null,
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
+        userId: userId,
         date: date,
       ),
     );
@@ -1140,12 +1155,15 @@ class WorkingShiftListProvider extends AutoDisposeAsyncNotifierProviderImpl<
 
   @override
   bool operator ==(Object other) {
-    return other is WorkingShiftListProvider && other.date == date;
+    return other is WorkingShiftListProvider &&
+        other.userId == userId &&
+        other.date == date;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, userId.hashCode);
     hash = _SystemHash.combine(hash, date.hashCode);
 
     return _SystemHash.finish(hash);
@@ -1156,6 +1174,9 @@ class WorkingShiftListProvider extends AutoDisposeAsyncNotifierProviderImpl<
 // ignore: unused_element
 mixin WorkingShiftListRef
     on AutoDisposeAsyncNotifierProviderRef<WorkingShiftResponseModel> {
+  /// The parameter `userId` of this provider.
+  String? get userId;
+
   /// The parameter `date` of this provider.
   String? get date;
 }
@@ -1165,6 +1186,8 @@ class _WorkingShiftListProviderElement
         WorkingShiftResponseModel> with WorkingShiftListRef {
   _WorkingShiftListProviderElement(super.provider);
 
+  @override
+  String? get userId => (origin as WorkingShiftListProvider).userId;
   @override
   String? get date => (origin as WorkingShiftListProvider).date;
 }
@@ -1318,7 +1341,7 @@ class _ValidateLocationProviderElement
       (origin as ValidateLocationProvider).request;
 }
 
-String _$updateAttendanceHash() => r'717ee030723f776f3ba77877df5b958259afe231';
+String _$updateAttendanceHash() => r'a5abdfa0fae28bfef260be1e199201154fc3c8c9';
 
 /// See also [UpdateAttendance].
 @ProviderFor(UpdateAttendance)
