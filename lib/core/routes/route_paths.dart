@@ -37,6 +37,8 @@ class RoutePaths {
   static const offboardingName = 'offboarding';
   static const exitForm = '/exit-form';
   static const exitFormName = 'offboardingExitForm';
+  static const exitSchedule = '/exit-schedule';
+  static const exitScheduleName = 'exitSchedule';
   static const workHandover = '/work-handover';
   static const workHandoverName = 'offboardingWorkHandover';
   static const documentHandover = '/document-handover';
@@ -46,6 +48,8 @@ class RoutePaths {
   static const documentAssigneeHandover = '/document-handover-assignee';
   static const documentAssigneeHandoverName =
       'offboardingDocumentAssigneeHandover';
+  static const responsibilityHandover = '/responsibility-handover';
+  static const responsibilityHandoverName = 'responsibilityHandover';
 
   // Overtime Request
   static const overtimeRequest = '/overtime-request';
@@ -92,4 +96,14 @@ class RoutePaths {
       'supervisorAssessmentDetailName';
   static const supervisorAssessmentForm = '/supervisor-assessment-form';
   static const supervisorAssessmentFormName = 'supervisorAssessmentFormName';
+  static const supervisorAssessmentSchedule = '/supervisor-assessment-schedule';
+  static const supervisorAssessmentScheduleName =
+      'supervisorAssessmentScheduleName';
+
+  static const okrList = '/okr-list';
+  static const okrListName = 'okrListName';
+  static const okr = '/okr';
+  static const okrName = 'okrName';
+  static const okrKeyResult = '/okr-key-result';
+  static const okrKeyResultName = 'okrKeyResultName';
 }

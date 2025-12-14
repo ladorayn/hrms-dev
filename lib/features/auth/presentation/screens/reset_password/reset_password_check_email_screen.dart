@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/l10n/app_localizations.dart';
+import 'package:hrms_mobile/core/widgets/toastbar.dart';
 import 'package:hrms_mobile/features/auth/presentation/providers/reset_password/reset_password_provider.dart';
 
 class ResetPasswordCheckEmailScreen extends ConsumerWidget {
@@ -67,11 +68,15 @@ class ResetPasswordCheckEmailScreen extends ConsumerWidget {
                         ref
                             .read(resetPasswordProvider.notifier)
                             .requestReset(email);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                              content: Text(l10n
-                                  .resetPasswordCheckEmail_resendingSnackbar)),
-                        );
+                        showCustomToast(
+                            context,
+                            l10n.resetPasswordCheckEmail_resendingSnackbar,
+                            ToastType.info);
+                        // ScaffoldMessenger.of(context).showSnackBar(
+                        //   SnackBar(
+                        //       content: Text(l10n
+                        //           .resetPasswordCheckEmail_resendingSnackbar)),
+                        // );
                       },
                   ),
                 ],

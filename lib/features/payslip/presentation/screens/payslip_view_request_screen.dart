@@ -9,6 +9,7 @@ import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_password.dart';
+import 'package:hrms_mobile/core/widgets/toastbar.dart';
 import 'package:hrms_mobile/features/payslip/data/models/request/payslip_view_request.dart';
 import 'package:hrms_mobile/features/payslip/data/models/response/payslip_list_response.dart';
 import 'package:hrms_mobile/features/payslip/presentation/providers/payslip_provider.dart';
@@ -38,16 +39,19 @@ class _PayslipViewRequestScreenState
     final payslipId = widget.data.id;
 
     if (password.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter your password.')),
-      );
+      showCustomToast(context, 'Please enter your password.', ToastType.info);
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   const SnackBar(content: Text('Please enter your password.')),
+      // );
       return;
     }
 
     if (payslipId == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Error: Payslip ID is missing.')),
-      );
+      showCustomToast(
+          context, 'Error: Payslip ID is missing.', ToastType.error);
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   const SnackBar(content: Text('Error: Payslip ID is missing.')),
+      // );
       return;
     }
 
@@ -60,10 +64,12 @@ class _PayslipViewRequestScreenState
         id: payslipId,
       );
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-              content: Text('Access granted! Navigating to payslip.')),
-        );
+        showCustomToast(context, 'Access granted! Navigating to payslip.',
+            ToastType.success);
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   const SnackBar(
+        //       content: Text('Access granted! Navigating to payslip.')),
+        // );
 
         globalNavigatorKey.currentContext?.pushNamed(
           RoutePaths.payslipViewName,
@@ -72,13 +78,17 @@ class _PayslipViewRequestScreenState
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-                'Access Failed: ${e.toString().replaceAll('Exception: ', '')}'),
-            backgroundColor: Colors.red,
-          ),
-        );
+        showCustomToast(
+            context,
+            'Access Failed: ${e.toString().replaceAll('Exception: ', '')}',
+            ToastType.error);
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(
+        //     content: Text(
+        //         'Access Failed: ${e.toString().replaceAll('Exception: ', '')}'),
+        //     backgroundColor: Colors.red,
+        //   ),
+        // );
       }
     } finally {
       notifier.reset();

@@ -40,6 +40,7 @@ class ITextFieldTextArea extends ITextFieldBase {
     super.borderVariant,
     super.textFieldOnly,
     super.isRequired,
+    super.enabled,
   }) : super(
           minLine: 3,
           maxLine: 5,

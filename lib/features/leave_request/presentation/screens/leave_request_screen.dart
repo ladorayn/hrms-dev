@@ -6,6 +6,7 @@ import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
+import 'package:hrms_mobile/core/widgets/toastbar.dart';
 import 'package:hrms_mobile/features/leave_request/data/models/response/leave_balance_response.dart';
 import 'package:hrms_mobile/features/leave_request/presentation/providers/leave_provider.dart';
 import 'package:hrms_mobile/features/leave_request/presentation/widgets/leave_request_history.dart';
@@ -23,11 +24,13 @@ class LeaveRequestScreen extends ConsumerWidget {
 
     ref.listen<AsyncValue>(leaveBalanceProvider, (previous, next) {
       if (next is AsyncError) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Could not load leave balance: ${next.error}'),
-          ),
-        );
+        showCustomToast(context, 'Could not load leave balance: ${next.error}',
+            ToastType.error);
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(
+        //     content: Text('Could not load leave balance: ${next.error}'),
+        //   ),
+        // );
       }
     });
 

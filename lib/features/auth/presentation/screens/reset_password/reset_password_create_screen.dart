@@ -6,6 +6,7 @@ import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_email.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_password.dart';
+import 'package:hrms_mobile/core/widgets/toastbar.dart';
 import 'package:hrms_mobile/features/auth/data/models/change_password/request/change_password_request_model.dart';
 import 'package:hrms_mobile/features/auth/data/models/reset_password/request/reset_password_request.dart';
 import 'package:hrms_mobile/features/auth/domain/entities/reset_password_state.dart';
@@ -46,9 +47,10 @@ class ResetPasswordCreateScreen extends ConsumerWidget {
 
         if (next.errors['general'] != null) {
           ScaffoldMessenger.of(context).clearSnackBars();
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(next.errors['general']!)),
-          );
+          showCustomToast(context, next.errors['general']!, ToastType.error);
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   SnackBar(content: Text(next.errors['general']!)),
+          // );
         }
       },
     );

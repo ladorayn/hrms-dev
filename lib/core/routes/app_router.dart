@@ -24,15 +24,20 @@ import 'package:hrms_mobile/features/auth/presentation/screens/reset_password/re
 import 'package:hrms_mobile/features/auth/presentation/screens/reset_password/reset_password_success_screen.dart';
 import 'package:hrms_mobile/features/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:hrms_mobile/features/dashboard/presentation/screens/main_screen.dart'; // You will create this file
+import 'package:hrms_mobile/features/inbox/data/models/response/notification_response.dart';
 import 'package:hrms_mobile/features/inbox/presentation/screens/inbox_screen.dart';
 import 'package:hrms_mobile/features/leave_request/presentation/screens/leave_request_detail_screen.dart';
 import 'package:hrms_mobile/features/leave_request/presentation/screens/leave_request_form_screen.dart';
 import 'package:hrms_mobile/features/leave_request/presentation/screens/leave_request_screen.dart';
 import 'package:hrms_mobile/features/offboarding/data/models/response/offboarding_status_response.dart';
 import 'package:hrms_mobile/features/offboarding/presentation/screens/document_handover_screen.dart';
+import 'package:hrms_mobile/features/offboarding/presentation/screens/document_handover_validate_screen.dart';
 import 'package:hrms_mobile/features/offboarding/presentation/screens/exit_form_screen.dart';
+import 'package:hrms_mobile/features/offboarding/presentation/screens/exit_interview_schedule_screen.dart';
 import 'package:hrms_mobile/features/offboarding/presentation/screens/offboarding_screen.dart';
+import 'package:hrms_mobile/features/offboarding/presentation/screens/responsibility_assignee_handover.dart';
 import 'package:hrms_mobile/features/offboarding/presentation/screens/work_handover_screen.dart';
+import 'package:hrms_mobile/features/offboarding/presentation/screens/work_handover_validate_screen.dart';
 import 'package:hrms_mobile/features/overtime_request/presentation/screens/overtime_history_edit_screen.dart';
 import 'package:hrms_mobile/features/overtime_request/presentation/screens/overtime_request_screen.dart';
 import 'package:hrms_mobile/features/payslip/data/models/response/payslip_list_response.dart';
@@ -51,6 +56,7 @@ import 'package:hrms_mobile/features/performance/presentation/screens/self_asses
 import 'package:hrms_mobile/features/performance/presentation/screens/self_assessment_screen.dart';
 import 'package:hrms_mobile/features/performance/presentation/screens/supervisor_assessment_detail_screen.dart';
 import 'package:hrms_mobile/features/performance/presentation/screens/supervisor_assessment_form_screen.dart';
+import 'package:hrms_mobile/features/performance/presentation/screens/supervisor_assessment_schedule_screen.dart';
 import 'package:hrms_mobile/features/performance/presentation/screens/supervisor_assessments_screen.dart';
 import 'package:hrms_mobile/features/profile/presentation/screens/profile_detail_screen.dart';
 import 'package:hrms_mobile/features/profile/presentation/screens/profile_edit_screen.dart';
@@ -250,11 +256,26 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         },
       ),
       GoRoute(
+        path: RoutePaths.responsibilityHandover,
+        name: RoutePaths.responsibilityHandoverName,
+        builder: (context, state) {
+          return ResponsibilityAssigneeHandoverScreen();
+        },
+      ),
+      GoRoute(
         path: RoutePaths.exitForm,
         name: RoutePaths.exitFormName,
         builder: (context, state) {
           final data = state.extra as OffboardingStatusResponse;
           return ExitFormScreen(data: data);
+        },
+      ),
+      GoRoute(
+        path: RoutePaths.exitSchedule,
+        name: RoutePaths.exitScheduleName,
+        builder: (context, state) {
+          final data = state.extra as ExitInterviewSchedulePayload;
+          return ExitInterviewScheduleScreen(schedule: data);
         },
       ),
       GoRoute(
@@ -268,11 +289,25 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         },
       ),
       GoRoute(
+        path: RoutePaths.workAssigneeHandover,
+        name: RoutePaths.workAssigneeHandoverName,
+        builder: (context, state) {
+          return WorkHandoverValidateScreen();
+        },
+      ),
+      GoRoute(
         path: RoutePaths.documentHandover,
         name: RoutePaths.documentHandoverName,
         builder: (context, state) {
           final data = state.extra as OffboardingStatusResponse;
           return DocumentHandoverScreen(data: data);
+        },
+      ),
+      GoRoute(
+        path: RoutePaths.documentAssigneeHandover,
+        name: RoutePaths.documentAssigneeHandoverName,
+        builder: (context, state) {
+          return DocumentHandoverValidateScreen();
         },
       ),
       GoRoute(
@@ -393,6 +428,14 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) {
           final data = state.extra as SupervisorAssessment;
           return SupervisorAssessmentDetailScreen(assessment: data);
+        },
+      ),
+      GoRoute(
+        path: RoutePaths.supervisorAssessmentSchedule,
+        name: RoutePaths.supervisorAssessmentScheduleName,
+        builder: (context, state) {
+          final data = state.extra as SupervisorAssessmentSchedulePayload;
+          return SupervisorAssessmentScheduleScreen(schedule: data);
         },
       ),
 

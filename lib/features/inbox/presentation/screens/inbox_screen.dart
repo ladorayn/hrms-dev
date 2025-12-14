@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hrms_mobile/core/navigation/global_navigator.dart';
+import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/features/inbox/data/models/response/notification_response.dart';
 import 'package:hrms_mobile/features/inbox/presentation/providers/inbox_provider.dart';
@@ -89,12 +92,12 @@ class InboxScreen extends ConsumerWidget {
     NotificationPayload payload,
     String rawCode,
   ) {
-    // Convert UPPERCASE BE → enum camelCase
     final code = NotificationCode.values.firstWhere(
-      (c) => c.name.toUpperCase() == rawCode.toUpperCase(),
+      (c) {
+        return c.name.toUpperCase() == toCamelCase(rawCode).toUpperCase();
+      },
       orElse: () => NotificationCode.unknown,
     );
-
     switch (code) {
       // =====================================================
       // LEAVE
@@ -102,7 +105,7 @@ class InboxScreen extends ConsumerWidget {
       case NotificationCode.leaveSubmitted:
         payload.mapOrNull(
           leaveSubmitted: (p) {
-            // context.push("/leave-history");
+            globalNavigatorKey.currentContext?.push(RoutePaths.leaveRequest);
           },
         );
         break;
@@ -110,14 +113,14 @@ class InboxScreen extends ConsumerWidget {
       case NotificationCode.leaveUpdated:
         payload.mapOrNull(
           leaveUpdated: (p) {
-            // context.push("/leave-history");
+            globalNavigatorKey.currentContext?.push(RoutePaths.leaveRequest);
           },
         );
         break;
 
       case NotificationCode.leaveReminder:
       case NotificationCode.leaveExpiring:
-        // context.push("/leave-balance");
+        globalNavigatorKey.currentContext?.push(RoutePaths.leaveRequest);
         break;
 
       // =====================================================
@@ -126,25 +129,28 @@ class InboxScreen extends ConsumerWidget {
       case NotificationCode.payslipAvailable:
         payload.mapOrNull(
           payslipAvailable: (p) {
-            // context.push("/payslip/${p.period}");
+            globalNavigatorKey.currentContext
+                ?.pushNamed(RoutePaths.payslipName);
           },
         );
         break;
 
       case NotificationCode.payslipRequestUpdated:
-        // context.push("/payslip");
+        globalNavigatorKey.currentContext?.pushNamed(RoutePaths.payslipName);
         break;
 
       // =====================================================
       // PERFORMANCE
       // =====================================================
       case NotificationCode.performanceSubmitted:
+        globalNavigatorKey.currentContext?.push(RoutePaths.performance);
         // context.push("/performance");
         break;
 
       case NotificationCode.performanceFormOpen:
       case NotificationCode.performanceReminder:
       case NotificationCode.performancePublished:
+        globalNavigatorKey.currentContext?.push(RoutePaths.performance);
         // context.push("/performance");
         break;
 
@@ -154,12 +160,14 @@ class InboxScreen extends ConsumerWidget {
       case NotificationCode.overtimeSubmitted:
         payload.mapOrNull(
           overtimeSubmitted: (p) {
+            globalNavigatorKey.currentContext?.push(RoutePaths.attendance);
             // context.push("/overtime-history");
           },
         );
         break;
 
       case NotificationCode.overtimeUpdated:
+        globalNavigatorKey.currentContext?.push(RoutePaths.attendance);
         // context.push("/overtime-history");
         break;
 
@@ -169,6 +177,7 @@ class InboxScreen extends ConsumerWidget {
       case NotificationCode.profileUpdated:
       case NotificationCode.departmentChanged:
       case NotificationCode.managerChanged:
+        globalNavigatorKey.currentContext?.push(RoutePaths.profile);
         // context.push("/profile");
         break;
 
@@ -187,6 +196,7 @@ class InboxScreen extends ConsumerWidget {
       // =====================================================
       case NotificationCode.attendanceReminder:
       case NotificationCode.attendanceNotPresent:
+        globalNavigatorKey.currentContext?.push(RoutePaths.attendance);
         // context.push("/attendance");
         break;
 
@@ -194,8 +204,35 @@ class InboxScreen extends ConsumerWidget {
       // OFFBOARDING
       // =====================================================
       case NotificationCode.offboardingStarted:
-      case NotificationCode.exitInterviewSchedule:
+        globalNavigatorKey.currentContext
+            ?.pushNamed(RoutePaths.offboardingName);
         // context.push("/offboarding");
+        break;
+      case NotificationCode.exitInterviewSchedule:
+        payload.mapOrNull(
+          exitInterviewSchedule: (p) {
+            final payload = p;
+            globalNavigatorKey.currentContext
+                ?.pushNamed(RoutePaths.exitScheduleName, extra: payload);
+          },
+        );
+        break;
+      case NotificationCode.validateHandover:
+        globalNavigatorKey.currentContext
+            ?.pushNamed(RoutePaths.responsibilityHandoverName);
+
+      // =====================================================
+      // Supervisor Assessment Schedule
+      // =====================================================
+      case NotificationCode.supervisorAssessmentSchedule:
+        payload.mapOrNull(
+          supervisorAssessmentSchedule: (p) {
+            final payload = p;
+            globalNavigatorKey.currentContext?.pushNamed(
+                RoutePaths.supervisorAssessmentScheduleName,
+                extra: payload);
+          },
+        );
         break;
 
       // =====================================================

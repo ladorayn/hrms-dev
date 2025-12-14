@@ -14,6 +14,7 @@ import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/util/geocoding_geolocation_mapper.dart';
 import 'package:hrms_mobile/core/widgets/month_selector.dart';
 import 'package:hrms_mobile/core/widgets/status_chip.dart';
+import 'package:hrms_mobile/core/widgets/toastbar.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/detail_attendance/attendance_detail_response_model.dart';
 import 'package:hrms_mobile/features/attendance/presentation/providers/attendance_provider.dart';
 import 'package:intl/intl.dart';
@@ -119,20 +120,28 @@ class _AttendanceLogTabState extends ConsumerState<AttendanceLogTab> {
           final exception = error;
           final displayErrors =
               exception.errors.map((key, value) => MapEntry(key, value.first));
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(displayErrors[displayErrors.keys.first]!)),
-          );
+          showCustomToast(context, displayErrors[displayErrors.keys.first]!,
+              ToastType.error);
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   SnackBar(content: Text(displayErrors[displayErrors.keys.first]!)),
+          // );
         } else if (error is DioException) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-                content: Text(error.message ?? 'A network error occurred.')),
-          );
+          showCustomToast(context, error.message ?? 'A network error occurred.',
+              ToastType.error);
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   SnackBar(
+          //       content: Text(error.message ?? 'A network error occurred.')),
+          // );
         } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-                content:
-                    Text('An unexpected error occurred: ${error.toString()}')),
-          );
+          showCustomToast(
+              context,
+              'An unexpected error occurred: ${error.toString()}',
+              ToastType.error);
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   SnackBar(
+          //       content:
+          //           Text('An unexpected error occurred: ${error.toString()}')),
+          // );
         }
       },
     );

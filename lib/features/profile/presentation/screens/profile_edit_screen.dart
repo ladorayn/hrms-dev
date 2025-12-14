@@ -20,6 +20,7 @@ import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_dropdo
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_phone.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_social.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
+import 'package:hrms_mobile/core/widgets/toastbar.dart';
 import 'package:hrms_mobile/features/leave_request/presentation/providers/leave_provider.dart';
 import 'package:hrms_mobile/features/profile/presentation/providers/profile_provider.dart';
 import 'package:hrms_mobile/features/profile/presentation/widgets/detail/section_title.dart';
@@ -205,9 +206,11 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
         attachmentPath = uploadResponse.path;
       } catch (e) {
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Attachment upload failed: $e')),
-          );
+          showCustomToast(
+              context, 'Attachment upload failed: $e', ToastType.error);
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   SnackBar(content: Text('Attachment upload failed: $e')),
+          // );
         }
         ref.read(employeeProfileEditProvider.notifier).reset();
         return;
@@ -263,16 +266,19 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
           .submitUpdate(id: profile.user?.id ?? 0, request: request);
 
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Profile updated successfully!')),
-        );
+        showCustomToast(
+            context, 'Profile updated successfully!', ToastType.success);
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   const SnackBar(content: Text('Profile updated successfully!')),
+        // );
         context.pop();
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Submission Failed')),
-        );
+        showCustomToast(context, 'Submission Failed', ToastType.error);
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(content: Text('Submission Failed')),
+        // );
       }
     }
   }
@@ -291,11 +297,15 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                 error.errors.map((key, value) => MapEntry(key, value.first));
           });
         } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-                content:
-                    Text('Update Failed: ${error.toString().split(':').last}')),
-          );
+          showCustomToast(
+              context,
+              'Update Failed: ${error.toString().split(':').last}',
+              ToastType.error);
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   SnackBar(
+          //       content:
+          //           Text('Update Failed: ${error.toString().split(':').last}')),
+          // );
         }
       }
     });

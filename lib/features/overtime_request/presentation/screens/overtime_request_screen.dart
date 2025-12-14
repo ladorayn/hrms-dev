@@ -9,6 +9,7 @@ import 'package:hrms_mobile/core/widgets/i_footer_button.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_date_picker.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_time_picker.dart';
+import 'package:hrms_mobile/core/widgets/toastbar.dart';
 import 'package:hrms_mobile/features/attendance/presentation/providers/attendance_provider.dart';
 import 'package:hrms_mobile/features/overtime_request/data/models/request/overtime_request_model.dart';
 import 'package:hrms_mobile/features/overtime_request/presentation/providers/overtime_provider.dart';
@@ -64,10 +65,12 @@ class _OvertimeRequestScreenState extends ConsumerState<OvertimeRequestScreen> {
         .submitRequest(request);
 
     if (success && mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-            content: Text('Overtime request submitted successfully!')),
-      );
+      showCustomToast(context, 'Overtime request submitted successfully!',
+          ToastType.success);
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   const SnackBar(
+      //       content: Text('Overtime request submitted successfully!')),
+      // );
       ref.invalidate(recentActivityProvider(limit: 10));
       context.pop();
     }
@@ -82,9 +85,10 @@ class _OvertimeRequestScreenState extends ConsumerState<OvertimeRequestScreen> {
       if (state.hasError && !state.isLoading) {
         final error = state.error;
         if (error is! ValidationException) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(error.toString())),
-          );
+          showCustomToast(context, error.toString(), ToastType.error);
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   SnackBar(content: Text(error.toString())),
+          // );
         }
       }
     });

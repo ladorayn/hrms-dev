@@ -43,7 +43,6 @@ class IFooterButton extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   if (showSecondaryButton) ...[
-                    // 1. Secondary Outlined Button
                     OutlinedButton(
                       style: OutlinedButton.styleFrom(
                         foregroundColor: IColors.light.primary.main,
@@ -61,8 +60,6 @@ class IFooterButton extends ConsumerWidget {
                     ),
                     const SizedBox(height: 10),
                   ],
-
-                  // 2. Primary Elevated Button
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: IColors.light.primary.main,

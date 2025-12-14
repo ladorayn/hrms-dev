@@ -60,8 +60,12 @@ NotificationPayload _$NotificationPayloadFromJson(Map<String, dynamic> json) {
       return PerformanceReminderPayload.fromJson(json);
     case 'performanceSubmitted':
       return PerformanceSubmittedPayload.fromJson(json);
+    case 'validateHandover':
+      return ValidateHandoverPayload.fromJson(json);
     case 'performancePublished':
       return PerformancePublishedPayload.fromJson(json);
+    case 'supervisorAssessmentSchedule':
+      return SupervisorAssessmentSchedulePayload.fromJson(json);
 
     default:
       throw CheckedFromJsonException(json, 'type', 'NotificationPayload',
@@ -95,7 +99,13 @@ mixin _$NotificationPayload {
         managerChanged,
     required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String? date, String? time, String? interviewer)
+    required TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
         exitInterviewSchedule,
     required TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)
@@ -131,7 +141,14 @@ mixin _$NotificationPayload {
             @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
+    required TResult Function() validateHandover,
     required TResult Function(String? period) performancePublished,
+    required TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
+        supervisorAssessmentSchedule,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -156,7 +173,13 @@ mixin _$NotificationPayload {
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult? Function(String? status, String? deadline)? offboardingStarted,
-    TResult? Function(String? date, String? time, String? interviewer)?
+    TResult? Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult? Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -190,7 +213,14 @@ mixin _$NotificationPayload {
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
+    TResult? Function()? validateHandover,
     TResult? Function(String? period)? performancePublished,
+    TResult? Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -215,7 +245,13 @@ mixin _$NotificationPayload {
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult Function(String? status, String? deadline)? offboardingStarted,
-    TResult Function(String? date, String? time, String? interviewer)?
+    TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -249,7 +285,14 @@ mixin _$NotificationPayload {
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
+    TResult Function()? validateHandover,
     TResult Function(String? period)? performancePublished,
+    TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -286,8 +329,11 @@ mixin _$NotificationPayload {
         performanceReminder,
     required TResult Function(PerformanceSubmittedPayload value)
         performanceSubmitted,
+    required TResult Function(ValidateHandoverPayload value) validateHandover,
     required TResult Function(PerformancePublishedPayload value)
         performancePublished,
+    required TResult Function(SupervisorAssessmentSchedulePayload value)
+        supervisorAssessmentSchedule,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -317,7 +363,10 @@ mixin _$NotificationPayload {
     TResult? Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult? Function(PerformanceReminderPayload value)? performanceReminder,
     TResult? Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult? Function(ValidateHandoverPayload value)? validateHandover,
     TResult? Function(PerformancePublishedPayload value)? performancePublished,
+    TResult? Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -345,7 +394,10 @@ mixin _$NotificationPayload {
     TResult Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult Function(PerformanceReminderPayload value)? performanceReminder,
     TResult Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult Function(ValidateHandoverPayload value)? validateHandover,
     TResult Function(PerformancePublishedPayload value)? performancePublished,
+    TResult Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -498,7 +550,13 @@ class _$EmailVerificationPayloadImpl
         managerChanged,
     required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String? date, String? time, String? interviewer)
+    required TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
         exitInterviewSchedule,
     required TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)
@@ -534,7 +592,14 @@ class _$EmailVerificationPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
+    required TResult Function() validateHandover,
     required TResult Function(String? period) performancePublished,
+    required TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
+        supervisorAssessmentSchedule,
   }) {
     return emailVerification(email, result);
   }
@@ -562,7 +627,13 @@ class _$EmailVerificationPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult? Function(String? status, String? deadline)? offboardingStarted,
-    TResult? Function(String? date, String? time, String? interviewer)?
+    TResult? Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult? Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -596,7 +667,14 @@ class _$EmailVerificationPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
+    TResult? Function()? validateHandover,
     TResult? Function(String? period)? performancePublished,
+    TResult? Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
   }) {
     return emailVerification?.call(email, result);
   }
@@ -624,7 +702,13 @@ class _$EmailVerificationPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult Function(String? status, String? deadline)? offboardingStarted,
-    TResult Function(String? date, String? time, String? interviewer)?
+    TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -658,7 +742,14 @@ class _$EmailVerificationPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
+    TResult Function()? validateHandover,
     TResult Function(String? period)? performancePublished,
+    TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (emailVerification != null) {
@@ -701,8 +792,11 @@ class _$EmailVerificationPayloadImpl
         performanceReminder,
     required TResult Function(PerformanceSubmittedPayload value)
         performanceSubmitted,
+    required TResult Function(ValidateHandoverPayload value) validateHandover,
     required TResult Function(PerformancePublishedPayload value)
         performancePublished,
+    required TResult Function(SupervisorAssessmentSchedulePayload value)
+        supervisorAssessmentSchedule,
   }) {
     return emailVerification(this);
   }
@@ -735,7 +829,10 @@ class _$EmailVerificationPayloadImpl
     TResult? Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult? Function(PerformanceReminderPayload value)? performanceReminder,
     TResult? Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult? Function(ValidateHandoverPayload value)? validateHandover,
     TResult? Function(PerformancePublishedPayload value)? performancePublished,
+    TResult? Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
   }) {
     return emailVerification?.call(this);
   }
@@ -766,7 +863,10 @@ class _$EmailVerificationPayloadImpl
     TResult Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult Function(PerformanceReminderPayload value)? performanceReminder,
     TResult Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult Function(ValidateHandoverPayload value)? validateHandover,
     TResult Function(PerformancePublishedPayload value)? performancePublished,
+    TResult Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (emailVerification != null) {
@@ -916,7 +1016,13 @@ class _$ResetPasswordRequestedPayloadImpl
         managerChanged,
     required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String? date, String? time, String? interviewer)
+    required TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
         exitInterviewSchedule,
     required TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)
@@ -952,7 +1058,14 @@ class _$ResetPasswordRequestedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
+    required TResult Function() validateHandover,
     required TResult Function(String? period) performancePublished,
+    required TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
+        supervisorAssessmentSchedule,
   }) {
     return resetPasswordRequested(email);
   }
@@ -980,7 +1093,13 @@ class _$ResetPasswordRequestedPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult? Function(String? status, String? deadline)? offboardingStarted,
-    TResult? Function(String? date, String? time, String? interviewer)?
+    TResult? Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult? Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -1014,7 +1133,14 @@ class _$ResetPasswordRequestedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
+    TResult? Function()? validateHandover,
     TResult? Function(String? period)? performancePublished,
+    TResult? Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
   }) {
     return resetPasswordRequested?.call(email);
   }
@@ -1042,7 +1168,13 @@ class _$ResetPasswordRequestedPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult Function(String? status, String? deadline)? offboardingStarted,
-    TResult Function(String? date, String? time, String? interviewer)?
+    TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -1076,7 +1208,14 @@ class _$ResetPasswordRequestedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
+    TResult Function()? validateHandover,
     TResult Function(String? period)? performancePublished,
+    TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (resetPasswordRequested != null) {
@@ -1119,8 +1258,11 @@ class _$ResetPasswordRequestedPayloadImpl
         performanceReminder,
     required TResult Function(PerformanceSubmittedPayload value)
         performanceSubmitted,
+    required TResult Function(ValidateHandoverPayload value) validateHandover,
     required TResult Function(PerformancePublishedPayload value)
         performancePublished,
+    required TResult Function(SupervisorAssessmentSchedulePayload value)
+        supervisorAssessmentSchedule,
   }) {
     return resetPasswordRequested(this);
   }
@@ -1153,7 +1295,10 @@ class _$ResetPasswordRequestedPayloadImpl
     TResult? Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult? Function(PerformanceReminderPayload value)? performanceReminder,
     TResult? Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult? Function(ValidateHandoverPayload value)? validateHandover,
     TResult? Function(PerformancePublishedPayload value)? performancePublished,
+    TResult? Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
   }) {
     return resetPasswordRequested?.call(this);
   }
@@ -1184,7 +1329,10 @@ class _$ResetPasswordRequestedPayloadImpl
     TResult Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult Function(PerformanceReminderPayload value)? performanceReminder,
     TResult Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult Function(ValidateHandoverPayload value)? validateHandover,
     TResult Function(PerformancePublishedPayload value)? performancePublished,
+    TResult Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (resetPasswordRequested != null) {
@@ -1330,7 +1478,13 @@ class _$PasswordUpdatedPayloadImpl
         managerChanged,
     required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String? date, String? time, String? interviewer)
+    required TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
         exitInterviewSchedule,
     required TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)
@@ -1366,7 +1520,14 @@ class _$PasswordUpdatedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
+    required TResult Function() validateHandover,
     required TResult Function(String? period) performancePublished,
+    required TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
+        supervisorAssessmentSchedule,
   }) {
     return passwordUpdated(time);
   }
@@ -1394,7 +1555,13 @@ class _$PasswordUpdatedPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult? Function(String? status, String? deadline)? offboardingStarted,
-    TResult? Function(String? date, String? time, String? interviewer)?
+    TResult? Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult? Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -1428,7 +1595,14 @@ class _$PasswordUpdatedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
+    TResult? Function()? validateHandover,
     TResult? Function(String? period)? performancePublished,
+    TResult? Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
   }) {
     return passwordUpdated?.call(time);
   }
@@ -1456,7 +1630,13 @@ class _$PasswordUpdatedPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult Function(String? status, String? deadline)? offboardingStarted,
-    TResult Function(String? date, String? time, String? interviewer)?
+    TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -1490,7 +1670,14 @@ class _$PasswordUpdatedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
+    TResult Function()? validateHandover,
     TResult Function(String? period)? performancePublished,
+    TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (passwordUpdated != null) {
@@ -1533,8 +1720,11 @@ class _$PasswordUpdatedPayloadImpl
         performanceReminder,
     required TResult Function(PerformanceSubmittedPayload value)
         performanceSubmitted,
+    required TResult Function(ValidateHandoverPayload value) validateHandover,
     required TResult Function(PerformancePublishedPayload value)
         performancePublished,
+    required TResult Function(SupervisorAssessmentSchedulePayload value)
+        supervisorAssessmentSchedule,
   }) {
     return passwordUpdated(this);
   }
@@ -1567,7 +1757,10 @@ class _$PasswordUpdatedPayloadImpl
     TResult? Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult? Function(PerformanceReminderPayload value)? performanceReminder,
     TResult? Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult? Function(ValidateHandoverPayload value)? validateHandover,
     TResult? Function(PerformancePublishedPayload value)? performancePublished,
+    TResult? Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
   }) {
     return passwordUpdated?.call(this);
   }
@@ -1598,7 +1791,10 @@ class _$PasswordUpdatedPayloadImpl
     TResult Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult Function(PerformanceReminderPayload value)? performanceReminder,
     TResult Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult Function(ValidateHandoverPayload value)? validateHandover,
     TResult Function(PerformancePublishedPayload value)? performancePublished,
+    TResult Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (passwordUpdated != null) {
@@ -1760,7 +1956,13 @@ class _$LoginDevicePayloadImpl
         managerChanged,
     required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String? date, String? time, String? interviewer)
+    required TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
         exitInterviewSchedule,
     required TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)
@@ -1796,7 +1998,14 @@ class _$LoginDevicePayloadImpl
             @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
+    required TResult Function() validateHandover,
     required TResult Function(String? period) performancePublished,
+    required TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
+        supervisorAssessmentSchedule,
   }) {
     return loginDevice(device, location, time);
   }
@@ -1824,7 +2033,13 @@ class _$LoginDevicePayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult? Function(String? status, String? deadline)? offboardingStarted,
-    TResult? Function(String? date, String? time, String? interviewer)?
+    TResult? Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult? Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -1858,7 +2073,14 @@ class _$LoginDevicePayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
+    TResult? Function()? validateHandover,
     TResult? Function(String? period)? performancePublished,
+    TResult? Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
   }) {
     return loginDevice?.call(device, location, time);
   }
@@ -1886,7 +2108,13 @@ class _$LoginDevicePayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult Function(String? status, String? deadline)? offboardingStarted,
-    TResult Function(String? date, String? time, String? interviewer)?
+    TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -1920,7 +2148,14 @@ class _$LoginDevicePayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
+    TResult Function()? validateHandover,
     TResult Function(String? period)? performancePublished,
+    TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (loginDevice != null) {
@@ -1963,8 +2198,11 @@ class _$LoginDevicePayloadImpl
         performanceReminder,
     required TResult Function(PerformanceSubmittedPayload value)
         performanceSubmitted,
+    required TResult Function(ValidateHandoverPayload value) validateHandover,
     required TResult Function(PerformancePublishedPayload value)
         performancePublished,
+    required TResult Function(SupervisorAssessmentSchedulePayload value)
+        supervisorAssessmentSchedule,
   }) {
     return loginDevice(this);
   }
@@ -1997,7 +2235,10 @@ class _$LoginDevicePayloadImpl
     TResult? Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult? Function(PerformanceReminderPayload value)? performanceReminder,
     TResult? Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult? Function(ValidateHandoverPayload value)? validateHandover,
     TResult? Function(PerformancePublishedPayload value)? performancePublished,
+    TResult? Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
   }) {
     return loginDevice?.call(this);
   }
@@ -2028,7 +2269,10 @@ class _$LoginDevicePayloadImpl
     TResult Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult Function(PerformanceReminderPayload value)? performanceReminder,
     TResult Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult Function(ValidateHandoverPayload value)? validateHandover,
     TResult Function(PerformancePublishedPayload value)? performancePublished,
+    TResult Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (loginDevice != null) {
@@ -2235,7 +2479,13 @@ class _$ProfileUpdatedPayloadImpl
         managerChanged,
     required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String? date, String? time, String? interviewer)
+    required TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
         exitInterviewSchedule,
     required TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)
@@ -2271,7 +2521,14 @@ class _$ProfileUpdatedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
+    required TResult Function() validateHandover,
     required TResult Function(String? period) performancePublished,
+    required TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
+        supervisorAssessmentSchedule,
   }) {
     return profileUpdated(actor, fields, status, time, userId, email);
   }
@@ -2299,7 +2556,13 @@ class _$ProfileUpdatedPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult? Function(String? status, String? deadline)? offboardingStarted,
-    TResult? Function(String? date, String? time, String? interviewer)?
+    TResult? Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult? Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -2333,7 +2596,14 @@ class _$ProfileUpdatedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
+    TResult? Function()? validateHandover,
     TResult? Function(String? period)? performancePublished,
+    TResult? Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
   }) {
     return profileUpdated?.call(actor, fields, status, time, userId, email);
   }
@@ -2361,7 +2631,13 @@ class _$ProfileUpdatedPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult Function(String? status, String? deadline)? offboardingStarted,
-    TResult Function(String? date, String? time, String? interviewer)?
+    TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -2395,7 +2671,14 @@ class _$ProfileUpdatedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
+    TResult Function()? validateHandover,
     TResult Function(String? period)? performancePublished,
+    TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (profileUpdated != null) {
@@ -2438,8 +2721,11 @@ class _$ProfileUpdatedPayloadImpl
         performanceReminder,
     required TResult Function(PerformanceSubmittedPayload value)
         performanceSubmitted,
+    required TResult Function(ValidateHandoverPayload value) validateHandover,
     required TResult Function(PerformancePublishedPayload value)
         performancePublished,
+    required TResult Function(SupervisorAssessmentSchedulePayload value)
+        supervisorAssessmentSchedule,
   }) {
     return profileUpdated(this);
   }
@@ -2472,7 +2758,10 @@ class _$ProfileUpdatedPayloadImpl
     TResult? Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult? Function(PerformanceReminderPayload value)? performanceReminder,
     TResult? Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult? Function(ValidateHandoverPayload value)? validateHandover,
     TResult? Function(PerformancePublishedPayload value)? performancePublished,
+    TResult? Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
   }) {
     return profileUpdated?.call(this);
   }
@@ -2503,7 +2792,10 @@ class _$ProfileUpdatedPayloadImpl
     TResult Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult Function(PerformanceReminderPayload value)? performanceReminder,
     TResult Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult Function(ValidateHandoverPayload value)? validateHandover,
     TResult Function(PerformancePublishedPayload value)? performancePublished,
+    TResult Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (profileUpdated != null) {
@@ -2688,7 +2980,13 @@ class _$DepartmentChangedPayloadImpl
         managerChanged,
     required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String? date, String? time, String? interviewer)
+    required TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
         exitInterviewSchedule,
     required TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)
@@ -2724,7 +3022,14 @@ class _$DepartmentChangedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
+    required TResult Function() validateHandover,
     required TResult Function(String? period) performancePublished,
+    required TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
+        supervisorAssessmentSchedule,
   }) {
     return departmentChanged(department, team, effectiveDate);
   }
@@ -2752,7 +3057,13 @@ class _$DepartmentChangedPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult? Function(String? status, String? deadline)? offboardingStarted,
-    TResult? Function(String? date, String? time, String? interviewer)?
+    TResult? Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult? Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -2786,7 +3097,14 @@ class _$DepartmentChangedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
+    TResult? Function()? validateHandover,
     TResult? Function(String? period)? performancePublished,
+    TResult? Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
   }) {
     return departmentChanged?.call(department, team, effectiveDate);
   }
@@ -2814,7 +3132,13 @@ class _$DepartmentChangedPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult Function(String? status, String? deadline)? offboardingStarted,
-    TResult Function(String? date, String? time, String? interviewer)?
+    TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -2848,7 +3172,14 @@ class _$DepartmentChangedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
+    TResult Function()? validateHandover,
     TResult Function(String? period)? performancePublished,
+    TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (departmentChanged != null) {
@@ -2891,8 +3222,11 @@ class _$DepartmentChangedPayloadImpl
         performanceReminder,
     required TResult Function(PerformanceSubmittedPayload value)
         performanceSubmitted,
+    required TResult Function(ValidateHandoverPayload value) validateHandover,
     required TResult Function(PerformancePublishedPayload value)
         performancePublished,
+    required TResult Function(SupervisorAssessmentSchedulePayload value)
+        supervisorAssessmentSchedule,
   }) {
     return departmentChanged(this);
   }
@@ -2925,7 +3259,10 @@ class _$DepartmentChangedPayloadImpl
     TResult? Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult? Function(PerformanceReminderPayload value)? performanceReminder,
     TResult? Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult? Function(ValidateHandoverPayload value)? validateHandover,
     TResult? Function(PerformancePublishedPayload value)? performancePublished,
+    TResult? Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
   }) {
     return departmentChanged?.call(this);
   }
@@ -2956,7 +3293,10 @@ class _$DepartmentChangedPayloadImpl
     TResult Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult Function(PerformanceReminderPayload value)? performanceReminder,
     TResult Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult Function(ValidateHandoverPayload value)? validateHandover,
     TResult Function(PerformancePublishedPayload value)? performancePublished,
+    TResult Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (departmentChanged != null) {
@@ -3123,7 +3463,13 @@ class _$ManagerChangedPayloadImpl
         managerChanged,
     required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String? date, String? time, String? interviewer)
+    required TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
         exitInterviewSchedule,
     required TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)
@@ -3159,7 +3505,14 @@ class _$ManagerChangedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
+    required TResult Function() validateHandover,
     required TResult Function(String? period) performancePublished,
+    required TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
+        supervisorAssessmentSchedule,
   }) {
     return managerChanged(managerName, effectiveDate);
   }
@@ -3187,7 +3540,13 @@ class _$ManagerChangedPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult? Function(String? status, String? deadline)? offboardingStarted,
-    TResult? Function(String? date, String? time, String? interviewer)?
+    TResult? Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult? Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -3221,7 +3580,14 @@ class _$ManagerChangedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
+    TResult? Function()? validateHandover,
     TResult? Function(String? period)? performancePublished,
+    TResult? Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
   }) {
     return managerChanged?.call(managerName, effectiveDate);
   }
@@ -3249,7 +3615,13 @@ class _$ManagerChangedPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult Function(String? status, String? deadline)? offboardingStarted,
-    TResult Function(String? date, String? time, String? interviewer)?
+    TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -3283,7 +3655,14 @@ class _$ManagerChangedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
+    TResult Function()? validateHandover,
     TResult Function(String? period)? performancePublished,
+    TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (managerChanged != null) {
@@ -3326,8 +3705,11 @@ class _$ManagerChangedPayloadImpl
         performanceReminder,
     required TResult Function(PerformanceSubmittedPayload value)
         performanceSubmitted,
+    required TResult Function(ValidateHandoverPayload value) validateHandover,
     required TResult Function(PerformancePublishedPayload value)
         performancePublished,
+    required TResult Function(SupervisorAssessmentSchedulePayload value)
+        supervisorAssessmentSchedule,
   }) {
     return managerChanged(this);
   }
@@ -3360,7 +3742,10 @@ class _$ManagerChangedPayloadImpl
     TResult? Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult? Function(PerformanceReminderPayload value)? performanceReminder,
     TResult? Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult? Function(ValidateHandoverPayload value)? validateHandover,
     TResult? Function(PerformancePublishedPayload value)? performancePublished,
+    TResult? Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
   }) {
     return managerChanged?.call(this);
   }
@@ -3391,7 +3776,10 @@ class _$ManagerChangedPayloadImpl
     TResult Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult Function(PerformanceReminderPayload value)? performanceReminder,
     TResult Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult Function(ValidateHandoverPayload value)? validateHandover,
     TResult Function(PerformancePublishedPayload value)? performancePublished,
+    TResult Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (managerChanged != null) {
@@ -3553,7 +3941,13 @@ class _$OffboardingStartedPayloadImpl
         managerChanged,
     required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String? date, String? time, String? interviewer)
+    required TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
         exitInterviewSchedule,
     required TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)
@@ -3589,7 +3983,14 @@ class _$OffboardingStartedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
+    required TResult Function() validateHandover,
     required TResult Function(String? period) performancePublished,
+    required TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
+        supervisorAssessmentSchedule,
   }) {
     return offboardingStarted(status, deadline);
   }
@@ -3617,7 +4018,13 @@ class _$OffboardingStartedPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult? Function(String? status, String? deadline)? offboardingStarted,
-    TResult? Function(String? date, String? time, String? interviewer)?
+    TResult? Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult? Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -3651,7 +4058,14 @@ class _$OffboardingStartedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
+    TResult? Function()? validateHandover,
     TResult? Function(String? period)? performancePublished,
+    TResult? Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
   }) {
     return offboardingStarted?.call(status, deadline);
   }
@@ -3679,7 +4093,13 @@ class _$OffboardingStartedPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult Function(String? status, String? deadline)? offboardingStarted,
-    TResult Function(String? date, String? time, String? interviewer)?
+    TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -3713,7 +4133,14 @@ class _$OffboardingStartedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
+    TResult Function()? validateHandover,
     TResult Function(String? period)? performancePublished,
+    TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (offboardingStarted != null) {
@@ -3756,8 +4183,11 @@ class _$OffboardingStartedPayloadImpl
         performanceReminder,
     required TResult Function(PerformanceSubmittedPayload value)
         performanceSubmitted,
+    required TResult Function(ValidateHandoverPayload value) validateHandover,
     required TResult Function(PerformancePublishedPayload value)
         performancePublished,
+    required TResult Function(SupervisorAssessmentSchedulePayload value)
+        supervisorAssessmentSchedule,
   }) {
     return offboardingStarted(this);
   }
@@ -3790,7 +4220,10 @@ class _$OffboardingStartedPayloadImpl
     TResult? Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult? Function(PerformanceReminderPayload value)? performanceReminder,
     TResult? Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult? Function(ValidateHandoverPayload value)? validateHandover,
     TResult? Function(PerformancePublishedPayload value)? performancePublished,
+    TResult? Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
   }) {
     return offboardingStarted?.call(this);
   }
@@ -3821,7 +4254,10 @@ class _$OffboardingStartedPayloadImpl
     TResult Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult Function(PerformanceReminderPayload value)? performanceReminder,
     TResult Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult Function(ValidateHandoverPayload value)? validateHandover,
     TResult Function(PerformancePublishedPayload value)? performancePublished,
+    TResult Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (offboardingStarted != null) {
@@ -3863,7 +4299,13 @@ abstract class _$$ExitInterviewSchedulePayloadImplCopyWith<$Res> {
           $Res Function(_$ExitInterviewSchedulePayloadImpl) then) =
       __$$ExitInterviewSchedulePayloadImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String? date, String? time, String? interviewer});
+  $Res call(
+      {String? id,
+      String? date,
+      String? time,
+      String? interviewer,
+      @JsonKey(name: "start_time") String? startTime,
+      @JsonKey(name: "end_time") String? endTime});
 }
 
 /// @nodoc
@@ -3881,11 +4323,18 @@ class __$$ExitInterviewSchedulePayloadImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = freezed,
     Object? date = freezed,
     Object? time = freezed,
     Object? interviewer = freezed,
+    Object? startTime = freezed,
+    Object? endTime = freezed,
   }) {
     return _then(_$ExitInterviewSchedulePayloadImpl(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
       date: freezed == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -3898,6 +4347,14 @@ class __$$ExitInterviewSchedulePayloadImplCopyWithImpl<$Res>
           ? _value.interviewer
           : interviewer // ignore: cast_nullable_to_non_nullable
               as String?,
+      startTime: freezed == startTime
+          ? _value.startTime
+          : startTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      endTime: freezed == endTime
+          ? _value.endTime
+          : endTime // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -3908,7 +4365,13 @@ class _$ExitInterviewSchedulePayloadImpl
     with DiagnosticableTreeMixin
     implements ExitInterviewSchedulePayload {
   const _$ExitInterviewSchedulePayloadImpl(
-      {this.date, this.time, this.interviewer, final String? $type})
+      {this.id,
+      this.date,
+      this.time,
+      this.interviewer,
+      @JsonKey(name: "start_time") this.startTime,
+      @JsonKey(name: "end_time") this.endTime,
+      final String? $type})
       : $type = $type ?? 'exitInterviewSchedule';
 
   factory _$ExitInterviewSchedulePayloadImpl.fromJson(
@@ -3916,18 +4379,26 @@ class _$ExitInterviewSchedulePayloadImpl
       _$$ExitInterviewSchedulePayloadImplFromJson(json);
 
   @override
+  final String? id;
+  @override
   final String? date;
   @override
   final String? time;
   @override
   final String? interviewer;
+  @override
+  @JsonKey(name: "start_time")
+  final String? startTime;
+  @override
+  @JsonKey(name: "end_time")
+  final String? endTime;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'NotificationPayload.exitInterviewSchedule(date: $date, time: $time, interviewer: $interviewer)';
+    return 'NotificationPayload.exitInterviewSchedule(id: $id, date: $date, time: $time, interviewer: $interviewer, startTime: $startTime, endTime: $endTime)';
   }
 
   @override
@@ -3936,9 +4407,12 @@ class _$ExitInterviewSchedulePayloadImpl
     properties
       ..add(DiagnosticsProperty(
           'type', 'NotificationPayload.exitInterviewSchedule'))
+      ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('date', date))
       ..add(DiagnosticsProperty('time', time))
-      ..add(DiagnosticsProperty('interviewer', interviewer));
+      ..add(DiagnosticsProperty('interviewer', interviewer))
+      ..add(DiagnosticsProperty('startTime', startTime))
+      ..add(DiagnosticsProperty('endTime', endTime));
   }
 
   @override
@@ -3946,15 +4420,20 @@ class _$ExitInterviewSchedulePayloadImpl
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ExitInterviewSchedulePayloadImpl &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.date, date) || other.date == date) &&
             (identical(other.time, time) || other.time == time) &&
             (identical(other.interviewer, interviewer) ||
-                other.interviewer == interviewer));
+                other.interviewer == interviewer) &&
+            (identical(other.startTime, startTime) ||
+                other.startTime == startTime) &&
+            (identical(other.endTime, endTime) || other.endTime == endTime));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, date, time, interviewer);
+  int get hashCode =>
+      Object.hash(runtimeType, id, date, time, interviewer, startTime, endTime);
 
   /// Create a copy of NotificationPayload
   /// with the given fields replaced by the non-null parameter values.
@@ -3991,7 +4470,13 @@ class _$ExitInterviewSchedulePayloadImpl
         managerChanged,
     required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String? date, String? time, String? interviewer)
+    required TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
         exitInterviewSchedule,
     required TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)
@@ -4027,9 +4512,17 @@ class _$ExitInterviewSchedulePayloadImpl
             @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
+    required TResult Function() validateHandover,
     required TResult Function(String? period) performancePublished,
+    required TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
+        supervisorAssessmentSchedule,
   }) {
-    return exitInterviewSchedule(date, time, interviewer);
+    return exitInterviewSchedule(
+        id, date, time, interviewer, startTime, endTime);
   }
 
   @override
@@ -4055,7 +4548,13 @@ class _$ExitInterviewSchedulePayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult? Function(String? status, String? deadline)? offboardingStarted,
-    TResult? Function(String? date, String? time, String? interviewer)?
+    TResult? Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult? Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -4089,9 +4588,17 @@ class _$ExitInterviewSchedulePayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
+    TResult? Function()? validateHandover,
     TResult? Function(String? period)? performancePublished,
+    TResult? Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
   }) {
-    return exitInterviewSchedule?.call(date, time, interviewer);
+    return exitInterviewSchedule?.call(
+        id, date, time, interviewer, startTime, endTime);
   }
 
   @override
@@ -4117,7 +4624,13 @@ class _$ExitInterviewSchedulePayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult Function(String? status, String? deadline)? offboardingStarted,
-    TResult Function(String? date, String? time, String? interviewer)?
+    TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -4151,11 +4664,19 @@ class _$ExitInterviewSchedulePayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
+    TResult Function()? validateHandover,
     TResult Function(String? period)? performancePublished,
+    TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (exitInterviewSchedule != null) {
-      return exitInterviewSchedule(date, time, interviewer);
+      return exitInterviewSchedule(
+          id, date, time, interviewer, startTime, endTime);
     }
     return orElse();
   }
@@ -4194,8 +4715,11 @@ class _$ExitInterviewSchedulePayloadImpl
         performanceReminder,
     required TResult Function(PerformanceSubmittedPayload value)
         performanceSubmitted,
+    required TResult Function(ValidateHandoverPayload value) validateHandover,
     required TResult Function(PerformancePublishedPayload value)
         performancePublished,
+    required TResult Function(SupervisorAssessmentSchedulePayload value)
+        supervisorAssessmentSchedule,
   }) {
     return exitInterviewSchedule(this);
   }
@@ -4228,7 +4752,10 @@ class _$ExitInterviewSchedulePayloadImpl
     TResult? Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult? Function(PerformanceReminderPayload value)? performanceReminder,
     TResult? Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult? Function(ValidateHandoverPayload value)? validateHandover,
     TResult? Function(PerformancePublishedPayload value)? performancePublished,
+    TResult? Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
   }) {
     return exitInterviewSchedule?.call(this);
   }
@@ -4259,7 +4786,10 @@ class _$ExitInterviewSchedulePayloadImpl
     TResult Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult Function(PerformanceReminderPayload value)? performanceReminder,
     TResult Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult Function(ValidateHandoverPayload value)? validateHandover,
     TResult Function(PerformancePublishedPayload value)? performancePublished,
+    TResult Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (exitInterviewSchedule != null) {
@@ -4278,16 +4808,25 @@ class _$ExitInterviewSchedulePayloadImpl
 
 abstract class ExitInterviewSchedulePayload implements NotificationPayload {
   const factory ExitInterviewSchedulePayload(
-      {final String? date,
-      final String? time,
-      final String? interviewer}) = _$ExitInterviewSchedulePayloadImpl;
+          {final String? id,
+          final String? date,
+          final String? time,
+          final String? interviewer,
+          @JsonKey(name: "start_time") final String? startTime,
+          @JsonKey(name: "end_time") final String? endTime}) =
+      _$ExitInterviewSchedulePayloadImpl;
 
   factory ExitInterviewSchedulePayload.fromJson(Map<String, dynamic> json) =
       _$ExitInterviewSchedulePayloadImpl.fromJson;
 
+  String? get id;
   String? get date;
   String? get time;
   String? get interviewer;
+  @JsonKey(name: "start_time")
+  String? get startTime;
+  @JsonKey(name: "end_time")
+  String? get endTime;
 
   /// Create a copy of NotificationPayload
   /// with the given fields replaced by the non-null parameter values.
@@ -4424,7 +4963,13 @@ class _$AttendanceReminderPayloadImpl
         managerChanged,
     required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String? date, String? time, String? interviewer)
+    required TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
         exitInterviewSchedule,
     required TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)
@@ -4460,7 +5005,14 @@ class _$AttendanceReminderPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
+    required TResult Function() validateHandover,
     required TResult Function(String? period) performancePublished,
+    required TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
+        supervisorAssessmentSchedule,
   }) {
     return attendanceReminder(startTime, minutes);
   }
@@ -4488,7 +5040,13 @@ class _$AttendanceReminderPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult? Function(String? status, String? deadline)? offboardingStarted,
-    TResult? Function(String? date, String? time, String? interviewer)?
+    TResult? Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult? Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -4522,7 +5080,14 @@ class _$AttendanceReminderPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
+    TResult? Function()? validateHandover,
     TResult? Function(String? period)? performancePublished,
+    TResult? Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
   }) {
     return attendanceReminder?.call(startTime, minutes);
   }
@@ -4550,7 +5115,13 @@ class _$AttendanceReminderPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult Function(String? status, String? deadline)? offboardingStarted,
-    TResult Function(String? date, String? time, String? interviewer)?
+    TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -4584,7 +5155,14 @@ class _$AttendanceReminderPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
+    TResult Function()? validateHandover,
     TResult Function(String? period)? performancePublished,
+    TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (attendanceReminder != null) {
@@ -4627,8 +5205,11 @@ class _$AttendanceReminderPayloadImpl
         performanceReminder,
     required TResult Function(PerformanceSubmittedPayload value)
         performanceSubmitted,
+    required TResult Function(ValidateHandoverPayload value) validateHandover,
     required TResult Function(PerformancePublishedPayload value)
         performancePublished,
+    required TResult Function(SupervisorAssessmentSchedulePayload value)
+        supervisorAssessmentSchedule,
   }) {
     return attendanceReminder(this);
   }
@@ -4661,7 +5242,10 @@ class _$AttendanceReminderPayloadImpl
     TResult? Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult? Function(PerformanceReminderPayload value)? performanceReminder,
     TResult? Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult? Function(ValidateHandoverPayload value)? validateHandover,
     TResult? Function(PerformancePublishedPayload value)? performancePublished,
+    TResult? Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
   }) {
     return attendanceReminder?.call(this);
   }
@@ -4692,7 +5276,10 @@ class _$AttendanceReminderPayloadImpl
     TResult Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult Function(PerformanceReminderPayload value)? performanceReminder,
     TResult Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult Function(ValidateHandoverPayload value)? validateHandover,
     TResult Function(PerformancePublishedPayload value)? performancePublished,
+    TResult Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (attendanceReminder != null) {
@@ -4842,7 +5429,13 @@ class _$AttendanceNotPresentPayloadImpl
         managerChanged,
     required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String? date, String? time, String? interviewer)
+    required TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
         exitInterviewSchedule,
     required TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)
@@ -4878,7 +5471,14 @@ class _$AttendanceNotPresentPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
+    required TResult Function() validateHandover,
     required TResult Function(String? period) performancePublished,
+    required TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
+        supervisorAssessmentSchedule,
   }) {
     return attendanceNotPresent(grace);
   }
@@ -4906,7 +5506,13 @@ class _$AttendanceNotPresentPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult? Function(String? status, String? deadline)? offboardingStarted,
-    TResult? Function(String? date, String? time, String? interviewer)?
+    TResult? Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult? Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -4940,7 +5546,14 @@ class _$AttendanceNotPresentPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
+    TResult? Function()? validateHandover,
     TResult? Function(String? period)? performancePublished,
+    TResult? Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
   }) {
     return attendanceNotPresent?.call(grace);
   }
@@ -4968,7 +5581,13 @@ class _$AttendanceNotPresentPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult Function(String? status, String? deadline)? offboardingStarted,
-    TResult Function(String? date, String? time, String? interviewer)?
+    TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -5002,7 +5621,14 @@ class _$AttendanceNotPresentPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
+    TResult Function()? validateHandover,
     TResult Function(String? period)? performancePublished,
+    TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (attendanceNotPresent != null) {
@@ -5045,8 +5671,11 @@ class _$AttendanceNotPresentPayloadImpl
         performanceReminder,
     required TResult Function(PerformanceSubmittedPayload value)
         performanceSubmitted,
+    required TResult Function(ValidateHandoverPayload value) validateHandover,
     required TResult Function(PerformancePublishedPayload value)
         performancePublished,
+    required TResult Function(SupervisorAssessmentSchedulePayload value)
+        supervisorAssessmentSchedule,
   }) {
     return attendanceNotPresent(this);
   }
@@ -5079,7 +5708,10 @@ class _$AttendanceNotPresentPayloadImpl
     TResult? Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult? Function(PerformanceReminderPayload value)? performanceReminder,
     TResult? Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult? Function(ValidateHandoverPayload value)? validateHandover,
     TResult? Function(PerformancePublishedPayload value)? performancePublished,
+    TResult? Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
   }) {
     return attendanceNotPresent?.call(this);
   }
@@ -5110,7 +5742,10 @@ class _$AttendanceNotPresentPayloadImpl
     TResult Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult Function(PerformanceReminderPayload value)? performanceReminder,
     TResult Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult Function(ValidateHandoverPayload value)? validateHandover,
     TResult Function(PerformancePublishedPayload value)? performancePublished,
+    TResult Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (attendanceNotPresent != null) {
@@ -5285,7 +5920,13 @@ class _$OvertimeSubmittedPayloadImpl
         managerChanged,
     required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String? date, String? time, String? interviewer)
+    required TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
         exitInterviewSchedule,
     required TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)
@@ -5321,7 +5962,14 @@ class _$OvertimeSubmittedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
+    required TResult Function() validateHandover,
     required TResult Function(String? period) performancePublished,
+    required TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
+        supervisorAssessmentSchedule,
   }) {
     return overtimeSubmitted(date, start, end, approver);
   }
@@ -5349,7 +5997,13 @@ class _$OvertimeSubmittedPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult? Function(String? status, String? deadline)? offboardingStarted,
-    TResult? Function(String? date, String? time, String? interviewer)?
+    TResult? Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult? Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -5383,7 +6037,14 @@ class _$OvertimeSubmittedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
+    TResult? Function()? validateHandover,
     TResult? Function(String? period)? performancePublished,
+    TResult? Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
   }) {
     return overtimeSubmitted?.call(date, start, end, approver);
   }
@@ -5411,7 +6072,13 @@ class _$OvertimeSubmittedPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult Function(String? status, String? deadline)? offboardingStarted,
-    TResult Function(String? date, String? time, String? interviewer)?
+    TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -5445,7 +6112,14 @@ class _$OvertimeSubmittedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
+    TResult Function()? validateHandover,
     TResult Function(String? period)? performancePublished,
+    TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (overtimeSubmitted != null) {
@@ -5488,8 +6162,11 @@ class _$OvertimeSubmittedPayloadImpl
         performanceReminder,
     required TResult Function(PerformanceSubmittedPayload value)
         performanceSubmitted,
+    required TResult Function(ValidateHandoverPayload value) validateHandover,
     required TResult Function(PerformancePublishedPayload value)
         performancePublished,
+    required TResult Function(SupervisorAssessmentSchedulePayload value)
+        supervisorAssessmentSchedule,
   }) {
     return overtimeSubmitted(this);
   }
@@ -5522,7 +6199,10 @@ class _$OvertimeSubmittedPayloadImpl
     TResult? Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult? Function(PerformanceReminderPayload value)? performanceReminder,
     TResult? Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult? Function(ValidateHandoverPayload value)? validateHandover,
     TResult? Function(PerformancePublishedPayload value)? performancePublished,
+    TResult? Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
   }) {
     return overtimeSubmitted?.call(this);
   }
@@ -5553,7 +6233,10 @@ class _$OvertimeSubmittedPayloadImpl
     TResult Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult Function(PerformanceReminderPayload value)? performanceReminder,
     TResult Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult Function(ValidateHandoverPayload value)? validateHandover,
     TResult Function(PerformancePublishedPayload value)? performancePublished,
+    TResult Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (overtimeSubmitted != null) {
@@ -5723,7 +6406,13 @@ class _$OvertimeUpdatedPayloadImpl
         managerChanged,
     required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String? date, String? time, String? interviewer)
+    required TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
         exitInterviewSchedule,
     required TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)
@@ -5759,7 +6448,14 @@ class _$OvertimeUpdatedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
+    required TResult Function() validateHandover,
     required TResult Function(String? period) performancePublished,
+    required TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
+        supervisorAssessmentSchedule,
   }) {
     return overtimeUpdated(date, status, actor);
   }
@@ -5787,7 +6483,13 @@ class _$OvertimeUpdatedPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult? Function(String? status, String? deadline)? offboardingStarted,
-    TResult? Function(String? date, String? time, String? interviewer)?
+    TResult? Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult? Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -5821,7 +6523,14 @@ class _$OvertimeUpdatedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
+    TResult? Function()? validateHandover,
     TResult? Function(String? period)? performancePublished,
+    TResult? Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
   }) {
     return overtimeUpdated?.call(date, status, actor);
   }
@@ -5849,7 +6558,13 @@ class _$OvertimeUpdatedPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult Function(String? status, String? deadline)? offboardingStarted,
-    TResult Function(String? date, String? time, String? interviewer)?
+    TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -5883,7 +6598,14 @@ class _$OvertimeUpdatedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
+    TResult Function()? validateHandover,
     TResult Function(String? period)? performancePublished,
+    TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (overtimeUpdated != null) {
@@ -5926,8 +6648,11 @@ class _$OvertimeUpdatedPayloadImpl
         performanceReminder,
     required TResult Function(PerformanceSubmittedPayload value)
         performanceSubmitted,
+    required TResult Function(ValidateHandoverPayload value) validateHandover,
     required TResult Function(PerformancePublishedPayload value)
         performancePublished,
+    required TResult Function(SupervisorAssessmentSchedulePayload value)
+        supervisorAssessmentSchedule,
   }) {
     return overtimeUpdated(this);
   }
@@ -5960,7 +6685,10 @@ class _$OvertimeUpdatedPayloadImpl
     TResult? Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult? Function(PerformanceReminderPayload value)? performanceReminder,
     TResult? Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult? Function(ValidateHandoverPayload value)? validateHandover,
     TResult? Function(PerformancePublishedPayload value)? performancePublished,
+    TResult? Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
   }) {
     return overtimeUpdated?.call(this);
   }
@@ -5991,7 +6719,10 @@ class _$OvertimeUpdatedPayloadImpl
     TResult Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult Function(PerformanceReminderPayload value)? performanceReminder,
     TResult Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult Function(ValidateHandoverPayload value)? validateHandover,
     TResult Function(PerformancePublishedPayload value)? performancePublished,
+    TResult Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (overtimeUpdated != null) {
@@ -6177,7 +6908,13 @@ class _$LeaveSubmittedPayloadImpl
         managerChanged,
     required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String? date, String? time, String? interviewer)
+    required TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
         exitInterviewSchedule,
     required TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)
@@ -6213,7 +6950,14 @@ class _$LeaveSubmittedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
+    required TResult Function() validateHandover,
     required TResult Function(String? period) performancePublished,
+    required TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
+        supervisorAssessmentSchedule,
   }) {
     return leaveSubmitted(leaveType, start, end, approver);
   }
@@ -6241,7 +6985,13 @@ class _$LeaveSubmittedPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult? Function(String? status, String? deadline)? offboardingStarted,
-    TResult? Function(String? date, String? time, String? interviewer)?
+    TResult? Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult? Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -6275,7 +7025,14 @@ class _$LeaveSubmittedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
+    TResult? Function()? validateHandover,
     TResult? Function(String? period)? performancePublished,
+    TResult? Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
   }) {
     return leaveSubmitted?.call(leaveType, start, end, approver);
   }
@@ -6303,7 +7060,13 @@ class _$LeaveSubmittedPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult Function(String? status, String? deadline)? offboardingStarted,
-    TResult Function(String? date, String? time, String? interviewer)?
+    TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -6337,7 +7100,14 @@ class _$LeaveSubmittedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
+    TResult Function()? validateHandover,
     TResult Function(String? period)? performancePublished,
+    TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (leaveSubmitted != null) {
@@ -6380,8 +7150,11 @@ class _$LeaveSubmittedPayloadImpl
         performanceReminder,
     required TResult Function(PerformanceSubmittedPayload value)
         performanceSubmitted,
+    required TResult Function(ValidateHandoverPayload value) validateHandover,
     required TResult Function(PerformancePublishedPayload value)
         performancePublished,
+    required TResult Function(SupervisorAssessmentSchedulePayload value)
+        supervisorAssessmentSchedule,
   }) {
     return leaveSubmitted(this);
   }
@@ -6414,7 +7187,10 @@ class _$LeaveSubmittedPayloadImpl
     TResult? Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult? Function(PerformanceReminderPayload value)? performanceReminder,
     TResult? Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult? Function(ValidateHandoverPayload value)? validateHandover,
     TResult? Function(PerformancePublishedPayload value)? performancePublished,
+    TResult? Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
   }) {
     return leaveSubmitted?.call(this);
   }
@@ -6445,7 +7221,10 @@ class _$LeaveSubmittedPayloadImpl
     TResult Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult Function(PerformanceReminderPayload value)? performanceReminder,
     TResult Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult Function(ValidateHandoverPayload value)? validateHandover,
     TResult Function(PerformancePublishedPayload value)? performancePublished,
+    TResult Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (leaveSubmitted != null) {
@@ -6632,7 +7411,13 @@ class _$LeaveUpdatedPayloadImpl
         managerChanged,
     required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String? date, String? time, String? interviewer)
+    required TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
         exitInterviewSchedule,
     required TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)
@@ -6668,7 +7453,14 @@ class _$LeaveUpdatedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
+    required TResult Function() validateHandover,
     required TResult Function(String? period) performancePublished,
+    required TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
+        supervisorAssessmentSchedule,
   }) {
     return leaveUpdated(leaveType, start, end, status);
   }
@@ -6696,7 +7488,13 @@ class _$LeaveUpdatedPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult? Function(String? status, String? deadline)? offboardingStarted,
-    TResult? Function(String? date, String? time, String? interviewer)?
+    TResult? Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult? Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -6730,7 +7528,14 @@ class _$LeaveUpdatedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
+    TResult? Function()? validateHandover,
     TResult? Function(String? period)? performancePublished,
+    TResult? Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
   }) {
     return leaveUpdated?.call(leaveType, start, end, status);
   }
@@ -6758,7 +7563,13 @@ class _$LeaveUpdatedPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult Function(String? status, String? deadline)? offboardingStarted,
-    TResult Function(String? date, String? time, String? interviewer)?
+    TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -6792,7 +7603,14 @@ class _$LeaveUpdatedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
+    TResult Function()? validateHandover,
     TResult Function(String? period)? performancePublished,
+    TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (leaveUpdated != null) {
@@ -6835,8 +7653,11 @@ class _$LeaveUpdatedPayloadImpl
         performanceReminder,
     required TResult Function(PerformanceSubmittedPayload value)
         performanceSubmitted,
+    required TResult Function(ValidateHandoverPayload value) validateHandover,
     required TResult Function(PerformancePublishedPayload value)
         performancePublished,
+    required TResult Function(SupervisorAssessmentSchedulePayload value)
+        supervisorAssessmentSchedule,
   }) {
     return leaveUpdated(this);
   }
@@ -6869,7 +7690,10 @@ class _$LeaveUpdatedPayloadImpl
     TResult? Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult? Function(PerformanceReminderPayload value)? performanceReminder,
     TResult? Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult? Function(ValidateHandoverPayload value)? validateHandover,
     TResult? Function(PerformancePublishedPayload value)? performancePublished,
+    TResult? Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
   }) {
     return leaveUpdated?.call(this);
   }
@@ -6900,7 +7724,10 @@ class _$LeaveUpdatedPayloadImpl
     TResult Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult Function(PerformanceReminderPayload value)? performanceReminder,
     TResult Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult Function(ValidateHandoverPayload value)? validateHandover,
     TResult Function(PerformancePublishedPayload value)? performancePublished,
+    TResult Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (leaveUpdated != null) {
@@ -7078,7 +7905,13 @@ class _$LeaveReminderPayloadImpl
         managerChanged,
     required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String? date, String? time, String? interviewer)
+    required TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
         exitInterviewSchedule,
     required TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)
@@ -7114,7 +7947,14 @@ class _$LeaveReminderPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
+    required TResult Function() validateHandover,
     required TResult Function(String? period) performancePublished,
+    required TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
+        supervisorAssessmentSchedule,
   }) {
     return leaveReminder(leaveType, relativeDay, date);
   }
@@ -7142,7 +7982,13 @@ class _$LeaveReminderPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult? Function(String? status, String? deadline)? offboardingStarted,
-    TResult? Function(String? date, String? time, String? interviewer)?
+    TResult? Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult? Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -7176,7 +8022,14 @@ class _$LeaveReminderPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
+    TResult? Function()? validateHandover,
     TResult? Function(String? period)? performancePublished,
+    TResult? Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
   }) {
     return leaveReminder?.call(leaveType, relativeDay, date);
   }
@@ -7204,7 +8057,13 @@ class _$LeaveReminderPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult Function(String? status, String? deadline)? offboardingStarted,
-    TResult Function(String? date, String? time, String? interviewer)?
+    TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -7238,7 +8097,14 @@ class _$LeaveReminderPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
+    TResult Function()? validateHandover,
     TResult Function(String? period)? performancePublished,
+    TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (leaveReminder != null) {
@@ -7281,8 +8147,11 @@ class _$LeaveReminderPayloadImpl
         performanceReminder,
     required TResult Function(PerformanceSubmittedPayload value)
         performanceSubmitted,
+    required TResult Function(ValidateHandoverPayload value) validateHandover,
     required TResult Function(PerformancePublishedPayload value)
         performancePublished,
+    required TResult Function(SupervisorAssessmentSchedulePayload value)
+        supervisorAssessmentSchedule,
   }) {
     return leaveReminder(this);
   }
@@ -7315,7 +8184,10 @@ class _$LeaveReminderPayloadImpl
     TResult? Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult? Function(PerformanceReminderPayload value)? performanceReminder,
     TResult? Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult? Function(ValidateHandoverPayload value)? validateHandover,
     TResult? Function(PerformancePublishedPayload value)? performancePublished,
+    TResult? Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
   }) {
     return leaveReminder?.call(this);
   }
@@ -7346,7 +8218,10 @@ class _$LeaveReminderPayloadImpl
     TResult Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult Function(PerformanceReminderPayload value)? performanceReminder,
     TResult Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult Function(ValidateHandoverPayload value)? validateHandover,
     TResult Function(PerformancePublishedPayload value)? performancePublished,
+    TResult Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (leaveReminder != null) {
@@ -7522,7 +8397,13 @@ class _$LeaveExpiringPayloadImpl
         managerChanged,
     required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String? date, String? time, String? interviewer)
+    required TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
         exitInterviewSchedule,
     required TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)
@@ -7558,7 +8439,14 @@ class _$LeaveExpiringPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
+    required TResult Function() validateHandover,
     required TResult Function(String? period) performancePublished,
+    required TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
+        supervisorAssessmentSchedule,
   }) {
     return leaveExpiring(daysLeft, balance, deadline);
   }
@@ -7586,7 +8474,13 @@ class _$LeaveExpiringPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult? Function(String? status, String? deadline)? offboardingStarted,
-    TResult? Function(String? date, String? time, String? interviewer)?
+    TResult? Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult? Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -7620,7 +8514,14 @@ class _$LeaveExpiringPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
+    TResult? Function()? validateHandover,
     TResult? Function(String? period)? performancePublished,
+    TResult? Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
   }) {
     return leaveExpiring?.call(daysLeft, balance, deadline);
   }
@@ -7648,7 +8549,13 @@ class _$LeaveExpiringPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult Function(String? status, String? deadline)? offboardingStarted,
-    TResult Function(String? date, String? time, String? interviewer)?
+    TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -7682,7 +8589,14 @@ class _$LeaveExpiringPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
+    TResult Function()? validateHandover,
     TResult Function(String? period)? performancePublished,
+    TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (leaveExpiring != null) {
@@ -7725,8 +8639,11 @@ class _$LeaveExpiringPayloadImpl
         performanceReminder,
     required TResult Function(PerformanceSubmittedPayload value)
         performanceSubmitted,
+    required TResult Function(ValidateHandoverPayload value) validateHandover,
     required TResult Function(PerformancePublishedPayload value)
         performancePublished,
+    required TResult Function(SupervisorAssessmentSchedulePayload value)
+        supervisorAssessmentSchedule,
   }) {
     return leaveExpiring(this);
   }
@@ -7759,7 +8676,10 @@ class _$LeaveExpiringPayloadImpl
     TResult? Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult? Function(PerformanceReminderPayload value)? performanceReminder,
     TResult? Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult? Function(ValidateHandoverPayload value)? validateHandover,
     TResult? Function(PerformancePublishedPayload value)? performancePublished,
+    TResult? Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
   }) {
     return leaveExpiring?.call(this);
   }
@@ -7790,7 +8710,10 @@ class _$LeaveExpiringPayloadImpl
     TResult Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult Function(PerformanceReminderPayload value)? performanceReminder,
     TResult Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult Function(ValidateHandoverPayload value)? validateHandover,
     TResult Function(PerformancePublishedPayload value)? performancePublished,
+    TResult Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (leaveExpiring != null) {
@@ -7940,7 +8863,13 @@ class _$PayslipAvailablePayloadImpl
         managerChanged,
     required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String? date, String? time, String? interviewer)
+    required TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
         exitInterviewSchedule,
     required TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)
@@ -7976,7 +8905,14 @@ class _$PayslipAvailablePayloadImpl
             @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
+    required TResult Function() validateHandover,
     required TResult Function(String? period) performancePublished,
+    required TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
+        supervisorAssessmentSchedule,
   }) {
     return payslipAvailable(period);
   }
@@ -8004,7 +8940,13 @@ class _$PayslipAvailablePayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult? Function(String? status, String? deadline)? offboardingStarted,
-    TResult? Function(String? date, String? time, String? interviewer)?
+    TResult? Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult? Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -8038,7 +8980,14 @@ class _$PayslipAvailablePayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
+    TResult? Function()? validateHandover,
     TResult? Function(String? period)? performancePublished,
+    TResult? Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
   }) {
     return payslipAvailable?.call(period);
   }
@@ -8066,7 +9015,13 @@ class _$PayslipAvailablePayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult Function(String? status, String? deadline)? offboardingStarted,
-    TResult Function(String? date, String? time, String? interviewer)?
+    TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -8100,7 +9055,14 @@ class _$PayslipAvailablePayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
+    TResult Function()? validateHandover,
     TResult Function(String? period)? performancePublished,
+    TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (payslipAvailable != null) {
@@ -8143,8 +9105,11 @@ class _$PayslipAvailablePayloadImpl
         performanceReminder,
     required TResult Function(PerformanceSubmittedPayload value)
         performanceSubmitted,
+    required TResult Function(ValidateHandoverPayload value) validateHandover,
     required TResult Function(PerformancePublishedPayload value)
         performancePublished,
+    required TResult Function(SupervisorAssessmentSchedulePayload value)
+        supervisorAssessmentSchedule,
   }) {
     return payslipAvailable(this);
   }
@@ -8177,7 +9142,10 @@ class _$PayslipAvailablePayloadImpl
     TResult? Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult? Function(PerformanceReminderPayload value)? performanceReminder,
     TResult? Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult? Function(ValidateHandoverPayload value)? validateHandover,
     TResult? Function(PerformancePublishedPayload value)? performancePublished,
+    TResult? Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
   }) {
     return payslipAvailable?.call(this);
   }
@@ -8208,7 +9176,10 @@ class _$PayslipAvailablePayloadImpl
     TResult Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult Function(PerformanceReminderPayload value)? performanceReminder,
     TResult Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult Function(ValidateHandoverPayload value)? validateHandover,
     TResult Function(PerformancePublishedPayload value)? performancePublished,
+    TResult Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (payslipAvailable != null) {
@@ -8383,7 +9354,13 @@ class _$PayslipRequestUpdatedPayloadImpl
         managerChanged,
     required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String? date, String? time, String? interviewer)
+    required TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
         exitInterviewSchedule,
     required TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)
@@ -8419,7 +9396,14 @@ class _$PayslipRequestUpdatedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
+    required TResult Function() validateHandover,
     required TResult Function(String? period) performancePublished,
+    required TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
+        supervisorAssessmentSchedule,
   }) {
     return payslipRequestUpdated(requestType, period, status);
   }
@@ -8447,7 +9431,13 @@ class _$PayslipRequestUpdatedPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult? Function(String? status, String? deadline)? offboardingStarted,
-    TResult? Function(String? date, String? time, String? interviewer)?
+    TResult? Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult? Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -8481,7 +9471,14 @@ class _$PayslipRequestUpdatedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
+    TResult? Function()? validateHandover,
     TResult? Function(String? period)? performancePublished,
+    TResult? Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
   }) {
     return payslipRequestUpdated?.call(requestType, period, status);
   }
@@ -8509,7 +9506,13 @@ class _$PayslipRequestUpdatedPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult Function(String? status, String? deadline)? offboardingStarted,
-    TResult Function(String? date, String? time, String? interviewer)?
+    TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -8543,7 +9546,14 @@ class _$PayslipRequestUpdatedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
+    TResult Function()? validateHandover,
     TResult Function(String? period)? performancePublished,
+    TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (payslipRequestUpdated != null) {
@@ -8586,8 +9596,11 @@ class _$PayslipRequestUpdatedPayloadImpl
         performanceReminder,
     required TResult Function(PerformanceSubmittedPayload value)
         performanceSubmitted,
+    required TResult Function(ValidateHandoverPayload value) validateHandover,
     required TResult Function(PerformancePublishedPayload value)
         performancePublished,
+    required TResult Function(SupervisorAssessmentSchedulePayload value)
+        supervisorAssessmentSchedule,
   }) {
     return payslipRequestUpdated(this);
   }
@@ -8620,7 +9633,10 @@ class _$PayslipRequestUpdatedPayloadImpl
     TResult? Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult? Function(PerformanceReminderPayload value)? performanceReminder,
     TResult? Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult? Function(ValidateHandoverPayload value)? validateHandover,
     TResult? Function(PerformancePublishedPayload value)? performancePublished,
+    TResult? Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
   }) {
     return payslipRequestUpdated?.call(this);
   }
@@ -8651,7 +9667,10 @@ class _$PayslipRequestUpdatedPayloadImpl
     TResult Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult Function(PerformanceReminderPayload value)? performanceReminder,
     TResult Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult Function(ValidateHandoverPayload value)? validateHandover,
     TResult Function(PerformancePublishedPayload value)? performancePublished,
+    TResult Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (payslipRequestUpdated != null) {
@@ -8817,7 +9836,13 @@ class _$PerformanceFormOpenPayloadImpl
         managerChanged,
     required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String? date, String? time, String? interviewer)
+    required TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
         exitInterviewSchedule,
     required TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)
@@ -8853,7 +9878,14 @@ class _$PerformanceFormOpenPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
+    required TResult Function() validateHandover,
     required TResult Function(String? period) performancePublished,
+    required TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
+        supervisorAssessmentSchedule,
   }) {
     return performanceFormOpen(period, dueDate);
   }
@@ -8881,7 +9913,13 @@ class _$PerformanceFormOpenPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult? Function(String? status, String? deadline)? offboardingStarted,
-    TResult? Function(String? date, String? time, String? interviewer)?
+    TResult? Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult? Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -8915,7 +9953,14 @@ class _$PerformanceFormOpenPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
+    TResult? Function()? validateHandover,
     TResult? Function(String? period)? performancePublished,
+    TResult? Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
   }) {
     return performanceFormOpen?.call(period, dueDate);
   }
@@ -8943,7 +9988,13 @@ class _$PerformanceFormOpenPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult Function(String? status, String? deadline)? offboardingStarted,
-    TResult Function(String? date, String? time, String? interviewer)?
+    TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -8977,7 +10028,14 @@ class _$PerformanceFormOpenPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
+    TResult Function()? validateHandover,
     TResult Function(String? period)? performancePublished,
+    TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (performanceFormOpen != null) {
@@ -9020,8 +10078,11 @@ class _$PerformanceFormOpenPayloadImpl
         performanceReminder,
     required TResult Function(PerformanceSubmittedPayload value)
         performanceSubmitted,
+    required TResult Function(ValidateHandoverPayload value) validateHandover,
     required TResult Function(PerformancePublishedPayload value)
         performancePublished,
+    required TResult Function(SupervisorAssessmentSchedulePayload value)
+        supervisorAssessmentSchedule,
   }) {
     return performanceFormOpen(this);
   }
@@ -9054,7 +10115,10 @@ class _$PerformanceFormOpenPayloadImpl
     TResult? Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult? Function(PerformanceReminderPayload value)? performanceReminder,
     TResult? Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult? Function(ValidateHandoverPayload value)? validateHandover,
     TResult? Function(PerformancePublishedPayload value)? performancePublished,
+    TResult? Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
   }) {
     return performanceFormOpen?.call(this);
   }
@@ -9085,7 +10149,10 @@ class _$PerformanceFormOpenPayloadImpl
     TResult Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult Function(PerformanceReminderPayload value)? performanceReminder,
     TResult Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult Function(ValidateHandoverPayload value)? validateHandover,
     TResult Function(PerformancePublishedPayload value)? performancePublished,
+    TResult Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (performanceFormOpen != null) {
@@ -9264,7 +10331,13 @@ class _$PerformanceReminderPayloadImpl
         managerChanged,
     required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String? date, String? time, String? interviewer)
+    required TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
         exitInterviewSchedule,
     required TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)
@@ -9300,7 +10373,14 @@ class _$PerformanceReminderPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
+    required TResult Function() validateHandover,
     required TResult Function(String? period) performancePublished,
+    required TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
+        supervisorAssessmentSchedule,
   }) {
     return performanceReminder(daysLeft, daysOverdue, dueDate);
   }
@@ -9328,7 +10408,13 @@ class _$PerformanceReminderPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult? Function(String? status, String? deadline)? offboardingStarted,
-    TResult? Function(String? date, String? time, String? interviewer)?
+    TResult? Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult? Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -9362,7 +10448,14 @@ class _$PerformanceReminderPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
+    TResult? Function()? validateHandover,
     TResult? Function(String? period)? performancePublished,
+    TResult? Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
   }) {
     return performanceReminder?.call(daysLeft, daysOverdue, dueDate);
   }
@@ -9390,7 +10483,13 @@ class _$PerformanceReminderPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult Function(String? status, String? deadline)? offboardingStarted,
-    TResult Function(String? date, String? time, String? interviewer)?
+    TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -9424,7 +10523,14 @@ class _$PerformanceReminderPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
+    TResult Function()? validateHandover,
     TResult Function(String? period)? performancePublished,
+    TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (performanceReminder != null) {
@@ -9467,8 +10573,11 @@ class _$PerformanceReminderPayloadImpl
         performanceReminder,
     required TResult Function(PerformanceSubmittedPayload value)
         performanceSubmitted,
+    required TResult Function(ValidateHandoverPayload value) validateHandover,
     required TResult Function(PerformancePublishedPayload value)
         performancePublished,
+    required TResult Function(SupervisorAssessmentSchedulePayload value)
+        supervisorAssessmentSchedule,
   }) {
     return performanceReminder(this);
   }
@@ -9501,7 +10610,10 @@ class _$PerformanceReminderPayloadImpl
     TResult? Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult? Function(PerformanceReminderPayload value)? performanceReminder,
     TResult? Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult? Function(ValidateHandoverPayload value)? validateHandover,
     TResult? Function(PerformancePublishedPayload value)? performancePublished,
+    TResult? Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
   }) {
     return performanceReminder?.call(this);
   }
@@ -9532,7 +10644,10 @@ class _$PerformanceReminderPayloadImpl
     TResult Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult Function(PerformanceReminderPayload value)? performanceReminder,
     TResult Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult Function(ValidateHandoverPayload value)? validateHandover,
     TResult Function(PerformancePublishedPayload value)? performancePublished,
+    TResult Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (performanceReminder != null) {
@@ -9657,7 +10772,13 @@ class _$PerformanceSubmittedPayloadImpl
         managerChanged,
     required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String? date, String? time, String? interviewer)
+    required TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
         exitInterviewSchedule,
     required TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)
@@ -9693,7 +10814,14 @@ class _$PerformanceSubmittedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
+    required TResult Function() validateHandover,
     required TResult Function(String? period) performancePublished,
+    required TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
+        supervisorAssessmentSchedule,
   }) {
     return performanceSubmitted();
   }
@@ -9721,7 +10849,13 @@ class _$PerformanceSubmittedPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult? Function(String? status, String? deadline)? offboardingStarted,
-    TResult? Function(String? date, String? time, String? interviewer)?
+    TResult? Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult? Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -9755,7 +10889,14 @@ class _$PerformanceSubmittedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
+    TResult? Function()? validateHandover,
     TResult? Function(String? period)? performancePublished,
+    TResult? Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
   }) {
     return performanceSubmitted?.call();
   }
@@ -9783,7 +10924,13 @@ class _$PerformanceSubmittedPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult Function(String? status, String? deadline)? offboardingStarted,
-    TResult Function(String? date, String? time, String? interviewer)?
+    TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -9817,7 +10964,14 @@ class _$PerformanceSubmittedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
+    TResult Function()? validateHandover,
     TResult Function(String? period)? performancePublished,
+    TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (performanceSubmitted != null) {
@@ -9860,8 +11014,11 @@ class _$PerformanceSubmittedPayloadImpl
         performanceReminder,
     required TResult Function(PerformanceSubmittedPayload value)
         performanceSubmitted,
+    required TResult Function(ValidateHandoverPayload value) validateHandover,
     required TResult Function(PerformancePublishedPayload value)
         performancePublished,
+    required TResult Function(SupervisorAssessmentSchedulePayload value)
+        supervisorAssessmentSchedule,
   }) {
     return performanceSubmitted(this);
   }
@@ -9894,7 +11051,10 @@ class _$PerformanceSubmittedPayloadImpl
     TResult? Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult? Function(PerformanceReminderPayload value)? performanceReminder,
     TResult? Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult? Function(ValidateHandoverPayload value)? validateHandover,
     TResult? Function(PerformancePublishedPayload value)? performancePublished,
+    TResult? Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
   }) {
     return performanceSubmitted?.call(this);
   }
@@ -9925,7 +11085,10 @@ class _$PerformanceSubmittedPayloadImpl
     TResult Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult Function(PerformanceReminderPayload value)? performanceReminder,
     TResult Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult Function(ValidateHandoverPayload value)? validateHandover,
     TResult Function(PerformancePublishedPayload value)? performancePublished,
+    TResult Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (performanceSubmitted != null) {
@@ -9948,6 +11111,431 @@ abstract class PerformanceSubmittedPayload implements NotificationPayload {
 
   factory PerformanceSubmittedPayload.fromJson(Map<String, dynamic> json) =
       _$PerformanceSubmittedPayloadImpl.fromJson;
+}
+
+/// @nodoc
+abstract class _$$ValidateHandoverPayloadImplCopyWith<$Res> {
+  factory _$$ValidateHandoverPayloadImplCopyWith(
+          _$ValidateHandoverPayloadImpl value,
+          $Res Function(_$ValidateHandoverPayloadImpl) then) =
+      __$$ValidateHandoverPayloadImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ValidateHandoverPayloadImplCopyWithImpl<$Res>
+    extends _$NotificationPayloadCopyWithImpl<$Res,
+        _$ValidateHandoverPayloadImpl>
+    implements _$$ValidateHandoverPayloadImplCopyWith<$Res> {
+  __$$ValidateHandoverPayloadImplCopyWithImpl(
+      _$ValidateHandoverPayloadImpl _value,
+      $Res Function(_$ValidateHandoverPayloadImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of NotificationPayload
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ValidateHandoverPayloadImpl
+    with DiagnosticableTreeMixin
+    implements ValidateHandoverPayload {
+  const _$ValidateHandoverPayloadImpl({final String? $type})
+      : $type = $type ?? 'validateHandover';
+
+  factory _$ValidateHandoverPayloadImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ValidateHandoverPayloadImplFromJson(json);
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'NotificationPayload.validateHandover()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(
+          DiagnosticsProperty('type', 'NotificationPayload.validateHandover'));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ValidateHandoverPayloadImpl);
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String? email, String? result) emailVerification,
+    required TResult Function(String? email) resetPasswordRequested,
+    required TResult Function(String? time) passwordUpdated,
+    required TResult Function(String? device, String? location, String? time)
+        loginDevice,
+    required TResult Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)
+        profileUpdated,
+    required TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)
+        departmentChanged,
+    required TResult Function(
+            @JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)
+        managerChanged,
+    required TResult Function(String? status, String? deadline)
+        offboardingStarted,
+    required TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
+        exitInterviewSchedule,
+    required TResult Function(
+            @JsonKey(name: "start_time") String? startTime, int? minutes)
+        attendanceReminder,
+    required TResult Function(int? grace) attendanceNotPresent,
+    required TResult Function(
+            String? date, String? start, String? end, String? approver)
+        overtimeSubmitted,
+    required TResult Function(String? date, String? status, String? actor)
+        overtimeUpdated,
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)
+        leaveSubmitted,
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)
+        leaveUpdated,
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)
+        leaveReminder,
+    required TResult Function(@JsonKey(name: "days_left") int? daysLeft,
+            int? balance, String? deadline)
+        leaveExpiring,
+    required TResult Function(String? period) payslipAvailable,
+    required TResult Function(
+            @JsonKey(name: "request_type") String? requestType,
+            String? period,
+            String? status)
+        payslipRequestUpdated,
+    required TResult Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)
+        performanceFormOpen,
+    required TResult Function(int? daysLeft, int? daysOverdue,
+            @JsonKey(name: "due_date") String? dueDate)
+        performanceReminder,
+    required TResult Function() performanceSubmitted,
+    required TResult Function() validateHandover,
+    required TResult Function(String? period) performancePublished,
+    required TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
+        supervisorAssessmentSchedule,
+  }) {
+    return validateHandover();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String? email, String? result)? emailVerification,
+    TResult? Function(String? email)? resetPasswordRequested,
+    TResult? Function(String? time)? passwordUpdated,
+    TResult? Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult? Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
+        profileUpdated,
+    TResult? Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
+        departmentChanged,
+    TResult? Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
+        managerChanged,
+    TResult? Function(String? status, String? deadline)? offboardingStarted,
+    TResult? Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        exitInterviewSchedule,
+    TResult? Function(
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
+        attendanceReminder,
+    TResult? Function(int? grace)? attendanceNotPresent,
+    TResult? Function(
+            String? date, String? start, String? end, String? approver)?
+        overtimeSubmitted,
+    TResult? Function(String? date, String? status, String? actor)?
+        overtimeUpdated,
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
+        leaveSubmitted,
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
+        leaveUpdated,
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
+        leaveReminder,
+    TResult? Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
+        leaveExpiring,
+    TResult? Function(String? period)? payslipAvailable,
+    TResult? Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
+        payslipRequestUpdated,
+    TResult? Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
+        performanceFormOpen,
+    TResult? Function(int? daysLeft, int? daysOverdue,
+            @JsonKey(name: "due_date") String? dueDate)?
+        performanceReminder,
+    TResult? Function()? performanceSubmitted,
+    TResult? Function()? validateHandover,
+    TResult? Function(String? period)? performancePublished,
+    TResult? Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
+  }) {
+    return validateHandover?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? email, String? result)? emailVerification,
+    TResult Function(String? email)? resetPasswordRequested,
+    TResult Function(String? time)? passwordUpdated,
+    TResult Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
+        profileUpdated,
+    TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
+        departmentChanged,
+    TResult Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
+        managerChanged,
+    TResult Function(String? status, String? deadline)? offboardingStarted,
+    TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        exitInterviewSchedule,
+    TResult Function(
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
+        attendanceReminder,
+    TResult Function(int? grace)? attendanceNotPresent,
+    TResult Function(
+            String? date, String? start, String? end, String? approver)?
+        overtimeSubmitted,
+    TResult Function(String? date, String? status, String? actor)?
+        overtimeUpdated,
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
+        leaveSubmitted,
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
+        leaveUpdated,
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
+        leaveReminder,
+    TResult Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
+        leaveExpiring,
+    TResult Function(String? period)? payslipAvailable,
+    TResult Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
+        payslipRequestUpdated,
+    TResult Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
+        performanceFormOpen,
+    TResult Function(int? daysLeft, int? daysOverdue,
+            @JsonKey(name: "due_date") String? dueDate)?
+        performanceReminder,
+    TResult Function()? performanceSubmitted,
+    TResult Function()? validateHandover,
+    TResult Function(String? period)? performancePublished,
+    TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
+    required TResult orElse(),
+  }) {
+    if (validateHandover != null) {
+      return validateHandover();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(EmailVerificationPayload value) emailVerification,
+    required TResult Function(ResetPasswordRequestedPayload value)
+        resetPasswordRequested,
+    required TResult Function(PasswordUpdatedPayload value) passwordUpdated,
+    required TResult Function(LoginDevicePayload value) loginDevice,
+    required TResult Function(ProfileUpdatedPayload value) profileUpdated,
+    required TResult Function(DepartmentChangedPayload value) departmentChanged,
+    required TResult Function(ManagerChangedPayload value) managerChanged,
+    required TResult Function(OffboardingStartedPayload value)
+        offboardingStarted,
+    required TResult Function(ExitInterviewSchedulePayload value)
+        exitInterviewSchedule,
+    required TResult Function(AttendanceReminderPayload value)
+        attendanceReminder,
+    required TResult Function(AttendanceNotPresentPayload value)
+        attendanceNotPresent,
+    required TResult Function(OvertimeSubmittedPayload value) overtimeSubmitted,
+    required TResult Function(OvertimeUpdatedPayload value) overtimeUpdated,
+    required TResult Function(LeaveSubmittedPayload value) leaveSubmitted,
+    required TResult Function(LeaveUpdatedPayload value) leaveUpdated,
+    required TResult Function(LeaveReminderPayload value) leaveReminder,
+    required TResult Function(LeaveExpiringPayload value) leaveExpiring,
+    required TResult Function(PayslipAvailablePayload value) payslipAvailable,
+    required TResult Function(PayslipRequestUpdatedPayload value)
+        payslipRequestUpdated,
+    required TResult Function(PerformanceFormOpenPayload value)
+        performanceFormOpen,
+    required TResult Function(PerformanceReminderPayload value)
+        performanceReminder,
+    required TResult Function(PerformanceSubmittedPayload value)
+        performanceSubmitted,
+    required TResult Function(ValidateHandoverPayload value) validateHandover,
+    required TResult Function(PerformancePublishedPayload value)
+        performancePublished,
+    required TResult Function(SupervisorAssessmentSchedulePayload value)
+        supervisorAssessmentSchedule,
+  }) {
+    return validateHandover(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(EmailVerificationPayload value)? emailVerification,
+    TResult? Function(ResetPasswordRequestedPayload value)?
+        resetPasswordRequested,
+    TResult? Function(PasswordUpdatedPayload value)? passwordUpdated,
+    TResult? Function(LoginDevicePayload value)? loginDevice,
+    TResult? Function(ProfileUpdatedPayload value)? profileUpdated,
+    TResult? Function(DepartmentChangedPayload value)? departmentChanged,
+    TResult? Function(ManagerChangedPayload value)? managerChanged,
+    TResult? Function(OffboardingStartedPayload value)? offboardingStarted,
+    TResult? Function(ExitInterviewSchedulePayload value)?
+        exitInterviewSchedule,
+    TResult? Function(AttendanceReminderPayload value)? attendanceReminder,
+    TResult? Function(AttendanceNotPresentPayload value)? attendanceNotPresent,
+    TResult? Function(OvertimeSubmittedPayload value)? overtimeSubmitted,
+    TResult? Function(OvertimeUpdatedPayload value)? overtimeUpdated,
+    TResult? Function(LeaveSubmittedPayload value)? leaveSubmitted,
+    TResult? Function(LeaveUpdatedPayload value)? leaveUpdated,
+    TResult? Function(LeaveReminderPayload value)? leaveReminder,
+    TResult? Function(LeaveExpiringPayload value)? leaveExpiring,
+    TResult? Function(PayslipAvailablePayload value)? payslipAvailable,
+    TResult? Function(PayslipRequestUpdatedPayload value)?
+        payslipRequestUpdated,
+    TResult? Function(PerformanceFormOpenPayload value)? performanceFormOpen,
+    TResult? Function(PerformanceReminderPayload value)? performanceReminder,
+    TResult? Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult? Function(ValidateHandoverPayload value)? validateHandover,
+    TResult? Function(PerformancePublishedPayload value)? performancePublished,
+    TResult? Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
+  }) {
+    return validateHandover?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(EmailVerificationPayload value)? emailVerification,
+    TResult Function(ResetPasswordRequestedPayload value)?
+        resetPasswordRequested,
+    TResult Function(PasswordUpdatedPayload value)? passwordUpdated,
+    TResult Function(LoginDevicePayload value)? loginDevice,
+    TResult Function(ProfileUpdatedPayload value)? profileUpdated,
+    TResult Function(DepartmentChangedPayload value)? departmentChanged,
+    TResult Function(ManagerChangedPayload value)? managerChanged,
+    TResult Function(OffboardingStartedPayload value)? offboardingStarted,
+    TResult Function(ExitInterviewSchedulePayload value)? exitInterviewSchedule,
+    TResult Function(AttendanceReminderPayload value)? attendanceReminder,
+    TResult Function(AttendanceNotPresentPayload value)? attendanceNotPresent,
+    TResult Function(OvertimeSubmittedPayload value)? overtimeSubmitted,
+    TResult Function(OvertimeUpdatedPayload value)? overtimeUpdated,
+    TResult Function(LeaveSubmittedPayload value)? leaveSubmitted,
+    TResult Function(LeaveUpdatedPayload value)? leaveUpdated,
+    TResult Function(LeaveReminderPayload value)? leaveReminder,
+    TResult Function(LeaveExpiringPayload value)? leaveExpiring,
+    TResult Function(PayslipAvailablePayload value)? payslipAvailable,
+    TResult Function(PayslipRequestUpdatedPayload value)? payslipRequestUpdated,
+    TResult Function(PerformanceFormOpenPayload value)? performanceFormOpen,
+    TResult Function(PerformanceReminderPayload value)? performanceReminder,
+    TResult Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult Function(ValidateHandoverPayload value)? validateHandover,
+    TResult Function(PerformancePublishedPayload value)? performancePublished,
+    TResult Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
+    required TResult orElse(),
+  }) {
+    if (validateHandover != null) {
+      return validateHandover(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ValidateHandoverPayloadImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class ValidateHandoverPayload implements NotificationPayload {
+  const factory ValidateHandoverPayload() = _$ValidateHandoverPayloadImpl;
+
+  factory ValidateHandoverPayload.fromJson(Map<String, dynamic> json) =
+      _$ValidateHandoverPayloadImpl.fromJson;
 }
 
 /// @nodoc
@@ -10064,7 +11652,13 @@ class _$PerformancePublishedPayloadImpl
         managerChanged,
     required TResult Function(String? status, String? deadline)
         offboardingStarted,
-    required TResult Function(String? date, String? time, String? interviewer)
+    required TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
         exitInterviewSchedule,
     required TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)
@@ -10100,7 +11694,14 @@ class _$PerformancePublishedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)
         performanceReminder,
     required TResult Function() performanceSubmitted,
+    required TResult Function() validateHandover,
     required TResult Function(String? period) performancePublished,
+    required TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
+        supervisorAssessmentSchedule,
   }) {
     return performancePublished(period);
   }
@@ -10128,7 +11729,13 @@ class _$PerformancePublishedPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult? Function(String? status, String? deadline)? offboardingStarted,
-    TResult? Function(String? date, String? time, String? interviewer)?
+    TResult? Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult? Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -10162,7 +11769,14 @@ class _$PerformancePublishedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult? Function()? performanceSubmitted,
+    TResult? Function()? validateHandover,
     TResult? Function(String? period)? performancePublished,
+    TResult? Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
   }) {
     return performancePublished?.call(period);
   }
@@ -10190,7 +11804,13 @@ class _$PerformancePublishedPayloadImpl
             @JsonKey(name: "effective_date") String? effectiveDate)?
         managerChanged,
     TResult Function(String? status, String? deadline)? offboardingStarted,
-    TResult Function(String? date, String? time, String? interviewer)?
+    TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
         exitInterviewSchedule,
     TResult Function(
             @JsonKey(name: "start_time") String? startTime, int? minutes)?
@@ -10224,7 +11844,14 @@ class _$PerformancePublishedPayloadImpl
             @JsonKey(name: "due_date") String? dueDate)?
         performanceReminder,
     TResult Function()? performanceSubmitted,
+    TResult Function()? validateHandover,
     TResult Function(String? period)? performancePublished,
+    TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (performancePublished != null) {
@@ -10267,8 +11894,11 @@ class _$PerformancePublishedPayloadImpl
         performanceReminder,
     required TResult Function(PerformanceSubmittedPayload value)
         performanceSubmitted,
+    required TResult Function(ValidateHandoverPayload value) validateHandover,
     required TResult Function(PerformancePublishedPayload value)
         performancePublished,
+    required TResult Function(SupervisorAssessmentSchedulePayload value)
+        supervisorAssessmentSchedule,
   }) {
     return performancePublished(this);
   }
@@ -10301,7 +11931,10 @@ class _$PerformancePublishedPayloadImpl
     TResult? Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult? Function(PerformanceReminderPayload value)? performanceReminder,
     TResult? Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult? Function(ValidateHandoverPayload value)? validateHandover,
     TResult? Function(PerformancePublishedPayload value)? performancePublished,
+    TResult? Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
   }) {
     return performancePublished?.call(this);
   }
@@ -10332,7 +11965,10 @@ class _$PerformancePublishedPayloadImpl
     TResult Function(PerformanceFormOpenPayload value)? performanceFormOpen,
     TResult Function(PerformanceReminderPayload value)? performanceReminder,
     TResult Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult Function(ValidateHandoverPayload value)? validateHandover,
     TResult Function(PerformancePublishedPayload value)? performancePublished,
+    TResult Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
     required TResult orElse(),
   }) {
     if (performancePublished != null) {
@@ -10362,6 +11998,526 @@ abstract class PerformancePublishedPayload implements NotificationPayload {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PerformancePublishedPayloadImplCopyWith<_$PerformancePublishedPayloadImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SupervisorAssessmentSchedulePayloadImplCopyWith<$Res> {
+  factory _$$SupervisorAssessmentSchedulePayloadImplCopyWith(
+          _$SupervisorAssessmentSchedulePayloadImpl value,
+          $Res Function(_$SupervisorAssessmentSchedulePayloadImpl) then) =
+      __$$SupervisorAssessmentSchedulePayloadImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: "schedule_id") String? scheduleId,
+      String? date,
+      @JsonKey(name: "start_time") String? startTime,
+      @JsonKey(name: "end_time") String? endTime});
+}
+
+/// @nodoc
+class __$$SupervisorAssessmentSchedulePayloadImplCopyWithImpl<$Res>
+    extends _$NotificationPayloadCopyWithImpl<$Res,
+        _$SupervisorAssessmentSchedulePayloadImpl>
+    implements _$$SupervisorAssessmentSchedulePayloadImplCopyWith<$Res> {
+  __$$SupervisorAssessmentSchedulePayloadImplCopyWithImpl(
+      _$SupervisorAssessmentSchedulePayloadImpl _value,
+      $Res Function(_$SupervisorAssessmentSchedulePayloadImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of NotificationPayload
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? scheduleId = freezed,
+    Object? date = freezed,
+    Object? startTime = freezed,
+    Object? endTime = freezed,
+  }) {
+    return _then(_$SupervisorAssessmentSchedulePayloadImpl(
+      scheduleId: freezed == scheduleId
+          ? _value.scheduleId
+          : scheduleId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      date: freezed == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as String?,
+      startTime: freezed == startTime
+          ? _value.startTime
+          : startTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      endTime: freezed == endTime
+          ? _value.endTime
+          : endTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$SupervisorAssessmentSchedulePayloadImpl
+    with DiagnosticableTreeMixin
+    implements SupervisorAssessmentSchedulePayload {
+  const _$SupervisorAssessmentSchedulePayloadImpl(
+      {@JsonKey(name: "schedule_id") this.scheduleId,
+      this.date,
+      @JsonKey(name: "start_time") this.startTime,
+      @JsonKey(name: "end_time") this.endTime,
+      final String? $type})
+      : $type = $type ?? 'supervisorAssessmentSchedule';
+
+  factory _$SupervisorAssessmentSchedulePayloadImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$SupervisorAssessmentSchedulePayloadImplFromJson(json);
+
+  @override
+  @JsonKey(name: "schedule_id")
+  final String? scheduleId;
+  @override
+  final String? date;
+  @override
+  @JsonKey(name: "start_time")
+  final String? startTime;
+  @override
+  @JsonKey(name: "end_time")
+  final String? endTime;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'NotificationPayload.supervisorAssessmentSchedule(scheduleId: $scheduleId, date: $date, startTime: $startTime, endTime: $endTime)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty(
+          'type', 'NotificationPayload.supervisorAssessmentSchedule'))
+      ..add(DiagnosticsProperty('scheduleId', scheduleId))
+      ..add(DiagnosticsProperty('date', date))
+      ..add(DiagnosticsProperty('startTime', startTime))
+      ..add(DiagnosticsProperty('endTime', endTime));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SupervisorAssessmentSchedulePayloadImpl &&
+            (identical(other.scheduleId, scheduleId) ||
+                other.scheduleId == scheduleId) &&
+            (identical(other.date, date) || other.date == date) &&
+            (identical(other.startTime, startTime) ||
+                other.startTime == startTime) &&
+            (identical(other.endTime, endTime) || other.endTime == endTime));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, scheduleId, date, startTime, endTime);
+
+  /// Create a copy of NotificationPayload
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SupervisorAssessmentSchedulePayloadImplCopyWith<
+          _$SupervisorAssessmentSchedulePayloadImpl>
+      get copyWith => __$$SupervisorAssessmentSchedulePayloadImplCopyWithImpl<
+          _$SupervisorAssessmentSchedulePayloadImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String? email, String? result) emailVerification,
+    required TResult Function(String? email) resetPasswordRequested,
+    required TResult Function(String? time) passwordUpdated,
+    required TResult Function(String? device, String? location, String? time)
+        loginDevice,
+    required TResult Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)
+        profileUpdated,
+    required TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)
+        departmentChanged,
+    required TResult Function(
+            @JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)
+        managerChanged,
+    required TResult Function(String? status, String? deadline)
+        offboardingStarted,
+    required TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
+        exitInterviewSchedule,
+    required TResult Function(
+            @JsonKey(name: "start_time") String? startTime, int? minutes)
+        attendanceReminder,
+    required TResult Function(int? grace) attendanceNotPresent,
+    required TResult Function(
+            String? date, String? start, String? end, String? approver)
+        overtimeSubmitted,
+    required TResult Function(String? date, String? status, String? actor)
+        overtimeUpdated,
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)
+        leaveSubmitted,
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)
+        leaveUpdated,
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)
+        leaveReminder,
+    required TResult Function(@JsonKey(name: "days_left") int? daysLeft,
+            int? balance, String? deadline)
+        leaveExpiring,
+    required TResult Function(String? period) payslipAvailable,
+    required TResult Function(
+            @JsonKey(name: "request_type") String? requestType,
+            String? period,
+            String? status)
+        payslipRequestUpdated,
+    required TResult Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)
+        performanceFormOpen,
+    required TResult Function(int? daysLeft, int? daysOverdue,
+            @JsonKey(name: "due_date") String? dueDate)
+        performanceReminder,
+    required TResult Function() performanceSubmitted,
+    required TResult Function() validateHandover,
+    required TResult Function(String? period) performancePublished,
+    required TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
+        supervisorAssessmentSchedule,
+  }) {
+    return supervisorAssessmentSchedule(scheduleId, date, startTime, endTime);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String? email, String? result)? emailVerification,
+    TResult? Function(String? email)? resetPasswordRequested,
+    TResult? Function(String? time)? passwordUpdated,
+    TResult? Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult? Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
+        profileUpdated,
+    TResult? Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
+        departmentChanged,
+    TResult? Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
+        managerChanged,
+    TResult? Function(String? status, String? deadline)? offboardingStarted,
+    TResult? Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        exitInterviewSchedule,
+    TResult? Function(
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
+        attendanceReminder,
+    TResult? Function(int? grace)? attendanceNotPresent,
+    TResult? Function(
+            String? date, String? start, String? end, String? approver)?
+        overtimeSubmitted,
+    TResult? Function(String? date, String? status, String? actor)?
+        overtimeUpdated,
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
+        leaveSubmitted,
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
+        leaveUpdated,
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
+        leaveReminder,
+    TResult? Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
+        leaveExpiring,
+    TResult? Function(String? period)? payslipAvailable,
+    TResult? Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
+        payslipRequestUpdated,
+    TResult? Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
+        performanceFormOpen,
+    TResult? Function(int? daysLeft, int? daysOverdue,
+            @JsonKey(name: "due_date") String? dueDate)?
+        performanceReminder,
+    TResult? Function()? performanceSubmitted,
+    TResult? Function()? validateHandover,
+    TResult? Function(String? period)? performancePublished,
+    TResult? Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
+  }) {
+    return supervisorAssessmentSchedule?.call(
+        scheduleId, date, startTime, endTime);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? email, String? result)? emailVerification,
+    TResult Function(String? email)? resetPasswordRequested,
+    TResult Function(String? time)? passwordUpdated,
+    TResult Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
+        profileUpdated,
+    TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
+        departmentChanged,
+    TResult Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
+        managerChanged,
+    TResult Function(String? status, String? deadline)? offboardingStarted,
+    TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        exitInterviewSchedule,
+    TResult Function(
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
+        attendanceReminder,
+    TResult Function(int? grace)? attendanceNotPresent,
+    TResult Function(
+            String? date, String? start, String? end, String? approver)?
+        overtimeSubmitted,
+    TResult Function(String? date, String? status, String? actor)?
+        overtimeUpdated,
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
+        leaveSubmitted,
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
+        leaveUpdated,
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
+        leaveReminder,
+    TResult Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
+        leaveExpiring,
+    TResult Function(String? period)? payslipAvailable,
+    TResult Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
+        payslipRequestUpdated,
+    TResult Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
+        performanceFormOpen,
+    TResult Function(int? daysLeft, int? daysOverdue,
+            @JsonKey(name: "due_date") String? dueDate)?
+        performanceReminder,
+    TResult Function()? performanceSubmitted,
+    TResult Function()? validateHandover,
+    TResult Function(String? period)? performancePublished,
+    TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
+    required TResult orElse(),
+  }) {
+    if (supervisorAssessmentSchedule != null) {
+      return supervisorAssessmentSchedule(scheduleId, date, startTime, endTime);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(EmailVerificationPayload value) emailVerification,
+    required TResult Function(ResetPasswordRequestedPayload value)
+        resetPasswordRequested,
+    required TResult Function(PasswordUpdatedPayload value) passwordUpdated,
+    required TResult Function(LoginDevicePayload value) loginDevice,
+    required TResult Function(ProfileUpdatedPayload value) profileUpdated,
+    required TResult Function(DepartmentChangedPayload value) departmentChanged,
+    required TResult Function(ManagerChangedPayload value) managerChanged,
+    required TResult Function(OffboardingStartedPayload value)
+        offboardingStarted,
+    required TResult Function(ExitInterviewSchedulePayload value)
+        exitInterviewSchedule,
+    required TResult Function(AttendanceReminderPayload value)
+        attendanceReminder,
+    required TResult Function(AttendanceNotPresentPayload value)
+        attendanceNotPresent,
+    required TResult Function(OvertimeSubmittedPayload value) overtimeSubmitted,
+    required TResult Function(OvertimeUpdatedPayload value) overtimeUpdated,
+    required TResult Function(LeaveSubmittedPayload value) leaveSubmitted,
+    required TResult Function(LeaveUpdatedPayload value) leaveUpdated,
+    required TResult Function(LeaveReminderPayload value) leaveReminder,
+    required TResult Function(LeaveExpiringPayload value) leaveExpiring,
+    required TResult Function(PayslipAvailablePayload value) payslipAvailable,
+    required TResult Function(PayslipRequestUpdatedPayload value)
+        payslipRequestUpdated,
+    required TResult Function(PerformanceFormOpenPayload value)
+        performanceFormOpen,
+    required TResult Function(PerformanceReminderPayload value)
+        performanceReminder,
+    required TResult Function(PerformanceSubmittedPayload value)
+        performanceSubmitted,
+    required TResult Function(ValidateHandoverPayload value) validateHandover,
+    required TResult Function(PerformancePublishedPayload value)
+        performancePublished,
+    required TResult Function(SupervisorAssessmentSchedulePayload value)
+        supervisorAssessmentSchedule,
+  }) {
+    return supervisorAssessmentSchedule(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(EmailVerificationPayload value)? emailVerification,
+    TResult? Function(ResetPasswordRequestedPayload value)?
+        resetPasswordRequested,
+    TResult? Function(PasswordUpdatedPayload value)? passwordUpdated,
+    TResult? Function(LoginDevicePayload value)? loginDevice,
+    TResult? Function(ProfileUpdatedPayload value)? profileUpdated,
+    TResult? Function(DepartmentChangedPayload value)? departmentChanged,
+    TResult? Function(ManagerChangedPayload value)? managerChanged,
+    TResult? Function(OffboardingStartedPayload value)? offboardingStarted,
+    TResult? Function(ExitInterviewSchedulePayload value)?
+        exitInterviewSchedule,
+    TResult? Function(AttendanceReminderPayload value)? attendanceReminder,
+    TResult? Function(AttendanceNotPresentPayload value)? attendanceNotPresent,
+    TResult? Function(OvertimeSubmittedPayload value)? overtimeSubmitted,
+    TResult? Function(OvertimeUpdatedPayload value)? overtimeUpdated,
+    TResult? Function(LeaveSubmittedPayload value)? leaveSubmitted,
+    TResult? Function(LeaveUpdatedPayload value)? leaveUpdated,
+    TResult? Function(LeaveReminderPayload value)? leaveReminder,
+    TResult? Function(LeaveExpiringPayload value)? leaveExpiring,
+    TResult? Function(PayslipAvailablePayload value)? payslipAvailable,
+    TResult? Function(PayslipRequestUpdatedPayload value)?
+        payslipRequestUpdated,
+    TResult? Function(PerformanceFormOpenPayload value)? performanceFormOpen,
+    TResult? Function(PerformanceReminderPayload value)? performanceReminder,
+    TResult? Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult? Function(ValidateHandoverPayload value)? validateHandover,
+    TResult? Function(PerformancePublishedPayload value)? performancePublished,
+    TResult? Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
+  }) {
+    return supervisorAssessmentSchedule?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(EmailVerificationPayload value)? emailVerification,
+    TResult Function(ResetPasswordRequestedPayload value)?
+        resetPasswordRequested,
+    TResult Function(PasswordUpdatedPayload value)? passwordUpdated,
+    TResult Function(LoginDevicePayload value)? loginDevice,
+    TResult Function(ProfileUpdatedPayload value)? profileUpdated,
+    TResult Function(DepartmentChangedPayload value)? departmentChanged,
+    TResult Function(ManagerChangedPayload value)? managerChanged,
+    TResult Function(OffboardingStartedPayload value)? offboardingStarted,
+    TResult Function(ExitInterviewSchedulePayload value)? exitInterviewSchedule,
+    TResult Function(AttendanceReminderPayload value)? attendanceReminder,
+    TResult Function(AttendanceNotPresentPayload value)? attendanceNotPresent,
+    TResult Function(OvertimeSubmittedPayload value)? overtimeSubmitted,
+    TResult Function(OvertimeUpdatedPayload value)? overtimeUpdated,
+    TResult Function(LeaveSubmittedPayload value)? leaveSubmitted,
+    TResult Function(LeaveUpdatedPayload value)? leaveUpdated,
+    TResult Function(LeaveReminderPayload value)? leaveReminder,
+    TResult Function(LeaveExpiringPayload value)? leaveExpiring,
+    TResult Function(PayslipAvailablePayload value)? payslipAvailable,
+    TResult Function(PayslipRequestUpdatedPayload value)? payslipRequestUpdated,
+    TResult Function(PerformanceFormOpenPayload value)? performanceFormOpen,
+    TResult Function(PerformanceReminderPayload value)? performanceReminder,
+    TResult Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult Function(ValidateHandoverPayload value)? validateHandover,
+    TResult Function(PerformancePublishedPayload value)? performancePublished,
+    TResult Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
+    required TResult orElse(),
+  }) {
+    if (supervisorAssessmentSchedule != null) {
+      return supervisorAssessmentSchedule(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$SupervisorAssessmentSchedulePayloadImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class SupervisorAssessmentSchedulePayload
+    implements NotificationPayload {
+  const factory SupervisorAssessmentSchedulePayload(
+          {@JsonKey(name: "schedule_id") final String? scheduleId,
+          final String? date,
+          @JsonKey(name: "start_time") final String? startTime,
+          @JsonKey(name: "end_time") final String? endTime}) =
+      _$SupervisorAssessmentSchedulePayloadImpl;
+
+  factory SupervisorAssessmentSchedulePayload.fromJson(
+          Map<String, dynamic> json) =
+      _$SupervisorAssessmentSchedulePayloadImpl.fromJson;
+
+  @JsonKey(name: "schedule_id")
+  String? get scheduleId;
+  String? get date;
+  @JsonKey(name: "start_time")
+  String? get startTime;
+  @JsonKey(name: "end_time")
+  String? get endTime;
+
+  /// Create a copy of NotificationPayload
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$SupervisorAssessmentSchedulePayloadImplCopyWith<
+          _$SupervisorAssessmentSchedulePayloadImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 

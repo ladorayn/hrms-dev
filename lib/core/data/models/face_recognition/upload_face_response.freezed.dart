@@ -21,7 +21,6 @@ UploadFace _$UploadFaceFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$UploadFace {
   String get message => throw _privateConstructorUsedError;
-
   @JsonKey(name: 'photo_path')
   String get photoPath => throw _privateConstructorUsedError;
 
@@ -40,7 +39,6 @@ abstract class $UploadFaceCopyWith<$Res> {
   factory $UploadFaceCopyWith(
           UploadFace value, $Res Function(UploadFace) then) =
       _$UploadFaceCopyWithImpl<$Res, UploadFace>;
-
   @useResult
   $Res call({String message, @JsonKey(name: 'photo_path') String photoPath});
 }
@@ -52,7 +50,6 @@ class _$UploadFaceCopyWithImpl<$Res, $Val extends UploadFace>
 
   // ignore: unused_field
   final $Val _value;
-
   // ignore: unused_field
   final $Res Function($Val) _then;
 
@@ -83,7 +80,6 @@ abstract class _$$UploadFaceImplCopyWith<$Res>
   factory _$$UploadFaceImplCopyWith(
           _$UploadFaceImpl value, $Res Function(_$UploadFaceImpl) then) =
       __$$UploadFaceImplCopyWithImpl<$Res>;
-
   @override
   @useResult
   $Res call({String message, @JsonKey(name: 'photo_path') String photoPath});
@@ -180,7 +176,6 @@ abstract class _UploadFace implements UploadFace {
 
   @override
   String get message;
-
   @override
   @JsonKey(name: 'photo_path')
   String get photoPath;

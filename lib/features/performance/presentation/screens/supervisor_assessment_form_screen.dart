@@ -6,10 +6,12 @@ import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/data/models/form_fields_response.dart';
+import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/widgets/form_builder.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/core/widgets/i_footer_button.dart';
+import 'package:hrms_mobile/core/widgets/toastbar.dart';
 import 'package:hrms_mobile/features/performance/data/models/request/assessment_answer_request.dart';
 import 'package:hrms_mobile/features/performance/data/models/request/assessment_form_request.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/supervisor_assessment.dart';
@@ -294,18 +296,23 @@ class _SupervisorAssessmentFormScreenState
         ref.invalidate(assessmentListRProvider);
         ref.invalidate(performanceSupervisorAssessmentsProvider);
 
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-              content: Text('Supervisor Assessment Submitted Successfully!')),
-        );
-        context.go(RoutePaths.performance);
+        showCustomToast(context,
+            'Supervisor Assessment Submitted Successfully!', ToastType.success);
+
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   const SnackBar(
+        //       content: Text('Supervisor Assessment Submitted Successfully!')),
+        // );
+        globalNavigatorKey.currentContext?.go(RoutePaths.performance);
       }
     } catch (e) {
       if (mounted) {
         context.pop();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Submission Failed: ${e.toString()}')),
-        );
+        showCustomToast(
+            context, 'Submission Failed: ${e.toString()}', ToastType.error);
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(content: Text('Submission Failed: ${e.toString()}')),
+        // );
       }
     }
   }

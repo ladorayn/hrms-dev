@@ -10,6 +10,7 @@ import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/core/widgets/i_footer_button.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
+import 'package:hrms_mobile/core/widgets/toastbar.dart';
 import 'package:hrms_mobile/features/offboarding/data/models/request/exit_form_request.dart';
 import 'package:hrms_mobile/features/offboarding/data/models/response/offboarding_status_response.dart';
 import 'package:hrms_mobile/features/offboarding/presentation/providers/offboarding_provider.dart';
@@ -199,18 +200,22 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
           offboardingId: widget.data.id ?? 0);
       ref.invalidate(exitFormSubmissionProvider);
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Form Submitted Successfully!')),
-        );
+        showCustomToast(
+            context, 'Form Submitted Successfully!', ToastType.success);
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   const SnackBar(content: Text('Form Submitted Successfully!')),
+        // );
         context.pop(); // Pop the dialog
         globalNavigatorKey.currentContext?.pop();
       }
     } catch (e) {
       if (mounted) {
-        context.pop(); // Pop the dialog
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Submission Failed: ${e.toString()}')),
-        );
+        context.pop();
+        showCustomToast(
+            context, 'Submission Failed: ${e.toString()}', ToastType.error);
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(content: Text('Submission Failed: ${e.toString()}')),
+        // );
       }
     }
   }

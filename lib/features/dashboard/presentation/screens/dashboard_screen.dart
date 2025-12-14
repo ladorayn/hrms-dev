@@ -12,6 +12,7 @@ import 'package:hrms_mobile/core/errors/exceptions.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/util/general_utils.dart';
+import 'package:hrms_mobile/core/widgets/toastbar.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/activity_log/activity_log_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/attendance/attendance_response_model.dart';
 import 'package:hrms_mobile/features/attendance/presentation/providers/attendance_provider.dart';
@@ -50,11 +51,12 @@ class DashboardScreen extends ConsumerWidget {
         recentActivityProvider(limit: 4), (previous, next) {
       if (next.hasError && !next.isLoading) {
         ScaffoldMessenger.of(context).clearSnackBars();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(next.error.toString()),
-          ),
-        );
+        showCustomToast(context, next.error.toString(), ToastType.error);
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(
+        //     content: Text(next.error.toString()),
+        //   ),
+        // );
       }
       if (next is AsyncData<List<ActivityLogModel>>) {
         final logs = next.value;
@@ -87,11 +89,12 @@ class DashboardScreen extends ConsumerWidget {
         (previous, next) {
       if (next.hasError && !next.isLoading) {
         ScaffoldMessenger.of(context).clearSnackBars();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(next.error.toString()),
-          ),
-        );
+        showCustomToast(context, next.error.toString(), ToastType.error);
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(
+        //     content: Text(next.error.toString()),
+        //   ),
+        // );
       }
     });
 

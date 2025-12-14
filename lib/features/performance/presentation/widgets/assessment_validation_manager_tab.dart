@@ -9,6 +9,7 @@ import 'package:hrms_mobile/core/data/models/form_fields_response.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/widgets/i_footer_button.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
+import 'package:hrms_mobile/core/widgets/toastbar.dart';
 import 'package:hrms_mobile/features/performance/data/models/request/assessment_answer_request.dart'; // REQUIRED
 import 'package:hrms_mobile/features/performance/data/models/request/assessment_form_request.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_answer.dart'; // REQUIRED
@@ -341,17 +342,21 @@ class _AssessmentValidationFormTabManagerScreenState
               assessmentId: widget.employeeSelfAssessmentId ?? 0);
       if (mounted) {
         ref.invalidate(assessmentListRProvider);
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Form Submitted Successfully!')),
-        );
+        showCustomToast(
+            context, 'Please fill all required fields.', ToastType.success);
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   const SnackBar(content: Text('Form Submitted Successfully!')),
+        // );
         context.go(RoutePaths.performance);
       }
     } catch (e) {
       if (mounted) {
         context.pop();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Submission Failed: ${e.toString()}')),
-        );
+        showCustomToast(
+            context, 'Submission Failed: ${e.toString()}', ToastType.error);
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(content: Text('Submission Failed: ${e.toString()}')),
+        // );
       }
     }
   }

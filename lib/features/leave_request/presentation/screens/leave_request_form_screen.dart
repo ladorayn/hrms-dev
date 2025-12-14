@@ -10,6 +10,7 @@ import 'package:hrms_mobile/core/widgets/i_footer_button.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_date_picker.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_dropdown_bottom_sheet.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
+import 'package:hrms_mobile/core/widgets/toastbar.dart';
 import 'package:hrms_mobile/features/leave_request/data/models/request/leave_request.dart';
 import 'package:hrms_mobile/features/leave_request/data/models/response/leave_type_response.dart';
 import 'package:hrms_mobile/features/leave_request/presentation/providers/leave_provider.dart';
@@ -49,13 +50,34 @@ class _LeaveRequestFormScreenState
   }
 
   Future<void> _submitLeaveRequest() async {
-    // 1. Basic Validation
     if (_selectedLeaveType == null ||
         _selectedStartDate == null ||
         _selectedEndDate == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please fill all required fields.')),
-      );
+      showCustomToast(
+          context, 'Please fill all required fields.', ToastType.info);
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(
+      //     backgroundColor: Colors.red[600],
+      //     content: const Row(
+      //       children: [
+      //         Icon(Icons.error_outline, color: Colors.white),
+      //         SizedBox(width: 8),
+      //         Text(
+      //           '',
+      //           style:
+      //               TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
+      //         ),
+      //       ],
+      //     ),
+      //     duration: const Duration(seconds: 4),
+      //     behavior: SnackBarBehavior.floating,
+      //     margin: const EdgeInsets.all(12),
+      //     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      //     shape: RoundedRectangleBorder(
+      //       borderRadius: BorderRadius.circular(10),
+      //     ),
+      //   ),
+      // );
       return;
     }
 
@@ -72,9 +94,11 @@ class _LeaveRequestFormScreenState
         attachmentPath = uploadResponse.path;
       } catch (e) {
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Attachment upload failed: $e')),
-          );
+          showCustomToast(
+              context, 'Attachment upload failed: $e', ToastType.error);
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   SnackBar(content: Text('Attachment upload failed: $e')),
+          // );
         }
         ref.read(leaveRequestSubmissionProvider.notifier).reset();
         return;
@@ -101,19 +125,23 @@ class _LeaveRequestFormScreenState
           .submitForm(request: request);
 
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-              content: Text('Leave request submitted successfully!')),
-        );
+        showCustomToast(context, 'Leave request submitted successfully!',
+            ToastType.success);
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   const SnackBar(
+        //       content: Text('Leave request submitted successfully!')),
+        // );
         ref.invalidate(leaveBalanceProvider);
         ref.invalidate(leaveHistoriesProvider);
         context.pop();
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Leave request submitted failed!')),
-        );
+        showCustomToast(
+            context, 'Leave request submitted failed!', ToastType.error);
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   const SnackBar(content: Text('Leave request submitted failed!')),
+        // );
       }
     }
   }
@@ -131,12 +159,15 @@ class _LeaveRequestFormScreenState
     ref.listen(leaveRequestSubmissionProvider, (_, state) {
       if (state.hasError && !state.isLoading) {
         final error = state.error;
-        // Show a generic error snackbar
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-              content: Text(
-                  'Submission Failed: ${error.toString().split(':').last}')),
-        );
+        showCustomToast(
+            context,
+            'Submission Failed: ${error.toString().split(':').last}',
+            ToastType.error);
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(
+        //       content: Text(
+        //           'Submission Failed: ${error.toString().split(':').last}')),
+        // );
       }
     });
 

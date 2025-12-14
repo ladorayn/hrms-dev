@@ -67,4 +67,6 @@ class IAssets {
   static const String helpDesk = '$ICON_PATH/helpDesk.svg';
   static const String supervisorAssessment =
       '$ICON_PATH/supervisorAssessment.svg';
+  static const String workHandover = '$ICON_PATH/workHandover.svg';
+  static const String documentHandover = '$ICON_PATH/documentHandover.svg';
 }

@@ -2,10 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'notification_response.freezed.dart';
-
 part 'notification_response.g.dart';
 
-String _toCamelCase(String snakeCase) {
+String toCamelCase(String snakeCase) {
   final parts = snakeCase.toLowerCase().split('_');
   if (parts.isEmpty) return '';
   return [
@@ -41,6 +40,8 @@ enum NotificationCode {
   offboardingStarted,
   @JsonValue('EXIT_INTERVIEW_SCHEDULE')
   exitInterviewSchedule,
+  @JsonValue('VALIDATE_HANDOVER')
+  validateHandover,
 
   // Attendance, Timesheet, Overtime
   @JsonValue('ATTENDANCE_REMINDER')
@@ -77,6 +78,8 @@ enum NotificationCode {
   performanceSubmitted,
   @JsonValue('PERFORMANCE_PUBLISHED')
   performancePublished,
+  @JsonValue('SUPERVISOR_ASSESSMENT_SCHEDULE')
+  supervisorAssessmentSchedule,
 
   // Default fallback
   @JsonValue('UNKNOWN')
@@ -133,9 +136,12 @@ class NotificationPayload with _$NotificationPayload {
   }) = OffboardingStartedPayload;
 
   const factory NotificationPayload.exitInterviewSchedule({
+    String? id,
     String? date,
     String? time,
     String? interviewer,
+    @JsonKey(name: "start_time") String? startTime,
+    @JsonKey(name: "end_time") String? endTime,
   }) = ExitInterviewSchedulePayload;
 
   // ATTENDANCE & OVERTIME
@@ -214,11 +220,20 @@ class NotificationPayload with _$NotificationPayload {
   const factory NotificationPayload.performanceSubmitted() =
       PerformanceSubmittedPayload;
 
+  const factory NotificationPayload.validateHandover() =
+      ValidateHandoverPayload;
+
   const factory NotificationPayload.performancePublished({
     String? period,
   }) = PerformancePublishedPayload;
 
-  // DEFAULT FREEZED JSON
+  const factory NotificationPayload.supervisorAssessmentSchedule({
+    @JsonKey(name: "schedule_id") String? scheduleId,
+    String? date,
+    @JsonKey(name: "start_time") String? startTime,
+    @JsonKey(name: "end_time") String? endTime,
+  }) = SupervisorAssessmentSchedulePayload;
+
   factory NotificationPayload.fromJson(Map<String, dynamic> json) =>
       _$NotificationPayloadFromJson(json);
 }
@@ -243,7 +258,7 @@ class NotificationDataConverter
       );
     }
 
-    final discriminatorValue = _toCamelCase(rawCode);
+    final discriminatorValue = toCamelCase(rawCode);
 
     final payloadJson = {
       ...rawPayload,

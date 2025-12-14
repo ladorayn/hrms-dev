@@ -9,6 +9,7 @@ import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/core/widgets/i_footer_button.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_dropdown_bottom_sheet.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
+import 'package:hrms_mobile/core/widgets/toastbar.dart';
 import 'package:hrms_mobile/features/attendance/data/models/request/clock_in/clock_in_request_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/request/clock_out/clock_out_request_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/attendance/attendance_response_model.dart';
@@ -62,8 +63,9 @@ class _AttendanceFormScreenState extends ConsumerState<AttendanceFormScreen> {
         (_, state) {
       state.when(
         error: (err, stack) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('Error: $err')));
+          showCustomToast(context, 'Error: $err', ToastType.error);
+          // ScaffoldMessenger.of(context)
+          //     .showSnackBar(SnackBar(content: Text('Error: $err')));
         },
         data: (attendanceData) {
           if (attendanceData != null) {
@@ -217,9 +219,11 @@ class _AttendanceFormScreenState extends ConsumerState<AttendanceFormScreen> {
     final position = attendanceState.position;
 
     if (position == null || _selectedShiftId == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please fill all required fields.')),
-      );
+      showCustomToast(
+          context, 'Please fill all required fields.', ToastType.info);
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   const SnackBar(content: Text('Please fill all required fields.')),
+      // );
       return;
     }
 
@@ -241,16 +245,19 @@ class _AttendanceFormScreenState extends ConsumerState<AttendanceFormScreen> {
     final position = attendanceState.position;
 
     if (todayAttendance == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('No active attendance found.')),
-      );
+      showCustomToast(context, 'No active attendance found.', ToastType.info);
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   const SnackBar(content: Text('No active attendance found.')),
+      // );
       return;
     }
 
     if (position == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please fill all required fields.')),
-      );
+      showCustomToast(
+          context, 'Please fill all required fields.', ToastType.info);
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   const SnackBar(content: Text('Please fill all required fields.')),
+      // );
       return;
     }
 

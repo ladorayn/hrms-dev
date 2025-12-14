@@ -3,16 +3,25 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/util/datetime_utils.dart';
 import 'package:hrms_mobile/core/widgets/label_value.dart';
+import 'package:hrms_mobile/features/inbox/data/models/response/notification_response.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/supervisor_assessment.dart'; // Contains SupervisorAssessmentDetail
 
 class AssessmentScheduleWidget extends StatelessWidget {
-  final SupervisorAssessmentDetail assessmentDetail;
+  final SupervisorAssessmentDetail? assessmentDetail;
+  final SupervisorAssessmentSchedulePayload? schedulePayload;
 
-  const AssessmentScheduleWidget({super.key, required this.assessmentDetail});
+  const AssessmentScheduleWidget(
+      {super.key, this.assessmentDetail, this.schedulePayload});
 
   @override
   Widget build(BuildContext context) {
-    final schedule = assessmentDetail.schedule;
+    final schedule = assessmentDetail?.schedule ??
+        AssessmentSchedule(
+          id: int.parse(schedulePayload?.scheduleId ?? '0'),
+          date: schedulePayload?.date,
+          startTime: schedulePayload?.startTime,
+          endTime: schedulePayload?.endTime,
+        );
 
     final hasSchedule = schedule != null;
 

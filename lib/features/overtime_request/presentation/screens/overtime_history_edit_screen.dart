@@ -9,6 +9,7 @@ import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/core/widgets/i_footer_button.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_time_picker.dart';
+import 'package:hrms_mobile/core/widgets/toastbar.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/overtime/overtime_detail_response_model.dart';
 import 'package:hrms_mobile/features/attendance/presentation/providers/attendance_provider.dart';
 import 'package:hrms_mobile/features/overtime_request/data/models/request/overtime_request_model.dart';
@@ -80,9 +81,11 @@ class _OvertimeHistoryEditScreenState
             overtimeId: widget.overtime.id.toString(), request: request);
 
     if (success && mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Adjustment request sent successfully!')),
-      );
+      showCustomToast(
+          context, 'Adjustment request sent successfully!', ToastType.success);
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   const SnackBar(content: Text('Adjustment request sent successfully!')),
+      // );
 
       final String period = DateFormat('yyyy-MM')
           .format(DateTime.parse(widget.overtime.overtimeDate ?? ''));
@@ -111,9 +114,10 @@ class _OvertimeHistoryEditScreenState
       if (state.hasError && !state.isLoading) {
         final error = state.error;
         if (error is! ValidationException) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(error.toString())),
-          );
+          showCustomToast(context, error.toString(), ToastType.error);
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   SnackBar(content: Text(error.toString())),
+          // );
         }
       }
     });

@@ -5,6 +5,7 @@ import 'package:hrms_mobile/application/assets/i_assets.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
+import 'package:hrms_mobile/core/widgets/toastbar.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_list.dart';
 import 'package:hrms_mobile/features/performance/presentation/providers/performance_provider.dart';
 import 'package:hrms_mobile/features/performance/presentation/widgets/performance_menu.dart';
@@ -49,17 +50,29 @@ class PerformanceScreen extends ConsumerWidget {
             );
           }
         : () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  supervisorAssessmentAsync.isLoading
-                      ? 'Loading supervisor assessments...'
-                      : supervisorError != null
-                          ? 'Error loading supervisor assessments: $supervisorError'
-                          : 'Supervisor assessments data not available.',
-                ),
-              ),
-            );
+            showCustomToast(
+                context,
+                supervisorAssessmentAsync.isLoading
+                    ? 'Loading supervisor assessments...'
+                    : supervisorError != null
+                        ? 'Error loading supervisor assessments: $supervisorError'
+                        : 'Supervisor assessments data not available.',
+                supervisorAssessmentAsync.isLoading
+                    ? ToastType.info
+                    : supervisorError != null
+                        ? ToastType.error
+                        : ToastType.info);
+            // ScaffoldMessenger.of(context).showSnackBar(
+            //   SnackBar(
+            //     content: Text(
+            //       supervisorAssessmentAsync.isLoading
+            //           ? 'Loading supervisor assessments...'
+            //           : supervisorError != null
+            //               ? 'Error loading supervisor assessments: $supervisorError'
+            //               : 'Supervisor assessments data not available.',
+            //     ),
+            //   ),
+            // );
           };
 
     return Scaffold(

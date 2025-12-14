@@ -221,6 +221,252 @@ const Map<String, dynamic> mockLocation = {
   "data": {"is_valid": true, "distance": 4129086.1650573094, "max_radius": 1000}
 };
 
+const Map<String, dynamic> mockNotificationInbox = {
+  "data": [
+    {
+      "id": "859e8717-6b5b-4914-9b56-856e5701a114",
+      "notifiable_id": 18,
+      "data": {
+        "title": "You’re Assigned to Validate Handover",
+        "message":
+            "You’ve been assigned to receive work and documents from Irfan Hamid. Please validate to complete the handover process.",
+        "code": "VALIDATE_HANDOVER",
+        "data": {
+          "id": 4,
+          "interviewer": "Irfan Hamid",
+          "date": "2025-12-08",
+          "start_time": "09:00:00",
+          "end_time": "10:00:00"
+        }
+      },
+      "read_at": null,
+      "created_at": "2025-12-13T01:41:25.000000Z",
+      "updated_at": "2025-12-13T01:41:25.000000Z"
+    },
+    {
+      "id": "859e8717-6b5b-4914-9b56-856e5701a114",
+      "notifiable_id": 18,
+      "data": {
+        "title": "Jadwal Exit Interview - Lado",
+        "message":
+            "Monday, December 8, 2025 09:00:00 - 10:00:00 dengan Irfan Hamid, Jon Snow, Norma Bechtelar, Lado. Harap hadir tepat waktu",
+        "code": "EXIT_INTERVIEW_SCHEDULE",
+        "data": {
+          "id": "4",
+          "interviewer": "Irfan Hamid",
+          "date": "2025-12-08",
+          "start_time": "09:00:00",
+          "end_time": "10:00:00"
+        }
+      },
+      "read_at": null,
+      "created_at": "2025-12-13T01:41:25.000000Z",
+      "updated_at": "2025-12-13T01:41:25.000000Z"
+    },
+    {
+      "id": "61d9b8d1-11ee-4aab-b2f4-088aef45f394",
+      "notifiable_id": 18,
+      "data": {
+        "title": "Perubahan Profil",
+        "message":
+            "Data profil Anda telah diperbarui. Lihat detail di profil Anda.",
+        "code": "PROFILE_UPDATED",
+        "data": {"user_id": "18", "email": "ladorayhannajib@gmail.com"}
+      },
+      "read_at": null,
+      "created_at": "2025-12-13T10:18:19.000000Z",
+      "updated_at": "2025-12-13T10:18:19.000000Z"
+    },
+    {
+      "id": "30c39069-b01d-4885-a980-79397818ac45",
+      "notifiable_id": 18,
+      "data": {
+        "title": "Pengajuan Cuti Terkirim",
+        "message":
+            "Annual Leave 2025-12-16–2025-12-19. Menunggu persetujuan approvers.",
+        "code": "LEAVE_SUBMITTED",
+        "data": {"user_id": "18", "leave_id": "17"}
+      },
+      "read_at": null,
+      "created_at": "2025-12-13T10:17:13.000000Z",
+      "updated_at": "2025-12-13T10:17:13.000000Z"
+    },
+    {
+      "id": "859e8717-6b5b-4914-9b56-856e5701a114",
+      "notifiable_id": 18,
+      "data": {
+        "title": "Jadwal Supervisor Assessment - Lado",
+        "message":
+            "Monday, December 8, 2025 09:00:00 - 10:00:00 dengan Irfan Hamid, Jon Snow, Norma Bechtelar, Lado. Harap hadir tepat waktu",
+        "code": "SUPERVISOR_ASSESSMENT_SCHEDULE",
+        "data": {
+          "schedule_id": "4",
+          "date": "2025-12-08",
+          "start_time": "09:00:00",
+          "end_time": "10:00:00"
+        }
+      },
+      "read_at": null,
+      "created_at": "2025-12-13T01:41:25.000000Z",
+      "updated_at": "2025-12-13T01:41:25.000000Z"
+    },
+    {
+      "id": "a2ae2e7e-92c1-416d-9c77-f2a31a30725f",
+      "notifiable_id": 18,
+      "data": {
+        "title": "Pengajuan Cuti Terkirim",
+        "message":
+            "Annual Leave 2025-12-13–2025-12-14. Menunggu persetujuan approvers.",
+        "code": "LEAVE_SUBMITTED",
+        "data": {"user_id": "18", "leave_id": "16"}
+      },
+      "read_at": null,
+      "created_at": "2025-12-11T16:12:50.000000Z",
+      "updated_at": "2025-12-11T16:12:50.000000Z"
+    },
+    {
+      "id": "d3d2c4c0-3d45-4f7c-89ab-b98d7d66e4ab",
+      "notifiable_id": 18,
+      "data": {
+        "title": "Pengajuan Cuti Terkirim",
+        "message":
+            "Sick Leave 2025-12-11–2025-12-12. Menunggu persetujuan approvers.",
+        "code": "LEAVE_SUBMITTED",
+        "data": {"user_id": "18", "leave_id": "15"}
+      },
+      "read_at": null,
+      "created_at": "2025-12-11T16:11:59.000000Z",
+      "updated_at": "2025-12-11T16:11:59.000000Z"
+    },
+    {
+      "id": "47790de2-e988-4a12-acfe-9ee7348d394c",
+      "notifiable_id": 18,
+      "data": {
+        "title": "Jadwal Supervisor Assessment - Lado",
+        "message":
+            "Thursday, December 11, 2025 10:10:00 - 10:11:00 dengan Eka Sari, Lado. Harap hadir tepat waktu",
+        "code": "SUPERVISOR_ASSESSMENT_SCHEDULE",
+        "data": {
+          "schedule_id": "5",
+          "date": "2025-12-11",
+          "start_time": "10:10:00",
+          "end_time": "10:11:00"
+        }
+      },
+      "read_at": null,
+      "created_at": "2025-12-11T02:45:33.000000Z",
+      "updated_at": "2025-12-11T02:45:33.000000Z"
+    },
+    {
+      "id": "b3f5a240-15e8-4ba6-89e8-6f91b384268e",
+      "notifiable_id": 18,
+      "data": {
+        "title": "Jadwal Supervisor Assessment - Lado",
+        "message":
+            "Monday, December 8, 2025 09:00:00 - 10:00:00 dengan Ahmad Sahroni, Lado. Harap hadir tepat waktu",
+        "code": "SUPERVISOR_ASSESSMENT_SCHEDULE",
+        "data": {
+          "schedule_id": "4",
+          "date": "2025-12-08",
+          "start_time": "09:00:00",
+          "end_time": "10:00:00"
+        }
+      },
+      "read_at": null,
+      "created_at": "2025-12-09T04:05:03.000000Z",
+      "updated_at": "2025-12-09T04:05:03.000000Z"
+    },
+    {
+      "id": "6644915d-2742-4b6a-b4ae-0eaad67387e7",
+      "notifiable_id": 18,
+      "data": {
+        "title": "Jadwal Supervisor Assessment - Lado",
+        "message":
+            "Monday, December 8, 2025 09:00:00 - 10:00:00 dengan Kenny Andreas, Lado. Harap hadir tepat waktu",
+        "code": "SUPERVISOR_ASSESSMENT_SCHEDULE",
+        "data": {
+          "schedule_id": "4",
+          "date": "2025-12-08",
+          "start_time": "09:00:00",
+          "end_time": "10:00:00"
+        }
+      },
+      "read_at": null,
+      "created_at": "2025-12-09T04:01:44.000000Z",
+      "updated_at": "2025-12-09T04:01:44.000000Z"
+    },
+    {
+      "id": "33a92d9b-eeb7-4c4b-9235-88b787c99fa8",
+      "notifiable_id": 18,
+      "data": {
+        "title": "Jadwal Supervisor Assessment - Lado",
+        "message":
+            "Monday, December 8, 2025 09:00:00 - 10:00:00 dengan Quinn Edwards, Lado. Harap hadir tepat waktu",
+        "code": "SUPERVISOR_ASSESSMENT_SCHEDULE",
+        "data": {
+          "schedule_id": "4",
+          "date": "2025-12-08",
+          "start_time": "09:00:00",
+          "end_time": "10:00:00"
+        }
+      },
+      "read_at": null,
+      "created_at": "2025-12-08T14:42:50.000000Z",
+      "updated_at": "2025-12-08T14:42:50.000000Z"
+    },
+    {
+      "id": "01921465-1250-4886-be1a-0512d30805de",
+      "notifiable_id": 18,
+      "data": {
+        "title": "Perubahan Profil",
+        "message":
+            "Data profil Anda telah diperbarui. Lihat detail di profil Anda.",
+        "code": "PROFILE_UPDATED",
+        "data": {"user_id": "18", "email": "ladorayhannajib@gmail.com"}
+      },
+      "read_at": null,
+      "created_at": "2025-12-01T15:01:16.000000Z",
+      "updated_at": "2025-12-01T15:01:16.000000Z"
+    }
+  ],
+  "links": {
+    "first": "http://api.okejobhub.fun/api/v1/user/notifications?page=1",
+    "last": "http://api.okejobhub.fun/api/v1/user/notifications?page=2",
+    "prev": null,
+    "next": "http://api.okejobhub.fun/api/v1/user/notifications?page=2"
+  },
+  "meta": {
+    "current_page": 1,
+    "from": 1,
+    "last_page": 2,
+    "links": [
+      {"url": null, "label": "&laquo; Previous", "page": null, "active": false},
+      {
+        "url": "http://api.okejobhub.fun/api/v1/user/notifications?page=1",
+        "label": "1",
+        "page": 1,
+        "active": true
+      },
+      {
+        "url": "http://api.okejobhub.fun/api/v1/user/notifications?page=2",
+        "label": "2",
+        "page": 2,
+        "active": false
+      },
+      {
+        "url": "http://api.okejobhub.fun/api/v1/user/notifications?page=2",
+        "label": "Next &raquo;",
+        "page": 2,
+        "active": false
+      }
+    ],
+    "path": "http://api.okejobhub.fun/api/v1/user/notifications",
+    "per_page": 10,
+    "to": 10,
+    "total": 13
+  }
+};
+
 const Map<String, dynamic> mockSupervisorAssesstments = {
   "status": "success",
   "message": "Supervisor assessments retrieved successfully",

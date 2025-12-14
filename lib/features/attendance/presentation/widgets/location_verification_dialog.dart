@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/core/enums/attendance_enum.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
+import 'package:hrms_mobile/core/widgets/toastbar.dart';
 import 'package:hrms_mobile/features/attendance/data/models/request/validate_location/validate_location_request_model.dart';
 import 'package:hrms_mobile/features/attendance/presentation/providers/attendance_provider.dart';
 
@@ -69,11 +70,15 @@ Future<void> handleLocationVerification(
 
     if (validationResult.isValid != true) {
       globalNavigatorKey.currentContext?.pop();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-            content: Text(
-                'Location is not valid. You are ~${validationResult.distance?.toStringAsFixed(0)}m away. Max radius is ${validationResult.maxRadius}m.')),
-      );
+      showCustomToast(
+          context,
+          'Location is not valid. You are ~${validationResult.distance?.toStringAsFixed(0)}m away. Max radius is ${validationResult.maxRadius}m.',
+          ToastType.info);
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(
+      //       content: Text(
+      //           'Location is not valid. You are ~${validationResult.distance?.toStringAsFixed(0)}m away. Max radius is ${validationResult.maxRadius}m.')),
+      // );
       return;
     }
 
@@ -114,9 +119,11 @@ Future<void> handleLocationVerification(
   } catch (e) {
     print('Error during location verification: $e');
     globalNavigatorKey.currentContext?.pop();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Error: Could not get location. ${e.toString()}')),
-    );
+    showCustomToast(context, 'Error: Could not get location. ${e.toString()}',
+        ToastType.error);
+    // ScaffoldMessenger.of(context).showSnackBar(
+    //   SnackBar(content: Text('Error: Could not get location. ${e.toString()}')),
+    // );
   }
 }
 

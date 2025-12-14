@@ -145,18 +145,24 @@ Map<String, dynamic> _$$OffboardingStartedPayloadImplToJson(
 _$ExitInterviewSchedulePayloadImpl _$$ExitInterviewSchedulePayloadImplFromJson(
         Map<String, dynamic> json) =>
     _$ExitInterviewSchedulePayloadImpl(
+      id: json['id'] as String?,
       date: json['date'] as String?,
       time: json['time'] as String?,
       interviewer: json['interviewer'] as String?,
+      startTime: json['start_time'] as String?,
+      endTime: json['end_time'] as String?,
       $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$ExitInterviewSchedulePayloadImplToJson(
         _$ExitInterviewSchedulePayloadImpl instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'date': instance.date,
       'time': instance.time,
       'interviewer': instance.interviewer,
+      'start_time': instance.startTime,
+      'end_time': instance.endTime,
       'type': instance.$type,
     };
 
@@ -382,6 +388,18 @@ Map<String, dynamic> _$$PerformanceSubmittedPayloadImplToJson(
       'type': instance.$type,
     };
 
+_$ValidateHandoverPayloadImpl _$$ValidateHandoverPayloadImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ValidateHandoverPayloadImpl(
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$ValidateHandoverPayloadImplToJson(
+        _$ValidateHandoverPayloadImpl instance) =>
+    <String, dynamic>{
+      'type': instance.$type,
+    };
+
 _$PerformancePublishedPayloadImpl _$$PerformancePublishedPayloadImplFromJson(
         Map<String, dynamic> json) =>
     _$PerformancePublishedPayloadImpl(
@@ -393,6 +411,27 @@ Map<String, dynamic> _$$PerformancePublishedPayloadImplToJson(
         _$PerformancePublishedPayloadImpl instance) =>
     <String, dynamic>{
       'period': instance.period,
+      'type': instance.$type,
+    };
+
+_$SupervisorAssessmentSchedulePayloadImpl
+    _$$SupervisorAssessmentSchedulePayloadImplFromJson(
+            Map<String, dynamic> json) =>
+        _$SupervisorAssessmentSchedulePayloadImpl(
+          scheduleId: json['schedule_id'] as String?,
+          date: json['date'] as String?,
+          startTime: json['start_time'] as String?,
+          endTime: json['end_time'] as String?,
+          $type: json['type'] as String?,
+        );
+
+Map<String, dynamic> _$$SupervisorAssessmentSchedulePayloadImplToJson(
+        _$SupervisorAssessmentSchedulePayloadImpl instance) =>
+    <String, dynamic>{
+      'schedule_id': instance.scheduleId,
+      'date': instance.date,
+      'start_time': instance.startTime,
+      'end_time': instance.endTime,
       'type': instance.$type,
     };
 

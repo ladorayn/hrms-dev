@@ -13,6 +13,7 @@ import 'package:hrms_mobile/core/widgets/status_chip.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_dropdown_bottom_sheet.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_time_picker.dart';
+import 'package:hrms_mobile/core/widgets/toastbar.dart';
 import 'package:hrms_mobile/features/attendance/data/models/request/update_attendance/update_attendance_request_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/detail_attendance/attendance_detail_response_model.dart';
 import 'package:hrms_mobile/features/auth/presentation/providers/auth/auth_provider.dart';
@@ -153,19 +154,22 @@ class _AttendanceEditFormScreenState
                 periodToInvalidate: attendancePeriod);
 
         if (success) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Update Success!')),
-          );
+          showCustomToast(context, 'Update Success!', ToastType.success);
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   SnackBar(content: Text('Update Success!')),
+          // );
         } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Update Failed!')),
-          );
+          showCustomToast(context, 'Update Failed!', ToastType.error);
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   SnackBar(content: Text('Update Failed!')),
+          // );
         }
       } catch (e) {
-        // Show error message
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Update Failed: ${e.toString()}')),
-        );
+        showCustomToast(
+            context, 'Update Failed: ${e.toString()}', ToastType.error);
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(content: Text('Update Failed: ${e.toString()}')),
+        // );
       }
     }
 

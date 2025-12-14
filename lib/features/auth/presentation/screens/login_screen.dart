@@ -8,6 +8,7 @@ import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_email.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_password.dart';
+import 'package:hrms_mobile/core/widgets/toastbar.dart';
 import 'package:hrms_mobile/features/app/application_init.dart';
 import 'package:hrms_mobile/features/auth/presentation/providers/login/login_provider.dart';
 
@@ -45,9 +46,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).clearSnackBars();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(l10n.loginFailed(e.toString()))),
-        );
+        showCustomToast(
+            context, l10n.loginFailed(e.toString()), ToastType.error);
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(content: Text(l10n.loginFailed(e.toString()))),
+        // );
       }
     }
   }
