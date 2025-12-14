@@ -5,10 +5,10 @@ import 'package:hrms_mobile/features/payslip/data/models/response/payslip_reques
 abstract class PayslipRepository {
   Future<List<PayslipDataList>> getPayslipList();
 
-  Future<PayslipDetailResponse> requestViewPayslip(
+  Future<dynamic> requestViewPayslip(
       {required PayslipRequest request, required int id});
 
-  Future<PayslipDetailResponse> requestPrintPayslip(
+  Future<dynamic> requestPrintPayslip(
       {required PayslipRequest request, required int id});
 
   Future<PayslipDetailResponse> getPayslipDetail({required int id});

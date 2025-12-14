@@ -23,7 +23,7 @@ class PayslipRepositoryImpl implements PayslipRepository {
   }
 
   @override
-  Future<PayslipDetailResponse> requestViewPayslip(
+  Future<dynamic> requestViewPayslip(
       {required PayslipRequest request, required int id}) async {
     final response =
         await remoteSource.requestViewPayslip(request: request, id: id);
@@ -36,7 +36,7 @@ class PayslipRepositoryImpl implements PayslipRepository {
   }
 
   @override
-  Future<PayslipDetailResponse> requestPrintPayslip(
+  Future<dynamic> requestPrintPayslip(
       {required PayslipRequest request, required int id}) async {
     final response =
         await remoteSource.requestPrintPayslip(request: request, id: id);

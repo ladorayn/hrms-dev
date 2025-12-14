@@ -295,7 +295,6 @@ class _SupervisorAssessmentFormScreenState
       if (mounted) {
         ref.invalidate(assessmentListRProvider);
         ref.invalidate(performanceSupervisorAssessmentsProvider);
-
         showCustomToast(context,
             'Supervisor Assessment Submitted Successfully!', ToastType.success);
 
@@ -387,7 +386,7 @@ class _SupervisorAssessmentFormScreenState
           // Conditional Footer Button
           if (!_isFormReadOnly)
             IFooterButton(
-              text: "Validate Assessment",
+              text: "Submit Form",
               onPressed: _isFormValid
                   ? () {
                       if (_isStateInitialized) {
@@ -425,8 +424,7 @@ class _SupervisorAssessmentFormScreenState
   Future<void> _showPopUpConfirmationSubmission(
       BuildContext context, int statusSubmission) {
     final textTheme = Theme.of(context).textTheme;
-    final buttonText =
-        statusSubmission == 2 ? "Submit Validation" : "Save Draft";
+    final buttonText = statusSubmission == 2 ? "Submit" : "Save Draft";
 
     return showDialog(
       context: context,
@@ -446,7 +444,7 @@ class _SupervisorAssessmentFormScreenState
                 SizedBox(height: 16.h),
                 Text(
                   statusSubmission == 2
-                      ? 'Are you sure you want to submit this validation?'
+                      ? 'Are you sure you want to submit this supervisor assessment form?'
                       : 'Are you sure you want to save this draft?',
                   textAlign: TextAlign.center,
                   style: textTheme.titleSmall

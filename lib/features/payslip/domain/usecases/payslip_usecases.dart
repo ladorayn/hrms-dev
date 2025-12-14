@@ -12,12 +12,12 @@ class PayslipUsecases {
     return repository.getPayslipList();
   }
 
-  Future<PayslipDetailResponse> requestViewPayslip(
+  Future<dynamic> requestViewPayslip(
       {required PayslipRequest request, required int id}) {
     return repository.requestViewPayslip(request: request, id: id);
   }
 
-  Future<PayslipDetailResponse> requestPrintPayslip(
+  Future<dynamic> requestPrintPayslip(
       {required PayslipRequest request, required int id}) {
     return repository.requestPrintPayslip(request: request, id: id);
   }
