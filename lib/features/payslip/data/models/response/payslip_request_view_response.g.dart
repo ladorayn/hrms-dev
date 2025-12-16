@@ -103,8 +103,8 @@ _$PayslipDetailResponseImpl _$$PayslipDetailResponseImplFromJson(
           : PayslipDetailEmployee.fromJson(
               json['employee'] as Map<String, dynamic>),
       grossPay: json['gross_pay'] as String?,
-      netPay: (json['net_pay'] as num?)?.toDouble(),
-      workingHours: (json['working_hours'] as num?)?.toInt(),
+      netPay: (json['net_pay'] as num?)?.toInt(),
+      workingHours: json['working_hours'] as String?,
       workingDays: (json['working_days'] as num?)?.toInt(),
       allowance: (json['allowance'] as List<dynamic>?)
           ?.map((e) => PayslipItem.fromJson(e as Map<String, dynamic>))

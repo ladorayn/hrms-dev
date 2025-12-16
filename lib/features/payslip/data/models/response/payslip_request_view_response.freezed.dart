@@ -1148,9 +1148,9 @@ mixin _$PayslipDetailResponse {
   @JsonKey(name: 'gross_pay')
   String? get grossPay => throw _privateConstructorUsedError;
   @JsonKey(name: 'net_pay')
-  double? get netPay => throw _privateConstructorUsedError;
+  int? get netPay => throw _privateConstructorUsedError;
   @JsonKey(name: 'working_hours')
-  int? get workingHours => throw _privateConstructorUsedError;
+  String? get workingHours => throw _privateConstructorUsedError;
   @JsonKey(name: 'working_days')
   int? get workingDays => throw _privateConstructorUsedError;
   List<PayslipItem>? get allowance => throw _privateConstructorUsedError;
@@ -1214,8 +1214,8 @@ abstract class $PayslipDetailResponseCopyWith<$Res> {
       {int? id,
       PayslipDetailEmployee? employee,
       @JsonKey(name: 'gross_pay') String? grossPay,
-      @JsonKey(name: 'net_pay') double? netPay,
-      @JsonKey(name: 'working_hours') int? workingHours,
+      @JsonKey(name: 'net_pay') int? netPay,
+      @JsonKey(name: 'working_hours') String? workingHours,
       @JsonKey(name: 'working_days') int? workingDays,
       List<PayslipItem>? allowance,
       List<PayslipItem>? overtime,
@@ -1306,11 +1306,11 @@ class _$PayslipDetailResponseCopyWithImpl<$Res,
       netPay: freezed == netPay
           ? _value.netPay
           : netPay // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as int?,
       workingHours: freezed == workingHours
           ? _value.workingHours
           : workingHours // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       workingDays: freezed == workingDays
           ? _value.workingDays
           : workingDays // ignore: cast_nullable_to_non_nullable
@@ -1434,8 +1434,8 @@ abstract class _$$PayslipDetailResponseImplCopyWith<$Res>
       {int? id,
       PayslipDetailEmployee? employee,
       @JsonKey(name: 'gross_pay') String? grossPay,
-      @JsonKey(name: 'net_pay') double? netPay,
-      @JsonKey(name: 'working_hours') int? workingHours,
+      @JsonKey(name: 'net_pay') int? netPay,
+      @JsonKey(name: 'working_hours') String? workingHours,
       @JsonKey(name: 'working_days') int? workingDays,
       List<PayslipItem>? allowance,
       List<PayslipItem>? overtime,
@@ -1525,11 +1525,11 @@ class __$$PayslipDetailResponseImplCopyWithImpl<$Res>
       netPay: freezed == netPay
           ? _value.netPay
           : netPay // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as int?,
       workingHours: freezed == workingHours
           ? _value.workingHours
           : workingHours // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       workingDays: freezed == workingDays
           ? _value.workingDays
           : workingDays // ignore: cast_nullable_to_non_nullable
@@ -1676,10 +1676,10 @@ class _$PayslipDetailResponseImpl implements _PayslipDetailResponse {
   final String? grossPay;
   @override
   @JsonKey(name: 'net_pay')
-  final double? netPay;
+  final int? netPay;
   @override
   @JsonKey(name: 'working_hours')
-  final int? workingHours;
+  final String? workingHours;
   @override
   @JsonKey(name: 'working_days')
   final int? workingDays;
@@ -1898,8 +1898,8 @@ abstract class _PayslipDetailResponse implements PayslipDetailResponse {
           {final int? id,
           final PayslipDetailEmployee? employee,
           @JsonKey(name: 'gross_pay') final String? grossPay,
-          @JsonKey(name: 'net_pay') final double? netPay,
-          @JsonKey(name: 'working_hours') final int? workingHours,
+          @JsonKey(name: 'net_pay') final int? netPay,
+          @JsonKey(name: 'working_hours') final String? workingHours,
           @JsonKey(name: 'working_days') final int? workingDays,
           final List<PayslipItem>? allowance,
           final List<PayslipItem>? overtime,
@@ -1939,10 +1939,10 @@ abstract class _PayslipDetailResponse implements PayslipDetailResponse {
   String? get grossPay;
   @override
   @JsonKey(name: 'net_pay')
-  double? get netPay;
+  int? get netPay;
   @override
   @JsonKey(name: 'working_hours')
-  int? get workingHours;
+  String? get workingHours;
   @override
   @JsonKey(name: 'working_days')
   int? get workingDays;

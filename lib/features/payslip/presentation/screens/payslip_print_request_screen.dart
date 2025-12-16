@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
-import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_password.dart';
 import 'package:hrms_mobile/core/widgets/toastbar.dart';
@@ -59,21 +58,19 @@ class _PayslipPrintRequestScreenState
     final requestBody = PayslipRequest(password: password);
 
     try {
-      await notifier.requestPrintPayslip(
+      notifier.setLoading();
+      final message = await notifier.requestPrintPayslip(
         request: requestBody,
         id: payslipId,
       );
       if (mounted) {
-        showCustomToast(
-            context, 'Payslip Print Request Submitted', ToastType.success);
+        ref.invalidate(payslipListProvider);
+        showCustomToast(context, message, ToastType.success);
         // ScaffoldMessenger.of(context).showSnackBar(
         //   const SnackBar(content: Text('Payslip Print Request Submitted')),
         // );
 
-        globalNavigatorKey.currentContext?.pushNamed(
-          RoutePaths.payslipPrintSubmittedName,
-          extra: widget.data,
-        );
+        globalNavigatorKey.currentContext?.pop();
       }
     } catch (e) {
       if (mounted) {
@@ -98,7 +95,7 @@ class _PayslipPrintRequestScreenState
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    final state = ref.watch(payslipViewRequestProvider);
+    final state = ref.watch(printPayslipRequestProvider);
     final isLoading = state.isLoading;
 
     final payslipLabel = widget.data.payrun?.periodLabel ?? 'Payslip';

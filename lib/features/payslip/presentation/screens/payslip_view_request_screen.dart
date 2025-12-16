@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
-import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_password.dart';
 import 'package:hrms_mobile/core/widgets/toastbar.dart';
@@ -59,22 +58,20 @@ class _PayslipViewRequestScreenState
     final requestBody = PayslipRequest(password: password);
 
     try {
-      await notifier.requestViewPayslip(
+      notifier.setLoading();
+      final message = await notifier.requestViewPayslip(
         request: requestBody,
         id: payslipId,
       );
       if (mounted) {
-        showCustomToast(context, 'Access granted! Navigating to payslip.',
-            ToastType.success);
+        ref.invalidate(payslipListProvider);
+        showCustomToast(context, message, ToastType.success);
         // ScaffoldMessenger.of(context).showSnackBar(
         //   const SnackBar(
         //       content: Text('Access granted! Navigating to payslip.')),
         // );
 
-        globalNavigatorKey.currentContext?.pushNamed(
-          RoutePaths.payslipViewName,
-          extra: widget.data,
-        );
+        globalNavigatorKey.currentContext?.pop();
       }
     } catch (e) {
       if (mounted) {

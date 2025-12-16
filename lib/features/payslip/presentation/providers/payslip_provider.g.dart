@@ -22,7 +22,7 @@ final payslipListProvider = AutoDisposeAsyncNotifierProvider<PayslipList,
 
 typedef _$PayslipList = AutoDisposeAsyncNotifier<List<PayslipDataList>>;
 String _$payslipViewRequestHash() =>
-    r'c4d8b4328d50c7eba642c7f83143203d8a7bedf2';
+    r'43eaac352502dddabc1378f73d1ef38ee76af7c0';
 
 /// See also [PayslipViewRequest].
 @ProviderFor(PayslipViewRequest)
@@ -39,7 +39,7 @@ final payslipViewRequestProvider = AutoDisposeNotifierProvider<
 
 typedef _$PayslipViewRequest = AutoDisposeNotifier<AsyncValue<dynamic>>;
 String _$printPayslipRequestHash() =>
-    r'a544325ef79dd6ec3f8d0f1a16e227c5937ecae6';
+    r'4c1141a2d5c73a73fd6cb507ceab1f92c096de05';
 
 /// See also [PrintPayslipRequest].
 @ProviderFor(PrintPayslipRequest)

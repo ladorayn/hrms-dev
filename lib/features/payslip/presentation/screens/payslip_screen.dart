@@ -24,6 +24,8 @@ class PayslipScreen extends ConsumerWidget {
     final showRequestAccess =
         (payslip.viewAccessStatus == 0 || payslip.viewAccessStatus == 3);
     final viewType = getPayslipViewType(payslip.viewAccessStatus ?? 4);
+    final showRequestPrintAccess = payslip.printAccessStatus == 0;
+    final isPrintGranted = payslip.printAccessStatus != 0;
 
     showModalBottomSheet(
       context: context,
@@ -132,31 +134,45 @@ class PayslipScreen extends ConsumerWidget {
                         const Text("Print Request"),
                       ],
                     ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: IColors.light.primary.main,
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+                    if (showRequestPrintAccess)
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: IColors.light.primary.main,
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          minimumSize: Size.zero,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 10),
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         ),
-                        minimumSize: Size.zero,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 10),
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      ),
-                      onPressed: () {
-                        globalNavigatorKey.currentContext?.pushNamed(
-                            RoutePaths.payslipPrintRequestName,
-                            extra: payslip);
-                      },
-                      child: Text(
-                        "Request Access",
-                        style: textTheme.labelSmall?.copyWith(
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
+                        onPressed: () {
+                          globalNavigatorKey.currentContext?.pushNamed(
+                              RoutePaths.payslipPrintRequestName,
+                              extra: payslip);
+                        },
+                        child: Text(
+                          "Request Access",
+                          style: textTheme.labelSmall?.copyWith(
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                    )
+                      )
+                    else if (isPrintGranted)
+                      IconButton(
+                        icon: Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          color: IColors.light.grayscale.g30,
+                        ),
+                        onPressed: () {
+                          globalNavigatorKey.currentContext?.pushNamed(
+                            RoutePaths.payslipPrintSubmittedName,
+                            extra: payslip,
+                          );
+                        },
+                      )
                   ],
                 ),
               ),

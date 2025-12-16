@@ -867,6 +867,13 @@ const mockRequestView = {
   "data": null
 };
 
+const mockRequestViewPayslip = {
+  "status": "success",
+  "message":
+      "View access requested successfully, wait until the admin process your request",
+  "data": null
+};
+
 const mockPayslip = {
   "status": "success",
   "message": "Payslips retrieved successfully",
@@ -882,12 +889,12 @@ const mockPayslip = {
         "status_label": "Final",
         "sent_at": null
       },
-      "view_access_status": 0,
-      "view_access_status_label": "Pending",
+      "view_access_status": 1,
+      "view_access_status_label": "Processed",
       "view_access_granted": false,
       "view_access_days_remaining": null,
-      "print_access_status": 0,
-      "print_access_status_label": "Pending"
+      "print_access_status": 2,
+      "print_access_status_label": "Granted"
     },
     {
       "id": 276,

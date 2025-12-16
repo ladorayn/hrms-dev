@@ -1,3 +1,4 @@
+import 'package:hrms_mobile/core/data/models/base_response.dart';
 import 'package:hrms_mobile/features/payslip/data/models/request/payslip_view_request.dart';
 import 'package:hrms_mobile/features/payslip/data/models/response/payslip_list_response.dart';
 import 'package:hrms_mobile/features/payslip/data/models/response/payslip_request_view_response.dart';
@@ -12,12 +13,12 @@ class PayslipUsecases {
     return repository.getPayslipList();
   }
 
-  Future<dynamic> requestViewPayslip(
+  Future<BaseResponse<dynamic>> requestViewPayslip(
       {required PayslipRequest request, required int id}) {
     return repository.requestViewPayslip(request: request, id: id);
   }
 
-  Future<dynamic> requestPrintPayslip(
+  Future<BaseResponse<dynamic>> requestPrintPayslip(
       {required PayslipRequest request, required int id}) {
     return repository.requestPrintPayslip(request: request, id: id);
   }

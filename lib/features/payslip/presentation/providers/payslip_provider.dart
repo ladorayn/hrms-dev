@@ -1,3 +1,4 @@
+import 'package:hrms_mobile/core/data/models/base_response.dart';
 import 'package:hrms_mobile/core/network/dio_provider.dart';
 import 'package:hrms_mobile/features/payslip/data/data_sources/payslip_remote_source.dart';
 import 'package:hrms_mobile/features/payslip/data/models/request/payslip_view_request.dart';
@@ -36,7 +37,7 @@ class PayslipViewRequest extends _$PayslipViewRequest {
   @override
   AsyncValue<dynamic> build() => const AsyncData(null);
 
-  Future<void> requestViewPayslip({
+  Future<String> requestViewPayslip({
     required PayslipRequest request,
     required int id,
   }) async {
@@ -44,9 +45,15 @@ class PayslipViewRequest extends _$PayslipViewRequest {
     final usecase = ref.watch(payslipUseCaseProvider);
 
     try {
-      final response =
+      final BaseResponse<dynamic> response =
           await usecase.requestViewPayslip(request: request, id: id);
-      state = AsyncData(response);
+
+      if (response.status == 'success') {
+        state = AsyncData(response.message);
+        return response.message;
+      } else {
+        throw Exception('API Error: ${response.message}');
+      }
     } catch (e, s) {
       state = AsyncError(e, s);
       rethrow;
@@ -55,6 +62,10 @@ class PayslipViewRequest extends _$PayslipViewRequest {
 
   void reset() {
     state = const AsyncData(null);
+  }
+
+  void setLoading() {
+    state = const AsyncLoading();
   }
 }
 
@@ -63,7 +74,7 @@ class PrintPayslipRequest extends _$PrintPayslipRequest {
   @override
   AsyncValue<dynamic> build() => const AsyncData(null);
 
-  Future<void> requestPrintPayslip({
+  Future<String> requestPrintPayslip({
     required PayslipRequest request,
     required int id,
   }) async {
@@ -71,9 +82,14 @@ class PrintPayslipRequest extends _$PrintPayslipRequest {
     final usecase = ref.watch(payslipUseCaseProvider);
 
     try {
-      final response =
+      final BaseResponse<dynamic> response =
           await usecase.requestPrintPayslip(request: request, id: id);
-      state = AsyncData(response);
+      if (response.status == 'success') {
+        state = AsyncData(response.message);
+        return response.message;
+      } else {
+        throw Exception('API Error: ${response.message}');
+      }
     } catch (e, s) {
       state = AsyncError(e, s);
       rethrow;
@@ -82,6 +98,10 @@ class PrintPayslipRequest extends _$PrintPayslipRequest {
 
   void reset() {
     state = const AsyncData(null);
+  }
+
+  void setLoading() {
+    state = const AsyncLoading();
   }
 }
 
