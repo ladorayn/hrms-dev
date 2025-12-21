@@ -4,6 +4,8 @@ import 'package:hrms_mobile/core/data/models/form_fields_response.dart';
 import 'package:hrms_mobile/core/errors/error_handler.dart';
 import 'package:hrms_mobile/features/offboarding/data/models/request/exit_form_request.dart';
 import 'package:hrms_mobile/features/offboarding/data/models/request/handover_bulk_update_request.dart';
+import 'package:hrms_mobile/features/offboarding/data/models/request/handover_validate_request.dart';
+import 'package:hrms_mobile/features/offboarding/data/models/response/offboarding_handover_response.dart';
 import 'package:hrms_mobile/features/offboarding/data/models/response/offboarding_status_response.dart';
 
 class OffboardingRemoteSource {
@@ -87,6 +89,55 @@ class OffboardingRemoteSource {
           }
           return json;
         },
+      );
+    } on DioException catch (e) {
+      throw handleDioError(e);
+    }
+  }
+
+  Future<BaseResponse> validateHandover({
+    required HandoverValidateRequest request,
+    required String offboardingId,
+  }) async {
+    try {
+      final response = await _dio.post(
+        'api/ess/offboarding/$offboardingId/validate-handover-asset',
+        data: request,
+      );
+
+      return BaseResponse.fromJson(
+        response.data,
+        (json) {
+          if (json == null) {
+            return [];
+          }
+          return json;
+        },
+      );
+    } on DioException catch (e) {
+      throw handleDioError(e);
+    }
+  }
+
+  Future<BaseResponse<List<HandoverItem>>> getHandover({
+    required String category,
+    required String offboardingId,
+  }) async {
+    try {
+      final Map<String, dynamic> queryParameters = {};
+
+      queryParameters['category'] = category;
+
+      final response = await _dio.get(
+        'api/v1/employee/offboardings/$offboardingId/handover-asset-return',
+        queryParameters: queryParameters,
+      );
+
+      return BaseResponse.fromJson(
+        response.data,
+        (json) => (json as List)
+            .map((item) => HandoverItem.fromJson(item as Map<String, dynamic>))
+            .toList(),
       );
     } on DioException catch (e) {
       throw handleDioError(e);

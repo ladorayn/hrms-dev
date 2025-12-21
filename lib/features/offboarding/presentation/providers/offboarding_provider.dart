@@ -8,6 +8,8 @@ import 'package:hrms_mobile/core/network/dio_provider.dart';
 import 'package:hrms_mobile/features/offboarding/data/data_sources/offboarding_remote_source.dart';
 import 'package:hrms_mobile/features/offboarding/data/models/request/exit_form_request.dart';
 import 'package:hrms_mobile/features/offboarding/data/models/request/handover_bulk_update_request.dart';
+import 'package:hrms_mobile/features/offboarding/data/models/request/handover_validate_request.dart';
+import 'package:hrms_mobile/features/offboarding/data/models/response/offboarding_handover_response.dart';
 import 'package:hrms_mobile/features/offboarding/data/models/response/offboarding_status_response.dart';
 import 'package:hrms_mobile/features/offboarding/data/repositories/offboarding_repository_impl.dart';
 import 'package:hrms_mobile/features/offboarding/domain/usecases/offboarding_usecases.dart';
@@ -185,6 +187,50 @@ class HandoverSubmission extends _$HandoverSubmission {
     try {
       final response = await usecase.submitHandover(
           request: request, offboardingId: offboardingId);
+      state = AsyncData(response);
+    } catch (e, s) {
+      state = AsyncError(e, s);
+      rethrow;
+    }
+  }
+
+  void reset() {
+    state = const AsyncData(null);
+  }
+}
+
+@riverpod
+class OffboardingGetHandover extends _$OffboardingGetHandover {
+  @override
+  Future<List<HandoverItem>> build(
+      {required String offboardingId, required String category}) async {
+    final usecase = ref.watch(offboardingUseCaseProvider);
+    return await usecase.getHandover(
+        offboardingId: offboardingId, category: category);
+  }
+}
+
+@riverpod
+class ValidateHandoverSubmission extends _$ValidateHandoverSubmission {
+  @override
+  AsyncValue<dynamic> build(int handoverAssetId) {
+    return const AsyncData(null);
+  }
+
+  Future<void> validateForm({
+    required HandoverValidateRequest request,
+    required String offboardingId,
+  }) async {
+    state = const AsyncLoading();
+
+    final usecase = ref.read(offboardingUseCaseProvider);
+
+    try {
+      final response = await usecase.validateHandover(
+        request: request,
+        offboardingId: offboardingId,
+      );
+
       state = AsyncData(response);
     } catch (e, s) {
       state = AsyncError(e, s);

@@ -40,8 +40,8 @@ enum NotificationCode {
   offboardingStarted,
   @JsonValue('EXIT_INTERVIEW_SCHEDULE')
   exitInterviewSchedule,
-  @JsonValue('VALIDATE_HANDOVER')
-  validateHandover,
+  @JsonValue('OFFBOARDING_VALIDATE_HANDOVER')
+  offboardingValidateHandover,
 
   // Attendance, Timesheet, Overtime
   @JsonValue('ATTENDANCE_REMINDER')
@@ -233,6 +233,11 @@ class NotificationPayload with _$NotificationPayload {
     @JsonKey(name: "start_time") String? startTime,
     @JsonKey(name: "end_time") String? endTime,
   }) = SupervisorAssessmentSchedulePayload;
+
+  const factory NotificationPayload.offboardingValidateHandover({
+    @JsonKey(name: "offboarding_id") String? offboardingId,
+    @JsonKey(name: "employee_name") String? employeeName,
+  }) = OffboardingValidateHandoverPayload;
 
   factory NotificationPayload.fromJson(Map<String, dynamic> json) =>
       _$NotificationPayloadFromJson(json);

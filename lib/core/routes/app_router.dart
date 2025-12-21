@@ -47,7 +47,7 @@ import 'package:hrms_mobile/features/payslip/presentation/screens/payslip_screen
 import 'package:hrms_mobile/features/payslip/presentation/screens/payslip_view_request_screen.dart';
 import 'package:hrms_mobile/features/payslip/presentation/screens/payslip_view_screen.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_list.dart'
-    as assessment;
+as assessment;
 import 'package:hrms_mobile/features/performance/data/models/response/okr_list.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/supervisor_assessment.dart';
 import 'package:hrms_mobile/features/performance/presentation/screens/assessment_form_manager_screen.dart';
@@ -96,7 +96,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         return null;
       }
       final isGoingToPublicRoute = publicRoutes.any(
-        (route) {
+            (route) {
           return state.matchedLocation.startsWith(route);
         },
       );
@@ -201,7 +201,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           return ProviderScope(
             overrides: [
               faceRegistrationProvider(initialFaceCount).overrideWith(
-                () => FaceRegistration(),
+                    () => FaceRegistration(),
               )
             ],
             child: FaceRegistrationScreen(
@@ -263,7 +263,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: RoutePaths.responsibilityHandover,
         name: RoutePaths.responsibilityHandoverName,
         builder: (context, state) {
-          return ResponsibilityAssigneeHandoverScreen();
+          final data = state.extra as OffboardingValidateHandoverPayload;
+          return ResponsibilityAssigneeHandoverScreen(
+            data: data,
+          );
         },
       ),
       GoRoute(
@@ -296,7 +299,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: RoutePaths.workAssigneeHandover,
         name: RoutePaths.workAssigneeHandoverName,
         builder: (context, state) {
-          return WorkHandoverValidateScreen();
+          final extra = state.extra as OffboardingValidateHandoverPayload;
+          return WorkHandoverValidateScreen(
+            offboardingId: extra.offboardingId ?? '',
+          );
         },
       ),
       GoRoute(
@@ -311,7 +317,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: RoutePaths.documentAssigneeHandover,
         name: RoutePaths.documentAssigneeHandoverName,
         builder: (context, state) {
-          return DocumentHandoverValidateScreen();
+          final extra = state.extra as OffboardingValidateHandoverPayload;
+          return DocumentHandoverValidateScreen(
+            offboardingId: extra.offboardingId ?? '',
+          );
         },
       ),
       GoRoute(
@@ -409,7 +418,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           final member = data['member'] as assessment.TeamMember;
           final period = data['period'] as String;
           final assessmentData =
-              data['assessment'] as assessment.AssessmentList;
+          data['assessment'] as assessment.AssessmentList;
 
           return AssessmentFormManagerScreen(
             member: member,
@@ -524,7 +533,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: RoutePaths.performance,
             builder: (context, state) =>
-                const PerformanceScreen(), // Replace with your EmployeesScreen
+            const PerformanceScreen(), // Replace with your EmployeesScreen
           ),
           // "Leave Request" tab
           GoRoute(

@@ -521,5 +521,329 @@ final handoverSubmissionProvider = AutoDisposeNotifierProvider<
 );
 
 typedef _$HandoverSubmission = AutoDisposeNotifier<AsyncValue<dynamic>>;
+String _$offboardingGetHandoverHash() =>
+    r'faeb9dbaf40c27c005a2e81991b073b023ff27af';
+
+abstract class _$OffboardingGetHandover
+    extends BuildlessAutoDisposeAsyncNotifier<List<HandoverItem>> {
+  late final String offboardingId;
+  late final String category;
+
+  FutureOr<List<HandoverItem>> build({
+    required String offboardingId,
+    required String category,
+  });
+}
+
+/// See also [OffboardingGetHandover].
+@ProviderFor(OffboardingGetHandover)
+const offboardingGetHandoverProvider = OffboardingGetHandoverFamily();
+
+/// See also [OffboardingGetHandover].
+class OffboardingGetHandoverFamily
+    extends Family<AsyncValue<List<HandoverItem>>> {
+  /// See also [OffboardingGetHandover].
+  const OffboardingGetHandoverFamily();
+
+  /// See also [OffboardingGetHandover].
+  OffboardingGetHandoverProvider call({
+    required String offboardingId,
+    required String category,
+  }) {
+    return OffboardingGetHandoverProvider(
+      offboardingId: offboardingId,
+      category: category,
+    );
+  }
+
+  @override
+  OffboardingGetHandoverProvider getProviderOverride(
+    covariant OffboardingGetHandoverProvider provider,
+  ) {
+    return call(
+      offboardingId: provider.offboardingId,
+      category: provider.category,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'offboardingGetHandoverProvider';
+}
+
+/// See also [OffboardingGetHandover].
+class OffboardingGetHandoverProvider
+    extends AutoDisposeAsyncNotifierProviderImpl<OffboardingGetHandover,
+        List<HandoverItem>> {
+  /// See also [OffboardingGetHandover].
+  OffboardingGetHandoverProvider({
+    required String offboardingId,
+    required String category,
+  }) : this._internal(
+          () => OffboardingGetHandover()
+            ..offboardingId = offboardingId
+            ..category = category,
+          from: offboardingGetHandoverProvider,
+          name: r'offboardingGetHandoverProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$offboardingGetHandoverHash,
+          dependencies: OffboardingGetHandoverFamily._dependencies,
+          allTransitiveDependencies:
+              OffboardingGetHandoverFamily._allTransitiveDependencies,
+          offboardingId: offboardingId,
+          category: category,
+        );
+
+  OffboardingGetHandoverProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.offboardingId,
+    required this.category,
+  }) : super.internal();
+
+  final String offboardingId;
+  final String category;
+
+  @override
+  FutureOr<List<HandoverItem>> runNotifierBuild(
+    covariant OffboardingGetHandover notifier,
+  ) {
+    return notifier.build(
+      offboardingId: offboardingId,
+      category: category,
+    );
+  }
+
+  @override
+  Override overrideWith(OffboardingGetHandover Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: OffboardingGetHandoverProvider._internal(
+        () => create()
+          ..offboardingId = offboardingId
+          ..category = category,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        offboardingId: offboardingId,
+        category: category,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeAsyncNotifierProviderElement<OffboardingGetHandover,
+      List<HandoverItem>> createElement() {
+    return _OffboardingGetHandoverProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is OffboardingGetHandoverProvider &&
+        other.offboardingId == offboardingId &&
+        other.category == category;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, offboardingId.hashCode);
+    hash = _SystemHash.combine(hash, category.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin OffboardingGetHandoverRef
+    on AutoDisposeAsyncNotifierProviderRef<List<HandoverItem>> {
+  /// The parameter `offboardingId` of this provider.
+  String get offboardingId;
+
+  /// The parameter `category` of this provider.
+  String get category;
+}
+
+class _OffboardingGetHandoverProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<OffboardingGetHandover,
+        List<HandoverItem>> with OffboardingGetHandoverRef {
+  _OffboardingGetHandoverProviderElement(super.provider);
+
+  @override
+  String get offboardingId =>
+      (origin as OffboardingGetHandoverProvider).offboardingId;
+  @override
+  String get category => (origin as OffboardingGetHandoverProvider).category;
+}
+
+String _$validateHandoverSubmissionHash() =>
+    r'152aad214c2858f60a74a5d0c26b2cc2ef66971f';
+
+abstract class _$ValidateHandoverSubmission
+    extends BuildlessAutoDisposeNotifier<AsyncValue<dynamic>> {
+  late final int handoverAssetId;
+
+  AsyncValue<dynamic> build(
+    int handoverAssetId,
+  );
+}
+
+/// See also [ValidateHandoverSubmission].
+@ProviderFor(ValidateHandoverSubmission)
+const validateHandoverSubmissionProvider = ValidateHandoverSubmissionFamily();
+
+/// See also [ValidateHandoverSubmission].
+class ValidateHandoverSubmissionFamily extends Family<AsyncValue<dynamic>> {
+  /// See also [ValidateHandoverSubmission].
+  const ValidateHandoverSubmissionFamily();
+
+  /// See also [ValidateHandoverSubmission].
+  ValidateHandoverSubmissionProvider call(
+    int handoverAssetId,
+  ) {
+    return ValidateHandoverSubmissionProvider(
+      handoverAssetId,
+    );
+  }
+
+  @override
+  ValidateHandoverSubmissionProvider getProviderOverride(
+    covariant ValidateHandoverSubmissionProvider provider,
+  ) {
+    return call(
+      provider.handoverAssetId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'validateHandoverSubmissionProvider';
+}
+
+/// See also [ValidateHandoverSubmission].
+class ValidateHandoverSubmissionProvider
+    extends AutoDisposeNotifierProviderImpl<ValidateHandoverSubmission,
+        AsyncValue<dynamic>> {
+  /// See also [ValidateHandoverSubmission].
+  ValidateHandoverSubmissionProvider(
+    int handoverAssetId,
+  ) : this._internal(
+          () => ValidateHandoverSubmission()..handoverAssetId = handoverAssetId,
+          from: validateHandoverSubmissionProvider,
+          name: r'validateHandoverSubmissionProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$validateHandoverSubmissionHash,
+          dependencies: ValidateHandoverSubmissionFamily._dependencies,
+          allTransitiveDependencies:
+              ValidateHandoverSubmissionFamily._allTransitiveDependencies,
+          handoverAssetId: handoverAssetId,
+        );
+
+  ValidateHandoverSubmissionProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.handoverAssetId,
+  }) : super.internal();
+
+  final int handoverAssetId;
+
+  @override
+  AsyncValue<dynamic> runNotifierBuild(
+    covariant ValidateHandoverSubmission notifier,
+  ) {
+    return notifier.build(
+      handoverAssetId,
+    );
+  }
+
+  @override
+  Override overrideWith(ValidateHandoverSubmission Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: ValidateHandoverSubmissionProvider._internal(
+        () => create()..handoverAssetId = handoverAssetId,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        handoverAssetId: handoverAssetId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeNotifierProviderElement<ValidateHandoverSubmission,
+      AsyncValue<dynamic>> createElement() {
+    return _ValidateHandoverSubmissionProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is ValidateHandoverSubmissionProvider &&
+        other.handoverAssetId == handoverAssetId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, handoverAssetId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin ValidateHandoverSubmissionRef
+    on AutoDisposeNotifierProviderRef<AsyncValue<dynamic>> {
+  /// The parameter `handoverAssetId` of this provider.
+  int get handoverAssetId;
+}
+
+class _ValidateHandoverSubmissionProviderElement
+    extends AutoDisposeNotifierProviderElement<ValidateHandoverSubmission,
+        AsyncValue<dynamic>> with ValidateHandoverSubmissionRef {
+  _ValidateHandoverSubmissionProviderElement(super.provider);
+
+  @override
+  int get handoverAssetId =>
+      (origin as ValidateHandoverSubmissionProvider).handoverAssetId;
+}
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -1,27 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hrms_mobile/application/theme/i_colors.dart';
-import 'package:hrms_mobile/core/data/models/employees/employees_response.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
 import 'package:hrms_mobile/core/widgets/toastbar.dart';
+import 'package:hrms_mobile/features/offboarding/data/models/request/handover_validate_request.dart';
+import 'package:hrms_mobile/features/offboarding/data/models/response/offboarding_handover_response.dart';
 import 'package:hrms_mobile/features/offboarding/presentation/providers/offboarding_provider.dart';
 
-class HandoverItem {
-  final int id;
-  final TextEditingController worksController;
-  List<Employee> selectedEmployees;
-
-  HandoverItem({
-    required this.id,
-    required this.worksController,
-    this.selectedEmployees = const [],
-  });
-}
-
 class WorkHandoverValidateScreen extends ConsumerStatefulWidget {
-  const WorkHandoverValidateScreen({super.key});
+  final String offboardingId;
+
+  const WorkHandoverValidateScreen({
+    super.key,
+    required this.offboardingId,
+  });
 
   @override
   ConsumerState<WorkHandoverValidateScreen> createState() =>
@@ -30,107 +23,107 @@ class WorkHandoverValidateScreen extends ConsumerStatefulWidget {
 
 class _WorkHandoverValidateScreenState
     extends ConsumerState<WorkHandoverValidateScreen> {
-  @override
-  void initState() {
-    super.initState();
-  }
+  final Map<int, TextEditingController> _controllers = {};
 
   @override
   void dispose() {
+    for (final c in _controllers.values) {
+      c.dispose();
+    }
     super.dispose();
-  }
-
-  void _showSnackBar(String message, {bool isError = false}) {
-    if (!mounted) return;
-    showCustomToast(context, message, ToastType.info);
-    // ScaffoldMessenger.of(context).showSnackBar(
-    //   SnackBar(
-    //     content: Text(message),
-    //     // backgroundColor: isError ? Colors.red : Colors.green,
-    //   ),
-    // );
   }
 
   @override
   Widget build(BuildContext context) {
-    final handoverState = ref.watch(handoverSubmissionProvider);
-    //
-    // ref.listen(handoverSubmissionProvider, (_, state) {
-    //   state.whenOrNull(
-    //     error: (e, s) => _showSnackBar(e.toString(), isError: true),
-    //     data: (data) {
-    //       if (data != null) {
-    //         _showSnackBar("Handover submitted successfully!");
-    //         // Pop the screen on success
-    //         Navigator.of(context).pop();
-    //       }
-    //     },
-    //   );
-    // });
-
-    // Future<void> onSubmit() async {
-    //   for (var item in _handoverItems) {
-    //     if (item.worksController.text.isEmpty) {
-    //       _showSnackBar('Please fill in all "Works" fields.', isError: true);
-    //       return;
-    //     }
-    //     if (item.selectedEmployees.isEmpty) {
-    //       _showSnackBar('Please select at least one recipient for all items.',
-    //           isError: true);
-    //       return;
-    //     }
-    //   }
-    //
-    //   final List<HandoverItemRequest> items = _handoverItems.map((item) {
-    //     final List<RecipientRequest> recipients =
-    //         item.selectedEmployees.map((emp) {
-    //       return RecipientRequest(
-    //         userId: emp.id ?? 0,
-    //         status: 1,
-    //       );
-    //     }).toList();
-    //
-    //     return HandoverItemRequest(
-    //       category: 'work',
-    //       name: item.worksController.text,
-    //       recipients: recipients,
-    //     );
-    //   }).toList();
-    //
-    //   final HandoverRequest request = HandoverRequest(data: items);
-    //   final int? offboardingId = widget.data.id;
-    //
-    //   if (offboardingId == null) {
-    //     _showSnackBar('Could not find offboarding ID. Please try again.',
-    //         isError: true);
-    //     return;
-    //   }
-    //   await ref.read(handoverSubmissionProvider.notifier).submitForm(
-    //         request: request,
-    //         offboardingId: offboardingId,
-    //       );
-    // }
+    final workHandoverAsync = ref.watch(
+      offboardingGetHandoverProvider(
+        offboardingId: widget.offboardingId,
+        category: 'work',
+      ),
+    );
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: const IAppBar(title: "Work & Responsibilities Handover"),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-              itemCount: 2,
-              itemBuilder: (context, index) {
-                return _buildHandoverCard(index, context);
-              },
-            ),
-          ),
-        ],
+      body: workHandoverAsync.when(
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (err, _) => Center(child: Text('Error: $err')),
+        data: (list) {
+          if (list.isEmpty) {
+            return const Center(child: Text("No items found"));
+          }
+
+          return ListView.builder(
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+            itemCount: list.length,
+            itemBuilder: (context, index) {
+              final item = list[index];
+
+              final controller = _controllers.putIfAbsent(
+                item.id ?? 0,
+                () => TextEditingController(text: item.name),
+              );
+
+              return _WorkHandoverCard(
+                item: item,
+                controller: controller,
+                offboardingId: widget.offboardingId,
+              );
+            },
+          );
+        },
       ),
     );
   }
+}
 
-  Widget _buildHandoverCard(int index, BuildContext context) {
+/// ---------------------------------------------------------------------------
+/// CARD — PER ITEM VALIDATION
+/// ---------------------------------------------------------------------------
+class _WorkHandoverCard extends ConsumerWidget {
+  final HandoverItem item;
+  final TextEditingController controller;
+  final String offboardingId;
+
+  const _WorkHandoverCard({
+    required this.item,
+    required this.controller,
+    required this.offboardingId,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = Theme.of(context).textTheme;
+
+    final submissionState =
+        ref.watch(validateHandoverSubmissionProvider(item.id ?? 0));
+
+    // Listen PER ITEM for success / error
+    ref.listen(
+      validateHandoverSubmissionProvider(item.id ?? 0),
+      (_, next) {
+        next.whenOrNull(
+          data: (_) {
+            showCustomToast(
+              context,
+              "Work validated successfully!",
+              ToastType.success,
+            );
+            ref.invalidate(offboardingGetHandoverProvider);
+          },
+          error: (err, _) {
+            showCustomToast(
+              context,
+              err.toString(),
+              ToastType.error,
+            );
+          },
+        );
+      },
+    );
+
+    final isLoading = submissionState.isLoading;
+
     return Card(
       margin: EdgeInsets.only(bottom: 16.h),
       elevation: 0,
@@ -140,37 +133,49 @@ class _WorkHandoverValidateScreenState
       ),
       child: Padding(
         padding: EdgeInsets.all(16.w),
-        child: Row(
-          crossAxisAlignment:
-              CrossAxisAlignment.start, // Align items to the top
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ITextFieldTextArea(
-                      label: "Works",
-                      hintText: '',
-                      isRequired: true,
-                      enabled: false,
-                      readOnly: true,
-                      labelStyle: textTheme.bodySmall),
-                  SizedBox(height: 16.h),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: IColors.light.primary.main,
-                      foregroundColor: Colors.white,
-                      disabledBackgroundColor: Colors.grey.shade200,
-                      disabledForegroundColor: Colors.grey.shade500,
-                      minimumSize: const Size.fromHeight(50),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    onPressed: () {},
-                    child: Text("Validate Now"),
-                  )
-                ],
+            ITextFieldTextArea(
+              controller: controller,
+              label: "Work",
+              isRequired: true,
+              readOnly: true,
+              enabled: false,
+              labelStyle: textTheme.bodySmall,
+            ),
+            SizedBox(height: 12.h),
+            ElevatedButton(
+              onPressed: isLoading
+                  ? null
+                  : () {
+                      ref
+                          .read(
+                            validateHandoverSubmissionProvider(item.id ?? 0)
+                                .notifier,
+                          )
+                          .validateForm(
+                            request: HandoverValidateRequest(
+                              handoverAssetId: item.id ?? 0,
+                            ),
+                            offboardingId: offboardingId,
+                          );
+                    },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF335C81),
+                foregroundColor: Colors.white,
+                minimumSize: Size(double.infinity, 40.h),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+                elevation: 0,
+              ),
+              child: Text(
+                isLoading ? "Validating..." : "Validate Now",
+                style: textTheme.labelLarge?.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
           ],

@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/data/models/form_fields_response.dart';
+import 'package:hrms_mobile/core/errors/exceptions.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/core/widgets/i_footer_button.dart';
@@ -166,7 +167,7 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
     _ratingAnswers.forEach((fieldId, rating) {
       submissions.add(SubmissionForm(
         fieldId: fieldId,
-        value: rating.toString(),
+        value: rating,
         additionalData: {
           'notes': _notesControllers[fieldId]?.text ?? '',
         },
@@ -202,20 +203,21 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
       if (mounted) {
         showCustomToast(
             context, 'Form Submitted Successfully!', ToastType.success);
-        // ScaffoldMessenger.of(context).showSnackBar(
-        //   const SnackBar(content: Text('Form Submitted Successfully!')),
-        // );
         context.pop(); // Pop the dialog
         globalNavigatorKey.currentContext?.pop();
       }
     } catch (e) {
       if (mounted) {
         context.pop();
-        showCustomToast(
-            context, 'Submission Failed: ${e.toString()}', ToastType.error);
-        // ScaffoldMessenger.of(context).showSnackBar(
-        //   SnackBar(content: Text('Submission Failed: ${e.toString()}')),
-        // );
+        if (e is ValidationException) {
+          final exception = e;
+          final displayErrors =
+              exception.errors.map((key, value) => MapEntry(key, value.first));
+          showCustomToast(context, displayErrors[displayErrors.keys.first]!,
+              ToastType.error);
+        } else {
+          showCustomToast(context, 'Submission Failed', ToastType.error);
+        }
       }
     }
   }

@@ -217,9 +217,15 @@ class InboxScreen extends ConsumerWidget {
           },
         );
         break;
-      case NotificationCode.validateHandover:
-        globalNavigatorKey.currentContext
-            ?.pushNamed(RoutePaths.responsibilityHandoverName);
+      case NotificationCode.offboardingValidateHandover:
+        payload.mapOrNull(
+          offboardingValidateHandover: (p) {
+            final payload = p;
+            globalNavigatorKey.currentContext?.pushNamed(
+                RoutePaths.responsibilityHandoverName,
+                extra: payload);
+          },
+        );
 
       // =====================================================
       // Supervisor Assessment Schedule

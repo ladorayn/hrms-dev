@@ -435,6 +435,23 @@ Map<String, dynamic> _$$SupervisorAssessmentSchedulePayloadImplToJson(
       'type': instance.$type,
     };
 
+_$OffboardingValidateHandoverPayloadImpl
+    _$$OffboardingValidateHandoverPayloadImplFromJson(
+            Map<String, dynamic> json) =>
+        _$OffboardingValidateHandoverPayloadImpl(
+          offboardingId: json['offboarding_id'] as String?,
+          employeeName: json['employee_name'] as String?,
+          $type: json['type'] as String?,
+        );
+
+Map<String, dynamic> _$$OffboardingValidateHandoverPayloadImplToJson(
+        _$OffboardingValidateHandoverPayloadImpl instance) =>
+    <String, dynamic>{
+      'offboarding_id': instance.offboardingId,
+      'employee_name': instance.employeeName,
+      'type': instance.$type,
+    };
+
 _$NotificationDataImpl _$$NotificationDataImplFromJson(
         Map<String, dynamic> json) =>
     _$NotificationDataImpl(

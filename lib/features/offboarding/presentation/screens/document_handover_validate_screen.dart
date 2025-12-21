@@ -2,26 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
-import 'package:hrms_mobile/core/data/models/employees/employees_response.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
-import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
+import 'package:hrms_mobile/core/widgets/text_field/base/i_text_field.dart';
 import 'package:hrms_mobile/core/widgets/toastbar.dart';
+import 'package:hrms_mobile/features/offboarding/data/models/request/handover_validate_request.dart';
+import 'package:hrms_mobile/features/offboarding/data/models/response/offboarding_handover_response.dart';
 import 'package:hrms_mobile/features/offboarding/presentation/providers/offboarding_provider.dart';
 
-class HandoverItem {
-  final int id;
-  final TextEditingController worksController;
-  List<Employee> selectedEmployees;
-
-  HandoverItem({
-    required this.id,
-    required this.worksController,
-    this.selectedEmployees = const [],
-  });
-}
-
 class DocumentHandoverValidateScreen extends ConsumerStatefulWidget {
-  const DocumentHandoverValidateScreen({super.key});
+  final String offboardingId;
+
+  const DocumentHandoverValidateScreen({
+    super.key,
+    required this.offboardingId,
+  });
 
   @override
   ConsumerState<DocumentHandoverValidateScreen> createState() =>
@@ -30,107 +24,107 @@ class DocumentHandoverValidateScreen extends ConsumerStatefulWidget {
 
 class _DocumentHandoverValidateScreenState
     extends ConsumerState<DocumentHandoverValidateScreen> {
-  @override
-  void initState() {
-    super.initState();
-  }
+  final Map<int, TextEditingController> _controllers = {};
 
   @override
   void dispose() {
+    for (final controller in _controllers.values) {
+      controller.dispose();
+    }
     super.dispose();
-  }
-
-  void _showSnackBar(String message, {bool isError = false}) {
-    if (!mounted) return;
-    showCustomToast(context, message, ToastType.info);
-    // ScaffoldMessenger.of(context).showSnackBar(
-    //   SnackBar(
-    //     content: Text(message),
-    //     // backgroundColor: isError ? Colors.red : Colors.green,
-    //   ),
-    // );
   }
 
   @override
   Widget build(BuildContext context) {
-    final handoverState = ref.watch(handoverSubmissionProvider);
-    //
-    // ref.listen(handoverSubmissionProvider, (_, state) {
-    //   state.whenOrNull(
-    //     error: (e, s) => _showSnackBar(e.toString(), isError: true),
-    //     data: (data) {
-    //       if (data != null) {
-    //         _showSnackBar("Handover submitted successfully!");
-    //         // Pop the screen on success
-    //         Navigator.of(context).pop();
-    //       }
-    //     },
-    //   );
-    // });
-
-    // Future<void> onSubmit() async {
-    //   for (var item in _handoverItems) {
-    //     if (item.worksController.text.isEmpty) {
-    //       _showSnackBar('Please fill in all "Works" fields.', isError: true);
-    //       return;
-    //     }
-    //     if (item.selectedEmployees.isEmpty) {
-    //       _showSnackBar('Please select at least one recipient for all items.',
-    //           isError: true);
-    //       return;
-    //     }
-    //   }
-    //
-    //   final List<HandoverItemRequest> items = _handoverItems.map((item) {
-    //     final List<RecipientRequest> recipients =
-    //         item.selectedEmployees.map((emp) {
-    //       return RecipientRequest(
-    //         userId: emp.id ?? 0,
-    //         status: 1,
-    //       );
-    //     }).toList();
-    //
-    //     return HandoverItemRequest(
-    //       category: 'work',
-    //       name: item.worksController.text,
-    //       recipients: recipients,
-    //     );
-    //   }).toList();
-    //
-    //   final HandoverRequest request = HandoverRequest(data: items);
-    //   final int? offboardingId = widget.data.id;
-    //
-    //   if (offboardingId == null) {
-    //     _showSnackBar('Could not find offboarding ID. Please try again.',
-    //         isError: true);
-    //     return;
-    //   }
-    //   await ref.read(handoverSubmissionProvider.notifier).submitForm(
-    //         request: request,
-    //         offboardingId: offboardingId,
-    //       );
-    // }
+    final docHandoverAsync = ref.watch(
+      offboardingGetHandoverProvider(
+        offboardingId: widget.offboardingId,
+        category: 'document',
+      ),
+    );
 
     return Scaffold(
-      appBar: const IAppBar(title: "Work & Responsibilities Handover"),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-              itemCount: 2,
-              itemBuilder: (context, index) {
-                return _buildHandoverCard(index, context);
-              },
-            ),
-          ),
-        ],
+      backgroundColor: Colors.white,
+      appBar: const IAppBar(title: "Document Handover"),
+      body: docHandoverAsync.when(
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (err, _) => Center(child: Text('Error: $err')),
+        data: (list) {
+          if (list.isEmpty) {
+            return const Center(child: Text("No documents found"));
+          }
+
+          return ListView.builder(
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+            itemCount: list.length,
+            itemBuilder: (context, index) {
+              final item = list[index];
+
+              final controller = _controllers.putIfAbsent(
+                item.id ?? 0,
+                () => TextEditingController(text: item.name),
+              );
+
+              return _DocumentHandoverCard(
+                item: item,
+                controller: controller,
+                offboardingId: widget.offboardingId,
+              );
+            },
+          );
+        },
       ),
     );
   }
+}
 
-  Widget _buildHandoverCard(int index, BuildContext context) {
+/// ---------------------------------------------------------------------------
+/// CARD — PER DOCUMENT VALIDATION
+/// ---------------------------------------------------------------------------
+class _DocumentHandoverCard extends ConsumerWidget {
+  final HandoverItem item;
+  final TextEditingController controller;
+  final String offboardingId;
+
+  const _DocumentHandoverCard({
+    required this.item,
+    required this.controller,
+    required this.offboardingId,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = Theme.of(context).textTheme;
+
+    final submissionState =
+        ref.watch(validateHandoverSubmissionProvider(item.id ?? 0));
+
+    // Listen PER ITEM (not global)
+    ref.listen(
+      validateHandoverSubmissionProvider(item.id ?? 0),
+      (_, next) {
+        next.whenOrNull(
+          data: (_) {
+            showCustomToast(
+              context,
+              "Handover validated successfully!",
+              ToastType.success,
+            );
+            ref.invalidate(offboardingGetHandoverProvider);
+          },
+          error: (err, _) {
+            showCustomToast(
+              context,
+              err.toString(),
+              ToastType.error,
+            );
+          },
+        );
+      },
+    );
+
+    final isLoading = submissionState.isLoading;
+
     return Card(
       margin: EdgeInsets.only(bottom: 16.h),
       elevation: 0,
@@ -140,37 +134,50 @@ class _DocumentHandoverValidateScreenState
       ),
       child: Padding(
         padding: EdgeInsets.all(16.w),
-        child: Row(
-          crossAxisAlignment:
-              CrossAxisAlignment.start, // Align items to the top
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ITextFieldTextArea(
-                      label: "Document Name",
-                      hintText: '',
-                      isRequired: true,
-                      enabled: false,
-                      readOnly: true,
-                      labelStyle: textTheme.bodySmall),
-                  SizedBox(height: 16.h),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: IColors.light.primary.main,
-                      foregroundColor: Colors.white,
-                      disabledBackgroundColor: Colors.grey.shade200,
-                      disabledForegroundColor: Colors.grey.shade500,
-                      minimumSize: const Size.fromHeight(50),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    onPressed: () {},
-                    child: Text("Validate Now"),
-                  )
-                ],
+            ITextFieldBase(
+              controller: controller,
+              label: "Document Name",
+              isRequired: true,
+              readOnly: true,
+              enabled: false,
+              borderColor: IColors.light.grayscale.g30,
+              labelStyle: textTheme.bodySmall,
+            ),
+            SizedBox(height: 12.h),
+            ElevatedButton(
+              onPressed: isLoading
+                  ? null
+                  : () {
+                      ref
+                          .read(
+                            validateHandoverSubmissionProvider(item.id ?? 0)
+                                .notifier,
+                          )
+                          .validateForm(
+                            request: HandoverValidateRequest(
+                              handoverAssetId: item.id ?? 0,
+                            ),
+                            offboardingId: offboardingId,
+                          );
+                    },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF335C81),
+                foregroundColor: Colors.white,
+                minimumSize: Size(double.infinity, 40.h),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+                elevation: 0,
+              ),
+              child: Text(
+                isLoading ? "Validating..." : "Validate Now",
+                style: textTheme.labelLarge?.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
           ],
