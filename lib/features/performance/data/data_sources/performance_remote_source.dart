@@ -6,8 +6,10 @@ import 'package:hrms_mobile/core/data/models/form_fields_response.dart';
 import 'package:hrms_mobile/core/errors/error_handler.dart';
 import 'package:hrms_mobile/features/performance/data/models/request/assessment_answer_request.dart';
 import 'package:hrms_mobile/features/performance/data/models/request/assessment_form_request.dart';
+import 'package:hrms_mobile/features/performance/data/models/request/tracking_value_request.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_answer.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_list.dart';
+import 'package:hrms_mobile/features/performance/data/models/response/okr_graph.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/okr_list.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/supervisor_assessment.dart';
 
@@ -203,16 +205,80 @@ class PerformanceRemoteSource {
     }
   }
 
-  Future<BaseResponse<List<OKRList>>> getOKRList() async {
+  Future<BasePaginatedResponse<OKRList>> getOKRList() async {
     try {
-      // final response = await _dio.get(
-      //   'api/ess/okr',
-      // );
+      final response = await _dio.get(
+        'api/v1/okr/cycles',
+      );
+
+      return BasePaginatedResponse.fromJson(
+        response.data,
+        (json) => OKRList.fromJson(json as Map<String, dynamic>),
+        emptyT: () => List.empty(),
+      );
+    } on DioException catch (e) {
+      throw handleDioError(e);
+    }
+  }
+
+  Future<BaseResponse<OKRDetail>> getOKRDetail({required dynamic okrId}) async {
+    try {
+      final response = await _dio.get('api/ess/okr/$okrId');
 
       return BaseResponse.fromJson(
-        mockOKRList,
+        response.data,
+        (json) => OKRDetail.fromJson(json as Map<String, dynamic>),
+      );
+    } on DioException catch (e) {
+      throw handleDioError(e);
+    }
+  }
+
+  Future<BaseResponse<OKRTracking>> getOKRTracking(
+      {required dynamic okrKeyResult}) async {
+    try {
+      final response = await _dio.get('api/ess/okr/$okrKeyResult/tracking');
+
+      return BaseResponse.fromJson(
+        response.data,
+        (json) => OKRTracking.fromJson(json as Map<String, dynamic>),
+      );
+    } on DioException catch (e) {
+      throw handleDioError(e);
+    }
+  }
+
+  Future<BaseResponse<List<SetTrackingValue>>> submitTrackingValue(
+      {required List<TrackingValueRequest> request}) async {
+    try {
+      final response = await _dio.post(
+        'api/ess/okr/set-tracking-value',
+        data: request,
+      );
+
+      return BaseResponse.fromJson(
+        response.data,
         (json) => (json as List)
-            .map((item) => OKRList.fromJson(item as Map<String, dynamic>))
+            .map((item) =>
+                SetTrackingValue.fromJson(item as Map<String, dynamic>))
+            .toList(),
+      );
+    } on DioException catch (e) {
+      throw handleDioError(e);
+    }
+  }
+
+  Future<BaseResponse<List<OKRGraphData>>> getGraphLists(
+      {required dynamic id}) async {
+    try {
+      final response = await _dio.get(
+        'api/v1/okr/cycles/$id/graph',
+      );
+
+      return BaseResponse.fromJson(
+        response.data,
+        (json) => (json as List)
+            .map((item) => OKRGraphData.fromJson(item as Map<String, dynamic>))
             .toList(),
       );
     } on DioException catch (e) {

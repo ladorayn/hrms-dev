@@ -122,11 +122,13 @@ class OffboardingRemoteSource {
   Future<BaseResponse<List<HandoverItem>>> getHandover({
     required String category,
     required String offboardingId,
+    required String userId,
   }) async {
     try {
       final Map<String, dynamic> queryParameters = {};
 
       queryParameters['category'] = category;
+      queryParameters['recipient_user_id'] = userId;
 
       final response = await _dio.get(
         'api/v1/employee/offboardings/$offboardingId/handover-asset-return',

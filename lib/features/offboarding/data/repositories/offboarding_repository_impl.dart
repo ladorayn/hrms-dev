@@ -66,9 +66,11 @@ class OffboardingRepositoryImpl implements OffboardingRepository {
 
   @override
   Future<List<HandoverItem>> getHandover(
-      {required String offboardingId, required String category}) async {
+      {required String offboardingId,
+      required String category,
+      required String userId}) async {
     final response = await remoteSource.getHandover(
-        offboardingId: offboardingId, category: category);
+        offboardingId: offboardingId, category: category, userId: userId);
 
     if (response.status == 'success') {
       return response.data;

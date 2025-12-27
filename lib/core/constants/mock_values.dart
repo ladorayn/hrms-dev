@@ -777,30 +777,319 @@ const Map<String, dynamic> mockFormFieldsData = {
 
 const Map<String, dynamic> mockOKRList = {
   "status": "success",
-  "message": "Successfully fetch okr list",
+  "message": "OKR cycles fetched successfully",
+  "data": [
+    {
+      "id": 2,
+      "period": "Lorem aliqua",
+      "period_year": 2024,
+      "name": "Dr. Anne Olson",
+      "start_date": "2025-07-31T00:00:00.000000Z",
+      "end_date": "2026-07-19T00:00:00.000000Z",
+      "status": 0,
+      "status_label": "Draft",
+      "tenant_id": 1,
+      "created_by": {
+        "id": 1,
+        "name": "Super Admin",
+        "email": "superadmin@example.com"
+      },
+      "created_at": "2025-12-12 15:40:44",
+      "updated_at": "2025-12-12 15:40:44"
+    }
+  ],
+  "pagination": {
+    "current_page": 2,
+    "per_page": 1,
+    "total": 2,
+    "last_page": 2,
+    "from": 2,
+    "to": 2,
+    "first": "http://127.0.0.1:8000/api/v1/okr/cycles?page=1",
+    "last": "http://127.0.0.1:8000/api/v1/okr/cycles?page=2",
+    "prev": "http://127.0.0.1:8000/api/v1/okr/cycles?page=1",
+    "next": null
+  }
+};
+
+final mockSetTrackingValue = {
+  "status": "success",
+  "message": "string",
+  "data": {
+    "id": 0,
+    "tenant_id": 0,
+    "okr_cycle_id": 0,
+    "okr_key_result_id": 0,
+    "frequency": 0,
+    "period_start": "string",
+    "period_end": "string",
+    "label": "string",
+    "actual_value": 0,
+    "target_value": 0,
+    "created_at": "string",
+    "updated_at": "string"
+  }
+};
+
+final mockOKRTracking = {
+  "status": "success",
+  "message": "OKR cycle tracking fetched successfully",
+  "data": {
+    "id": 3,
+    "title": "Achieve NPS score of 70",
+    "description": "Net Promoter Score target for Q1 2025",
+    "frequency": 1,
+    "frequency_label": "Monthly",
+    "format": 2,
+    "format_label": "Percent",
+    "start_value": 50,
+    "current_value": 55,
+    "target_value": 70,
+    "status": 1,
+    "status_label": "Active",
+    "direction": 0,
+    "direction_label": "Higher is Better",
+    "aggregation": 0,
+    "aggregation_label": "Latest",
+    "progress": 25,
+    "objective_id": 3,
+    "objective": {
+      "id": 3,
+      "title": "pfft scarily past adolescent jaunty 3",
+      "description":
+          "Amissio vesco umerus vigor sit cavus appositus. Conscendo tutamen aequitas synagoga. Degero tamisium depono surculus laborum adicio vetus qui bis. Tui eius conspergo arbor tonsor abeo vehemens. Tendo solutio aurum torrens paens voluptatibus ceno acervus cresco derideo. Crudelis capillus decretum clibanus vere abeo taceo. Curvo stultus occaecati turba nesciunt totidem.",
+      "progress": 0,
+      "status": 0,
+      "status_label": "Draft",
+      "okr_cycle_id": 2,
+      "tenant_id": 1,
+      "created_at": "2025-12-19 13:12:42",
+      "updated_at": "2025-12-19 13:12:42"
+    },
+    "job_position_id": 1,
+    "job_position": {"id": 1, "name": "Junior Foreman Production"},
+    "job_level_id": 1,
+    "job_level": {"id": 1, "name": "CEOs"},
+    "tenant_id": 1,
+    "tracking_table": [
+      {
+        "period_id": 31,
+        "label": "Jan 2025",
+        "actual_value": 0,
+        "target_value": 70
+      },
+      {
+        "period_id": 32,
+        "label": "Feb 2025",
+        "actual_value": 0,
+        "target_value": 70
+      },
+      {
+        "period_id": 33,
+        "label": "Mar 2025",
+        "actual_value": 0,
+        "target_value": 70
+      }
+    ],
+    "created_at": "2025-12-19 13:13:05",
+    "updated_at": "2025-12-19 13:13:05"
+  }
+};
+
+final mockOkrGraph = {
+  "status": "success",
+  "message": "OKR Dashboard data retrieved successfully",
   "data": [
     {
       "id": 1,
-      "period": "Q4 2025",
-      "status": "Not Started",
-      "form_id": 1,
-      "due_date": "June 18, 2025",
+      "name": "Mendapatkan 100 Milyar Revenue",
+      "okr_cycle_id": 6,
+      "progress": 65,
+      "status": 1,
+      "key_results": [
+        {
+          "id": 101,
+          "name": "Monthly Sales Performance",
+          "frequency": 1,
+          "frequency_label": "Monthly",
+          "format": 0,
+          "format_label": "Number",
+          "direction": 0,
+          "direction_label": "Higher is Better",
+          "aggregation": 0,
+          "aggregation_label": "Latest",
+          "status": 1,
+          "average_actual_value": 78.3,
+          "average_target_value": 90.0,
+          "target_value": 90.0,
+          "data": [72.0, 75.5, 87.4, 68.0, 81.2, 85.8],
+          "labels": [
+            "Jan 2025",
+            "Feb 2025",
+            "Mar 2025",
+            "Apr 2025",
+            "May 2025",
+            "Jun 2025"
+          ]
+        },
+        {
+          "id": 102,
+          "name": "Quarterly Expansion Leads",
+          "frequency": 2,
+          "frequency_label": "Quarterly",
+          "format": 0,
+          "format_label": "Number",
+          "direction": 0,
+          "direction_label": "Higher is Better",
+          "status": 1,
+          "average_actual_value": 150.0,
+          "average_target_value": 200.0,
+          "target_value": 200.0,
+          "data": [140, 160],
+          "labels": ["Q1 2025", "Q2 2025"]
+        }
+      ]
     },
     {
       "id": 2,
-      "period": "Q3 2025",
-      "status": "Not Started",
-      "form_id": 1,
-      "due_date": "June 18, 2025",
-    },
-    {
-      "id": 3,
-      "period": "Q2 2025",
-      "status": "Not Started",
-      "form_id": 1,
-      "due_date": "June 18, 2025",
+      "name": "Mendapatkan 1 Milyar Revenue",
+      "okr_cycle_id": 6,
+      "progress": 42,
+      "status": 1,
+      "key_results": [
+        {
+          "id": 201,
+          "name": "Jualan Beras Weekly Growth",
+          "frequency": 0,
+          "frequency_label": "Weekly",
+          "format": 2,
+          "format_label": "Percentage",
+          "direction": 0,
+          "direction_label": "Higher is Better",
+          "status": 1,
+          "average_actual_value": 48.5,
+          "average_target_value": 70.0,
+          "target_value": 70.0,
+          "data": [30, 35, 42, 40, 55, 52, 61, 58, 65, 72, 68, 75],
+          "labels": [
+            "W1 Jan",
+            "W2 Jan",
+            "W3 Jan",
+            "W4 Jan",
+            "W1 Feb",
+            "W2 Feb",
+            "W3 Feb",
+            "W4 Feb",
+            "W1 Mar",
+            "W2 Mar",
+            "W3 Mar",
+            "W4 Mar"
+          ]
+        },
+        {
+          "id": 202,
+          "name": "Daily Operations Efficiency",
+          "frequency": 4,
+          "frequency_label": "Daily",
+          "format": 2,
+          "format_label": "Percentage",
+          "direction": 0,
+          "direction_label": "Higher is Better",
+          "status": 1,
+          "average_actual_value": 94.2,
+          "average_target_value": 98.0,
+          "target_value": 98.0,
+          "data": [92, 95, 93, 91, 96, 98, 95, 94, 93, 97],
+          "labels": [
+            "01 Jan",
+            "02 Jan",
+            "03 Jan",
+            "04 Jan",
+            "05 Jan",
+            "06 Jan",
+            "07 Jan",
+            "08 Jan",
+            "09 Jan",
+            "10 Jan"
+          ]
+        }
+      ]
     }
   ]
+};
+
+final mockOKRDetail = {
+  "status": "success",
+  "message": "OKR cycle fetched successfully",
+  "data": {
+    "id": 2,
+    "period": "Q1",
+    "period_year": 2025,
+    "name": "Q1 2025",
+    "start_date": "2025-01-01T00:00:00.000000Z",
+    "end_date": "2025-03-25T00:00:00.000000Z",
+    "status": 0,
+    "status_label": "Draft",
+    "tenant_id": 1,
+    "created_by": {
+      "id": 1,
+      "name": "Superadmin ESS",
+      "email": "superadmin@example.com"
+    },
+    "objectives_count": 1,
+    "objectives": [
+      {
+        "id": 3,
+        "title": "pfft scarily past adolescent jaunty 3",
+        "description":
+            "Amissio vesco umerus vigor sit cavus appositus. Conscendo tutamen aequitas synagoga. Degero tamisium depono surculus laborum adicio vetus qui bis. Tui eius conspergo arbor tonsor abeo vehemens. Tendo solutio aurum torrens paens voluptatibus ceno acervus cresco derideo. Crudelis capillus decretum clibanus vere abeo taceo. Curvo stultus occaecati turba nesciunt totidem.",
+        "progress": 0,
+        "status": 0,
+        "status_label": "Draft",
+        "okr_cycle_id": 2,
+        "tenant_id": 1,
+        "key_results_count": 1,
+        "key_results": [
+          {
+            "id": 3,
+            "title": "Achieve NPS score of 70",
+            "description": "Net Promoter Score target for Q1 2025",
+            "frequency": 1,
+            "frequency_label": "Monthly",
+            "format": 2,
+            "format_label": "Percent",
+            "start_value": 50,
+            "current_value": 55,
+            "target_value": 70,
+            "status": 1,
+            "status_label": "Active",
+            "direction": 0,
+            "direction_label": "Higher is Better",
+            "aggregation": 0,
+            "aggregation_label": "Latest",
+            "progress": 25,
+            "objective_id": 3,
+            "job_position_id": 1,
+            "job_level_id": 1,
+            "tenant_id": 1,
+            "created_at": "2025-12-19 13:13:05",
+            "updated_at": "2025-12-19 13:13:05"
+          }
+        ],
+        "created_at": "2025-12-19 13:12:42",
+        "updated_at": "2025-12-19 13:12:42"
+      }
+    ],
+    "key_results": {
+      "total": 1,
+      "draft": 0,
+      "active": 1,
+      "done": 0,
+      "archived": 0
+    },
+    "created_at": "2025-12-10T13:12:33.000000Z",
+    "updated_at": "2025-12-10T13:12:33.000000Z"
+  }
 };
 
 final mockOKRItems = [

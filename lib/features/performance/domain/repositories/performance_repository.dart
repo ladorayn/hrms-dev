@@ -1,8 +1,10 @@
 import 'package:hrms_mobile/core/data/models/form_fields_response.dart';
 import 'package:hrms_mobile/features/performance/data/models/request/assessment_answer_request.dart';
 import 'package:hrms_mobile/features/performance/data/models/request/assessment_form_request.dart';
+import 'package:hrms_mobile/features/performance/data/models/request/tracking_value_request.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_answer.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_list.dart';
+import 'package:hrms_mobile/features/performance/data/models/response/okr_graph.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/okr_list.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/supervisor_assessment.dart';
 
@@ -34,4 +36,13 @@ abstract class PerformanceRepository {
       {required dynamic supervisorAssessmentId});
 
   Future<List<OKRList>> getOKRList();
+
+  Future<OKRDetail> getOKRDetail({required dynamic okrId});
+
+  Future<OKRTracking> getOKRTracking({required dynamic okrKeyResult});
+
+  Future<List<SetTrackingValue>> submitTrackingValue(
+      {required List<TrackingValueRequest> request});
+
+  Future<List<OKRGraphData>> getGraphLists({required dynamic id});
 }

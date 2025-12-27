@@ -3,16 +3,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
-import 'package:hrms_mobile/core/constants/mock_values.dart';
-import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
+import 'package:hrms_mobile/features/performance/data/models/response/okr_list.dart';
+import 'package:hrms_mobile/features/performance/presentation/providers/performance_provider.dart';
 import 'package:hrms_mobile/features/performance/presentation/widgets/okr/okr_card.dart';
 import 'package:hrms_mobile/features/performance/presentation/widgets/okr/section_title.dart';
 
 class OKRTab extends ConsumerStatefulWidget {
-  const OKRTab({
-    super.key,
-  });
+  final OKRList okrList;
+
+  const OKRTab({super.key, required this.okrList});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _OKRTabState();
@@ -26,30 +26,39 @@ class _OKRTabState extends ConsumerState<OKRTab> {
 
   @override
   Widget build(BuildContext context) {
+    final okrDetailAsync =
+        ref.watch(oKRDetailRProvider(okrId: widget.okrList.id));
+
     return Padding(
       padding: EdgeInsets.all(16.sp),
-      child: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: mockOKRItems.length,
-              itemBuilder: (context, index) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildCollapsableData(mockOKRItems[index]),
-                  ],
-                );
-              },
-            ),
-          ),
-        ],
+      child: okrDetailAsync.when(
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (err, stack) => Center(child: Text('Error: $err')),
+        data: (okrDetail) {
+          final objectives = okrDetail.objectives ?? [];
+
+          if (objectives.isEmpty) {
+            return const Center(child: Text("No objectives found"));
+          }
+
+          return Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  itemCount: objectives.length,
+                  itemBuilder: (context, index) {
+                    return _buildCollapsableData(objectives[index]);
+                  },
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
 
-  Widget _buildCollapsableData(dynamic item) {
-    final textTheme = Theme.of(context).textTheme;
+  Widget _buildCollapsableData(Objective objective) {
     return ExpansionTile(
       collapsedIconColor: IColors.light.primary.main,
       expansionAnimationStyle: AnimationStyle(
@@ -57,30 +66,26 @@ class _OKRTabState extends ConsumerState<OKRTab> {
         reverseDuration: const Duration(milliseconds: 700),
         curve: Curves.decelerate,
       ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8.r),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
       collapsedBackgroundColor: Colors.white,
-      collapsedShape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8.r),
-      ),
       backgroundColor: Colors.white,
-      title: SectionTitle(item['title']),
+      title: SectionTitle(objective.title ?? "No Title"),
       tilePadding: EdgeInsets.zero,
-      children: (item['okr'] as List<dynamic>).map<Widget>((okr) {
+      children: (objective.keyResults ?? []).map<Widget>((kr) {
         return OKRCard(
-          memberCount: okr['memberCount'] as int,
-          statusCode: okr['status'] as int,
-          progress: okr['progress'] as double,
-          desc: okr['desc'] as String,
+          kr: kr,
+          memberCount: 1,
+          statusCode: kr.status ?? 0,
+          progress: (kr.progress ?? 0).toDouble(),
+          desc: kr.title ?? "",
           onTap: () {
-            globalNavigatorKey.currentContext
-                ?.pushNamed(RoutePaths.okrKeyResultName, extra: {
-              'objectiveTitle': item['title'],
-              'memberCount': okr['memberCount'],
-              'statusCode': okr['status'],
-              'progress': okr['progress'],
-              'keyResultDesc': okr['desc'],
+            context.pushNamed(RoutePaths.okrKeyResultName, extra: {
+              'kr': kr,
+              'objectiveTitle': objective.title,
+              'memberCount': 1,
+              'statusCode': kr.status,
+              'progress': (kr.progress ?? 0).toDouble(),
+              'keyResultDesc': kr.description,
             });
           },
         );

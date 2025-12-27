@@ -25,5 +25,7 @@ abstract class OffboardingRepository {
   });
 
   Future<List<HandoverItem>> getHandover(
-      {required String offboardingId, required String category});
+      {required String offboardingId,
+      required String category,
+      required String userId});
 }

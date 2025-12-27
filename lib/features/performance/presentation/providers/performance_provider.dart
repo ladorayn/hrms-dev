@@ -7,8 +7,10 @@ import 'package:hrms_mobile/core/network/dio_provider.dart';
 import 'package:hrms_mobile/features/performance/data/data_sources/performance_remote_source.dart';
 import 'package:hrms_mobile/features/performance/data/models/request/assessment_answer_request.dart';
 import 'package:hrms_mobile/features/performance/data/models/request/assessment_form_request.dart';
+import 'package:hrms_mobile/features/performance/data/models/request/tracking_value_request.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_answer.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_list.dart';
+import 'package:hrms_mobile/features/performance/data/models/response/okr_graph.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/okr_list.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/supervisor_assessment.dart';
 import 'package:hrms_mobile/features/performance/data/repositories/performance_repository_impl.dart';
@@ -218,5 +220,58 @@ class OKRListR extends _$OKRListR {
   Future<List<OKRList>> build() async {
     final usecase = ref.watch(performanceUseCaseProvider);
     return await usecase.getOKRList();
+  }
+}
+
+@riverpod
+class OKRDetailR extends _$OKRDetailR {
+  @override
+  Future<OKRDetail> build({required dynamic okrId}) async {
+    final usecase = ref.watch(performanceUseCaseProvider);
+    return await usecase.getOKRDetail(okrId: okrId);
+  }
+}
+
+@riverpod
+class OKRTrackingR extends _$OKRTrackingR {
+  @override
+  Future<OKRTracking> build({required dynamic okrKeyResult}) async {
+    final usecase = ref.watch(performanceUseCaseProvider);
+    return await usecase.getOKRTracking(okrKeyResult: okrKeyResult);
+  }
+}
+
+@riverpod
+class SetTrackingValueP extends _$SetTrackingValueP {
+  @override
+  AsyncValue<dynamic> build() => const AsyncData(null);
+
+  Future<void> submitForm({
+    required List<TrackingValueRequest> request,
+    required id,
+  }) async {
+    state = const AsyncLoading();
+    final usecase = ref.watch(performanceUseCaseProvider);
+
+    try {
+      final response = await usecase.submitTrackingValue(request: request);
+      state = AsyncData(response);
+    } catch (e, s) {
+      state = AsyncError(e, s);
+      rethrow;
+    }
+  }
+
+  void reset() {
+    state = const AsyncData(null);
+  }
+}
+
+@riverpod
+class PerformanceGetGraphs extends _$PerformanceGetGraphs {
+  @override
+  Future<List<OKRGraphData>> build({required int id}) async {
+    final usecase = ref.watch(performanceUseCaseProvider);
+    return await usecase.getGraphLists(id: id);
   }
 }

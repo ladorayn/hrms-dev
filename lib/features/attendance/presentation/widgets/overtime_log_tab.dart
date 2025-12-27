@@ -120,26 +120,14 @@ class _OvertimeLogTabState extends ConsumerState<OvertimeLogTab> {
               exception.errors.map((key, value) => MapEntry(key, value.first));
           showCustomToast(context, displayErrors[displayErrors.keys.first]!,
               ToastType.error);
-          // ScaffoldMessenger.of(context).showSnackBar(
-          //   SnackBar(content: Text(displayErrors[displayErrors.keys.first]!)),
-          // );
         } else if (error is DioException) {
           showCustomToast(context, error.message ?? 'A network error occurred.',
               ToastType.error);
-          // ScaffoldMessenger.of(context).showSnackBar(
-          //   SnackBar(
-          //       content: Text(error.message ?? 'A network error occurred.')),
-          // );
         } else {
           showCustomToast(
               context,
               'An unexpected error occurred: ${error.toString()}',
               ToastType.error);
-          // ScaffoldMessenger.of(context).showSnackBar(
-          //   SnackBar(
-          //       content:
-          //           Text('An unexpected error occurred: ${error.toString()}')),
-          // );
         }
       },
     );

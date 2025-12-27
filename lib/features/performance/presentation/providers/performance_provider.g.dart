@@ -1056,5 +1056,461 @@ final oKRListRProvider =
 );
 
 typedef _$OKRListR = AutoDisposeAsyncNotifier<List<OKRList>>;
+String _$oKRDetailRHash() => r'd03c15adc28adda8eca6a150986071860fdb2f91';
+
+abstract class _$OKRDetailR
+    extends BuildlessAutoDisposeAsyncNotifier<OKRDetail> {
+  late final dynamic okrId;
+
+  FutureOr<OKRDetail> build({
+    required dynamic okrId,
+  });
+}
+
+/// See also [OKRDetailR].
+@ProviderFor(OKRDetailR)
+const oKRDetailRProvider = OKRDetailRFamily();
+
+/// See also [OKRDetailR].
+class OKRDetailRFamily extends Family<AsyncValue<OKRDetail>> {
+  /// See also [OKRDetailR].
+  const OKRDetailRFamily();
+
+  /// See also [OKRDetailR].
+  OKRDetailRProvider call({
+    required dynamic okrId,
+  }) {
+    return OKRDetailRProvider(
+      okrId: okrId,
+    );
+  }
+
+  @override
+  OKRDetailRProvider getProviderOverride(
+    covariant OKRDetailRProvider provider,
+  ) {
+    return call(
+      okrId: provider.okrId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'oKRDetailRProvider';
+}
+
+/// See also [OKRDetailR].
+class OKRDetailRProvider
+    extends AutoDisposeAsyncNotifierProviderImpl<OKRDetailR, OKRDetail> {
+  /// See also [OKRDetailR].
+  OKRDetailRProvider({
+    required dynamic okrId,
+  }) : this._internal(
+          () => OKRDetailR()..okrId = okrId,
+          from: oKRDetailRProvider,
+          name: r'oKRDetailRProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$oKRDetailRHash,
+          dependencies: OKRDetailRFamily._dependencies,
+          allTransitiveDependencies:
+              OKRDetailRFamily._allTransitiveDependencies,
+          okrId: okrId,
+        );
+
+  OKRDetailRProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.okrId,
+  }) : super.internal();
+
+  final dynamic okrId;
+
+  @override
+  FutureOr<OKRDetail> runNotifierBuild(
+    covariant OKRDetailR notifier,
+  ) {
+    return notifier.build(
+      okrId: okrId,
+    );
+  }
+
+  @override
+  Override overrideWith(OKRDetailR Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: OKRDetailRProvider._internal(
+        () => create()..okrId = okrId,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        okrId: okrId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeAsyncNotifierProviderElement<OKRDetailR, OKRDetail>
+      createElement() {
+    return _OKRDetailRProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is OKRDetailRProvider && other.okrId == okrId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, okrId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin OKRDetailRRef on AutoDisposeAsyncNotifierProviderRef<OKRDetail> {
+  /// The parameter `okrId` of this provider.
+  dynamic get okrId;
+}
+
+class _OKRDetailRProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<OKRDetailR, OKRDetail>
+    with OKRDetailRRef {
+  _OKRDetailRProviderElement(super.provider);
+
+  @override
+  dynamic get okrId => (origin as OKRDetailRProvider).okrId;
+}
+
+String _$oKRTrackingRHash() => r'590eaf49a91cdc1fc457ea2a1603e138112f0ee0';
+
+abstract class _$OKRTrackingR
+    extends BuildlessAutoDisposeAsyncNotifier<OKRTracking> {
+  late final dynamic okrKeyResult;
+
+  FutureOr<OKRTracking> build({
+    required dynamic okrKeyResult,
+  });
+}
+
+/// See also [OKRTrackingR].
+@ProviderFor(OKRTrackingR)
+const oKRTrackingRProvider = OKRTrackingRFamily();
+
+/// See also [OKRTrackingR].
+class OKRTrackingRFamily extends Family<AsyncValue<OKRTracking>> {
+  /// See also [OKRTrackingR].
+  const OKRTrackingRFamily();
+
+  /// See also [OKRTrackingR].
+  OKRTrackingRProvider call({
+    required dynamic okrKeyResult,
+  }) {
+    return OKRTrackingRProvider(
+      okrKeyResult: okrKeyResult,
+    );
+  }
+
+  @override
+  OKRTrackingRProvider getProviderOverride(
+    covariant OKRTrackingRProvider provider,
+  ) {
+    return call(
+      okrKeyResult: provider.okrKeyResult,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'oKRTrackingRProvider';
+}
+
+/// See also [OKRTrackingR].
+class OKRTrackingRProvider
+    extends AutoDisposeAsyncNotifierProviderImpl<OKRTrackingR, OKRTracking> {
+  /// See also [OKRTrackingR].
+  OKRTrackingRProvider({
+    required dynamic okrKeyResult,
+  }) : this._internal(
+          () => OKRTrackingR()..okrKeyResult = okrKeyResult,
+          from: oKRTrackingRProvider,
+          name: r'oKRTrackingRProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$oKRTrackingRHash,
+          dependencies: OKRTrackingRFamily._dependencies,
+          allTransitiveDependencies:
+              OKRTrackingRFamily._allTransitiveDependencies,
+          okrKeyResult: okrKeyResult,
+        );
+
+  OKRTrackingRProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.okrKeyResult,
+  }) : super.internal();
+
+  final dynamic okrKeyResult;
+
+  @override
+  FutureOr<OKRTracking> runNotifierBuild(
+    covariant OKRTrackingR notifier,
+  ) {
+    return notifier.build(
+      okrKeyResult: okrKeyResult,
+    );
+  }
+
+  @override
+  Override overrideWith(OKRTrackingR Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: OKRTrackingRProvider._internal(
+        () => create()..okrKeyResult = okrKeyResult,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        okrKeyResult: okrKeyResult,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeAsyncNotifierProviderElement<OKRTrackingR, OKRTracking>
+      createElement() {
+    return _OKRTrackingRProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is OKRTrackingRProvider && other.okrKeyResult == okrKeyResult;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, okrKeyResult.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin OKRTrackingRRef on AutoDisposeAsyncNotifierProviderRef<OKRTracking> {
+  /// The parameter `okrKeyResult` of this provider.
+  dynamic get okrKeyResult;
+}
+
+class _OKRTrackingRProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<OKRTrackingR, OKRTracking>
+    with OKRTrackingRRef {
+  _OKRTrackingRProviderElement(super.provider);
+
+  @override
+  dynamic get okrKeyResult => (origin as OKRTrackingRProvider).okrKeyResult;
+}
+
+String _$setTrackingValuePHash() => r'7adbc2e62c570de9cd6cf260716208533efdc8ab';
+
+/// See also [SetTrackingValueP].
+@ProviderFor(SetTrackingValueP)
+final setTrackingValuePProvider = AutoDisposeNotifierProvider<SetTrackingValueP,
+    AsyncValue<dynamic>>.internal(
+  SetTrackingValueP.new,
+  name: r'setTrackingValuePProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$setTrackingValuePHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$SetTrackingValueP = AutoDisposeNotifier<AsyncValue<dynamic>>;
+String _$performanceGetGraphsHash() =>
+    r'1b17fe8e6a36e5800be54eb6d885e4f3b7f35664';
+
+abstract class _$PerformanceGetGraphs
+    extends BuildlessAutoDisposeAsyncNotifier<List<OKRGraphData>> {
+  late final int id;
+
+  FutureOr<List<OKRGraphData>> build({
+    required int id,
+  });
+}
+
+/// See also [PerformanceGetGraphs].
+@ProviderFor(PerformanceGetGraphs)
+const performanceGetGraphsProvider = PerformanceGetGraphsFamily();
+
+/// See also [PerformanceGetGraphs].
+class PerformanceGetGraphsFamily
+    extends Family<AsyncValue<List<OKRGraphData>>> {
+  /// See also [PerformanceGetGraphs].
+  const PerformanceGetGraphsFamily();
+
+  /// See also [PerformanceGetGraphs].
+  PerformanceGetGraphsProvider call({
+    required int id,
+  }) {
+    return PerformanceGetGraphsProvider(
+      id: id,
+    );
+  }
+
+  @override
+  PerformanceGetGraphsProvider getProviderOverride(
+    covariant PerformanceGetGraphsProvider provider,
+  ) {
+    return call(
+      id: provider.id,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'performanceGetGraphsProvider';
+}
+
+/// See also [PerformanceGetGraphs].
+class PerformanceGetGraphsProvider extends AutoDisposeAsyncNotifierProviderImpl<
+    PerformanceGetGraphs, List<OKRGraphData>> {
+  /// See also [PerformanceGetGraphs].
+  PerformanceGetGraphsProvider({
+    required int id,
+  }) : this._internal(
+          () => PerformanceGetGraphs()..id = id,
+          from: performanceGetGraphsProvider,
+          name: r'performanceGetGraphsProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$performanceGetGraphsHash,
+          dependencies: PerformanceGetGraphsFamily._dependencies,
+          allTransitiveDependencies:
+              PerformanceGetGraphsFamily._allTransitiveDependencies,
+          id: id,
+        );
+
+  PerformanceGetGraphsProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.id,
+  }) : super.internal();
+
+  final int id;
+
+  @override
+  FutureOr<List<OKRGraphData>> runNotifierBuild(
+    covariant PerformanceGetGraphs notifier,
+  ) {
+    return notifier.build(
+      id: id,
+    );
+  }
+
+  @override
+  Override overrideWith(PerformanceGetGraphs Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: PerformanceGetGraphsProvider._internal(
+        () => create()..id = id,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        id: id,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeAsyncNotifierProviderElement<PerformanceGetGraphs,
+      List<OKRGraphData>> createElement() {
+    return _PerformanceGetGraphsProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is PerformanceGetGraphsProvider && other.id == id;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, id.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin PerformanceGetGraphsRef
+    on AutoDisposeAsyncNotifierProviderRef<List<OKRGraphData>> {
+  /// The parameter `id` of this provider.
+  int get id;
+}
+
+class _PerformanceGetGraphsProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<PerformanceGetGraphs,
+        List<OKRGraphData>> with PerformanceGetGraphsRef {
+  _PerformanceGetGraphsProviderElement(super.provider);
+
+  @override
+  int get id => (origin as PerformanceGetGraphsProvider).id;
+}
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -5,8 +5,10 @@ import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
+import 'package:hrms_mobile/core/util/datetime_utils.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/okr_list.dart';
+import 'package:hrms_mobile/features/performance/presentation/providers/performance_provider.dart';
 
 class OKRListScreen extends ConsumerWidget {
   final List<OKRList> okrs;
@@ -18,7 +20,13 @@ class OKRListScreen extends ConsumerWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      appBar: IAppBar(title: "My OKR"),
+      appBar: IAppBar(
+        title: "My OKR",
+        onBack: () {
+          ref.invalidate(oKRListRProvider);
+          context.pop();
+        },
+      ),
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -30,10 +38,10 @@ class OKRListScreen extends ConsumerWidget {
                   itemBuilder: (context, index) {
                     final item = okrs[index];
                     final title = item.period ?? 'N/A';
-                    final status = item.status ?? 'unknown';
 
-                    final statusLabel = item.status ?? status;
-                    final dueDate = item.dueDate;
+                    final statusLabel = item.statusLabel ?? '';
+                    final dueDate =
+                        DateTimeHelper.formatDateFromISO(item.endDate ?? '');
 
                     return GestureDetector(
                       onTap: () {

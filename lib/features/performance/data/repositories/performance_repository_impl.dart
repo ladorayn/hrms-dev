@@ -2,8 +2,10 @@ import 'package:hrms_mobile/core/data/models/form_fields_response.dart';
 import 'package:hrms_mobile/features/performance/data/data_sources/performance_remote_source.dart';
 import 'package:hrms_mobile/features/performance/data/models/request/assessment_answer_request.dart';
 import 'package:hrms_mobile/features/performance/data/models/request/assessment_form_request.dart';
+import 'package:hrms_mobile/features/performance/data/models/request/tracking_value_request.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_answer.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_list.dart';
+import 'package:hrms_mobile/features/performance/data/models/response/okr_graph.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/okr_list.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/supervisor_assessment.dart';
 import 'package:hrms_mobile/features/performance/domain/repositories/performance_repository.dart';
@@ -135,6 +137,52 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
   @override
   Future<List<OKRList>> getOKRList() async {
     final response = await remoteSource.getOKRList();
+
+    if (response.status == 'success') {
+      return response.data;
+    } else {
+      throw Exception('API Error: ${response.message}');
+    }
+  }
+
+  @override
+  Future<OKRDetail> getOKRDetail({required dynamic okrId}) async {
+    final response = await remoteSource.getOKRDetail(okrId: okrId);
+
+    if (response.status == 'success') {
+      return response.data;
+    } else {
+      throw Exception('API Error: ${response.message}');
+    }
+  }
+
+  @override
+  Future<OKRTracking> getOKRTracking({required dynamic okrKeyResult}) async {
+    final response =
+        await remoteSource.getOKRTracking(okrKeyResult: okrKeyResult);
+
+    if (response.status == 'success') {
+      return response.data;
+    } else {
+      throw Exception('API Error: ${response.message}');
+    }
+  }
+
+  @override
+  Future<List<SetTrackingValue>> submitTrackingValue(
+      {required List<TrackingValueRequest> request}) async {
+    final response = await remoteSource.submitTrackingValue(request: request);
+
+    if (response.status == 'success') {
+      return response.data;
+    } else {
+      throw Exception('API Error: ${response.message}');
+    }
+  }
+
+  @override
+  Future<List<OKRGraphData>> getGraphLists({required dynamic id}) async {
+    final response = await remoteSource.getGraphLists(id: id);
 
     if (response.status == 'success') {
       return response.data;

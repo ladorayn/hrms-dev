@@ -41,9 +41,12 @@ class OffboardingUsecases {
         request: request, offboardingId: offboardingId);
   }
 
-  Future<List<HandoverItem>> getHandover(
-      {required String offboardingId, required String category}) {
+  Future<List<HandoverItem>> getHandover({
+    required String offboardingId,
+    required String category,
+    required String userId,
+  }) {
     return repository.getHandover(
-        offboardingId: offboardingId, category: category);
+        offboardingId: offboardingId, category: category, userId: userId);
   }
 }

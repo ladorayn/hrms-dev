@@ -94,17 +94,17 @@ class ProfileScreen extends ConsumerWidget {
                                           ?.pushNamed(RoutePaths.payslipName);
                                     },
                                   ),
-                                  ProfileMenuItem(
-                                    icon: Icons.description_outlined,
-                                    title: 'Document',
-                                    onTap: () {},
-                                  ),
-                                  ProfileMenuItem(
-                                    icon: Icons.gavel_outlined,
-                                    title: 'Penalty',
-                                    onTap: () {},
-                                    showDivider: false,
-                                  ),
+                                  // ProfileMenuItem(
+                                  //   icon: Icons.description_outlined,
+                                  //   title: 'Document',
+                                  //   onTap: () {},
+                                  // ),
+                                  // ProfileMenuItem(
+                                  //   icon: Icons.gavel_outlined,
+                                  //   title: 'Penalty',
+                                  //   onTap: () {},
+                                  //   showDivider: false,
+                                  // ),
                                 ],
                               ),
                             ),

@@ -1,13 +1,19 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
+import 'package:hrms_mobile/core/errors/exceptions.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/core/widgets/i_footer_button.dart';
 import 'package:hrms_mobile/core/widgets/toastbar.dart';
+import 'package:hrms_mobile/features/performance/data/models/request/tracking_value_request.dart';
+import 'package:hrms_mobile/features/performance/data/models/response/okr_list.dart';
+import 'package:hrms_mobile/features/performance/presentation/providers/performance_provider.dart';
 import 'package:hrms_mobile/features/performance/presentation/widgets/okr/okr_card.dart';
 
 class KeyResultDataScreen extends ConsumerStatefulWidget {
+  final KeyResultDetail kr;
   final String objectiveTitle;
   final int memberCount;
   final int statusCode;
@@ -18,6 +24,7 @@ class KeyResultDataScreen extends ConsumerStatefulWidget {
 
   const KeyResultDataScreen({
     super.key,
+    required this.kr,
     required this.objectiveTitle,
     required this.memberCount,
     required this.statusCode,
@@ -33,96 +40,58 @@ class KeyResultDataScreen extends ConsumerStatefulWidget {
 
 class _KeyResultDataScreenState extends ConsumerState<KeyResultDataScreen> {
   final _formKey = GlobalKey<FormState>();
-  bool _isSaving = false;
-  final List<Map<String, dynamic>> _weeklyData = [
-    {
-      'weekLabel': 'Week 44',
-      'dateLabel': '26 Oct 2025',
-      'controller': TextEditingController()
-    },
-    {
-      'weekLabel': 'Week 45',
-      'dateLabel': '02 Nov 2025',
-      'controller': TextEditingController()
-    },
-    {
-      'weekLabel': 'Week 46',
-      'dateLabel': '09 Nov 2025',
-      'controller': TextEditingController()
-    },
-    {
-      'weekLabel': 'Week 47',
-      'dateLabel': '16 Nov 2025',
-      'controller': TextEditingController()
-    },
-    {
-      'weekLabel': 'Week 48',
-      'dateLabel': '23 Nov 2025',
-      'controller': TextEditingController()
-    },
-    {
-      'weekLabel': 'Week 40',
-      'dateLabel': '30 Nov 2025',
-      'controller': TextEditingController()
-    },
-    {
-      'weekLabel': 'Week 50',
-      'dateLabel': '07 Dec 2025',
-      'controller': TextEditingController()
-    },
-  ];
 
-  @override
-  void initState() {
-    super.initState();
-  }
+  final Map<int, TextEditingController> _controllers = {};
 
   @override
   void dispose() {
-    for (var data in _weeklyData) {
-      (data['controller'] as TextEditingController).dispose();
+    for (var controller in _controllers.values) {
+      controller.dispose();
     }
     super.dispose();
   }
 
   Future<void> _onSaveProgress() async {
     if (!_formKey.currentState!.validate()) {
+      showCustomToast(context, 'Please fill all required fields correctly.',
+          ToastType.info);
       return;
     }
 
-    setState(() {
-      _isSaving = true;
-    });
+    final List<TrackingValueRequest> requests =
+        _controllers.entries.map((entry) {
+      return TrackingValueRequest(
+        keyResultId: widget.kr.id,
+        trackingPeriodId: entry.key,
+        actualValue: int.tryParse(entry.value.text) ?? 0,
+      );
+    }).toList();
 
     try {
-      await Future.delayed(const Duration(seconds: 1));
+      await ref.read(setTrackingValuePProvider.notifier).submitForm(
+            request: requests,
+            id: widget.kr.id,
+          );
 
       if (mounted) {
-        // Example: Collect data
-        // final savedData = _weeklyData.map((e) => {
-        //   'week': e['weekLabel'],
-        //   'value': e['controller'].text
-        // }).toList();
         showCustomToast(
             context, 'Progress saved successfully!', ToastType.success);
-        // ScaffoldMessenger.of(context).showSnackBar(
-        //   const SnackBar(content: Text('Progress saved successfully!')),
-        // );
-        // context.pop(); // Navigate back after success
+        ref.invalidate(oKRTrackingRProvider(okrKeyResult: widget.kr.id));
       }
-    } catch (e) {
+    } catch (error) {
       if (mounted) {
-        showCustomToast(
-            context, 'Save Failed: ${e.toString()}', ToastType.error);
-        // ScaffoldMessenger.of(context).showSnackBar(
-        //   SnackBar(content: Text('Save Failed: ${e.toString()}')),
-        // );
-      }
-    } finally {
-      if (mounted) {
-        setState(() {
-          _isSaving = false;
-        });
+        if (error is ValidationException) {
+          final exception = error;
+          showCustomToast(context, exception.message, ToastType.error);
+        } else if (error is DioException) {
+          showCustomToast(context, error.message ?? 'A network error occurred.',
+              ToastType.error);
+        } else {
+          showCustomToast(
+              context,
+              'An unexpected error occurred: ${error.toString()}',
+              ToastType.error);
+        }
       }
     }
   }
@@ -172,15 +141,8 @@ class _KeyResultDataScreenState extends ConsumerState<KeyResultDataScreen> {
                         controller: controller,
                         keyboardType: TextInputType.number,
                         validator: (value) {
-                          if (value != null && value.isNotEmpty) {
-                            final number = int.tryParse(value);
-                            if (number == null) {
-                              return '';
-                            }
-                            if (number > targetValue) {
-                              return '';
-                            }
-                          }
+                          if (value == null || value.isEmpty) return 'Required';
+                          if (int.tryParse(value) == null) return 'Invalid';
                           return null;
                         },
                         decoration: const InputDecoration(
@@ -202,10 +164,7 @@ class _KeyResultDataScreenState extends ConsumerState<KeyResultDataScreen> {
               ),
             ],
           ),
-          Divider(
-            color: IColors.light.grayscale.g20,
-            height: 16.h,
-          ),
+          Divider(color: IColors.light.grayscale.g20, height: 16.h),
         ],
       ),
     );
@@ -213,60 +172,87 @@ class _KeyResultDataScreenState extends ConsumerState<KeyResultDataScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final trackingAsync =
+        ref.watch(oKRTrackingRProvider(okrKeyResult: widget.kr.id));
+
+    final submissionState = ref.watch(setTrackingValuePProvider);
+    final isSubmitting = submissionState is AsyncLoading;
+
     return Scaffold(
       appBar: IAppBar(title: "Key Result Data"),
-      resizeToAvoidBottomInset: true,
-      body: Column(
-        children: [
-          Expanded(
-            child: Form(
-              key: _formKey,
-              child: ListView(
-                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 24.h),
-                children: [
-                  Text(
-                    'OBJECTIVE',
-                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                          color: IColors.light.grayscale.g50,
-                          fontWeight: FontWeight.w600,
-                        ),
-                  ),
-                  SizedBox(height: 4.h),
-                  Text(
-                    widget.objectiveTitle,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: IColors.light.primary.main),
-                  ),
-                  SizedBox(height: 16.h),
-                  OKRCard(
-                    memberCount: widget.memberCount,
-                    statusCode: widget.statusCode,
-                    progress: widget.progress,
-                    desc: widget.keyResultDesc,
-                    onTap: () {},
-                  ),
-                  SizedBox(height: 16.h),
+      body: trackingAsync.when(
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (err, stack) => Center(child: Text('Error: $err')),
+        data: (tracking) {
+          // Initialize controllers for each period in the tracking table
+          for (var item in tracking.trackingTable ?? []) {
+            if (item.periodId != null &&
+                !_controllers.containsKey(item.periodId)) {
+              _controllers[item.periodId!] = TextEditingController(
+                text: item.actualValue?.toString() ?? '0',
+              );
+            }
+          }
 
-                  // Dynamic Weekly Progress Inputs
-                  ..._weeklyData
-                      .map((data) => _buildWeeklyInputRow(
-                            weekLabel: data['weekLabel'],
-                            dateLabel: data['dateLabel'],
-                            targetValue: widget.weeklyTarget,
-                            controller: data['controller'],
-                          ))
-                      .toList(),
-                ],
+          return Column(
+            children: [
+              Expanded(
+                child: Form(
+                  key: _formKey,
+                  child: ListView(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 16.w, vertical: 24.h),
+                    children: [
+                      _buildHeader(tracking),
+                      SizedBox(height: 16.h),
+                      ...(tracking.trackingTable ?? []).map((item) {
+                        return _buildWeeklyInputRow(
+                          weekLabel: item.label ?? '',
+                          dateLabel: "Target for this period",
+                          targetValue: item.targetValue ?? 0,
+                          controller: _controllers[item.periodId]!,
+                        );
+                      }).toList(),
+                    ],
+                  ),
+                ),
               ),
-            ),
-          ),
-          IFooterButton(
-            text: _isSaving ? "Saving..." : "Save",
-            onPressed: _isSaving ? null : _onSaveProgress,
-          ),
-        ],
+              IFooterButton(
+                text: isSubmitting ? "Saving..." : "Save",
+                onPressed: isSubmitting ? null : _onSaveProgress,
+              ),
+            ],
+          );
+        },
       ),
+    );
+  }
+
+  Widget _buildHeader(OKRTracking tracking) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('OBJECTIVE',
+            style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                color: IColors.light.grayscale.g50,
+                fontWeight: FontWeight.w600)),
+        SizedBox(height: 4.h),
+        Text(
+          widget.objectiveTitle,
+          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.bold, color: IColors.light.primary.main),
+        ),
+        SizedBox(height: 16.h),
+        OKRCard(
+          kr: widget.kr.copyWith(updatedAt: tracking.updatedAt),
+          // Pass the latest update time
+          memberCount: 1,
+          statusCode: tracking.status ?? 0,
+          progress: (tracking.progress ?? 0).toDouble(),
+          desc: tracking.title ?? '',
+          onTap: () {},
+        ),
+      ],
     );
   }
 }

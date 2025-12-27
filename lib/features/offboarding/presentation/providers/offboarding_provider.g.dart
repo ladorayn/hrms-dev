@@ -522,16 +522,18 @@ final handoverSubmissionProvider = AutoDisposeNotifierProvider<
 
 typedef _$HandoverSubmission = AutoDisposeNotifier<AsyncValue<dynamic>>;
 String _$offboardingGetHandoverHash() =>
-    r'faeb9dbaf40c27c005a2e81991b073b023ff27af';
+    r'bd280c62958724f3c08281c7985c8f794ad7fa0c';
 
 abstract class _$OffboardingGetHandover
     extends BuildlessAutoDisposeAsyncNotifier<List<HandoverItem>> {
   late final String offboardingId;
   late final String category;
+  late final String userId;
 
   FutureOr<List<HandoverItem>> build({
     required String offboardingId,
     required String category,
+    required String userId,
   });
 }
 
@@ -549,10 +551,12 @@ class OffboardingGetHandoverFamily
   OffboardingGetHandoverProvider call({
     required String offboardingId,
     required String category,
+    required String userId,
   }) {
     return OffboardingGetHandoverProvider(
       offboardingId: offboardingId,
       category: category,
+      userId: userId,
     );
   }
 
@@ -563,6 +567,7 @@ class OffboardingGetHandoverFamily
     return call(
       offboardingId: provider.offboardingId,
       category: provider.category,
+      userId: provider.userId,
     );
   }
 
@@ -589,10 +594,12 @@ class OffboardingGetHandoverProvider
   OffboardingGetHandoverProvider({
     required String offboardingId,
     required String category,
+    required String userId,
   }) : this._internal(
           () => OffboardingGetHandover()
             ..offboardingId = offboardingId
-            ..category = category,
+            ..category = category
+            ..userId = userId,
           from: offboardingGetHandoverProvider,
           name: r'offboardingGetHandoverProvider',
           debugGetCreateSourceHash:
@@ -604,6 +611,7 @@ class OffboardingGetHandoverProvider
               OffboardingGetHandoverFamily._allTransitiveDependencies,
           offboardingId: offboardingId,
           category: category,
+          userId: userId,
         );
 
   OffboardingGetHandoverProvider._internal(
@@ -615,10 +623,12 @@ class OffboardingGetHandoverProvider
     required super.from,
     required this.offboardingId,
     required this.category,
+    required this.userId,
   }) : super.internal();
 
   final String offboardingId;
   final String category;
+  final String userId;
 
   @override
   FutureOr<List<HandoverItem>> runNotifierBuild(
@@ -627,6 +637,7 @@ class OffboardingGetHandoverProvider
     return notifier.build(
       offboardingId: offboardingId,
       category: category,
+      userId: userId,
     );
   }
 
@@ -637,7 +648,8 @@ class OffboardingGetHandoverProvider
       override: OffboardingGetHandoverProvider._internal(
         () => create()
           ..offboardingId = offboardingId
-          ..category = category,
+          ..category = category
+          ..userId = userId,
         from: from,
         name: null,
         dependencies: null,
@@ -645,6 +657,7 @@ class OffboardingGetHandoverProvider
         debugGetCreateSourceHash: null,
         offboardingId: offboardingId,
         category: category,
+        userId: userId,
       ),
     );
   }
@@ -659,7 +672,8 @@ class OffboardingGetHandoverProvider
   bool operator ==(Object other) {
     return other is OffboardingGetHandoverProvider &&
         other.offboardingId == offboardingId &&
-        other.category == category;
+        other.category == category &&
+        other.userId == userId;
   }
 
   @override
@@ -667,6 +681,7 @@ class OffboardingGetHandoverProvider
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, offboardingId.hashCode);
     hash = _SystemHash.combine(hash, category.hashCode);
+    hash = _SystemHash.combine(hash, userId.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -681,6 +696,9 @@ mixin OffboardingGetHandoverRef
 
   /// The parameter `category` of this provider.
   String get category;
+
+  /// The parameter `userId` of this provider.
+  String get userId;
 }
 
 class _OffboardingGetHandoverProviderElement
@@ -693,6 +711,8 @@ class _OffboardingGetHandoverProviderElement
       (origin as OffboardingGetHandoverProvider).offboardingId;
   @override
   String get category => (origin as OffboardingGetHandoverProvider).category;
+  @override
+  String get userId => (origin as OffboardingGetHandoverProvider).userId;
 }
 
 String _$validateHandoverSubmissionHash() =>

@@ -1,8 +1,10 @@
 import 'package:hrms_mobile/core/data/models/form_fields_response.dart';
 import 'package:hrms_mobile/features/performance/data/models/request/assessment_answer_request.dart';
 import 'package:hrms_mobile/features/performance/data/models/request/assessment_form_request.dart';
+import 'package:hrms_mobile/features/performance/data/models/request/tracking_value_request.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_answer.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_list.dart';
+import 'package:hrms_mobile/features/performance/data/models/response/okr_graph.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/okr_list.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/supervisor_assessment.dart';
 import 'package:hrms_mobile/features/performance/domain/repositories/performance_repository.dart';
@@ -64,5 +66,22 @@ class PerformanceUsecases {
 
   Future<List<OKRList>> getOKRList() {
     return repository.getOKRList();
+  }
+
+  Future<OKRDetail> getOKRDetail({required dynamic okrId}) {
+    return repository.getOKRDetail(okrId: okrId);
+  }
+
+  Future<OKRTracking> getOKRTracking({required dynamic okrKeyResult}) {
+    return repository.getOKRTracking(okrKeyResult: okrKeyResult);
+  }
+
+  Future<List<SetTrackingValue>> submitTrackingValue(
+      {required List<TrackingValueRequest> request}) async {
+    return repository.submitTrackingValue(request: request);
+  }
+
+  Future<List<OKRGraphData>> getGraphLists({required dynamic id}) async {
+    return repository.getGraphLists(id: id);
   }
 }

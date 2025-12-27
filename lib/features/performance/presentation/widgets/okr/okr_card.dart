@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
+import 'package:hrms_mobile/core/util/datetime_utils.dart';
+import 'package:hrms_mobile/features/performance/data/models/response/okr_list.dart';
 
 class OKRCard extends StatelessWidget {
+  final KeyResultDetail? kr;
   final int memberCount;
   final int statusCode;
   final double progress;
@@ -11,6 +14,7 @@ class OKRCard extends StatelessWidget {
 
   const OKRCard({
     super.key,
+    this.kr,
     this.memberCount = 7,
     this.statusCode = 1,
     this.progress = 72,
@@ -27,22 +31,22 @@ class OKRCard extends StatelessWidget {
 
   Map<String, dynamic> _getStatusStyles() {
     switch (statusCode) {
-      case 2:
+      case 1:
         return {
-          'text': "On Track",
+          'text': kr?.statusLabel,
           'color': IColors.light.primary.main,
           'background': IColors.light.primary.background,
         };
-      case 3:
+      case 2:
         return {
-          'text': "Complete",
+          'text': kr?.statusLabel,
           'color': IColors.light.success.main,
           'background': IColors.light.success.background,
         };
-      case 1:
+      case 0:
       default:
         return {
-          'text': "Behind",
+          'text': kr?.statusLabel,
           'color': IColors.light.warning.main,
           'background': IColors.light.warning.background,
         };
@@ -176,7 +180,7 @@ class OKRCard extends StatelessWidget {
                     ),
                     SizedBox(height: 4.h),
                     Text(
-                      "updated 1h ago",
+                      DateTimeHelper.getTimeAgo(kr?.updatedAt),
                       style: textTheme.labelSmall?.copyWith(
                         color: IColors.light.grayscale.gNew,
                       ),
@@ -219,8 +223,7 @@ class OKRCard extends StatelessWidget {
               ],
             ),
             SizedBox(height: 12.h),
-            Text(
-                "Mengurangi waktu henti mesin per minggu hingga di bawah 2 jam"),
+            Text(kr?.title ?? '-'),
             SizedBox(height: 12.h),
             Row(
               children: [

@@ -55,6 +55,30 @@ class DateTimeHelper {
     }
   }
 
+  static String getTimeAgo(String? updatedAt) {
+    if (updatedAt == null) return "Updated just now";
+
+    try {
+      final DateTime updatedDate = DateTime.parse(updatedAt);
+      final DateTime now = DateTime.now();
+      final Duration diff = now.difference(updatedDate);
+
+      if (diff.isNegative) return "updated just now";
+
+      if (diff.inDays >= 1) {
+        return "updated ${diff.inDays}d ago";
+      } else if (diff.inHours >= 1) {
+        return "updated ${diff.inHours}h ago";
+      } else if (diff.inMinutes >= 1) {
+        return "updated ${diff.inMinutes}m ago";
+      } else {
+        return "updated just now";
+      }
+    } catch (e) {
+      return "updated just now";
+    }
+  }
+
   static TimeOfDay? parseTimeOfDay(String? time) {
     if (time == null || time.isEmpty) return null;
 

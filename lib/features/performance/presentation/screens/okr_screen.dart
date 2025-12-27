@@ -42,8 +42,8 @@ class OKRScreen extends ConsumerWidget {
             Expanded(
               child: TabBarView(
                 children: [
-                  OKRTab(),
-                  DashboardTab(),
+                  OKRTab(okrList: okr),
+                  DashboardTab(okrList: okr),
                 ],
               ),
             )

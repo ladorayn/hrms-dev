@@ -5,6 +5,7 @@ import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/core/widgets/text_field/base/i_text_field.dart';
 import 'package:hrms_mobile/core/widgets/toastbar.dart';
+import 'package:hrms_mobile/features/auth/presentation/providers/auth/auth_provider.dart';
 import 'package:hrms_mobile/features/offboarding/data/models/request/handover_validate_request.dart';
 import 'package:hrms_mobile/features/offboarding/data/models/response/offboarding_handover_response.dart';
 import 'package:hrms_mobile/features/offboarding/presentation/providers/offboarding_provider.dart';
@@ -36,10 +37,12 @@ class _DocumentHandoverValidateScreenState
 
   @override
   Widget build(BuildContext context) {
+    final authP = ref.watch(authProvider);
     final docHandoverAsync = ref.watch(
       offboardingGetHandoverProvider(
         offboardingId: widget.offboardingId,
         category: 'document',
+        userId: authP.value!.id.toString(),
       ),
     );
 

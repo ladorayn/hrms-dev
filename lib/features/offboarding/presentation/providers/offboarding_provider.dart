@@ -203,10 +203,12 @@ class HandoverSubmission extends _$HandoverSubmission {
 class OffboardingGetHandover extends _$OffboardingGetHandover {
   @override
   Future<List<HandoverItem>> build(
-      {required String offboardingId, required String category}) async {
+      {required String offboardingId,
+      required String category,
+      required String userId}) async {
     final usecase = ref.watch(offboardingUseCaseProvider);
     return await usecase.getHandover(
-        offboardingId: offboardingId, category: category);
+        offboardingId: offboardingId, category: category, userId: userId);
   }
 }
 

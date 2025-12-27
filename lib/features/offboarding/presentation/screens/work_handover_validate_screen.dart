@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
 import 'package:hrms_mobile/core/widgets/toastbar.dart';
+import 'package:hrms_mobile/features/auth/presentation/providers/auth/auth_provider.dart';
 import 'package:hrms_mobile/features/offboarding/data/models/request/handover_validate_request.dart';
 import 'package:hrms_mobile/features/offboarding/data/models/response/offboarding_handover_response.dart';
 import 'package:hrms_mobile/features/offboarding/presentation/providers/offboarding_provider.dart';
@@ -35,10 +36,12 @@ class _WorkHandoverValidateScreenState
 
   @override
   Widget build(BuildContext context) {
+    final authP = ref.watch(authProvider);
     final workHandoverAsync = ref.watch(
       offboardingGetHandoverProvider(
         offboardingId: widget.offboardingId,
         category: 'work',
+        userId: authP.value!.id.toString(),
       ),
     );
 
