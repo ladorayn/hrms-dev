@@ -1,4 +1,4 @@
-name: Flutter CI - Build & Release APK (Safe Build)
+name: Flutter CI - Build & Firebase Release
 
 on:
   push:
@@ -6,44 +6,30 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write  # required to create releases
+  contents: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout code
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2️⃣ Setup Flutter
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.29.0'
           channel: stable
 
-      # 3️⃣ Cache pub dependencies for faster builds
-      - name: Cache Flutter dependencies
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.pub-cache
-            ${{ github.workspace }}/.dart_tool
-          key: ${{ runner.os }}-flutter-${{ hashFiles('pubspec.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-flutter-
+      # Step 3 (Cache) is removed to avoid hitting your 500MB quota
 
-      # 4️⃣ Clean project to avoid asset/UI cache issues
       - name: Flutter clean
         run: flutter clean
 
-      # 5️⃣ Install dependencies
       - name: Install dependencies
         run: flutter pub get
 
-      # 6️⃣ Extract version info
       - name: Prepare version info
         id: version
         run: |
@@ -59,7 +45,6 @@ jobs:
           echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
           echo "RELEASE_NAME=$RELEASE_NAME" >> $GITHUB_ENV
 
-      # 7️⃣ Build release APK safely
       - name: Build release APK
         run: |
           flutter build apk --release \
@@ -68,37 +53,38 @@ jobs:
             --build-name $VERSION_NAME \
             --build-number $VERSION_CODE
 
-      # 8️⃣ Rename APK file uniquely
       - name: Rename APK
         run: |
           mkdir -p build/artifacts
           cp build/app/outputs/flutter-apk/app-release.apk \
-            build/artifacts/app-release-${VERSION_NAME}+${VERSION_CODE}-${DATE}.apk
-          echo "APK_PATH=build/artifacts/app-release-${VERSION_NAME}+${VERSION_CODE}-${DATE}.apk" >> $GITHUB_ENV
+            build/artifacts/app-release.apk
+          echo "APK_PATH=build/artifacts/app-release.apk" >> $GITHUB_ENV
 
-      # 9️⃣ Upload as artifact (for quick download)
-      - name: Upload APK artifact
-        uses: actions/upload-artifact@v4
+      # Step 9 (Upload-Artifact) is removed to stop the storage quota error
+
+      - name: Upload to Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
-          name: app-release-${{ env.VERSION_NAME }}+${{ env.VERSION_CODE }}
-          path: ${{ env.APK_PATH }}
+          appId: ${{ secrets.FIREBASE_APP_ID }}
+          serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_CREDENTIALS }}
+          groups: testers
+          file: ${{ env.APK_PATH }}
 
-      # 🔟 Create GitHub Release and attach APK
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.TAG_NAME }}
           name: ${{ env.RELEASE_NAME }}
           body: |
-            🚀 **Automated Build from CI**
+            🚀 **New Build Successful!**
+            
+            🔔 **Hey @JuicyBurger** — Your new APK is ready!
+            
+            📦 **Download Links:**
+            * **Direct Download:** [Click here to download the APK](${{ github.server_url }}/${{ github.repository }}/releases/download/${{ env.TAG_NAME }}/app-release.apk)
+            * **Firebase:** Also available via your Firebase Tester email.
+            
+            🛠 **Version Info:**
             - Version: `${{ env.VERSION_NAME }}+${{ env.VERSION_CODE }}`
             - Date: `${{ env.DATE }}`
-            - Triggered by: `${{ github.actor }}`
-
-            🧱 **Important Notes**
-            - Please uninstall the old version before installing this APK.
-            - Built with `--no-shrink` and `--no-tree-shake-icons` to prevent UI or icon issues.
-            - Each build is clean-compiled for reliable testing.
-
-            🔔 **Build successful!** Notifying @JuicyBurger
           files: ${{ env.APK_PATH }}
