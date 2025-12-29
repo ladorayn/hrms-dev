@@ -286,8 +286,8 @@ _$TrackingTableImpl _$$TrackingTableImplFromJson(Map<String, dynamic> json) =>
     _$TrackingTableImpl(
       periodId: (json['period_id'] as num?)?.toInt(),
       label: json['label'] as String?,
-      actualValue: (json['actual_value'] as num?)?.toInt(),
-      targetValue: (json['target_value'] as num?)?.toInt(),
+      actualValue: json['actual_value'] as String?,
+      targetValue: json['target_value'] as String?,
     );
 
 Map<String, dynamic> _$$TrackingTableImplToJson(_$TrackingTableImpl instance) =>
@@ -333,8 +333,8 @@ _$SetTrackingValueImpl _$$SetTrackingValueImplFromJson(
       periodStart: json['period_start'] as String?,
       periodEnd: json['period_end'] as String?,
       label: json['label'] as String?,
-      actualValue: (json['actual_value'] as num?)?.toInt(),
-      targetValue: (json['target_value'] as num?)?.toInt(),
+      actualValue: json['actual_value'] as String?,
+      targetValue: json['target_value'] as String?,
       createdAt: json['created_at'] as String?,
       updatedAt: json['updated_at'] as String?,
     );

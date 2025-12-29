@@ -171,8 +171,8 @@ class TrackingTable with _$TrackingTable {
   const factory TrackingTable({
     @JsonKey(name: 'period_id') int? periodId,
     String? label,
-    @JsonKey(name: 'actual_value') int? actualValue,
-    @JsonKey(name: 'target_value') int? targetValue,
+    @JsonKey(name: 'actual_value') String? actualValue,
+    @JsonKey(name: 'target_value') String? targetValue,
   }) = _TrackingTable;
 
   factory TrackingTable.fromJson(Map<String, dynamic> json) =>
@@ -212,8 +212,8 @@ class SetTrackingValue with _$SetTrackingValue {
     @JsonKey(name: 'period_start') String? periodStart,
     @JsonKey(name: 'period_end') String? periodEnd,
     String? label,
-    @JsonKey(name: 'actual_value') int? actualValue,
-    @JsonKey(name: 'target_value') int? targetValue,
+    @JsonKey(name: 'actual_value') String? actualValue,
+    @JsonKey(name: 'target_value') String? targetValue,
     @JsonKey(name: 'created_at') String? createdAt,
     @JsonKey(name: 'updated_at') String? updatedAt,
   }) = _SetTrackingValue;

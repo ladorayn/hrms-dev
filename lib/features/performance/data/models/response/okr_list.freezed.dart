@@ -3405,9 +3405,9 @@ mixin _$TrackingTable {
   int? get periodId => throw _privateConstructorUsedError;
   String? get label => throw _privateConstructorUsedError;
   @JsonKey(name: 'actual_value')
-  int? get actualValue => throw _privateConstructorUsedError;
+  String? get actualValue => throw _privateConstructorUsedError;
   @JsonKey(name: 'target_value')
-  int? get targetValue => throw _privateConstructorUsedError;
+  String? get targetValue => throw _privateConstructorUsedError;
 
   /// Serializes this TrackingTable to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -3428,8 +3428,8 @@ abstract class $TrackingTableCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'period_id') int? periodId,
       String? label,
-      @JsonKey(name: 'actual_value') int? actualValue,
-      @JsonKey(name: 'target_value') int? targetValue});
+      @JsonKey(name: 'actual_value') String? actualValue,
+      @JsonKey(name: 'target_value') String? targetValue});
 }
 
 /// @nodoc
@@ -3464,11 +3464,11 @@ class _$TrackingTableCopyWithImpl<$Res, $Val extends TrackingTable>
       actualValue: freezed == actualValue
           ? _value.actualValue
           : actualValue // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       targetValue: freezed == targetValue
           ? _value.targetValue
           : targetValue // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
     ) as $Val);
   }
 }
@@ -3484,8 +3484,8 @@ abstract class _$$TrackingTableImplCopyWith<$Res>
   $Res call(
       {@JsonKey(name: 'period_id') int? periodId,
       String? label,
-      @JsonKey(name: 'actual_value') int? actualValue,
-      @JsonKey(name: 'target_value') int? targetValue});
+      @JsonKey(name: 'actual_value') String? actualValue,
+      @JsonKey(name: 'target_value') String? targetValue});
 }
 
 /// @nodoc
@@ -3518,11 +3518,11 @@ class __$$TrackingTableImplCopyWithImpl<$Res>
       actualValue: freezed == actualValue
           ? _value.actualValue
           : actualValue // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       targetValue: freezed == targetValue
           ? _value.targetValue
           : targetValue // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
     ));
   }
 }
@@ -3546,10 +3546,10 @@ class _$TrackingTableImpl implements _TrackingTable {
   final String? label;
   @override
   @JsonKey(name: 'actual_value')
-  final int? actualValue;
+  final String? actualValue;
   @override
   @JsonKey(name: 'target_value')
-  final int? targetValue;
+  final String? targetValue;
 
   @override
   String toString() {
@@ -3595,8 +3595,8 @@ abstract class _TrackingTable implements TrackingTable {
   const factory _TrackingTable(
           {@JsonKey(name: 'period_id') final int? periodId,
           final String? label,
-          @JsonKey(name: 'actual_value') final int? actualValue,
-          @JsonKey(name: 'target_value') final int? targetValue}) =
+          @JsonKey(name: 'actual_value') final String? actualValue,
+          @JsonKey(name: 'target_value') final String? targetValue}) =
       _$TrackingTableImpl;
 
   factory _TrackingTable.fromJson(Map<String, dynamic> json) =
@@ -3609,10 +3609,10 @@ abstract class _TrackingTable implements TrackingTable {
   String? get label;
   @override
   @JsonKey(name: 'actual_value')
-  int? get actualValue;
+  String? get actualValue;
   @override
   @JsonKey(name: 'target_value')
-  int? get targetValue;
+  String? get targetValue;
 
   /// Create a copy of TrackingTable
   /// with the given fields replaced by the non-null parameter values.
@@ -3972,9 +3972,9 @@ mixin _$SetTrackingValue {
   String? get periodEnd => throw _privateConstructorUsedError;
   String? get label => throw _privateConstructorUsedError;
   @JsonKey(name: 'actual_value')
-  int? get actualValue => throw _privateConstructorUsedError;
+  String? get actualValue => throw _privateConstructorUsedError;
   @JsonKey(name: 'target_value')
-  int? get targetValue => throw _privateConstructorUsedError;
+  String? get targetValue => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
   String? get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'updated_at')
@@ -4005,8 +4005,8 @@ abstract class $SetTrackingValueCopyWith<$Res> {
       @JsonKey(name: 'period_start') String? periodStart,
       @JsonKey(name: 'period_end') String? periodEnd,
       String? label,
-      @JsonKey(name: 'actual_value') int? actualValue,
-      @JsonKey(name: 'target_value') int? targetValue,
+      @JsonKey(name: 'actual_value') String? actualValue,
+      @JsonKey(name: 'target_value') String? targetValue,
       @JsonKey(name: 'created_at') String? createdAt,
       @JsonKey(name: 'updated_at') String? updatedAt});
 }
@@ -4075,11 +4075,11 @@ class _$SetTrackingValueCopyWithImpl<$Res, $Val extends SetTrackingValue>
       actualValue: freezed == actualValue
           ? _value.actualValue
           : actualValue // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       targetValue: freezed == targetValue
           ? _value.targetValue
           : targetValue // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -4109,8 +4109,8 @@ abstract class _$$SetTrackingValueImplCopyWith<$Res>
       @JsonKey(name: 'period_start') String? periodStart,
       @JsonKey(name: 'period_end') String? periodEnd,
       String? label,
-      @JsonKey(name: 'actual_value') int? actualValue,
-      @JsonKey(name: 'target_value') int? targetValue,
+      @JsonKey(name: 'actual_value') String? actualValue,
+      @JsonKey(name: 'target_value') String? targetValue,
       @JsonKey(name: 'created_at') String? createdAt,
       @JsonKey(name: 'updated_at') String? updatedAt});
 }
@@ -4177,11 +4177,11 @@ class __$$SetTrackingValueImplCopyWithImpl<$Res>
       actualValue: freezed == actualValue
           ? _value.actualValue
           : actualValue // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       targetValue: freezed == targetValue
           ? _value.targetValue
           : targetValue // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -4237,10 +4237,10 @@ class _$SetTrackingValueImpl implements _SetTrackingValue {
   final String? label;
   @override
   @JsonKey(name: 'actual_value')
-  final int? actualValue;
+  final String? actualValue;
   @override
   @JsonKey(name: 'target_value')
-  final int? targetValue;
+  final String? targetValue;
   @override
   @JsonKey(name: 'created_at')
   final String? createdAt;
@@ -4326,8 +4326,8 @@ abstract class _SetTrackingValue implements SetTrackingValue {
           @JsonKey(name: 'period_start') final String? periodStart,
           @JsonKey(name: 'period_end') final String? periodEnd,
           final String? label,
-          @JsonKey(name: 'actual_value') final int? actualValue,
-          @JsonKey(name: 'target_value') final int? targetValue,
+          @JsonKey(name: 'actual_value') final String? actualValue,
+          @JsonKey(name: 'target_value') final String? targetValue,
           @JsonKey(name: 'created_at') final String? createdAt,
           @JsonKey(name: 'updated_at') final String? updatedAt}) =
       _$SetTrackingValueImpl;
@@ -4358,10 +4358,10 @@ abstract class _SetTrackingValue implements SetTrackingValue {
   String? get label;
   @override
   @JsonKey(name: 'actual_value')
-  int? get actualValue;
+  String? get actualValue;
   @override
   @JsonKey(name: 'target_value')
-  int? get targetValue;
+  String? get targetValue;
   @override
   @JsonKey(name: 'created_at')
   String? get createdAt;

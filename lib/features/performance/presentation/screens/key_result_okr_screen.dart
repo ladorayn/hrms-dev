@@ -99,7 +99,7 @@ class _KeyResultDataScreenState extends ConsumerState<KeyResultDataScreen> {
   Widget _buildWeeklyInputRow({
     required String weekLabel,
     required String dateLabel,
-    required int targetValue,
+    required String targetValue,
     required TextEditingController controller,
   }) {
     final textTheme = Theme.of(context).textTheme;
@@ -142,7 +142,6 @@ class _KeyResultDataScreenState extends ConsumerState<KeyResultDataScreen> {
                         keyboardType: TextInputType.number,
                         validator: (value) {
                           if (value == null || value.isEmpty) return 'Required';
-                          if (int.tryParse(value) == null) return 'Invalid';
                           return null;
                         },
                         decoration: const InputDecoration(
@@ -209,7 +208,7 @@ class _KeyResultDataScreenState extends ConsumerState<KeyResultDataScreen> {
                         return _buildWeeklyInputRow(
                           weekLabel: item.label ?? '',
                           dateLabel: "Target for this period",
-                          targetValue: item.targetValue ?? 0,
+                          targetValue: item.targetValue ?? "",
                           controller: _controllers[item.periodId]!,
                         );
                       }).toList(),
