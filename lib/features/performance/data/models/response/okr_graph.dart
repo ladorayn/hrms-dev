@@ -35,7 +35,7 @@ class KeyResultGraphDetail with _$KeyResultGraphDetail {
     @JsonKey(name: 'average_actual_value') double? averageActualValue,
     @JsonKey(name: 'average_target_value') double? averageTargetValue,
     @JsonKey(name: 'target_value') double? targetValue,
-    List<double>? data,
+    List<String>? data,
     List<String>? labels,
   }) = _KeyResultGraphDetail;
 

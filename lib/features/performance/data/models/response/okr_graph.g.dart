@@ -45,9 +45,7 @@ _$KeyResultGraphDetailImpl _$$KeyResultGraphDetailImplFromJson(
       averageActualValue: (json['average_actual_value'] as num?)?.toDouble(),
       averageTargetValue: (json['average_target_value'] as num?)?.toDouble(),
       targetValue: (json['target_value'] as num?)?.toDouble(),
-      data: (json['data'] as List<dynamic>?)
-          ?.map((e) => (e as num).toDouble())
-          .toList(),
+      data: (json['data'] as List<dynamic>?)?.map((e) => e as String).toList(),
       labels:
           (json['labels'] as List<dynamic>?)?.map((e) => e as String).toList(),
     );

@@ -3,13 +3,24 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
+import 'package:hrms_mobile/features/attendance/presentation/providers/attendance_provider.dart';
 import 'package:hrms_mobile/features/profile/presentation/widgets/statistics_item.dart';
+import 'package:intl/intl.dart';
 
 class StatisticsCard extends ConsumerWidget {
   const StatisticsCard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    String _selectedPeriod = DateFormat('yyyy-MM').format(DateTime.now());
+
+    DateTime displayDate = DateFormat('yyyy-MM').parse(_selectedPeriod);
+
+    String formattedDisplayDate = DateFormat('MMMM yyyy').format(displayDate);
+
+    final attendanceStatsState = ref.watch(attendanceStatsProvider(
+      period: _selectedPeriod,
+    ));
     return Container(
       decoration: BoxDecoration(
         color: IColors.light.primary.focused,
@@ -30,7 +41,7 @@ class StatisticsCard extends ConsumerWidget {
           child: Column(
             children: [
               Text(
-                'August 2025',
+                formattedDisplayDate,
                 style: TextStyle(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
@@ -42,7 +53,7 @@ class StatisticsCard extends ConsumerWidget {
                 children: [
                   StatisticsItem(
                       iconAsset: IAssets.attendanceClock,
-                      value: '20',
+                      value: attendanceStatsState.value!.attended.toString(),
                       label: 'Days',
                       description: 'Attendance'),
                   Container(
@@ -52,7 +63,8 @@ class StatisticsCard extends ConsumerWidget {
                   ),
                   StatisticsItem(
                       iconAsset: IAssets.timeOff,
-                      value: '2/15',
+                      value:
+                          '${attendanceStatsState.value?.dayOff.used}/${attendanceStatsState.value?.dayOff.quota}',
                       label: 'Days',
                       description: 'Time Off'),
                   Container(
@@ -62,7 +74,7 @@ class StatisticsCard extends ConsumerWidget {
                   ),
                   StatisticsItem(
                       iconAsset: IAssets.overtimeClock,
-                      value: '62',
+                      value: '${attendanceStatsState.value?.overtime}',
                       label: 'Hours',
                       description: 'Overtime'),
                 ],

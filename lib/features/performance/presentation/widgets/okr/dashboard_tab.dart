@@ -69,9 +69,13 @@ class _DashboardTabState extends ConsumerState<DashboardTab> {
             ? "${kr.labels!.first} - ${kr.labels!.last}"
             : "No date range";
 
+        List<double> chartData =
+            kr.data?.map((value) => double.tryParse(value) ?? 0.0).toList() ??
+                [];
+
         final series = buildSeriesByFrequency(
           frequency: kr.frequency ?? 4,
-          data: kr.data ?? [],
+          data: chartData,
           labels: kr.labels ?? [],
           target: kr.averageTargetValue ?? 0,
         );

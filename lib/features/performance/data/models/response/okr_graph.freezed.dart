@@ -315,7 +315,7 @@ mixin _$KeyResultGraphDetail {
   double? get averageTargetValue => throw _privateConstructorUsedError;
   @JsonKey(name: 'target_value')
   double? get targetValue => throw _privateConstructorUsedError;
-  List<double>? get data => throw _privateConstructorUsedError;
+  List<String>? get data => throw _privateConstructorUsedError;
   List<String>? get labels => throw _privateConstructorUsedError;
 
   /// Serializes this KeyResultGraphDetail to a JSON map.
@@ -349,7 +349,7 @@ abstract class $KeyResultGraphDetailCopyWith<$Res> {
       @JsonKey(name: 'average_actual_value') double? averageActualValue,
       @JsonKey(name: 'average_target_value') double? averageTargetValue,
       @JsonKey(name: 'target_value') double? targetValue,
-      List<double>? data,
+      List<String>? data,
       List<String>? labels});
 }
 
@@ -446,7 +446,7 @@ class _$KeyResultGraphDetailCopyWithImpl<$Res,
       data: freezed == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
-              as List<double>?,
+              as List<String>?,
       labels: freezed == labels
           ? _value.labels
           : labels // ignore: cast_nullable_to_non_nullable
@@ -478,7 +478,7 @@ abstract class _$$KeyResultGraphDetailImplCopyWith<$Res>
       @JsonKey(name: 'average_actual_value') double? averageActualValue,
       @JsonKey(name: 'average_target_value') double? averageTargetValue,
       @JsonKey(name: 'target_value') double? targetValue,
-      List<double>? data,
+      List<String>? data,
       List<String>? labels});
 }
 
@@ -572,7 +572,7 @@ class __$$KeyResultGraphDetailImplCopyWithImpl<$Res>
       data: freezed == data
           ? _value._data
           : data // ignore: cast_nullable_to_non_nullable
-              as List<double>?,
+              as List<String>?,
       labels: freezed == labels
           ? _value._labels
           : labels // ignore: cast_nullable_to_non_nullable
@@ -599,7 +599,7 @@ class _$KeyResultGraphDetailImpl implements _KeyResultGraphDetail {
       @JsonKey(name: 'average_actual_value') this.averageActualValue,
       @JsonKey(name: 'average_target_value') this.averageTargetValue,
       @JsonKey(name: 'target_value') this.targetValue,
-      final List<double>? data,
+      final List<String>? data,
       final List<String>? labels})
       : _data = data,
         _labels = labels;
@@ -642,9 +642,9 @@ class _$KeyResultGraphDetailImpl implements _KeyResultGraphDetail {
   @override
   @JsonKey(name: 'target_value')
   final double? targetValue;
-  final List<double>? _data;
+  final List<String>? _data;
   @override
-  List<double>? get data {
+  List<String>? get data {
     final value = _data;
     if (value == null) return null;
     if (_data is EqualUnmodifiableListView) return _data;
@@ -755,7 +755,7 @@ abstract class _KeyResultGraphDetail implements KeyResultGraphDetail {
       @JsonKey(name: 'average_actual_value') final double? averageActualValue,
       @JsonKey(name: 'average_target_value') final double? averageTargetValue,
       @JsonKey(name: 'target_value') final double? targetValue,
-      final List<double>? data,
+      final List<String>? data,
       final List<String>? labels}) = _$KeyResultGraphDetailImpl;
 
   factory _KeyResultGraphDetail.fromJson(Map<String, dynamic> json) =
@@ -797,7 +797,7 @@ abstract class _KeyResultGraphDetail implements KeyResultGraphDetail {
   @JsonKey(name: 'target_value')
   double? get targetValue;
   @override
-  List<double>? get data;
+  List<String>? get data;
   @override
   List<String>? get labels;
 
