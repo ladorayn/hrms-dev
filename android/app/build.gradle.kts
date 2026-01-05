@@ -1,45 +1,59 @@
 plugins {
     id("com.android.application")
-    // START: FlutterFire Configuration
     id("com.google.gms.google-services")
-    // END: FlutterFire Configuration
     id("kotlin-android")
-    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
 }
 
-// Add this import statement at the top
 import org.gradle.api.JavaVersion
+        import java.util.Properties
 
-        android {
-            namespace = "com.okjob.hrms.hrms_mobile"
-            compileSdk = flutter.compileSdkVersion
-            ndkVersion = "27.0.12077973"
+val keystoreProperties = Properties()
+val keystorePropertiesFile = rootProject.file("key.properties")
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(keystorePropertiesFile.inputStream())
+}
 
-            compileOptions {
-                isCoreLibraryDesugaringEnabled = true
-                sourceCompatibility = JavaVersion.VERSION_1_8
-                targetCompatibility = JavaVersion.VERSION_1_8
-            }
+android {
+    namespace = "com.okjob.hrms.hrms_mobile"
+    compileSdk = flutter.compileSdkVersion
+    ndkVersion = "27.0.12077973"
 
-            kotlinOptions {
-                jvmTarget = JavaVersion.VERSION_1_8.toString()
-            }
+    compileOptions {
+        isCoreLibraryDesugaringEnabled = true
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
 
-            defaultConfig {
-                applicationId = "com.okjob.hrms.hrms_mobile"
-                minSdk = 23
-                targetSdk = flutter.targetSdkVersion
-                versionCode = flutter.versionCode
-                versionName = flutter.versionName
-            }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
 
-            buildTypes {
-                release {
-                    signingConfig = signingConfigs.getByName("debug")
-                }
-            }
+    signingConfigs {
+        create("release") {
+            keyAlias = keystoreProperties["keyAlias"] as String?
+            keyPassword = keystoreProperties["keyPassword"] as String?
+            storeFile = keystoreProperties["storeFile"]?.let { file(it) }
+            storePassword = keystoreProperties["storePassword"] as String?
         }
+    }
+
+    defaultConfig {
+        applicationId = "com.okjob.hrms.hrms_mobile"
+        minSdk = 23
+        targetSdk = flutter.targetSdkVersion
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
+    }
+
+    buildTypes {
+        release {
+            signingConfig = signingConfigs.getByName("release")
+            isMinifyEnabled = false
+            isShrinkResources = false
+        }
+    }
+}
 
 flutter {
     source = "../.."

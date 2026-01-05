@@ -151,7 +151,7 @@ class DashboardScreen extends ConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text(
-                          companyP.value?.name ?? '-',
+                          authP.value?.branch?.name ?? '-',
                           style: const TextStyle(color: Colors.white),
                         ),
                         const SizedBox(height: 8),

@@ -39,3 +39,16 @@ Map<String, dynamic> _$$EmploymentImplToJson(_$EmploymentImpl instance) =>
       'job_level': instance.jobLevel,
       'job_position': instance.jobPosition,
     };
+
+_$BranchImpl _$$BranchImplFromJson(Map<String, dynamic> json) => _$BranchImpl(
+      id: (json['id'] as num).toInt(),
+      name: json['name'] as String?,
+      address: json['address'] as String?,
+    );
+
+Map<String, dynamic> _$$BranchImplToJson(_$BranchImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'address': instance.address,
+    };

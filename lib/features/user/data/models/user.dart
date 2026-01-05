@@ -22,6 +22,7 @@ class UserProfileResponse with _$UserProfileResponse {
     @JsonKey(name: 'employee_profile') EmployeeProfile? employeeProfile,
     @JsonKey(name: 'faces') List<FaceData>? faces,
     Employment? employment,
+    Branch? branch,
   }) = _UserProfileResponse;
 
   factory UserProfileResponse.fromJson(Map<String, dynamic> json) =>

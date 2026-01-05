@@ -40,6 +40,7 @@ class OKRListScreen extends ConsumerWidget {
                     final title = item.period ?? 'N/A';
 
                     final statusLabel = item.statusLabel ?? '';
+                    final status = item.status;
                     final dueDate =
                         DateTimeHelper.formatDateFromISO(item.endDate ?? '');
 
@@ -67,7 +68,7 @@ class OKRListScreen extends ConsumerWidget {
                               style: textTheme.bodyLarge
                                   ?.copyWith(fontWeight: FontWeight.w500),
                             ),
-                            _buildStatusChip(context, statusLabel),
+                            _buildStatusChip(context, status ?? 0, statusLabel),
                             if (dueDate != null && dueDate.isNotEmpty)
                               _buildDueDateLabel(context, dueDate),
                           ],
@@ -96,11 +97,11 @@ class OKRListScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildStatusChip(BuildContext context, String statusLabel) {
+  Widget _buildStatusChip(
+      BuildContext context, int status, String statusLabel) {
     final textTheme = Theme.of(context).textTheme;
-    final bool isComplete = statusLabel.toLowerCase() == 'completed' ||
-        statusLabel.toLowerCase() == 'validated';
-    final bool isNotStarted = statusLabel.toLowerCase() == 'not started';
+    final bool isComplete = status == 1 || status == 2;
+    final bool archived = status == 3;
 
     Color color;
     Color bgColor;
@@ -108,7 +109,7 @@ class OKRListScreen extends ConsumerWidget {
     if (isComplete) {
       color = IColors.light.success.main;
       bgColor = IColors.light.success.background;
-    } else if (isNotStarted) {
+    } else if (archived) {
       color = IColors.light.grayscale.g60;
       bgColor = IColors.light.grayscale.g10;
     } else {

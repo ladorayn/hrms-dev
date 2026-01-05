@@ -440,3 +440,183 @@ abstract class _Employment implements Employment {
   _$$EmploymentImplCopyWith<_$EmploymentImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+Branch _$BranchFromJson(Map<String, dynamic> json) {
+  return _Branch.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Branch {
+  int get id => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
+  String? get address => throw _privateConstructorUsedError;
+
+  /// Serializes this Branch to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of Branch
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $BranchCopyWith<Branch> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $BranchCopyWith<$Res> {
+  factory $BranchCopyWith(Branch value, $Res Function(Branch) then) =
+      _$BranchCopyWithImpl<$Res, Branch>;
+  @useResult
+  $Res call({int id, String? name, String? address});
+}
+
+/// @nodoc
+class _$BranchCopyWithImpl<$Res, $Val extends Branch>
+    implements $BranchCopyWith<$Res> {
+  _$BranchCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of Branch
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? name = freezed,
+    Object? address = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      address: freezed == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$BranchImplCopyWith<$Res> implements $BranchCopyWith<$Res> {
+  factory _$$BranchImplCopyWith(
+          _$BranchImpl value, $Res Function(_$BranchImpl) then) =
+      __$$BranchImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({int id, String? name, String? address});
+}
+
+/// @nodoc
+class __$$BranchImplCopyWithImpl<$Res>
+    extends _$BranchCopyWithImpl<$Res, _$BranchImpl>
+    implements _$$BranchImplCopyWith<$Res> {
+  __$$BranchImplCopyWithImpl(
+      _$BranchImpl _value, $Res Function(_$BranchImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of Branch
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? name = freezed,
+    Object? address = freezed,
+  }) {
+    return _then(_$BranchImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      address: freezed == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$BranchImpl implements _Branch {
+  const _$BranchImpl({required this.id, this.name, this.address});
+
+  factory _$BranchImpl.fromJson(Map<String, dynamic> json) =>
+      _$$BranchImplFromJson(json);
+
+  @override
+  final int id;
+  @override
+  final String? name;
+  @override
+  final String? address;
+
+  @override
+  String toString() {
+    return 'Branch(id: $id, name: $name, address: $address)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$BranchImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.address, address) || other.address == address));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, name, address);
+
+  /// Create a copy of Branch
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$BranchImplCopyWith<_$BranchImpl> get copyWith =>
+      __$$BranchImplCopyWithImpl<_$BranchImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$BranchImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Branch implements Branch {
+  const factory _Branch(
+      {required final int id,
+      final String? name,
+      final String? address}) = _$BranchImpl;
+
+  factory _Branch.fromJson(Map<String, dynamic> json) = _$BranchImpl.fromJson;
+
+  @override
+  int get id;
+  @override
+  String? get name;
+  @override
+  String? get address;
+
+  /// Create a copy of Branch
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$BranchImplCopyWith<_$BranchImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}

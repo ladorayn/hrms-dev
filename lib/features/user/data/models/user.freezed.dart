@@ -38,6 +38,7 @@ mixin _$UserProfileResponse {
   @JsonKey(name: 'faces')
   List<FaceData>? get faces => throw _privateConstructorUsedError;
   Employment? get employment => throw _privateConstructorUsedError;
+  Branch? get branch => throw _privateConstructorUsedError;
 
   /// Serializes this UserProfileResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -67,10 +68,12 @@ abstract class $UserProfileResponseCopyWith<$Res> {
       @JsonKey(name: 'is_first_login') bool? isFirstLogin,
       @JsonKey(name: 'employee_profile') EmployeeProfile? employeeProfile,
       @JsonKey(name: 'faces') List<FaceData>? faces,
-      Employment? employment});
+      Employment? employment,
+      Branch? branch});
 
   $EmployeeProfileCopyWith<$Res>? get employeeProfile;
   $EmploymentCopyWith<$Res>? get employment;
+  $BranchCopyWith<$Res>? get branch;
 }
 
 /// @nodoc
@@ -100,6 +103,7 @@ class _$UserProfileResponseCopyWithImpl<$Res, $Val extends UserProfileResponse>
     Object? employeeProfile = freezed,
     Object? faces = freezed,
     Object? employment = freezed,
+    Object? branch = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -150,6 +154,10 @@ class _$UserProfileResponseCopyWithImpl<$Res, $Val extends UserProfileResponse>
           ? _value.employment
           : employment // ignore: cast_nullable_to_non_nullable
               as Employment?,
+      branch: freezed == branch
+          ? _value.branch
+          : branch // ignore: cast_nullable_to_non_nullable
+              as Branch?,
     ) as $Val);
   }
 
@@ -180,6 +188,20 @@ class _$UserProfileResponseCopyWithImpl<$Res, $Val extends UserProfileResponse>
       return _then(_value.copyWith(employment: value) as $Val);
     });
   }
+
+  /// Create a copy of UserProfileResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $BranchCopyWith<$Res>? get branch {
+    if (_value.branch == null) {
+      return null;
+    }
+
+    return $BranchCopyWith<$Res>(_value.branch!, (value) {
+      return _then(_value.copyWith(branch: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -202,12 +224,15 @@ abstract class _$$UserProfileResponseImplCopyWith<$Res>
       @JsonKey(name: 'is_first_login') bool? isFirstLogin,
       @JsonKey(name: 'employee_profile') EmployeeProfile? employeeProfile,
       @JsonKey(name: 'faces') List<FaceData>? faces,
-      Employment? employment});
+      Employment? employment,
+      Branch? branch});
 
   @override
   $EmployeeProfileCopyWith<$Res>? get employeeProfile;
   @override
   $EmploymentCopyWith<$Res>? get employment;
+  @override
+  $BranchCopyWith<$Res>? get branch;
 }
 
 /// @nodoc
@@ -235,6 +260,7 @@ class __$$UserProfileResponseImplCopyWithImpl<$Res>
     Object? employeeProfile = freezed,
     Object? faces = freezed,
     Object? employment = freezed,
+    Object? branch = freezed,
   }) {
     return _then(_$UserProfileResponseImpl(
       id: null == id
@@ -285,6 +311,10 @@ class __$$UserProfileResponseImplCopyWithImpl<$Res>
           ? _value.employment
           : employment // ignore: cast_nullable_to_non_nullable
               as Employment?,
+      branch: freezed == branch
+          ? _value.branch
+          : branch // ignore: cast_nullable_to_non_nullable
+              as Branch?,
     ));
   }
 }
@@ -304,7 +334,8 @@ class _$UserProfileResponseImpl implements _UserProfileResponse {
       @JsonKey(name: 'is_first_login') this.isFirstLogin,
       @JsonKey(name: 'employee_profile') this.employeeProfile,
       @JsonKey(name: 'faces') final List<FaceData>? faces,
-      this.employment})
+      this.employment,
+      this.branch})
       : _roles = roles,
         _faces = faces;
 
@@ -357,10 +388,12 @@ class _$UserProfileResponseImpl implements _UserProfileResponse {
 
   @override
   final Employment? employment;
+  @override
+  final Branch? branch;
 
   @override
   String toString() {
-    return 'UserProfileResponse(id: $id, employeeId: $employeeId, code: $code, photoProfileUrl: $photoProfileUrl, name: $name, email: $email, roles: $roles, firstLoginAt: $firstLoginAt, isFirstLogin: $isFirstLogin, employeeProfile: $employeeProfile, faces: $faces, employment: $employment)';
+    return 'UserProfileResponse(id: $id, employeeId: $employeeId, code: $code, photoProfileUrl: $photoProfileUrl, name: $name, email: $email, roles: $roles, firstLoginAt: $firstLoginAt, isFirstLogin: $isFirstLogin, employeeProfile: $employeeProfile, faces: $faces, employment: $employment, branch: $branch)';
   }
 
   @override
@@ -385,7 +418,8 @@ class _$UserProfileResponseImpl implements _UserProfileResponse {
                 other.employeeProfile == employeeProfile) &&
             const DeepCollectionEquality().equals(other._faces, _faces) &&
             (identical(other.employment, employment) ||
-                other.employment == employment));
+                other.employment == employment) &&
+            (identical(other.branch, branch) || other.branch == branch));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -403,7 +437,8 @@ class _$UserProfileResponseImpl implements _UserProfileResponse {
       isFirstLogin,
       employeeProfile,
       const DeepCollectionEquality().hash(_faces),
-      employment);
+      employment,
+      branch);
 
   /// Create a copy of UserProfileResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -435,7 +470,8 @@ abstract class _UserProfileResponse implements UserProfileResponse {
       @JsonKey(name: 'is_first_login') final bool? isFirstLogin,
       @JsonKey(name: 'employee_profile') final EmployeeProfile? employeeProfile,
       @JsonKey(name: 'faces') final List<FaceData>? faces,
-      final Employment? employment}) = _$UserProfileResponseImpl;
+      final Employment? employment,
+      final Branch? branch}) = _$UserProfileResponseImpl;
 
   factory _UserProfileResponse.fromJson(Map<String, dynamic> json) =
       _$UserProfileResponseImpl.fromJson;
@@ -470,6 +506,8 @@ abstract class _UserProfileResponse implements UserProfileResponse {
   List<FaceData>? get faces;
   @override
   Employment? get employment;
+  @override
+  Branch? get branch;
 
   /// Create a copy of UserProfileResponse
   /// with the given fields replaced by the non-null parameter values.

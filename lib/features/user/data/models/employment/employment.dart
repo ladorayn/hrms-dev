@@ -23,3 +23,14 @@ class Employment with _$Employment {
   factory Employment.fromJson(Map<String, dynamic> json) =>
       _$EmploymentFromJson(json);
 }
+
+@freezed
+class Branch with _$Branch {
+  const factory Branch({
+    required int id,
+    String? name,
+    String? address,
+  }) = _Branch;
+
+  factory Branch.fromJson(Map<String, dynamic> json) => _$BranchFromJson(json);
+}

@@ -29,6 +29,9 @@ _$UserProfileResponseImpl _$$UserProfileResponseImplFromJson(
       employment: json['employment'] == null
           ? null
           : Employment.fromJson(json['employment'] as Map<String, dynamic>),
+      branch: json['branch'] == null
+          ? null
+          : Branch.fromJson(json['branch'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$UserProfileResponseImplToJson(
@@ -46,4 +49,5 @@ Map<String, dynamic> _$$UserProfileResponseImplToJson(
       'employee_profile': instance.employeeProfile,
       'faces': instance.faces,
       'employment': instance.employment,
+      'branch': instance.branch,
     };
