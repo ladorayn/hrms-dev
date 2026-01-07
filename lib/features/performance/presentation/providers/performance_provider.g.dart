@@ -1512,5 +1512,200 @@ class _PerformanceGetGraphsProviderElement
   @override
   int get id => (origin as PerformanceGetGraphsProvider).id;
 }
+
+String _$performanceGetCompetencyHash() =>
+    r'5106322116be252efe053e92714221d86a8d9b5f';
+
+abstract class _$PerformanceGetCompetency
+    extends BuildlessAutoDisposeAsyncNotifier<CompetencyLevel> {
+  late final String? competencyId;
+  late final String? dimension;
+  late final String? level;
+
+  FutureOr<CompetencyLevel> build({
+    String? competencyId,
+    String? dimension,
+    String? level,
+  });
+}
+
+/// See also [PerformanceGetCompetency].
+@ProviderFor(PerformanceGetCompetency)
+const performanceGetCompetencyProvider = PerformanceGetCompetencyFamily();
+
+/// See also [PerformanceGetCompetency].
+class PerformanceGetCompetencyFamily
+    extends Family<AsyncValue<CompetencyLevel>> {
+  /// See also [PerformanceGetCompetency].
+  const PerformanceGetCompetencyFamily();
+
+  /// See also [PerformanceGetCompetency].
+  PerformanceGetCompetencyProvider call({
+    String? competencyId,
+    String? dimension,
+    String? level,
+  }) {
+    return PerformanceGetCompetencyProvider(
+      competencyId: competencyId,
+      dimension: dimension,
+      level: level,
+    );
+  }
+
+  @override
+  PerformanceGetCompetencyProvider getProviderOverride(
+    covariant PerformanceGetCompetencyProvider provider,
+  ) {
+    return call(
+      competencyId: provider.competencyId,
+      dimension: provider.dimension,
+      level: provider.level,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'performanceGetCompetencyProvider';
+}
+
+/// See also [PerformanceGetCompetency].
+class PerformanceGetCompetencyProvider
+    extends AutoDisposeAsyncNotifierProviderImpl<PerformanceGetCompetency,
+        CompetencyLevel> {
+  /// See also [PerformanceGetCompetency].
+  PerformanceGetCompetencyProvider({
+    String? competencyId,
+    String? dimension,
+    String? level,
+  }) : this._internal(
+          () => PerformanceGetCompetency()
+            ..competencyId = competencyId
+            ..dimension = dimension
+            ..level = level,
+          from: performanceGetCompetencyProvider,
+          name: r'performanceGetCompetencyProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$performanceGetCompetencyHash,
+          dependencies: PerformanceGetCompetencyFamily._dependencies,
+          allTransitiveDependencies:
+              PerformanceGetCompetencyFamily._allTransitiveDependencies,
+          competencyId: competencyId,
+          dimension: dimension,
+          level: level,
+        );
+
+  PerformanceGetCompetencyProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.competencyId,
+    required this.dimension,
+    required this.level,
+  }) : super.internal();
+
+  final String? competencyId;
+  final String? dimension;
+  final String? level;
+
+  @override
+  FutureOr<CompetencyLevel> runNotifierBuild(
+    covariant PerformanceGetCompetency notifier,
+  ) {
+    return notifier.build(
+      competencyId: competencyId,
+      dimension: dimension,
+      level: level,
+    );
+  }
+
+  @override
+  Override overrideWith(PerformanceGetCompetency Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: PerformanceGetCompetencyProvider._internal(
+        () => create()
+          ..competencyId = competencyId
+          ..dimension = dimension
+          ..level = level,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        competencyId: competencyId,
+        dimension: dimension,
+        level: level,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeAsyncNotifierProviderElement<PerformanceGetCompetency,
+      CompetencyLevel> createElement() {
+    return _PerformanceGetCompetencyProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is PerformanceGetCompetencyProvider &&
+        other.competencyId == competencyId &&
+        other.dimension == dimension &&
+        other.level == level;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, competencyId.hashCode);
+    hash = _SystemHash.combine(hash, dimension.hashCode);
+    hash = _SystemHash.combine(hash, level.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin PerformanceGetCompetencyRef
+    on AutoDisposeAsyncNotifierProviderRef<CompetencyLevel> {
+  /// The parameter `competencyId` of this provider.
+  String? get competencyId;
+
+  /// The parameter `dimension` of this provider.
+  String? get dimension;
+
+  /// The parameter `level` of this provider.
+  String? get level;
+}
+
+class _PerformanceGetCompetencyProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<PerformanceGetCompetency,
+        CompetencyLevel> with PerformanceGetCompetencyRef {
+  _PerformanceGetCompetencyProviderElement(super.provider);
+
+  @override
+  String? get competencyId =>
+      (origin as PerformanceGetCompetencyProvider).competencyId;
+  @override
+  String? get dimension =>
+      (origin as PerformanceGetCompetencyProvider).dimension;
+  @override
+  String? get level => (origin as PerformanceGetCompetencyProvider).level;
+}
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

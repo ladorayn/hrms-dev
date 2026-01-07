@@ -84,4 +84,10 @@ class PerformanceUsecases {
   Future<List<OKRGraphData>> getGraphLists({required dynamic id}) async {
     return repository.getGraphLists(id: id);
   }
+
+  Future<CompetencyLevel> getPerformanceCompetencyLevels(
+      {String? competencyId, String? dimension, String? level}) async {
+    return repository.getPerformanceCompetencyLevels(
+        competencyId: competencyId, dimension: dimension, level: level);
+  }
 }

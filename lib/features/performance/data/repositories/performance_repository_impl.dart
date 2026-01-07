@@ -190,4 +190,20 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
       throw Exception('API Error: ${response.message}');
     }
   }
+
+  @override
+  Future<CompetencyLevel> getPerformanceCompetencyLevels(
+      {String? competencyId, String? dimension, String? level}) async {
+    final response = await remoteSource.getPerformanceCompetencyLevels(
+      competencyId: competencyId,
+      dimension: dimension,
+      level: level,
+    );
+
+    if (response.status == 'success') {
+      return response.data[0];
+    } else {
+      throw Exception('API Error: ${response.message}');
+    }
+  }
 }

@@ -348,3 +348,57 @@ Map<String, dynamic> _$$SupervisorAssessmentDetailImplToJson(
       'created_at': instance.createdAt,
       'updated_at': instance.updatedAt,
     };
+
+_$CompetencyLevelImpl _$$CompetencyLevelImplFromJson(
+        Map<String, dynamic> json) =>
+    _$CompetencyLevelImpl(
+      id: (json['id'] as num?)?.toInt(),
+      performanceCompetencyId:
+          (json['performance_competency_id'] as num?)?.toInt(),
+      dimensions: json['dimensions'] as String?,
+      level: json['level'] as String?,
+      name: json['name'] as String?,
+      description: json['description'] as String?,
+      createdAt: json['created_at'] as String?,
+      updatedAt: json['updated_at'] as String?,
+      competency: json['competency'] == null
+          ? null
+          : CompetencyDetail.fromJson(
+              json['competency'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$$CompetencyLevelImplToJson(
+        _$CompetencyLevelImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'performance_competency_id': instance.performanceCompetencyId,
+      'dimensions': instance.dimensions,
+      'level': instance.level,
+      'name': instance.name,
+      'description': instance.description,
+      'created_at': instance.createdAt,
+      'updated_at': instance.updatedAt,
+      'competency': instance.competency,
+    };
+
+_$CompetencyDetailImpl _$$CompetencyDetailImplFromJson(
+        Map<String, dynamic> json) =>
+    _$CompetencyDetailImpl(
+      id: (json['id'] as num?)?.toInt(),
+      code: json['code'] as String?,
+      name: json['name'] as String?,
+      description: json['description'] as String?,
+      createdAt: json['created_at'] as String?,
+      updatedAt: json['updated_at'] as String?,
+    );
+
+Map<String, dynamic> _$$CompetencyDetailImplToJson(
+        _$CompetencyDetailImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'code': instance.code,
+      'name': instance.name,
+      'description': instance.description,
+      'created_at': instance.createdAt,
+      'updated_at': instance.updatedAt,
+    };

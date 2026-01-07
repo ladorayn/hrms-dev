@@ -3,7 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/data/models/form_fields_response.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
-import 'package:hrms_mobile/features/performance/data/models/request/assessment_form_request.dart'; // For SubmissionForm
+import 'package:hrms_mobile/features/performance/data/models/request/assessment_form_request.dart';
+import 'package:hrms_mobile/features/performance/presentation/widgets/competency_rating_field.dart'; // For SubmissionForm
 
 typedef AnswerMap = Map<int, Map<String, bool>>;
 typedef SelectionMap = Map<int, String?>;
@@ -210,72 +211,27 @@ class AssessmentFormBuilder extends StatelessWidget {
   Widget _buildRatingSection(BuildContext context, FormFields field) {
     final selectedRating = ratingAnswers[field.id];
     final notesController = notesControllers[field.id];
-    final bool isDisabled = isReadOnly;
 
     if (field.options == null || field.options is! Map<String, dynamic>) {
       return const SizedBox.shrink();
     }
+
     final options =
         FieldOptionsRange.fromJson(field.options as Map<String, dynamic>);
-    final int count = options.max - options.min + 1;
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildFieldHeader(context, field),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: List.generate(count, (index) {
-              final rating = options.min + index;
-              final isSelected = rating == selectedRating;
-
-              final buttonStyle = ElevatedButton.styleFrom(
-                backgroundColor: isSelected
-                    ? IColors.light.primary.main
-                    : (isDisabled ? IColors.light.grayscale.g10 : Colors.white),
-                foregroundColor:
-                    isSelected ? Colors.white : IColors.light.primary.main,
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(
-                      color: isDisabled
-                          ? IColors.light.grayscale.g30
-                          : IColors.light.primary.main),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                elevation: isDisabled ? 0 : 2,
-              );
-
-              return Padding(
-                padding: EdgeInsets.symmetric(horizontal: 4.w),
-                child: SizedBox(
-                  child: ElevatedButton(
-                    onPressed: isDisabled
-                        ? () {}
-                        : () {
-                            updateParentState(() {
-                              ratingAnswers[field.id] = rating;
-                            });
-                            validateForm();
-                          },
-                    style: buttonStyle,
-                    child: Text('$rating'),
-                  ),
-                ),
-              );
-            }).toList(),
-          ),
-        ),
-        if (notesController != null) ...[
-          SizedBox(height: 12.h),
-          ITextFieldTextArea(
-            controller: notesController,
-            hintText: '',
-            readOnly: isDisabled,
-            onChanged: (_) => validateForm(),
-          ),
-        ],
-      ],
+    return CompetencyRatingField(
+      field: field,
+      selectedRating: selectedRating,
+      isDisabled: isReadOnly,
+      options: options,
+      notesController: notesController,
+      onRatingChanged: (rating) {
+        updateParentState(() {
+          ratingAnswers[field.id] = rating;
+        });
+        validateForm();
+      },
+      validateForm: validateForm,
     );
   }
 

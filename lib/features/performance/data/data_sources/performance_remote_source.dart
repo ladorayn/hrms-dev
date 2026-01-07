@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:hrms_mobile/core/constants/mock_values.dart';
 import 'package:hrms_mobile/core/data/models/base_paginated_response.dart';
 import 'package:hrms_mobile/core/data/models/base_response.dart';
 import 'package:hrms_mobile/core/data/models/form_fields_response.dart';
@@ -26,7 +25,7 @@ class PerformanceRemoteSource {
       });
 
       return BaseResponse.fromJson(
-        mockFormFieldsData,
+        response.data,
         (json) => (json as List)
             .map((item) => FormFields.fromJson(item as Map<String, dynamic>))
             .toList(),
@@ -279,6 +278,34 @@ class PerformanceRemoteSource {
         response.data,
         (json) => (json as List)
             .map((item) => OKRGraphData.fromJson(item as Map<String, dynamic>))
+            .toList(),
+      );
+    } on DioException catch (e) {
+      throw handleDioError(e);
+    }
+  }
+
+  Future<BaseResponse<List<CompetencyLevel>>> getPerformanceCompetencyLevels(
+      {String? competencyId, String? dimension, String? level}) async {
+    try {
+      final Map<String, dynamic> queryParameters = {
+        'competency_id': competencyId,
+        'dimension': dimension,
+        'page': 1,
+        'per_page': 1,
+        'level': level
+      };
+
+      final response = await _dio.get(
+        'api/v1/setting/performance-competency-levels',
+        queryParameters: queryParameters,
+      );
+
+      return BaseResponse.fromJson(
+        response.data,
+        (json) => (json as List)
+            .map((item) =>
+                CompetencyLevel.fromJson(item as Map<String, dynamic>))
             .toList(),
       );
     } on DioException catch (e) {

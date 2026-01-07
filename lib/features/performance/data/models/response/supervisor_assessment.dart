@@ -210,3 +210,36 @@ class SupervisorAssessmentDetail with _$SupervisorAssessmentDetail {
   factory SupervisorAssessmentDetail.fromJson(Map<String, dynamic> json) =>
       _$SupervisorAssessmentDetailFromJson(json);
 }
+
+@freezed
+class CompetencyLevel with _$CompetencyLevel {
+  const factory CompetencyLevel({
+    int? id,
+    @JsonKey(name: 'performance_competency_id') int? performanceCompetencyId,
+    String? dimensions,
+    String? level,
+    String? name,
+    String? description,
+    @JsonKey(name: 'created_at') String? createdAt,
+    @JsonKey(name: 'updated_at') String? updatedAt,
+    CompetencyDetail? competency,
+  }) = _CompetencyLevel;
+
+  factory CompetencyLevel.fromJson(Map<String, dynamic> json) =>
+      _$CompetencyLevelFromJson(json);
+}
+
+@freezed
+class CompetencyDetail with _$CompetencyDetail {
+  const factory CompetencyDetail({
+    int? id,
+    String? code,
+    String? name,
+    String? description,
+    @JsonKey(name: 'created_at') String? createdAt,
+    @JsonKey(name: 'updated_at') String? updatedAt,
+  }) = _CompetencyDetail;
+
+  factory CompetencyDetail.fromJson(Map<String, dynamic> json) =>
+      _$CompetencyDetailFromJson(json);
+}

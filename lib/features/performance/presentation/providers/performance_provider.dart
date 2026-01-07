@@ -275,3 +275,14 @@ class PerformanceGetGraphs extends _$PerformanceGetGraphs {
     return await usecase.getGraphLists(id: id);
   }
 }
+
+@riverpod
+class PerformanceGetCompetency extends _$PerformanceGetCompetency {
+  @override
+  Future<CompetencyLevel> build(
+      {String? competencyId, String? dimension, String? level}) async {
+    final usecase = ref.watch(performanceUseCaseProvider);
+    return await usecase.getPerformanceCompetencyLevels(
+        competencyId: competencyId, dimension: dimension, level: level);
+  }
+}

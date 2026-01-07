@@ -45,4 +45,7 @@ abstract class PerformanceRepository {
       {required List<TrackingValueRequest> request});
 
   Future<List<OKRGraphData>> getGraphLists({required dynamic id});
+
+  Future<CompetencyLevel> getPerformanceCompetencyLevels(
+      {String? competencyId, String? dimension, String? level});
 }
