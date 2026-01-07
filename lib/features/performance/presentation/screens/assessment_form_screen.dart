@@ -16,6 +16,7 @@ import 'package:hrms_mobile/features/performance/data/models/request/assessment_
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_answer.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_list.dart';
 import 'package:hrms_mobile/features/performance/presentation/providers/performance_provider.dart';
+import 'package:hrms_mobile/features/performance/presentation/widgets/competency_rating_field.dart';
 
 class AssessmentFormScreen extends ConsumerStatefulWidget {
   final AssessmentList assessment;
@@ -476,20 +477,6 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
               ),
             ),
           ),
-        Row(
-          children: [
-            SvgPicture.asset(
-              IAssets.helpDesk,
-            ),
-            SizedBox(width: 8.w),
-            Text('Deskripsi Penilaian',
-                style: textTheme.titleMedium?.copyWith(
-                  color: IColors.light.primary.main,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 14.sp,
-                )),
-          ],
-        ),
         SizedBox(height: 12.h),
       ],
     );
@@ -573,72 +560,22 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
   }
 
   Widget _buildRatingSection(FormFields field) {
-    final selectedRating = _ratingAnswers[field.id];
-    final notesController = _notesControllers[field.id];
-    final bool isDisabled = _isFormReadOnly;
-
     if (field.options == null || field.options is! Map<String, dynamic>) {
       return const SizedBox.shrink();
     }
-    final options =
-        FieldOptionsRange.fromJson(field.options as Map<String, dynamic>);
-    final int count = options.max - options.min + 1;
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildFieldHeader(field),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: List.generate(count, (index) {
-              final rating = options.min + index;
-              final isSelected = rating == selectedRating;
-
-              final buttonStyle = ElevatedButton.styleFrom(
-                backgroundColor: isSelected
-                    ? IColors.light.primary.main
-                    : (isDisabled ? IColors.light.grayscale.g10 : Colors.white),
-                foregroundColor:
-                    isSelected ? Colors.white : IColors.light.primary.main,
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(
-                      color: isDisabled
-                          ? IColors.light.grayscale.g30
-                          : IColors.light.primary.main),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                elevation: isDisabled ? 0 : 2,
-              );
-
-              return Padding(
-                padding: EdgeInsets.symmetric(horizontal: 4.w),
-                child: SizedBox(
-                  child: ElevatedButton(
-                    // ⭐ DISABLE onPressed if read-only
-                    onPressed: isDisabled
-                        ? () {}
-                        : () {
-                            setState(() => _ratingAnswers[field.id] = rating);
-                            _validateForm();
-                          },
-                    style: buttonStyle,
-                    child: Text('$rating'),
-                  ),
-                ),
-              );
-            }),
-          ),
-        ),
-        if (notesController != null) ...[
-          SizedBox(height: 12.h),
-          ITextFieldTextArea(
-            controller: notesController,
-            hintText: '',
-            readOnly: isDisabled,
-          ),
-        ],
-      ],
+    return CompetencyRatingField(
+      field: field,
+      selectedRating: _ratingAnswers[field.id],
+      isDisabled: _isFormReadOnly,
+      options:
+          FieldOptionsRange.fromJson(field.options as Map<String, dynamic>),
+      notesController: _notesControllers[field.id],
+      onRatingChanged: (rating) {
+        setState(() => _ratingAnswers[field.id] = rating);
+        _validateForm();
+      },
+      validateForm: _validateForm,
     );
   }
 

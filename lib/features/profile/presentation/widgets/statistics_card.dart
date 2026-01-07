@@ -13,14 +13,13 @@ class StatisticsCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     String _selectedPeriod = DateFormat('yyyy-MM').format(DateTime.now());
-
     DateTime displayDate = DateFormat('yyyy-MM').parse(_selectedPeriod);
-
     String formattedDisplayDate = DateFormat('MMMM yyyy').format(displayDate);
 
     final attendanceStatsState = ref.watch(attendanceStatsProvider(
       period: _selectedPeriod,
     ));
+
     return Container(
       decoration: BoxDecoration(
         color: IColors.light.primary.focused,
@@ -31,58 +30,54 @@ class StatisticsCard extends ConsumerWidget {
         padding: const EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
           color: IColors.light.primary.foreground,
-          border: Border.all(
-            color: IColors.light.primary.border,
-            width: 1,
-          ),
+          border: Border.all(color: IColors.light.primary.border, width: 1),
           borderRadius: BorderRadius.circular(8),
         ),
-        child: IntrinsicHeight(
-          child: Column(
-            children: [
-              Text(
-                formattedDisplayDate,
-                style: TextStyle(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 12.sp),
-              Row(
+        child: Column(
+          children: [
+            Text(
+              formattedDisplayDate,
+              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 12.sp),
+            // Handle loading/error states gracefully
+            attendanceStatsState.when(
+              data: (data) => Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   StatisticsItem(
                       iconAsset: IAssets.attendanceClock,
-                      value: attendanceStatsState.value!.attended.toString(),
+                      value: data.attended.toString(),
                       label: 'Days',
                       description: 'Attendance'),
-                  Container(
-                    width: 1,
-                    height: 50.sp,
-                    color: IColors.light.grayscale.g20,
-                  ),
+                  _buildDivider(),
                   StatisticsItem(
                       iconAsset: IAssets.timeOff,
-                      value:
-                          '${attendanceStatsState.value?.dayOff.used}/${attendanceStatsState.value?.dayOff.quota}',
+                      value: '${data.dayOff.used}/${data.dayOff.quota}',
                       label: 'Days',
                       description: 'Time Off'),
-                  Container(
-                    width: 1,
-                    height: 50.sp,
-                    color: IColors.light.grayscale.g20,
-                  ),
+                  _buildDivider(),
                   StatisticsItem(
                       iconAsset: IAssets.overtimeClock,
-                      value: '${attendanceStatsState.value?.overtime}',
+                      value: '${data.overtime}',
                       label: 'Hours',
                       description: 'Overtime'),
                 ],
               ),
-            ],
-          ),
+              loading: () => const Center(child: CircularProgressIndicator()),
+              error: (err, stack) => Center(child: Text("Error loading stats")),
+            ),
+          ],
         ),
       ),
+    );
+  }
+
+  Widget _buildDivider() {
+    return Container(
+      width: 1,
+      height: 40.sp,
+      color: IColors.light.grayscale.g20,
     );
   }
 }

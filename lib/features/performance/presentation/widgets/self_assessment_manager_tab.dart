@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hrms_mobile/application/assets/i_assets.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/data/models/form_fields_response.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
 import 'package:hrms_mobile/features/performance/data/models/request/assessment_answer_request.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_answer.dart';
 import 'package:hrms_mobile/features/performance/presentation/providers/performance_provider.dart';
+import 'package:hrms_mobile/features/performance/presentation/widgets/competency_rating_field.dart';
 
 class AssessmentTabFormManagerScreen extends ConsumerStatefulWidget {
   final bool isReadOnly;
@@ -392,20 +391,6 @@ class _AssessmentTabFormManagerScreenState
               ),
             ),
           ),
-        Row(
-          children: [
-            SvgPicture.asset(
-              IAssets.helpDesk,
-            ),
-            SizedBox(width: 8.w),
-            Text('Deskripsi Penilaian',
-                style: textTheme.titleMedium?.copyWith(
-                  color: IColors.light.primary.main,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 14.sp,
-                )),
-          ],
-        ),
         SizedBox(height: 12.h),
       ],
     );
@@ -493,64 +478,23 @@ class _AssessmentTabFormManagerScreenState
     if (field.options == null || field.options is! Map<String, dynamic>) {
       return const SizedBox.shrink();
     }
+
     final options =
         FieldOptionsRange.fromJson(field.options as Map<String, dynamic>);
-    final int count = options.max - options.min + 1;
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildFieldHeader(field),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: List.generate(count, (index) {
-              final rating = options.min + index;
-              final isSelected = rating == selectedRating;
-
-              final buttonStyle = ElevatedButton.styleFrom(
-                backgroundColor: isSelected
-                    ? IColors.light.primary.main
-                    : (isDisabled ? IColors.light.grayscale.g10 : Colors.white),
-                foregroundColor:
-                    isSelected ? Colors.white : IColors.light.primary.main,
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(
-                      color: isDisabled
-                          ? IColors.light.grayscale.g30
-                          : IColors.light.primary.main),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                elevation: isDisabled ? 0 : 2,
-              );
-
-              return Padding(
-                padding: EdgeInsets.symmetric(horizontal: 4.w),
-                child: SizedBox(
-                  child: ElevatedButton(
-                    onPressed: isDisabled
-                        ? () {}
-                        : () {
-                            setState(() => _ratingAnswers[field.id] = rating);
-                            _validateForm();
-                          },
-                    style: buttonStyle,
-                    child: Text('$rating'),
-                  ),
-                ),
-              );
-            }),
-          ),
-        ),
-        if (notesController != null) ...[
-          SizedBox(height: 12.h),
-          ITextFieldTextArea(
-            controller: notesController,
-            hintText: '',
-            readOnly: isDisabled,
-          ),
-        ],
-      ],
+    return CompetencyRatingField(
+      field: field,
+      selectedRating: selectedRating,
+      isDisabled: isDisabled,
+      options: options,
+      notesController: notesController,
+      onRatingChanged: (rating) {
+        setState(() {
+          _ratingAnswers[field.id] = rating;
+        });
+        _validateForm();
+      },
+      validateForm: _validateForm,
     );
   }
 
