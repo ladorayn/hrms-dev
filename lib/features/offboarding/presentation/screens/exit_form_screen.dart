@@ -203,6 +203,7 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
       if (mounted) {
         showCustomToast(
             context, 'Form Submitted Successfully!', ToastType.success);
+        ref.invalidate(offboardingProgressPProvider(id: widget.data.id));
         context.pop(); // Pop the dialog
         globalNavigatorKey.currentContext?.pop();
       }
@@ -452,7 +453,6 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
         Text('${field.order}. ${field.label}',
             style: Theme.of(context).textTheme.titleMedium),
         SizedBox(height: 8.h),
-        // If it's a select field, you might prefer a dropdown/menu button
         if (field.type == 'select')
           DropdownButtonFormField<String>(
             decoration: InputDecoration(

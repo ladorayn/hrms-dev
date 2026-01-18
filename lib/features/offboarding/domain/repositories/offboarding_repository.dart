@@ -8,6 +8,8 @@ import 'package:hrms_mobile/features/offboarding/data/models/response/offboardin
 abstract class OffboardingRepository {
   Future<OffboardingStatusResponse> offboardingStatus();
 
+  Future<List<OffboardingProgress>> offboardingProgress({dynamic id});
+
   Future<List<FormFields>> offboardingFormFields({required int formId});
 
   Future<dynamic> exitFormSubmission({

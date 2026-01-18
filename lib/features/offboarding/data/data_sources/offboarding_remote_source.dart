@@ -34,6 +34,25 @@ class OffboardingRemoteSource {
     }
   }
 
+  Future<BaseResponse<List<OffboardingProgress>>> offboardingProgress(
+      {dynamic id}) async {
+    try {
+      final response = await _dio.get(
+        'api/v1/employee/offboardings/$id/progress',
+      );
+
+      return BaseResponse.fromJson(
+        response.data,
+        (json) => (json as List)
+            .map((item) =>
+                OffboardingProgress.fromJson(item as Map<String, dynamic>))
+            .toList(),
+      );
+    } on DioException catch (e) {
+      throw handleDioError(e);
+    }
+  }
+
   Future<BaseResponse<List<FormFields>>> offboardingFormFields(
       {required int formId}) async {
     try {

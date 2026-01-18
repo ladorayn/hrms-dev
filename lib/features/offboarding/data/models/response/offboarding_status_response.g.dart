@@ -31,3 +31,23 @@ Map<String, dynamic> _$$OffboardingStatusResponseImplToJson(
       'created_at': instance.createdAt,
       'updated_at': instance.updatedAt,
     };
+
+_$OffboardingProgreessImpl _$$OffboardingProgreessImplFromJson(
+        Map<String, dynamic> json) =>
+    _$OffboardingProgreessImpl(
+      id: (json['id'] as num?)?.toInt(),
+      type: json['type'] as String?,
+      label: json['label'] as String?,
+      description: json['description'] as String?,
+      isCompleted: json['is_completed'] as bool?,
+    );
+
+Map<String, dynamic> _$$OffboardingProgreessImplToJson(
+        _$OffboardingProgreessImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'type': instance.type,
+      'label': instance.label,
+      'description': instance.description,
+      'is_completed': instance.isCompleted,
+    };

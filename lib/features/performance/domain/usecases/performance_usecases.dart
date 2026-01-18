@@ -90,4 +90,17 @@ class PerformanceUsecases {
     return repository.getPerformanceCompetencyLevels(
         competencyId: competencyId, dimension: dimension, level: level);
   }
+
+  Future<KeyResultGraphDetail> getKeyResultOKRGraph({
+    required dynamic id,
+    required dynamic okrId,
+    Map<String, dynamic>? filters,
+  }) async {
+    return repository.getKeyResultOKRGraph(
+        id: id, okrId: okrId, filters: filters);
+  }
+
+  Future<FormFieldsGroupDetail> getFormDetail({required int formId}) async {
+    return repository.getFormDetail(formId: formId);
+  }
 }

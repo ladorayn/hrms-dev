@@ -65,10 +65,7 @@ class _DashboardTabState extends ConsumerState<DashboardTab> {
       title: SectionTitle(objective.name ?? "Objective"),
       tilePadding: EdgeInsets.zero,
       children: (objective.keyResults ?? []).map<Widget>((kr) {
-        String dateRange = kr.labels != null && kr.labels!.isNotEmpty
-            ? "${kr.labels!.first} - ${kr.labels!.last}"
-            : "No date range";
-
+        // Prepare data for the chart component
         List<double> chartData =
             kr.data?.map((value) => double.tryParse(value) ?? 0.0).toList() ??
                 [];
@@ -82,12 +79,15 @@ class _DashboardTabState extends ConsumerState<DashboardTab> {
 
         return DashboardMetricCard(
           title: kr.name ?? "Metric",
-          dateRange: dateRange,
-          barData: series.bars,
-          // lineData: series.line,
-          xAxisLabels: series.labels,
-          avgActual: kr.averageActualValue?.toStringAsFixed(1) ?? '0',
-          avgTarget: kr.averageTargetValue?.toStringAsFixed(1) ?? '0',
+          // Identifiers needed for individual graph API calls
+          cycleId: widget.okrList.id ?? 0,
+          krId: kr.id ?? 0,
+          frequency: kr.frequency ?? 4,
+          // Initial data from the overview dashboard
+          initialBarData: series.bars,
+          initialXAxisLabels: series.labels,
+          initialAvgActual: kr.averageActualValue?.toStringAsFixed(1) ?? '0',
+          initialAvgTarget: kr.averageTargetValue?.toStringAsFixed(1) ?? '0',
           format: kr.format ?? 999,
           formatLabel: kr.formatLabel ?? '',
         );

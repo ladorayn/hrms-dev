@@ -15,6 +15,10 @@ class OffboardingUsecases {
     return repository.offboardingStatus();
   }
 
+  Future<List<OffboardingProgress>> checkProgress({dynamic id}) {
+    return repository.offboardingProgress(id: id);
+  }
+
   Future<List<FormFields>> getFormFields({required int formId}) {
     return repository.offboardingFormFields(formId: formId);
   }

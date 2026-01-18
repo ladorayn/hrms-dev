@@ -98,6 +98,7 @@ class _DocumentHandoverScreenState
         data: (data) {
           if (data != null) {
             _showSnackBar("Handover submitted successfully!");
+            ref.invalidate(offboardingProgressPProvider(id: widget.data.id));
             Navigator.of(context).pop();
           }
         },

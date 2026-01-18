@@ -9,6 +9,7 @@ import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/features/offboarding/data/models/response/offboarding_status_response.dart';
+import 'package:hrms_mobile/features/offboarding/presentation/providers/offboarding_provider.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 enum TaskStatus {
@@ -41,38 +42,8 @@ class OffboardingScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final progressAsync = ref.watch(offboardingProgressPProvider(id: data.id));
     final textTheme = Theme.of(context).textTheme;
-
-    final tasks = [
-      OffboardingTask(
-        title: "Exit Interview Form",
-        description:
-            "Please complete your exit interview to help us understand your experience.",
-        status: TaskStatus.inProgress,
-        page: RoutePaths.exitFormName,
-      ),
-      OffboardingTask(
-        title: "Work & Responsibilities Handover",
-        description:
-            "Transfer your current responsibilities to ensure a smooth transition.",
-        status: TaskStatus.inProgress,
-        page: RoutePaths.workHandoverName,
-      ),
-      OffboardingTask(
-        title: "Document Handover",
-        description:
-            "Make sure all necessary files are shared before your last day.",
-        status: TaskStatus.inProgress,
-        page: RoutePaths.documentHandoverName,
-      ),
-      OffboardingTask(
-        title: "Equipment & Facility Return",
-        description:
-            "HR will handle the return list for your assigned equipment and facilities. Please make sure all items are ready for collection.",
-        status: TaskStatus.pending,
-        page: null,
-      ),
-    ];
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -96,40 +67,64 @@ class OffboardingScreen extends ConsumerWidget {
             ),
             SizedBox(height: 16.h),
             Expanded(
-              child: ListView.builder(
-                itemCount: tasks.length,
-                itemBuilder: (context, index) {
-                  final task = tasks[index];
-                  final isLastTask = index == tasks.length - 1;
-                  return TimelineTile(
-                    alignment: TimelineAlign.manual,
-                    lineXY: 0,
-                    isFirst: index == 0,
-                    isLast: index == tasks.length - 1,
-                    beforeLineStyle: LineStyle(
-                      color: task.status == TaskStatus.completed ||
-                              task.status == TaskStatus.inProgress
-                          ? IColors.light.primary.focused
-                          : Colors.grey.shade300,
-                      thickness: 2,
-                    ),
-                    afterLineStyle: LineStyle(
-                      color: task.status == TaskStatus.completed
-                          ? !isLastTask
-                              ? tasks[index + 1].status == TaskStatus.pending
-                                  ? Colors.grey.shade300
-                                  : IColors.light.primary.focused
-                              : Colors.grey.shade300
-                          : Colors.grey.shade300,
-                      thickness: 2,
-                    ),
-                    indicatorStyle: IndicatorStyle(
-                      width: 30,
-                      height: 30,
-                      indicator: _buildIndicator(task.status),
-                      drawGap: true,
-                    ),
-                    endChild: _buildTaskContent(context, task, data),
+              child: progressAsync.when(
+                loading: () => const Center(child: CircularProgressIndicator()),
+                error: (err, stack) => Center(child: Text('Error: $err')),
+                data: (progressList) {
+                  return ListView.builder(
+                    itemCount: progressList.length,
+                    itemBuilder: (context, index) {
+                      final item = progressList[index];
+
+                      // Map API data to TaskStatus
+                      final status = item.isCompleted ?? false
+                          ? TaskStatus.completed
+                          : (data.status == 1
+                              ? TaskStatus.inProgress
+                              : TaskStatus.pending);
+
+                      // Map API type to RoutePaths
+                      final String? page = _getRouteForType('${item.type}');
+
+                      final task = OffboardingTask(
+                        title: '${item.label}',
+                        description: '${item.description}',
+                        status: status,
+                        page: page,
+                      );
+
+                      return TimelineTile(
+                        alignment: TimelineAlign.manual,
+                        lineXY: 0,
+                        isFirst: index == 0,
+                        isLast: index == progressList.length - 1,
+                        beforeLineStyle: LineStyle(
+                          color: task.status == TaskStatus.completed ||
+                                  task.status == TaskStatus.inProgress
+                              ? IColors.light.primary.focused
+                              : Colors.grey.shade300,
+                          thickness: 2,
+                        ),
+                        afterLineStyle: LineStyle(
+                          color: task.status == TaskStatus.completed
+                              ? (index != progressList.length - 1 &&
+                                      // Use ?? false to ensure the condition is never null
+                                      (progressList[index + 1].isCompleted ??
+                                          false))
+                                  ? IColors.light.primary.focused
+                                  : Colors.grey.shade300
+                              : Colors.grey.shade300,
+                          thickness: 2,
+                        ),
+                        indicatorStyle: IndicatorStyle(
+                          width: 30,
+                          height: 30,
+                          indicator: _buildIndicator(task.status),
+                          drawGap: true,
+                        ),
+                        endChild: _buildTaskContent(context, task, data),
+                      );
+                    },
                   );
                 },
               ),
@@ -138,6 +133,19 @@ class OffboardingScreen extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  String? _getRouteForType(String type) {
+    switch (type) {
+      case 'exit_interview_form':
+        return RoutePaths.exitFormName;
+      case 'work_handover':
+        return RoutePaths.workHandoverName;
+      case 'document_handover':
+        return RoutePaths.documentHandoverName;
+      default:
+        return null;
+    }
   }
 
   Widget _buildIndicator(TaskStatus status) {

@@ -70,6 +70,16 @@ class PerformanceFormFieldsByGroup extends _$PerformanceFormFieldsByGroup {
 }
 
 @riverpod
+class PerformanceFormFieldsByGroupDetail
+    extends _$PerformanceFormFieldsByGroupDetail {
+  @override
+  Future<FormFieldsGroupDetail> build({required int formId}) async {
+    final usecase = ref.watch(performanceUseCaseProvider);
+    return await usecase.getFormDetail(formId: formId);
+  }
+}
+
+@riverpod
 class PerformanceAssessmentAnswer extends _$PerformanceAssessmentAnswer {
   @override
   Future<List<AssessmentAnswer>> build(
@@ -284,5 +294,19 @@ class PerformanceGetCompetency extends _$PerformanceGetCompetency {
     final usecase = ref.watch(performanceUseCaseProvider);
     return await usecase.getPerformanceCompetencyLevels(
         competencyId: competencyId, dimension: dimension, level: level);
+  }
+}
+
+@riverpod
+class PerformanceGetOKRKeyResultGraph
+    extends _$PerformanceGetOKRKeyResultGraph {
+  @override
+  Future<KeyResultGraphDetail> build(
+      {required dynamic id,
+      required dynamic okrId,
+      Map<String, dynamic>? filters}) async {
+    final usecase = ref.watch(performanceUseCaseProvider);
+    return await usecase.getKeyResultOKRGraph(
+        id: id, okrId: okrId, filters: filters);
   }
 }

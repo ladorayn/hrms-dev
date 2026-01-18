@@ -6,6 +6,32 @@ part of 'form_fields_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+_$FormFieldsGroupDetailImpl _$$FormFieldsGroupDetailImplFromJson(
+        Map<String, dynamic> json) =>
+    _$FormFieldsGroupDetailImpl(
+      id: (json['id'] as num?)?.toInt(),
+      name: json['name'] as String?,
+      code: json['code'] as String?,
+      description: json['description'] as String?,
+      type: (json['type'] as num?)?.toInt(),
+      typeLabel: json['type_label'] as String?,
+      groups: (json['groups'] as List<dynamic>)
+          .map((e) => FormFieldsGroup.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$$FormFieldsGroupDetailImplToJson(
+        _$FormFieldsGroupDetailImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'code': instance.code,
+      'description': instance.description,
+      'type': instance.type,
+      'type_label': instance.typeLabel,
+      'groups': instance.groups,
+    };
+
 _$FormFieldsGroupImpl _$$FormFieldsGroupImplFromJson(
         Map<String, dynamic> json) =>
     _$FormFieldsGroupImpl(
@@ -38,6 +64,7 @@ _$FormFieldsImpl _$$FormFieldsImplFromJson(Map<String, dynamic> json) =>
     _$FormFieldsImpl(
       id: (json['id'] as num).toInt(),
       formId: (json['form_id'] as num?)?.toInt(),
+      fieldGroupId: (json['field_group_id'] as num?)?.toInt(),
       label: json['label'] as String?,
       type: json['type'] as String?,
       options: json['options'],
@@ -48,13 +75,16 @@ _$FormFieldsImpl _$$FormFieldsImplFromJson(Map<String, dynamic> json) =>
       deletedAt: json['deleted_at'] as String?,
       description: json['description'] as String?,
       metadata: json['metadata'] as Map<String, dynamic>?,
-      fieldGroupId: (json['field_group_id'] as num?)?.toInt(),
+      competencyLevels: (json['competency_levels'] as List<dynamic>?)
+          ?.map((e) => CompetencyLevels.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$FormFieldsImplToJson(_$FormFieldsImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'form_id': instance.formId,
+      'field_group_id': instance.fieldGroupId,
       'label': instance.label,
       'type': instance.type,
       'options': instance.options,
@@ -65,7 +95,27 @@ Map<String, dynamic> _$$FormFieldsImplToJson(_$FormFieldsImpl instance) =>
       'deleted_at': instance.deletedAt,
       'description': instance.description,
       'metadata': instance.metadata,
-      'field_group_id': instance.fieldGroupId,
+      'competency_levels': instance.competencyLevels,
+    };
+
+_$CompetencyLevelsImpl _$$CompetencyLevelsImplFromJson(
+        Map<String, dynamic> json) =>
+    _$CompetencyLevelsImpl(
+      id: (json['id'] as num?)?.toInt(),
+      dimensions: json['dimensions'] as String?,
+      level: json['level'] as String?,
+      name: json['name'] as String?,
+      description: json['description'] as String?,
+    );
+
+Map<String, dynamic> _$$CompetencyLevelsImplToJson(
+        _$CompetencyLevelsImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'dimensions': instance.dimensions,
+      'level': instance.level,
+      'name': instance.name,
+      'description': instance.description,
     };
 
 _$FieldOptionsRangeImpl _$$FieldOptionsRangeImplFromJson(

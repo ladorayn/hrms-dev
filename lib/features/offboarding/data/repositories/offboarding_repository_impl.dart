@@ -26,6 +26,17 @@ class OffboardingRepositoryImpl implements OffboardingRepository {
   }
 
   @override
+  Future<List<OffboardingProgress>> offboardingProgress({dynamic id}) async {
+    final response = await remoteSource.offboardingProgress(id: id);
+
+    if (response.status == 'success') {
+      return response.data;
+    } else {
+      throw Exception('API Error: ${response.message}');
+    }
+  }
+
+  @override
   Future<List<FormFields>> offboardingFormFields({required int formId}) async {
     final response = await remoteSource.offboardingFormFields(formId: formId);
 

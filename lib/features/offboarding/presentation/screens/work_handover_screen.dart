@@ -94,6 +94,7 @@ class _WorkHandoverScreenState extends ConsumerState<WorkHandoverScreen> {
         data: (data) {
           if (data != null) {
             _showSnackBar("Handover submitted successfully!");
+            ref.invalidate(offboardingProgressPProvider(id: widget.data.id));
             // Pop the screen on success
             Navigator.of(context).pop();
           }

@@ -48,4 +48,11 @@ abstract class PerformanceRepository {
 
   Future<CompetencyLevel> getPerformanceCompetencyLevels(
       {String? competencyId, String? dimension, String? level});
+
+  Future<KeyResultGraphDetail> getKeyResultOKRGraph(
+      {required dynamic id,
+      required dynamic okrId,
+      Map<String, dynamic>? filters});
+
+  Future<FormFieldsGroupDetail> getFormDetail({required int formId});
 }

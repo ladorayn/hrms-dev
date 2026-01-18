@@ -329,6 +329,160 @@ class _PerformanceFormFieldsByGroupProviderElement
   int get formId => (origin as PerformanceFormFieldsByGroupProvider).formId;
 }
 
+String _$performanceFormFieldsByGroupDetailHash() =>
+    r'cc5eecc66fda2c6291bed04193948acf3f115674';
+
+abstract class _$PerformanceFormFieldsByGroupDetail
+    extends BuildlessAutoDisposeAsyncNotifier<FormFieldsGroupDetail> {
+  late final int formId;
+
+  FutureOr<FormFieldsGroupDetail> build({
+    required int formId,
+  });
+}
+
+/// See also [PerformanceFormFieldsByGroupDetail].
+@ProviderFor(PerformanceFormFieldsByGroupDetail)
+const performanceFormFieldsByGroupDetailProvider =
+    PerformanceFormFieldsByGroupDetailFamily();
+
+/// See also [PerformanceFormFieldsByGroupDetail].
+class PerformanceFormFieldsByGroupDetailFamily
+    extends Family<AsyncValue<FormFieldsGroupDetail>> {
+  /// See also [PerformanceFormFieldsByGroupDetail].
+  const PerformanceFormFieldsByGroupDetailFamily();
+
+  /// See also [PerformanceFormFieldsByGroupDetail].
+  PerformanceFormFieldsByGroupDetailProvider call({
+    required int formId,
+  }) {
+    return PerformanceFormFieldsByGroupDetailProvider(
+      formId: formId,
+    );
+  }
+
+  @override
+  PerformanceFormFieldsByGroupDetailProvider getProviderOverride(
+    covariant PerformanceFormFieldsByGroupDetailProvider provider,
+  ) {
+    return call(
+      formId: provider.formId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'performanceFormFieldsByGroupDetailProvider';
+}
+
+/// See also [PerformanceFormFieldsByGroupDetail].
+class PerformanceFormFieldsByGroupDetailProvider
+    extends AutoDisposeAsyncNotifierProviderImpl<
+        PerformanceFormFieldsByGroupDetail, FormFieldsGroupDetail> {
+  /// See also [PerformanceFormFieldsByGroupDetail].
+  PerformanceFormFieldsByGroupDetailProvider({
+    required int formId,
+  }) : this._internal(
+          () => PerformanceFormFieldsByGroupDetail()..formId = formId,
+          from: performanceFormFieldsByGroupDetailProvider,
+          name: r'performanceFormFieldsByGroupDetailProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$performanceFormFieldsByGroupDetailHash,
+          dependencies: PerformanceFormFieldsByGroupDetailFamily._dependencies,
+          allTransitiveDependencies: PerformanceFormFieldsByGroupDetailFamily
+              ._allTransitiveDependencies,
+          formId: formId,
+        );
+
+  PerformanceFormFieldsByGroupDetailProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.formId,
+  }) : super.internal();
+
+  final int formId;
+
+  @override
+  FutureOr<FormFieldsGroupDetail> runNotifierBuild(
+    covariant PerformanceFormFieldsByGroupDetail notifier,
+  ) {
+    return notifier.build(
+      formId: formId,
+    );
+  }
+
+  @override
+  Override overrideWith(PerformanceFormFieldsByGroupDetail Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: PerformanceFormFieldsByGroupDetailProvider._internal(
+        () => create()..formId = formId,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        formId: formId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeAsyncNotifierProviderElement<PerformanceFormFieldsByGroupDetail,
+      FormFieldsGroupDetail> createElement() {
+    return _PerformanceFormFieldsByGroupDetailProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is PerformanceFormFieldsByGroupDetailProvider &&
+        other.formId == formId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, formId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin PerformanceFormFieldsByGroupDetailRef
+    on AutoDisposeAsyncNotifierProviderRef<FormFieldsGroupDetail> {
+  /// The parameter `formId` of this provider.
+  int get formId;
+}
+
+class _PerformanceFormFieldsByGroupDetailProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<
+        PerformanceFormFieldsByGroupDetail,
+        FormFieldsGroupDetail> with PerformanceFormFieldsByGroupDetailRef {
+  _PerformanceFormFieldsByGroupDetailProviderElement(super.provider);
+
+  @override
+  int get formId =>
+      (origin as PerformanceFormFieldsByGroupDetailProvider).formId;
+}
+
 String _$performanceAssessmentAnswerHash() =>
     r'90678e38f99da6187cb290e90b597cd84fdbf7c4';
 
@@ -1706,6 +1860,203 @@ class _PerformanceGetCompetencyProviderElement
       (origin as PerformanceGetCompetencyProvider).dimension;
   @override
   String? get level => (origin as PerformanceGetCompetencyProvider).level;
+}
+
+String _$performanceGetOKRKeyResultGraphHash() =>
+    r'76b18893eb75a540691f1f4c5aed9dd6c0f12894';
+
+abstract class _$PerformanceGetOKRKeyResultGraph
+    extends BuildlessAutoDisposeAsyncNotifier<KeyResultGraphDetail> {
+  late final dynamic id;
+  late final dynamic okrId;
+  late final Map<String, dynamic>? filters;
+
+  FutureOr<KeyResultGraphDetail> build({
+    required dynamic id,
+    required dynamic okrId,
+    Map<String, dynamic>? filters,
+  });
+}
+
+/// See also [PerformanceGetOKRKeyResultGraph].
+@ProviderFor(PerformanceGetOKRKeyResultGraph)
+const performanceGetOKRKeyResultGraphProvider =
+    PerformanceGetOKRKeyResultGraphFamily();
+
+/// See also [PerformanceGetOKRKeyResultGraph].
+class PerformanceGetOKRKeyResultGraphFamily
+    extends Family<AsyncValue<KeyResultGraphDetail>> {
+  /// See also [PerformanceGetOKRKeyResultGraph].
+  const PerformanceGetOKRKeyResultGraphFamily();
+
+  /// See also [PerformanceGetOKRKeyResultGraph].
+  PerformanceGetOKRKeyResultGraphProvider call({
+    required dynamic id,
+    required dynamic okrId,
+    Map<String, dynamic>? filters,
+  }) {
+    return PerformanceGetOKRKeyResultGraphProvider(
+      id: id,
+      okrId: okrId,
+      filters: filters,
+    );
+  }
+
+  @override
+  PerformanceGetOKRKeyResultGraphProvider getProviderOverride(
+    covariant PerformanceGetOKRKeyResultGraphProvider provider,
+  ) {
+    return call(
+      id: provider.id,
+      okrId: provider.okrId,
+      filters: provider.filters,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'performanceGetOKRKeyResultGraphProvider';
+}
+
+/// See also [PerformanceGetOKRKeyResultGraph].
+class PerformanceGetOKRKeyResultGraphProvider
+    extends AutoDisposeAsyncNotifierProviderImpl<
+        PerformanceGetOKRKeyResultGraph, KeyResultGraphDetail> {
+  /// See also [PerformanceGetOKRKeyResultGraph].
+  PerformanceGetOKRKeyResultGraphProvider({
+    required dynamic id,
+    required dynamic okrId,
+    Map<String, dynamic>? filters,
+  }) : this._internal(
+          () => PerformanceGetOKRKeyResultGraph()
+            ..id = id
+            ..okrId = okrId
+            ..filters = filters,
+          from: performanceGetOKRKeyResultGraphProvider,
+          name: r'performanceGetOKRKeyResultGraphProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$performanceGetOKRKeyResultGraphHash,
+          dependencies: PerformanceGetOKRKeyResultGraphFamily._dependencies,
+          allTransitiveDependencies:
+              PerformanceGetOKRKeyResultGraphFamily._allTransitiveDependencies,
+          id: id,
+          okrId: okrId,
+          filters: filters,
+        );
+
+  PerformanceGetOKRKeyResultGraphProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.id,
+    required this.okrId,
+    required this.filters,
+  }) : super.internal();
+
+  final dynamic id;
+  final dynamic okrId;
+  final Map<String, dynamic>? filters;
+
+  @override
+  FutureOr<KeyResultGraphDetail> runNotifierBuild(
+    covariant PerformanceGetOKRKeyResultGraph notifier,
+  ) {
+    return notifier.build(
+      id: id,
+      okrId: okrId,
+      filters: filters,
+    );
+  }
+
+  @override
+  Override overrideWith(PerformanceGetOKRKeyResultGraph Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: PerformanceGetOKRKeyResultGraphProvider._internal(
+        () => create()
+          ..id = id
+          ..okrId = okrId
+          ..filters = filters,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        id: id,
+        okrId: okrId,
+        filters: filters,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeAsyncNotifierProviderElement<PerformanceGetOKRKeyResultGraph,
+      KeyResultGraphDetail> createElement() {
+    return _PerformanceGetOKRKeyResultGraphProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is PerformanceGetOKRKeyResultGraphProvider &&
+        other.id == id &&
+        other.okrId == okrId &&
+        other.filters == filters;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, id.hashCode);
+    hash = _SystemHash.combine(hash, okrId.hashCode);
+    hash = _SystemHash.combine(hash, filters.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin PerformanceGetOKRKeyResultGraphRef
+    on AutoDisposeAsyncNotifierProviderRef<KeyResultGraphDetail> {
+  /// The parameter `id` of this provider.
+  dynamic get id;
+
+  /// The parameter `okrId` of this provider.
+  dynamic get okrId;
+
+  /// The parameter `filters` of this provider.
+  Map<String, dynamic>? get filters;
+}
+
+class _PerformanceGetOKRKeyResultGraphProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<
+        PerformanceGetOKRKeyResultGraph,
+        KeyResultGraphDetail> with PerformanceGetOKRKeyResultGraphRef {
+  _PerformanceGetOKRKeyResultGraphProviderElement(super.provider);
+
+  @override
+  dynamic get id => (origin as PerformanceGetOKRKeyResultGraphProvider).id;
+  @override
+  dynamic get okrId =>
+      (origin as PerformanceGetOKRKeyResultGraphProvider).okrId;
+  @override
+  Map<String, dynamic>? get filters =>
+      (origin as PerformanceGetOKRKeyResultGraphProvider).filters;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

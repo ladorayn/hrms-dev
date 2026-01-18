@@ -136,6 +136,15 @@ class OffboardingStatus extends _$OffboardingStatus {
 }
 
 @riverpod
+class OffboardingProgressP extends _$OffboardingProgressP {
+  @override
+  Future<List<OffboardingProgress>> build({dynamic id}) async {
+    final usecase = ref.watch(offboardingUseCaseProvider);
+    return await usecase.checkProgress(id: id);
+  }
+}
+
+@riverpod
 class OffboardingFormFields extends _$OffboardingFormFields {
   @override
   Future<List<FormFields>> build({required int formId}) async {

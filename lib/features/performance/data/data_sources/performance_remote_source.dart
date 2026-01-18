@@ -55,6 +55,20 @@ class PerformanceRemoteSource {
     }
   }
 
+  Future<BaseResponse<FormFieldsGroupDetail>> getFormDetail(
+      {required int formId}) async {
+    try {
+      final response = await _dio.get('api/v1/forms/$formId');
+
+      return BaseResponse.fromJson(
+          response.data,
+          (json) =>
+              FormFieldsGroupDetail.fromJson(json as Map<String, dynamic>));
+    } on DioException catch (e) {
+      throw handleDioError(e);
+    }
+  }
+
   Future<BaseResponse<String>> assessmentFormSubmission(
       {required AssessmentFormRequest request, required assessmentId}) async {
     try {
@@ -162,6 +176,14 @@ class PerformanceRemoteSource {
         'api/ess/supervisor-assessments/${request?.employeeSelfAssessment}/my-submission',
         queryParameters: queryParameters,
       );
+
+      if (response.data['data'] == null) {
+        return BaseResponse<SupervisorAssessmentAnswer>(
+          status: response.data['status'] ?? 'success',
+          message: response.data['message'] ?? '',
+          data: const SupervisorAssessmentAnswer(data: []),
+        );
+      }
 
       return BaseResponse.fromJson(
           response.data,
@@ -307,6 +329,26 @@ class PerformanceRemoteSource {
             .map((item) =>
                 CompetencyLevel.fromJson(item as Map<String, dynamic>))
             .toList(),
+      );
+    } on DioException catch (e) {
+      throw handleDioError(e);
+    }
+  }
+
+  Future<BaseResponse<KeyResultGraphDetail>> getKeyResultOKRGraph({
+    required dynamic id,
+    required dynamic okrId,
+    Map<String, dynamic>? filters,
+  }) async {
+    try {
+      final response = await _dio.get(
+        'api/v1/okr/cycles/$id/graph/$okrId',
+        queryParameters: filters,
+      );
+
+      return BaseResponse.fromJson(
+        response.data,
+        (json) => KeyResultGraphDetail.fromJson(json as Map<String, dynamic>),
       );
     } on DioException catch (e) {
       throw handleDioError(e);

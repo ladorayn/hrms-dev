@@ -40,15 +40,17 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
   bool _isStateInitialized = false;
   bool _isFormValid = false;
 
-  bool get _isFormReadOnly => widget.assessment.status == "Completed";
+  bool get _isFormReadOnly =>
+      widget.assessment.status == "Completed" ||
+      widget.assessment.status == "Completed!";
 
   List<FormFields> get _allFields {
-    final formFieldsGroup = ref
-        .read(performanceFormFieldsByGroupProvider(
+    final detail = ref
+        .read(performanceFormFieldsByGroupDetailProvider(
             formId: widget.assessment.formId ?? 14))
         .value;
-    if (formFieldsGroup == null) return [];
-    return formFieldsGroup.expand((group) => group.fields).toList();
+    if (detail == null) return [];
+    return detail.groups.expand((group) => group.fields).toList();
   }
 
   @override
@@ -78,15 +80,10 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
             break;
           case 'range':
             _ratingAnswers[field.id] = null;
-            final metadata = field.metadata;
-            if (metadata != null) {
-              final isNote = metadata['is_note'] == true;
-
-              if (isNote) {
-                final controller = TextEditingController();
-                controller.addListener(_validateForm);
-                _notesControllers[field.id] = controller;
-              }
+            if (field.metadata?['is_note'] == true) {
+              final controller = TextEditingController();
+              controller.addListener(_validateForm);
+              _notesControllers[field.id] = controller;
             }
             break;
           case 'textarea':
@@ -103,25 +100,29 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
       }
     }
 
-    _populateFieldsFromAnswers(formAnswer);
+    if (formAnswer != null) {
+      _populateFieldsFromAnswers(formAnswer);
+    }
 
-    _isStateInitialized = true;
+    setState(() {
+      _isStateInitialized = true;
+    });
     _validateForm();
   }
 
-  void _populateFieldsFromAnswers(FormAnswer? formAnswer) {
-    final answerData = formAnswer;
-
-    final answerFields = answerData != null ? answerData.fields ?? [] : [];
-
+  void _populateFieldsFromAnswers(FormAnswer formAnswer) {
+    final answerFields = formAnswer.fields ?? [];
     if (answerFields.isEmpty) return;
 
     for (final answer in answerFields) {
       final fieldId = answer.fieldId;
       if (fieldId == null) continue;
 
-      final field = _allFields.firstWhere((f) => f.id == fieldId,
-          orElse: () => const FormFields(id: -1, isRequired: false, order: 0));
+      final field = _allFields.firstWhere(
+        (f) => f.id == fieldId,
+        orElse: () => const FormFields(
+            id: -1, isRequired: false, order: 0, competencyLevels: []),
+      );
 
       if (field.id == -1) continue;
 
@@ -147,9 +148,7 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
   void _populateCheckboxAnswer(int fieldId, FieldsAnswer answer) {
     final currentAnswers = _checkboxAnswers[fieldId];
     if (currentAnswers == null) return;
-
     final selectedOptions = answer.value;
-
     if (selectedOptions is List) {
       for (final option in selectedOptions.cast<String>()) {
         if (currentAnswers.containsKey(option)) {
@@ -161,29 +160,20 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
 
   void _populateRatingAnswer(int fieldId, FieldsAnswer answer) {
     final ratingValue = answer.value;
-
     int? rating;
     if (ratingValue is String) {
       rating = int.tryParse(ratingValue);
     } else if (ratingValue is int) {
       rating = ratingValue;
     }
+    ;
 
-    if (rating != null) {
-      _ratingAnswers[fieldId] = rating;
-    }
+    if (rating != null) _ratingAnswers[fieldId] = rating;
 
     if (answer.additionalData is Map<String, dynamic>) {
-      final additionalData = answer.additionalData as Map<String, dynamic>;
-      final notes = additionalData['notes'];
-
-      if (notes is String) {
-        final field = _allFields.firstWhere((f) => f.id == fieldId);
-        final hasNotes = field.metadata?['is_note'] == true;
-
-        if (hasNotes && _notesControllers.containsKey(fieldId)) {
-          _notesControllers[fieldId]!.text = notes;
-        }
+      final notes = (answer.additionalData as Map<String, dynamic>)['notes'];
+      if (notes is String && _notesControllers.containsKey(fieldId)) {
+        _notesControllers[fieldId]!.text = notes;
       }
     }
   }
@@ -196,15 +186,13 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
   }
 
   void _populateSingleSelectionAnswer(int fieldId, FieldsAnswer answer) {
-    final selectedOption = answer.value;
-    if (selectedOption is String) {
-      _singleSelectionAnswers[fieldId] = selectedOption;
+    if (answer.value is String) {
+      _singleSelectionAnswers[fieldId] = answer.value as String;
     }
   }
 
   void _validateForm() {
     final formFields = _allFields;
-
     if (formFields.isEmpty) {
       setState(() => _isFormValid = false);
       return;
@@ -212,50 +200,35 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
 
     bool allRequiredFieldsAreValid = true;
     for (final field in formFields) {
-      // Validation only runs if the form is NOT read-only
       if (field.isRequired && !_isFormReadOnly) {
         bool isFieldValid = false;
-
         switch (field.type) {
           case 'checkbox':
-            final answers = _checkboxAnswers[field.id];
-            if (answers != null && answers.values.contains(true)) {
-              isFieldValid = true;
-            }
+            isFieldValid =
+                _checkboxAnswers[field.id]?.values.contains(true) ?? false;
             break;
           case 'range':
-            if (_ratingAnswers[field.id] != null) {
-              isFieldValid = true;
-            }
+            isFieldValid = _ratingAnswers[field.id] != null;
             break;
           case 'textarea':
           case 'text':
-            final controller = _notesControllers[field.id];
-            if (controller != null && controller.text.trim().isNotEmpty) {
-              isFieldValid = true;
-            }
+            isFieldValid =
+                _notesControllers[field.id]?.text.trim().isNotEmpty ?? false;
             break;
           case 'select':
           case 'radio':
-            if (_singleSelectionAnswers[field.id] != null) {
-              isFieldValid = true;
-            }
+            isFieldValid = _singleSelectionAnswers[field.id] != null;
             break;
           default:
             isFieldValid = true;
-            break;
         }
-
         if (!isFieldValid) {
           allRequiredFieldsAreValid = false;
           break;
         }
       }
     }
-
-    setState(() {
-      _isFormValid = allRequiredFieldsAreValid;
-    });
+    setState(() => _isFormValid = allRequiredFieldsAreValid);
   }
 
   Future<void> _onSubmit(int statusSubmission) async {
@@ -263,15 +236,11 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
 
     _ratingAnswers.forEach((fieldId, rating) {
       final field = _allFields.firstWhere((f) => f.id == fieldId);
-      final hasNotes = field.metadata?['is_note'] == true;
-
       submissions.add(SubmissionForm(
         fieldId: fieldId,
         value: rating.toString(),
-        additionalData: hasNotes
-            ? {
-                'notes': _notesControllers[fieldId]?.text ?? '',
-              }
+        additionalData: field.metadata?['is_note'] == true
+            ? {'notes': _notesControllers[fieldId]?.text ?? ''}
             : null,
       ));
     });
@@ -281,29 +250,20 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
           .where((e) => e.value == true)
           .map((e) => e.key)
           .toList();
-
-      submissions.add(SubmissionForm(
-        fieldId: fieldId,
-        value: selectedOptions,
-        additionalData: selectedOptions,
-      ));
+      submissions.add(SubmissionForm(fieldId: fieldId, value: selectedOptions));
     });
 
     _singleSelectionAnswers.forEach((fieldId, selectedOption) {
       if (selectedOption != null) {
-        submissions.add(SubmissionForm(
-          fieldId: fieldId,
-          value: selectedOption,
-        ));
+        submissions
+            .add(SubmissionForm(fieldId: fieldId, value: selectedOption));
       }
     });
 
     _notesControllers.forEach((fieldId, controller) {
       if (!_ratingAnswers.containsKey(fieldId)) {
-        submissions.add(SubmissionForm(
-          fieldId: fieldId,
-          value: controller.text,
-        ));
+        submissions
+            .add(SubmissionForm(fieldId: fieldId, value: controller.text));
       }
     });
 
@@ -316,9 +276,6 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
         ref.invalidate(assessmentListRProvider);
         showCustomToast(
             context, 'Form Submitted Successfully!', ToastType.success);
-        // ScaffoldMessenger.of(context).showSnackBar(
-        //   const SnackBar(content: Text('Form Submitted Successfully!')),
-        // );
         context.go(RoutePaths.performance);
       }
     } catch (e) {
@@ -326,38 +283,36 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
         context.pop();
         showCustomToast(
             context, 'Submission Failed: ${e.toString()}', ToastType.error);
-        // ScaffoldMessenger.of(context).showSnackBar(
-        //   SnackBar(content: Text('Submission Failed: ${e.toString()}')),
-        // );
       }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final formFieldsAsync = ref.watch(performanceFormFieldsByGroupProvider(
-        formId: widget.assessment.formId ?? 14));
+    final formDetailAsync = ref.watch(
+        performanceFormFieldsByGroupDetailProvider(
+            formId: widget.assessment.formId ?? 14));
 
-    final formAnswered = ref
-        .watch(performanceAssessmentAnswerProvider(
-            request: AssessmentAnswerRequest(
-          employeeSelfAssessment: "${widget.assessment.id}",
-          formId: widget.assessment.formId,
-        )))
-        .value;
+    final formAnsweredAsync = ref.watch(performanceAssessmentAnswerProvider(
+        request: AssessmentAnswerRequest(
+      employeeSelfAssessment: "${widget.assessment.id}",
+      formId: widget.assessment.formId,
+    )));
 
-    if (formFieldsAsync.hasValue &&
-        formAnswered != null &&
+    if (formDetailAsync.hasValue &&
+        !formAnsweredAsync.isLoading &&
         !_isStateInitialized) {
-      final formGroups = formFieldsAsync.value!;
-
+      final detail = formDetailAsync.value!;
+      final List<AssessmentAnswer>? answerList = formAnsweredAsync.value;
       final FormAnswer? firstAnswer =
-          formAnswered.isNotEmpty ? formAnswered[0].data : null;
+          (answerList != null && answerList.isNotEmpty)
+              ? answerList[0].data
+              : null;
 
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        setState(() {
-          _initializeState(formGroups, firstAnswer);
-        });
+        if (mounted) {
+          _initializeState(detail.groups, firstAnswer);
+        }
       });
     }
 
@@ -366,41 +321,37 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
       body: Column(
         children: [
           Expanded(
-            child: formFieldsAsync.when(
+            child: formDetailAsync.when(
               loading: () => const Center(child: CircularProgressIndicator()),
               error: (err, stack) => Center(child: Text('Error: $err')),
-              data: (formGroups) {
-                if (!_isStateInitialized) {
+              data: (detail) {
+                if (!_isStateInitialized || formAnsweredAsync.isLoading) {
                   return const Center(child: CircularProgressIndicator());
                 }
 
                 return ListView.builder(
                   padding:
                       EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-                  itemCount: formGroups.length,
+                  itemCount: detail.groups.length,
                   itemBuilder: (context, groupIndex) {
-                    final group = formGroups[groupIndex];
-
+                    final group = detail.groups[groupIndex];
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         _buildGroupHeader(group),
-                        ...group.fields.map((field) {
-                          return Padding(
-                            padding: EdgeInsets.only(bottom: 16.h),
-                            child: Container(
-                              padding: EdgeInsets.all(12.sp),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8.r),
-                                border: Border.all(
-                                  color: IColors.light.grayscale.g20,
+                        ...group.fields.map((field) => Padding(
+                              padding: EdgeInsets.only(bottom: 16.h),
+                              child: Container(
+                                padding: EdgeInsets.all(12.sp),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8.r),
+                                  border: Border.all(
+                                      color: IColors.light.grayscale.g20),
+                                  color: Colors.white,
                                 ),
-                                color: Colors.white,
+                                child: _buildDynamicField(field),
                               ),
-                              child: _buildDynamicField(field),
-                            ),
-                          );
-                        }).toList(),
+                            )),
                       ],
                     );
                   },
@@ -408,74 +359,61 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
               },
             ),
           ),
-          if (!_isFormReadOnly)
-            IFooterButton(
-              text: "Submit Self Assessment",
-              onPressed: _isFormValid
-                  ? () {
-                      if (_isStateInitialized) {
-                        _showPopUpConfirmationSubmission(context, 2);
-                      }
-                    }
-                  : null,
-              secondaryText: "Save as Draft",
-              onSecondaryPressed: _isFormValid
-                  ? () {
-                      if (_isStateInitialized) {
-                        _showPopUpConfirmationSubmission(context, 1);
-                      }
-                    }
-                  : null,
-            )
-          else
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-              color: IColors.light.grayscale.g10,
-              child: Center(
-                child: Text(
-                  'This assessment is already completed and read-only.',
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: IColors.light.grayscale.g60,
-                      ),
-                ),
-              ),
-            ),
+          _buildFooter(),
         ],
       ),
     );
   }
 
+  Widget _buildFooter() {
+    if (_isFormReadOnly) {
+      return Container(
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+        color: IColors.light.grayscale.g10,
+        child: const Center(
+          child: Text('This assessment is read-only.',
+              style: TextStyle(color: Color(0xFF9E9E9E))),
+        ),
+      );
+    }
+    return IFooterButton(
+      text: "Submit Self Assessment",
+      onPressed: _isFormValid
+          ? () => _showPopUpConfirmationSubmission(context, 2)
+          : null,
+      secondaryText: "Save as Draft",
+      onSecondaryPressed: _isFormValid
+          ? () => _showPopUpConfirmationSubmission(context, 1)
+          : null,
+    );
+  }
+
   Widget _buildGroupHeader(FormFieldsGroup group) {
-    final textTheme = Theme.of(context).textTheme;
     return Padding(
       padding: EdgeInsets.only(bottom: 8.h, top: 8.h),
       child: Text(
         group.name,
-        style: textTheme.headlineSmall?.copyWith(
-          fontWeight: FontWeight.bold,
-          color: IColors.light.primary.main,
-        ),
+        style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+              fontWeight: FontWeight.bold,
+              color: IColors.light.primary.main,
+            ),
       ),
     );
   }
 
   Widget _buildFieldHeader(FormFields field) {
-    final textTheme = Theme.of(context).textTheme;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('${field.label}', style: textTheme.titleMedium),
-        if (field.description != null && field.description!.isNotEmpty)
+        Text('${field.label}', style: Theme.of(context).textTheme.titleMedium),
+        if (field.description?.isNotEmpty ?? false)
           Padding(
             padding: EdgeInsets.only(top: 4.h, bottom: 8.h),
-            child: Text(
-              field.description!,
-              style: textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.w400,
-                color: const Color(0xFF323232),
-                fontSize: 14.sp,
-              ),
-            ),
+            child: Text(field.description!,
+                style: TextStyle(
+                    fontWeight: FontWeight.w400,
+                    color: const Color(0xFF323232),
+                    fontSize: 14.sp)),
           ),
         SizedBox(height: 12.h),
       ],
@@ -495,75 +433,38 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
       case 'radio':
         return _buildSingleSelectionSection(field);
       default:
-        return Text('Unknown field type: ${field.type}');
+        return Text('Unknown type: ${field.type}');
     }
-  }
-
-  Widget _buildCustomCheckbox({
-    required String title,
-    required bool value,
-    required ValueChanged<bool?> onChanged,
-  }) {
-    final ValueChanged<bool?>? handler = _isFormReadOnly ? null : onChanged;
-
-    return InkWell(
-      onTap: handler != null ? () => handler(!value) : null,
-      child: Row(
-        children: [
-          Checkbox(
-            value: value,
-            onChanged: handler,
-            visualDensity: VisualDensity.compact,
-            activeColor: _isFormReadOnly
-                ? IColors.light.grayscale.g30
-                : IColors.light.primary.main,
-          ),
-          Expanded(
-              child: Text(title,
-                  style: TextStyle(
-                    color: _isFormReadOnly
-                        ? IColors.light.grayscale.g60
-                        : Colors.black,
-                  ))),
-        ],
-      ),
-    );
   }
 
   Widget _buildCheckboxSection(FormFields field) {
     final answers = _checkboxAnswers[field.id];
-
-    if (answers == null || field.options == null || field.options is! List) {
+    if (answers == null || field.options is! List)
       return const SizedBox.shrink();
-    }
-
     final options = (field.options as List).cast<String>();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildFieldHeader(field),
-        ...options.map((option) {
-          return _buildCustomCheckbox(
-            title: option,
-            value: answers[option] ?? false,
-            onChanged: (bool? value) {
-              setState(() {
-                answers[option] = value!;
-              });
-              _validateForm();
-            },
-          );
-        }).toList(),
+        ...options.map((option) => CheckboxListTile(
+              title: Text(option),
+              value: answers[option] ?? false,
+              onChanged: _isFormReadOnly
+                  ? null
+                  : (val) {
+                      setState(() => answers[option] = val!);
+                      _validateForm();
+                    },
+              controlAffinity: ListTileControlAffinity.leading,
+              contentPadding: EdgeInsets.zero,
+              activeColor: IColors.light.primary.main,
+            )),
       ],
     );
   }
 
   Widget _buildRatingSection(FormFields field) {
-    if (field.options == null || field.options is! Map<String, dynamic>) {
-      return const SizedBox.shrink();
-    }
-
     return CompetencyRatingField(
       field: field,
       selectedRating: _ratingAnswers[field.id],
@@ -581,95 +482,56 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
 
   Widget _buildTextAreaSection(FormFields field) {
     final controller = _notesControllers[field.id];
-    final bool isDisabled = _isFormReadOnly;
-
     if (controller == null) return const SizedBox.shrink();
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildFieldHeader(field),
         ITextFieldTextArea(
-          controller: controller,
-          hintText: '',
-          readOnly: isDisabled,
-        ),
+            controller: controller, hintText: '', readOnly: _isFormReadOnly),
       ],
     );
   }
 
   Widget _buildSingleSelectionSection(FormFields field) {
-    if (field.options == null || field.options is! List) {
-      return const SizedBox.shrink();
-    }
-
+    if (field.options is! List) return const SizedBox.shrink();
     final options = (field.options as List).cast<String>();
-    final selectedOption = _singleSelectionAnswers[field.id];
-    final bool isDisabled = _isFormReadOnly;
+    final selected = _singleSelectionAnswers[field.id];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildFieldHeader(field),
-        SizedBox(height: 8.h),
-        // DropdownButtonFormField
         if (field.type == 'select')
           DropdownButtonFormField<String>(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8.r),
-              ),
-              contentPadding: EdgeInsets.symmetric(horizontal: 12.w),
-            ),
-            value: selectedOption,
-            hint: const Text('Select an option'),
-            items: options.map((String option) {
-              return DropdownMenuItem<String>(
-                value: option,
-                child: Text(option),
-              );
-            }).toList(),
-            onChanged: isDisabled
+            value: selected,
+            items: options
+                .map((o) => DropdownMenuItem(value: o, child: Text(o)))
+                .toList(),
+            onChanged: _isFormReadOnly
                 ? null
-                : (String? newValue) {
-                    setState(() {
-                      _singleSelectionAnswers[field.id] = newValue;
-                    });
+                : (val) {
+                    setState(() => _singleSelectionAnswers[field.id] = val);
                     _validateForm();
                   },
-            isExpanded: true,
-            style: TextStyle(
-              color: isDisabled ? IColors.light.grayscale.g60 : Colors.black,
-            ),
-            iconDisabledColor: IColors.light.grayscale.g30,
-            iconEnabledColor: isDisabled
-                ? IColors.light.grayscale.g30
-                : IColors.light.grayscale.g80,
+            decoration: InputDecoration(
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.r))),
           )
         else
-          // RadioListTile
-          ...options.map((option) {
-            return RadioListTile<String>(
-              title: Text(option,
-                  style: TextStyle(
-                    color:
-                        isDisabled ? IColors.light.grayscale.g60 : Colors.black,
-                  )),
-              value: option,
-              groupValue: selectedOption,
-              onChanged: isDisabled
-                  ? null
-                  : (String? newValue) {
-                      setState(() {
-                        _singleSelectionAnswers[field.id] = newValue;
-                      });
-                      _validateForm();
-                    },
-              dense: true,
-              contentPadding: EdgeInsets.zero,
-              activeColor: IColors.light.primary.main,
-            );
-          }).toList(),
+          ...options.map((o) => RadioListTile<String>(
+                title: Text(o),
+                value: o,
+                groupValue: selected,
+                onChanged: _isFormReadOnly
+                    ? null
+                    : (val) {
+                        setState(() => _singleSelectionAnswers[field.id] = val);
+                        _validateForm();
+                      },
+                contentPadding: EdgeInsets.zero,
+                activeColor: IColors.light.primary.main,
+              )),
       ],
     );
   }

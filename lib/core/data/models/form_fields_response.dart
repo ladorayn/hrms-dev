@@ -1,7 +1,24 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'form_fields_response.freezed.dart';
+
 part 'form_fields_response.g.dart';
+
+@freezed
+class FormFieldsGroupDetail with _$FormFieldsGroupDetail {
+  const factory FormFieldsGroupDetail({
+    int? id,
+    String? name,
+    String? code,
+    String? description,
+    int? type,
+    @JsonKey(name: 'type_label') String? typeLabel,
+    required List<FormFieldsGroup> groups,
+  }) = _FormFieldsGroupDetail;
+
+  factory FormFieldsGroupDetail.fromJson(Map<String, dynamic> json) =>
+      _$FormFieldsGroupDetailFromJson(json);
+}
 
 @freezed
 class FormFieldsGroup with _$FormFieldsGroup {
@@ -25,6 +42,7 @@ class FormFields with _$FormFields {
   const factory FormFields({
     required int id,
     @JsonKey(name: 'form_id') int? formId,
+    @JsonKey(name: 'field_group_id') int? fieldGroupId,
     String? label,
     String? type,
     dynamic options,
@@ -35,11 +53,26 @@ class FormFields with _$FormFields {
     @JsonKey(name: 'deleted_at') String? deletedAt,
     String? description,
     Map<String, dynamic>? metadata,
-    @JsonKey(name: 'field_group_id') int? fieldGroupId,
+    @JsonKey(name: 'competency_levels')
+    List<CompetencyLevels>? competencyLevels,
   }) = _FormFields;
 
   factory FormFields.fromJson(Map<String, dynamic> json) =>
       _$FormFieldsFromJson(json);
+}
+
+@freezed
+class CompetencyLevels with _$CompetencyLevels {
+  const factory CompetencyLevels({
+    int? id,
+    String? dimensions,
+    String? level,
+    String? name,
+    String? description,
+  }) = _CompetencyLevels;
+
+  factory CompetencyLevels.fromJson(Map<String, dynamic> json) =>
+      _$CompetencyLevelsFromJson(json);
 }
 
 @freezed

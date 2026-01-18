@@ -338,6 +338,155 @@ final offboardingStatusProvider = AutoDisposeAsyncNotifierProvider<
 
 typedef _$OffboardingStatus
     = AutoDisposeAsyncNotifier<OffboardingStatusResponse?>;
+String _$offboardingProgressPHash() =>
+    r'8c46d29cfabae88cae013567b46f14f8abf63478';
+
+abstract class _$OffboardingProgressP
+    extends BuildlessAutoDisposeAsyncNotifier<List<OffboardingProgress>> {
+  late final dynamic id;
+
+  FutureOr<List<OffboardingProgress>> build({
+    dynamic id,
+  });
+}
+
+/// See also [OffboardingProgressP].
+@ProviderFor(OffboardingProgressP)
+const offboardingProgressPProvider = OffboardingProgressPFamily();
+
+/// See also [OffboardingProgressP].
+class OffboardingProgressPFamily
+    extends Family<AsyncValue<List<OffboardingProgress>>> {
+  /// See also [OffboardingProgressP].
+  const OffboardingProgressPFamily();
+
+  /// See also [OffboardingProgressP].
+  OffboardingProgressPProvider call({
+    dynamic id,
+  }) {
+    return OffboardingProgressPProvider(
+      id: id,
+    );
+  }
+
+  @override
+  OffboardingProgressPProvider getProviderOverride(
+    covariant OffboardingProgressPProvider provider,
+  ) {
+    return call(
+      id: provider.id,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'offboardingProgressPProvider';
+}
+
+/// See also [OffboardingProgressP].
+class OffboardingProgressPProvider extends AutoDisposeAsyncNotifierProviderImpl<
+    OffboardingProgressP, List<OffboardingProgress>> {
+  /// See also [OffboardingProgressP].
+  OffboardingProgressPProvider({
+    dynamic id,
+  }) : this._internal(
+          () => OffboardingProgressP()..id = id,
+          from: offboardingProgressPProvider,
+          name: r'offboardingProgressPProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$offboardingProgressPHash,
+          dependencies: OffboardingProgressPFamily._dependencies,
+          allTransitiveDependencies:
+              OffboardingProgressPFamily._allTransitiveDependencies,
+          id: id,
+        );
+
+  OffboardingProgressPProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.id,
+  }) : super.internal();
+
+  final dynamic id;
+
+  @override
+  FutureOr<List<OffboardingProgress>> runNotifierBuild(
+    covariant OffboardingProgressP notifier,
+  ) {
+    return notifier.build(
+      id: id,
+    );
+  }
+
+  @override
+  Override overrideWith(OffboardingProgressP Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: OffboardingProgressPProvider._internal(
+        () => create()..id = id,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        id: id,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeAsyncNotifierProviderElement<OffboardingProgressP,
+      List<OffboardingProgress>> createElement() {
+    return _OffboardingProgressPProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is OffboardingProgressPProvider && other.id == id;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, id.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin OffboardingProgressPRef
+    on AutoDisposeAsyncNotifierProviderRef<List<OffboardingProgress>> {
+  /// The parameter `id` of this provider.
+  dynamic get id;
+}
+
+class _OffboardingProgressPProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<OffboardingProgressP,
+        List<OffboardingProgress>> with OffboardingProgressPRef {
+  _OffboardingProgressPProviderElement(super.provider);
+
+  @override
+  dynamic get id => (origin as OffboardingProgressPProvider).id;
+}
+
 String _$offboardingFormFieldsHash() =>
     r'11e9818dc321fde28427195f60ded233c0f636d6';
 

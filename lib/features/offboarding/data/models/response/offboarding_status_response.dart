@@ -20,3 +20,17 @@ class OffboardingStatusResponse with _$OffboardingStatusResponse {
   factory OffboardingStatusResponse.fromJson(Map<String, dynamic> json) =>
       _$OffboardingStatusResponseFromJson(json);
 }
+
+@freezed
+class OffboardingProgress with _$OffboardingProgress {
+  const factory OffboardingProgress({
+    int? id,
+    String? type,
+    String? label,
+    String? description,
+    @JsonKey(name: 'is_completed') bool? isCompleted,
+  }) = _OffboardingProgreess;
+
+  factory OffboardingProgress.fromJson(Map<String, dynamic> json) =>
+      _$OffboardingProgressFromJson(json);
+}

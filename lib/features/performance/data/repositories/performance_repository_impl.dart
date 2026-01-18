@@ -206,4 +206,31 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
       throw Exception('API Error: ${response.message}');
     }
   }
+
+  @override
+  Future<KeyResultGraphDetail> getKeyResultOKRGraph({
+    required dynamic id,
+    required dynamic okrId,
+    Map<String, dynamic>? filters,
+  }) async {
+    final response = await remoteSource.getKeyResultOKRGraph(
+        id: id, okrId: okrId, filters: filters);
+
+    if (response.status == 'success') {
+      return response.data;
+    } else {
+      throw Exception('API Error: ${response.message}');
+    }
+  }
+
+  @override
+  Future<FormFieldsGroupDetail> getFormDetail({required int formId}) async {
+    final response = await remoteSource.getFormDetail(formId: formId);
+
+    if (response.status == 'success') {
+      return response.data;
+    } else {
+      throw Exception('API Error: ${response.message}');
+    }
+  }
 }

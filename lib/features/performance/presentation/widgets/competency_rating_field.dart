@@ -4,8 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/data/models/form_fields_response.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
-import 'package:hrms_mobile/features/performance/data/models/response/supervisor_assessment.dart';
-import 'package:hrms_mobile/features/performance/presentation/providers/performance_provider.dart';
 
 class CompetencyRatingField extends ConsumerWidget {
   final FormFields field;
@@ -32,28 +30,29 @@ class CompetencyRatingField extends ConsumerWidget {
     final textTheme = Theme.of(context).textTheme;
     final metadata = field.metadata ?? {};
 
-    final bool isCompetencyLibrary =
-        metadata['type'] == "use_competency_library";
-    final String? competencyId = metadata['competency_id']?.toString();
-    final String? dimension = metadata['dimension']?.toString();
+    String currentDescription = field.description ?? '';
 
-    final competencyAsync =
-        (isCompetencyLibrary && selectedRating != null && competencyId != null)
-            ? ref.watch(performanceGetCompetencyProvider(
-                competencyId: competencyId,
-                dimension: dimension,
-                level: selectedRating.toString(),
-              ))
-            : null;
+    final levels = field.competencyLevels;
+
+    if (selectedRating != null && levels != null && levels.isNotEmpty) {
+      final matchedLevel = levels.firstWhere(
+        (element) => element.level == selectedRating.toString(),
+        orElse: () => const CompetencyLevels(),
+      );
+
+      if (matchedLevel.description != null &&
+          matchedLevel.description!.isNotEmpty) {
+        currentDescription = matchedLevel.description!;
+      }
+    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Title and Score Weight
         Row(
           children: [
-            Text('${field.label}', style: textTheme.titleMedium),
-            SizedBox(width: 5.w),
+            Expanded(
+                child: Text('${field.label}', style: textTheme.titleMedium)),
             if (metadata['score_weight'] != null)
               Text(
                 '(${metadata['score_weight']}%)',
@@ -62,15 +61,18 @@ class CompetencyRatingField extends ConsumerWidget {
               ),
           ],
         ),
-
-        // Description logic
-        Padding(
-          padding: EdgeInsets.only(top: 4.h, bottom: 8.h),
-          child:
-              _buildDescription(context, competencyAsync, isCompetencyLibrary),
-        ),
-
-        // Rating Buttons
+        if (currentDescription.isNotEmpty)
+          Padding(
+            padding: EdgeInsets.only(top: 4.h, bottom: 12.h),
+            child: Text(
+              currentDescription,
+              style: textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w400,
+                color: const Color(0xFF323232),
+                fontSize: 14.sp,
+              ),
+            ),
+          ),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
@@ -84,6 +86,8 @@ class CompetencyRatingField extends ConsumerWidget {
                     : (isDisabled ? IColors.light.grayscale.g10 : Colors.white),
                 foregroundColor:
                     isSelected ? Colors.white : IColors.light.primary.main,
+                minimumSize: Size(45.w, 40.h),
+                padding: EdgeInsets.zero,
                 shape: RoundedRectangleBorder(
                   side: BorderSide(
                       color: isDisabled
@@ -95,7 +99,7 @@ class CompetencyRatingField extends ConsumerWidget {
               );
 
               return Padding(
-                padding: EdgeInsets.symmetric(horizontal: 4.w),
+                padding: EdgeInsets.only(right: 8.w),
                 child: ElevatedButton(
                   onPressed: isDisabled ? null : () => onRatingChanged(rating),
                   style: buttonStyle,
@@ -105,49 +109,16 @@ class CompetencyRatingField extends ConsumerWidget {
             }),
           ),
         ),
-
         if (notesController != null) ...[
-          SizedBox(height: 12.h),
+          SizedBox(height: 16.h),
           ITextFieldTextArea(
             controller: notesController!,
-            hintText: 'Notes...',
+            hintText: 'Add your comments here...',
             readOnly: isDisabled,
             onChanged: (_) => validateForm(),
           ),
         ],
       ],
-    );
-  }
-
-  Widget _buildDescription(BuildContext context,
-      AsyncValue<CompetencyLevel>? asyncValue, bool isCompetency) {
-    final textTheme = Theme.of(context).textTheme;
-    final style = textTheme.titleMedium?.copyWith(
-      fontWeight: FontWeight.w400,
-      color: const Color(0xFF323232),
-      fontSize: 14.sp,
-    );
-
-    if (!isCompetency) {
-      if (field.description == null || field.description!.isEmpty) {
-        return const SizedBox.shrink();
-      }
-      return Text(field.description!, style: style);
-    }
-
-    if (asyncValue == null) {
-      return const SizedBox.shrink();
-    }
-
-    return asyncValue.when(
-      data: (compLevel) =>
-          Text(compLevel.description ?? field.description ?? '', style: style),
-      loading: () => const SizedBox(
-        height: 20,
-        width: 20,
-        child: CircularProgressIndicator(strokeWidth: 2),
-      ),
-      error: (e, __) => Text(e.toString(), style: style),
     );
   }
 }
