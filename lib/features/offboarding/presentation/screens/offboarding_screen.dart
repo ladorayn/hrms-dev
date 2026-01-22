@@ -122,7 +122,8 @@ class OffboardingScreen extends ConsumerWidget {
                           indicator: _buildIndicator(task.status),
                           drawGap: true,
                         ),
-                        endChild: _buildTaskContent(context, task, data),
+                        endChild: _buildTaskContent(
+                            context, task, data, '${item.type}'),
                       );
                     },
                   );
@@ -187,8 +188,16 @@ class OffboardingScreen extends ConsumerWidget {
   }
 
   Widget _buildTaskContent(BuildContext context, OffboardingTask task,
-      OffboardingStatusResponse data) {
+      OffboardingStatusResponse data, String type) {
     final textTheme = Theme.of(context).textTheme;
+
+    final bool isEquipment = type == 'equipment_facility_return';
+    final bool isExitForm = type == 'exit_interview_form';
+    final bool isHandover =
+        type == 'work_handover' || type == 'document_handover';
+    final bool isCompleted = task.status == TaskStatus.completed;
+    final bool shouldShowButton = !isEquipment && !(isExitForm && isCompleted);
+    final String buttonLabel = (isHandover && isCompleted) ? "Edit" : "Start";
 
     return Padding(
       padding: EdgeInsets.only(left: 16.w, top: 8.h, bottom: 24.h, right: 8.w),
@@ -204,7 +213,9 @@ class OffboardingScreen extends ConsumerWidget {
                   task.title,
                   style: textTheme.titleSmall?.copyWith(
                       fontWeight: FontWeight.w600,
-                      color: IColors.light.primary.main),
+                      color: isCompleted
+                          ? Colors.grey
+                          : IColors.light.primary.main),
                 ),
                 SizedBox(height: 4.h),
                 Text(
@@ -217,23 +228,27 @@ class OffboardingScreen extends ConsumerWidget {
             ),
           ),
           SizedBox(width: 16.w),
-          if (task.status != TaskStatus.completed && task.page != null)
+          if (shouldShowButton && task.page != null)
             ElevatedButton(
               onPressed: () {
-                if (task.page != null) {
-                  globalNavigatorKey.currentContext
-                      ?.pushNamed(task.page!, extra: data);
-                }
+                globalNavigatorKey.currentContext
+                    ?.pushNamed(task.page!, extra: data);
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: IColors.light.primary.main,
-                foregroundColor: Colors.white,
+                // Change style to Outline-like if completed (Detail mode)
+                backgroundColor:
+                    isCompleted ? Colors.white : IColors.light.primary.main,
+                foregroundColor:
+                    isCompleted ? IColors.light.primary.main : Colors.white,
+                side: isCompleted
+                    ? BorderSide(color: IColors.light.primary.main)
+                    : null,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.r),
                 ),
                 padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
               ),
-              child: const Text("Start"),
+              child: Text(buttonLabel),
             )
         ],
       ),

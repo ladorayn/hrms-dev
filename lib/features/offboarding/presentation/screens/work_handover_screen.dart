@@ -13,6 +13,7 @@ import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_dropdo
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
 import 'package:hrms_mobile/core/widgets/toastbar.dart';
 import 'package:hrms_mobile/features/offboarding/data/models/request/handover_bulk_update_request.dart';
+import 'package:hrms_mobile/features/offboarding/data/models/response/offboarding_handover_item_response.dart';
 import 'package:hrms_mobile/features/offboarding/data/models/response/offboarding_status_response.dart';
 import 'package:hrms_mobile/features/offboarding/presentation/providers/offboarding_provider.dart';
 
@@ -39,11 +40,11 @@ class WorkHandoverScreen extends ConsumerStatefulWidget {
 
 class _WorkHandoverScreenState extends ConsumerState<WorkHandoverScreen> {
   final List<HandoverItem> _handoverItems = [];
+  bool _isInitialized = false;
 
   @override
   void initState() {
     super.initState();
-    _addNewHandoverItem();
   }
 
   @override
@@ -52,6 +53,34 @@ class _WorkHandoverScreenState extends ConsumerState<WorkHandoverScreen> {
       item.worksController.dispose();
     }
     super.dispose();
+  }
+
+  void _populateExistingData(List<HandoverItems> existingData) {
+    if (_isInitialized) return;
+
+    setState(() {
+      if (existingData.isEmpty) {
+        _addNewHandoverItem();
+      } else {
+        for (var item in existingData) {
+          _handoverItems.add(
+            HandoverItem(
+              id: item.id,
+              worksController: TextEditingController(text: item.name),
+              selectedEmployees: item.recipients
+                      ?.map((r) => Employee(
+                            userId: r.user?.id,
+                            name: r.user?.name,
+                            email: r.user?.email,
+                          ))
+                      .toList() ??
+                  [],
+            ),
+          );
+        }
+      }
+      _isInitialized = true;
+    });
   }
 
   void _addNewHandoverItem() {
@@ -76,17 +105,18 @@ class _WorkHandoverScreenState extends ConsumerState<WorkHandoverScreen> {
   void _showSnackBar(String message, {bool isError = false}) {
     if (!mounted) return;
     showCustomToast(context, message, ToastType.info);
-    // ScaffoldMessenger.of(context).showSnackBar(
-    //   SnackBar(
-    //     content: Text(message),
-    //     // backgroundColor: isError ? Colors.red : Colors.green,
-    //   ),
-    // );
   }
 
   @override
   Widget build(BuildContext context) {
     final handoverState = ref.watch(handoverSubmissionProvider);
+    final existingDataAsync = ref.watch(offboardingGetHandoverItemProvider(
+      request: HandoverCategoryItemRequest(
+        category: 'work',
+      ),
+    ));
+
+    existingDataAsync.whenData((data) => _populateExistingData(data));
 
     ref.listen(handoverSubmissionProvider, (_, state) {
       state.whenOrNull(
@@ -95,7 +125,6 @@ class _WorkHandoverScreenState extends ConsumerState<WorkHandoverScreen> {
           if (data != null) {
             _showSnackBar("Handover submitted successfully!");
             ref.invalidate(offboardingProgressPProvider(id: widget.data.id));
-            // Pop the screen on success
             Navigator.of(context).pop();
           }
         },
@@ -119,7 +148,7 @@ class _WorkHandoverScreenState extends ConsumerState<WorkHandoverScreen> {
         final List<RecipientRequest> recipients =
             item.selectedEmployees.map((emp) {
           return RecipientRequest(
-            userId: emp.id ?? 0,
+            userId: emp.userId ?? 0,
             status: 1,
           );
         }).toList();
@@ -131,7 +160,8 @@ class _WorkHandoverScreenState extends ConsumerState<WorkHandoverScreen> {
         );
       }).toList();
 
-      final HandoverRequest request = HandoverRequest(data: items);
+      final HandoverRequest request =
+          HandoverRequest(category: "work", data: items);
       final int? offboardingId = widget.data.id;
 
       if (offboardingId == null) {
@@ -147,35 +177,38 @@ class _WorkHandoverScreenState extends ConsumerState<WorkHandoverScreen> {
 
     return Scaffold(
       appBar: const IAppBar(title: "Work & Responsibilities Handover"),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-              itemCount: _handoverItems.length,
-              itemBuilder: (context, index) {
-                final item = _handoverItems[index];
-                return _buildHandoverCard(index, item, context);
-              },
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-            child: OutlinedButton.icon(
-              onPressed: _addNewHandoverItem,
-              icon: const Icon(Icons.add),
-              label: const Text('Add'),
-              style: OutlinedButton.styleFrom(
-                minimumSize: Size(double.infinity, 48.h),
+      body: existingDataAsync.when(
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (err, stack) => Center(child: Text("Error loading data: $err")),
+        data: (_) => Column(
+          children: [
+            Expanded(
+              child: ListView.builder(
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+                itemCount: _handoverItems.length,
+                itemBuilder: (context, index) {
+                  final item = _handoverItems[index];
+                  return _buildHandoverCard(index, item, context);
+                },
               ),
             ),
-          ),
-          IFooterButton(
-            // 🚀 --- UPDATE BUTTON STATE ---
-            text: handoverState.isLoading ? "Submitting..." : "Submit",
-            onPressed: handoverState.isLoading ? null : onSubmit,
-          ),
-        ],
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+              child: OutlinedButton.icon(
+                onPressed: _addNewHandoverItem,
+                icon: const Icon(Icons.add),
+                label: const Text('Add'),
+                style: OutlinedButton.styleFrom(
+                  minimumSize: Size(double.infinity, 48.h),
+                ),
+              ),
+            ),
+            IFooterButton(
+              text: handoverState.isLoading ? "Submitting..." : "Submit",
+              onPressed: handoverState.isLoading ? null : onSubmit,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -193,8 +226,7 @@ class _WorkHandoverScreenState extends ConsumerState<WorkHandoverScreen> {
       child: Padding(
         padding: EdgeInsets.all(16.w),
         child: Row(
-          crossAxisAlignment:
-              CrossAxisAlignment.start, // Align items to the top
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
               child: Column(
@@ -214,10 +246,13 @@ class _WorkHandoverScreenState extends ConsumerState<WorkHandoverScreen> {
                     itemToString: (employee) => employee.name ?? '-',
                     onSelectionConfirmed: (newSelection) {
                       setState(() {
-                        item.selectedEmployees = newSelection;
+                        final uniqueIds = <int>{};
+                        item.selectedEmployees = newSelection.where((emp) {
+                          if (emp.userId == null) return false;
+                          return uniqueIds.add(emp.userId!);
+                        }).toList();
                       });
                     },
-                    // We pass the custom builder
                     customSheetBuilder: (context, initialSelection) {
                       return EmployeeSelectionSheet(
                         initialSelectedEmployees: initialSelection,
@@ -361,8 +396,9 @@ class _EmployeeSelectionSheetState
                         itemCount: employees.length,
                         itemBuilder: (context, index) {
                           final employee = employees[index];
-                          final isSelected =
-                              _tempSelectedEmployees.contains(employee);
+
+                          final isSelected = _tempSelectedEmployees.any(
+                              (element) => element.userId == employee.userId);
 
                           return CheckboxListTile(
                             title: Text(employee.name ?? '-'),
@@ -371,9 +407,14 @@ class _EmployeeSelectionSheetState
                             onChanged: (bool? value) {
                               setState(() {
                                 if (value == true) {
-                                  _tempSelectedEmployees.add(employee);
+                                  if (!_tempSelectedEmployees.any(
+                                      (e) => e.userId == employee.userId)) {
+                                    _tempSelectedEmployees.add(employee);
+                                  }
                                 } else {
-                                  _tempSelectedEmployees.remove(employee);
+                                  _tempSelectedEmployees.removeWhere(
+                                      (element) =>
+                                          element.userId == employee.userId);
                                 }
                               });
                             },

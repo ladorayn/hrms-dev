@@ -9,6 +9,7 @@ import 'package:hrms_mobile/features/offboarding/data/data_sources/offboarding_r
 import 'package:hrms_mobile/features/offboarding/data/models/request/exit_form_request.dart';
 import 'package:hrms_mobile/features/offboarding/data/models/request/handover_bulk_update_request.dart';
 import 'package:hrms_mobile/features/offboarding/data/models/request/handover_validate_request.dart';
+import 'package:hrms_mobile/features/offboarding/data/models/response/offboarding_handover_item_response.dart';
 import 'package:hrms_mobile/features/offboarding/data/models/response/offboarding_handover_response.dart';
 import 'package:hrms_mobile/features/offboarding/data/models/response/offboarding_status_response.dart';
 import 'package:hrms_mobile/features/offboarding/data/repositories/offboarding_repository_impl.dart';
@@ -218,6 +219,16 @@ class OffboardingGetHandover extends _$OffboardingGetHandover {
     final usecase = ref.watch(offboardingUseCaseProvider);
     return await usecase.getHandover(
         offboardingId: offboardingId, category: category, userId: userId);
+  }
+}
+
+@riverpod
+class OffboardingGetHandoverItem extends _$OffboardingGetHandoverItem {
+  @override
+  Future<List<HandoverItems>> build(
+      {required HandoverCategoryItemRequest request}) async {
+    final usecase = ref.watch(offboardingUseCaseProvider);
+    return await usecase.getHandoverItems(request: request);
   }
 }
 

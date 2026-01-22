@@ -6,6 +6,7 @@ part 'handover_bulk_update_request.g.dart';
 @freezed
 class HandoverRequest with _$HandoverRequest {
   const factory HandoverRequest({
+    required String category,
     required List<HandoverItemRequest> data,
   }) = _HandoverRequest;
 
@@ -13,11 +14,9 @@ class HandoverRequest with _$HandoverRequest {
       _$HandoverRequestFromJson(json);
 }
 
-/// This is the object inside the "data" array
 @freezed
 class HandoverItemRequest with _$HandoverItemRequest {
   const factory HandoverItemRequest({
-    /// "work", "document", "equipment", "facility"
     required String category,
     required String name,
     required List<RecipientRequest> recipients,
@@ -36,4 +35,14 @@ class RecipientRequest with _$RecipientRequest {
 
   factory RecipientRequest.fromJson(Map<String, dynamic> json) =>
       _$RecipientRequestFromJson(json);
+}
+
+@freezed
+class HandoverCategoryItemRequest with _$HandoverCategoryItemRequest {
+  const factory HandoverCategoryItemRequest({
+    required String category,
+  }) = _HandoverCategoryItemRequest;
+
+  factory HandoverCategoryItemRequest.fromJson(Map<String, dynamic> json) =>
+      _$HandoverCategoryItemRequestFromJson(json);
 }

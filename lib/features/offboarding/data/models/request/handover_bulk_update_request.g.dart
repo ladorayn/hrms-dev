@@ -9,6 +9,7 @@ part of 'handover_bulk_update_request.dart';
 _$HandoverRequestImpl _$$HandoverRequestImplFromJson(
         Map<String, dynamic> json) =>
     _$HandoverRequestImpl(
+      category: json['category'] as String,
       data: (json['data'] as List<dynamic>)
           .map((e) => HandoverItemRequest.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -17,6 +18,7 @@ _$HandoverRequestImpl _$$HandoverRequestImplFromJson(
 Map<String, dynamic> _$$HandoverRequestImplToJson(
         _$HandoverRequestImpl instance) =>
     <String, dynamic>{
+      'category': instance.category,
       'data': instance.data,
     };
 
@@ -50,4 +52,16 @@ Map<String, dynamic> _$$RecipientRequestImplToJson(
     <String, dynamic>{
       'user_id': instance.userId,
       'status': instance.status,
+    };
+
+_$HandoverCategoryItemRequestImpl _$$HandoverCategoryItemRequestImplFromJson(
+        Map<String, dynamic> json) =>
+    _$HandoverCategoryItemRequestImpl(
+      category: json['category'] as String,
+    );
+
+Map<String, dynamic> _$$HandoverCategoryItemRequestImplToJson(
+        _$HandoverCategoryItemRequestImpl instance) =>
+    <String, dynamic>{
+      'category': instance.category,
     };

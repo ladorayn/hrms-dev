@@ -20,6 +20,7 @@ HandoverRequest _$HandoverRequestFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$HandoverRequest {
+  String get category => throw _privateConstructorUsedError;
   List<HandoverItemRequest> get data => throw _privateConstructorUsedError;
 
   /// Serializes this HandoverRequest to a JSON map.
@@ -38,7 +39,7 @@ abstract class $HandoverRequestCopyWith<$Res> {
           HandoverRequest value, $Res Function(HandoverRequest) then) =
       _$HandoverRequestCopyWithImpl<$Res, HandoverRequest>;
   @useResult
-  $Res call({List<HandoverItemRequest> data});
+  $Res call({String category, List<HandoverItemRequest> data});
 }
 
 /// @nodoc
@@ -56,9 +57,14 @@ class _$HandoverRequestCopyWithImpl<$Res, $Val extends HandoverRequest>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? category = null,
     Object? data = null,
   }) {
     return _then(_value.copyWith(
+      category: null == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String,
       data: null == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
@@ -75,7 +81,7 @@ abstract class _$$HandoverRequestImplCopyWith<$Res>
       __$$HandoverRequestImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<HandoverItemRequest> data});
+  $Res call({String category, List<HandoverItemRequest> data});
 }
 
 /// @nodoc
@@ -91,9 +97,14 @@ class __$$HandoverRequestImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? category = null,
     Object? data = null,
   }) {
     return _then(_$HandoverRequestImpl(
+      category: null == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String,
       data: null == data
           ? _value._data
           : data // ignore: cast_nullable_to_non_nullable
@@ -105,12 +116,15 @@ class __$$HandoverRequestImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$HandoverRequestImpl implements _HandoverRequest {
-  const _$HandoverRequestImpl({required final List<HandoverItemRequest> data})
+  const _$HandoverRequestImpl(
+      {required this.category, required final List<HandoverItemRequest> data})
       : _data = data;
 
   factory _$HandoverRequestImpl.fromJson(Map<String, dynamic> json) =>
       _$$HandoverRequestImplFromJson(json);
 
+  @override
+  final String category;
   final List<HandoverItemRequest> _data;
   @override
   List<HandoverItemRequest> get data {
@@ -121,7 +135,7 @@ class _$HandoverRequestImpl implements _HandoverRequest {
 
   @override
   String toString() {
-    return 'HandoverRequest(data: $data)';
+    return 'HandoverRequest(category: $category, data: $data)';
   }
 
   @override
@@ -129,13 +143,15 @@ class _$HandoverRequestImpl implements _HandoverRequest {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$HandoverRequestImpl &&
+            (identical(other.category, category) ||
+                other.category == category) &&
             const DeepCollectionEquality().equals(other._data, _data));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_data));
+  int get hashCode => Object.hash(
+      runtimeType, category, const DeepCollectionEquality().hash(_data));
 
   /// Create a copy of HandoverRequest
   /// with the given fields replaced by the non-null parameter values.
@@ -156,11 +172,14 @@ class _$HandoverRequestImpl implements _HandoverRequest {
 
 abstract class _HandoverRequest implements HandoverRequest {
   const factory _HandoverRequest(
-      {required final List<HandoverItemRequest> data}) = _$HandoverRequestImpl;
+      {required final String category,
+      required final List<HandoverItemRequest> data}) = _$HandoverRequestImpl;
 
   factory _HandoverRequest.fromJson(Map<String, dynamic> json) =
       _$HandoverRequestImpl.fromJson;
 
+  @override
+  String get category;
   @override
   List<HandoverItemRequest> get data;
 
@@ -178,7 +197,6 @@ HandoverItemRequest _$HandoverItemRequestFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$HandoverItemRequest {
-  /// "work", "document", "equipment", "facility"
   String get category => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   List<RecipientRequest> get recipients => throw _privateConstructorUsedError;
@@ -295,7 +313,6 @@ class _$HandoverItemRequestImpl implements _HandoverItemRequest {
   factory _$HandoverItemRequestImpl.fromJson(Map<String, dynamic> json) =>
       _$$HandoverItemRequestImplFromJson(json);
 
-  /// "work", "document", "equipment", "facility"
   @override
   final String category;
   @override
@@ -357,7 +374,6 @@ abstract class _HandoverItemRequest implements HandoverItemRequest {
   factory _HandoverItemRequest.fromJson(Map<String, dynamic> json) =
       _$HandoverItemRequestImpl.fromJson;
 
-  /// "work", "document", "equipment", "facility"
   @override
   String get category;
   @override
@@ -543,4 +559,166 @@ abstract class _RecipientRequest implements RecipientRequest {
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$RecipientRequestImplCopyWith<_$RecipientRequestImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+HandoverCategoryItemRequest _$HandoverCategoryItemRequestFromJson(
+    Map<String, dynamic> json) {
+  return _HandoverCategoryItemRequest.fromJson(json);
+}
+
+/// @nodoc
+mixin _$HandoverCategoryItemRequest {
+  String get category => throw _privateConstructorUsedError;
+
+  /// Serializes this HandoverCategoryItemRequest to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of HandoverCategoryItemRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $HandoverCategoryItemRequestCopyWith<HandoverCategoryItemRequest>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $HandoverCategoryItemRequestCopyWith<$Res> {
+  factory $HandoverCategoryItemRequestCopyWith(
+          HandoverCategoryItemRequest value,
+          $Res Function(HandoverCategoryItemRequest) then) =
+      _$HandoverCategoryItemRequestCopyWithImpl<$Res,
+          HandoverCategoryItemRequest>;
+  @useResult
+  $Res call({String category});
+}
+
+/// @nodoc
+class _$HandoverCategoryItemRequestCopyWithImpl<$Res,
+        $Val extends HandoverCategoryItemRequest>
+    implements $HandoverCategoryItemRequestCopyWith<$Res> {
+  _$HandoverCategoryItemRequestCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of HandoverCategoryItemRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? category = null,
+  }) {
+    return _then(_value.copyWith(
+      category: null == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$HandoverCategoryItemRequestImplCopyWith<$Res>
+    implements $HandoverCategoryItemRequestCopyWith<$Res> {
+  factory _$$HandoverCategoryItemRequestImplCopyWith(
+          _$HandoverCategoryItemRequestImpl value,
+          $Res Function(_$HandoverCategoryItemRequestImpl) then) =
+      __$$HandoverCategoryItemRequestImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String category});
+}
+
+/// @nodoc
+class __$$HandoverCategoryItemRequestImplCopyWithImpl<$Res>
+    extends _$HandoverCategoryItemRequestCopyWithImpl<$Res,
+        _$HandoverCategoryItemRequestImpl>
+    implements _$$HandoverCategoryItemRequestImplCopyWith<$Res> {
+  __$$HandoverCategoryItemRequestImplCopyWithImpl(
+      _$HandoverCategoryItemRequestImpl _value,
+      $Res Function(_$HandoverCategoryItemRequestImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of HandoverCategoryItemRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? category = null,
+  }) {
+    return _then(_$HandoverCategoryItemRequestImpl(
+      category: null == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$HandoverCategoryItemRequestImpl
+    implements _HandoverCategoryItemRequest {
+  const _$HandoverCategoryItemRequestImpl({required this.category});
+
+  factory _$HandoverCategoryItemRequestImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$HandoverCategoryItemRequestImplFromJson(json);
+
+  @override
+  final String category;
+
+  @override
+  String toString() {
+    return 'HandoverCategoryItemRequest(category: $category)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$HandoverCategoryItemRequestImpl &&
+            (identical(other.category, category) ||
+                other.category == category));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, category);
+
+  /// Create a copy of HandoverCategoryItemRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$HandoverCategoryItemRequestImplCopyWith<_$HandoverCategoryItemRequestImpl>
+      get copyWith => __$$HandoverCategoryItemRequestImplCopyWithImpl<
+          _$HandoverCategoryItemRequestImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$HandoverCategoryItemRequestImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _HandoverCategoryItemRequest
+    implements HandoverCategoryItemRequest {
+  const factory _HandoverCategoryItemRequest({required final String category}) =
+      _$HandoverCategoryItemRequestImpl;
+
+  factory _HandoverCategoryItemRequest.fromJson(Map<String, dynamic> json) =
+      _$HandoverCategoryItemRequestImpl.fromJson;
+
+  @override
+  String get category;
+
+  /// Create a copy of HandoverCategoryItemRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$HandoverCategoryItemRequestImplCopyWith<_$HandoverCategoryItemRequestImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

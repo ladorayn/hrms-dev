@@ -864,6 +864,158 @@ class _OffboardingGetHandoverProviderElement
   String get userId => (origin as OffboardingGetHandoverProvider).userId;
 }
 
+String _$offboardingGetHandoverItemHash() =>
+    r'c420d7fcd4660ec3f70a6a6d8ac449166a1ad202';
+
+abstract class _$OffboardingGetHandoverItem
+    extends BuildlessAutoDisposeAsyncNotifier<List<HandoverItems>> {
+  late final HandoverCategoryItemRequest request;
+
+  FutureOr<List<HandoverItems>> build({
+    required HandoverCategoryItemRequest request,
+  });
+}
+
+/// See also [OffboardingGetHandoverItem].
+@ProviderFor(OffboardingGetHandoverItem)
+const offboardingGetHandoverItemProvider = OffboardingGetHandoverItemFamily();
+
+/// See also [OffboardingGetHandoverItem].
+class OffboardingGetHandoverItemFamily
+    extends Family<AsyncValue<List<HandoverItems>>> {
+  /// See also [OffboardingGetHandoverItem].
+  const OffboardingGetHandoverItemFamily();
+
+  /// See also [OffboardingGetHandoverItem].
+  OffboardingGetHandoverItemProvider call({
+    required HandoverCategoryItemRequest request,
+  }) {
+    return OffboardingGetHandoverItemProvider(
+      request: request,
+    );
+  }
+
+  @override
+  OffboardingGetHandoverItemProvider getProviderOverride(
+    covariant OffboardingGetHandoverItemProvider provider,
+  ) {
+    return call(
+      request: provider.request,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'offboardingGetHandoverItemProvider';
+}
+
+/// See also [OffboardingGetHandoverItem].
+class OffboardingGetHandoverItemProvider
+    extends AutoDisposeAsyncNotifierProviderImpl<OffboardingGetHandoverItem,
+        List<HandoverItems>> {
+  /// See also [OffboardingGetHandoverItem].
+  OffboardingGetHandoverItemProvider({
+    required HandoverCategoryItemRequest request,
+  }) : this._internal(
+          () => OffboardingGetHandoverItem()..request = request,
+          from: offboardingGetHandoverItemProvider,
+          name: r'offboardingGetHandoverItemProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$offboardingGetHandoverItemHash,
+          dependencies: OffboardingGetHandoverItemFamily._dependencies,
+          allTransitiveDependencies:
+              OffboardingGetHandoverItemFamily._allTransitiveDependencies,
+          request: request,
+        );
+
+  OffboardingGetHandoverItemProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.request,
+  }) : super.internal();
+
+  final HandoverCategoryItemRequest request;
+
+  @override
+  FutureOr<List<HandoverItems>> runNotifierBuild(
+    covariant OffboardingGetHandoverItem notifier,
+  ) {
+    return notifier.build(
+      request: request,
+    );
+  }
+
+  @override
+  Override overrideWith(OffboardingGetHandoverItem Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: OffboardingGetHandoverItemProvider._internal(
+        () => create()..request = request,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        request: request,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeAsyncNotifierProviderElement<OffboardingGetHandoverItem,
+      List<HandoverItems>> createElement() {
+    return _OffboardingGetHandoverItemProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is OffboardingGetHandoverItemProvider &&
+        other.request == request;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, request.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin OffboardingGetHandoverItemRef
+    on AutoDisposeAsyncNotifierProviderRef<List<HandoverItems>> {
+  /// The parameter `request` of this provider.
+  HandoverCategoryItemRequest get request;
+}
+
+class _OffboardingGetHandoverItemProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<OffboardingGetHandoverItem,
+        List<HandoverItems>> with OffboardingGetHandoverItemRef {
+  _OffboardingGetHandoverItemProviderElement(super.provider);
+
+  @override
+  HandoverCategoryItemRequest get request =>
+      (origin as OffboardingGetHandoverItemProvider).request;
+}
+
 String _$validateHandoverSubmissionHash() =>
     r'152aad214c2858f60a74a5d0c26b2cc2ef66971f';
 

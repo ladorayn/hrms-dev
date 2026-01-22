@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-// 🚀 --- CORE IMPORTS ---
 import 'package:hrms_mobile/application/assets/i_assets.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/data/models/employees/employees_response.dart';
@@ -13,8 +12,8 @@ import 'package:hrms_mobile/core/widgets/i_footer_button.dart';
 import 'package:hrms_mobile/core/widgets/text_field/base/i_text_field.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_dropdown_multi_select.dart';
 import 'package:hrms_mobile/core/widgets/toastbar.dart';
-// 🚀 --- FEATURE IMPORTS ---
 import 'package:hrms_mobile/features/offboarding/data/models/request/handover_bulk_update_request.dart';
+import 'package:hrms_mobile/features/offboarding/data/models/response/offboarding_handover_item_response.dart';
 import 'package:hrms_mobile/features/offboarding/data/models/response/offboarding_status_response.dart';
 import 'package:hrms_mobile/features/offboarding/presentation/providers/offboarding_provider.dart';
 
@@ -43,11 +42,11 @@ class DocumentHandoverScreen extends ConsumerStatefulWidget {
 class _DocumentHandoverScreenState
     extends ConsumerState<DocumentHandoverScreen> {
   final List<DocumentHandoverItem> _documentHandoverItems = [];
+  bool _isInitialized = false;
 
   @override
   void initState() {
     super.initState();
-    _addNewDocumentHandoverItem();
   }
 
   @override
@@ -56,6 +55,34 @@ class _DocumentHandoverScreenState
       item.documentController.dispose();
     }
     super.dispose();
+  }
+
+  void _populateExistingData(List<HandoverItems> existingData) {
+    if (_isInitialized) return;
+
+    setState(() {
+      if (existingData.isEmpty) {
+        _addNewDocumentHandoverItem();
+      } else {
+        for (var item in existingData) {
+          _documentHandoverItems.add(
+            DocumentHandoverItem(
+              id: item.id ?? DateTime.now().millisecondsSinceEpoch,
+              documentController: TextEditingController(text: item.name),
+              selectedEmployees: item.recipients
+                      ?.map((r) => Employee(
+                            userId: r.user?.id,
+                            name: r.user?.name,
+                            email: r.user?.email,
+                          ))
+                      .toList() ??
+                  [],
+            ),
+          );
+        }
+      }
+      _isInitialized = true;
+    });
   }
 
   void _addNewDocumentHandoverItem() {
@@ -80,17 +107,18 @@ class _DocumentHandoverScreenState
   void _showSnackBar(String message, {bool isError = false}) {
     if (!mounted) return;
     showCustomToast(context, message, ToastType.info);
-    // ScaffoldMessenger.of(context).showSnackBar(
-    //   SnackBar(
-    //     content: Text(message),
-    //     // backgroundColor: isError ? Colors.red : Colors.green,
-    //   ),
-    // );
   }
 
   @override
   Widget build(BuildContext context) {
     final handoverState = ref.watch(handoverSubmissionProvider);
+    final existingDataAsync = ref.watch(offboardingGetHandoverItemProvider(
+      request: HandoverCategoryItemRequest(
+        category: 'document',
+      ),
+    ));
+
+    existingDataAsync.whenData((data) => _populateExistingData(data));
 
     ref.listen(handoverSubmissionProvider, (_, state) {
       state.whenOrNull(
@@ -106,7 +134,6 @@ class _DocumentHandoverScreenState
     });
 
     Future<void> onSubmit() async {
-      // 🚀 --- VALIDATION ---
       for (var item in _documentHandoverItems) {
         if (item.documentController.text.isEmpty) {
           _showSnackBar('Please fill in all "Document Name" fields.',
@@ -125,7 +152,7 @@ class _DocumentHandoverScreenState
         final List<RecipientRequest> recipients =
             item.selectedEmployees.map((emp) {
           return RecipientRequest(
-            userId: emp.id ?? 0,
+            userId: emp.userId ?? 0,
             status: 1,
           );
         }).toList();
@@ -137,7 +164,8 @@ class _DocumentHandoverScreenState
         );
       }).toList();
 
-      final HandoverRequest request = HandoverRequest(data: items);
+      final HandoverRequest request =
+          HandoverRequest(category: 'document', data: items);
 
       final int? offboardingId = widget.data.id;
 
@@ -147,7 +175,6 @@ class _DocumentHandoverScreenState
         return;
       }
 
-      // 🚀 --- CALL SUBMISSION ---
       await ref.read(handoverSubmissionProvider.notifier).submitForm(
             request: request,
             offboardingId: offboardingId,
@@ -155,40 +182,51 @@ class _DocumentHandoverScreenState
     }
 
     return Scaffold(
-      appBar: const IAppBar(title: "Document Handover"), // 🚀 --- RENAMED ---
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-              itemCount: _documentHandoverItems.length,
-              itemBuilder: (context, index) {
-                final item = _documentHandoverItems[index];
-                return _buildDocumentHandoverCard(index, item, context);
-              },
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-            child: OutlinedButton.icon(
-              onPressed: _addNewDocumentHandoverItem,
-              icon: const Icon(Icons.add),
-              label: const Text('Add'),
-              style: OutlinedButton.styleFrom(
-                minimumSize: Size(double.infinity, 48.h),
+      appBar: const IAppBar(title: "Document Handover"),
+      body: existingDataAsync.when(
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (e, s) => Center(child: Text("Failed to load data")),
+        data: (_) => Column(
+          children: [
+            Expanded(
+              child: ListView.builder(
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+                itemCount: _documentHandoverItems.length,
+                itemBuilder: (context, index) {
+                  final item = _documentHandoverItems[index];
+                  return _buildDocumentHandoverCard(index, item, context);
+                },
               ),
             ),
-          ),
-          IFooterButton(
-            text: handoverState.isLoading ? "Submitting..." : "Submit",
-            onPressed: handoverState.isLoading ? null : onSubmit,
-          ),
-        ],
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+              child: OutlinedButton.icon(
+                onPressed: _addNewDocumentHandoverItem,
+                icon: const Icon(Icons.add),
+                label: const Text('Add'),
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: IColors.light.primary.main,
+                  minimumSize: const Size.fromHeight(50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  side: BorderSide(
+                    color: IColors.light.primary.main,
+                    width: 1.5,
+                  ),
+                ),
+              ),
+            ),
+            IFooterButton(
+              text: handoverState.isLoading ? "Submitting..." : "Submit",
+              onPressed: handoverState.isLoading ? null : onSubmit,
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  // 🚀 --- RENAMED CARD BUILDER ---
   Widget _buildDocumentHandoverCard(
       int index, DocumentHandoverItem item, BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -223,7 +261,11 @@ class _DocumentHandoverScreenState
                     itemToString: (employee) => employee.name ?? '-',
                     onSelectionConfirmed: (newSelection) {
                       setState(() {
-                        item.selectedEmployees = newSelection;
+                        final uniqueIds = <int>{};
+                        item.selectedEmployees = newSelection.where((emp) {
+                          if (emp.userId == null) return false;
+                          return uniqueIds.add(emp.userId!);
+                        }).toList();
                       });
                     },
                     customSheetBuilder: (context, initialSelection) {
@@ -372,8 +414,8 @@ class _EmployeeSelectionSheetState
                         itemCount: employees.length,
                         itemBuilder: (context, index) {
                           final employee = employees[index];
-                          final isSelected =
-                              _tempSelectedEmployees.contains(employee);
+                          final isSelected = _tempSelectedEmployees.any(
+                              (element) => element.userId == employee.userId);
 
                           return CheckboxListTile(
                             title: Text(employee.name ?? '-'),
@@ -382,9 +424,14 @@ class _EmployeeSelectionSheetState
                             onChanged: (bool? value) {
                               setState(() {
                                 if (value == true) {
-                                  _tempSelectedEmployees.add(employee);
+                                  if (!_tempSelectedEmployees.any(
+                                      (e) => e.userId == employee.userId)) {
+                                    _tempSelectedEmployees.add(employee);
+                                  }
                                 } else {
-                                  _tempSelectedEmployees.remove(employee);
+                                  _tempSelectedEmployees.removeWhere(
+                                      (element) =>
+                                          element.userId == employee.userId);
                                 }
                               });
                             },

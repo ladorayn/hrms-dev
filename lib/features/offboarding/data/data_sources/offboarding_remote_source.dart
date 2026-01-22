@@ -5,6 +5,7 @@ import 'package:hrms_mobile/core/errors/error_handler.dart';
 import 'package:hrms_mobile/features/offboarding/data/models/request/exit_form_request.dart';
 import 'package:hrms_mobile/features/offboarding/data/models/request/handover_bulk_update_request.dart';
 import 'package:hrms_mobile/features/offboarding/data/models/request/handover_validate_request.dart';
+import 'package:hrms_mobile/features/offboarding/data/models/response/offboarding_handover_item_response.dart';
 import 'package:hrms_mobile/features/offboarding/data/models/response/offboarding_handover_response.dart';
 import 'package:hrms_mobile/features/offboarding/data/models/response/offboarding_status_response.dart';
 
@@ -46,6 +47,27 @@ class OffboardingRemoteSource {
         (json) => (json as List)
             .map((item) =>
                 OffboardingProgress.fromJson(item as Map<String, dynamic>))
+            .toList(),
+      );
+    } on DioException catch (e) {
+      throw handleDioError(e);
+    }
+  }
+
+  Future<BaseResponse<List<HandoverItems>>> getHandoverItems(
+      {required HandoverCategoryItemRequest request}) async {
+    try {
+      final response = await _dio.get(
+        'api/ess/offboarding/handover-items',
+        queryParameters: {
+          "category": request.category,
+        },
+      );
+
+      return BaseResponse.fromJson(
+        response.data,
+        (json) => (json as List)
+            .map((item) => HandoverItems.fromJson(item as Map<String, dynamic>))
             .toList(),
       );
     } on DioException catch (e) {
@@ -96,7 +118,7 @@ class OffboardingRemoteSource {
   }) async {
     try {
       final response = await _dio.post(
-        'api/v1/employee/offboardings/$offboardingId/handover-asset-return/bulk',
+        'api/ess/offboarding/$offboardingId/bulk-store-handover-asset',
         data: request,
       );
 
