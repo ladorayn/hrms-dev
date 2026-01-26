@@ -199,7 +199,15 @@ class _WorkHandoverScreenState extends ConsumerState<WorkHandoverScreen> {
                 icon: const Icon(Icons.add),
                 label: const Text('Add'),
                 style: OutlinedButton.styleFrom(
-                  minimumSize: Size(double.infinity, 48.h),
+                  foregroundColor: IColors.light.primary.main,
+                  minimumSize: const Size.fromHeight(50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  side: BorderSide(
+                    color: IColors.light.primary.main,
+                    width: 1.5,
+                  ),
                 ),
               ),
             ),
