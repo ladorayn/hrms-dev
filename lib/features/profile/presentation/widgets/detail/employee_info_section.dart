@@ -16,7 +16,7 @@ class EmployeeInfoSection extends StatelessWidget {
     final employment = profile.user?.employment;
 
     final primaryReportNames = profile
-            .user?.employeeProfile.reportingRelationships
+            .user?.employeeProfile?.reportingRelationships
             ?.where((r) => r.relationshipType == 'primary')
             .map((r) => r.name ?? 'Unknown')
             .toList() ??
@@ -25,7 +25,7 @@ class EmployeeInfoSection extends StatelessWidget {
         primaryReportNames.isEmpty ? '-' : primaryReportNames.join('; ');
 
     final additionalReportNames = profile
-            .user?.employeeProfile.reportingRelationships
+            .user?.employeeProfile?.reportingRelationships
             ?.where((r) => r.relationshipType != 'primary')
             .map((r) => r.name ?? 'Unknown')
             .toList() ??
@@ -33,7 +33,7 @@ class EmployeeInfoSection extends StatelessWidget {
     final additionalReportValue =
         additionalReportNames.isEmpty ? '-' : additionalReportNames.join('; ');
 
-    final teams = profile.user?.employeeProfile.teamMembers ?? [];
+    final teams = profile.user?.employeeProfile?.teamMembers ?? [];
 
     return Container(
       padding: EdgeInsets.all(16.w),

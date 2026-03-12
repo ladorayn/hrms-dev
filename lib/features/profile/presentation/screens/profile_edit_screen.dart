@@ -71,33 +71,33 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
     _nameController = TextEditingController(text: profile.user?.name);
     _emailController = TextEditingController(text: profile.user?.email);
     _placeOfBirthController = TextEditingController(
-        text: profile.user?.employeeProfile.placeOfBirth ?? '');
+        text: profile.user?.employeeProfile?.placeOfBirth ?? '');
     _maritalStatusController = TextEditingController(
-        text: profile.user?.employeeProfile.maritalStatusLabel ?? '');
+        text: profile.user?.employeeProfile?.maritalStatusLabel ?? '');
     _bloodTypeController = TextEditingController(
-        text: profile.user?.employeeProfile.bloodType ?? '');
-    _heightController =
-        TextEditingController(text: profile.user?.employeeProfile.height ?? '');
-    _weightController =
-        TextEditingController(text: profile.user?.employeeProfile.weight ?? '');
+        text: profile.user?.employeeProfile?.bloodType ?? '');
+    _heightController = TextEditingController(
+        text: profile.user?.employeeProfile?.height ?? '');
+    _weightController = TextEditingController(
+        text: profile.user?.employeeProfile?.weight ?? '');
     _idNumberController = TextEditingController(
-        text: profile.user?.employeeProfile.idNumber ?? '');
+        text: profile.user?.employeeProfile?.idNumber ?? '');
     _npwpController =
-        TextEditingController(text: profile.user?.employeeProfile.npwp ?? '');
+        TextEditingController(text: profile.user?.employeeProfile?.npwp ?? '');
     _bpjsController =
-        TextEditingController(text: profile.user?.employeeProfile.bpjs ?? '');
+        TextEditingController(text: profile.user?.employeeProfile?.bpjs ?? '');
     _citizenAddressController = TextEditingController(
-        text: profile.user?.employeeProfile.citizenIdAddress ?? '');
+        text: profile.user?.employeeProfile?.citizenIdAddress ?? '');
     _residentialAddressController = TextEditingController(
-        text: profile.user?.employeeProfile.residentialAddress ?? '');
+        text: profile.user?.employeeProfile?.residentialAddress ?? '');
     _hobbyController =
-        TextEditingController(text: profile.user?.employeeProfile.hobby ?? '');
+        TextEditingController(text: profile.user?.employeeProfile?.hobby ?? '');
 
-    String localNumber = profile.user?.employeeProfile.phoneNumber ?? '';
+    String localNumber = profile.user?.employeeProfile?.phoneNumber ?? '';
     _selectedCountryCode = kCountryCodes[0];
 
-    if (profile.user?.employeeProfile.phoneNumber != null) {
-      final fullNumber = profile.user?.employeeProfile.phoneNumber ?? '';
+    if (profile.user?.employeeProfile?.phoneNumber != null) {
+      final fullNumber = profile.user?.employeeProfile?.phoneNumber ?? '';
 
       final sortedCodes = List<CountryCode>.from(kCountryCodes);
       sortedCodes.sort((a, b) => b.code.length.compareTo(a.code.length));
@@ -115,17 +115,17 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
 
     _phoneController = TextEditingController(text: localNumber);
 
-    if (profile.user?.employeeProfile.gender == 'female') {
+    if (profile.user?.employeeProfile?.gender == 'female') {
       _selectedGender = Gender.female;
     } else {
       _selectedGender = Gender.male;
     }
 
     _dobController = TextEditingController();
-    if (profile.user?.employeeProfile.dateOfBirth != null) {
+    if (profile.user?.employeeProfile?.dateOfBirth != null) {
       try {
         _selectedDob =
-            DateTime.parse(profile.user?.employeeProfile.dateOfBirth ?? '');
+            DateTime.parse(profile.user?.employeeProfile?.dateOfBirth ?? '');
         _dobController.text = DateFormat('MMMM d, yyyy').format(_selectedDob!);
       } catch (e) {
         _selectedDob = null;
@@ -133,9 +133,9 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
     }
 
     _socialMediaFieldsData = [];
-    if (profile.user?.employeeProfile.socialMediaAccounts != null) {
+    if (profile.user?.employeeProfile?.socialMediaAccounts != null) {
       for (var account
-          in profile.user?.employeeProfile.socialMediaAccounts ?? []) {
+          in profile.user?.employeeProfile?.socialMediaAccounts ?? []) {
         _addSocialMediaField(
             initialType: account.type, initialUrl: account.url);
       }
@@ -191,7 +191,7 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
 
     final profile = widget.profile;
     final employment = profile.user?.employment;
-    final bank = profile.user?.employeeProfile.bankAccount;
+    final bank = profile.user?.employeeProfile?.bankAccount;
 
     String? attachmentPath;
 
@@ -227,7 +227,7 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
       gender: _selectedGender.name,
       dateOfBirth: _selectedDob != null
           ? DateFormat('y-MM-dd').format(_selectedDob!)
-          : profile.user?.employeeProfile.dateOfBirth?.split('T').first ?? '',
+          : profile.user?.employeeProfile?.dateOfBirth?.split('T').first ?? '',
       placeOfBirth: _placeOfBirthController.text,
       maritalStatus: _getMaritalStatusCode(_maritalStatusController.text),
       bloodType: _bloodTypeController.text,
@@ -239,13 +239,13 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
       citizenIdAddress: _citizenAddressController.text,
       residentialAddress: _residentialAddressController.text,
       hobby: _hobbyController.text,
-      achievement: profile.user?.employeeProfile.achievement ?? '',
+      achievement: profile.user?.employeeProfile?.achievement ?? '',
       personalDescription:
-          profile.user?.employeeProfile.personalDescription ?? '',
+          profile.user?.employeeProfile?.personalDescription ?? '',
       jobPositionId: employment?.jobPositionId ?? 0,
       jobLevelId: employment?.jobLevelId ?? 0,
       departmentId: employment?.departmentId ?? 0,
-      teamMembers: profile.user?.employeeProfile.teamMembers
+      teamMembers: profile.user?.employeeProfile?.teamMembers
               ?.map((tm) => TeamMemberRequest(teamId: tm.id ?? 0))
               .toList() ??
           [],
@@ -327,7 +327,7 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                     label: 'Photo',
                     isOptional: true,
                     initialImageUrl:
-                        widget.profile.user?.employeeProfile.photoProfileUrl,
+                        widget.profile.user?.employeeProfile?.photoProfileUrl,
                     onImageSelected: (file) {
                       if (file != null) {
                         final platform = PlatformFile(

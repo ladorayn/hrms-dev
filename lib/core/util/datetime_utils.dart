@@ -7,34 +7,44 @@ class DateTimeHelper {
   }
 
   /// Converts `"2025-08-5"` into `"August 5, 2025"`
-  static String formatDate(String rawDate) {
-    final dateTime = DateTime.parse(rawDate);
+  static String formatDate(String? rawDate) {
+    if (rawDate == null || rawDate.isEmpty) return "-";
+    final dateTime = DateTime.tryParse(rawDate);
+    if (dateTime == null) return rawDate;
     return DateFormat("MMMM d, yyyy").format(dateTime);
   }
 
   /// Converts `"2025-09-30 20:58:00"` into `"30 September, 2025"`
-  static String formatDateTime(String rawDate) {
-    final dateTime = DateTime.parse(rawDate);
+  static String formatDateTime(String? rawDate) {
+    if (rawDate == null || rawDate.isEmpty) return "-";
+    final dateTime = DateTime.tryParse(rawDate);
+    if (dateTime == null) return rawDate;
     return DateFormat("d MMMM, yyyy").format(dateTime);
   }
 
   /// Converts "2025-12-01T14:27:34.000000Z" into "December 1, 2025 14:27"
-  static String formatDateAndTime24H(String rawDate) {
-    final dateTime = DateTime.parse(rawDate);
+  static String formatDateAndTime24H(String? rawDate) {
+    if (rawDate == null || rawDate.isEmpty) return "-";
+    final dateTime = DateTime.tryParse(rawDate);
+    if (dateTime == null) return rawDate;
     return DateFormat("MMMM d, yyyy HH:mm").format(dateTime);
   }
 
   // Converts "2025-12-01T14:27:34.000000Z" into "02:27 PM"
-  static String formatTime(String rawDate) {
-    final dateTime = DateTime.parse(rawDate);
+  static String formatTime(String? rawDate) {
+    if (rawDate == null || rawDate.isEmpty) return "-";
+    final dateTime = DateTime.tryParse(rawDate);
+    if (dateTime == null) return rawDate;
     return DateFormat("hh:mm a").format(dateTime);
   }
 
   // --- NEW Helper Methods for Assessment Schedule ---
 
   /// Converts "2025-12-02T00:00:00.000000Z" into "December 2, 2025"
-  static String formatDateFromISO(String rawISO) {
-    final dateTime = DateTime.parse(rawISO);
+  static String formatDateFromISO(String? rawISO) {
+    if (rawISO == null || rawISO.isEmpty) return "-";
+    final dateTime = DateTime.tryParse(rawISO);
+    if (dateTime == null) return rawISO;
     return DateFormat("MMMM d, yyyy").format(dateTime);
   }
 

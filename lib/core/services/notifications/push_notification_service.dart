@@ -1,12 +1,10 @@
-// import 'package:http/http.dart' as http; // <--- REMOVED: Replaced by Dio
-import 'package:dio/dio.dart'; // <--- ADDED: Use your consistent network library
+import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart'; // Assuming you have an error handler utility
+import 'package:flutter/material.dart';
 import 'package:hrms_mobile/core/data/models/notifications/fcm_registration_request.dart';
 import 'package:hrms_mobile/core/errors/error_handler.dart';
 import 'package:hrms_mobile/core/services/notifications/local_notification_service.dart';
 
-// Top-level function for background messages (REQUIRED by FCM)
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   debugPrint('FCM Background Handler: ${message.messageId}');
@@ -105,8 +103,6 @@ class PushNotificationService {
     debugPrint(
         'Notification tapped (isLaunch: $isLaunch). Payload: ${message.data}');
 
-    // TODO: IMPLEMENT DEEP LINKING LOGIC
-    // Use the data map to navigate via your navigatorKey or AppRouter
     final type = message.data['type'];
     final id = message.data['id'];
 
@@ -117,6 +113,5 @@ class PushNotificationService {
       // Example: Go to the attendance history page
       // navigatorKey.currentState?.pushNamed('/attendance-history');
     }
-    // Note: The actual navigation depends on your `app_router` setup.
   }
 }

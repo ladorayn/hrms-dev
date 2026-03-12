@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hrms_mobile/application/l10n/app_localizations.dart';
@@ -17,6 +18,8 @@ import 'core/services/notifications/providers/push_notification_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  const flavor = String.fromEnvironment('FLAVOR', defaultValue: 'dev');
+  await dotenv.load(fileName: ".env.$flavor");
 
   if (!Platform.isIOS) {
     await Firebase.initializeApp(

@@ -34,8 +34,7 @@ class UserWithEmployeeData with _$UserWithEmployeeData {
     @JsonKey(name: 'created_at') String? createdAt,
     @JsonKey(name: 'updated_at') String? updatedAt,
     // Nested objects:
-    @JsonKey(name: 'employee_profile')
-    required EmployeeProfileData employeeProfile, // Renamed model
+    @JsonKey(name: 'employee_profile') EmployeeProfileData? employeeProfile,
     Employment? employment,
     // Branch? branch, // Keep if branch is expected here in other responses
   }) = _UserWithEmployeeData;

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:hrms_mobile/core/errors/exceptions.dart';
 import 'package:hrms_mobile/core/data/models/base_response.dart';
 import 'package:hrms_mobile/core/data/models/employees/employee_profile_request.dart';
 import 'package:hrms_mobile/core/data/models/employees/employee_profile_response.dart';
@@ -143,7 +144,12 @@ class EmployeesRemoteSource {
 
       return BaseResponse.fromJson(
         response.data,
-        (json) => UserProfile.fromJson(json as Map<String, dynamic>),
+        (json) {
+          if (json == null) {
+            throw DataNotFoundException("Profile data not found.");
+          }
+          return UserProfile.fromJson(json as Map<String, dynamic>);
+        },
       );
     } on DioException catch (e) {
       throw handleDioError(e);
@@ -161,7 +167,13 @@ class EmployeesRemoteSource {
       );
       return BaseResponse.fromJson(
         response.data,
-        (json) => UserProfile.fromJson(json as Map<String, dynamic>),
+        (json) {
+          if (json == null) {
+            throw DataNotFoundException(
+                "Profile update failed: No data returned.");
+          }
+          return UserProfile.fromJson(json as Map<String, dynamic>);
+        },
       );
     } on DioException catch (e) {
       throw handleDioError(e);

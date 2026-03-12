@@ -34,8 +34,10 @@ _$UserWithEmployeeDataImpl _$$UserWithEmployeeDataImplFromJson(
       isFirstLogin: json['is_first_login'] as bool?,
       createdAt: json['created_at'] as String?,
       updatedAt: json['updated_at'] as String?,
-      employeeProfile: EmployeeProfileData.fromJson(
-          json['employee_profile'] as Map<String, dynamic>),
+      employeeProfile: json['employee_profile'] == null
+          ? null
+          : EmployeeProfileData.fromJson(
+              json['employee_profile'] as Map<String, dynamic>),
       employment: json['employment'] == null
           ? null
           : Employment.fromJson(json['employment'] as Map<String, dynamic>),

@@ -37,10 +37,7 @@ class AuthInterceptor extends Interceptor {
         err.response?.statusCode == 401 || err.response?.statusCode == 403;
     final bool isLoginRequest = err.requestOptions.path.endsWith('/login');
 
-    print("ERROR ${err.requestOptions.path} - $isLoginRequest");
-
     if (isUnauthorized && !isLoginRequest && !LogoutGuard.hasLoggedOut) {
-      print("DISINI GA YA");
       LogoutGuard.hasLoggedOut = true;
 
       if (kDebugMode) {

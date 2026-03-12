@@ -164,7 +164,7 @@ class DashboardScreen extends ConsumerWidget {
                                 children: [
                                   Text(
                                     // Use the actual data from your provider
-                                    profileAsync.value?.user?.name ??
+                                    profileAsync.asData?.value.user?.name ??
                                         authP.value?.name ??
                                         '-',
                                     style: TextStyle(
@@ -177,7 +177,7 @@ class DashboardScreen extends ConsumerWidget {
                                         .ellipsis, // <-- USE ELLIPSIS
                                   ),
                                   Text(
-                                    profileAsync.value?.user?.employment
+                                    profileAsync.asData?.value.user?.employment
                                             ?.jobPosition?.name ??
                                         authP.value?.employment?.jobPosition
                                             ?.name ??
@@ -193,11 +193,11 @@ class DashboardScreen extends ConsumerWidget {
                             CircleAvatar(
                               radius: 30.r,
                               backgroundColor: IColors.dark.accent,
-                              backgroundImage: (profileAsync.value?.user
+                              backgroundImage: (profileAsync.asData?.value.user
                                           ?.photoProfileUrl?.isNotEmpty ??
                                       false)
-                                  ? NetworkImage(profileAsync
-                                          .value?.user!.photoProfileUrl ??
+                                  ? NetworkImage(profileAsync.asData?.value.user
+                                          ?.photoProfileUrl ??
                                       '')
                                   : null,
                               child:

@@ -17,11 +17,11 @@ class UserInfo extends ConsumerWidget {
         CircleAvatar(
           radius: 50.r,
           backgroundImage:
-              (profile?.user?.employeeProfile.photoProfileUrl) != null
+              (profile?.user?.employeeProfile?.photoProfileUrl) != null
                   ? NetworkImage(
-                      profile?.user?.employeeProfile.photoProfileUrl ?? '')
+                      profile?.user?.employeeProfile?.photoProfileUrl ?? '')
                   : null,
-          child: profile?.user?.employeeProfile.photoProfileUrl == null
+          child: profile?.user?.employeeProfile?.photoProfileUrl == null
               ? const Icon(Icons.person, size: 80, color: Colors.white)
               : null,
         ),

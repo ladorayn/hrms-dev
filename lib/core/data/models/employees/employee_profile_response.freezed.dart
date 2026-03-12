@@ -211,8 +211,8 @@ mixin _$UserWithEmployeeData {
   String? get updatedAt =>
       throw _privateConstructorUsedError; // Nested objects:
   @JsonKey(name: 'employee_profile')
-  EmployeeProfileData get employeeProfile =>
-      throw _privateConstructorUsedError; // Renamed model
+  EmployeeProfileData? get employeeProfile =>
+      throw _privateConstructorUsedError;
   Employment? get employment => throw _privateConstructorUsedError;
 
   /// Serializes this UserWithEmployeeData to a JSON map.
@@ -244,10 +244,10 @@ abstract class $UserWithEmployeeDataCopyWith<$Res> {
       @JsonKey(name: 'is_first_login') bool? isFirstLogin,
       @JsonKey(name: 'created_at') String? createdAt,
       @JsonKey(name: 'updated_at') String? updatedAt,
-      @JsonKey(name: 'employee_profile') EmployeeProfileData employeeProfile,
+      @JsonKey(name: 'employee_profile') EmployeeProfileData? employeeProfile,
       Employment? employment});
 
-  $EmployeeProfileDataCopyWith<$Res> get employeeProfile;
+  $EmployeeProfileDataCopyWith<$Res>? get employeeProfile;
   $EmploymentCopyWith<$Res>? get employment;
 }
 
@@ -279,7 +279,7 @@ class _$UserWithEmployeeDataCopyWithImpl<$Res,
     Object? isFirstLogin = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
-    Object? employeeProfile = null,
+    Object? employeeProfile = freezed,
     Object? employment = freezed,
   }) {
     return _then(_value.copyWith(
@@ -331,10 +331,10 @@ class _$UserWithEmployeeDataCopyWithImpl<$Res,
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as String?,
-      employeeProfile: null == employeeProfile
+      employeeProfile: freezed == employeeProfile
           ? _value.employeeProfile
           : employeeProfile // ignore: cast_nullable_to_non_nullable
-              as EmployeeProfileData,
+              as EmployeeProfileData?,
       employment: freezed == employment
           ? _value.employment
           : employment // ignore: cast_nullable_to_non_nullable
@@ -346,8 +346,12 @@ class _$UserWithEmployeeDataCopyWithImpl<$Res,
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $EmployeeProfileDataCopyWith<$Res> get employeeProfile {
-    return $EmployeeProfileDataCopyWith<$Res>(_value.employeeProfile, (value) {
+  $EmployeeProfileDataCopyWith<$Res>? get employeeProfile {
+    if (_value.employeeProfile == null) {
+      return null;
+    }
+
+    return $EmployeeProfileDataCopyWith<$Res>(_value.employeeProfile!, (value) {
       return _then(_value.copyWith(employeeProfile: value) as $Val);
     });
   }
@@ -388,11 +392,11 @@ abstract class _$$UserWithEmployeeDataImplCopyWith<$Res>
       @JsonKey(name: 'is_first_login') bool? isFirstLogin,
       @JsonKey(name: 'created_at') String? createdAt,
       @JsonKey(name: 'updated_at') String? updatedAt,
-      @JsonKey(name: 'employee_profile') EmployeeProfileData employeeProfile,
+      @JsonKey(name: 'employee_profile') EmployeeProfileData? employeeProfile,
       Employment? employment});
 
   @override
-  $EmployeeProfileDataCopyWith<$Res> get employeeProfile;
+  $EmployeeProfileDataCopyWith<$Res>? get employeeProfile;
   @override
   $EmploymentCopyWith<$Res>? get employment;
 }
@@ -422,7 +426,7 @@ class __$$UserWithEmployeeDataImplCopyWithImpl<$Res>
     Object? isFirstLogin = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
-    Object? employeeProfile = null,
+    Object? employeeProfile = freezed,
     Object? employment = freezed,
   }) {
     return _then(_$UserWithEmployeeDataImpl(
@@ -474,10 +478,10 @@ class __$$UserWithEmployeeDataImplCopyWithImpl<$Res>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as String?,
-      employeeProfile: null == employeeProfile
+      employeeProfile: freezed == employeeProfile
           ? _value.employeeProfile
           : employeeProfile // ignore: cast_nullable_to_non_nullable
-              as EmployeeProfileData,
+              as EmployeeProfileData?,
       employment: freezed == employment
           ? _value.employment
           : employment // ignore: cast_nullable_to_non_nullable
@@ -502,7 +506,7 @@ class _$UserWithEmployeeDataImpl implements _UserWithEmployeeData {
       @JsonKey(name: 'is_first_login') this.isFirstLogin,
       @JsonKey(name: 'created_at') this.createdAt,
       @JsonKey(name: 'updated_at') this.updatedAt,
-      @JsonKey(name: 'employee_profile') required this.employeeProfile,
+      @JsonKey(name: 'employee_profile') this.employeeProfile,
       this.employment})
       : _roles = roles;
 
@@ -552,8 +556,7 @@ class _$UserWithEmployeeDataImpl implements _UserWithEmployeeData {
 // Nested objects:
   @override
   @JsonKey(name: 'employee_profile')
-  final EmployeeProfileData employeeProfile;
-// Renamed model
+  final EmployeeProfileData? employeeProfile;
   @override
   final Employment? employment;
 
@@ -644,7 +647,7 @@ abstract class _UserWithEmployeeData implements UserWithEmployeeData {
       @JsonKey(name: 'created_at') final String? createdAt,
       @JsonKey(name: 'updated_at') final String? updatedAt,
       @JsonKey(name: 'employee_profile')
-      required final EmployeeProfileData employeeProfile,
+      final EmployeeProfileData? employeeProfile,
       final Employment? employment}) = _$UserWithEmployeeDataImpl;
 
   factory _UserWithEmployeeData.fromJson(Map<String, dynamic> json) =
@@ -684,7 +687,7 @@ abstract class _UserWithEmployeeData implements UserWithEmployeeData {
   String? get updatedAt; // Nested objects:
   @override
   @JsonKey(name: 'employee_profile')
-  EmployeeProfileData get employeeProfile; // Renamed model
+  EmployeeProfileData? get employeeProfile;
   @override
   Employment? get employment;
 
