@@ -3,7 +3,9 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:hrms_mobile/core/data/models/notifications/fcm_registration_request.dart';
 import 'package:hrms_mobile/core/errors/error_handler.dart';
+import 'package:hrms_mobile/core/constants/storage_keys.dart';
 import 'package:hrms_mobile/core/services/notifications/local_notification_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -22,8 +24,8 @@ class PushNotificationService {
   Future<void> initializePushNotifications() async {
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
     await _requestPermissions();
-    await _getTokenAndListenForRefresh();
     _setupMessageListeners();
+    _listenToTokenRefresh();
   }
 
   Future<void> _requestPermissions() async {
@@ -45,7 +47,16 @@ class PushNotificationService {
   }
 
   Future<void> sendTokenToBackend(String token) async {
-    final request = FCMRegistrationRequest(fcmToken: token);
+    final prefs = await SharedPreferences.getInstance();
+    final authToken = prefs.getString(StorageKeys.token);
+
+    if (authToken == null) {
+      debugPrint(
+          '[PushNotificationService] Skipping token registration: No auth token found.');
+      return;
+    }
+
+    final request = FCMRegistrationRequest(token: token, platform: 1);
     try {
       final response = await _dio.put(
         _tokenRegistrationUrl,
@@ -59,26 +70,22 @@ class PushNotificationService {
             'FCM Token registration returned unexpected status code: ${response.statusCode}');
       }
     } on DioException catch (e) {
-      throw handleDioError(e);
+      // Don't throw for 401/403 here to avoid landing the user in a logout loop
+      // if this is triggered at the same time as a token expiration.
+      debugPrint('Dio error during FCM token registration: ${e.message}');
     } catch (e) {
       debugPrint('Error during FCM token registration (Non-Dio error): $e');
     }
   }
 
-  Future<void> _getTokenAndListenForRefresh() async {
-    String? token = await _fcm.getToken();
-
-    if (token != null) {
-      debugPrint("FCM Registration Token: $token");
-
-      await sendTokenToBackend(token);
-
-      _fcm.onTokenRefresh.listen((newToken) {
-        debugPrint("FCM Token Refreshed: $newToken");
-        sendTokenToBackend(newToken);
-      });
-    }
+  void _listenToTokenRefresh() {
+    _fcm.onTokenRefresh.listen((newToken) {
+      debugPrint("FCM Token Refreshed: $newToken");
+      sendTokenToBackend(newToken);
+    });
   }
+
+  Future<String?> getFCMToken() => _fcm.getToken();
 
   void _setupMessageListeners() {
     _fcm.getInitialMessage().then((RemoteMessage? message) {

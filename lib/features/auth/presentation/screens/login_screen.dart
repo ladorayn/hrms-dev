@@ -106,10 +106,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.35,
-                        height: MediaQuery.of(context).size.width * 0.15,
-                        color: IColors.dark.background,
+                      Image.asset(
+                        'assets/images/cps-logo.png',
+                        width: MediaQuery.of(context).size.width * 0.45,
+                        fit: BoxFit.contain,
                       ),
                       const SizedBox(height: 40),
                       ITextFieldEmail(

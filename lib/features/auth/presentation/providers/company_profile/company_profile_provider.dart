@@ -37,4 +37,20 @@ class CompanyProfile extends _$CompanyProfile {
     await prefs.setString(StorageKeys.companyProfile, companyJson);
     state = AsyncData(companyProfileResponse);
   }
+
+  Future<void> refreshCompanyProfile() async {
+    try {
+      final repo = ref.read(authRepositoryProvider);
+      final profile = await repo.getCompanyProfile();
+
+      // Update local storage
+      final prefs = await SharedPreferences.getInstance();
+      final companyJson = json.encode(profile.toJson());
+      await prefs.setString(StorageKeys.companyProfile, companyJson);
+
+      state = AsyncData(profile);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

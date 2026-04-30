@@ -21,8 +21,10 @@ FCMRegistrationRequest _$FCMRegistrationRequestFromJson(
 
 /// @nodoc
 mixin _$FCMRegistrationRequest {
-  @JsonKey(name: 'fcm_token')
-  String get fcmToken => throw _privateConstructorUsedError;
+  @JsonKey(name: 'token')
+  String get token => throw _privateConstructorUsedError;
+  @JsonKey(name: 'platform')
+  int get platform => throw _privateConstructorUsedError;
 
   /// Serializes this FCMRegistrationRequest to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -40,7 +42,9 @@ abstract class $FCMRegistrationRequestCopyWith<$Res> {
           $Res Function(FCMRegistrationRequest) then) =
       _$FCMRegistrationRequestCopyWithImpl<$Res, FCMRegistrationRequest>;
   @useResult
-  $Res call({@JsonKey(name: 'fcm_token') String fcmToken});
+  $Res call(
+      {@JsonKey(name: 'token') String token,
+      @JsonKey(name: 'platform') int platform});
 }
 
 /// @nodoc
@@ -59,13 +63,18 @@ class _$FCMRegistrationRequestCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? fcmToken = null,
+    Object? token = null,
+    Object? platform = null,
   }) {
     return _then(_value.copyWith(
-      fcmToken: null == fcmToken
-          ? _value.fcmToken
-          : fcmToken // ignore: cast_nullable_to_non_nullable
+      token: null == token
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
               as String,
+      platform: null == platform
+          ? _value.platform
+          : platform // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -79,7 +88,9 @@ abstract class _$$FCMRegistrationRequestImplCopyWith<$Res>
       __$$FCMRegistrationRequestImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({@JsonKey(name: 'fcm_token') String fcmToken});
+  $Res call(
+      {@JsonKey(name: 'token') String token,
+      @JsonKey(name: 'platform') int platform});
 }
 
 /// @nodoc
@@ -97,13 +108,18 @@ class __$$FCMRegistrationRequestImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? fcmToken = null,
+    Object? token = null,
+    Object? platform = null,
   }) {
     return _then(_$FCMRegistrationRequestImpl(
-      fcmToken: null == fcmToken
-          ? _value.fcmToken
-          : fcmToken // ignore: cast_nullable_to_non_nullable
+      token: null == token
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
               as String,
+      platform: null == platform
+          ? _value.platform
+          : platform // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -112,18 +128,22 @@ class __$$FCMRegistrationRequestImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$FCMRegistrationRequestImpl implements _FCMRegistrationRequest {
   const _$FCMRegistrationRequestImpl(
-      {@JsonKey(name: 'fcm_token') required this.fcmToken});
+      {@JsonKey(name: 'token') required this.token,
+      @JsonKey(name: 'platform') required this.platform});
 
   factory _$FCMRegistrationRequestImpl.fromJson(Map<String, dynamic> json) =>
       _$$FCMRegistrationRequestImplFromJson(json);
 
   @override
-  @JsonKey(name: 'fcm_token')
-  final String fcmToken;
+  @JsonKey(name: 'token')
+  final String token;
+  @override
+  @JsonKey(name: 'platform')
+  final int platform;
 
   @override
   String toString() {
-    return 'FCMRegistrationRequest(fcmToken: $fcmToken)';
+    return 'FCMRegistrationRequest(token: $token, platform: $platform)';
   }
 
   @override
@@ -131,13 +151,14 @@ class _$FCMRegistrationRequestImpl implements _FCMRegistrationRequest {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$FCMRegistrationRequestImpl &&
-            (identical(other.fcmToken, fcmToken) ||
-                other.fcmToken == fcmToken));
+            (identical(other.token, token) || other.token == token) &&
+            (identical(other.platform, platform) ||
+                other.platform == platform));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, fcmToken);
+  int get hashCode => Object.hash(runtimeType, token, platform);
 
   /// Create a copy of FCMRegistrationRequest
   /// with the given fields replaced by the non-null parameter values.
@@ -158,15 +179,19 @@ class _$FCMRegistrationRequestImpl implements _FCMRegistrationRequest {
 
 abstract class _FCMRegistrationRequest implements FCMRegistrationRequest {
   const factory _FCMRegistrationRequest(
-          {@JsonKey(name: 'fcm_token') required final String fcmToken}) =
+          {@JsonKey(name: 'token') required final String token,
+          @JsonKey(name: 'platform') required final int platform}) =
       _$FCMRegistrationRequestImpl;
 
   factory _FCMRegistrationRequest.fromJson(Map<String, dynamic> json) =
       _$FCMRegistrationRequestImpl.fromJson;
 
   @override
-  @JsonKey(name: 'fcm_token')
-  String get fcmToken;
+  @JsonKey(name: 'token')
+  String get token;
+  @override
+  @JsonKey(name: 'platform')
+  int get platform;
 
   /// Create a copy of FCMRegistrationRequest
   /// with the given fields replaced by the non-null parameter values.

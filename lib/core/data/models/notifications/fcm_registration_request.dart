@@ -7,7 +7,8 @@ part 'fcm_registration_request.g.dart';
 @freezed
 class FCMRegistrationRequest with _$FCMRegistrationRequest {
   const factory FCMRegistrationRequest({
-    @JsonKey(name: 'fcm_token') required String fcmToken,
+    @JsonKey(name: 'token') required String token,
+    @JsonKey(name: 'platform') required int platform,
   }) = _FCMRegistrationRequest;
 
   factory FCMRegistrationRequest.fromJson(Map<String, dynamic> json) =>

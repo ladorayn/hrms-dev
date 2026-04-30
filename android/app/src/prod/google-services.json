@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "225412124245",
+    "project_id": "hrms-cps-prod",
+    "storage_bucket": "hrms-cps-prod.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:225412124245:android:11f736451bef9ee77e4edc",
+        "android_client_info": {
+          "package_name": "com.okejob.hrms.hrms_mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCX-k4-fhulZdR0lWU4c4CX42zzW-gAP0k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

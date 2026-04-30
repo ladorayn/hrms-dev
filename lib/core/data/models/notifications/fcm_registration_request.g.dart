@@ -9,11 +9,13 @@ part of 'fcm_registration_request.dart';
 _$FCMRegistrationRequestImpl _$$FCMRegistrationRequestImplFromJson(
         Map<String, dynamic> json) =>
     _$FCMRegistrationRequestImpl(
-      fcmToken: json['fcm_token'] as String,
+      token: json['token'] as String,
+      platform: (json['platform'] as num).toInt(),
     );
 
 Map<String, dynamic> _$$FCMRegistrationRequestImplToJson(
         _$FCMRegistrationRequestImpl instance) =>
     <String, dynamic>{
-      'fcm_token': instance.fcmToken,
+      'token': instance.token,
+      'platform': instance.platform,
     };

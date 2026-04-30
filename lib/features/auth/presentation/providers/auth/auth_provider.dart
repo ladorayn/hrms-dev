@@ -7,6 +7,7 @@ import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/features/attendance/presentation/providers/attendance_provider.dart';
 import 'package:hrms_mobile/features/user/data/models/user.dart';
+import 'package:hrms_mobile/features/auth/presentation/providers/auth_repository_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -42,5 +43,22 @@ class Auth extends _$Auth {
     globalNavigatorKey.currentContext?.go(RoutePaths.login);
     await prefs.remove(StorageKeys.user);
     state = const AsyncData(null);
+  }
+
+  Future<void> refreshProfile() async {
+    try {
+      final repo = ref.read(authRepositoryProvider);
+      final profile = await repo.getProfile();
+      
+      // Update local storage
+      final prefs = await SharedPreferences.getInstance();
+      final userJson = json.encode(profile.toJson());
+      await prefs.setString(StorageKeys.user, userJson);
+      
+      state = AsyncData(profile);
+    } catch (e) {
+      // If refresh fails, we keep the old state but maybe log it
+      rethrow;
+    }
   }
 }

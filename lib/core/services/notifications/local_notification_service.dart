@@ -12,7 +12,7 @@ class LocalNotificationService {
 
   static Future<void> initializePlatformNotifications() async {
     const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
+        AndroidInitializationSettings('ic_notification');
 
     // Request permissions through the settings object on older iOS
     const DarwinInitializationSettings initializationSettingsDarwin =

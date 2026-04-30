@@ -103,8 +103,29 @@ class DashboardScreen extends ConsumerWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xFFF8F8F8),
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+      body: RefreshIndicator(
+        notificationPredicate: (notification) => notification.depth <= 1,
+        onRefresh: () async {
+          // Trigger all refreshes
+          final authNotifier = ref.read(authProvider.notifier);
+          final companyNotifier = ref.read(companyProfileProvider.notifier);
+          
+          await authNotifier.refreshProfile();
+          await companyNotifier.refreshCompanyProfile();
+          
+          final auth = ref.read(authProvider);
+          
+          await Future.wait([
+            ref.refresh(todayAttendanceProvider.future),
+            ref.refresh(recentActivityProvider(limit: 10).future),
+            ref.refresh(offboardingStatusProvider.future),
+            if (auth.value?.id != null)
+              ref.refresh(employeeDetailProvider(id: auth.value!.id).future),
+          ]);
+        },
+        child: NestedScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverToBoxAdapter(
               child: Container(
@@ -521,11 +542,13 @@ class DashboardScreen extends ConsumerWidget {
           ];
         },
         body: Container(
-          padding: EdgeInsets.all(2.w),
           decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(16), topRight: Radius.circular(16))),
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(16),
+              topRight: Radius.circular(16),
+            ),
+          ),
           child: Padding(
             padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
             child: Column(
@@ -541,33 +564,31 @@ class DashboardScreen extends ConsumerWidget {
                         },
                         child: Container(
                           color: const Color(0xFFF8FCFF),
-                          child: Padding(
-                            padding: EdgeInsets.all(8.sp),
-                            child: Column(
-                              children: [
-                                CircleAvatar(
-                                  child: SvgPicture.asset(
-                                    IAssets.overtime,
-                                    height: 24.0,
-                                    width: 24.0,
-                                  ),
+                          padding: EdgeInsets.all(8.sp),
+                          child: Column(
+                            children: [
+                              CircleAvatar(
+                                child: SvgPicture.asset(
+                                  IAssets.overtime,
+                                  height: 24.0,
+                                  width: 24.0,
                                 ),
-                                SizedBox(height: 10), // Added SizedBox
-                                Text(
-                                  'Overtime Request',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 12.sp,
-                                  ),
-                                  textAlign: TextAlign.center,
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                'Overtime Request',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 12.sp,
                                 ),
-                              ],
-                            ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(width: 20.w), // Added SizedBox
+                    SizedBox(width: 20.w),
                     Expanded(
                       child: GestureDetector(
                         onTap: () {
@@ -576,106 +597,86 @@ class DashboardScreen extends ConsumerWidget {
                         },
                         child: Container(
                           color: const Color(0xFFF8FCFF),
-                          child: Padding(
-                            padding: EdgeInsets.all(8.sp),
-                            child: Column(
-                              // spacing: 10, // Invalid property
-                              children: [
-                                CircleAvatar(
-                                  child: SvgPicture.asset(
-                                    IAssets.documentSolid,
-                                    height: 24.0,
-                                    width: 24.0,
-                                  ),
+                          padding: EdgeInsets.all(8.sp),
+                          child: Column(
+                            children: [
+                              CircleAvatar(
+                                child: SvgPicture.asset(
+                                  IAssets.documentSolid,
+                                  height: 24.0,
+                                  width: 24.0,
                                 ),
-                                SizedBox(height: 10), // Added SizedBox
-                                Text(
-                                  'New Leave Request',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 12.sp,
-                                  ),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                'New Leave Request',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 12.sp,
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: 10), // Added SizedBox
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      getOffboardingStatus.when(
-                        skipError: true,
-                        skipLoadingOnRefresh: true,
-                        skipLoadingOnReload: true,
-                        data: (data) {
-                          if (data?.id == null) {
-                            return const SizedBox.shrink();
-                          }
-                          return OffboardingStatusCard(
-                            data: data!,
-                          );
-                        },
-                        error: (error, stackTrace) {
-                          if (error is DataNotFoundException) {
-                            return const SizedBox.shrink();
-                          }
-                          return Text(
-                              "Error fetching offboarding status $error");
-                        },
-                        loading: () {
-                          return const SizedBox.shrink();
-                        },
-                      ),
-                      SizedBox(
-                        height: 4.h,
-                      ),
-                      Text(
-                        'Recent Activity',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18.sp,
-                          color: IColors.light.primary.main,
-                        ),
-                      ),
-                      // This Expanded is CRITICAL for the inner scroll
-                      Expanded(
-                        child: recentActivityState.when(
-                          loading: () =>
-                              const Center(child: CircularProgressIndicator()),
-                          error: (error, stackTrace) => const Center(
-                              child: Text('Could not load activities')),
-                          data: (logs) {
-                            if (logs.isEmpty) {
-                              return const Center(
-                                  child: Text('No recent activity.'));
-                            }
-                            // This ListView is now the primary
-                            // scrollable for the body
-                            return ListView.builder(
-                              padding: EdgeInsets.zero,
-                              itemCount: logs.length,
-                              itemBuilder: (context, index) {
-                                final log = logs[index];
-                                return AttendanceListTile(
-                                  log: log,
-                                );
-                              },
-                            );
-                          },
-                        ),
-                      ),
-                    ],
+                const SizedBox(height: 10),
+                getOffboardingStatus.when(
+                  skipError: true,
+                  skipLoadingOnRefresh: true,
+                  skipLoadingOnReload: true,
+                  data: (data) {
+                    if (data?.id == null) {
+                      return const SizedBox.shrink();
+                    }
+                    return OffboardingStatusCard(data: data!);
+                  },
+                  error: (error, stackTrace) {
+                    if (error is DataNotFoundException) {
+                      return const SizedBox.shrink();
+                    }
+                    return Text("Error fetching offboarding status $error");
+                  },
+                  loading: () => const SizedBox.shrink(),
+                ),
+                SizedBox(height: 4.h),
+                Text(
+                  'Recent Activity',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.sp,
+                    color: IColors.light.primary.main,
                   ),
-                )
+                ),
+                const SizedBox(height: 8),
+                Expanded(
+                  child: recentActivityState.when(
+                    loading: () =>
+                        const Center(child: CircularProgressIndicator()),
+                    error: (error, stackTrace) =>
+                        const Center(child: Text('Could not load activities')),
+                    data: (logs) {
+                      if (logs.isEmpty) {
+                        return const Center(child: Text('No recent activity.'));
+                      }
+                      return ListView.builder(
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        padding: EdgeInsets.zero,
+                        itemCount: logs.length,
+                        itemBuilder: (context, index) {
+                          final log = logs[index];
+                          return AttendanceListTile(log: log);
+                        },
+                      );
+                    },
+                  ),
+                ),
               ],
             ),
           ),
+        ),
         ),
       ),
     );

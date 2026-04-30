@@ -23,10 +23,16 @@ This project uses [FVM](https://fvm.app/) to manage Flutter versions. The requir
    fvm use 3.29.0
    fvm flutter --version
    ```
-3. **Run the app:**
-   ```sh
-   fvm flutter run
-   ```
+3. **Run the app with flavors:**
+
+   - **Development:**
+     ```sh
+     fvm flutter run --flavor dev --dart-define=FLAVOR=dev
+     ```
+   - **Production:**
+     ```sh
+     fvm flutter run --flavor prod --dart-define=FLAVOR=prod
+     ```
 
 ## Code Generation
 
@@ -59,9 +65,17 @@ This will watch for changes and automatically generate the necessary files.
   ```sh
   fvm dart run build_runner watch --delete-conflicting-outputs
   ```
-- **Run the app:**
+- **Run the app (Development):**
   ```sh
-  fvm flutter run
+  fvm flutter run --flavor dev --dart-define=FLAVOR=dev
+  ```
+- **Run the app (Production):**
+  ```sh
+  fvm flutter run --flavor prod --dart-define=FLAVOR=prod
+  ```
+- **Build APK (Production):**
+  ```sh
+  fvm flutter build apk --flavor prod --dart-define=FLAVOR=prod
   ```
 - **Run reset password on local: (change the token to the valid one on email)**
   ```sh

@@ -14,6 +14,8 @@ import 'package:hrms_mobile/core/services/notifications/local_notification_servi
 import 'package:hrms_mobile/firebase_options.dart';
 import 'package:no_screenshot/no_screenshot.dart';
 
+import 'package:hrms_mobile/core/services/notifications/providers/fcm_token_sync_provider.dart';
+
 import 'core/services/notifications/providers/push_notification_provider.dart';
 
 Future<void> main() async {
@@ -49,8 +51,10 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
-    _noScreenshot.screenshotOff();
+    bool isNoScreenshot = dotenv.get('NO_SCREENSHOT') == 'true';
+    if (isNoScreenshot) {
+      _noScreenshot.screenshotOff();
+    }
 
     if (!Platform.isIOS) {
       final pushService = ref.read(pushNotificationServiceProvider);
@@ -61,7 +65,10 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
-    _noScreenshot.screenshotOff();
+    bool isNoScreenshot = dotenv.get('NO_SCREENSHOT') == 'true';
+    if (isNoScreenshot) {
+      _noScreenshot.screenshotOff();
+    }
   }
 
   @override
@@ -73,6 +80,7 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    ref.watch(fcmTokenSyncProvider);
     final router = ref.watch(appRouterProvider);
 
     return ScreenUtilInit(
@@ -81,7 +89,7 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
         splitScreenMode: true,
         builder: (context, child) {
           return MaterialApp.router(
-            title: 'HRMS App',
+            title: ' ESS CPS',
             theme: ITheme.light,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,

@@ -16,6 +16,8 @@ import 'package:flutter/foundation.dart'
 /// ```
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
+    const flavor = String.fromEnvironment('FLAVOR', defaultValue: 'dev');
+
     if (kIsWeb) {
       throw UnsupportedError(
         'DefaultFirebaseOptions have not been configured for web - '
@@ -24,7 +26,7 @@ class DefaultFirebaseOptions {
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
-        return android;
+        return flavor == 'prod' ? androidProd : androidDev;
       case TargetPlatform.iOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for ios - '
@@ -52,12 +54,19 @@ class DefaultFirebaseOptions {
     }
   }
 
-  // --- UPDATED ANDROID OPTIONS ---
-  static const FirebaseOptions android = FirebaseOptions(
+  static const FirebaseOptions androidDev = FirebaseOptions(
     apiKey: 'AIzaSyBoeNZLo4S_e6jucrn_oQzZSs5j5jpSQ5Y',
     appId: '1:471772247202:android:0a6cfc70ad45ac98c193fb',
     messagingSenderId: '471772247202',
     projectId: 'hrms-local-kikik',
     storageBucket: 'hrms-local-kikik.firebasestorage.app',
+  );
+
+  static const FirebaseOptions androidProd = FirebaseOptions(
+    apiKey: 'AIzaSyCX-k4-fhulZdR0lWU4c4CX42zzW-gAP0k',
+    appId: '1:225412124245:android:11f736451bef9ee77e4edc',
+    messagingSenderId: '225412124245',
+    projectId: 'hrms-cps-prod',
+    storageBucket: 'hrms-cps-prod.firebasestorage.app',
   );
 }

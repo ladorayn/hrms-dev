@@ -200,13 +200,15 @@ class _AttendanceFormScreenState extends ConsumerState<AttendanceFormScreen> {
             ),
           ),
           IFooterButton(
-            onPressed: () {
-              if (widget.activity == AttendanceEnum.clockIn) {
-                _handleClockIn();
-              } else {
-                _handleClockOut();
-              }
-            },
+            onPressed: todayAttendance.isLoading 
+              ? null
+              : () {
+                  if (widget.activity == AttendanceEnum.clockIn) {
+                    _handleClockIn();
+                  } else {
+                    _handleClockOut();
+                  }
+                },
             text: "Save ${widget.activity.capitalizeSentence}",
           ),
         ],
