@@ -17,6 +17,8 @@ import 'package:hrms_mobile/features/attendance/data/models/response/shift/worki
 import 'package:hrms_mobile/features/attendance/data/models/response/statistics/attendance_statistics_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/statistics/overtime_statistics_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/validate_location/validate_location_response_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/request/branch/branch_list_request_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/response/branch/branch_list_response_model.dart';
 
 class AttendanceRemoteSource {
   final Dio _dio;
@@ -328,10 +330,33 @@ class AttendanceRemoteSource {
       );
 
       return BaseResponse.fromJson(
-        mockLocation,
+        response.data,
         (json) => ValidateLocationResponseModel.fromJson(
             json as Map<String, dynamic>),
       );
+    } on DioException catch (e) {
+      throw handleDioError(e);
+    }
+  }
+
+  Future<BranchListResponseModel> getBranches(
+      BranchListRequestModel request) async {
+    try {
+      final response = await _dio.get(
+        'api/v1/setting/branch',
+        queryParameters: request.toJson(),
+      );
+
+      return BranchListResponseModel.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (e) {
+      throw handleDioError(e);
+    }
+  }
+
+  Future<BranchListResponseModel> getBranchesByUrl(String url) async {
+    try {
+      final response = await _dio.get(url);
+      return BranchListResponseModel.fromJson(response.data as Map<String, dynamic>);
     } on DioException catch (e) {
       throw handleDioError(e);
     }

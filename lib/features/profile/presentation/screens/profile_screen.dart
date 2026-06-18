@@ -77,6 +77,14 @@ class ProfileScreen extends ConsumerWidget {
                           },
                         ),
                         ProfileMenuItem(
+                          icon: Icons.card_travel_outlined,
+                          title: 'Business Trip',
+                          onTap: () {
+                            globalNavigatorKey.currentContext
+                                ?.pushNamed(RoutePaths.businessTripName);
+                          },
+                        ),
+                        ProfileMenuItem(
                           icon: Icons.wallet_outlined,
                           title: 'My Payslip',
                           onTap: () {

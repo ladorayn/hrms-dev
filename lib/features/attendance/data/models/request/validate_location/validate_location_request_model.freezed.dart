@@ -23,6 +23,8 @@ ValidateLocationRequestModel _$ValidateLocationRequestModelFromJson(
 mixin _$ValidateLocationRequestModel {
   String get latitude => throw _privateConstructorUsedError;
   String get longitude => throw _privateConstructorUsedError;
+  @JsonKey(name: 'branch_id')
+  int? get branchId => throw _privateConstructorUsedError;
 
   /// Serializes this ValidateLocationRequestModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -42,7 +44,10 @@ abstract class $ValidateLocationRequestModelCopyWith<$Res> {
       _$ValidateLocationRequestModelCopyWithImpl<$Res,
           ValidateLocationRequestModel>;
   @useResult
-  $Res call({String latitude, String longitude});
+  $Res call(
+      {String latitude,
+      String longitude,
+      @JsonKey(name: 'branch_id') int? branchId});
 }
 
 /// @nodoc
@@ -63,6 +68,7 @@ class _$ValidateLocationRequestModelCopyWithImpl<$Res,
   $Res call({
     Object? latitude = null,
     Object? longitude = null,
+    Object? branchId = freezed,
   }) {
     return _then(_value.copyWith(
       latitude: null == latitude
@@ -73,6 +79,10 @@ class _$ValidateLocationRequestModelCopyWithImpl<$Res,
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as String,
+      branchId: freezed == branchId
+          ? _value.branchId
+          : branchId // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -86,7 +96,10 @@ abstract class _$$ValidateLocationRequestModelImplCopyWith<$Res>
       __$$ValidateLocationRequestModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String latitude, String longitude});
+  $Res call(
+      {String latitude,
+      String longitude,
+      @JsonKey(name: 'branch_id') int? branchId});
 }
 
 /// @nodoc
@@ -106,6 +119,7 @@ class __$$ValidateLocationRequestModelImplCopyWithImpl<$Res>
   $Res call({
     Object? latitude = null,
     Object? longitude = null,
+    Object? branchId = freezed,
   }) {
     return _then(_$ValidateLocationRequestModelImpl(
       latitude: null == latitude
@@ -116,6 +130,10 @@ class __$$ValidateLocationRequestModelImplCopyWithImpl<$Res>
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as String,
+      branchId: freezed == branchId
+          ? _value.branchId
+          : branchId // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -125,7 +143,9 @@ class __$$ValidateLocationRequestModelImplCopyWithImpl<$Res>
 class _$ValidateLocationRequestModelImpl
     implements _ValidateLocationRequestModel {
   const _$ValidateLocationRequestModelImpl(
-      {required this.latitude, required this.longitude});
+      {required this.latitude,
+      required this.longitude,
+      @JsonKey(name: 'branch_id') this.branchId});
 
   factory _$ValidateLocationRequestModelImpl.fromJson(
           Map<String, dynamic> json) =>
@@ -135,10 +155,13 @@ class _$ValidateLocationRequestModelImpl
   final String latitude;
   @override
   final String longitude;
+  @override
+  @JsonKey(name: 'branch_id')
+  final int? branchId;
 
   @override
   String toString() {
-    return 'ValidateLocationRequestModel(latitude: $latitude, longitude: $longitude)';
+    return 'ValidateLocationRequestModel(latitude: $latitude, longitude: $longitude, branchId: $branchId)';
   }
 
   @override
@@ -149,12 +172,14 @@ class _$ValidateLocationRequestModelImpl
             (identical(other.latitude, latitude) ||
                 other.latitude == latitude) &&
             (identical(other.longitude, longitude) ||
-                other.longitude == longitude));
+                other.longitude == longitude) &&
+            (identical(other.branchId, branchId) ||
+                other.branchId == branchId));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, latitude, longitude);
+  int get hashCode => Object.hash(runtimeType, latitude, longitude, branchId);
 
   /// Create a copy of ValidateLocationRequestModel
   /// with the given fields replaced by the non-null parameter values.
@@ -177,8 +202,10 @@ class _$ValidateLocationRequestModelImpl
 abstract class _ValidateLocationRequestModel
     implements ValidateLocationRequestModel {
   const factory _ValidateLocationRequestModel(
-      {required final String latitude,
-      required final String longitude}) = _$ValidateLocationRequestModelImpl;
+          {required final String latitude,
+          required final String longitude,
+          @JsonKey(name: 'branch_id') final int? branchId}) =
+      _$ValidateLocationRequestModelImpl;
 
   factory _ValidateLocationRequestModel.fromJson(Map<String, dynamic> json) =
       _$ValidateLocationRequestModelImpl.fromJson;
@@ -187,6 +214,9 @@ abstract class _ValidateLocationRequestModel
   String get latitude;
   @override
   String get longitude;
+  @override
+  @JsonKey(name: 'branch_id')
+  int? get branchId;
 
   /// Create a copy of ValidateLocationRequestModel
   /// with the given fields replaced by the non-null parameter values.

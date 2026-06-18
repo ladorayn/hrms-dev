@@ -11,6 +11,7 @@ _$ClockOutRequestModelImpl _$$ClockOutRequestModelImplFromJson(
     _$ClockOutRequestModelImpl(
       clockOutAt: json['clock_out_at'] as String,
       notes: json['notes'] as String?,
+      branchId: (json['branch_id'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$ClockOutRequestModelImplToJson(
@@ -18,4 +19,5 @@ Map<String, dynamic> _$$ClockOutRequestModelImplToJson(
     <String, dynamic>{
       'clock_out_at': instance.clockOutAt,
       'notes': instance.notes,
+      'branch_id': instance.branchId,
     };

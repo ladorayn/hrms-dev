@@ -8,6 +8,7 @@ class ValidateLocationRequestModel with _$ValidateLocationRequestModel {
   const factory ValidateLocationRequestModel({
     required String latitude,
     required String longitude,
+    @JsonKey(name: 'branch_id') int? branchId,
   }) = _ValidateLocationRequestModel;
 
   factory ValidateLocationRequestModel.fromJson(Map<String, dynamic> json) =>

@@ -68,6 +68,8 @@ NotificationPayload _$NotificationPayloadFromJson(Map<String, dynamic> json) {
       return SupervisorAssessmentSchedulePayload.fromJson(json);
     case 'offboardingValidateHandover':
       return OffboardingValidateHandoverPayload.fromJson(json);
+    case 'businessTripStatusUpdated':
+      return BusinessTripStatusUpdatedPayload.fromJson(json);
 
     default:
       throw CheckedFromJsonException(json, 'type', 'NotificationPayload',
@@ -155,6 +157,11 @@ mixin _$NotificationPayload {
             @JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)
         offboardingValidateHandover,
+    required TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)
+        businessTripStatusUpdated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -230,6 +237,11 @@ mixin _$NotificationPayload {
     TResult? Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult? Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -305,6 +317,11 @@ mixin _$NotificationPayload {
     TResult Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -348,6 +365,8 @@ mixin _$NotificationPayload {
         supervisorAssessmentSchedule,
     required TResult Function(OffboardingValidateHandoverPayload value)
         offboardingValidateHandover,
+    required TResult Function(BusinessTripStatusUpdatedPayload value)
+        businessTripStatusUpdated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -383,6 +402,8 @@ mixin _$NotificationPayload {
         supervisorAssessmentSchedule,
     TResult? Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult? Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -416,6 +437,8 @@ mixin _$NotificationPayload {
         supervisorAssessmentSchedule,
     TResult Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -622,6 +645,11 @@ class _$EmailVerificationPayloadImpl
             @JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)
         offboardingValidateHandover,
+    required TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)
+        businessTripStatusUpdated,
   }) {
     return emailVerification(email, result);
   }
@@ -700,6 +728,11 @@ class _$EmailVerificationPayloadImpl
     TResult? Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult? Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
   }) {
     return emailVerification?.call(email, result);
   }
@@ -778,6 +811,11 @@ class _$EmailVerificationPayloadImpl
     TResult Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (emailVerification != null) {
@@ -827,6 +865,8 @@ class _$EmailVerificationPayloadImpl
         supervisorAssessmentSchedule,
     required TResult Function(OffboardingValidateHandoverPayload value)
         offboardingValidateHandover,
+    required TResult Function(BusinessTripStatusUpdatedPayload value)
+        businessTripStatusUpdated,
   }) {
     return emailVerification(this);
   }
@@ -865,6 +905,8 @@ class _$EmailVerificationPayloadImpl
         supervisorAssessmentSchedule,
     TResult? Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult? Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
   }) {
     return emailVerification?.call(this);
   }
@@ -901,6 +943,8 @@ class _$EmailVerificationPayloadImpl
         supervisorAssessmentSchedule,
     TResult Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (emailVerification != null) {
@@ -1104,6 +1148,11 @@ class _$ResetPasswordRequestedPayloadImpl
             @JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)
         offboardingValidateHandover,
+    required TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)
+        businessTripStatusUpdated,
   }) {
     return resetPasswordRequested(email);
   }
@@ -1182,6 +1231,11 @@ class _$ResetPasswordRequestedPayloadImpl
     TResult? Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult? Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
   }) {
     return resetPasswordRequested?.call(email);
   }
@@ -1260,6 +1314,11 @@ class _$ResetPasswordRequestedPayloadImpl
     TResult Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (resetPasswordRequested != null) {
@@ -1309,6 +1368,8 @@ class _$ResetPasswordRequestedPayloadImpl
         supervisorAssessmentSchedule,
     required TResult Function(OffboardingValidateHandoverPayload value)
         offboardingValidateHandover,
+    required TResult Function(BusinessTripStatusUpdatedPayload value)
+        businessTripStatusUpdated,
   }) {
     return resetPasswordRequested(this);
   }
@@ -1347,6 +1408,8 @@ class _$ResetPasswordRequestedPayloadImpl
         supervisorAssessmentSchedule,
     TResult? Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult? Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
   }) {
     return resetPasswordRequested?.call(this);
   }
@@ -1383,6 +1446,8 @@ class _$ResetPasswordRequestedPayloadImpl
         supervisorAssessmentSchedule,
     TResult Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (resetPasswordRequested != null) {
@@ -1582,6 +1647,11 @@ class _$PasswordUpdatedPayloadImpl
             @JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)
         offboardingValidateHandover,
+    required TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)
+        businessTripStatusUpdated,
   }) {
     return passwordUpdated(time);
   }
@@ -1660,6 +1730,11 @@ class _$PasswordUpdatedPayloadImpl
     TResult? Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult? Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
   }) {
     return passwordUpdated?.call(time);
   }
@@ -1738,6 +1813,11 @@ class _$PasswordUpdatedPayloadImpl
     TResult Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (passwordUpdated != null) {
@@ -1787,6 +1867,8 @@ class _$PasswordUpdatedPayloadImpl
         supervisorAssessmentSchedule,
     required TResult Function(OffboardingValidateHandoverPayload value)
         offboardingValidateHandover,
+    required TResult Function(BusinessTripStatusUpdatedPayload value)
+        businessTripStatusUpdated,
   }) {
     return passwordUpdated(this);
   }
@@ -1825,6 +1907,8 @@ class _$PasswordUpdatedPayloadImpl
         supervisorAssessmentSchedule,
     TResult? Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult? Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
   }) {
     return passwordUpdated?.call(this);
   }
@@ -1861,6 +1945,8 @@ class _$PasswordUpdatedPayloadImpl
         supervisorAssessmentSchedule,
     TResult Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (passwordUpdated != null) {
@@ -2076,6 +2162,11 @@ class _$LoginDevicePayloadImpl
             @JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)
         offboardingValidateHandover,
+    required TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)
+        businessTripStatusUpdated,
   }) {
     return loginDevice(device, location, time);
   }
@@ -2154,6 +2245,11 @@ class _$LoginDevicePayloadImpl
     TResult? Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult? Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
   }) {
     return loginDevice?.call(device, location, time);
   }
@@ -2232,6 +2328,11 @@ class _$LoginDevicePayloadImpl
     TResult Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (loginDevice != null) {
@@ -2281,6 +2382,8 @@ class _$LoginDevicePayloadImpl
         supervisorAssessmentSchedule,
     required TResult Function(OffboardingValidateHandoverPayload value)
         offboardingValidateHandover,
+    required TResult Function(BusinessTripStatusUpdatedPayload value)
+        businessTripStatusUpdated,
   }) {
     return loginDevice(this);
   }
@@ -2319,6 +2422,8 @@ class _$LoginDevicePayloadImpl
         supervisorAssessmentSchedule,
     TResult? Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult? Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
   }) {
     return loginDevice?.call(this);
   }
@@ -2355,6 +2460,8 @@ class _$LoginDevicePayloadImpl
         supervisorAssessmentSchedule,
     TResult Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (loginDevice != null) {
@@ -2615,6 +2722,11 @@ class _$ProfileUpdatedPayloadImpl
             @JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)
         offboardingValidateHandover,
+    required TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)
+        businessTripStatusUpdated,
   }) {
     return profileUpdated(actor, fields, status, time, userId, email);
   }
@@ -2693,6 +2805,11 @@ class _$ProfileUpdatedPayloadImpl
     TResult? Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult? Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
   }) {
     return profileUpdated?.call(actor, fields, status, time, userId, email);
   }
@@ -2771,6 +2888,11 @@ class _$ProfileUpdatedPayloadImpl
     TResult Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (profileUpdated != null) {
@@ -2820,6 +2942,8 @@ class _$ProfileUpdatedPayloadImpl
         supervisorAssessmentSchedule,
     required TResult Function(OffboardingValidateHandoverPayload value)
         offboardingValidateHandover,
+    required TResult Function(BusinessTripStatusUpdatedPayload value)
+        businessTripStatusUpdated,
   }) {
     return profileUpdated(this);
   }
@@ -2858,6 +2982,8 @@ class _$ProfileUpdatedPayloadImpl
         supervisorAssessmentSchedule,
     TResult? Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult? Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
   }) {
     return profileUpdated?.call(this);
   }
@@ -2894,6 +3020,8 @@ class _$ProfileUpdatedPayloadImpl
         supervisorAssessmentSchedule,
     TResult Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (profileUpdated != null) {
@@ -3132,6 +3260,11 @@ class _$DepartmentChangedPayloadImpl
             @JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)
         offboardingValidateHandover,
+    required TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)
+        businessTripStatusUpdated,
   }) {
     return departmentChanged(department, team, effectiveDate);
   }
@@ -3210,6 +3343,11 @@ class _$DepartmentChangedPayloadImpl
     TResult? Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult? Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
   }) {
     return departmentChanged?.call(department, team, effectiveDate);
   }
@@ -3288,6 +3426,11 @@ class _$DepartmentChangedPayloadImpl
     TResult Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (departmentChanged != null) {
@@ -3337,6 +3480,8 @@ class _$DepartmentChangedPayloadImpl
         supervisorAssessmentSchedule,
     required TResult Function(OffboardingValidateHandoverPayload value)
         offboardingValidateHandover,
+    required TResult Function(BusinessTripStatusUpdatedPayload value)
+        businessTripStatusUpdated,
   }) {
     return departmentChanged(this);
   }
@@ -3375,6 +3520,8 @@ class _$DepartmentChangedPayloadImpl
         supervisorAssessmentSchedule,
     TResult? Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult? Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
   }) {
     return departmentChanged?.call(this);
   }
@@ -3411,6 +3558,8 @@ class _$DepartmentChangedPayloadImpl
         supervisorAssessmentSchedule,
     TResult Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (departmentChanged != null) {
@@ -3631,6 +3780,11 @@ class _$ManagerChangedPayloadImpl
             @JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)
         offboardingValidateHandover,
+    required TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)
+        businessTripStatusUpdated,
   }) {
     return managerChanged(managerName, effectiveDate);
   }
@@ -3709,6 +3863,11 @@ class _$ManagerChangedPayloadImpl
     TResult? Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult? Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
   }) {
     return managerChanged?.call(managerName, effectiveDate);
   }
@@ -3787,6 +3946,11 @@ class _$ManagerChangedPayloadImpl
     TResult Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (managerChanged != null) {
@@ -3836,6 +4000,8 @@ class _$ManagerChangedPayloadImpl
         supervisorAssessmentSchedule,
     required TResult Function(OffboardingValidateHandoverPayload value)
         offboardingValidateHandover,
+    required TResult Function(BusinessTripStatusUpdatedPayload value)
+        businessTripStatusUpdated,
   }) {
     return managerChanged(this);
   }
@@ -3874,6 +4040,8 @@ class _$ManagerChangedPayloadImpl
         supervisorAssessmentSchedule,
     TResult? Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult? Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
   }) {
     return managerChanged?.call(this);
   }
@@ -3910,6 +4078,8 @@ class _$ManagerChangedPayloadImpl
         supervisorAssessmentSchedule,
     TResult Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (managerChanged != null) {
@@ -4125,6 +4295,11 @@ class _$OffboardingStartedPayloadImpl
             @JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)
         offboardingValidateHandover,
+    required TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)
+        businessTripStatusUpdated,
   }) {
     return offboardingStarted(status, deadline);
   }
@@ -4203,6 +4378,11 @@ class _$OffboardingStartedPayloadImpl
     TResult? Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult? Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
   }) {
     return offboardingStarted?.call(status, deadline);
   }
@@ -4281,6 +4461,11 @@ class _$OffboardingStartedPayloadImpl
     TResult Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (offboardingStarted != null) {
@@ -4330,6 +4515,8 @@ class _$OffboardingStartedPayloadImpl
         supervisorAssessmentSchedule,
     required TResult Function(OffboardingValidateHandoverPayload value)
         offboardingValidateHandover,
+    required TResult Function(BusinessTripStatusUpdatedPayload value)
+        businessTripStatusUpdated,
   }) {
     return offboardingStarted(this);
   }
@@ -4368,6 +4555,8 @@ class _$OffboardingStartedPayloadImpl
         supervisorAssessmentSchedule,
     TResult? Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult? Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
   }) {
     return offboardingStarted?.call(this);
   }
@@ -4404,6 +4593,8 @@ class _$OffboardingStartedPayloadImpl
         supervisorAssessmentSchedule,
     TResult Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (offboardingStarted != null) {
@@ -4670,6 +4861,11 @@ class _$ExitInterviewSchedulePayloadImpl
             @JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)
         offboardingValidateHandover,
+    required TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)
+        businessTripStatusUpdated,
   }) {
     return exitInterviewSchedule(
         id, date, time, interviewer, startTime, endTime);
@@ -4749,6 +4945,11 @@ class _$ExitInterviewSchedulePayloadImpl
     TResult? Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult? Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
   }) {
     return exitInterviewSchedule?.call(
         id, date, time, interviewer, startTime, endTime);
@@ -4828,6 +5029,11 @@ class _$ExitInterviewSchedulePayloadImpl
     TResult Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (exitInterviewSchedule != null) {
@@ -4878,6 +5084,8 @@ class _$ExitInterviewSchedulePayloadImpl
         supervisorAssessmentSchedule,
     required TResult Function(OffboardingValidateHandoverPayload value)
         offboardingValidateHandover,
+    required TResult Function(BusinessTripStatusUpdatedPayload value)
+        businessTripStatusUpdated,
   }) {
     return exitInterviewSchedule(this);
   }
@@ -4916,6 +5124,8 @@ class _$ExitInterviewSchedulePayloadImpl
         supervisorAssessmentSchedule,
     TResult? Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult? Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
   }) {
     return exitInterviewSchedule?.call(this);
   }
@@ -4952,6 +5162,8 @@ class _$ExitInterviewSchedulePayloadImpl
         supervisorAssessmentSchedule,
     TResult Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (exitInterviewSchedule != null) {
@@ -5179,6 +5391,11 @@ class _$AttendanceReminderPayloadImpl
             @JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)
         offboardingValidateHandover,
+    required TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)
+        businessTripStatusUpdated,
   }) {
     return attendanceReminder(startTime, minutes);
   }
@@ -5257,6 +5474,11 @@ class _$AttendanceReminderPayloadImpl
     TResult? Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult? Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
   }) {
     return attendanceReminder?.call(startTime, minutes);
   }
@@ -5335,6 +5557,11 @@ class _$AttendanceReminderPayloadImpl
     TResult Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (attendanceReminder != null) {
@@ -5384,6 +5611,8 @@ class _$AttendanceReminderPayloadImpl
         supervisorAssessmentSchedule,
     required TResult Function(OffboardingValidateHandoverPayload value)
         offboardingValidateHandover,
+    required TResult Function(BusinessTripStatusUpdatedPayload value)
+        businessTripStatusUpdated,
   }) {
     return attendanceReminder(this);
   }
@@ -5422,6 +5651,8 @@ class _$AttendanceReminderPayloadImpl
         supervisorAssessmentSchedule,
     TResult? Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult? Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
   }) {
     return attendanceReminder?.call(this);
   }
@@ -5458,6 +5689,8 @@ class _$AttendanceReminderPayloadImpl
         supervisorAssessmentSchedule,
     TResult Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (attendanceReminder != null) {
@@ -5661,6 +5894,11 @@ class _$AttendanceNotPresentPayloadImpl
             @JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)
         offboardingValidateHandover,
+    required TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)
+        businessTripStatusUpdated,
   }) {
     return attendanceNotPresent(grace);
   }
@@ -5739,6 +5977,11 @@ class _$AttendanceNotPresentPayloadImpl
     TResult? Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult? Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
   }) {
     return attendanceNotPresent?.call(grace);
   }
@@ -5817,6 +6060,11 @@ class _$AttendanceNotPresentPayloadImpl
     TResult Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (attendanceNotPresent != null) {
@@ -5866,6 +6114,8 @@ class _$AttendanceNotPresentPayloadImpl
         supervisorAssessmentSchedule,
     required TResult Function(OffboardingValidateHandoverPayload value)
         offboardingValidateHandover,
+    required TResult Function(BusinessTripStatusUpdatedPayload value)
+        businessTripStatusUpdated,
   }) {
     return attendanceNotPresent(this);
   }
@@ -5904,6 +6154,8 @@ class _$AttendanceNotPresentPayloadImpl
         supervisorAssessmentSchedule,
     TResult? Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult? Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
   }) {
     return attendanceNotPresent?.call(this);
   }
@@ -5940,6 +6192,8 @@ class _$AttendanceNotPresentPayloadImpl
         supervisorAssessmentSchedule,
     TResult Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (attendanceNotPresent != null) {
@@ -6168,6 +6422,11 @@ class _$OvertimeSubmittedPayloadImpl
             @JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)
         offboardingValidateHandover,
+    required TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)
+        businessTripStatusUpdated,
   }) {
     return overtimeSubmitted(date, start, end, approver);
   }
@@ -6246,6 +6505,11 @@ class _$OvertimeSubmittedPayloadImpl
     TResult? Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult? Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
   }) {
     return overtimeSubmitted?.call(date, start, end, approver);
   }
@@ -6324,6 +6588,11 @@ class _$OvertimeSubmittedPayloadImpl
     TResult Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (overtimeSubmitted != null) {
@@ -6373,6 +6642,8 @@ class _$OvertimeSubmittedPayloadImpl
         supervisorAssessmentSchedule,
     required TResult Function(OffboardingValidateHandoverPayload value)
         offboardingValidateHandover,
+    required TResult Function(BusinessTripStatusUpdatedPayload value)
+        businessTripStatusUpdated,
   }) {
     return overtimeSubmitted(this);
   }
@@ -6411,6 +6682,8 @@ class _$OvertimeSubmittedPayloadImpl
         supervisorAssessmentSchedule,
     TResult? Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult? Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
   }) {
     return overtimeSubmitted?.call(this);
   }
@@ -6447,6 +6720,8 @@ class _$OvertimeSubmittedPayloadImpl
         supervisorAssessmentSchedule,
     TResult Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (overtimeSubmitted != null) {
@@ -6670,6 +6945,11 @@ class _$OvertimeUpdatedPayloadImpl
             @JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)
         offboardingValidateHandover,
+    required TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)
+        businessTripStatusUpdated,
   }) {
     return overtimeUpdated(date, status, actor);
   }
@@ -6748,6 +7028,11 @@ class _$OvertimeUpdatedPayloadImpl
     TResult? Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult? Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
   }) {
     return overtimeUpdated?.call(date, status, actor);
   }
@@ -6826,6 +7111,11 @@ class _$OvertimeUpdatedPayloadImpl
     TResult Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (overtimeUpdated != null) {
@@ -6875,6 +7165,8 @@ class _$OvertimeUpdatedPayloadImpl
         supervisorAssessmentSchedule,
     required TResult Function(OffboardingValidateHandoverPayload value)
         offboardingValidateHandover,
+    required TResult Function(BusinessTripStatusUpdatedPayload value)
+        businessTripStatusUpdated,
   }) {
     return overtimeUpdated(this);
   }
@@ -6913,6 +7205,8 @@ class _$OvertimeUpdatedPayloadImpl
         supervisorAssessmentSchedule,
     TResult? Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult? Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
   }) {
     return overtimeUpdated?.call(this);
   }
@@ -6949,6 +7243,8 @@ class _$OvertimeUpdatedPayloadImpl
         supervisorAssessmentSchedule,
     TResult Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (overtimeUpdated != null) {
@@ -7188,6 +7484,11 @@ class _$LeaveSubmittedPayloadImpl
             @JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)
         offboardingValidateHandover,
+    required TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)
+        businessTripStatusUpdated,
   }) {
     return leaveSubmitted(leaveType, start, end, approver);
   }
@@ -7266,6 +7567,11 @@ class _$LeaveSubmittedPayloadImpl
     TResult? Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult? Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
   }) {
     return leaveSubmitted?.call(leaveType, start, end, approver);
   }
@@ -7344,6 +7650,11 @@ class _$LeaveSubmittedPayloadImpl
     TResult Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (leaveSubmitted != null) {
@@ -7393,6 +7704,8 @@ class _$LeaveSubmittedPayloadImpl
         supervisorAssessmentSchedule,
     required TResult Function(OffboardingValidateHandoverPayload value)
         offboardingValidateHandover,
+    required TResult Function(BusinessTripStatusUpdatedPayload value)
+        businessTripStatusUpdated,
   }) {
     return leaveSubmitted(this);
   }
@@ -7431,6 +7744,8 @@ class _$LeaveSubmittedPayloadImpl
         supervisorAssessmentSchedule,
     TResult? Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult? Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
   }) {
     return leaveSubmitted?.call(this);
   }
@@ -7467,6 +7782,8 @@ class _$LeaveSubmittedPayloadImpl
         supervisorAssessmentSchedule,
     TResult Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (leaveSubmitted != null) {
@@ -7707,6 +8024,11 @@ class _$LeaveUpdatedPayloadImpl
             @JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)
         offboardingValidateHandover,
+    required TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)
+        businessTripStatusUpdated,
   }) {
     return leaveUpdated(leaveType, start, end, status);
   }
@@ -7785,6 +8107,11 @@ class _$LeaveUpdatedPayloadImpl
     TResult? Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult? Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
   }) {
     return leaveUpdated?.call(leaveType, start, end, status);
   }
@@ -7863,6 +8190,11 @@ class _$LeaveUpdatedPayloadImpl
     TResult Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (leaveUpdated != null) {
@@ -7912,6 +8244,8 @@ class _$LeaveUpdatedPayloadImpl
         supervisorAssessmentSchedule,
     required TResult Function(OffboardingValidateHandoverPayload value)
         offboardingValidateHandover,
+    required TResult Function(BusinessTripStatusUpdatedPayload value)
+        businessTripStatusUpdated,
   }) {
     return leaveUpdated(this);
   }
@@ -7950,6 +8284,8 @@ class _$LeaveUpdatedPayloadImpl
         supervisorAssessmentSchedule,
     TResult? Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult? Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
   }) {
     return leaveUpdated?.call(this);
   }
@@ -7986,6 +8322,8 @@ class _$LeaveUpdatedPayloadImpl
         supervisorAssessmentSchedule,
     TResult Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (leaveUpdated != null) {
@@ -8217,6 +8555,11 @@ class _$LeaveReminderPayloadImpl
             @JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)
         offboardingValidateHandover,
+    required TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)
+        businessTripStatusUpdated,
   }) {
     return leaveReminder(leaveType, relativeDay, date);
   }
@@ -8295,6 +8638,11 @@ class _$LeaveReminderPayloadImpl
     TResult? Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult? Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
   }) {
     return leaveReminder?.call(leaveType, relativeDay, date);
   }
@@ -8373,6 +8721,11 @@ class _$LeaveReminderPayloadImpl
     TResult Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (leaveReminder != null) {
@@ -8422,6 +8775,8 @@ class _$LeaveReminderPayloadImpl
         supervisorAssessmentSchedule,
     required TResult Function(OffboardingValidateHandoverPayload value)
         offboardingValidateHandover,
+    required TResult Function(BusinessTripStatusUpdatedPayload value)
+        businessTripStatusUpdated,
   }) {
     return leaveReminder(this);
   }
@@ -8460,6 +8815,8 @@ class _$LeaveReminderPayloadImpl
         supervisorAssessmentSchedule,
     TResult? Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult? Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
   }) {
     return leaveReminder?.call(this);
   }
@@ -8496,6 +8853,8 @@ class _$LeaveReminderPayloadImpl
         supervisorAssessmentSchedule,
     TResult Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (leaveReminder != null) {
@@ -8725,6 +9084,11 @@ class _$LeaveExpiringPayloadImpl
             @JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)
         offboardingValidateHandover,
+    required TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)
+        businessTripStatusUpdated,
   }) {
     return leaveExpiring(daysLeft, balance, deadline);
   }
@@ -8803,6 +9167,11 @@ class _$LeaveExpiringPayloadImpl
     TResult? Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult? Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
   }) {
     return leaveExpiring?.call(daysLeft, balance, deadline);
   }
@@ -8881,6 +9250,11 @@ class _$LeaveExpiringPayloadImpl
     TResult Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (leaveExpiring != null) {
@@ -8930,6 +9304,8 @@ class _$LeaveExpiringPayloadImpl
         supervisorAssessmentSchedule,
     required TResult Function(OffboardingValidateHandoverPayload value)
         offboardingValidateHandover,
+    required TResult Function(BusinessTripStatusUpdatedPayload value)
+        businessTripStatusUpdated,
   }) {
     return leaveExpiring(this);
   }
@@ -8968,6 +9344,8 @@ class _$LeaveExpiringPayloadImpl
         supervisorAssessmentSchedule,
     TResult? Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult? Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
   }) {
     return leaveExpiring?.call(this);
   }
@@ -9004,6 +9382,8 @@ class _$LeaveExpiringPayloadImpl
         supervisorAssessmentSchedule,
     TResult Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (leaveExpiring != null) {
@@ -9207,6 +9587,11 @@ class _$PayslipAvailablePayloadImpl
             @JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)
         offboardingValidateHandover,
+    required TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)
+        businessTripStatusUpdated,
   }) {
     return payslipAvailable(period);
   }
@@ -9285,6 +9670,11 @@ class _$PayslipAvailablePayloadImpl
     TResult? Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult? Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
   }) {
     return payslipAvailable?.call(period);
   }
@@ -9363,6 +9753,11 @@ class _$PayslipAvailablePayloadImpl
     TResult Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (payslipAvailable != null) {
@@ -9412,6 +9807,8 @@ class _$PayslipAvailablePayloadImpl
         supervisorAssessmentSchedule,
     required TResult Function(OffboardingValidateHandoverPayload value)
         offboardingValidateHandover,
+    required TResult Function(BusinessTripStatusUpdatedPayload value)
+        businessTripStatusUpdated,
   }) {
     return payslipAvailable(this);
   }
@@ -9450,6 +9847,8 @@ class _$PayslipAvailablePayloadImpl
         supervisorAssessmentSchedule,
     TResult? Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult? Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
   }) {
     return payslipAvailable?.call(this);
   }
@@ -9486,6 +9885,8 @@ class _$PayslipAvailablePayloadImpl
         supervisorAssessmentSchedule,
     TResult Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (payslipAvailable != null) {
@@ -9714,6 +10115,11 @@ class _$PayslipRequestUpdatedPayloadImpl
             @JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)
         offboardingValidateHandover,
+    required TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)
+        businessTripStatusUpdated,
   }) {
     return payslipRequestUpdated(requestType, period, status);
   }
@@ -9792,6 +10198,11 @@ class _$PayslipRequestUpdatedPayloadImpl
     TResult? Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult? Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
   }) {
     return payslipRequestUpdated?.call(requestType, period, status);
   }
@@ -9870,6 +10281,11 @@ class _$PayslipRequestUpdatedPayloadImpl
     TResult Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (payslipRequestUpdated != null) {
@@ -9919,6 +10335,8 @@ class _$PayslipRequestUpdatedPayloadImpl
         supervisorAssessmentSchedule,
     required TResult Function(OffboardingValidateHandoverPayload value)
         offboardingValidateHandover,
+    required TResult Function(BusinessTripStatusUpdatedPayload value)
+        businessTripStatusUpdated,
   }) {
     return payslipRequestUpdated(this);
   }
@@ -9957,6 +10375,8 @@ class _$PayslipRequestUpdatedPayloadImpl
         supervisorAssessmentSchedule,
     TResult? Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult? Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
   }) {
     return payslipRequestUpdated?.call(this);
   }
@@ -9993,6 +10413,8 @@ class _$PayslipRequestUpdatedPayloadImpl
         supervisorAssessmentSchedule,
     TResult Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (payslipRequestUpdated != null) {
@@ -10212,6 +10634,11 @@ class _$PerformanceFormOpenPayloadImpl
             @JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)
         offboardingValidateHandover,
+    required TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)
+        businessTripStatusUpdated,
   }) {
     return performanceFormOpen(period, dueDate);
   }
@@ -10290,6 +10717,11 @@ class _$PerformanceFormOpenPayloadImpl
     TResult? Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult? Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
   }) {
     return performanceFormOpen?.call(period, dueDate);
   }
@@ -10368,6 +10800,11 @@ class _$PerformanceFormOpenPayloadImpl
     TResult Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (performanceFormOpen != null) {
@@ -10417,6 +10854,8 @@ class _$PerformanceFormOpenPayloadImpl
         supervisorAssessmentSchedule,
     required TResult Function(OffboardingValidateHandoverPayload value)
         offboardingValidateHandover,
+    required TResult Function(BusinessTripStatusUpdatedPayload value)
+        businessTripStatusUpdated,
   }) {
     return performanceFormOpen(this);
   }
@@ -10455,6 +10894,8 @@ class _$PerformanceFormOpenPayloadImpl
         supervisorAssessmentSchedule,
     TResult? Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult? Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
   }) {
     return performanceFormOpen?.call(this);
   }
@@ -10491,6 +10932,8 @@ class _$PerformanceFormOpenPayloadImpl
         supervisorAssessmentSchedule,
     TResult Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (performanceFormOpen != null) {
@@ -10723,6 +11166,11 @@ class _$PerformanceReminderPayloadImpl
             @JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)
         offboardingValidateHandover,
+    required TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)
+        businessTripStatusUpdated,
   }) {
     return performanceReminder(daysLeft, daysOverdue, dueDate);
   }
@@ -10801,6 +11249,11 @@ class _$PerformanceReminderPayloadImpl
     TResult? Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult? Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
   }) {
     return performanceReminder?.call(daysLeft, daysOverdue, dueDate);
   }
@@ -10879,6 +11332,11 @@ class _$PerformanceReminderPayloadImpl
     TResult Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (performanceReminder != null) {
@@ -10928,6 +11386,8 @@ class _$PerformanceReminderPayloadImpl
         supervisorAssessmentSchedule,
     required TResult Function(OffboardingValidateHandoverPayload value)
         offboardingValidateHandover,
+    required TResult Function(BusinessTripStatusUpdatedPayload value)
+        businessTripStatusUpdated,
   }) {
     return performanceReminder(this);
   }
@@ -10966,6 +11426,8 @@ class _$PerformanceReminderPayloadImpl
         supervisorAssessmentSchedule,
     TResult? Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult? Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
   }) {
     return performanceReminder?.call(this);
   }
@@ -11002,6 +11464,8 @@ class _$PerformanceReminderPayloadImpl
         supervisorAssessmentSchedule,
     TResult Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (performanceReminder != null) {
@@ -11180,6 +11644,11 @@ class _$PerformanceSubmittedPayloadImpl
             @JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)
         offboardingValidateHandover,
+    required TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)
+        businessTripStatusUpdated,
   }) {
     return performanceSubmitted();
   }
@@ -11258,6 +11727,11 @@ class _$PerformanceSubmittedPayloadImpl
     TResult? Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult? Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
   }) {
     return performanceSubmitted?.call();
   }
@@ -11336,6 +11810,11 @@ class _$PerformanceSubmittedPayloadImpl
     TResult Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (performanceSubmitted != null) {
@@ -11385,6 +11864,8 @@ class _$PerformanceSubmittedPayloadImpl
         supervisorAssessmentSchedule,
     required TResult Function(OffboardingValidateHandoverPayload value)
         offboardingValidateHandover,
+    required TResult Function(BusinessTripStatusUpdatedPayload value)
+        businessTripStatusUpdated,
   }) {
     return performanceSubmitted(this);
   }
@@ -11423,6 +11904,8 @@ class _$PerformanceSubmittedPayloadImpl
         supervisorAssessmentSchedule,
     TResult? Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult? Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
   }) {
     return performanceSubmitted?.call(this);
   }
@@ -11459,6 +11942,8 @@ class _$PerformanceSubmittedPayloadImpl
         supervisorAssessmentSchedule,
     TResult Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (performanceSubmitted != null) {
@@ -11622,6 +12107,11 @@ class _$ValidateHandoverPayloadImpl
             @JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)
         offboardingValidateHandover,
+    required TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)
+        businessTripStatusUpdated,
   }) {
     return validateHandover();
   }
@@ -11700,6 +12190,11 @@ class _$ValidateHandoverPayloadImpl
     TResult? Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult? Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
   }) {
     return validateHandover?.call();
   }
@@ -11778,6 +12273,11 @@ class _$ValidateHandoverPayloadImpl
     TResult Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (validateHandover != null) {
@@ -11827,6 +12327,8 @@ class _$ValidateHandoverPayloadImpl
         supervisorAssessmentSchedule,
     required TResult Function(OffboardingValidateHandoverPayload value)
         offboardingValidateHandover,
+    required TResult Function(BusinessTripStatusUpdatedPayload value)
+        businessTripStatusUpdated,
   }) {
     return validateHandover(this);
   }
@@ -11865,6 +12367,8 @@ class _$ValidateHandoverPayloadImpl
         supervisorAssessmentSchedule,
     TResult? Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult? Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
   }) {
     return validateHandover?.call(this);
   }
@@ -11901,6 +12405,8 @@ class _$ValidateHandoverPayloadImpl
         supervisorAssessmentSchedule,
     TResult Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (validateHandover != null) {
@@ -12092,6 +12598,11 @@ class _$PerformancePublishedPayloadImpl
             @JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)
         offboardingValidateHandover,
+    required TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)
+        businessTripStatusUpdated,
   }) {
     return performancePublished(period);
   }
@@ -12170,6 +12681,11 @@ class _$PerformancePublishedPayloadImpl
     TResult? Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult? Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
   }) {
     return performancePublished?.call(period);
   }
@@ -12248,6 +12764,11 @@ class _$PerformancePublishedPayloadImpl
     TResult Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (performancePublished != null) {
@@ -12297,6 +12818,8 @@ class _$PerformancePublishedPayloadImpl
         supervisorAssessmentSchedule,
     required TResult Function(OffboardingValidateHandoverPayload value)
         offboardingValidateHandover,
+    required TResult Function(BusinessTripStatusUpdatedPayload value)
+        businessTripStatusUpdated,
   }) {
     return performancePublished(this);
   }
@@ -12335,6 +12858,8 @@ class _$PerformancePublishedPayloadImpl
         supervisorAssessmentSchedule,
     TResult? Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult? Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
   }) {
     return performancePublished?.call(this);
   }
@@ -12371,6 +12896,8 @@ class _$PerformancePublishedPayloadImpl
         supervisorAssessmentSchedule,
     TResult Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (performancePublished != null) {
@@ -12614,6 +13141,11 @@ class _$SupervisorAssessmentSchedulePayloadImpl
             @JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)
         offboardingValidateHandover,
+    required TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)
+        businessTripStatusUpdated,
   }) {
     return supervisorAssessmentSchedule(scheduleId, date, startTime, endTime);
   }
@@ -12692,6 +13224,11 @@ class _$SupervisorAssessmentSchedulePayloadImpl
     TResult? Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult? Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
   }) {
     return supervisorAssessmentSchedule?.call(
         scheduleId, date, startTime, endTime);
@@ -12771,6 +13308,11 @@ class _$SupervisorAssessmentSchedulePayloadImpl
     TResult Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (supervisorAssessmentSchedule != null) {
@@ -12820,6 +13362,8 @@ class _$SupervisorAssessmentSchedulePayloadImpl
         supervisorAssessmentSchedule,
     required TResult Function(OffboardingValidateHandoverPayload value)
         offboardingValidateHandover,
+    required TResult Function(BusinessTripStatusUpdatedPayload value)
+        businessTripStatusUpdated,
   }) {
     return supervisorAssessmentSchedule(this);
   }
@@ -12858,6 +13402,8 @@ class _$SupervisorAssessmentSchedulePayloadImpl
         supervisorAssessmentSchedule,
     TResult? Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult? Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
   }) {
     return supervisorAssessmentSchedule?.call(this);
   }
@@ -12894,6 +13440,8 @@ class _$SupervisorAssessmentSchedulePayloadImpl
         supervisorAssessmentSchedule,
     TResult Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (supervisorAssessmentSchedule != null) {
@@ -13126,6 +13674,11 @@ class _$OffboardingValidateHandoverPayloadImpl
             @JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)
         offboardingValidateHandover,
+    required TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)
+        businessTripStatusUpdated,
   }) {
     return offboardingValidateHandover(offboardingId, employeeName);
   }
@@ -13204,6 +13757,11 @@ class _$OffboardingValidateHandoverPayloadImpl
     TResult? Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult? Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
   }) {
     return offboardingValidateHandover?.call(offboardingId, employeeName);
   }
@@ -13282,6 +13840,11 @@ class _$OffboardingValidateHandoverPayloadImpl
     TResult Function(@JsonKey(name: "offboarding_id") String? offboardingId,
             @JsonKey(name: "employee_name") String? employeeName)?
         offboardingValidateHandover,
+    TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (offboardingValidateHandover != null) {
@@ -13331,6 +13894,8 @@ class _$OffboardingValidateHandoverPayloadImpl
         supervisorAssessmentSchedule,
     required TResult Function(OffboardingValidateHandoverPayload value)
         offboardingValidateHandover,
+    required TResult Function(BusinessTripStatusUpdatedPayload value)
+        businessTripStatusUpdated,
   }) {
     return offboardingValidateHandover(this);
   }
@@ -13369,6 +13934,8 @@ class _$OffboardingValidateHandoverPayloadImpl
         supervisorAssessmentSchedule,
     TResult? Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult? Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
   }) {
     return offboardingValidateHandover?.call(this);
   }
@@ -13405,6 +13972,8 @@ class _$OffboardingValidateHandoverPayloadImpl
         supervisorAssessmentSchedule,
     TResult Function(OffboardingValidateHandoverPayload value)?
         offboardingValidateHandover,
+    TResult Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
     required TResult orElse(),
   }) {
     if (offboardingValidateHandover != null) {
@@ -13442,6 +14011,545 @@ abstract class OffboardingValidateHandoverPayload
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$OffboardingValidateHandoverPayloadImplCopyWith<
           _$OffboardingValidateHandoverPayloadImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$BusinessTripStatusUpdatedPayloadImplCopyWith<$Res> {
+  factory _$$BusinessTripStatusUpdatedPayloadImplCopyWith(
+          _$BusinessTripStatusUpdatedPayloadImpl value,
+          $Res Function(_$BusinessTripStatusUpdatedPayloadImpl) then) =
+      __$$BusinessTripStatusUpdatedPayloadImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: "business_trip_id") String? businessTripId,
+      @JsonKey(name: "user_id") String? userId,
+      @JsonKey(name: "status") String? status});
+}
+
+/// @nodoc
+class __$$BusinessTripStatusUpdatedPayloadImplCopyWithImpl<$Res>
+    extends _$NotificationPayloadCopyWithImpl<$Res,
+        _$BusinessTripStatusUpdatedPayloadImpl>
+    implements _$$BusinessTripStatusUpdatedPayloadImplCopyWith<$Res> {
+  __$$BusinessTripStatusUpdatedPayloadImplCopyWithImpl(
+      _$BusinessTripStatusUpdatedPayloadImpl _value,
+      $Res Function(_$BusinessTripStatusUpdatedPayloadImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of NotificationPayload
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? businessTripId = freezed,
+    Object? userId = freezed,
+    Object? status = freezed,
+  }) {
+    return _then(_$BusinessTripStatusUpdatedPayloadImpl(
+      businessTripId: freezed == businessTripId
+          ? _value.businessTripId
+          : businessTripId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userId: freezed == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$BusinessTripStatusUpdatedPayloadImpl
+    with DiagnosticableTreeMixin
+    implements BusinessTripStatusUpdatedPayload {
+  const _$BusinessTripStatusUpdatedPayloadImpl(
+      {@JsonKey(name: "business_trip_id") this.businessTripId,
+      @JsonKey(name: "user_id") this.userId,
+      @JsonKey(name: "status") this.status,
+      final String? $type})
+      : $type = $type ?? 'businessTripStatusUpdated';
+
+  factory _$BusinessTripStatusUpdatedPayloadImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$BusinessTripStatusUpdatedPayloadImplFromJson(json);
+
+  @override
+  @JsonKey(name: "business_trip_id")
+  final String? businessTripId;
+  @override
+  @JsonKey(name: "user_id")
+  final String? userId;
+  @override
+  @JsonKey(name: "status")
+  final String? status;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'NotificationPayload.businessTripStatusUpdated(businessTripId: $businessTripId, userId: $userId, status: $status)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty(
+          'type', 'NotificationPayload.businessTripStatusUpdated'))
+      ..add(DiagnosticsProperty('businessTripId', businessTripId))
+      ..add(DiagnosticsProperty('userId', userId))
+      ..add(DiagnosticsProperty('status', status));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$BusinessTripStatusUpdatedPayloadImpl &&
+            (identical(other.businessTripId, businessTripId) ||
+                other.businessTripId == businessTripId) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.status, status) || other.status == status));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, businessTripId, userId, status);
+
+  /// Create a copy of NotificationPayload
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$BusinessTripStatusUpdatedPayloadImplCopyWith<
+          _$BusinessTripStatusUpdatedPayloadImpl>
+      get copyWith => __$$BusinessTripStatusUpdatedPayloadImplCopyWithImpl<
+          _$BusinessTripStatusUpdatedPayloadImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String? email, String? result) emailVerification,
+    required TResult Function(String? email) resetPasswordRequested,
+    required TResult Function(String? time) passwordUpdated,
+    required TResult Function(String? device, String? location, String? time)
+        loginDevice,
+    required TResult Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)
+        profileUpdated,
+    required TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)
+        departmentChanged,
+    required TResult Function(
+            @JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)
+        managerChanged,
+    required TResult Function(String? status, String? deadline)
+        offboardingStarted,
+    required TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
+        exitInterviewSchedule,
+    required TResult Function(
+            @JsonKey(name: "start_time") String? startTime, int? minutes)
+        attendanceReminder,
+    required TResult Function(int? grace) attendanceNotPresent,
+    required TResult Function(
+            String? date, String? start, String? end, String? approver)
+        overtimeSubmitted,
+    required TResult Function(String? date, String? status, String? actor)
+        overtimeUpdated,
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)
+        leaveSubmitted,
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)
+        leaveUpdated,
+    required TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)
+        leaveReminder,
+    required TResult Function(@JsonKey(name: "days_left") int? daysLeft,
+            int? balance, String? deadline)
+        leaveExpiring,
+    required TResult Function(String? period) payslipAvailable,
+    required TResult Function(
+            @JsonKey(name: "request_type") String? requestType,
+            String? period,
+            String? status)
+        payslipRequestUpdated,
+    required TResult Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)
+        performanceFormOpen,
+    required TResult Function(int? daysLeft, int? daysOverdue,
+            @JsonKey(name: "due_date") String? dueDate)
+        performanceReminder,
+    required TResult Function() performanceSubmitted,
+    required TResult Function() validateHandover,
+    required TResult Function(String? period) performancePublished,
+    required TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)
+        supervisorAssessmentSchedule,
+    required TResult Function(
+            @JsonKey(name: "offboarding_id") String? offboardingId,
+            @JsonKey(name: "employee_name") String? employeeName)
+        offboardingValidateHandover,
+    required TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)
+        businessTripStatusUpdated,
+  }) {
+    return businessTripStatusUpdated(businessTripId, userId, status);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String? email, String? result)? emailVerification,
+    TResult? Function(String? email)? resetPasswordRequested,
+    TResult? Function(String? time)? passwordUpdated,
+    TResult? Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult? Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
+        profileUpdated,
+    TResult? Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
+        departmentChanged,
+    TResult? Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
+        managerChanged,
+    TResult? Function(String? status, String? deadline)? offboardingStarted,
+    TResult? Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        exitInterviewSchedule,
+    TResult? Function(
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
+        attendanceReminder,
+    TResult? Function(int? grace)? attendanceNotPresent,
+    TResult? Function(
+            String? date, String? start, String? end, String? approver)?
+        overtimeSubmitted,
+    TResult? Function(String? date, String? status, String? actor)?
+        overtimeUpdated,
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
+        leaveSubmitted,
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
+        leaveUpdated,
+    TResult? Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
+        leaveReminder,
+    TResult? Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
+        leaveExpiring,
+    TResult? Function(String? period)? payslipAvailable,
+    TResult? Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
+        payslipRequestUpdated,
+    TResult? Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
+        performanceFormOpen,
+    TResult? Function(int? daysLeft, int? daysOverdue,
+            @JsonKey(name: "due_date") String? dueDate)?
+        performanceReminder,
+    TResult? Function()? performanceSubmitted,
+    TResult? Function()? validateHandover,
+    TResult? Function(String? period)? performancePublished,
+    TResult? Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
+    TResult? Function(@JsonKey(name: "offboarding_id") String? offboardingId,
+            @JsonKey(name: "employee_name") String? employeeName)?
+        offboardingValidateHandover,
+    TResult? Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
+  }) {
+    return businessTripStatusUpdated?.call(businessTripId, userId, status);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? email, String? result)? emailVerification,
+    TResult Function(String? email)? resetPasswordRequested,
+    TResult Function(String? time)? passwordUpdated,
+    TResult Function(String? device, String? location, String? time)?
+        loginDevice,
+    TResult Function(
+            String? actor,
+            String? fields,
+            String? status,
+            String? time,
+            @JsonKey(name: "user_id") String? userId,
+            String? email)?
+        profileUpdated,
+    TResult Function(String? department, String? team,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
+        departmentChanged,
+    TResult Function(@JsonKey(name: "manager_name") String? managerName,
+            @JsonKey(name: "effective_date") String? effectiveDate)?
+        managerChanged,
+    TResult Function(String? status, String? deadline)? offboardingStarted,
+    TResult Function(
+            String? id,
+            String? date,
+            String? time,
+            String? interviewer,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        exitInterviewSchedule,
+    TResult Function(
+            @JsonKey(name: "start_time") String? startTime, int? minutes)?
+        attendanceReminder,
+    TResult Function(int? grace)? attendanceNotPresent,
+    TResult Function(
+            String? date, String? start, String? end, String? approver)?
+        overtimeSubmitted,
+    TResult Function(String? date, String? status, String? actor)?
+        overtimeUpdated,
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? approver)?
+        leaveSubmitted,
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? start, String? end, String? status)?
+        leaveUpdated,
+    TResult Function(@JsonKey(name: "leave_type") String? leaveType,
+            String? relativeDay, String? date)?
+        leaveReminder,
+    TResult Function(@JsonKey(name: "days_left") int? daysLeft, int? balance,
+            String? deadline)?
+        leaveExpiring,
+    TResult Function(String? period)? payslipAvailable,
+    TResult Function(@JsonKey(name: "request_type") String? requestType,
+            String? period, String? status)?
+        payslipRequestUpdated,
+    TResult Function(
+            String? period, @JsonKey(name: "due_date") String? dueDate)?
+        performanceFormOpen,
+    TResult Function(int? daysLeft, int? daysOverdue,
+            @JsonKey(name: "due_date") String? dueDate)?
+        performanceReminder,
+    TResult Function()? performanceSubmitted,
+    TResult Function()? validateHandover,
+    TResult Function(String? period)? performancePublished,
+    TResult Function(
+            @JsonKey(name: "schedule_id") String? scheduleId,
+            String? date,
+            @JsonKey(name: "start_time") String? startTime,
+            @JsonKey(name: "end_time") String? endTime)?
+        supervisorAssessmentSchedule,
+    TResult Function(@JsonKey(name: "offboarding_id") String? offboardingId,
+            @JsonKey(name: "employee_name") String? employeeName)?
+        offboardingValidateHandover,
+    TResult Function(
+            @JsonKey(name: "business_trip_id") String? businessTripId,
+            @JsonKey(name: "user_id") String? userId,
+            @JsonKey(name: "status") String? status)?
+        businessTripStatusUpdated,
+    required TResult orElse(),
+  }) {
+    if (businessTripStatusUpdated != null) {
+      return businessTripStatusUpdated(businessTripId, userId, status);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(EmailVerificationPayload value) emailVerification,
+    required TResult Function(ResetPasswordRequestedPayload value)
+        resetPasswordRequested,
+    required TResult Function(PasswordUpdatedPayload value) passwordUpdated,
+    required TResult Function(LoginDevicePayload value) loginDevice,
+    required TResult Function(ProfileUpdatedPayload value) profileUpdated,
+    required TResult Function(DepartmentChangedPayload value) departmentChanged,
+    required TResult Function(ManagerChangedPayload value) managerChanged,
+    required TResult Function(OffboardingStartedPayload value)
+        offboardingStarted,
+    required TResult Function(ExitInterviewSchedulePayload value)
+        exitInterviewSchedule,
+    required TResult Function(AttendanceReminderPayload value)
+        attendanceReminder,
+    required TResult Function(AttendanceNotPresentPayload value)
+        attendanceNotPresent,
+    required TResult Function(OvertimeSubmittedPayload value) overtimeSubmitted,
+    required TResult Function(OvertimeUpdatedPayload value) overtimeUpdated,
+    required TResult Function(LeaveSubmittedPayload value) leaveSubmitted,
+    required TResult Function(LeaveUpdatedPayload value) leaveUpdated,
+    required TResult Function(LeaveReminderPayload value) leaveReminder,
+    required TResult Function(LeaveExpiringPayload value) leaveExpiring,
+    required TResult Function(PayslipAvailablePayload value) payslipAvailable,
+    required TResult Function(PayslipRequestUpdatedPayload value)
+        payslipRequestUpdated,
+    required TResult Function(PerformanceFormOpenPayload value)
+        performanceFormOpen,
+    required TResult Function(PerformanceReminderPayload value)
+        performanceReminder,
+    required TResult Function(PerformanceSubmittedPayload value)
+        performanceSubmitted,
+    required TResult Function(ValidateHandoverPayload value) validateHandover,
+    required TResult Function(PerformancePublishedPayload value)
+        performancePublished,
+    required TResult Function(SupervisorAssessmentSchedulePayload value)
+        supervisorAssessmentSchedule,
+    required TResult Function(OffboardingValidateHandoverPayload value)
+        offboardingValidateHandover,
+    required TResult Function(BusinessTripStatusUpdatedPayload value)
+        businessTripStatusUpdated,
+  }) {
+    return businessTripStatusUpdated(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(EmailVerificationPayload value)? emailVerification,
+    TResult? Function(ResetPasswordRequestedPayload value)?
+        resetPasswordRequested,
+    TResult? Function(PasswordUpdatedPayload value)? passwordUpdated,
+    TResult? Function(LoginDevicePayload value)? loginDevice,
+    TResult? Function(ProfileUpdatedPayload value)? profileUpdated,
+    TResult? Function(DepartmentChangedPayload value)? departmentChanged,
+    TResult? Function(ManagerChangedPayload value)? managerChanged,
+    TResult? Function(OffboardingStartedPayload value)? offboardingStarted,
+    TResult? Function(ExitInterviewSchedulePayload value)?
+        exitInterviewSchedule,
+    TResult? Function(AttendanceReminderPayload value)? attendanceReminder,
+    TResult? Function(AttendanceNotPresentPayload value)? attendanceNotPresent,
+    TResult? Function(OvertimeSubmittedPayload value)? overtimeSubmitted,
+    TResult? Function(OvertimeUpdatedPayload value)? overtimeUpdated,
+    TResult? Function(LeaveSubmittedPayload value)? leaveSubmitted,
+    TResult? Function(LeaveUpdatedPayload value)? leaveUpdated,
+    TResult? Function(LeaveReminderPayload value)? leaveReminder,
+    TResult? Function(LeaveExpiringPayload value)? leaveExpiring,
+    TResult? Function(PayslipAvailablePayload value)? payslipAvailable,
+    TResult? Function(PayslipRequestUpdatedPayload value)?
+        payslipRequestUpdated,
+    TResult? Function(PerformanceFormOpenPayload value)? performanceFormOpen,
+    TResult? Function(PerformanceReminderPayload value)? performanceReminder,
+    TResult? Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult? Function(ValidateHandoverPayload value)? validateHandover,
+    TResult? Function(PerformancePublishedPayload value)? performancePublished,
+    TResult? Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
+    TResult? Function(OffboardingValidateHandoverPayload value)?
+        offboardingValidateHandover,
+    TResult? Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
+  }) {
+    return businessTripStatusUpdated?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(EmailVerificationPayload value)? emailVerification,
+    TResult Function(ResetPasswordRequestedPayload value)?
+        resetPasswordRequested,
+    TResult Function(PasswordUpdatedPayload value)? passwordUpdated,
+    TResult Function(LoginDevicePayload value)? loginDevice,
+    TResult Function(ProfileUpdatedPayload value)? profileUpdated,
+    TResult Function(DepartmentChangedPayload value)? departmentChanged,
+    TResult Function(ManagerChangedPayload value)? managerChanged,
+    TResult Function(OffboardingStartedPayload value)? offboardingStarted,
+    TResult Function(ExitInterviewSchedulePayload value)? exitInterviewSchedule,
+    TResult Function(AttendanceReminderPayload value)? attendanceReminder,
+    TResult Function(AttendanceNotPresentPayload value)? attendanceNotPresent,
+    TResult Function(OvertimeSubmittedPayload value)? overtimeSubmitted,
+    TResult Function(OvertimeUpdatedPayload value)? overtimeUpdated,
+    TResult Function(LeaveSubmittedPayload value)? leaveSubmitted,
+    TResult Function(LeaveUpdatedPayload value)? leaveUpdated,
+    TResult Function(LeaveReminderPayload value)? leaveReminder,
+    TResult Function(LeaveExpiringPayload value)? leaveExpiring,
+    TResult Function(PayslipAvailablePayload value)? payslipAvailable,
+    TResult Function(PayslipRequestUpdatedPayload value)? payslipRequestUpdated,
+    TResult Function(PerformanceFormOpenPayload value)? performanceFormOpen,
+    TResult Function(PerformanceReminderPayload value)? performanceReminder,
+    TResult Function(PerformanceSubmittedPayload value)? performanceSubmitted,
+    TResult Function(ValidateHandoverPayload value)? validateHandover,
+    TResult Function(PerformancePublishedPayload value)? performancePublished,
+    TResult Function(SupervisorAssessmentSchedulePayload value)?
+        supervisorAssessmentSchedule,
+    TResult Function(OffboardingValidateHandoverPayload value)?
+        offboardingValidateHandover,
+    TResult Function(BusinessTripStatusUpdatedPayload value)?
+        businessTripStatusUpdated,
+    required TResult orElse(),
+  }) {
+    if (businessTripStatusUpdated != null) {
+      return businessTripStatusUpdated(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$BusinessTripStatusUpdatedPayloadImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class BusinessTripStatusUpdatedPayload implements NotificationPayload {
+  const factory BusinessTripStatusUpdatedPayload(
+          {@JsonKey(name: "business_trip_id") final String? businessTripId,
+          @JsonKey(name: "user_id") final String? userId,
+          @JsonKey(name: "status") final String? status}) =
+      _$BusinessTripStatusUpdatedPayloadImpl;
+
+  factory BusinessTripStatusUpdatedPayload.fromJson(Map<String, dynamic> json) =
+      _$BusinessTripStatusUpdatedPayloadImpl.fromJson;
+
+  @JsonKey(name: "business_trip_id")
+  String? get businessTripId;
+  @JsonKey(name: "user_id")
+  String? get userId;
+  @JsonKey(name: "status")
+  String? get status;
+
+  /// Create a copy of NotificationPayload
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$BusinessTripStatusUpdatedPayloadImplCopyWith<
+          _$BusinessTripStatusUpdatedPayloadImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 

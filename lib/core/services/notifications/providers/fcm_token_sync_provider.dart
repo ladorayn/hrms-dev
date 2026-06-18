@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:hrms_mobile/core/services/notifications/providers/push_notification_provider.dart';
 import 'package:hrms_mobile/features/auth/presentation/providers/auth/auth_provider.dart';
@@ -7,6 +9,8 @@ part 'fcm_token_sync_provider.g.dart';
 
 @Riverpod(keepAlive: true)
 void fcmTokenSync(FcmTokenSyncRef ref) {
+  if (Platform.isIOS) return;
+
   // Watch auth state
   final authState = ref.watch(authProvider);
   final pushService = ref.read(pushNotificationServiceProvider);

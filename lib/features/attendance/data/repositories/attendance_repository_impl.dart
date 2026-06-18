@@ -15,6 +15,8 @@ import 'package:hrms_mobile/features/attendance/data/models/response/shift/worki
 import 'package:hrms_mobile/features/attendance/data/models/response/statistics/attendance_statistics_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/statistics/overtime_statistics_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/validate_location/validate_location_response_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/request/branch/branch_list_request_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/response/branch/branch_list_response_model.dart';
 import 'package:hrms_mobile/features/attendance/domain/entities/attendance.dart';
 import 'package:hrms_mobile/features/attendance/domain/repositories/attendance_repository.dart';
 
@@ -177,5 +179,17 @@ class AttendanceRepositoryImpl implements AttendanceRepository {
   ) async {
     final response = await remoteSource.validateLocation(request);
     return response.data;
+  }
+
+  @override
+  Future<BranchListResponseModel> getBranches(
+      BranchListRequestModel request) async {
+        
+    return remoteSource.getBranches(request);
+  }
+
+  @override
+  Future<BranchListResponseModel> getBranchesByUrl(String url) async {
+    return remoteSource.getBranchesByUrl(url);
   }
 }

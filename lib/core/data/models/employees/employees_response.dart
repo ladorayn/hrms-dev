@@ -26,7 +26,7 @@ class Employee with _$Employee {
     @JsonKey(name: 'created_at') DateTime? createdAt,
     @JsonKey(name: 'updated_at') DateTime? updatedAt,
     @JsonKey(name: 'deleted_at') DateTime? deletedAt,
-    Branch? branch, // <-- ADDED
+    Branch? branch,
   }) = _Employee;
 
   factory Employee.fromJson(Map<String, dynamic> json) =>

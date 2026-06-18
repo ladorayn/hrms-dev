@@ -14,6 +14,7 @@ _$ClockInRequestModelImpl _$$ClockInRequestModelImplFromJson(
       latitude: (json['latitude'] as num).toDouble(),
       longitude: (json['longitude'] as num).toDouble(),
       notes: json['notes'] as String?,
+      branchId: (json['branch_id'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$ClockInRequestModelImplToJson(
@@ -24,4 +25,5 @@ Map<String, dynamic> _$$ClockInRequestModelImplToJson(
       'latitude': instance.latitude,
       'longitude': instance.longitude,
       'notes': instance.notes,
+      'branch_id': instance.branchId,
     };

@@ -7,7 +7,7 @@ part of 'inbox_provider.dart';
 // **************************************************************************
 
 String _$recentNotificationsHash() =>
-    r'122393bca9405e07db28a7e77293142c9f20dfcd';
+    r'42964befbef8600b498e0749ef298153361c0eb7';
 
 /// See also [RecentNotifications].
 @ProviderFor(RecentNotifications)

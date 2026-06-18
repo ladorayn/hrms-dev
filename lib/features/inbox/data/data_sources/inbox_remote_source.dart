@@ -8,9 +8,9 @@ class InboxRemoteSource {
 
   InboxRemoteSource(this._dio);
 
-  Future<BasePaginatedResponse<NotificationResponse>> getNotifications() async {
+  Future<BasePaginatedResponse<NotificationResponse>> getNotifications({int page = 1}) async {
     try {
-      final response = await _dio.get('api/v1/user/notifications');
+      final response = await _dio.get('api/v1/user/notifications?page=$page');
 
       return BasePaginatedResponse.fromJson(
         response.data,

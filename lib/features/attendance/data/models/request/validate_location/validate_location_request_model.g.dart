@@ -11,6 +11,7 @@ _$ValidateLocationRequestModelImpl _$$ValidateLocationRequestModelImplFromJson(
     _$ValidateLocationRequestModelImpl(
       latitude: json['latitude'] as String,
       longitude: json['longitude'] as String,
+      branchId: (json['branch_id'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$ValidateLocationRequestModelImplToJson(
@@ -18,4 +19,5 @@ Map<String, dynamic> _$$ValidateLocationRequestModelImplToJson(
     <String, dynamic>{
       'latitude': instance.latitude,
       'longitude': instance.longitude,
+      'branch_id': instance.branchId,
     };

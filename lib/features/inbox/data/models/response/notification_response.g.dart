@@ -452,6 +452,25 @@ Map<String, dynamic> _$$OffboardingValidateHandoverPayloadImplToJson(
       'type': instance.$type,
     };
 
+_$BusinessTripStatusUpdatedPayloadImpl
+    _$$BusinessTripStatusUpdatedPayloadImplFromJson(
+            Map<String, dynamic> json) =>
+        _$BusinessTripStatusUpdatedPayloadImpl(
+          businessTripId: json['business_trip_id'] as String?,
+          userId: json['user_id'] as String?,
+          status: json['status'] as String?,
+          $type: json['type'] as String?,
+        );
+
+Map<String, dynamic> _$$BusinessTripStatusUpdatedPayloadImplToJson(
+        _$BusinessTripStatusUpdatedPayloadImpl instance) =>
+    <String, dynamic>{
+      'business_trip_id': instance.businessTripId,
+      'user_id': instance.userId,
+      'status': instance.status,
+      'type': instance.$type,
+    };
+
 _$NotificationDataImpl _$$NotificationDataImplFromJson(
         Map<String, dynamic> json) =>
     _$NotificationDataImpl(

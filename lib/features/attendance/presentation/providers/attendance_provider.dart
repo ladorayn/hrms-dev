@@ -123,6 +123,10 @@ class Attendance extends _$Attendance {
   void setClockOutTime() {
     state = state.copyWith(clockOutTime: DateTime.now());
   }
+
+  void setBranchId(int? id) {
+    state = state.copyWith(selectedBranchId: id);
+  }
 }
 
 @Riverpod(keepAlive: true)

@@ -1,5 +1,7 @@
+import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:hrms_mobile/core/data/models/notifications/fcm_registration_request.dart';
 import 'package:hrms_mobile/core/errors/error_handler.dart';
@@ -13,15 +15,22 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 
 class PushNotificationService {
-  final FirebaseMessaging _fcm = FirebaseMessaging.instance;
+  late final FirebaseMessaging? _fcm;
   final GlobalKey<NavigatorState> navigatorKey;
   final Dio _dio;
 
-  PushNotificationService(this.navigatorKey, this._dio);
+  PushNotificationService(this.navigatorKey, this._dio) {
+    if (!kIsWeb && Platform.isAndroid) {
+      _fcm = FirebaseMessaging.instance;
+    } else {
+      _fcm = null;
+    }
+  }
 
   static const String _tokenRegistrationUrl = 'api/v1/user/fcm-token';
 
   Future<void> initializePushNotifications() async {
+    if (_fcm == null) return;
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
     await _requestPermissions();
     _setupMessageListeners();
@@ -29,7 +38,8 @@ class PushNotificationService {
   }
 
   Future<void> _requestPermissions() async {
-    NotificationSettings settings = await _fcm.requestPermission(
+    if (_fcm == null) return;
+    NotificationSettings settings = await _fcm!.requestPermission(
       alert: true,
       badge: true,
       sound: true,
@@ -79,16 +89,20 @@ class PushNotificationService {
   }
 
   void _listenToTokenRefresh() {
-    _fcm.onTokenRefresh.listen((newToken) {
+    _fcm?.onTokenRefresh.listen((newToken) {
       debugPrint("FCM Token Refreshed: $newToken");
       sendTokenToBackend(newToken);
     });
   }
 
-  Future<String?> getFCMToken() => _fcm.getToken();
+  Future<String?> getFCMToken() {
+    if (_fcm == null) return Future.value(null);
+    return _fcm!.getToken();
+  }
 
   void _setupMessageListeners() {
-    _fcm.getInitialMessage().then((RemoteMessage? message) {
+    if (_fcm == null) return;
+    _fcm!.getInitialMessage().then((RemoteMessage? message) {
       if (message != null) {
         _handleNotificationTap(message, isLaunch: true);
       }
