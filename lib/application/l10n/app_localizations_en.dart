@@ -44,44 +44,37 @@ class AppLocalizationsEn extends AppLocalizations {
   String get resetPasswordEmail_title => 'Reset Password';
 
   @override
-  String get resetPasswordEmail_body =>
-      'Enter your registered email to reset your password';
+  String get resetPasswordEmail_body => 'Enter your registered email to reset your password';
 
   @override
-  String get resetPasswordEmail_linkSentSnackbar =>
-      'Reset link sent! Check your email.';
+  String get resetPasswordEmail_linkSentSnackbar => 'Reset link sent! Check your email.';
 
   @override
   String get resetPasswordCheckEmail_title => 'Please Check Your Email';
 
   @override
-  String get resetPasswordCheckEmail_body =>
-      'A reset password link has been sent to your registered email.';
+  String get resetPasswordCheckEmail_body => 'A reset password link has been sent to your registered email.';
 
   @override
-  String get resetPasswordCheckEmail_didNotReceive =>
-      'Didn\'t receive an email? ';
+  String get resetPasswordCheckEmail_didNotReceive => 'Didn\'t receive an email? ';
 
   @override
   String get resetPasswordCheckEmail_resend => 'Resend Email';
 
   @override
-  String get resetPasswordCheckEmail_resendingSnackbar =>
-      'Resending reset link...';
+  String get resetPasswordCheckEmail_resendingSnackbar => 'Resending reset link...';
 
   @override
   String get resetPasswordCreate_title => 'Create a New Password';
 
   @override
-  String get resetPasswordCreate_subtitle =>
-      'Create a new password for your account';
+  String get resetPasswordCreate_subtitle => 'Create a new password for your account';
 
   @override
   String get resetPasswordSuccess_title => 'Password Reset Successful';
 
   @override
-  String get resetPasswordSuccess_body =>
-      'Please sign in using your new password.';
+  String get resetPasswordSuccess_body => 'Please sign in using your new password.';
 
   @override
   String get errorUnknown => 'An unknown error occurred';
@@ -105,16 +98,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get formValidationEmailInvalid => 'Please enter a valid email';
 
   @override
-  String get formValidationOnlyAlphanumeric =>
-      'Only letters and numbers are allowed';
+  String get formValidationOnlyAlphanumeric => 'Only letters and numbers are allowed';
 
   @override
-  String get formValidationPasswordInvalid =>
-      'The password you entered is incorrect';
+  String get formValidationPasswordInvalid => 'The password you entered is incorrect';
 
   @override
-  String get formValidationPasswordCriteriaInvalid =>
-      'Password does not meet the required criteria';
+  String get formValidationPasswordCriteriaInvalid => 'Password does not meet the required criteria';
 
   @override
   String get formPhone => 'Phone Number';
@@ -185,12 +175,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dashboardNoRecentActivity => 'No recent activity.';
 
   @override
-  String get dashboardOffboardingTitle =>
-      '🔔 Complete Your Offboarding Journey!';
+  String get dashboardOffboardingTitle => '🔔 Complete Your Offboarding Journey!';
 
   @override
-  String get dashboardOffboardingSubtitle =>
-      'Let\'s wrap things up smoothly before you leave';
+  String get dashboardOffboardingSubtitle => 'Let\'s wrap things up smoothly before you leave';
 
   @override
   String get dashboardOffboardingStartButton => 'Start Offboarding Process';
@@ -471,8 +459,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get attendanceNoDataForPeriod => 'No attendance data for this period.';
 
   @override
-  String get attendanceNoOvertimeDataForPeriod =>
-      'No overtime data for this period.';
+  String get attendanceNoOvertimeDataForPeriod => 'No overtime data for this period.';
 
   @override
   String get attendanceErrorTryAgainLater => 'Error: Please try again later!';
@@ -541,8 +528,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get attendancePleaseFillRequiredFields =>
-      'Please fill all required fields.';
+  String get attendancePleaseFillRequiredFields => 'Please fill all required fields.';
 
   @override
   String get attendanceNoActiveAttendance => 'No active attendance found.';
@@ -591,27 +577,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get attendanceFaceVerification => 'Face Verification';
 
   @override
-  String get attendanceFaceStepFrontInstruction =>
-      'Face the camera directly and make sure your face is clearly visible';
+  String get attendanceFaceStepFrontInstruction => 'Face the camera directly and make sure your face is clearly visible';
 
   @override
-  String get attendanceFaceStepRightInstruction =>
-      'Slowly turn your head to the right and keep it within the frame';
+  String get attendanceFaceStepRightInstruction => 'Slowly turn your head to the right and keep it within the frame';
 
   @override
-  String get attendanceFaceStepLeftInstruction =>
-      'Slowly turn your head to the left and keep it within the frame';
+  String get attendanceFaceStepLeftInstruction => 'Slowly turn your head to the left and keep it within the frame';
 
   @override
-  String get attendanceFaceStepUploadingInstruction =>
-      'Uploading photo and verifying face...';
+  String get attendanceFaceStepUploadingInstruction => 'Uploading photo and verifying face...';
 
   @override
   String get attendanceFaceStepFailedInstruction => 'Face Registration Failed!';
 
   @override
-  String get attendanceFaceStepSuccessInstruction =>
-      'Face Registration Success!';
+  String get attendanceFaceStepSuccessInstruction => 'Face Registration Success!';
 
   @override
   String get attendanceFaceStepTakeFrontPhoto => 'Take Front Photo';
@@ -632,19 +613,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get attendanceFaceStepDone => 'Done';
 
   @override
-  String get attendanceVerificationInitialInstruction =>
-      'Face the camera directly and make sure your face is clearly visible';
+  String get attendanceVerificationInitialInstruction => 'Face the camera directly and make sure your face is clearly visible';
 
   @override
   String get attendanceVerificationLoadingInstruction => 'Verifying...';
 
   @override
-  String get attendanceVerificationSuccessInstruction =>
-      'Face Verification Success!';
+  String get attendanceVerificationSuccessInstruction => 'Face Verification Success!';
 
   @override
-  String get attendanceVerificationFailedInstruction =>
-      'Face Verification Failed!';
+  String get attendanceVerificationFailedInstruction => 'Face Verification Failed!';
 
   @override
   String get attendanceVerificationTakePhoto => 'Take Photo';
@@ -689,8 +667,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get overtimeRequestButton => 'Request Overtime';
 
   @override
-  String get overtimeSubmittedSuccess =>
-      'Overtime request submitted successfully!';
+  String get overtimeSubmittedSuccess => 'Overtime request submitted successfully!';
 
   @override
   String get overtimeEditRequest => 'Edit Overtime Request';
@@ -705,8 +682,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get overtimeSendAdjustmentRequest => 'Send Adjustment Request';
 
   @override
-  String get overtimeAdjustmentSentSuccess =>
-      'Adjustment request sent successfully!';
+  String get overtimeAdjustmentSentSuccess => 'Adjustment request sent successfully!';
 
   @override
   String get overtimeNoAttendanceLog => 'No attendance log for this date.';
@@ -842,8 +818,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get offboardingCompleteTasksTitle => 'Complete Your Offboarding Tasks';
 
   @override
-  String get offboardingCompleteTasksSubtitle =>
-      'Complete your offboarding tasks to ensure a smooth exit';
+  String get offboardingCompleteTasksSubtitle => 'Complete your offboarding tasks to ensure a smooth exit';
 
   @override
   String offboardingError(String error) {
@@ -884,20 +859,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get offboardingHandoverSubmitted => 'Handover submitted successfully!';
 
   @override
-  String get offboardingFillWorksFields =>
-      'Please fill in all \"Works\" fields.';
+  String get offboardingFillWorksFields => 'Please fill in all \"Works\" fields.';
 
   @override
-  String get offboardingFillDocumentNameFields =>
-      'Please fill in all \"Document Name\" fields.';
+  String get offboardingFillDocumentNameFields => 'Please fill in all \"Document Name\" fields.';
 
   @override
-  String get offboardingSelectRecipient =>
-      'Please select at least one recipient for all items.';
+  String get offboardingSelectRecipient => 'Please select at least one recipient for all items.';
 
   @override
-  String get offboardingIdNotFound =>
-      'Could not find offboarding ID. Please try again.';
+  String get offboardingIdNotFound => 'Could not find offboarding ID. Please try again.';
 
   @override
   String offboardingErrorLoadingData(String error) {
@@ -976,12 +947,10 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get offboardingConfirmSubmit =>
-      'Are you sure you want to submit this exit interview form?';
+  String get offboardingConfirmSubmit => 'Are you sure you want to submit this exit interview form?';
 
   @override
-  String get offboardingConfirmNoChanges =>
-      'Once submitted, you won\'t be able to make any changes.';
+  String get offboardingConfirmNoChanges => 'Once submitted, you won\'t be able to make any changes.';
 
   @override
   String get offboardingCancel => 'Cancel';
@@ -1015,8 +984,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get performanceLoadingSupervisorAssessments =>
-      'Loading supervisor assessments...';
+  String get performanceLoadingSupervisorAssessments => 'Loading supervisor assessments...';
 
   @override
   String performanceErrorLoadingSupervisorAssessments(String error) {
@@ -1024,8 +992,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get performanceSupervisorDataNotAvailable =>
-      'Supervisor assessments data not available.';
+  String get performanceSupervisorDataNotAvailable => 'Supervisor assessments data not available.';
 
   @override
   String performanceSelfAssessmentWithPeriod(String period) {
@@ -1114,8 +1081,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get performanceKeyResultData => 'Key Result Data';
 
   @override
-  String get performanceFillRequiredFields =>
-      'Please fill all required fields correctly.';
+  String get performanceFillRequiredFields => 'Please fill all required fields correctly.';
 
   @override
   String get performanceProgressSaved => 'Progress saved successfully!';
@@ -1200,12 +1166,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get performanceAssessmentForm => 'Assessment Form';
 
   @override
-  String get performanceSupervisorAssessmentSchedule =>
-      'Supervisor Assessment Schedule';
+  String get performanceSupervisorAssessmentSchedule => 'Supervisor Assessment Schedule';
 
   @override
-  String get performanceSupervisorAssessmentList =>
-      'Supervisor Assessment List';
+  String get performanceSupervisorAssessmentList => 'Supervisor Assessment List';
 
   @override
   String performanceErrorLoadingAssessments(String error) {
@@ -1213,8 +1177,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get performanceNoSupervisorAssessments =>
-      'No supervisor assessments found.';
+  String get performanceNoSupervisorAssessments => 'No supervisor assessments found.';
 
   @override
   String performanceErrorLoadingDetails(String error) {
@@ -1239,12 +1202,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get performanceSaveAsDraft => 'Save as Draft';
 
   @override
-  String get performanceConfirmSubmitSelfAssessment =>
-      'Are you sure you want to submit this self assessment form?';
+  String get performanceConfirmSubmitSelfAssessment => 'Are you sure you want to submit this self assessment form?';
 
   @override
-  String get performanceConfirmNoChanges =>
-      'Once submitted, you won\'t be able to make any changes.';
+  String get performanceConfirmNoChanges => 'Once submitted, you won\'t be able to make any changes.';
 
   @override
   String get performanceCancel => 'Cancel';
@@ -1258,8 +1219,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get performanceEmployeeSubmittedReadOnly =>
-      'This is the employee\'s submitted assessment (Read-Only).';
+  String get performanceEmployeeSubmittedReadOnly => 'This is the employee\'s submitted assessment (Read-Only).';
 
   @override
   String get performanceAddComments => 'Add your comments here...';
@@ -1276,8 +1236,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get performanceValidationCompleteReadOnly =>
-      'Validation complete and read-only.';
+  String get performanceValidationCompleteReadOnly => 'Validation complete and read-only.';
 
   @override
   String get performanceValidateSelfAssessment => 'Validate Self Assessment';
@@ -1286,15 +1245,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get performanceMySelfAssessment => 'My Self Assessment';
 
   @override
-  String get performanceTeamMemberSelfAssessment =>
-      'Team Member Self Assessment';
+  String get performanceTeamMemberSelfAssessment => 'Team Member Self Assessment';
 
   @override
   String get performanceAssessmentValidationTab => 'Assessment Validation';
 
   @override
-  String get performanceSupervisorSubmitted =>
-      'Supervisor Assessment Submitted Successfully!';
+  String get performanceSupervisorSubmitted => 'Supervisor Assessment Submitted Successfully!';
 
   @override
   String get performanceAssessmentReadOnlyShort => 'Assessment is read-only.';
@@ -1306,16 +1263,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get performanceSubmit => 'Submit';
 
   @override
-  String get performanceConfirmSubmitSupervisor =>
-      'Are you sure you want to submit this supervisor assessment form?';
+  String get performanceConfirmSubmitSupervisor => 'Are you sure you want to submit this supervisor assessment form?';
 
   @override
-  String get performanceConfirmSaveDraft =>
-      'Are you sure you want to save this draft?';
+  String get performanceConfirmSaveDraft => 'Are you sure you want to save this draft?';
 
   @override
-  String get performanceCanEditDraftLater =>
-      'You can continue editing the draft later.';
+  String get performanceCanEditDraftLater => 'You can continue editing the draft later.';
 
   @override
   String get inboxTitle => 'Inbox';
@@ -1394,12 +1348,10 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get payslipEnterPasswordToContinue =>
-      'Enter Your Password to Continue';
+  String get payslipEnterPasswordToContinue => 'Enter Your Password to Continue';
 
   @override
-  String get payslipPasswordSecurityMessage =>
-      'For security reasons, please enter your account password to access your selected payslip.';
+  String get payslipPasswordSecurityMessage => 'For security reasons, please enter your account password to access your selected payslip.';
 
   @override
   String get payslipAccessPayslip => 'Access Payslip';
@@ -1417,8 +1369,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get payslipPrintRequestSubmitted => 'Payslip Print Request Submitted';
 
   @override
-  String get payslipPrintRequestSubmittedBody =>
-      'We\'ve received your request to print the payslip. Please wait while we process it, you\'ll be informed when it\'s ready to pick up.';
+  String get payslipPrintRequestSubmittedBody => 'We\'ve received your request to print the payslip. Please wait while we process it, you\'ll be informed when it\'s ready to pick up.';
 
   @override
   String get payslipPayrollDetails => 'Payroll Details';
@@ -1466,15 +1417,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get payslipNotes => 'Notes';
 
   @override
-  String get payslipNotesDisclaimer =>
-      'THIS IS COMPUTER GENERATED PRINTOUT AND NO SIGNATURE IS REQUIRED\n\nPLEASE NOTE THAT THE CONTENTS OF THIS STATEMENT SHOULD BE TREATED WITH ABSOLUTE CONFIDENTIALITY EXCEPT TO THE EXTENT YOU ARE REQUIRED TO MAKE DISCLOSURE FOR ANY TAX, LEGAL, OR REGULATORY PURPOSES. ANY BREACH OF THIS CONFIDENTIALITY OBLIGATION WILL BE DEALT WITH SERIOUSLY, WHICH MAY INVOLVE DISCIPLINARY ACTION BEING TAKEN.';
+  String get payslipNotesDisclaimer => 'THIS IS COMPUTER GENERATED PRINTOUT AND NO SIGNATURE IS REQUIRED\n\nPLEASE NOTE THAT THE CONTENTS OF THIS STATEMENT SHOULD BE TREATED WITH ABSOLUTE CONFIDENTIALITY EXCEPT TO THE EXTENT YOU ARE REQUIRED TO MAKE DISCLOSURE FOR ANY TAX, LEGAL, OR REGULATORY PURPOSES. ANY BREACH OF THIS CONFIDENTIALITY OBLIGATION WILL BE DEALT WITH SERIOUSLY, WHICH MAY INVOLVE DISCIPLINARY ACTION BEING TAKEN.';
 
   @override
   String get payslipBenefits => 'Benefits';
 
   @override
-  String get payslipBenefitsDescription =>
-      'These are the benefits you\'ll get from the company, but not included in your take-home pay (THP).';
+  String get payslipBenefitsDescription => 'These are the benefits you\'ll get from the company, but not included in your take-home pay (THP).';
 
   @override
   String get payslipBenefitWorkAccident => 'Work Accident Insurance';
@@ -1588,18 +1537,99 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get attendanceLocationServicesDisabled =>
-      'Location services are disabled.';
+  String get attendanceLocationServicesDisabled => 'Location services are disabled.';
 
   @override
-  String get attendanceLocationPermissionDenied =>
-      'Location permissions are denied.';
+  String get attendanceLocationPermissionDenied => 'Location permissions are denied.';
 
   @override
-  String get attendanceLocationPermissionDeniedForever =>
-      'Location permissions are permanently denied. We cannot request permissions.';
+  String get attendanceLocationPermissionDeniedForever => 'Location permissions are permanently denied. We cannot request permissions.';
 
   @override
-  String get attendanceManualCaptureBypass =>
-      'Manual capture (location bypass)';
+  String get attendanceManualCaptureBypass => 'Manual capture (location bypass)';
+
+  @override
+  String get businessTripTitle => 'Business Trip';
+
+  @override
+  String get businessTripNewRequest => 'New Business Trip Request';
+
+  @override
+  String get businessTripYourTrips => 'Your Business Trips';
+
+  @override
+  String get businessTripNoTripsFound => 'No business trips found.';
+
+  @override
+  String businessTripFailedLoadData(String error) {
+    return 'Failed to load data: $error';
+  }
+
+  @override
+  String get businessTripDetailTitle => 'Business Trip Detail';
+
+  @override
+  String get businessTripDestination => 'Destination';
+
+  @override
+  String get businessTripReason => 'Reason';
+
+  @override
+  String get businessTripNotes => 'Notes';
+
+  @override
+  String get businessTripDuration => 'Duration';
+
+  @override
+  String businessTripDays(int days) {
+    return '($days Days)';
+  }
+
+  @override
+  String get businessTripApprover => 'Approver';
+
+  @override
+  String get businessTripCancelRequest => 'Cancel Request';
+
+  @override
+  String get businessTripCancelConfirmTitle => 'Cancel Request';
+
+  @override
+  String get businessTripCancelConfirmBody => 'Are you sure you want to cancel this request?';
+
+  @override
+  String get businessTripCancelNo => 'No';
+
+  @override
+  String get businessTripCancelYes => 'Yes';
+
+  @override
+  String get businessTripCancelSuccess => 'Request cancelled successfully';
+
+  @override
+  String get businessTripCancelFailed => 'Failed to cancel request';
+
+  @override
+  String get businessTripFormTitle => 'New Business Trip';
+
+  @override
+  String get businessTripStartDate => 'Start Date';
+
+  @override
+  String get businessTripEndDate => 'End Date';
+
+  @override
+  String get businessTripFillAllFields => 'Please fill all fields.';
+
+  @override
+  String get businessTripSubmitSuccess => 'Business trip requested successfully!';
+
+  @override
+  String get businessTripSubmitFailed => 'Submission failed!';
+
+  @override
+  String get businessTripSendRequest => 'Send Request';
+
+  @override
+  String get businessTripSubmitting => 'Submitting...';
 }

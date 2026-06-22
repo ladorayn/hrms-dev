@@ -94,7 +94,7 @@ class ProfileScreen extends ConsumerWidget {
                         ),
                         ProfileMenuItem(
                           icon: Icons.card_travel_outlined,
-                          title: 'Business Trip',
+                          title: l10n.businessTripTitle,
                           onTap: () {
                             globalNavigatorKey.currentContext
                                 ?.pushNamed(RoutePaths.businessTripName);

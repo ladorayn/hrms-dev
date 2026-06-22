@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
@@ -16,11 +17,12 @@ class BusinessTripScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = Theme.of(context).textTheme;
+    final l10n = AppLocalizations.of(context)!;
     final businessTripsAsync = ref.watch(businessTripsProvider);
 
     return Scaffold(
       appBar: IAppBar(
-        title: "Business Trip",
+        title: l10n.businessTripTitle,
         centerTitle: true,
       ),
       resizeToAvoidBottomInset: false,
@@ -53,7 +55,7 @@ class BusinessTripScreen extends ConsumerWidget {
                                 ?.push(RoutePaths.businessTripForm);
                             ref.invalidate(businessTripsProvider);
                           },
-                          child: const Text("New Business Trip Request"),
+                          child: Text(l10n.businessTripNewRequest),
                         ),
                       ),
                       SizedBox(height: 16.sp),
@@ -73,7 +75,7 @@ class BusinessTripScreen extends ConsumerWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Your Business Trips",
+                                  l10n.businessTripYourTrips,
                                   style: textTheme.titleMedium?.copyWith(
                                       color: IColors.light.primary.main),
                                 ),
@@ -94,8 +96,8 @@ class BusinessTripScreen extends ConsumerWidget {
                                                 physics: const AlwaysScrollableScrollPhysics(),
                                                 children: [
                                                   SizedBox(height: MediaQuery.of(context).size.height * 0.3),
-                                                  const Center(
-                                                    child: Text("No business trips found."),
+                                                  Center(
+                                                    child: Text(l10n.businessTripNoTripsFound),
                                                   ),
                                                 ],
                                               )
@@ -112,7 +114,7 @@ class BusinessTripScreen extends ConsumerWidget {
                                     loading: () => const Center(
                                         child: CircularProgressIndicator()),
                                     error: (err, stack) => Center(
-                                        child: Text("Failed to load data: $err")),
+                                        child: Text(l10n.businessTripFailedLoadData(err.toString()))),
                                   ),
                                 ),
                               ],

@@ -44,19 +44,16 @@ class AppLocalizationsId extends AppLocalizations {
   String get resetPasswordEmail_title => 'Atur Ulang Kata Sandi';
 
   @override
-  String get resetPasswordEmail_body =>
-      'Masukkan email terdaftar Anda untuk mengatur ulang kata sandi';
+  String get resetPasswordEmail_body => 'Masukkan email terdaftar Anda untuk mengatur ulang kata sandi';
 
   @override
-  String get resetPasswordEmail_linkSentSnackbar =>
-      'Tautan terkirim! Periksa email Anda.';
+  String get resetPasswordEmail_linkSentSnackbar => 'Tautan terkirim! Periksa email Anda.';
 
   @override
   String get resetPasswordCheckEmail_title => 'Silakan Periksa Email Anda';
 
   @override
-  String get resetPasswordCheckEmail_body =>
-      'Tautan atur ulang kata sandi telah dikirim ke email Anda yang terdaftar.';
+  String get resetPasswordCheckEmail_body => 'Tautan atur ulang kata sandi telah dikirim ke email Anda yang terdaftar.';
 
   @override
   String get resetPasswordCheckEmail_didNotReceive => 'Tidak menerima email? ';
@@ -65,22 +62,19 @@ class AppLocalizationsId extends AppLocalizations {
   String get resetPasswordCheckEmail_resend => 'Kirim Ulang Email';
 
   @override
-  String get resetPasswordCheckEmail_resendingSnackbar =>
-      'Mengirim ulang tautan...';
+  String get resetPasswordCheckEmail_resendingSnackbar => 'Mengirim ulang tautan...';
 
   @override
   String get resetPasswordCreate_title => 'Buat Kata Sandi Baru';
 
   @override
-  String get resetPasswordCreate_subtitle =>
-      'Buat kata sandi baru untuk akun Anda';
+  String get resetPasswordCreate_subtitle => 'Buat kata sandi baru untuk akun Anda';
 
   @override
   String get resetPasswordSuccess_title => 'Kata Sandi Berhasil Diatur Ulang';
 
   @override
-  String get resetPasswordSuccess_body =>
-      'Silakan masuk menggunakan kata sandi baru Anda.';
+  String get resetPasswordSuccess_body => 'Silakan masuk menggunakan kata sandi baru Anda.';
 
   @override
   String get errorUnknown => 'Terjadi kesalahan yang tidak diketahui';
@@ -104,16 +98,13 @@ class AppLocalizationsId extends AppLocalizations {
   String get formValidationEmailInvalid => 'Harap masukkan email yang valid';
 
   @override
-  String get formValidationOnlyAlphanumeric =>
-      'Hanya huruf dan angka yang diperbolehkan';
+  String get formValidationOnlyAlphanumeric => 'Hanya huruf dan angka yang diperbolehkan';
 
   @override
-  String get formValidationPasswordInvalid =>
-      'Kata sandi yang Anda masukkan salah';
+  String get formValidationPasswordInvalid => 'Kata sandi yang Anda masukkan salah';
 
   @override
-  String get formValidationPasswordCriteriaInvalid =>
-      'Kata sandi tidak memenuhi kriteria yang disyaratkan';
+  String get formValidationPasswordCriteriaInvalid => 'Kata sandi tidak memenuhi kriteria yang disyaratkan';
 
   @override
   String get formPhone => 'Nomor Telepon';
@@ -184,12 +175,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get dashboardNoRecentActivity => 'Tidak ada aktivitas terbaru.';
 
   @override
-  String get dashboardOffboardingTitle =>
-      '🔔 Selesaikan Proses Offboarding Anda!';
+  String get dashboardOffboardingTitle => '🔔 Selesaikan Proses Offboarding Anda!';
 
   @override
-  String get dashboardOffboardingSubtitle =>
-      'Mari selesaikan semuanya dengan lancar sebelum Anda pergi';
+  String get dashboardOffboardingSubtitle => 'Mari selesaikan semuanya dengan lancar sebelum Anda pergi';
 
   @override
   String get dashboardOffboardingStartButton => 'Mulai Proses Offboarding';
@@ -322,8 +311,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get profileSocialMedia => 'Media Sosial';
 
   @override
-  String get profileNoSocialMedia =>
-      'Tidak ada akun media sosial yang terhubung.';
+  String get profileNoSocialMedia => 'Tidak ada akun media sosial yang terhubung.';
 
   @override
   String get profileAddMore => 'Tambah lagi';
@@ -468,16 +456,13 @@ class AppLocalizationsId extends AppLocalizations {
   String get attendanceOvertimeDuration => 'Durasi Lembur';
 
   @override
-  String get attendanceNoDataForPeriod =>
-      'Tidak ada data kehadiran untuk periode ini.';
+  String get attendanceNoDataForPeriod => 'Tidak ada data kehadiran untuk periode ini.';
 
   @override
-  String get attendanceNoOvertimeDataForPeriod =>
-      'Tidak ada data lembur untuk periode ini.';
+  String get attendanceNoOvertimeDataForPeriod => 'Tidak ada data lembur untuk periode ini.';
 
   @override
-  String get attendanceErrorTryAgainLater =>
-      'Kesalahan: Silakan coba lagi nanti!';
+  String get attendanceErrorTryAgainLater => 'Kesalahan: Silakan coba lagi nanti!';
 
   @override
   String get attendanceNetworkError => 'Terjadi kesalahan jaringan.';
@@ -543,12 +528,10 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get attendancePleaseFillRequiredFields =>
-      'Harap isi semua kolom yang wajib diisi.';
+  String get attendancePleaseFillRequiredFields => 'Harap isi semua kolom yang wajib diisi.';
 
   @override
-  String get attendanceNoActiveAttendance =>
-      'Tidak ada kehadiran aktif yang ditemukan.';
+  String get attendanceNoActiveAttendance => 'Tidak ada kehadiran aktif yang ditemukan.';
 
   @override
   String attendanceSaveActivity(String activity) {
@@ -594,27 +577,22 @@ class AppLocalizationsId extends AppLocalizations {
   String get attendanceFaceVerification => 'Verifikasi Wajah';
 
   @override
-  String get attendanceFaceStepFrontInstruction =>
-      'Hadapkan wajah Anda langsung ke kamera dan pastikan wajah terlihat jelas';
+  String get attendanceFaceStepFrontInstruction => 'Hadapkan wajah Anda langsung ke kamera dan pastikan wajah terlihat jelas';
 
   @override
-  String get attendanceFaceStepRightInstruction =>
-      'Putar kepala Anda perlahan ke kanan dan tetap dalam bingkai';
+  String get attendanceFaceStepRightInstruction => 'Putar kepala Anda perlahan ke kanan dan tetap dalam bingkai';
 
   @override
-  String get attendanceFaceStepLeftInstruction =>
-      'Putar kepala Anda perlahan ke kiri dan tetap dalam bingkai';
+  String get attendanceFaceStepLeftInstruction => 'Putar kepala Anda perlahan ke kiri dan tetap dalam bingkai';
 
   @override
-  String get attendanceFaceStepUploadingInstruction =>
-      'Mengunggah foto dan memverifikasi wajah...';
+  String get attendanceFaceStepUploadingInstruction => 'Mengunggah foto dan memverifikasi wajah...';
 
   @override
   String get attendanceFaceStepFailedInstruction => 'Pendaftaran Wajah Gagal!';
 
   @override
-  String get attendanceFaceStepSuccessInstruction =>
-      'Pendaftaran Wajah Berhasil!';
+  String get attendanceFaceStepSuccessInstruction => 'Pendaftaran Wajah Berhasil!';
 
   @override
   String get attendanceFaceStepTakeFrontPhoto => 'Ambil Foto Depan';
@@ -635,19 +613,16 @@ class AppLocalizationsId extends AppLocalizations {
   String get attendanceFaceStepDone => 'Selesai';
 
   @override
-  String get attendanceVerificationInitialInstruction =>
-      'Hadapkan wajah Anda langsung ke kamera dan pastikan wajah terlihat jelas';
+  String get attendanceVerificationInitialInstruction => 'Hadapkan wajah Anda langsung ke kamera dan pastikan wajah terlihat jelas';
 
   @override
   String get attendanceVerificationLoadingInstruction => 'Memverifikasi...';
 
   @override
-  String get attendanceVerificationSuccessInstruction =>
-      'Verifikasi Wajah Berhasil!';
+  String get attendanceVerificationSuccessInstruction => 'Verifikasi Wajah Berhasil!';
 
   @override
-  String get attendanceVerificationFailedInstruction =>
-      'Verifikasi Wajah Gagal!';
+  String get attendanceVerificationFailedInstruction => 'Verifikasi Wajah Gagal!';
 
   @override
   String get attendanceVerificationTakePhoto => 'Ambil Foto';
@@ -707,12 +682,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get overtimeSendAdjustmentRequest => 'Kirim Permintaan Penyesuaian';
 
   @override
-  String get overtimeAdjustmentSentSuccess =>
-      'Permintaan penyesuaian berhasil dikirim!';
+  String get overtimeAdjustmentSentSuccess => 'Permintaan penyesuaian berhasil dikirim!';
 
   @override
-  String get overtimeNoAttendanceLog =>
-      'Tidak ada catatan kehadiran untuk tanggal ini.';
+  String get overtimeNoAttendanceLog => 'Tidak ada catatan kehadiran untuk tanggal ini.';
 
   @override
   String get leaveBalance => 'Saldo Cuti';
@@ -842,12 +815,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get offboardingProcess => 'Proses Offboarding';
 
   @override
-  String get offboardingCompleteTasksTitle =>
-      'Selesaikan Tugas Offboarding Anda';
+  String get offboardingCompleteTasksTitle => 'Selesaikan Tugas Offboarding Anda';
 
   @override
-  String get offboardingCompleteTasksSubtitle =>
-      'Selesaikan tugas offboarding Anda untuk memastikan proses keluar berjalan lancar';
+  String get offboardingCompleteTasksSubtitle => 'Selesaikan tugas offboarding Anda untuk memastikan proses keluar berjalan lancar';
 
   @override
   String offboardingError(String error) {
@@ -867,8 +838,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get offboardingExitInterviewForm => 'Formulir Wawancara Keluar';
 
   @override
-  String get offboardingWorkHandover =>
-      'Serah Terima Pekerjaan & Tanggung Jawab';
+  String get offboardingWorkHandover => 'Serah Terima Pekerjaan & Tanggung Jawab';
 
   @override
   String get offboardingDocumentHandover => 'Serah Terima Dokumen';
@@ -889,20 +859,16 @@ class AppLocalizationsId extends AppLocalizations {
   String get offboardingHandoverSubmitted => 'Serah terima berhasil dikirim!';
 
   @override
-  String get offboardingFillWorksFields =>
-      'Harap isi semua kolom \"Pekerjaan\".';
+  String get offboardingFillWorksFields => 'Harap isi semua kolom \"Pekerjaan\".';
 
   @override
-  String get offboardingFillDocumentNameFields =>
-      'Harap isi semua kolom \"Nama Dokumen\".';
+  String get offboardingFillDocumentNameFields => 'Harap isi semua kolom \"Nama Dokumen\".';
 
   @override
-  String get offboardingSelectRecipient =>
-      'Harap pilih setidaknya satu penerima untuk semua item.';
+  String get offboardingSelectRecipient => 'Harap pilih setidaknya satu penerima untuk semua item.';
 
   @override
-  String get offboardingIdNotFound =>
-      'ID offboarding tidak ditemukan. Silakan coba lagi.';
+  String get offboardingIdNotFound => 'ID offboarding tidak ditemukan. Silakan coba lagi.';
 
   @override
   String offboardingErrorLoadingData(String error) {
@@ -952,8 +918,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get offboardingWorkValidated => 'Pekerjaan berhasil divalidasi!';
 
   @override
-  String get offboardingHandoverValidated =>
-      'Serah terima berhasil divalidasi!';
+  String get offboardingHandoverValidated => 'Serah terima berhasil divalidasi!';
 
   @override
   String get offboardingNoItemsFound => 'Tidak ada item yang ditemukan';
@@ -982,12 +947,10 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get offboardingConfirmSubmit =>
-      'Apakah Anda yakin ingin mengirim formulir wawancara keluar ini?';
+  String get offboardingConfirmSubmit => 'Apakah Anda yakin ingin mengirim formulir wawancara keluar ini?';
 
   @override
-  String get offboardingConfirmNoChanges =>
-      'Setelah dikirim, Anda tidak dapat melakukan perubahan.';
+  String get offboardingConfirmNoChanges => 'Setelah dikirim, Anda tidak dapat melakukan perubahan.';
 
   @override
   String get offboardingCancel => 'Batal';
@@ -1021,8 +984,7 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get performanceLoadingSupervisorAssessments =>
-      'Memuat penilaian atasan...';
+  String get performanceLoadingSupervisorAssessments => 'Memuat penilaian atasan...';
 
   @override
   String performanceErrorLoadingSupervisorAssessments(String error) {
@@ -1030,8 +992,7 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get performanceSupervisorDataNotAvailable =>
-      'Data penilaian atasan tidak tersedia.';
+  String get performanceSupervisorDataNotAvailable => 'Data penilaian atasan tidak tersedia.';
 
   @override
   String performanceSelfAssessmentWithPeriod(String period) {
@@ -1120,8 +1081,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get performanceKeyResultData => 'Data Hasil Kunci';
 
   @override
-  String get performanceFillRequiredFields =>
-      'Harap isi semua kolom wajib dengan benar.';
+  String get performanceFillRequiredFields => 'Harap isi semua kolom wajib dengan benar.';
 
   @override
   String get performanceProgressSaved => 'Progres berhasil disimpan!';
@@ -1206,8 +1166,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get performanceAssessmentForm => 'Formulir Penilaian';
 
   @override
-  String get performanceSupervisorAssessmentSchedule =>
-      'Jadwal Penilaian Atasan';
+  String get performanceSupervisorAssessmentSchedule => 'Jadwal Penilaian Atasan';
 
   @override
   String get performanceSupervisorAssessmentList => 'Daftar Penilaian Atasan';
@@ -1218,8 +1177,7 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get performanceNoSupervisorAssessments =>
-      'Tidak ada penilaian atasan yang ditemukan.';
+  String get performanceNoSupervisorAssessments => 'Tidak ada penilaian atasan yang ditemukan.';
 
   @override
   String performanceErrorLoadingDetails(String error) {
@@ -1235,8 +1193,7 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get performanceAssessmentReadOnly =>
-      'Penilaian ini hanya dapat dibaca.';
+  String get performanceAssessmentReadOnly => 'Penilaian ini hanya dapat dibaca.';
 
   @override
   String get performanceSubmitSelfAssessment => 'Kirim Penilaian Diri';
@@ -1245,12 +1202,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get performanceSaveAsDraft => 'Simpan sebagai Draf';
 
   @override
-  String get performanceConfirmSubmitSelfAssessment =>
-      'Apakah Anda yakin ingin mengirim formulir penilaian diri ini?';
+  String get performanceConfirmSubmitSelfAssessment => 'Apakah Anda yakin ingin mengirim formulir penilaian diri ini?';
 
   @override
-  String get performanceConfirmNoChanges =>
-      'Setelah dikirim, Anda tidak dapat melakukan perubahan.';
+  String get performanceConfirmNoChanges => 'Setelah dikirim, Anda tidak dapat melakukan perubahan.';
 
   @override
   String get performanceCancel => 'Batal';
@@ -1264,8 +1219,7 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get performanceEmployeeSubmittedReadOnly =>
-      'Ini adalah penilaian yang dikirim karyawan (Hanya Baca).';
+  String get performanceEmployeeSubmittedReadOnly => 'Ini adalah penilaian yang dikirim karyawan (Hanya Baca).';
 
   @override
   String get performanceAddComments => 'Tambahkan komentar Anda di sini...';
@@ -1282,8 +1236,7 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get performanceValidationCompleteReadOnly =>
-      'Validasi selesai dan hanya dapat dibaca.';
+  String get performanceValidationCompleteReadOnly => 'Validasi selesai dan hanya dapat dibaca.';
 
   @override
   String get performanceValidateSelfAssessment => 'Validasi Penilaian Diri';
@@ -1292,19 +1245,16 @@ class AppLocalizationsId extends AppLocalizations {
   String get performanceMySelfAssessment => 'Penilaian Diri Saya';
 
   @override
-  String get performanceTeamMemberSelfAssessment =>
-      'Penilaian Diri Anggota Tim';
+  String get performanceTeamMemberSelfAssessment => 'Penilaian Diri Anggota Tim';
 
   @override
   String get performanceAssessmentValidationTab => 'Validasi Penilaian';
 
   @override
-  String get performanceSupervisorSubmitted =>
-      'Penilaian Atasan berhasil dikirim!';
+  String get performanceSupervisorSubmitted => 'Penilaian Atasan berhasil dikirim!';
 
   @override
-  String get performanceAssessmentReadOnlyShort =>
-      'Penilaian hanya dapat dibaca.';
+  String get performanceAssessmentReadOnlyShort => 'Penilaian hanya dapat dibaca.';
 
   @override
   String get performanceSaveDraft => 'Simpan Draf';
@@ -1313,16 +1263,13 @@ class AppLocalizationsId extends AppLocalizations {
   String get performanceSubmit => 'Kirim';
 
   @override
-  String get performanceConfirmSubmitSupervisor =>
-      'Apakah Anda yakin ingin mengirim formulir penilaian atasan ini?';
+  String get performanceConfirmSubmitSupervisor => 'Apakah Anda yakin ingin mengirim formulir penilaian atasan ini?';
 
   @override
-  String get performanceConfirmSaveDraft =>
-      'Apakah Anda yakin ingin menyimpan draf ini?';
+  String get performanceConfirmSaveDraft => 'Apakah Anda yakin ingin menyimpan draf ini?';
 
   @override
-  String get performanceCanEditDraftLater =>
-      'Anda dapat melanjutkan pengeditan draf nanti.';
+  String get performanceCanEditDraftLater => 'Anda dapat melanjutkan pengeditan draf nanti.';
 
   @override
   String get inboxTitle => 'Kotak Masuk';
@@ -1401,12 +1348,10 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get payslipEnterPasswordToContinue =>
-      'Masukkan Kata Sandi Anda untuk Melanjutkan';
+  String get payslipEnterPasswordToContinue => 'Masukkan Kata Sandi Anda untuk Melanjutkan';
 
   @override
-  String get payslipPasswordSecurityMessage =>
-      'Untuk alasan keamanan, silakan masukkan kata sandi akun Anda untuk mengakses slip gaji yang dipilih.';
+  String get payslipPasswordSecurityMessage => 'Untuk alasan keamanan, silakan masukkan kata sandi akun Anda untuk mengakses slip gaji yang dipilih.';
 
   @override
   String get payslipAccessPayslip => 'Akses Slip Gaji';
@@ -1421,12 +1366,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get payslipSendPrintRequest => 'Kirim Permintaan Cetak';
 
   @override
-  String get payslipPrintRequestSubmitted =>
-      'Permintaan Cetak Slip Gaji Telah Dikirim';
+  String get payslipPrintRequestSubmitted => 'Permintaan Cetak Slip Gaji Telah Dikirim';
 
   @override
-  String get payslipPrintRequestSubmittedBody =>
-      'Kami telah menerima permintaan Anda untuk mencetak slip gaji. Mohon tunggu sementara kami memprosesnya; Anda akan diberitahu ketika slip siap diambil.';
+  String get payslipPrintRequestSubmittedBody => 'Kami telah menerima permintaan Anda untuk mencetak slip gaji. Mohon tunggu sementara kami memprosesnya; Anda akan diberitahu ketika slip siap diambil.';
 
   @override
   String get payslipPayrollDetails => 'Detail Penggajian';
@@ -1474,15 +1417,13 @@ class AppLocalizationsId extends AppLocalizations {
   String get payslipNotes => 'Catatan';
 
   @override
-  String get payslipNotesDisclaimer =>
-      'INI ADALAH CETAKAN YANG DIHASILKAN KOMPUTER DAN TIDAK MEMERLUKAN TANDA TANGAN\n\nHARAP DIPERHATIKAN, ISI PERNYATAAN INI ADALAH RAHASIA KECUALI ANDA DIMINTA UNTUK MENGUNGKAPKANNYA UNTUK KEPERLUAN PAJAK, HUKUM, ATAU KEPENTINGAN PEMERINTAH. SETIAP PELANGGARAN ATAS KEWAJIBAN MENJAGA KERAHASIAAN INI AKAN DIKENAKAN SANKSI, YANG MUNGKIN BERUPA TINDAKAN KEDISIPLINAN.';
+  String get payslipNotesDisclaimer => 'INI ADALAH CETAKAN YANG DIHASILKAN KOMPUTER DAN TIDAK MEMERLUKAN TANDA TANGAN\n\nHARAP DIPERHATIKAN, ISI PERNYATAAN INI ADALAH RAHASIA KECUALI ANDA DIMINTA UNTUK MENGUNGKAPKANNYA UNTUK KEPERLUAN PAJAK, HUKUM, ATAU KEPENTINGAN PEMERINTAH. SETIAP PELANGGARAN ATAS KEWAJIBAN MENJAGA KERAHASIAAN INI AKAN DIKENAKAN SANKSI, YANG MUNGKIN BERUPA TINDAKAN KEDISIPLINAN.';
 
   @override
   String get payslipBenefits => 'Tunjangan';
 
   @override
-  String get payslipBenefitsDescription =>
-      'Berikut tunjangan yang Anda terima dari perusahaan, namun tidak termasuk dalam gaji bersih (THP).';
+  String get payslipBenefitsDescription => 'Berikut tunjangan yang Anda terima dari perusahaan, namun tidak termasuk dalam gaji bersih (THP).';
 
   @override
   String get payslipBenefitWorkAccident => 'Jaminan Kecelakaan Kerja';
@@ -1596,17 +1537,99 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get attendanceLocationServicesDisabled =>
-      'Layanan lokasi dinonaktifkan.';
+  String get attendanceLocationServicesDisabled => 'Layanan lokasi dinonaktifkan.';
 
   @override
   String get attendanceLocationPermissionDenied => 'Izin lokasi ditolak.';
 
   @override
-  String get attendanceLocationPermissionDeniedForever =>
-      'Izin lokasi ditolak secara permanen. Kami tidak dapat meminta izin.';
+  String get attendanceLocationPermissionDeniedForever => 'Izin lokasi ditolak secara permanen. Kami tidak dapat meminta izin.';
 
   @override
-  String get attendanceManualCaptureBypass =>
-      'Tangkapan manual (lewati lokasi)';
+  String get attendanceManualCaptureBypass => 'Tangkapan manual (lewati lokasi)';
+
+  @override
+  String get businessTripTitle => 'Perjalanan Dinas';
+
+  @override
+  String get businessTripNewRequest => 'Permintaan Perjalanan Dinas Baru';
+
+  @override
+  String get businessTripYourTrips => 'Perjalanan Dinas Anda';
+
+  @override
+  String get businessTripNoTripsFound => 'Tidak ada perjalanan dinas ditemukan.';
+
+  @override
+  String businessTripFailedLoadData(String error) {
+    return 'Gagal memuat data: $error';
+  }
+
+  @override
+  String get businessTripDetailTitle => 'Detail Perjalanan Dinas';
+
+  @override
+  String get businessTripDestination => 'Tujuan';
+
+  @override
+  String get businessTripReason => 'Alasan';
+
+  @override
+  String get businessTripNotes => 'Catatan';
+
+  @override
+  String get businessTripDuration => 'Durasi';
+
+  @override
+  String businessTripDays(int days) {
+    return '($days Hari)';
+  }
+
+  @override
+  String get businessTripApprover => 'Penyetuju';
+
+  @override
+  String get businessTripCancelRequest => 'Batalkan Permintaan';
+
+  @override
+  String get businessTripCancelConfirmTitle => 'Batalkan Permintaan';
+
+  @override
+  String get businessTripCancelConfirmBody => 'Apakah Anda yakin ingin membatalkan permintaan ini?';
+
+  @override
+  String get businessTripCancelNo => 'Tidak';
+
+  @override
+  String get businessTripCancelYes => 'Ya';
+
+  @override
+  String get businessTripCancelSuccess => 'Permintaan berhasil dibatalkan';
+
+  @override
+  String get businessTripCancelFailed => 'Gagal membatalkan permintaan';
+
+  @override
+  String get businessTripFormTitle => 'Perjalanan Dinas Baru';
+
+  @override
+  String get businessTripStartDate => 'Tanggal Mulai';
+
+  @override
+  String get businessTripEndDate => 'Tanggal Selesai';
+
+  @override
+  String get businessTripFillAllFields => 'Harap isi semua kolom.';
+
+  @override
+  String get businessTripSubmitSuccess => 'Permintaan perjalanan dinas berhasil!';
+
+  @override
+  String get businessTripSubmitFailed => 'Pengiriman gagal!';
+
+  @override
+  String get businessTripSendRequest => 'Kirim Permintaan';
+
+  @override
+  String get businessTripSubmitting => 'Mengirim...';
 }
