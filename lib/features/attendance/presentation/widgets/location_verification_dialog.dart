@@ -92,11 +92,8 @@ Future<void> handleLocationVerification(
       return;
     }
 
-<<<<<<< HEAD
-=======
     final authP = ref.watch(authProvider);
 
->>>>>>> 38de224c4ccbd8079953178061790c3290e8310f
     await Future.delayed(const Duration(seconds: 2));
 
     Position position = await _determinePosition(l10n);
