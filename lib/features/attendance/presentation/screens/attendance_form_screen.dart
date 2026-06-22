@@ -227,6 +227,8 @@ class _AttendanceFormScreenState extends ConsumerState<AttendanceFormScreen> {
     final attendanceState = ref.read(attendanceProvider);
     final position = attendanceState.position;
 
+    final authP = ref.read(authProvider);
+
     if (position == null || _selectedShiftId == null) {
       showCustomToast(
           context, l10n.attendancePleaseFillRequiredFields, ToastType.info);
@@ -243,6 +245,7 @@ class _AttendanceFormScreenState extends ConsumerState<AttendanceFormScreen> {
       latitude: position.latitude,
       longitude: position.longitude,
       notes: _notesController.text,
+      branchId: attendanceState.selectedBranchId ?? authP.value?.branch?.id,
     );
 
     await ref.read(todayAttendanceProvider.notifier).clockIn(request);
@@ -253,6 +256,7 @@ class _AttendanceFormScreenState extends ConsumerState<AttendanceFormScreen> {
     final attendanceState = ref.read(attendanceProvider);
     final todayAttendance = ref.read(todayAttendanceProvider).value;
     final position = attendanceState.position;
+    final authP = ref.read(authProvider);
 
     if (todayAttendance == null) {
       showCustomToast(context, l10n.attendanceNoActiveAttendance, ToastType.info);
@@ -276,6 +280,7 @@ class _AttendanceFormScreenState extends ConsumerState<AttendanceFormScreen> {
     final request = ClockOutRequestModel(
       clockOutAt: DateFormat('HH:mm').format(effectiveOutTime),
       notes: _notesController.text,
+      branchId: attendanceState.selectedBranchId ?? authP.value?.branch?.id,
     );
 
     await ref.read(todayAttendanceProvider.notifier).clockOut(request);

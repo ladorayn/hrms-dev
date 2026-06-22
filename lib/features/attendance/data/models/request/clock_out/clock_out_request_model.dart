@@ -8,6 +8,7 @@ class ClockOutRequestModel with _$ClockOutRequestModel {
   const factory ClockOutRequestModel({
     @JsonKey(name: 'clock_out_at') required String clockOutAt,
     String? notes,
+    @JsonKey(name: 'branch_id') int? branchId,
   }) = _ClockOutRequestModel;
 
   factory ClockOutRequestModel.fromJson(Map<String, dynamic> json) =>

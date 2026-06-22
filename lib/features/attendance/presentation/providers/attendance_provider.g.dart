@@ -298,7 +298,7 @@ class _GetDetailAttendanceProviderElement
       (origin as GetDetailAttendanceProvider).attendanceId;
 }
 
-String _$attendanceHash() => r'da1ae905bf5dcc60d4b366bdb648654874b5ef9f';
+String _$attendanceHash() => r'd008960a0899649b08b8f0e3b38032ea68e49169';
 
 /// See also [Attendance].
 @ProviderFor(Attendance)

@@ -10,6 +10,7 @@ class AttendanceState extends Equatable {
   final AttendanceEnum? activity;
   final bool isLoading;
   final String? error;
+  final int? selectedBranchId;
 
   const AttendanceState({
     this.position,
@@ -19,6 +20,7 @@ class AttendanceState extends Equatable {
     this.activity,
     this.isLoading = false,
     this.error,
+    this.selectedBranchId,
   });
 
   AttendanceState copyWith({
@@ -29,6 +31,7 @@ class AttendanceState extends Equatable {
     AttendanceEnum? activity,
     bool? isLoading,
     String? error,
+    int? selectedBranchId,
   }) {
     return AttendanceState(
       position: position ?? this.position,
@@ -38,6 +41,7 @@ class AttendanceState extends Equatable {
       activity: activity ?? this.activity,
       isLoading: isLoading ?? this.isLoading,
       error: error ?? this.error,
+      selectedBranchId: selectedBranchId ?? this.selectedBranchId,
     );
   }
 
@@ -49,6 +53,7 @@ class AttendanceState extends Equatable {
         clockOutTime,
         activity,
         isLoading,
-        error
+        error,
+        selectedBranchId
       ];
 }

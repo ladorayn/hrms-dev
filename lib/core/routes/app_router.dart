@@ -16,12 +16,16 @@ import 'package:hrms_mobile/features/attendance/presentation/screens/attendance_
 import 'package:hrms_mobile/features/attendance/presentation/screens/face_registration_screen.dart';
 import 'package:hrms_mobile/features/attendance/presentation/screens/face_verification_screen.dart';
 import 'package:hrms_mobile/features/attendance/presentation/screens/location_confirmed.dart';
+import 'package:hrms_mobile/features/attendance/presentation/screens/select_branch_screen.dart';
 import 'package:hrms_mobile/features/auth/presentation/providers/auth/auth_provider.dart';
 import 'package:hrms_mobile/features/auth/presentation/screens/login_screen.dart';
 import 'package:hrms_mobile/features/auth/presentation/screens/reset_password/reset_password_check_email_screen.dart';
 import 'package:hrms_mobile/features/auth/presentation/screens/reset_password/reset_password_create_screen.dart';
 import 'package:hrms_mobile/features/auth/presentation/screens/reset_password/reset_password_screen.dart';
 import 'package:hrms_mobile/features/auth/presentation/screens/reset_password/reset_password_success_screen.dart';
+import 'package:hrms_mobile/features/business_trip/presentation/screens/business_trip_detail_screen.dart';
+import 'package:hrms_mobile/features/business_trip/presentation/screens/business_trip_form_screen.dart';
+import 'package:hrms_mobile/features/business_trip/presentation/screens/business_trip_screen.dart';
 import 'package:hrms_mobile/features/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:hrms_mobile/features/dashboard/presentation/screens/main_screen.dart'; // You will create this file
 import 'package:hrms_mobile/features/inbox/data/models/response/notification_response.dart';
@@ -191,6 +195,14 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         },
       ),
       GoRoute(
+        path: RoutePaths.selectBranch,
+        name: RoutePaths.selectBranch,
+        builder: (context, state) {
+          final activity = state.extra as AttendanceEnum;
+          return SelectBranchScreen(activity: activity);
+        },
+      ),
+      GoRoute(
         path: RoutePaths.faceRegistration,
         name: RoutePaths.faceRegistration,
         builder: (context, state) {
@@ -247,6 +259,28 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           return LeaveRequestDetailScreen(
             leaveId: id,
           );
+        },
+      ),
+      GoRoute(
+        path: RoutePaths.businessTrip,
+        name: RoutePaths.businessTripName,
+        builder: (context, state) {
+          return const BusinessTripScreen();
+        },
+      ),
+      GoRoute(
+        path: RoutePaths.businessTripForm,
+        name: RoutePaths.businessTripFormName,
+        builder: (context, state) {
+          return const BusinessTripFormScreen();
+        },
+      ),
+      GoRoute(
+        path: RoutePaths.businessTripDetail,
+        name: RoutePaths.businessTripDetailName,
+        builder: (context, state) {
+          final id = state.extra as int;
+          return BusinessTripDetailScreen(id: id);
         },
       ),
       GoRoute(

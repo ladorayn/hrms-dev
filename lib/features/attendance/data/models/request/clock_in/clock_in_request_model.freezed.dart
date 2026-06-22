@@ -27,6 +27,8 @@ mixin _$ClockInRequestModel {
   double get latitude => throw _privateConstructorUsedError;
   double get longitude => throw _privateConstructorUsedError;
   String? get notes => throw _privateConstructorUsedError;
+  @JsonKey(name: 'branch_id')
+  int? get branchId => throw _privateConstructorUsedError;
 
   /// Serializes this ClockInRequestModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -49,7 +51,8 @@ abstract class $ClockInRequestModelCopyWith<$Res> {
       @JsonKey(name: 'clock_in_at') String clockInAt,
       double latitude,
       double longitude,
-      String? notes});
+      String? notes,
+      @JsonKey(name: 'branch_id') int? branchId});
 }
 
 /// @nodoc
@@ -72,6 +75,7 @@ class _$ClockInRequestModelCopyWithImpl<$Res, $Val extends ClockInRequestModel>
     Object? latitude = null,
     Object? longitude = null,
     Object? notes = freezed,
+    Object? branchId = freezed,
   }) {
     return _then(_value.copyWith(
       shiftId: null == shiftId
@@ -94,6 +98,10 @@ class _$ClockInRequestModelCopyWithImpl<$Res, $Val extends ClockInRequestModel>
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
               as String?,
+      branchId: freezed == branchId
+          ? _value.branchId
+          : branchId // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -111,7 +119,8 @@ abstract class _$$ClockInRequestModelImplCopyWith<$Res>
       @JsonKey(name: 'clock_in_at') String clockInAt,
       double latitude,
       double longitude,
-      String? notes});
+      String? notes,
+      @JsonKey(name: 'branch_id') int? branchId});
 }
 
 /// @nodoc
@@ -132,6 +141,7 @@ class __$$ClockInRequestModelImplCopyWithImpl<$Res>
     Object? latitude = null,
     Object? longitude = null,
     Object? notes = freezed,
+    Object? branchId = freezed,
   }) {
     return _then(_$ClockInRequestModelImpl(
       shiftId: null == shiftId
@@ -154,6 +164,10 @@ class __$$ClockInRequestModelImplCopyWithImpl<$Res>
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
               as String?,
+      branchId: freezed == branchId
+          ? _value.branchId
+          : branchId // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -166,7 +180,8 @@ class _$ClockInRequestModelImpl implements _ClockInRequestModel {
       @JsonKey(name: 'clock_in_at') required this.clockInAt,
       required this.latitude,
       required this.longitude,
-      this.notes});
+      this.notes,
+      @JsonKey(name: 'branch_id') this.branchId});
 
   factory _$ClockInRequestModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ClockInRequestModelImplFromJson(json);
@@ -183,10 +198,13 @@ class _$ClockInRequestModelImpl implements _ClockInRequestModel {
   final double longitude;
   @override
   final String? notes;
+  @override
+  @JsonKey(name: 'branch_id')
+  final int? branchId;
 
   @override
   String toString() {
-    return 'ClockInRequestModel(shiftId: $shiftId, clockInAt: $clockInAt, latitude: $latitude, longitude: $longitude, notes: $notes)';
+    return 'ClockInRequestModel(shiftId: $shiftId, clockInAt: $clockInAt, latitude: $latitude, longitude: $longitude, notes: $notes, branchId: $branchId)';
   }
 
   @override
@@ -201,13 +219,15 @@ class _$ClockInRequestModelImpl implements _ClockInRequestModel {
                 other.latitude == latitude) &&
             (identical(other.longitude, longitude) ||
                 other.longitude == longitude) &&
-            (identical(other.notes, notes) || other.notes == notes));
+            (identical(other.notes, notes) || other.notes == notes) &&
+            (identical(other.branchId, branchId) ||
+                other.branchId == branchId));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, shiftId, clockInAt, latitude, longitude, notes);
+  int get hashCode => Object.hash(
+      runtimeType, shiftId, clockInAt, latitude, longitude, notes, branchId);
 
   /// Create a copy of ClockInRequestModel
   /// with the given fields replaced by the non-null parameter values.
@@ -228,11 +248,13 @@ class _$ClockInRequestModelImpl implements _ClockInRequestModel {
 
 abstract class _ClockInRequestModel implements ClockInRequestModel {
   const factory _ClockInRequestModel(
-      {@JsonKey(name: 'shift_id') required final int shiftId,
-      @JsonKey(name: 'clock_in_at') required final String clockInAt,
-      required final double latitude,
-      required final double longitude,
-      final String? notes}) = _$ClockInRequestModelImpl;
+          {@JsonKey(name: 'shift_id') required final int shiftId,
+          @JsonKey(name: 'clock_in_at') required final String clockInAt,
+          required final double latitude,
+          required final double longitude,
+          final String? notes,
+          @JsonKey(name: 'branch_id') final int? branchId}) =
+      _$ClockInRequestModelImpl;
 
   factory _ClockInRequestModel.fromJson(Map<String, dynamic> json) =
       _$ClockInRequestModelImpl.fromJson;
@@ -249,6 +271,9 @@ abstract class _ClockInRequestModel implements ClockInRequestModel {
   double get longitude;
   @override
   String? get notes;
+  @override
+  @JsonKey(name: 'branch_id')
+  int? get branchId;
 
   /// Create a copy of ClockInRequestModel
   /// with the given fields replaced by the non-null parameter values.

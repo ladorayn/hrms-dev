@@ -11,6 +11,7 @@ class ClockInRequestModel with _$ClockInRequestModel {
     required double latitude,
     required double longitude,
     String? notes,
+    @JsonKey(name: 'branch_id') int? branchId,
   }) = _ClockInRequestModel;
 
   factory ClockInRequestModel.fromJson(Map<String, dynamic> json) =>

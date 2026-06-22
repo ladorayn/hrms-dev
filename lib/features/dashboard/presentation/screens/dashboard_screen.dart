@@ -694,7 +694,7 @@ Widget _buildClockInButton(BuildContext context, WidgetRef ref) {
     width: double.infinity,
     child: ElevatedButton.icon(
       onPressed: () async {
-        await handleLocationVerification(context, AttendanceEnum.clockIn, ref);
+        globalNavigatorKey.currentContext?.pushNamed(RoutePaths.selectBranch, extra: AttendanceEnum.clockIn);
       },
       icon: const Icon(
         Icons.add,
@@ -738,12 +738,8 @@ Widget _buildClockOutButton(BuildContext context, WidgetRef ref,
     child: ElevatedButton.icon(
       onPressed: enabled
           ? () {
-              handleLocationVerification(
-                context,
-                AttendanceEnum.clockOut,
-                ref,
-              );
-            }
+                globalNavigatorKey.currentContext?.pushNamed(RoutePaths.selectBranch, extra: AttendanceEnum.clockOut);
+              }
           : null,
       icon: Icon(
         Icons.add,

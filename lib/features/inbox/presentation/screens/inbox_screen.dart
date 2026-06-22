@@ -9,11 +9,35 @@ import 'package:hrms_mobile/features/inbox/data/models/response/notification_res
 import 'package:hrms_mobile/features/inbox/presentation/providers/inbox_provider.dart';
 import 'package:hrms_mobile/features/inbox/presentation/widgets/inbox_message.dart';
 
-class InboxScreen extends ConsumerWidget {
+class InboxScreen extends ConsumerStatefulWidget {
   const InboxScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<InboxScreen> createState() => _InboxScreenState();
+}
+
+class _InboxScreenState extends ConsumerState<InboxScreen> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels >=
+          _scrollController.position.maxScrollExtent - 200) {
+        ref.read(recentNotificationsProvider.notifier).loadMore();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final notificationsAsync = ref.watch(recentNotificationsProvider);
 
@@ -45,17 +69,32 @@ class InboxScreen extends ConsumerWidget {
                 );
               }
 
-              return ListView.builder(
-                padding: const EdgeInsets.only(top: 20),
-                itemCount: notifications.length,
-                itemBuilder: (context, index) {
-                  final notification = notifications[index];
-                  final data = notification.data;
+              final hasMore = ref.watch(recentNotificationsProvider.notifier).hasMore;
 
-                  return InboxMessage(
-                    notification: notification,
-                    showDivider: index < notifications.length - 1,
-                    onTap: () {
+              return RefreshIndicator(
+                onRefresh: () async {
+                  await ref.read(recentNotificationsProvider.notifier).refresh();
+                },
+                child: ListView.builder(
+                  controller: _scrollController,
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  padding: const EdgeInsets.only(top: 20),
+                  itemCount: notifications.length + (hasMore ? 1 : 0),
+                  itemBuilder: (context, index) {
+                    if (index == notifications.length) {
+                      return const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 20),
+                        child: Center(child: CircularProgressIndicator()),
+                      );
+                    }
+
+                    final notification = notifications[index];
+                    final data = notification.data;
+
+                    return InboxMessage(
+                      notification: notification,
+                      showDivider: index < notifications.length - 1 || hasMore,
+                      onTap: () {
                       debugPrint("=== NOTIFICATION TAPPED ===");
                       debugPrint("ID = ${notification.id}");
                       debugPrint("Title = ${data?.title}");
@@ -69,7 +108,8 @@ class InboxScreen extends ConsumerWidget {
                     },
                   );
                 },
-              );
+              ),
+            );
             },
             loading: () => const Center(child: CircularProgressIndicator()),
             error: (e, stack) {
@@ -202,6 +242,24 @@ class InboxScreen extends ConsumerWidget {
         );
         break;
 
+      // =====================================================
+      // BUSINESS TRIP
+      // =====================================================
+      case NotificationCode.businessTripStatusUpdated:
+        payload.mapOrNull(
+          businessTripStatusUpdated: (p) {
+            final payload = p;
+            final int? id = int.tryParse(payload.businessTripId ?? '');
+            globalNavigatorKey.currentContext?.push(
+              RoutePaths.businessTripDetail,
+              extra: id,
+            );
+          },
+        );
+        break;
+      // =====================================================
+      // DEFAULT
+      // =====================================================
       case NotificationCode.unknown:
         debugPrint("⚠️ Unhandled notification code: $rawCode");
         break;

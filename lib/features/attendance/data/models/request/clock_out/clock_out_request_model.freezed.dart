@@ -23,6 +23,8 @@ mixin _$ClockOutRequestModel {
   @JsonKey(name: 'clock_out_at')
   String get clockOutAt => throw _privateConstructorUsedError;
   String? get notes => throw _privateConstructorUsedError;
+  @JsonKey(name: 'branch_id')
+  int? get branchId => throw _privateConstructorUsedError;
 
   /// Serializes this ClockOutRequestModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -40,7 +42,10 @@ abstract class $ClockOutRequestModelCopyWith<$Res> {
           $Res Function(ClockOutRequestModel) then) =
       _$ClockOutRequestModelCopyWithImpl<$Res, ClockOutRequestModel>;
   @useResult
-  $Res call({@JsonKey(name: 'clock_out_at') String clockOutAt, String? notes});
+  $Res call(
+      {@JsonKey(name: 'clock_out_at') String clockOutAt,
+      String? notes,
+      @JsonKey(name: 'branch_id') int? branchId});
 }
 
 /// @nodoc
@@ -61,6 +66,7 @@ class _$ClockOutRequestModelCopyWithImpl<$Res,
   $Res call({
     Object? clockOutAt = null,
     Object? notes = freezed,
+    Object? branchId = freezed,
   }) {
     return _then(_value.copyWith(
       clockOutAt: null == clockOutAt
@@ -71,6 +77,10 @@ class _$ClockOutRequestModelCopyWithImpl<$Res,
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
               as String?,
+      branchId: freezed == branchId
+          ? _value.branchId
+          : branchId // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -83,7 +93,10 @@ abstract class _$$ClockOutRequestModelImplCopyWith<$Res>
       __$$ClockOutRequestModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({@JsonKey(name: 'clock_out_at') String clockOutAt, String? notes});
+  $Res call(
+      {@JsonKey(name: 'clock_out_at') String clockOutAt,
+      String? notes,
+      @JsonKey(name: 'branch_id') int? branchId});
 }
 
 /// @nodoc
@@ -101,6 +114,7 @@ class __$$ClockOutRequestModelImplCopyWithImpl<$Res>
   $Res call({
     Object? clockOutAt = null,
     Object? notes = freezed,
+    Object? branchId = freezed,
   }) {
     return _then(_$ClockOutRequestModelImpl(
       clockOutAt: null == clockOutAt
@@ -111,6 +125,10 @@ class __$$ClockOutRequestModelImplCopyWithImpl<$Res>
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
               as String?,
+      branchId: freezed == branchId
+          ? _value.branchId
+          : branchId // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -119,7 +137,9 @@ class __$$ClockOutRequestModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ClockOutRequestModelImpl implements _ClockOutRequestModel {
   const _$ClockOutRequestModelImpl(
-      {@JsonKey(name: 'clock_out_at') required this.clockOutAt, this.notes});
+      {@JsonKey(name: 'clock_out_at') required this.clockOutAt,
+      this.notes,
+      @JsonKey(name: 'branch_id') this.branchId});
 
   factory _$ClockOutRequestModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ClockOutRequestModelImplFromJson(json);
@@ -129,10 +149,13 @@ class _$ClockOutRequestModelImpl implements _ClockOutRequestModel {
   final String clockOutAt;
   @override
   final String? notes;
+  @override
+  @JsonKey(name: 'branch_id')
+  final int? branchId;
 
   @override
   String toString() {
-    return 'ClockOutRequestModel(clockOutAt: $clockOutAt, notes: $notes)';
+    return 'ClockOutRequestModel(clockOutAt: $clockOutAt, notes: $notes, branchId: $branchId)';
   }
 
   @override
@@ -142,12 +165,14 @@ class _$ClockOutRequestModelImpl implements _ClockOutRequestModel {
             other is _$ClockOutRequestModelImpl &&
             (identical(other.clockOutAt, clockOutAt) ||
                 other.clockOutAt == clockOutAt) &&
-            (identical(other.notes, notes) || other.notes == notes));
+            (identical(other.notes, notes) || other.notes == notes) &&
+            (identical(other.branchId, branchId) ||
+                other.branchId == branchId));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, clockOutAt, notes);
+  int get hashCode => Object.hash(runtimeType, clockOutAt, notes, branchId);
 
   /// Create a copy of ClockOutRequestModel
   /// with the given fields replaced by the non-null parameter values.
@@ -169,8 +194,10 @@ class _$ClockOutRequestModelImpl implements _ClockOutRequestModel {
 
 abstract class _ClockOutRequestModel implements ClockOutRequestModel {
   const factory _ClockOutRequestModel(
-      {@JsonKey(name: 'clock_out_at') required final String clockOutAt,
-      final String? notes}) = _$ClockOutRequestModelImpl;
+          {@JsonKey(name: 'clock_out_at') required final String clockOutAt,
+          final String? notes,
+          @JsonKey(name: 'branch_id') final int? branchId}) =
+      _$ClockOutRequestModelImpl;
 
   factory _ClockOutRequestModel.fromJson(Map<String, dynamic> json) =
       _$ClockOutRequestModelImpl.fromJson;
@@ -180,6 +207,9 @@ abstract class _ClockOutRequestModel implements ClockOutRequestModel {
   String get clockOutAt;
   @override
   String? get notes;
+  @override
+  @JsonKey(name: 'branch_id')
+  int? get branchId;
 
   /// Create a copy of ClockOutRequestModel
   /// with the given fields replaced by the non-null parameter values.

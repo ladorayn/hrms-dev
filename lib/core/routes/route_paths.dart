@@ -31,6 +31,7 @@ class RoutePaths {
   static const faceRegistration = '/face-registration';
   static const faceVerification = '/face-verification';
   static const attendanceForm = '/attendance-form';
+  static const selectBranch = '/select-branch';
 
   // Offboarding
   static const offboarding = '/offboarding';
@@ -61,6 +62,14 @@ class RoutePaths {
   static const leaveRequestFormName = 'leaveRequestForm';
   static const leaveDetail = '/leave-request/:id';
   static const leaveDetailName = 'leaveDetail';
+
+  // Business Trip
+  static const businessTrip = '/business-trip';
+  static const businessTripName = 'businessTrip';
+  static const businessTripForm = '/new-business-trip';
+  static const businessTripFormName = 'businessTripForm';
+  static const businessTripDetail = '/business-trip/:id';
+  static const businessTripDetailName = 'businessTripDetail';
 
   // Payslip
   static const payslip = '/payslip';

@@ -81,6 +81,9 @@ enum NotificationCode {
   @JsonValue('SUPERVISOR_ASSESSMENT_SCHEDULE')
   supervisorAssessmentSchedule,
 
+  @JsonValue('BUSINESS_TRIP_STATUS_UPDATED')
+  businessTripStatusUpdated,
+
   // Default fallback
   @JsonValue('UNKNOWN')
   unknown,
@@ -238,6 +241,12 @@ class NotificationPayload with _$NotificationPayload {
     @JsonKey(name: "offboarding_id") String? offboardingId,
     @JsonKey(name: "employee_name") String? employeeName,
   }) = OffboardingValidateHandoverPayload;
+
+  const factory NotificationPayload.businessTripStatusUpdated({
+    @JsonKey(name: "business_trip_id") String? businessTripId,
+    @JsonKey(name: "user_id") String? userId,
+    @JsonKey(name: "status") String? status,
+  }) = BusinessTripStatusUpdatedPayload;
 
   factory NotificationPayload.fromJson(Map<String, dynamic> json) =>
       _$NotificationPayloadFromJson(json);

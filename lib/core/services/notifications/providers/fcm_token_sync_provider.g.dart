@@ -6,7 +6,7 @@ part of 'fcm_token_sync_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$fcmTokenSyncHash() => r'5670373a27a842717d48b90b7b8fdc9d9bae9457';
+String _$fcmTokenSyncHash() => r'1109574c5168027ba78e4ed0dea2c20cd8909b6e';
 
 /// See also [fcmTokenSync].
 @ProviderFor(fcmTokenSync)

@@ -11,9 +11,11 @@ import 'package:hrms_mobile/core/widgets/toastbar.dart';
 import 'package:hrms_mobile/core/config/manual_capture.dart';
 import 'package:hrms_mobile/features/attendance/data/models/request/validate_location/validate_location_request_model.dart';
 import 'package:hrms_mobile/features/attendance/presentation/providers/attendance_provider.dart';
+import 'package:hrms_mobile/features/auth/presentation/providers/auth/auth_provider.dart';
 
 Future<void> handleLocationVerification(
-    BuildContext context, AttendanceEnum activity, WidgetRef ref) async {
+    BuildContext context, AttendanceEnum activity, WidgetRef ref,
+    {int? selectedBranchId}) async {
   final l10n = AppLocalizations.of(context)!;
   showDialog(
     barrierDismissible: false,
@@ -90,6 +92,11 @@ Future<void> handleLocationVerification(
       return;
     }
 
+<<<<<<< HEAD
+=======
+    final authP = ref.watch(authProvider);
+
+>>>>>>> 38de224c4ccbd8079953178061790c3290e8310f
     await Future.delayed(const Duration(seconds: 2));
 
     Position position = await _determinePosition(l10n);
@@ -99,6 +106,7 @@ Future<void> handleLocationVerification(
     final validationRequest = ValidateLocationRequestModel(
       latitude: position.latitude.toString(),
       longitude: position.longitude.toString(),
+      branchId: selectedBranchId ?? authP.value?.branch?.id,
     );
 
     final validationResult =

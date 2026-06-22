@@ -13,6 +13,8 @@ import 'package:hrms_mobile/features/attendance/data/models/response/shift/worki
 import 'package:hrms_mobile/features/attendance/data/models/response/statistics/attendance_statistics_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/statistics/overtime_statistics_response_model.dart';
 import 'package:hrms_mobile/features/attendance/data/models/response/validate_location/validate_location_response_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/request/branch/branch_list_request_model.dart';
+import 'package:hrms_mobile/features/attendance/data/models/response/branch/branch_list_response_model.dart';
 import 'package:hrms_mobile/features/attendance/domain/entities/attendance.dart';
 
 abstract class AttendanceRepository {
@@ -65,4 +67,8 @@ abstract class AttendanceRepository {
   Future<ValidateLocationResponseModel> validateLocation(
     ValidateLocationRequestModel request,
   );
+
+  Future<BranchListResponseModel> getBranches(BranchListRequestModel request);
+
+  Future<BranchListResponseModel> getBranchesByUrl(String url);
 }
