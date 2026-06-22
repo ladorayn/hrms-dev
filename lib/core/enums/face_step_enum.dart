@@ -1,4 +1,5 @@
 import 'package:hrms_mobile/application/assets/i_assets.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 
 enum FaceStep {
   front,
@@ -7,23 +8,23 @@ enum FaceStep {
   uploading,
   success,
   failed
-} // ⭐ ADDED uploading step
+}
 
 extension FaceStepX on FaceStep {
-  String get instruction {
+  String instruction(AppLocalizations l10n) {
     switch (this) {
       case FaceStep.front:
-        return "Face the camera directly and make sure your face is clearly visible";
+        return l10n.attendanceFaceStepFrontInstruction;
       case FaceStep.right:
-        return "Slowly turn your head to the right and keep it within the frame";
+        return l10n.attendanceFaceStepRightInstruction;
       case FaceStep.left:
-        return "Slowly turn your head to the left and keep it within the frame";
-      case FaceStep.uploading: // ⭐ NEW Instruction
-        return "Uploading photo and verifying face...";
+        return l10n.attendanceFaceStepLeftInstruction;
+      case FaceStep.uploading:
+        return l10n.attendanceFaceStepUploadingInstruction;
       case FaceStep.failed:
-        return "Face Registration Failed!";
+        return l10n.attendanceFaceStepFailedInstruction;
       case FaceStep.success:
-        return "Face Registration Success!";
+        return l10n.attendanceFaceStepSuccessInstruction;
     }
   }
 
@@ -35,7 +36,7 @@ extension FaceStepX on FaceStep {
         return IAssets.faceRight;
       case FaceStep.left:
         return IAssets.faceLeft;
-      case FaceStep.uploading: // ⭐ NEW Asset (using default empty)
+      case FaceStep.uploading:
         return '';
       case FaceStep.success:
       case FaceStep.failed:
@@ -43,25 +44,23 @@ extension FaceStepX on FaceStep {
     }
   }
 
-  String get buttonText {
+  String buttonText(AppLocalizations l10n) {
     switch (this) {
       case FaceStep.front:
-        return "Take Front Photo";
+        return l10n.attendanceFaceStepTakeFrontPhoto;
       case FaceStep.right:
-        return "Take Right Photo";
+        return l10n.attendanceFaceStepTakeRightPhoto;
       case FaceStep.left:
-        return "Take Left Photo";
-      case FaceStep.uploading: // ⭐ NEW Button Text (empty while loading)
-        return "Uploading...";
+        return l10n.attendanceFaceStepTakeLeftPhoto;
+      case FaceStep.uploading:
+        return l10n.attendanceFaceStepUploading;
       case FaceStep.failed:
-        return "Try Again";
+        return l10n.attendanceFaceStepTryAgain;
       case FaceStep.success:
-        return "Done";
+        return l10n.attendanceFaceStepDone;
     }
   }
 }
-
-// --- Verification Step remains unchanged ---
 
 enum VerificationStep {
   initial,
@@ -71,26 +70,27 @@ enum VerificationStep {
 }
 
 extension VerificationStepX on VerificationStep {
-  String get instruction {
+  String instruction(AppLocalizations l10n) {
     switch (this) {
       case VerificationStep.initial:
-        return 'Face the camera directly and make sure your face is clearly visible';
+        return l10n.attendanceVerificationInitialInstruction;
       case VerificationStep.loading:
-        return 'Verifying...';
+        return l10n.attendanceVerificationLoadingInstruction;
       case VerificationStep.success:
-        return 'Face Verification Success!';
+        return l10n.attendanceVerificationSuccessInstruction;
       case VerificationStep.failed:
-        return 'Face Verification Failed!';
+        return l10n.attendanceVerificationFailedInstruction;
     }
   }
 
-  String get buttonText {
+  String buttonText(AppLocalizations l10n) {
     switch (this) {
       case VerificationStep.initial:
-        return 'Take Photo';
+        return l10n.attendanceVerificationTakePhoto;
       case VerificationStep.failed:
-        return 'Try Again';
-      default:
+        return l10n.attendanceFaceStepTryAgain;
+      case VerificationStep.loading:
+      case VerificationStep.success:
         return '';
     }
   }

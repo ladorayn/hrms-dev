@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
@@ -18,9 +19,11 @@ class ManagerAssessmentLandingScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final teamMembers = assessment.teamMember ?? [];
     return Scaffold(
-      appBar: IAppBar(title: "Self Assessment - ${assessment.period}"),
+      appBar: IAppBar(
+          title: l10n.performanceSelfAssessmentWithPeriod(assessment.period ?? '')),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
@@ -29,7 +32,7 @@ class ManagerAssessmentLandingScreen extends ConsumerWidget {
             children: [
               buildAssessmentSection(
                 context,
-                title: 'My Self Assessment',
+                title: l10n.performanceMySelfAssessment,
                 children: [
                   buildAssessmentTile(
                     context,
@@ -46,7 +49,7 @@ class ManagerAssessmentLandingScreen extends ConsumerWidget {
               SizedBox(height: 24.h),
               buildAssessmentSection(
                 context,
-                title: 'Team Member Self Assessment',
+                title: l10n.performanceTeamMemberSelfAssessment,
                 children: teamMembers.map((member) {
                   return buildTeamMemberTile(
                     context,

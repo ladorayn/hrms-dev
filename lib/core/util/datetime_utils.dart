@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 class DateTimeHelper {
@@ -6,50 +7,53 @@ class DateTimeHelper {
     return d1.year == d2.year && d1.month == d2.month && d1.day == d2.day;
   }
 
-  /// Converts `"2025-08-5"` into `"August 5, 2025"`
-  static String formatDate(String? rawDate) {
-    if (rawDate == null || rawDate.isEmpty) return "-";
-    final dateTime = DateTime.tryParse(rawDate);
-    if (dateTime == null) return rawDate;
-    return DateFormat("MMMM d, yyyy").format(dateTime);
+  static String _localeFor(BuildContext? context) {
+    if (context == null) return 'en';
+    return Localizations.localeOf(context).toString();
   }
 
-  /// Converts `"2025-09-30 20:58:00"` into `"30 September, 2025"`
-  static String formatDateTime(String? rawDate) {
-    if (rawDate == null || rawDate.isEmpty) return "-";
+  static String _fallback() => '-';
+
+  /// Converts `"2025-08-5"` into locale-aware date string.
+  static String formatDate(String? rawDate, {BuildContext? context}) {
+    if (rawDate == null || rawDate.isEmpty) return _fallback();
     final dateTime = DateTime.tryParse(rawDate);
     if (dateTime == null) return rawDate;
-    return DateFormat("d MMMM, yyyy").format(dateTime);
+    return DateFormat('MMMM d, yyyy', _localeFor(context)).format(dateTime);
   }
 
-  /// Converts "2025-12-01T14:27:34.000000Z" into "December 1, 2025 14:27"
-  static String formatDateAndTime24H(String? rawDate) {
-    if (rawDate == null || rawDate.isEmpty) return "-";
+  /// Converts `"2025-09-30 20:58:00"` into locale-aware date string.
+  static String formatDateTime(String? rawDate, {BuildContext? context}) {
+    if (rawDate == null || rawDate.isEmpty) return _fallback();
     final dateTime = DateTime.tryParse(rawDate);
     if (dateTime == null) return rawDate;
-    return DateFormat("MMMM d, yyyy HH:mm").format(dateTime);
+    return DateFormat('d MMMM, yyyy', _localeFor(context)).format(dateTime);
   }
 
-  // Converts "2025-12-01T14:27:34.000000Z" into "02:27 PM"
-  static String formatTime(String? rawDate) {
-    if (rawDate == null || rawDate.isEmpty) return "-";
+  /// Converts ISO datetime into locale-aware date + 24h time.
+  static String formatDateAndTime24H(String? rawDate, {BuildContext? context}) {
+    if (rawDate == null || rawDate.isEmpty) return _fallback();
     final dateTime = DateTime.tryParse(rawDate);
     if (dateTime == null) return rawDate;
-    return DateFormat("hh:mm a").format(dateTime);
+    return DateFormat('MMMM d, yyyy HH:mm', _localeFor(context))
+        .format(dateTime);
   }
 
-  // --- NEW Helper Methods for Assessment Schedule ---
+  static String formatTime(String? rawDate, {BuildContext? context}) {
+    if (rawDate == null || rawDate.isEmpty) return _fallback();
+    final dateTime = DateTime.tryParse(rawDate);
+    if (dateTime == null) return rawDate;
+    return DateFormat('hh:mm a', _localeFor(context)).format(dateTime);
+  }
 
-  /// Converts "2025-12-02T00:00:00.000000Z" into "December 2, 2025"
-  static String formatDateFromISO(String? rawISO) {
-    if (rawISO == null || rawISO.isEmpty) return "-";
+  static String formatDateFromISO(String? rawISO, {BuildContext? context}) {
+    if (rawISO == null || rawISO.isEmpty) return _fallback();
     final dateTime = DateTime.tryParse(rawISO);
     if (dateTime == null) return rawISO;
-    return DateFormat("MMMM d, yyyy").format(dateTime);
+    return DateFormat('MMMM d, yyyy', _localeFor(context)).format(dateTime);
   }
 
-  /// Converts a raw time string like "10:30:00" into "10:30 AM"
-  static String formatTimeFromRaw(String rawTime) {
+  static String formatTimeFromRaw(String rawTime, {BuildContext? context}) {
     try {
       final parts = rawTime.split(':');
       final hour = int.parse(parts[0]);
@@ -59,33 +63,34 @@ class DateTimeHelper {
       final dateTimeWithTime =
           DateTime(now.year, now.month, now.day, hour, minute);
 
-      return DateFormat("hh:mm a").format(dateTimeWithTime);
+      return DateFormat('hh:mm a', _localeFor(context))
+          .format(dateTimeWithTime);
     } catch (_) {
       return rawTime;
     }
   }
 
-  static String getTimeAgo(String? updatedAt) {
-    if (updatedAt == null) return "Updated just now";
+  static String getTimeAgo(String? updatedAt, AppLocalizations l10n) {
+    if (updatedAt == null) return l10n.coreUpdatedJustNow;
 
     try {
       final DateTime updatedDate = DateTime.parse(updatedAt);
       final DateTime now = DateTime.now();
       final Duration diff = now.difference(updatedDate);
 
-      if (diff.isNegative) return "updated just now";
+      if (diff.isNegative) return l10n.coreUpdatedJustNow;
 
       if (diff.inDays >= 1) {
-        return "updated ${diff.inDays}d ago";
+        return l10n.coreUpdatedDaysAgo(diff.inDays);
       } else if (diff.inHours >= 1) {
-        return "updated ${diff.inHours}h ago";
+        return l10n.coreUpdatedHoursAgo(diff.inHours);
       } else if (diff.inMinutes >= 1) {
-        return "updated ${diff.inMinutes}m ago";
+        return l10n.coreUpdatedMinutesAgo(diff.inMinutes);
       } else {
-        return "updated just now";
+        return l10n.coreUpdatedJustNow;
       }
-    } catch (e) {
-      return "updated just now";
+    } catch (_) {
+      return l10n.coreUpdatedJustNow;
     }
   }
 

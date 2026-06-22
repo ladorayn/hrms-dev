@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
@@ -34,23 +35,17 @@ class _PayslipPrintRequestScreenState
   }
 
   Future<void> _handlePrintPayslip() async {
+    final l10n = AppLocalizations.of(context)!;
     final password = _passwordController.text.trim();
     final payslipId = widget.data.id;
 
     if (password.isEmpty) {
-      showCustomToast(context, 'Please enter your password.', ToastType.info);
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   const SnackBar(content: Text('Please enter your password.')),
-      // );
+      showCustomToast(context, l10n.payslipEnterPassword, ToastType.info);
       return;
     }
 
     if (payslipId == null) {
-      showCustomToast(
-          context, 'Error: Payslip ID is missing.', ToastType.error);
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   const SnackBar(content: Text('Error: Payslip ID is missing.')),
-      // );
+      showCustomToast(context, l10n.payslipIdMissing, ToastType.error);
       return;
     }
 
@@ -66,25 +61,15 @@ class _PayslipPrintRequestScreenState
       if (mounted) {
         ref.invalidate(payslipListProvider);
         showCustomToast(context, message, ToastType.success);
-        // ScaffoldMessenger.of(context).showSnackBar(
-        //   const SnackBar(content: Text('Payslip Print Request Submitted')),
-        // );
-
         globalNavigatorKey.currentContext?.pop();
       }
     } catch (e) {
       if (mounted) {
         showCustomToast(
             context,
-            'Access Failed: ${e.toString().replaceAll('Exception: ', '')}',
+            l10n.payslipAccessFailed(
+                e.toString().replaceAll('Exception: ', '')),
             ToastType.error);
-        // ScaffoldMessenger.of(context).showSnackBar(
-        //   SnackBar(
-        //     content: Text(
-        //         'Access Failed: ${e.toString().replaceAll('Exception: ', '')}'),
-        //     backgroundColor: Colors.red,
-        //   ),
-        // );
       }
     } finally {
       notifier.reset();
@@ -93,15 +78,16 @@ class _PayslipPrintRequestScreenState
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
 
     final state = ref.watch(printPayslipRequestProvider);
     final isLoading = state.isLoading;
 
-    final payslipLabel = widget.data.payrun?.periodLabel ?? 'Payslip';
+    final payslipLabel =
+        widget.data.payrun?.periodLabel ?? l10n.payslipFallbackLabel;
     return Scaffold(
-      appBar: IAppBar(title: "Payslip $payslipLabel"), // Use dynamic label
-      // Removed: resizeToAvoidBottomInset: false,
+      appBar: IAppBar(title: l10n.payslipTitleWithPeriod(payslipLabel)),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -111,7 +97,7 @@ class _PayslipPrintRequestScreenState
             children: [
               SizedBox(height: 50.h),
               Text(
-                "Print Payslip Request",
+                l10n.payslipPrintPayslipRequest,
                 style: textTheme.titleLarge?.copyWith(
                   color: IColors.light.primary.main,
                 ),
@@ -124,7 +110,7 @@ class _PayslipPrintRequestScreenState
                 height: 24.h,
               ),
               Text(
-                "Enter Your Password to Continue",
+                l10n.payslipEnterPasswordToContinue,
                 style: textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w700,
                   color: Colors.black,
@@ -135,7 +121,7 @@ class _PayslipPrintRequestScreenState
                 height: 8.h,
               ),
               Text(
-                "For security reasons, please enter your account password to access your selected payslip.",
+                l10n.payslipPasswordSecurityMessage,
                 style: textTheme.bodyMedium?.copyWith(
                   fontWeight: FontWeight.w400,
                   color: const Color(0xFF323232),
@@ -151,7 +137,7 @@ class _PayslipPrintRequestScreenState
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     ITextFieldPassword(
-                      controller: _passwordController, // Assign controller
+                      controller: _passwordController,
                       onTap: () {},
                     ),
                     SizedBox(
@@ -176,7 +162,7 @@ class _PayslipPrintRequestScreenState
                               ),
                             )
                           : Text(
-                              "Send Print Request",
+                              l10n.payslipSendPrintRequest,
                               style: textTheme.bodyMedium?.copyWith(
                                 fontWeight: FontWeight.w700,
                                 color: Colors.white,

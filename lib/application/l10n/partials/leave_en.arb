@@ -1,0 +1,56 @@
+{
+  "@@locale": "en",
+
+  "leaveBalance": "Leave Balance",
+  "leaveTimeOffUsed": "Time Off Used",
+  "leaveTimeOff": "Time Off",
+  "leaveDays": "Days",
+  "leaveYourRequests": "Your Leave Request",
+  "leaveNoHistoryFound": "No leave history found.",
+  "leaveFailedToLoadHistory": "Failed to load history: {error}",
+  "@leaveFailedToLoadHistory": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+  "leaveRequestDetail": "Leave Request Detail",
+  "leaveRequestDetailSection": "Request Detail",
+  "leaveType": "Leave Type",
+  "leaveDuration": "Duration",
+  "leaveReason": "Reason",
+  "leaveAttachment": "Attachment",
+  "leaveApproval": "Approval",
+  "leaveNoApproversAssigned": "No approvers assigned.",
+  "leaveDaysCount": "({count} Days)",
+  "@leaveDaysCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+
+  "leaveNewRequest": "New Leave Request",
+  "leaveStartDate": "Start Date",
+  "leaveEndDate": "End Date",
+  "leaveSendRequest": "Send Request",
+  "leaveSubmitting": "Submitting...",
+  "leaveSubmittedSuccess": "Leave request submitted successfully!",
+  "leaveSubmittedFailed": "Leave request submitted failed!",
+  "leaveFailedToLoadTypes": "Failed to load leave types",
+  "leaveCouldNotLoadBalance": "Could not load leave balance:",
+  "leaveSubmissionFailedPrefix": "Submission Failed:",
+
+  "leaveTypeAnnualLeave": "Annual Leave",
+  "leaveTypeSickLeave": "Sick Leave",
+  "leaveTypeMaternityLeave": "Maternity Leave",
+  "leaveTypeMenstrualLeave": "Menstrual Leave",
+  "leaveTypeMarriageLeave": "Marriage Leave",
+  "leaveTypeChildsMarriageLeave": "Child's Marriage Leave",
+  "leaveTypePaternityLeave": "Paternity Leave",
+  "leaveTypeBereavementLeave": "Bereavement Leave",
+  "leaveTypeNaturalDisasterLeave": "Natural Disaster Leave",
+  "leaveTypeUnpaidLeave": "Unpaid Leave",
+  "leaveTypeExtendedLeave": "Extended Leave",
+  "leaveTypeStudyLeave": "Study Leave",
+  "leaveTypeReligiousLeave": "Religious Leave",
+  "leaveTypeUnknown": "Unknown"
+}

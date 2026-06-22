@@ -26,9 +26,10 @@ class AttendanceListTile extends StatelessWidget {
     String subtitleTile;
     String iconAsset;
 
+    final locale = Localizations.localeOf(context).toString();
     titleTile = log.eventType ?? '';
-    subtitleTile = DateFormat('MMMM d, y').format(log.createdAt!);
-    activityValue = getActivityLogValue(log);
+    subtitleTile = DateFormat('MMMM d, y', locale).format(log.createdAt!);
+    activityValue = getActivityLogValue(log, locale);
     status = getStatus(log);
     statusLabel = getStatusLabel(log);
     iconAsset = getIconAsset(log);
@@ -62,21 +63,24 @@ class AttendanceListTile extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           StatusChip(
-              status: status, statusLabel: statusLabel, event: log.event!),
+            status: status,
+            statusLabel: statusLabel,
+            event: log.event!,
+          ),
         ],
       ),
     );
   }
 }
 
-String getActivityLogValue(ActivityLogModel log) {
+String getActivityLogValue(ActivityLogModel log, [String? locale]) {
   final event = ActivityLogEnum.fromString(log.event);
   switch (event) {
     case ActivityLogEnum.clockIn:
-      return DateFormat('hh:mm a')
+      return DateFormat('hh:mm a', locale)
           .format(DateTime.parse(log.properties?.clockInAt ?? ''));
     case ActivityLogEnum.clockOut:
-      return DateFormat('hh:mm a')
+      return DateFormat('hh:mm a', locale)
           .format(DateTime.parse(log.properties?.clockOutAt ?? ''));
     case ActivityLogEnum.overtimeCreated:
       return calculateDurationWithTotal(log.properties?.duration ?? 0);

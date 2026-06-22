@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/features/inbox/data/models/response/notification_response.dart';
 
@@ -22,14 +23,15 @@ class InboxMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
 
     final isRead = notification.readAt != null;
     final timestamp = _parseTimestamp(notification.createdAt);
 
     final data = notification.data;
-    final title = data?.title ?? 'No Title';
-    final body = data?.message ?? 'No content available';
+    final title = data?.title ?? l10n.inboxNoTitle;
+    final body = data?.message ?? l10n.inboxNoContent;
 
     final unreadColor = IColors.light.grayscale.g80;
     final readColor = IColors.light.grayscale.g50;
@@ -69,7 +71,7 @@ class InboxMessage extends StatelessWidget {
               SizedBox(height: 8.h),
             ],
           ),
-          trailing: _buildTrailingContent(context, timestamp, isRead),
+          trailing: _buildTrailingContent(context, timestamp, isRead, l10n),
           contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
         ),
         if (showDivider) Divider(height: 1, color: IColors.light.grayscale.g10),
@@ -77,11 +79,11 @@ class InboxMessage extends StatelessWidget {
     );
   }
 
-  Widget _buildTrailingContent(
-      BuildContext context, DateTime? timestamp, bool isRead) {
+  Widget _buildTrailingContent(BuildContext context, DateTime? timestamp,
+      bool isRead, AppLocalizations l10n) {
     final textTheme = Theme.of(context).textTheme;
 
-    String dateLabel = 'N/A';
+    String dateLabel = l10n.inboxNotAvailable;
     if (timestamp != null) {
       dateLabel =
           "${timestamp.month.toString().padLeft(2, '0')}/${timestamp.day.toString().padLeft(2, '0')}";

@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/errors/exceptions.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
@@ -57,6 +58,7 @@ class _AttendanceLogTabState extends ConsumerState<AttendanceLogTab> {
   }
 
   void _showFilterModal() {
+    final l10n = AppLocalizations.of(context)!;
     showModalBottomSheet(
       context: context,
       builder: (context) => Padding(
@@ -65,16 +67,21 @@ class _AttendanceLogTabState extends ConsumerState<AttendanceLogTab> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text('Filter by Status',
+            Text(l10n.attendanceFilterByStatus,
                 style: Theme.of(context).textTheme.titleLarge),
             const SizedBox(height: 16),
-            ListTile(title: const Text('All'), onTap: () => _applyFilter(null)),
             ListTile(
-                title: const Text('Waiting'), onTap: () => _applyFilter('1')),
+                title: Text(l10n.attendanceStatusAll),
+                onTap: () => _applyFilter(null)),
             ListTile(
-                title: const Text('Approved'), onTap: () => _applyFilter('2')),
+                title: Text(l10n.attendanceStatusWaiting),
+                onTap: () => _applyFilter('1')),
             ListTile(
-                title: const Text('Rejected'), onTap: () => _applyFilter('3')),
+                title: Text(l10n.attendanceStatusApproved),
+                onTap: () => _applyFilter('2')),
+            ListTile(
+                title: Text(l10n.attendanceStatusRejected),
+                onTap: () => _applyFilter('3')),
           ],
         ),
       ),
@@ -96,6 +103,7 @@ class _AttendanceLogTabState extends ConsumerState<AttendanceLogTab> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
     final historyState = ref.watch(paginatedAttendanceHistoryProvider(
       period: _selectedPeriod,
@@ -123,12 +131,12 @@ class _AttendanceLogTabState extends ConsumerState<AttendanceLogTab> {
           showCustomToast(context, displayErrors[displayErrors.keys.first]!,
               ToastType.error);
         } else if (error is DioException) {
-          showCustomToast(context, error.message ?? 'A network error occurred.',
+          showCustomToast(context, l10n.attendanceNetworkError,
               ToastType.error);
         } else {
           showCustomToast(
               context,
-              'An unexpected error occurred: ${error.toString()}',
+              l10n.attendanceUnexpectedError(error.toString()),
               ToastType.error);
         }
       },
@@ -173,18 +181,18 @@ class _AttendanceLogTabState extends ConsumerState<AttendanceLogTab> {
                             Expanded(
                               child: _buildStatBox(
                                   items.clockIn.late.toString(),
-                                  "Days",
-                                  "Late Clock In"),
+                                  l10n.profileStatDays,
+                                  l10n.attendanceStatLateClockIn),
                             ),
                             // Clock Out
                             Expanded(
                                 child: _buildStatBox(
                                     items.clockOut.early.toString(),
-                                    "Days",
-                                    "Early Clock Out")),
+                                    l10n.profileStatDays,
+                                    l10n.attendanceStatEarlyClockOut)),
                             Expanded(
                                 child: _buildStatBox(items.overtime.toString(),
-                                    "Hours", "Overtime")),
+                                    l10n.profileStatHours, l10n.attendanceOvertime)),
                           ],
                         ),
                       ),
@@ -193,21 +201,21 @@ class _AttendanceLogTabState extends ConsumerState<AttendanceLogTab> {
                           Expanded(
                               child: _buildStatBox(
                                   items.absent.toInt().round().toString(),
-                                  "Days",
-                                  "Absent")),
+                                  l10n.profileStatDays,
+                                  l10n.attendanceStatAbsent)),
                           Expanded(
                               child: _buildStatBox(
                                   items.dayOff.quota.toString(),
-                                  "Days",
-                                  "Day Off")),
+                                  l10n.profileStatDays,
+                                  l10n.attendanceStatDayOff)),
                         ],
                       ),
                     ],
                   );
                 },
                 loading: () => const Center(child: CircularProgressIndicator()),
-                error: (err, st) =>
-                    Center(child: Text("Error: ${err.toString()}")),
+                error: (err, st) => Center(
+                    child: Text(l10n.coreErrorWithDetail(err.toString()))),
               ),
             ],
           ),
@@ -221,7 +229,7 @@ class _AttendanceLogTabState extends ConsumerState<AttendanceLogTab> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Attendance",
+                      l10n.attendanceTab,
                       style: textTheme.titleLarge?.copyWith(
                         fontSize: 24,
                         color: IColors.light.primary.main,
@@ -257,11 +265,13 @@ class _AttendanceLogTabState extends ConsumerState<AttendanceLogTab> {
                     loading: () =>
                         const Center(child: CircularProgressIndicator()),
                     error: (err, st) =>
-                        Center(child: Text("Error: ${err.toString()}")),
+                        Center(
+                            child: Text(
+                                l10n.coreErrorWithDetail(err.toString()))),
                     data: (items) {
                       if (items.isEmpty) {
-                        return const Center(
-                            child: Text("No attendance data for this period."));
+                        return Center(
+                            child: Text(l10n.attendanceNoDataForPeriod));
                       }
                       return ListView.separated(
                         controller: _scrollController,
@@ -289,30 +299,31 @@ class AttendanceCard extends StatelessWidget {
 
   const AttendanceCard({super.key, required this.item});
 
-  String _formatDate(String dateStr) {
+  String _formatDate(String dateStr, AppLocalizations l10n, String locale) {
     final date = DateTime.parse(dateStr);
     final now = DateTime.now();
     if (date.year == now.year &&
         date.month == now.month &&
         date.day == now.day) {
-      return "Today, ${date.day}";
+      return l10n.attendanceTodayWithDay('${date.day}');
     }
-    // As it's currently October 2025, showing the month is helpful
-    return DateFormat('E, d').format(date);
+    return DateFormat('E, d', locale).format(date);
   }
 
-  String _formatTime(String? timeStr) {
+  String _formatTime(String? timeStr, String locale) {
     if (timeStr == null) return "-";
     try {
       final time = DateFormat('HH:mm').parse(timeStr);
-      return DateFormat('hh:mm a').format(time);
+      return DateFormat('hh:mm a', locale).format(time);
     } catch (e) {
-      return timeStr; // Return original string if parsing fails
+      return timeStr;
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final locale = Localizations.localeOf(context).toString();
     final textTheme = Theme.of(context).textTheme;
     return Container(
       padding: const EdgeInsets.only(left: 12, right: 12, bottom: 12),
@@ -329,7 +340,7 @@ class AttendanceCard extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    _formatDate(item.attendanceDate),
+                    _formatDate(item.attendanceDate, l10n, locale),
                     style: textTheme.titleMedium
                         ?.copyWith(fontWeight: FontWeight.bold),
                   ),
@@ -360,7 +371,7 @@ class AttendanceCard extends StatelessWidget {
           Row(
             children: [
               _buildTimeColumn(
-                  context, "Clock-In", _formatTime(item.clock.inAt)),
+                  context, l10n.attendanceClockInLabel, _formatTime(item.clock.inAt, locale)),
               Expanded(
                 child: _buildDurationDisplay(
                     context,
@@ -372,14 +383,14 @@ class AttendanceCard extends StatelessWidget {
                 child: Row(
                   children: [
                     _buildTimeColumn(
-                        context, "Clock-Out", _formatTime(item.clock.outAt),
+                        context, l10n.attendanceClockOutLabel, _formatTime(item.clock.outAt, locale),
                         color: Colors.orange),
                     VerticalDivider(
                       width: 20,
                       thickness: 2,
                       color: IColors.light.grayscale.g20,
                     ),
-                    _buildTimeColumn(context, "Overtime",
+                    _buildTimeColumn(context, l10n.attendanceOvertime,
                         item.clock.overtimeDurationFormatted ?? "0h 0m",
                         isEnd: true),
                   ],
@@ -439,12 +450,13 @@ class AttendanceCard extends StatelessWidget {
   }
 
   Widget _buildLocation(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final lat = double.tryParse(item.location.latitude ?? '') ?? 0.0;
     final lng = double.tryParse(item.location.longitude ?? '') ?? 0.0;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Location", style: Theme.of(context).textTheme.bodySmall),
+        Text(l10n.attendanceLocation, style: Theme.of(context).textTheme.bodySmall),
         const SizedBox(height: 8),
         Container(
           decoration: BoxDecoration(
@@ -492,10 +504,11 @@ class AttendanceCard extends StatelessWidget {
   }
 
   Widget _buildNotes(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Notes", style: Theme.of(context).textTheme.bodySmall),
+        Text(l10n.attendanceNotes, style: Theme.of(context).textTheme.bodySmall),
         const SizedBox(height: 4),
         Text(
           item.notes ?? "-",

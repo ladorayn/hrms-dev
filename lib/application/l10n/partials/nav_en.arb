@@ -1,0 +1,9 @@
+{
+  "@@locale": "en",
+
+  "navHome": "Home",
+  "navPerformance": "Performance",
+  "navLeaveRequest": "Leave Request",
+  "navInbox": "Inbox",
+  "navProfile": "Profile"
+}

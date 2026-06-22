@@ -23,7 +23,7 @@ final uploadFaceNotifierProvider = AutoDisposeNotifierProvider<
 );
 
 typedef _$UploadFaceNotifier = AutoDisposeNotifier<AsyncValue<UploadFace?>>;
-String _$faceRegistrationHash() => r'4016f88aa59ad645cd785be6876dd2eceb12bc56';
+String _$faceRegistrationHash() => r'02da843e64d8cfc5f338917d6b9eb63ad77177e7';
 
 /// Copied from Dart SDK
 class _SystemHash {

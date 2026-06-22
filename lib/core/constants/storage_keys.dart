@@ -3,4 +3,5 @@ class StorageKeys {
   static const attendanceList = 'attendance_list';
   static const user = 'user';
   static const companyProfile = 'company_profile';
+  static const appLocale = 'app_locale';
 }

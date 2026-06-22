@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/features/auth/presentation/providers/auth/auth_provider.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/supervisor_assessment.dart'; // Contains SupervisorAssessmentDetail
@@ -16,11 +17,13 @@ class AssessmentFormCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final authP = ref.watch(authProvider);
     final userId = authP.value?.id;
-    final formName = assessmentDetail.form?.name ?? 'Assessment Form';
+    final formName =
+        assessmentDetail.form?.name ?? l10n.performanceAssessmentForm;
 
-    String displayedStatusLabel = 'N/A';
+    String displayedStatusLabel = l10n.performanceNotAvailable;
 
     final assessorEntry = assessmentDetail.assessors?.firstWhere(
       (assessor) => assessor.userId == userId,
@@ -28,9 +31,11 @@ class AssessmentFormCard extends ConsumerWidget {
     );
 
     if (assessorEntry != null) {
-      displayedStatusLabel = assessorEntry.statusLabel ?? 'N/A';
+      displayedStatusLabel =
+          assessorEntry.statusLabel ?? l10n.performanceNotAvailable;
     } else {
-      displayedStatusLabel = assessmentDetail.statusLabel ?? 'N/A';
+      displayedStatusLabel =
+          assessmentDetail.statusLabel ?? l10n.performanceNotAvailable;
     }
 
     return GestureDetector(

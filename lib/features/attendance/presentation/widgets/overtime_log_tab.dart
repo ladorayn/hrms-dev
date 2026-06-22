@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/errors/exceptions.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
@@ -55,6 +56,7 @@ class _OvertimeLogTabState extends ConsumerState<OvertimeLogTab> {
   }
 
   void _showFilterModal() {
+    final l10n = AppLocalizations.of(context)!;
     showModalBottomSheet(
       context: context,
       builder: (context) => Padding(
@@ -63,16 +65,21 @@ class _OvertimeLogTabState extends ConsumerState<OvertimeLogTab> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text('Filter by Status',
+            Text(l10n.attendanceFilterByStatus,
                 style: Theme.of(context).textTheme.titleLarge),
             const SizedBox(height: 16),
-            ListTile(title: const Text('All'), onTap: () => _applyFilter(null)),
             ListTile(
-                title: const Text('Waiting'), onTap: () => _applyFilter('1')),
+                title: Text(l10n.attendanceStatusAll),
+                onTap: () => _applyFilter(null)),
             ListTile(
-                title: const Text('Approved'), onTap: () => _applyFilter('2')),
+                title: Text(l10n.attendanceStatusWaiting),
+                onTap: () => _applyFilter('1')),
             ListTile(
-                title: const Text('Rejected'), onTap: () => _applyFilter('3')),
+                title: Text(l10n.attendanceStatusApproved),
+                onTap: () => _applyFilter('2')),
+            ListTile(
+                title: Text(l10n.attendanceStatusRejected),
+                onTap: () => _applyFilter('3')),
           ],
         ),
       ),
@@ -94,6 +101,7 @@ class _OvertimeLogTabState extends ConsumerState<OvertimeLogTab> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
     final historyState = ref.watch(paginatedOvertimeHistoryProvider(
       period: _selectedPeriod,
@@ -121,12 +129,12 @@ class _OvertimeLogTabState extends ConsumerState<OvertimeLogTab> {
           showCustomToast(context, displayErrors[displayErrors.keys.first]!,
               ToastType.error);
         } else if (error is DioException) {
-          showCustomToast(context, error.message ?? 'A network error occurred.',
+          showCustomToast(context, l10n.attendanceNetworkError,
               ToastType.error);
         } else {
           showCustomToast(
               context,
-              'An unexpected error occurred: ${error.toString()}',
+              l10n.attendanceUnexpectedError(error.toString()),
               ToastType.error);
         }
       },
@@ -167,20 +175,20 @@ class _OvertimeLogTabState extends ConsumerState<OvertimeLogTab> {
                       children: [
                         Expanded(
                             child: _buildStatBox(
-                                "${data.pending}", "Pending Request")),
+                                "${data.pending}", l10n.attendancePendingRequest)),
                         Expanded(
                             child: _buildStatBox(
-                                "${data.approved}", "Approved Request")),
+                                "${data.approved}", l10n.attendanceApprovedRequest)),
                         Expanded(
                             child: _buildStatBox(
-                                "${data.rejected}", "Rejected Request")),
+                                "${data.rejected}", l10n.attendanceRejectedRequest)),
                       ],
                     ),
                   );
                 },
                 loading: () => const Center(child: CircularProgressIndicator()),
-                error: (err, st) =>
-                    Center(child: Text("Error: ${err.toString()}")),
+                error: (err, st) => Center(
+                    child: Text(l10n.coreErrorWithDetail(err.toString()))),
               )
             ],
           ),
@@ -195,7 +203,7 @@ class _OvertimeLogTabState extends ConsumerState<OvertimeLogTab> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Overtime Request",
+                      l10n.attendanceOvertimeRequestTitle,
                       style: textTheme.titleLarge?.copyWith(
                         fontSize: 24,
                         color: IColors.light.primary.main,
@@ -231,12 +239,12 @@ class _OvertimeLogTabState extends ConsumerState<OvertimeLogTab> {
                         const Center(child: CircularProgressIndicator()),
                     error: (err, st) {
                       return Center(
-                          child: Text("Error: Please try again later!"));
+                          child: Text(l10n.attendanceErrorTryAgainLater));
                     },
                     data: (items) {
                       if (items.isEmpty) {
-                        return const Center(
-                            child: Text("No overtime data for this period."));
+                        return Center(
+                            child: Text(l10n.attendanceNoOvertimeDataForPeriod));
                       }
                       return ListView.separated(
                         controller: _scrollController,
@@ -264,28 +272,28 @@ class OvertimeRequestCard extends StatelessWidget {
 
   const OvertimeRequestCard({super.key, required this.item});
 
-  String _formatDate(String dateStr) {
+  String _formatDate(String dateStr, AppLocalizations l10n, String locale) {
     final date = DateTime.parse(dateStr);
     final now = DateTime.now();
     if (date.year == now.year &&
         date.month == now.month &&
         date.day == now.day) {
-      return "Today, ${date.day}";
+      return l10n.attendanceTodayWithDay('${date.day}');
     }
-    return DateFormat('E, d').format(date);
+    return DateFormat('E, d', locale).format(date);
   }
 
-  String _formatTime(String? timeStr) {
+  String _formatTime(String? timeStr, String locale) {
     if (timeStr == null) return "-";
     try {
       final time = DateFormat('HH:mm').parse(timeStr);
-      return DateFormat('hh:mm a').format(time);
+      return DateFormat('hh:mm a', locale).format(time);
     } catch (e) {
       return timeStr;
     }
   }
 
-  String _formatDaysAgo(String dateStr) {
+  String _formatDaysAgo(String dateStr, AppLocalizations l10n) {
     try {
       final date = DateTime.parse(dateStr);
       final now = DateTime.now();
@@ -298,11 +306,11 @@ class OvertimeRequestCard extends StatelessWidget {
       if (difference < 0) {
         return '';
       } else if (difference == 0) {
-        return 'Today';
+        return l10n.attendanceToday;
       } else if (difference == 1) {
-        return 'Yesterday';
+        return l10n.attendanceYesterday;
       } else {
-        return '$difference days ago';
+        return l10n.attendanceDaysAgo(difference);
       }
     } catch (e) {
       return '';
@@ -311,6 +319,8 @@ class OvertimeRequestCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final locale = Localizations.localeOf(context).toString();
     final textTheme = Theme.of(context).textTheme;
 
     return Container(
@@ -331,7 +341,7 @@ class OvertimeRequestCard extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    _formatDate(item.overtimeDate ?? ''),
+                    _formatDate(item.overtimeDate ?? '', l10n, locale),
                     style: textTheme.titleMedium
                         ?.copyWith(fontWeight: FontWeight.bold),
                   ),
@@ -360,7 +370,7 @@ class OvertimeRequestCard extends StatelessWidget {
           ),
 
           Text(
-            _formatDaysAgo(item.overtimeDate ?? ''),
+            _formatDaysAgo(item.overtimeDate ?? '', l10n),
             style:
                 textTheme.bodySmall?.copyWith(color: const Color(0xFF8E8E8E)),
           ),
@@ -373,7 +383,7 @@ class OvertimeRequestCard extends StatelessWidget {
             children: [
               const SizedBox(height: 12),
               Text(
-                "Overtime Duration",
+                l10n.attendanceOvertimeDuration,
                 style: textTheme.bodySmall
                     ?.copyWith(color: const Color(0xFF8E8E8E)),
               ),
@@ -388,7 +398,7 @@ class OvertimeRequestCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "(${_formatTime(item.startTime)} - ${_formatTime(item.endTime)})",
+                    "(${_formatTime(item.startTime, locale)} - ${_formatTime(item.endTime, locale)})",
                     style: textTheme.bodyMedium?.copyWith(
                       color: const Color(0xFF8E8E8E),
                     ),
@@ -404,7 +414,7 @@ class OvertimeRequestCard extends StatelessWidget {
             children: [
               const SizedBox(height: 12),
               Text(
-                "Notes",
+                l10n.attendanceNotes,
                 style: textTheme.bodySmall
                     ?.copyWith(color: const Color(0xFF8E8E8E)),
               ),

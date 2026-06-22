@@ -1,10 +1,9 @@
-// lib/core/enums/leave_type_enum.dart
 import 'package:flutter/material.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/features/payslip/data/models/response/payslip_list_response.dart';
 
-// A simple helper class to hold color pairs
 class PayslipViewStatusColor {
   final Color background;
   final Color foreground;
@@ -51,16 +50,16 @@ PrintViewType getPrintViewType(int code) {
 }
 
 extension PrintViewTypeExtension on PrintViewType {
-  String get displayName {
+  String displayName(AppLocalizations l10n) {
     switch (this) {
       case PrintViewType.processed:
-        return 'Processed';
+        return l10n.payslipPrintStatusProcessed;
       case PrintViewType.pending:
-        return 'Pending';
+        return l10n.payslipPrintStatusPending;
       case PrintViewType.ready:
-        return 'Ready';
+        return l10n.payslipPrintStatusReady;
       case PrintViewType.unknown:
-        return 'Unknown';
+        return l10n.payslipStatusUnknown;
     }
   }
 
@@ -88,7 +87,7 @@ extension PrintViewTypeExtension on PrintViewType {
         return PayslipViewStatusColor(
             IColors.light.primary.background, IColors.light.primary.main);
 
-      default:
+      case PrintViewType.unknown:
         return PayslipViewStatusColor(
             IColors.light.warning.background, IColors.light.warning.main);
     }
@@ -96,18 +95,18 @@ extension PrintViewTypeExtension on PrintViewType {
 }
 
 extension PayslipViewTypeExtension on PayslipViewType {
-  String displayName(PayslipDataList payslip) {
+  String displayName(AppLocalizations l10n, PayslipDataList payslip) {
     switch (this) {
       case PayslipViewType.pending:
-        return 'Locked';
-      case PayslipViewType.processed:
-        return 'Request has been sent';
-      case PayslipViewType.granted:
-        return '${payslip.viewAccessDaysRemaining} Days Left';
       case PayslipViewType.expired:
-        return 'Locked';
+        return l10n.payslipStatusLocked;
+      case PayslipViewType.processed:
+        return l10n.payslipStatusRequestSent;
+      case PayslipViewType.granted:
+        return l10n.payslipStatusDaysLeft(
+            payslip.viewAccessDaysRemaining ?? 0);
       case PayslipViewType.unknown:
-        return 'Unknown';
+        return l10n.payslipStatusUnknown;
     }
   }
 
@@ -137,7 +136,8 @@ extension PayslipViewTypeExtension on PayslipViewType {
         return PayslipViewStatusColor(
             IColors.light.primary.background, IColors.light.primary.main);
 
-      default:
+      case PayslipViewType.expired:
+      case PayslipViewType.unknown:
         return PayslipViewStatusColor(
             IColors.light.warning.background, IColors.light.warning.main);
     }
@@ -150,7 +150,8 @@ extension PayslipViewTypeExtension on PayslipViewType {
       case PayslipViewType.processed:
       case PayslipViewType.granted:
         return IAssets.warningClock;
-      default:
+      case PayslipViewType.expired:
+      case PayslipViewType.unknown:
         return IAssets.lock;
     }
   }

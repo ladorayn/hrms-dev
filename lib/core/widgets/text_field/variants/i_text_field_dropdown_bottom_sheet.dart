@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/widgets/text_field/base/i_text_field.dart';
 
@@ -14,7 +15,7 @@ class ITextFieldDropdownBottomSheet extends ITextFieldBase {
     super.label,
     super.enabled,
     super.labelStyle,
-    super.hintText = "Select",
+    super.hintText,
     super.validator,
     super.isRequired,
     super.errorText,
@@ -31,8 +32,25 @@ class ITextFieldDropdownBottomSheet extends ITextFieldBase {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final resolvedHintText = hintText ?? l10n.coreSelect;
+    final textField = ITextFieldBase(
+      controller: controller,
+      label: label,
+      enabled: enabled,
+      labelStyle: labelStyle,
+      hintText: resolvedHintText,
+      validator: validator,
+      isRequired: isRequired,
+      errorText: errorText,
+      textFieldOnly: textFieldOnly,
+      prefixIcon: prefixIcon,
+      readOnly: readOnly,
+      suffixIcon: suffixIcon,
+      borderColor: borderColor,
+    );
     if (!enabled) {
-      return super.build(context);
+      return textField;
     }
     return GestureDetector(
       onTap: () {
@@ -40,7 +58,7 @@ class ITextFieldDropdownBottomSheet extends ITextFieldBase {
         _showOptionsBottomSheet(context);
       },
       child: AbsorbPointer(
-        child: super.build(context),
+        child: textField,
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/features/payslip/presentation/widgets/payslip_table_row.dart';
 import 'package:hrms_mobile/features/payslip/presentation/widgets/payslip_total_row.dart';
@@ -20,11 +21,13 @@ class BenefitsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Benefits",
+          l10n.payslipBenefits,
           style: textTheme.titleMedium?.copyWith(
             color: IColors.light.primary.main,
             fontWeight: FontWeight.w700,
@@ -32,7 +35,7 @@ class BenefitsSection extends StatelessWidget {
         ),
         SizedBox(height: 4.h),
         Text(
-          "These are the benefits you'll get from the company, but not included in your take-home pay (THP).",
+          l10n.payslipBenefitsDescription,
           style: textTheme.bodyMedium?.copyWith(color: labelColor),
         ),
         SizedBox(height: 16.h),
@@ -48,31 +51,31 @@ class BenefitsSection extends StatelessWidget {
               PayslipTableRow(
                   textTheme: textTheme,
                   valueColor: valueColor,
-                  title: "Jaminan Kecelakaan Kerja",
+                  title: l10n.payslipBenefitWorkAccident,
                   amount: "Rp 200.000"),
               PayslipTableRow(
                   textTheme: textTheme,
                   valueColor: valueColor,
-                  title: "Jaminan Kematian",
+                  title: l10n.payslipBenefitDeath,
                   amount: "Rp 50.000"),
               PayslipTableRow(
                   textTheme: textTheme,
                   valueColor: valueColor,
-                  title: "Jaminan Hari Tua",
+                  title: l10n.payslipBenefitOldAge,
                   amount: "Rp 120.000"),
               PayslipTableRow(
                   textTheme: textTheme,
                   valueColor: valueColor,
-                  title: "Jaminan Pensiun",
+                  title: l10n.payslipBenefitPension,
                   amount: "Rp 100.000"),
               PayslipTableRow(
                   textTheme: textTheme,
                   valueColor: valueColor,
-                  title: "BPJS Kesehatan",
+                  title: l10n.payslipBenefitHealth,
                   amount: "Rp 100.000"),
               PayslipTotalRow(
                   textTheme: textTheme,
-                  title: "Total Benefits",
+                  title: l10n.payslipTotalBenefits,
                   amount: "Rp 570.000"),
             ],
           ),

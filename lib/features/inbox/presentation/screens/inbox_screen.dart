@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
@@ -13,17 +14,14 @@ class InboxScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final notificationsAsync = ref.watch(recentNotificationsProvider);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       appBar: IAppBar(
-        title: notificationsAsync.when(
-          data: (notifications) => "Inbox",
-          loading: () => "Inbox",
-          error: (_, __) => "Inbox",
-        ),
+        title: l10n.inboxTitle,
         centerTitle: true,
         noIcon: true,
       ),
@@ -41,7 +39,7 @@ class InboxScreen extends ConsumerWidget {
               if (notifications.isEmpty) {
                 return Center(
                   child: Text(
-                    "No notifications in your inbox.",
+                    l10n.inboxEmpty,
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                 );
@@ -76,7 +74,7 @@ class InboxScreen extends ConsumerWidget {
             loading: () => const Center(child: CircularProgressIndicator()),
             error: (e, stack) {
               debugPrint("ERROR: $e");
-              return const Center(child: Text("Something went wrong"));
+              return Center(child: Text(l10n.inboxError));
             },
           ),
         ),
@@ -84,9 +82,6 @@ class InboxScreen extends ConsumerWidget {
     );
   }
 
-  // ============================
-  // 🔗 DEEP LINK HANDLER
-  // ============================
   void _handleDeepLink(
     BuildContext context,
     NotificationPayload payload,
@@ -99,9 +94,6 @@ class InboxScreen extends ConsumerWidget {
       orElse: () => NotificationCode.unknown,
     );
     switch (code) {
-      // =====================================================
-      // LEAVE
-      // =====================================================
       case NotificationCode.leaveSubmitted:
         payload.mapOrNull(
           leaveSubmitted: (p) {
@@ -123,9 +115,6 @@ class InboxScreen extends ConsumerWidget {
         globalNavigatorKey.currentContext?.push(RoutePaths.leaveRequest);
         break;
 
-      // =====================================================
-      // PAYROLL
-      // =====================================================
       case NotificationCode.payslipAvailable:
         payload.mapOrNull(
           payslipAvailable: (p) {
@@ -139,74 +128,48 @@ class InboxScreen extends ConsumerWidget {
         globalNavigatorKey.currentContext?.pushNamed(RoutePaths.payslipName);
         break;
 
-      // =====================================================
-      // PERFORMANCE
-      // =====================================================
       case NotificationCode.performanceSubmitted:
         globalNavigatorKey.currentContext?.push(RoutePaths.performance);
-        // context.push("/performance");
         break;
 
       case NotificationCode.performanceFormOpen:
       case NotificationCode.performanceReminder:
       case NotificationCode.performancePublished:
         globalNavigatorKey.currentContext?.push(RoutePaths.performance);
-        // context.push("/performance");
         break;
 
-      // =====================================================
-      // OVERTIME
-      // =====================================================
       case NotificationCode.overtimeSubmitted:
         payload.mapOrNull(
           overtimeSubmitted: (p) {
             globalNavigatorKey.currentContext?.push(RoutePaths.attendance);
-            // context.push("/overtime-history");
           },
         );
         break;
 
       case NotificationCode.overtimeUpdated:
         globalNavigatorKey.currentContext?.push(RoutePaths.attendance);
-        // context.push("/overtime-history");
         break;
 
-      // =====================================================
-      // PROFILE
-      // =====================================================
       case NotificationCode.profileUpdated:
       case NotificationCode.departmentChanged:
       case NotificationCode.managerChanged:
         globalNavigatorKey.currentContext?.push(RoutePaths.profile);
-        // context.push("/profile");
         break;
 
-      // =====================================================
-      // SECURITY
-      // =====================================================
       case NotificationCode.emailVerification:
       case NotificationCode.resetPasswordRequested:
       case NotificationCode.passwordUpdated:
       case NotificationCode.loginDevice:
-        // context.push("/security");
         break;
 
-      // =====================================================
-      // ATTENDANCE
-      // =====================================================
       case NotificationCode.attendanceReminder:
       case NotificationCode.attendanceNotPresent:
         globalNavigatorKey.currentContext?.push(RoutePaths.attendance);
-        // context.push("/attendance");
         break;
 
-      // =====================================================
-      // OFFBOARDING
-      // =====================================================
       case NotificationCode.offboardingStarted:
         globalNavigatorKey.currentContext
             ?.pushNamed(RoutePaths.offboardingName);
-        // context.push("/offboarding");
         break;
       case NotificationCode.exitInterviewSchedule:
         payload.mapOrNull(
@@ -226,10 +189,8 @@ class InboxScreen extends ConsumerWidget {
                 extra: payload);
           },
         );
+        break;
 
-      // =====================================================
-      // Supervisor Assessment Schedule
-      // =====================================================
       case NotificationCode.supervisorAssessmentSchedule:
         payload.mapOrNull(
           supervisorAssessmentSchedule: (p) {
@@ -241,11 +202,7 @@ class InboxScreen extends ConsumerWidget {
         );
         break;
 
-      // =====================================================
-      // DEFAULT
-      // =====================================================
       case NotificationCode.unknown:
-      default:
         debugPrint("⚠️ Unhandled notification code: $rawCode");
         break;
     }

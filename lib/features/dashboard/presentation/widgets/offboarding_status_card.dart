@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
@@ -13,6 +14,7 @@ class OffboardingStatusCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
     return Container(
       decoration: BoxDecoration(
@@ -37,12 +39,12 @@ class OffboardingStatusCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "🔔 Complete Your Offboarding Journey!",
+                l10n.dashboardOffboardingTitle,
                 style: textTheme.titleSmall
                     ?.copyWith(color: IColors.light.primary.main),
               ),
               Text(
-                "Let’s wrap things up smoothly before you leave",
+                l10n.dashboardOffboardingSubtitle,
                 style: textTheme.bodySmall,
               ),
               ElevatedButton(
@@ -59,7 +61,7 @@ class OffboardingStatusCard extends StatelessWidget {
                       ?.pushNamed(RoutePaths.offboardingName, extra: data);
                 },
                 child: Text(
-                  "Start Offboarding Process",
+                  l10n.dashboardOffboardingStartButton,
                   style: textTheme.bodySmall?.copyWith(
                       color: Colors.white, fontWeight: FontWeight.w600),
                 ),

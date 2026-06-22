@@ -1,0 +1,109 @@
+{
+  "@@locale": "id",
+
+  "profileMyProfile": "Profil Saya",
+  "profileAttendanceAndOvertime": "Kehadiran dan Lembur",
+  "profileMyPayslip": "Slip Gaji Saya",
+  "profileChangeLanguage": "Ubah Bahasa",
+  "languageEnglish": "English",
+  "languageIndonesian": "Bahasa Indonesia",
+
+  "profileLogOut": "Keluar",
+  "profileEmployeeId": "ID Karyawan: {employeeId}",
+  "@profileEmployeeId": {
+    "placeholders": {
+      "employeeId": {
+        "type": "String"
+      }
+    }
+  },
+  "profileStatDays": "Hari",
+  "profileStatHours": "Jam",
+  "profileStatAttendance": "Kehadiran",
+  "profileStatTimeOff": "Cuti",
+  "profileStatOvertime": "Lembur",
+  "profileErrorLoadingStats": "Gagal memuat statistik",
+  "profileFailedToLoad": "Gagal memuat profil: {error}",
+  "@profileFailedToLoad": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "profilePersonalInformation": "Informasi Pribadi",
+  "profileEmployeeInformation": "Informasi Karyawan",
+  "profileEditProfile": "Ubah Profil",
+  "profilePhoto": "Foto",
+  "profileName": "Nama",
+  "profileGender": "Jenis Kelamin",
+  "profileGenderMale": "Laki-laki",
+  "profileGenderFemale": "Perempuan",
+  "profilePlaceOfBirth": "Tempat Lahir",
+  "profileBornDate": "Tanggal Lahir",
+  "profileMaritalStatus": "Status Pernikahan",
+  "profileMaritalStatusSingle": "Belum Menikah",
+  "profileMaritalStatusMarried": "Menikah",
+  "profileMaritalStatusDivorced": "Cerai",
+  "profileMaritalStatusWidowed": "Janda/Duda",
+  "profileBloodType": "Golongan Darah",
+  "profileHeight": "Tinggi Badan",
+  "profileWeight": "Berat Badan",
+  "profileUnitCm": "cm",
+  "profileUnitKg": "kg",
+  "profileHeightWithUnit": "{height} cm",
+  "@profileHeightWithUnit": {
+    "placeholders": {
+      "height": {
+        "type": "String"
+      }
+    }
+  },
+  "profileWeightWithUnit": "{weight} kg",
+  "@profileWeightWithUnit": {
+    "placeholders": {
+      "weight": {
+        "type": "String"
+      }
+    }
+  },
+  "profileIdNumber": "Nomor Identitas",
+  "profileNpwp": "Nomor NPWP",
+  "profileBpjs": "Nomor BPJS Kesehatan",
+  "profileCitizenIdAddress": "Alamat KTP",
+  "profileResidentialAddress": "Alamat Domisili",
+  "profileHobby": "Hobi",
+  "profileSocialMedia": "Media Sosial",
+  "profileNoSocialMedia": "Tidak ada akun media sosial yang terhubung.",
+  "profileAddMore": "Tambah lagi",
+  "profileUpdating": "Memperbarui...",
+  "profileUpdateProfile": "Perbarui Profil",
+  "profileAttachmentUploadFailed": "Gagal mengunggah lampiran: {error}",
+  "@profileAttachmentUploadFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "profileUpdatedSuccessfully": "Profil berhasil diperbarui!",
+  "profileSubmissionFailed": "Pengiriman Gagal",
+  "profileUpdateFailed": "Pembaruan Gagal: {error}",
+  "@profileUpdateFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "profilePosition": "Jabatan",
+  "profileDepartment": "Departemen",
+  "profileJobLevel": "Level Jabatan",
+  "profilePrimaryDirectReport": "Atasan Langsung Utama",
+  "profileAdditionalDirectReport": "Atasan Langsung Tambahan",
+  "profileTeam": "Tim",
+  "profileNoTeamAssigned": "Belum ada tim yang ditugaskan",
+  "profileEmploymentStartDate": "Tanggal Mulai Bekerja",
+  "profileEmploymentEndDate": "Tanggal Berakhir Bekerja",
+  "profileUnknown": "Tidak Diketahui"
+}

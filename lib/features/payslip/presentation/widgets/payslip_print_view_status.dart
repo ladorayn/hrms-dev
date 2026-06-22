@@ -1,6 +1,5 @@
-// lib/core/widgets/leave_type_chip.dart
-
 import 'package:flutter/material.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_theme.dart';
 import 'package:hrms_mobile/core/enums/payslip_view_enum.dart';
 
@@ -14,6 +13,7 @@ class PrintViewStatus extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final chipColors = type.colors;
 
     return Container(
@@ -25,7 +25,7 @@ class PrintViewStatus extends StatelessWidget {
       child: Row(
         children: [
           Text(
-            type.displayName,
+            type.displayName(l10n),
             style: ITheme.light.textTheme.labelSmall?.copyWith(
               color: chipColors.foreground,
               fontWeight: FontWeight.w600,

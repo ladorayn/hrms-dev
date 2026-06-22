@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_list.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/supervisor_assessment.dart';
@@ -34,9 +35,10 @@ Widget buildAssessmentTile(
   required VoidCallback onTap,
 }) {
   final textTheme = Theme.of(context).textTheme;
-  final title = item.period ?? 'N/A';
-  final status = item.status ?? item.status ?? 'N/A'; // Use status label
-  final dueDate = item.dueDate ?? 'N/A';
+  final l10n = AppLocalizations.of(context)!;
+  final title = item.period ?? l10n.performanceNotAvailable;
+  final status = item.status ?? item.status ?? l10n.performanceNotAvailable;
+  final dueDate = item.dueDate ?? l10n.performanceNotAvailable;
 
   return GestureDetector(
     onTap: onTap,
@@ -73,8 +75,9 @@ Widget buildTeamMemberTile(
   required VoidCallback onTap,
 }) {
   final textTheme = Theme.of(context).textTheme;
+  final l10n = AppLocalizations.of(context)!;
   final bool showAlert = false;
-  final statusLabel = member.statusLabel ?? 'N/A';
+  final statusLabel = member.statusLabel ?? l10n.performanceNotAvailable;
 
   return GestureDetector(
     onTap: onTap,
@@ -92,7 +95,7 @@ Widget buildTeamMemberTile(
         crossAxisAlignment: WrapCrossAlignment.center,
         children: [
           Text(
-            member.userName ?? 'N/A',
+            member.userName ?? l10n.performanceNotAvailable,
             style: textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500),
           ),
           _buildStatusChip(context, statusLabel),
@@ -102,7 +105,7 @@ Widget buildTeamMemberTile(
         ],
       ),
       subtitle: Text(
-        member.jobPositionName ?? 'N/A',
+        member.jobPositionName ?? l10n.performanceNotAvailable,
         style: textTheme.bodyMedium?.copyWith(
           color: IColors.light.grayscale.g60,
         ),
@@ -123,8 +126,10 @@ Widget buildSupervisorAssessmentTile(
   required VoidCallback onTap,
 }) {
   final textTheme = Theme.of(context).textTheme;
+  final l10n = AppLocalizations.of(context)!;
   final bool showAlert = false;
-  final statusLabel = supervisorAssessment.statusLabel ?? 'N/A';
+  final statusLabel =
+      supervisorAssessment.statusLabel ?? l10n.performanceNotAvailable;
 
   return GestureDetector(
     onTap: onTap,
@@ -142,7 +147,7 @@ Widget buildSupervisorAssessmentTile(
         crossAxisAlignment: WrapCrossAlignment.center,
         children: [
           Text(
-            supervisorAssessment.user?.name ?? 'N/A',
+            supervisorAssessment.user?.name ?? l10n.performanceNotAvailable,
             style: textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500),
           ),
           _buildStatusChip(context, statusLabel),
@@ -152,7 +157,8 @@ Widget buildSupervisorAssessmentTile(
         ],
       ),
       subtitle: Text(
-        supervisorAssessment.currentPosition?.name ?? 'N/A',
+        supervisorAssessment.currentPosition?.name ??
+            l10n.performanceNotAvailable,
         style: textTheme.bodyMedium?.copyWith(
           color: IColors.light.grayscale.g60,
         ),
@@ -233,7 +239,8 @@ Widget _buildStatusChip(BuildContext context, String statusLabel) {
 }
 
 Widget _buildDueDateLabel(BuildContext context, String date) {
-  final textTheme = Theme.of(context).textTheme;
+    final l10n = AppLocalizations.of(context)!;
+    final textTheme = Theme.of(context).textTheme;
   final warningColor = IColors.light.warning.main;
 
   final baseStyle = textTheme.bodySmall?.copyWith(
@@ -260,7 +267,7 @@ Widget _buildDueDateLabel(BuildContext context, String date) {
           TextSpan(
             style: baseStyle,
             children: [
-              const TextSpan(text: 'Due Date '),
+              TextSpan(text: l10n.performanceDueDate),
               TextSpan(
                 text: date,
                 style: baseStyle?.copyWith(

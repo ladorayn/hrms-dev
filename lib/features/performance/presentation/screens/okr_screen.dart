@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/okr_list.dart';
@@ -14,10 +15,11 @@ class OKRScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      appBar: IAppBar(title: "My OKR - $period"),
+      appBar: IAppBar(title: l10n.performanceMyOkrWithPeriod(period)),
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       body: DefaultTabController(
@@ -33,9 +35,9 @@ class OKRScreen extends ConsumerWidget {
                 indicatorSize: TabBarIndicatorSize.tab,
                 labelStyle:
                     textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600),
-                tabs: const [
-                  Tab(text: "OKR"),
-                  Tab(text: "Dashboard"),
+                tabs: [
+                  Tab(text: l10n.performanceOkrTab),
+                  Tab(text: l10n.performanceDashboardTab),
                 ],
               ),
             ),

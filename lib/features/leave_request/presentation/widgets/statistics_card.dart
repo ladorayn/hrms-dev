@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/features/leave_request/data/models/response/leave_balance_response.dart';
 import 'package:hrms_mobile/features/leave_request/presentation/widgets/statistics_item.dart';
@@ -12,6 +13,7 @@ class StatisticsCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     return Container(
       decoration: BoxDecoration(
         color: IColors.light.primary.focused,
@@ -32,7 +34,7 @@ class StatisticsCard extends ConsumerWidget {
           child: Column(
             children: [
               Text(
-                'Leave Balance',
+                l10n.leaveBalance,
                 style: TextStyle(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w600,
@@ -45,8 +47,8 @@ class StatisticsCard extends ConsumerWidget {
                   children: [
                     StatisticsItem(
                       value: balance.timeOffUsed.toString(),
-                      label: 'Days',
-                      description: 'Time Off Used',
+                      label: l10n.leaveDays,
+                      description: l10n.leaveTimeOffUsed,
                     ),
                     VerticalDivider(
                       width: 20,
@@ -55,8 +57,8 @@ class StatisticsCard extends ConsumerWidget {
                     ),
                     StatisticsItem(
                       value: balance.availableTimeOff.toString(),
-                      label: 'Days',
-                      description: 'Time Off',
+                      label: l10n.leaveDays,
+                      description: l10n.leaveTimeOff,
                     ),
                   ],
                 ),

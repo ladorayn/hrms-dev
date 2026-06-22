@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/util/datetime_utils.dart';
 import 'package:hrms_mobile/core/widgets/label_value.dart';
-import 'package:hrms_mobile/features/performance/data/models/response/supervisor_assessment.dart'; // Contains SupervisorAssessmentDetail
+import 'package:hrms_mobile/features/performance/data/models/response/supervisor_assessment.dart';
 
 class EmployeeInformationSection extends StatelessWidget {
   final SupervisorAssessmentDetail assessmentDetail;
@@ -12,16 +13,25 @@ class EmployeeInformationSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final employeeName = assessmentDetail.user?.name ?? 'N/A';
-    final employeeId = assessmentDetail.user?.id ?? 'N/A';
-    final currentPosition = assessmentDetail.currentPosition?.name ?? 'N/A';
-    final currentLevel = assessmentDetail.currentLevel?.name ?? 'N/A';
-    final targetPosition = assessmentDetail.targetPosition?.name ?? 'N/A';
-    final targetLevel = assessmentDetail.targetLevel?.name ?? 'N/A';
+    final l10n = AppLocalizations.of(context)!;
+    final employeeName =
+        assessmentDetail.user?.name ?? l10n.performanceNotAvailable;
+    final employeeId =
+        assessmentDetail.user?.id ?? l10n.performanceNotAvailable;
+    final currentPosition =
+        assessmentDetail.currentPosition?.name ?? l10n.performanceNotAvailable;
+    final currentLevel =
+        assessmentDetail.currentLevel?.name ?? l10n.performanceNotAvailable;
+    final targetPosition =
+        assessmentDetail.targetPosition?.name ?? l10n.performanceNotAvailable;
+    final targetLevel =
+        assessmentDetail.targetLevel?.name ?? l10n.performanceNotAvailable;
     final employeeStartDate = assessmentDetail.employeeStartDate != null
-        ? DateTimeHelper.formatDate(assessmentDetail.employeeStartDate!)
-        : 'N/A';
-    final departmentName = assessmentDetail.currentDepartment?.name ?? 'N/A';
+        ? DateTimeHelper.formatDate(assessmentDetail.employeeStartDate!,
+            context: context)
+        : l10n.performanceNotAvailable;
+    final departmentName = assessmentDetail.currentDepartment?.name ??
+        l10n.performanceNotAvailable;
 
     return Container(
       padding: EdgeInsets.all(16.w),
@@ -31,7 +41,7 @@ class EmployeeInformationSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Employee Information",
+          Text(l10n.performanceEmployeeInformation,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: IColors.light.primary.main)),
@@ -41,7 +51,7 @@ class EmployeeInformationSection extends StatelessWidget {
             children: [
               Expanded(
                   child: LabelValue(
-                      label: "Employee Name",
+                      label: l10n.performanceEmployeeName,
                       value: '$employeeName ($employeeId)')),
             ],
           ),
@@ -51,7 +61,7 @@ class EmployeeInformationSection extends StatelessWidget {
             children: [
               Expanded(
                 child: LabelValue(
-                  label: "Current Position",
+                  label: l10n.performanceCurrentPosition,
                   value: currentPosition,
                 ),
               )
@@ -62,12 +72,13 @@ class EmployeeInformationSection extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                  child:
-                      LabelValue(label: "Department", value: departmentName)),
+                  child: LabelValue(
+                      label: l10n.performanceDepartment, value: departmentName)),
               SizedBox(width: 16.w),
               Expanded(
                   child: LabelValue(
-                      label: "Current Job Level", value: currentLevel)),
+                      label: l10n.performanceCurrentJobLevel,
+                      value: currentLevel)),
             ],
           ),
           SizedBox(height: 16.h),
@@ -76,15 +87,19 @@ class EmployeeInformationSection extends StatelessWidget {
             children: [
               Expanded(
                   child: LabelValue(
-                      label: "Target Position", value: targetPosition)),
+                      label: l10n.performanceTargetPosition,
+                      value: targetPosition)),
               SizedBox(width: 16.w),
               Expanded(
                   child: LabelValue(
-                      label: "Target Job Level", value: targetLevel)),
+                      label: l10n.performanceTargetJobLevel,
+                      value: targetLevel)),
             ],
           ),
           SizedBox(height: 16.h),
-          LabelValue(label: "Employee Start Date", value: employeeStartDate),
+          LabelValue(
+              label: l10n.performanceEmployeeStartDate,
+              value: employeeStartDate),
         ],
       ),
     );

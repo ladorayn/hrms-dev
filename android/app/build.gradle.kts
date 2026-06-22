@@ -77,3 +77,26 @@ dependencies {
     implementation("com.google.firebase:firebase-messaging")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
 }
+
+// Workaround: dev/prod flavors both run compileFlutterBuild* tasks that write the
+// same gen-l10n files under lib/application/l10n (flutter/flutter#163591).
+val flavorsToCheck = listOf("prod")
+val dependsOnFlavors = listOf("dev")
+
+android.buildTypes.forEach { buildType ->
+    val buildTypeName = buildType.name.replaceFirstChar { it.uppercaseChar() }
+
+    tasks.matching {
+        it.name.startsWith("compileFlutterBuild") &&
+            flavorsToCheck.any { flavor -> it.name.contains(flavor, ignoreCase = true) } &&
+            it.name.endsWith(buildTypeName)
+    }.configureEach {
+        dependsOn(
+            tasks.matching {
+                it.name.startsWith("compileFlutterBuild") &&
+                    dependsOnFlavors.any { flavor -> it.name.contains(flavor, ignoreCase = true) } &&
+                    it.name.endsWith(buildTypeName)
+            },
+        )
+    }
+}

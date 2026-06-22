@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/enums/attendance_enum.dart';
 
@@ -26,6 +27,7 @@ class AttendanceCardForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
     return Container(
       padding: EdgeInsets.all(12),
@@ -69,7 +71,7 @@ class AttendanceCardForm extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Clock-In",
+                      Text(l10n.attendanceClockInLabel,
                           style: Theme.of(context).textTheme.bodySmall),
                       const SizedBox(height: 4),
                       Text(clockIn,
@@ -110,7 +112,7 @@ class AttendanceCardForm extends StatelessWidget {
                       children: [
                         Column(
                           children: [
-                            Text("Clock-Out",
+                            Text(l10n.attendanceClockOutLabel,
                                 style: Theme.of(context).textTheme.bodySmall),
                             const SizedBox(height: 4),
                             Text(clockOut,
@@ -129,7 +131,7 @@ class AttendanceCardForm extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Text("Overtime",
+                            Text(l10n.attendanceOvertime,
                                 style: Theme.of(context).textTheme.bodySmall),
                             const SizedBox(height: 4),
                             Text(overtime,
@@ -152,7 +154,7 @@ class AttendanceCardForm extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Location", style: textTheme.bodySmall),
+                  Text(l10n.attendanceLocation, style: textTheme.bodySmall),
                   const SizedBox(height: 8),
                   Container(
                     decoration: BoxDecoration(

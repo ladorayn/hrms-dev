@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/core/enums/attendance_enum.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
@@ -55,6 +56,8 @@ class _AttendanceFormScreenState extends ConsumerState<AttendanceFormScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final locale = Localizations.localeOf(context).toString();
     final textTheme = Theme.of(context).textTheme;
 
     final authP = ref.watch(authProvider);
@@ -63,7 +66,8 @@ class _AttendanceFormScreenState extends ConsumerState<AttendanceFormScreen> {
         (_, state) {
       state.when(
         error: (err, stack) {
-          showCustomToast(context, 'Error: $err', ToastType.error);
+          showCustomToast(
+              context, l10n.coreErrorWithDetail('$err'), ToastType.error);
           // ScaffoldMessenger.of(context)
           //     .showSnackBar(SnackBar(content: Text('Error: $err')));
         },
@@ -107,17 +111,18 @@ class _AttendanceFormScreenState extends ConsumerState<AttendanceFormScreen> {
 
     if (effectiveClockInTime != null) {
       clockInFormattedDate =
-          DateFormat('d MMMM, y').format(effectiveClockInTime);
-      clockInFormattedTime = DateFormat('hh:mm a').format(effectiveClockInTime);
+          DateFormat('d MMMM, y', locale).format(effectiveClockInTime);
+      clockInFormattedTime =
+          DateFormat('hh:mm a', locale).format(effectiveClockInTime);
       clockInFormattedDateParam =
           DateFormat('yyyy-MM-dd').format(effectiveClockInTime);
     }
 
     if (effectiveClockOutTime != null) {
       clockOutFormattedDate =
-          DateFormat('d MMMM, y').format(effectiveClockOutTime);
+          DateFormat('d MMMM, y', locale).format(effectiveClockOutTime);
       clockOutFormattedTime =
-          DateFormat('hh:mm a').format(effectiveClockOutTime);
+          DateFormat('hh:mm a', locale).format(effectiveClockOutTime);
       clockOutFormattedParam =
           DateFormat('yyyy-MM-dd').format(effectiveClockOutTime);
     }
@@ -133,7 +138,7 @@ class _AttendanceFormScreenState extends ConsumerState<AttendanceFormScreen> {
 
     return Scaffold(
       appBar: IAppBar(
-        title: widget.activity.title,
+        title: widget.activity.title(l10n),
         onBack: () =>
             globalNavigatorKey.currentContext?.go(RoutePaths.dashboard),
       ),
@@ -162,7 +167,7 @@ class _AttendanceFormScreenState extends ConsumerState<AttendanceFormScreen> {
                       loading: () =>
                           const Center(child: CircularProgressIndicator()),
                       error: (err, stack) {
-                        return Text('Error: ${err}');
+                        return Text(l10n.coreErrorWithDetail('$err'));
                       },
                       data: (shifts) {
                         // We have the data, now build the dropdown
@@ -174,7 +179,7 @@ class _AttendanceFormScreenState extends ConsumerState<AttendanceFormScreen> {
                           enabled: (widget.activity == AttendanceEnum.clockIn)
                               ? true
                               : false,
-                          label: "Shift",
+                          label: l10n.attendanceShift,
                           controller: _shiftController,
                           options: shiftOptions,
                           onOptionSelected: (selectedOption) {
@@ -190,7 +195,7 @@ class _AttendanceFormScreenState extends ConsumerState<AttendanceFormScreen> {
                       },
                     ),
                     ITextFieldTextArea(
-                      label: "Notes",
+                      label: l10n.attendanceNotes,
                       controller: _notesController,
                       labelStyle: textTheme.bodySmall,
                     ),
@@ -209,7 +214,8 @@ class _AttendanceFormScreenState extends ConsumerState<AttendanceFormScreen> {
                     _handleClockOut();
                   }
                 },
-            text: "Save ${widget.activity.capitalizeSentence}",
+            text: l10n.attendanceSaveActivity(
+                widget.activity.capitalizeSentence(l10n)),
           ),
         ],
       ),
@@ -217,12 +223,13 @@ class _AttendanceFormScreenState extends ConsumerState<AttendanceFormScreen> {
   }
 
   Future<void> _handleClockIn() async {
+    final l10n = AppLocalizations.of(context)!;
     final attendanceState = ref.read(attendanceProvider);
     final position = attendanceState.position;
 
     if (position == null || _selectedShiftId == null) {
       showCustomToast(
-          context, 'Please fill all required fields.', ToastType.info);
+          context, l10n.attendancePleaseFillRequiredFields, ToastType.info);
       // ScaffoldMessenger.of(context).showSnackBar(
       //   const SnackBar(content: Text('Please fill all required fields.')),
       // );
@@ -242,12 +249,13 @@ class _AttendanceFormScreenState extends ConsumerState<AttendanceFormScreen> {
   }
 
   Future<void> _handleClockOut() async {
+    final l10n = AppLocalizations.of(context)!;
     final attendanceState = ref.read(attendanceProvider);
     final todayAttendance = ref.read(todayAttendanceProvider).value;
     final position = attendanceState.position;
 
     if (todayAttendance == null) {
-      showCustomToast(context, 'No active attendance found.', ToastType.info);
+      showCustomToast(context, l10n.attendanceNoActiveAttendance, ToastType.info);
       // ScaffoldMessenger.of(context).showSnackBar(
       //   const SnackBar(content: Text('No active attendance found.')),
       // );
@@ -256,7 +264,7 @@ class _AttendanceFormScreenState extends ConsumerState<AttendanceFormScreen> {
 
     if (position == null) {
       showCustomToast(
-          context, 'Please fill all required fields.', ToastType.info);
+          context, l10n.attendancePleaseFillRequiredFields, ToastType.info);
       // ScaffoldMessenger.of(context).showSnackBar(
       //   const SnackBar(content: Text('Please fill all required fields.')),
       // );

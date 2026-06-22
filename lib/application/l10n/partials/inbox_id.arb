@@ -1,0 +1,10 @@
+{
+  "@@locale": "id",
+
+  "inboxTitle": "Kotak Masuk",
+  "inboxEmpty": "Tidak ada notifikasi di kotak masuk Anda.",
+  "inboxError": "Terjadi kesalahan",
+  "inboxNoTitle": "Tanpa Judul",
+  "inboxNoContent": "Tidak ada konten",
+  "inboxNotAvailable": "Tidak Tersedia"
+}

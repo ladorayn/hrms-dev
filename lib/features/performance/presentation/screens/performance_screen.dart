@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
@@ -15,6 +16,7 @@ class PerformanceScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final assessmentListAsync = ref.watch(assessmentListRProvider);
     final okrListAsync = ref.watch(oKRListRProvider);
     final supervisorAssessmentAsync =
@@ -31,14 +33,15 @@ class PerformanceScreen extends ConsumerWidget {
     if (assessmentListAsync.hasError) {
       return Scaffold(
         body: Center(
-            child: Text(
-                'Error loading Self Assessments: ${assessmentListAsync.error}')),
+            child: Text(l10n.performanceErrorLoadingSelfAssessments(
+                '${assessmentListAsync.error}'))),
       );
     }
 
     if (okrListAsync.hasError) {
       return Scaffold(
-        body: Center(child: Text('Error loading OKR: ${okrListAsync.error}')),
+        body: Center(
+            child: Text(l10n.performanceErrorLoadingOkr('${okrListAsync.error}'))),
       );
     }
     final assessments = assessmentListAsync.value!;
@@ -63,10 +66,11 @@ class PerformanceScreen extends ConsumerWidget {
             showCustomToast(
                 context,
                 supervisorAssessmentAsync.isLoading
-                    ? 'Loading supervisor assessments...'
+                    ? l10n.performanceLoadingSupervisorAssessments
                     : supervisorError != null
-                        ? 'Error loading supervisor assessments: $supervisorError'
-                        : 'Supervisor assessments data not available.',
+                        ? l10n.performanceErrorLoadingSupervisorAssessments(
+                            '$supervisorError')
+                        : l10n.performanceSupervisorDataNotAvailable,
                 supervisorAssessmentAsync.isLoading
                     ? ToastType.info
                     : supervisorError != null
@@ -89,7 +93,7 @@ class PerformanceScreen extends ConsumerWidget {
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       appBar: IAppBar(
-        title: "Performance",
+        title: l10n.performanceTitle,
         centerTitle: true,
         noIcon: true,
       ),
@@ -116,10 +120,10 @@ class PerformanceScreen extends ConsumerWidget {
                         child: SingleChildScrollView(
                           child: Column(
                             children: [
-                              _buildAssessmentMenus(assessments),
+                              _buildAssessmentMenus(context, assessments),
                               PerformanceMenu(
                                 icon: IAssets.okr,
-                                title: 'My OKR',
+                                title: l10n.performanceMyOkr,
                                 onTap: () {
                                   globalNavigatorKey.currentContext?.pushNamed(
                                     RoutePaths.okrListName,
@@ -129,7 +133,7 @@ class PerformanceScreen extends ConsumerWidget {
                               ),
                               PerformanceMenu(
                                 icon: IAssets.supervisorAssessment,
-                                title: 'Supervisor Assessment',
+                                title: l10n.performanceSupervisorAssessment,
                                 onTap: supervisorOnTap,
                                 // isLoading: supervisorAssessmentAsync.isLoading,
                                 // Optional: Add visual indicator for error if needed
@@ -152,10 +156,13 @@ class PerformanceScreen extends ConsumerWidget {
 
   // --- Helper Method ---
 
-  Widget _buildAssessmentMenus(List<AssessmentList> assessments) {
+  Widget _buildAssessmentMenus(
+      BuildContext context, List<AssessmentList> assessments) {
+    final l10n = AppLocalizations.of(context)!;
     final recentAssessment = assessments.isNotEmpty ? assessments[0] : null;
-    final title = 'Self Assessment';
-    final dueDate = recentAssessment?.dueDate ?? 'N/A';
+    final title = l10n.performanceSelfAssessment;
+    final dueDate =
+        recentAssessment?.dueDate ?? l10n.performanceNotAvailable;
 
     return PerformanceMenu(
       icon: IAssets.selfAssessment,

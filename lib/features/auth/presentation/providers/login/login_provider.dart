@@ -1,5 +1,7 @@
 import 'package:go_router/go_router.dart';
+import 'package:hrms_mobile/core/config/manual_capture.dart';
 import 'package:hrms_mobile/core/constants/storage_keys.dart';
+import 'package:hrms_mobile/core/data/models/face_recognition/face_profile_response.dart';
 import 'package:hrms_mobile/core/data/data_source/general_remote_source.dart';
 import 'package:hrms_mobile/core/data/repositories/general_repository/general_repository.dart';
 import 'package:hrms_mobile/core/data/repositories/general_repository/general_repository_impl.dart';
@@ -71,7 +73,10 @@ class Login extends _$Login {
 
       final generalUsecase = ref.read(generalUsecaseProvider);
 
-      final facesProfile = await generalUsecase.getFacesProfile();
+      // Local HRMS tokens are not accepted by the hosted face service.
+      final UserProfileData? facesProfile = isManualCaptureBypassActive
+          ? null
+          : await generalUsecase.getFacesProfile();
 
       final companyProfile =
           await ref.read(companyProfileProvider.notifier).fetchCompanyProfile();

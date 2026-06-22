@@ -1,0 +1,9 @@
+{
+  "@@locale": "id",
+
+  "navHome": "Beranda",
+  "navPerformance": "Kinerja",
+  "navLeaveRequest": "Pengajuan Cuti",
+  "navInbox": "Kotak Masuk",
+  "navProfile": "Profil"
+}

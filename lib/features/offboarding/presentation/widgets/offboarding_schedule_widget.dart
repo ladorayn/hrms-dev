@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/util/datetime_utils.dart';
 import 'package:hrms_mobile/core/widgets/label_value.dart';
@@ -12,18 +13,25 @@ class OffboardingScheduleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final schedule = schedulePayload;
 
     final hasSchedule = schedule != null;
 
     final scheduleDate = hasSchedule && schedule.date != null
-        ? DateTimeHelper.formatDateFromISO(schedule.date!)
+        ? DateTimeHelper.formatDateFromISO(schedule.date!, context: context)
         : '-';
 
     String scheduleTime;
     if (hasSchedule && schedule.startTime != null && schedule.endTime != null) {
-      final startTime = DateTimeHelper.formatTimeFromRaw(schedule.startTime!);
-      final endTime = DateTimeHelper.formatTimeFromRaw(schedule.endTime!);
+      final startTime = DateTimeHelper.formatTimeFromRaw(
+        schedule.startTime!,
+        context: context,
+      );
+      final endTime = DateTimeHelper.formatTimeFromRaw(
+        schedule.endTime!,
+        context: context,
+      );
       scheduleTime = '$startTime - $endTime';
     } else {
       scheduleTime = '-';
@@ -39,29 +47,27 @@ class OffboardingScheduleWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Exit Interview Schedule",
+          Text(l10n.offboardingExitInterviewSchedule,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: IColors.light.primary.main)),
           SizedBox(height: 12.h),
-
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(child: LabelValue(label: "Date", value: scheduleDate)),
+              Expanded(
+                  child: LabelValue(label: l10n.offboardingDate, value: scheduleDate)),
               SizedBox(width: 16.w),
               Expanded(
                 child: LabelValue(
-                  label: "Time",
+                  label: l10n.offboardingTime,
                   value: scheduleTime,
                 ),
               )
             ],
           ),
           SizedBox(height: 16.h),
-
-          // Notes
-          LabelValue(label: "Interviewer", value: scheduleInterviewer),
+          LabelValue(label: l10n.offboardingInterviewer, value: scheduleInterviewer),
         ],
       ),
     );

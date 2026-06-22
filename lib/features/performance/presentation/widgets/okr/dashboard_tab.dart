@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/okr_graph.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/okr_list.dart';
@@ -21,6 +22,7 @@ class DashboardTab extends ConsumerStatefulWidget {
 class _DashboardTabState extends ConsumerState<DashboardTab> {
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final graphAsync =
         ref.watch(performanceGetGraphsProvider(id: widget.okrList.id ?? 0));
 
@@ -28,10 +30,11 @@ class _DashboardTabState extends ConsumerState<DashboardTab> {
       padding: EdgeInsets.all(16.sp),
       child: graphAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (err, stack) => Center(child: Text('Error: $err')),
+        error: (err, stack) =>
+            Center(child: Text(l10n.performanceError(err.toString()))),
         data: (objectives) {
           if (objectives.isEmpty) {
-            return const Center(child: Text("No graph data available"));
+            return Center(child: Text(l10n.performanceNoGraphData));
           }
 
           return Column(
@@ -40,7 +43,7 @@ class _DashboardTabState extends ConsumerState<DashboardTab> {
                 child: ListView.builder(
                   itemCount: objectives.length,
                   itemBuilder: (context, index) {
-                    return _buildCollapsableData(objectives[index]);
+                    return _buildCollapsableData(context, objectives[index]);
                   },
                 ),
               ),
@@ -51,7 +54,8 @@ class _DashboardTabState extends ConsumerState<DashboardTab> {
     );
   }
 
-  Widget _buildCollapsableData(OKRGraphData objective) {
+  Widget _buildCollapsableData(BuildContext context, OKRGraphData objective) {
+    final l10n = AppLocalizations.of(context)!;
     return ExpansionTile(
       collapsedIconColor: IColors.light.primary.main,
       expansionAnimationStyle: AnimationStyle(
@@ -62,7 +66,7 @@ class _DashboardTabState extends ConsumerState<DashboardTab> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
       collapsedBackgroundColor: Colors.white,
       backgroundColor: Colors.white,
-      title: SectionTitle(objective.name ?? "Objective"),
+      title: SectionTitle(objective.name ?? l10n.performanceObjectiveFallback),
       tilePadding: EdgeInsets.zero,
       children: (objective.keyResults ?? []).map<Widget>((kr) {
         // Prepare data for the chart component
@@ -78,7 +82,7 @@ class _DashboardTabState extends ConsumerState<DashboardTab> {
         );
 
         return DashboardMetricCard(
-          title: kr.name ?? "Metric",
+          title: kr.name ?? l10n.performanceMetricFallback,
           // Identifiers needed for individual graph API calls
           cycleId: widget.okrList.id ?? 0,
           krId: kr.id ?? 0,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/features/attendance/presentation/providers/attendance_provider.dart';
 import 'package:hrms_mobile/features/profile/presentation/widgets/statistics_item.dart';
@@ -12,9 +13,12 @@ class StatisticsCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
+    final locale = Localizations.localeOf(context).toString();
     String _selectedPeriod = DateFormat('yyyy-MM').format(DateTime.now());
     DateTime displayDate = DateFormat('yyyy-MM').parse(_selectedPeriod);
-    String formattedDisplayDate = DateFormat('MMMM yyyy').format(displayDate);
+    String formattedDisplayDate =
+        DateFormat('MMMM yyyy', locale).format(displayDate);
 
     final attendanceStatsState = ref.watch(attendanceStatsProvider(
       period: _selectedPeriod,
@@ -48,24 +52,25 @@ class StatisticsCard extends ConsumerWidget {
                   StatisticsItem(
                       iconAsset: IAssets.attendanceClock,
                       value: data.attended.toString(),
-                      label: 'Days',
-                      description: 'Attendance'),
+                      label: l10n.profileStatDays,
+                      description: l10n.profileStatAttendance),
                   _buildDivider(),
                   StatisticsItem(
                       iconAsset: IAssets.timeOff,
                       value: '${data.dayOff.used}/${data.dayOff.quota}',
-                      label: 'Days',
-                      description: 'Time Off'),
+                      label: l10n.profileStatDays,
+                      description: l10n.profileStatTimeOff),
                   _buildDivider(),
                   StatisticsItem(
                       iconAsset: IAssets.overtimeClock,
                       value: '${data.overtime}',
-                      label: 'Hours',
-                      description: 'Overtime'),
+                      label: l10n.profileStatHours,
+                      description: l10n.profileStatOvertime),
                 ],
               ),
               loading: () => const Center(child: CircularProgressIndicator()),
-              error: (err, stack) => Center(child: Text("Error loading stats")),
+              error: (err, stack) =>
+                  Center(child: Text(l10n.profileErrorLoadingStats)),
             ),
           ],
         ),

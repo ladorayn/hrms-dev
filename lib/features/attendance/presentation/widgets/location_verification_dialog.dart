@@ -3,15 +3,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/core/enums/attendance_enum.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/widgets/toastbar.dart';
+import 'package:hrms_mobile/core/config/manual_capture.dart';
 import 'package:hrms_mobile/features/attendance/data/models/request/validate_location/validate_location_request_model.dart';
 import 'package:hrms_mobile/features/attendance/presentation/providers/attendance_provider.dart';
 
 Future<void> handleLocationVerification(
     BuildContext context, AttendanceEnum activity, WidgetRef ref) async {
+  final l10n = AppLocalizations.of(context)!;
   showDialog(
     barrierDismissible: false,
     context: context,
@@ -28,7 +31,7 @@ Future<void> handleLocationVerification(
               const CircularProgressIndicator(),
               const SizedBox(height: 24),
               Text(
-                '${activity.title} Verification in Progress',
+                l10n.attendanceVerificationInProgress(activity.title(l10n)),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -37,7 +40,8 @@ Future<void> handleLocationVerification(
               ),
               const SizedBox(height: 16),
               Text(
-                "We're verifying your current location before completing the ${activity.sentence} process. Please make sure location access is enabled and you're within the allowed work area.",
+                l10n.attendanceLocationVerificationBody(
+                    activity.sentence(l10n)),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 14,
@@ -54,9 +58,41 @@ Future<void> handleLocationVerification(
   try {
     ref.read(attendanceProvider.notifier).setActivity(activity);
 
+    if (isManualCaptureBypassActive) {
+      await Future.delayed(const Duration(milliseconds: 800));
+      final position = Position(
+        latitude: -6.2088,
+        longitude: 106.8456,
+        timestamp: DateTime.now(),
+        accuracy: 1,
+        altitude: 0,
+        altitudeAccuracy: 0,
+        heading: 0,
+        headingAccuracy: 0,
+        speed: 0,
+        speedAccuracy: 0,
+      );
+      ref.read(attendanceProvider.notifier).updatePosition(position);
+      if (activity == AttendanceEnum.clockIn) {
+        ref.read(attendanceProvider.notifier).setClockInTime();
+      }
+      if (activity == AttendanceEnum.clockOut) {
+        ref.read(attendanceProvider.notifier).setClockOutTime();
+      }
+      ref
+          .read(attendanceProvider.notifier)
+          .updateAddress(l10n.attendanceManualCaptureBypass);
+      globalNavigatorKey.currentContext?.pop();
+      globalNavigatorKey.currentContext?.pushNamed(
+        RoutePaths.locationConfirmed,
+        extra: activity,
+      );
+      return;
+    }
+
     await Future.delayed(const Duration(seconds: 2));
 
-    Position position = await _determinePosition();
+    Position position = await _determinePosition(l10n);
     print(
         'Location retrieved: Lat: ${position.latitude}, Long: ${position.longitude}');
 
@@ -72,7 +108,10 @@ Future<void> handleLocationVerification(
       globalNavigatorKey.currentContext?.pop();
       showCustomToast(
           context,
-          'Location is not valid. You are ~${validationResult.distance?.toStringAsFixed(0)}m away. Max radius is ${validationResult.maxRadius}m.',
+          l10n.attendanceLocationNotValid(
+            validationResult.distance?.toStringAsFixed(0) ?? '0',
+            validationResult.maxRadius?.toString() ?? '0',
+          ),
           ToastType.info);
       // ScaffoldMessenger.of(context).showSnackBar(
       //   SnackBar(
@@ -119,7 +158,7 @@ Future<void> handleLocationVerification(
   } catch (e) {
     print('Error during location verification: $e');
     globalNavigatorKey.currentContext?.pop();
-    showCustomToast(context, 'Error: Could not get location. ${e.toString()}',
+    showCustomToast(context, l10n.attendanceCouldNotGetLocation(e.toString()),
         ToastType.error);
     // ScaffoldMessenger.of(context).showSnackBar(
     //   SnackBar(content: Text('Error: Could not get location. ${e.toString()}')),
@@ -127,26 +166,25 @@ Future<void> handleLocationVerification(
   }
 }
 
-Future<Position> _determinePosition() async {
+Future<Position> _determinePosition(AppLocalizations l10n) async {
   bool serviceEnabled;
   LocationPermission permission;
 
   serviceEnabled = await Geolocator.isLocationServiceEnabled();
   if (!serviceEnabled) {
-    return Future.error('Location services are disabled.');
+    return Future.error(l10n.attendanceLocationServicesDisabled);
   }
 
   permission = await Geolocator.checkPermission();
   if (permission == LocationPermission.denied) {
     permission = await Geolocator.requestPermission();
     if (permission == LocationPermission.denied) {
-      return Future.error('Location permissions are denied');
+      return Future.error(l10n.attendanceLocationPermissionDenied);
     }
   }
 
   if (permission == LocationPermission.deniedForever) {
-    return Future.error(
-        'Location permissions are permanently denied, we cannot request permissions.');
+    return Future.error(l10n.attendanceLocationPermissionDeniedForever);
   }
 
   return await Geolocator.getCurrentPosition(

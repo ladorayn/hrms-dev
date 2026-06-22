@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/data/models/form_fields_response.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
@@ -27,6 +28,7 @@ class CompetencyRatingField extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
     final metadata = field.metadata ?? {};
 
@@ -113,7 +115,7 @@ class CompetencyRatingField extends ConsumerWidget {
           SizedBox(height: 16.h),
           ITextFieldTextArea(
             controller: notesController!,
-            hintText: 'Add your comments here...',
+            hintText: l10n.performanceAddComments,
             readOnly: isDisabled,
             onChanged: (_) => validateForm(),
           ),

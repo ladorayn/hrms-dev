@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
@@ -17,6 +18,7 @@ class LeaveRequestScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
 
     final leaveBalanceAsync = ref.watch(leaveBalanceProvider);
@@ -24,7 +26,7 @@ class LeaveRequestScreen extends ConsumerWidget {
 
     ref.listen<AsyncValue>(leaveBalanceProvider, (previous, next) {
       if (next is AsyncError) {
-        showCustomToast(context, 'Could not load leave balance: ${next.error}',
+        showCustomToast(context, '${l10n.leaveCouldNotLoadBalance} ${next.error}',
             ToastType.error);
         // ScaffoldMessenger.of(context).showSnackBar(
         //   SnackBar(
@@ -36,7 +38,7 @@ class LeaveRequestScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: IAppBar(
-        title: "Leave Request",
+        title: l10n.navLeaveRequest,
         centerTitle: true,
         noIcon: true,
       ),
@@ -94,7 +96,7 @@ class LeaveRequestScreen extends ConsumerWidget {
                             globalNavigatorKey.currentContext
                                 ?.push(RoutePaths.leaveRequestForm);
                           },
-                          child: Text("New Leave Request"),
+                          child: Text(l10n.leaveNewRequest),
                         ),
                       ),
                       SizedBox(height: 16.sp),
@@ -114,7 +116,7 @@ class LeaveRequestScreen extends ConsumerWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Your Leave Request",
+                                  l10n.leaveYourRequests,
                                   style: textTheme.titleMedium?.copyWith(
                                       color: IColors.light.primary.main),
                                 ),
@@ -124,9 +126,8 @@ class LeaveRequestScreen extends ConsumerWidget {
                                   child: leaveHistoryAsync.when(
                                     data: (leaveGroups) {
                                       if (leaveGroups.isEmpty) {
-                                        return const Center(
-                                          child:
-                                              Text("No leave history found."),
+                                        return Center(
+                                          child: Text(l10n.leaveNoHistoryFound),
                                         );
                                       }
                                       // --- This ListView is now built from REAL data ---
@@ -161,7 +162,8 @@ class LeaveRequestScreen extends ConsumerWidget {
                                         child: CircularProgressIndicator()),
                                     error: (err, stack) => Center(
                                         child: Text(
-                                            "Failed to load history: $err")),
+                                            l10n.leaveFailedToLoadHistory(
+                                                err.toString()))),
                                   ),
                                 ),
                               ],

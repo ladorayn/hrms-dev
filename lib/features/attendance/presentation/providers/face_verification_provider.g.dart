@@ -23,7 +23,7 @@ final verifyFaceNotifierProvider = AutoDisposeNotifierProvider<
 );
 
 typedef _$VerifyFaceNotifier = AutoDisposeNotifier<AsyncValue<FaceVerify?>>;
-String _$faceVerificationHash() => r'f67369995f80e6b40f40c7633516d3c2e2abe262';
+String _$faceVerificationHash() => r'810c2472dfa7541390ba275cbf7b9c22b0307991';
 
 /// See also [FaceVerification].
 @ProviderFor(FaceVerification)

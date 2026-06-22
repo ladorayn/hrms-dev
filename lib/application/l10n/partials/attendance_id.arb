@@ -1,0 +1,179 @@
+{
+  "@@locale": "id",
+
+  "attendanceTab": "Kehadiran",
+  "overtimeTab": "Lembur",
+
+  "attendanceClockInLabel": "Masuk",
+  "attendanceClockOutLabel": "Keluar",
+  "attendanceClockInTitle": "Masuk",
+  "attendanceClockOutTitle": "Keluar",
+  "attendanceClockInSentence": "masuk",
+  "attendanceClockOutSentence": "keluar",
+  "attendanceClockInCapitalize": "Masuk",
+  "attendanceClockOutCapitalize": "Keluar",
+
+  "attendanceShift": "Shift",
+  "attendanceNotes": "Catatan",
+  "attendanceLocation": "Lokasi",
+  "attendanceDuration": "Durasi",
+  "attendanceOvertime": "Lembur",
+
+  "attendanceFilterByStatus": "Filter berdasarkan Status",
+  "attendanceStatusAll": "Semua",
+  "attendanceStatusWaiting": "Menunggu",
+  "attendanceStatusApproved": "Disetujui",
+  "attendanceStatusRejected": "Ditolak",
+
+  "attendanceStatLateClockIn": "Terlambat Masuk",
+  "attendanceStatEarlyClockOut": "Pulang Lebih Awal",
+  "attendanceStatAbsent": "Tidak Hadir",
+  "attendanceStatDayOff": "Hari Libur",
+
+  "attendancePendingRequest": "Permintaan Tertunda",
+  "attendanceApprovedRequest": "Permintaan Disetujui",
+  "attendanceRejectedRequest": "Permintaan Ditolak",
+
+  "attendanceOvertimeRequestTitle": "Permintaan Lembur",
+  "attendanceOvertimeDuration": "Durasi Lembur",
+  "attendanceNoDataForPeriod": "Tidak ada data kehadiran untuk periode ini.",
+  "attendanceNoOvertimeDataForPeriod": "Tidak ada data lembur untuk periode ini.",
+  "attendanceErrorTryAgainLater": "Kesalahan: Silakan coba lagi nanti!",
+  "attendanceNetworkError": "Terjadi kesalahan jaringan.",
+  "attendanceUnexpectedError": "Terjadi kesalahan yang tidak terduga: {error}",
+  "@attendanceUnexpectedError": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+
+  "attendanceTodayWithDay": "Hari ini, {day}",
+  "@attendanceTodayWithDay": {
+    "placeholders": {
+      "day": { "type": "String" }
+    }
+  },
+  "attendanceTodayWithDate": "Hari ini, {date}",
+  "@attendanceTodayWithDate": {
+    "placeholders": {
+      "date": { "type": "String" }
+    }
+  },
+  "attendanceToday": "Hari ini",
+  "attendanceYesterday": "Kemarin",
+  "attendanceDaysAgo": "{count} hari yang lalu",
+  "@attendanceDaysAgo": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+
+  "attendanceLocationConfirmed": "Lokasi Terkonfirmasi",
+  "attendanceLocationConfirmedBody": "Silakan selesaikan verifikasi wajah untuk melanjutkan {activity}. Langkah ini membantu memastikan pelacakan kehadiran yang aman dan akurat.",
+  "@attendanceLocationConfirmedBody": {
+    "placeholders": {
+      "activity": { "type": "String" }
+    }
+  },
+  "attendanceStartVerification": "Mulai Verifikasi",
+  "attendanceRegisterYourFace": "Daftarkan Wajah Anda",
+
+  "attendanceVerificationInProgress": "Verifikasi {activity} Sedang Berlangsung",
+  "@attendanceVerificationInProgress": {
+    "placeholders": {
+      "activity": { "type": "String" }
+    }
+  },
+  "attendanceLocationVerificationBody": "Kami sedang memverifikasi lokasi Anda saat ini sebelum menyelesaikan proses {activity}. Pastikan akses lokasi diaktifkan dan Anda berada dalam area kerja yang diizinkan.",
+  "@attendanceLocationVerificationBody": {
+    "placeholders": {
+      "activity": { "type": "String" }
+    }
+  },
+  "attendanceLocationNotValid": "Lokasi tidak valid. Anda berjarak ~{distance}m. Radius maksimum adalah {maxRadius}m.",
+  "@attendanceLocationNotValid": {
+    "placeholders": {
+      "distance": { "type": "String" },
+      "maxRadius": { "type": "String" }
+    }
+  },
+  "attendanceCouldNotGetLocation": "Kesalahan: Tidak dapat mendapatkan lokasi. {error}",
+  "@attendanceCouldNotGetLocation": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+  "attendanceLocationServicesDisabled": "Layanan lokasi dinonaktifkan.",
+  "attendanceLocationPermissionDenied": "Izin lokasi ditolak.",
+  "attendanceLocationPermissionDeniedForever": "Izin lokasi ditolak secara permanen. Kami tidak dapat meminta izin.",
+  "attendanceManualCaptureBypass": "Tangkapan manual (lewati lokasi)",
+
+  "attendancePleaseFillRequiredFields": "Harap isi semua kolom yang wajib diisi.",
+  "attendanceNoActiveAttendance": "Tidak ada kehadiran aktif yang ditemukan.",
+  "attendanceSaveActivity": "Simpan {activity}",
+  "@attendanceSaveActivity": {
+    "placeholders": {
+      "activity": { "type": "String" }
+    }
+  },
+
+  "attendanceEditRequest": "Ubah Permintaan Kehadiran",
+  "attendanceSubmittedRecord": "Catatan yang Diajukan",
+  "attendanceAdjustment": "Penyesuaian Kehadiran",
+  "attendanceClockInField": "Jam Masuk",
+  "attendanceClockOutField": "Jam Keluar",
+  "attendanceAdjustmentNotes": "Catatan Penyesuaian",
+  "attendanceSendAdjustmentRequest": "Kirim Permintaan Penyesuaian",
+  "attendanceUpdateSuccess": "Pembaruan Berhasil!",
+  "attendanceUpdateFailed": "Pembaruan Gagal!",
+  "attendanceUpdateFailedWithError": "Pembaruan Gagal: {error}",
+  "@attendanceUpdateFailedWithError": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+
+  "attendanceFaceRegistration": "Pendaftaran Wajah",
+  "attendanceFaceVerification": "Verifikasi Wajah",
+
+  "attendanceFaceStepFrontInstruction": "Hadapkan wajah Anda langsung ke kamera dan pastikan wajah terlihat jelas",
+  "attendanceFaceStepRightInstruction": "Putar kepala Anda perlahan ke kanan dan tetap dalam bingkai",
+  "attendanceFaceStepLeftInstruction": "Putar kepala Anda perlahan ke kiri dan tetap dalam bingkai",
+  "attendanceFaceStepUploadingInstruction": "Mengunggah foto dan memverifikasi wajah...",
+  "attendanceFaceStepFailedInstruction": "Pendaftaran Wajah Gagal!",
+  "attendanceFaceStepSuccessInstruction": "Pendaftaran Wajah Berhasil!",
+  "attendanceFaceStepTakeFrontPhoto": "Ambil Foto Depan",
+  "attendanceFaceStepTakeRightPhoto": "Ambil Foto Kanan",
+  "attendanceFaceStepTakeLeftPhoto": "Ambil Foto Kiri",
+  "attendanceFaceStepUploading": "Mengunggah...",
+  "attendanceFaceStepTryAgain": "Coba Lagi",
+  "attendanceFaceStepDone": "Selesai",
+
+  "attendanceVerificationInitialInstruction": "Hadapkan wajah Anda langsung ke kamera dan pastikan wajah terlihat jelas",
+  "attendanceVerificationLoadingInstruction": "Memverifikasi...",
+  "attendanceVerificationSuccessInstruction": "Verifikasi Wajah Berhasil!",
+  "attendanceVerificationFailedInstruction": "Verifikasi Wajah Gagal!",
+  "attendanceVerificationTakePhoto": "Ambil Foto",
+
+  "activityLogClockIn": "Masuk",
+  "activityLogClockOut": "Keluar",
+  "activityLogOvertimeCreated": "Lembur Dibuat",
+  "activityLogOvertimeApproved": "Lembur Disetujui",
+  "activityLogOvertimeRejected": "Lembur Ditolak",
+  "activityLogOvertimeUpdated": "Lembur Diperbarui",
+  "activityLogUnknown": "Aktivitas Tidak Diketahui",
+
+  "overtimeRequestTitle": "Permintaan Lembur",
+  "overtimeRequestDate": "Tanggal Permintaan",
+  "overtimeStartTime": "Waktu Mulai",
+  "overtimeEndTime": "Waktu Selesai",
+  "overtimeNotes": "Catatan Lembur",
+  "overtimeRequestButton": "Ajukan Lembur",
+  "overtimeSubmittedSuccess": "Permintaan lembur berhasil diajukan!",
+  "overtimeEditRequest": "Ubah Permintaan Lembur",
+  "overtimeAdjustment": "Penyesuaian Lembur",
+  "overtimeAdjustmentNotes": "Catatan Penyesuaian",
+  "overtimeSendAdjustmentRequest": "Kirim Permintaan Penyesuaian",
+  "overtimeAdjustmentSentSuccess": "Permintaan penyesuaian berhasil dikirim!",
+  "overtimeNoAttendanceLog": "Tidak ada catatan kehadiran untuk tanggal ini."
+}

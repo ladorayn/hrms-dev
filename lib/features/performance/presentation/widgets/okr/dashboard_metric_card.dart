@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/features/performance/presentation/providers/performance_provider.dart';
 import 'package:hrms_mobile/features/performance/presentation/widgets/okr/KRFilterBottomSheet.dart';
@@ -55,7 +56,7 @@ class _DashboardMetricCardState extends ConsumerState<DashboardMetricCard> {
 
   @override
   Widget build(BuildContext context) {
-    // 1. If no filters applied, show initial data from dashboard overview
+    final l10n = AppLocalizations.of(context)!;
     if (_activeFilters == null) {
       return _buildFrame(
         context,
@@ -63,11 +64,9 @@ class _DashboardMetricCardState extends ConsumerState<DashboardMetricCard> {
         xAxisLabels: widget.initialXAxisLabels,
         avgActual: widget.initialAvgActual,
         avgTarget: widget.initialAvgTarget,
-        dateRange: "Select Range",
+        dateRange: l10n.performanceSelectRange,
       );
     }
-
-    // 2. Watch the specific provider only when filters are active
     final graphAsync = ref.watch(performanceGetOKRKeyResultGraphProvider(
       id: widget.cycleId,
       okrId: widget.krId,
@@ -76,7 +75,8 @@ class _DashboardMetricCardState extends ConsumerState<DashboardMetricCard> {
 
     return graphAsync.when(
       loading: () => _buildFrame(context, isLoading: true),
-      error: (err, _) => Center(child: Text("Error loading graph: $err")),
+      error: (err, _) =>
+          Center(child: Text(l10n.performanceErrorLoadingGraph('$err'))),
       data: (filteredDetail) {
         final barData = filteredDetail.data
                 ?.map((v) => double.tryParse(v) ?? 0.0)
@@ -94,7 +94,7 @@ class _DashboardMetricCardState extends ConsumerState<DashboardMetricCard> {
               widget.initialAvgTarget,
           dateRange: labels.isNotEmpty
               ? "${labels.first} - ${labels.last}"
-              : "Select Range",
+              : l10n.performanceSelectRange,
         );
       },
     );
@@ -109,6 +109,7 @@ class _DashboardMetricCardState extends ConsumerState<DashboardMetricCard> {
     String? avgTarget,
     String? dateRange,
   }) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
     final currentBarData = barData ?? widget.initialBarData;
     final currentLabels = xAxisLabels ?? widget.initialXAxisLabels;
@@ -134,9 +135,10 @@ class _DashboardMetricCardState extends ConsumerState<DashboardMetricCard> {
                   style: textTheme.titleSmall
                       ?.copyWith(fontWeight: FontWeight.w600)),
               SizedBox(height: 12.h),
-              _buildDatePickerTrigger(textTheme, dateRange ?? "Select Range"),
+              _buildDatePickerTrigger(
+                  textTheme, l10n, dateRange ?? l10n.performanceSelectRange),
               SizedBox(height: 16.h),
-              _buildLegend(textTheme, avgActual ?? widget.initialAvgActual,
+              _buildLegend(textTheme, l10n, avgActual ?? widget.initialAvgActual,
                   avgTarget ?? widget.initialAvgTarget),
               SizedBox(height: 16.h),
               SizedBox(
@@ -239,7 +241,8 @@ class _DashboardMetricCardState extends ConsumerState<DashboardMetricCard> {
     );
   }
 
-  Widget _buildDatePickerTrigger(TextTheme textTheme, String displayRange) {
+  Widget _buildDatePickerTrigger(
+      TextTheme textTheme, AppLocalizations l10n, String displayRange) {
     return InkWell(
       onTap: () => _showFilter(),
       child: Container(
@@ -254,7 +257,7 @@ class _DashboardMetricCardState extends ConsumerState<DashboardMetricCard> {
           children: [
             Text(displayRange,
                 style: textTheme.bodyMedium?.copyWith(
-                    color: displayRange == "Select Range"
+                    color: displayRange == l10n.performanceSelectRange
                         ? Colors.grey
                         : Colors.black)),
             Icon(Icons.calendar_today,
@@ -286,13 +289,15 @@ class _DashboardMetricCardState extends ConsumerState<DashboardMetricCard> {
     return ((highest * 1.4 / 4).ceil() * 4).toDouble();
   }
 
-  Widget _buildLegend(TextTheme textTheme, String actual, String target) {
+  Widget _buildLegend(
+      TextTheme textTheme, AppLocalizations l10n, String actual, String target) {
     return Row(
       children: [
-        _legendItem(textTheme, actual, "Avg. Actual", const Color(0xFFD17AB7)),
-        SizedBox(width: 16.w),
         _legendItem(
-            textTheme, target, "Avg. Target", IColors.light.primary.main),
+            textTheme, actual, l10n.performanceAvgActual, const Color(0xFFD17AB7)),
+        SizedBox(width: 16.w),
+        _legendItem(textTheme, target, l10n.performanceAvgTarget,
+            IColors.light.primary.main),
       ],
     );
   }

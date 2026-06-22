@@ -1,3 +1,5 @@
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
+
 enum ActivityLogEnum {
   clockIn,
   clockOut,
@@ -28,22 +30,22 @@ enum ActivityLogEnum {
 }
 
 extension ActivityLogEnumExtension on ActivityLogEnum {
-  String get displayName {
+  String displayName(AppLocalizations l10n) {
     switch (this) {
       case ActivityLogEnum.clockIn:
-        return 'Clock In';
+        return l10n.activityLogClockIn;
       case ActivityLogEnum.clockOut:
-        return 'Clock Out';
+        return l10n.activityLogClockOut;
       case ActivityLogEnum.overtimeCreated:
-        return 'Overtime Created';
+        return l10n.activityLogOvertimeCreated;
       case ActivityLogEnum.overtimeApproved:
-        return 'Overtime Approved';
+        return l10n.activityLogOvertimeApproved;
       case ActivityLogEnum.overtimeRejected:
-        return 'Overtime Rejected';
+        return l10n.activityLogOvertimeRejected;
       case ActivityLogEnum.overtimeUpdated:
-        return 'Overtime Updated';
+        return l10n.activityLogOvertimeUpdated;
       case ActivityLogEnum.unknown:
-        return 'Unknown Activity';
+        return l10n.activityLogUnknown;
     }
   }
 }

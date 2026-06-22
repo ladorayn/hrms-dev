@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/core/data/models/employees/employee_profile_response.dart';
 import 'package:hrms_mobile/features/auth/presentation/providers/auth/auth_provider.dart';
 
@@ -11,6 +12,7 @@ class UserInfo extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final authP = ref.watch(authProvider);
     return Column(
       children: [
@@ -35,7 +37,7 @@ class UserInfo extends ConsumerWidget {
         ),
         SizedBox(height: 4.sp),
         Text(
-          'Employee ID: ${authP.value?.employeeId}',
+          l10n.profileEmployeeId('${authP.value?.employeeId ?? '-'}'),
           style: TextStyle(color: Colors.grey.shade600, fontSize: 14.sp),
         ),
         SizedBox(height: 4.sp),

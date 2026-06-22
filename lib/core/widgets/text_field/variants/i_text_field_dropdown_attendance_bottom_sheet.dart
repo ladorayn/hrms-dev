@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/widgets/text_field/base/i_text_field.dart';
 
@@ -14,7 +15,7 @@ class ITextFieldDropdownAttendanceBottomSheet extends ITextFieldBase {
     super.labelStyle,
     super.subLabel,
     super.subLabelStyle,
-    super.hintText = "Select",
+    super.hintText,
     super.validator,
     super.isRequired,
     super.errorText,
@@ -28,13 +29,29 @@ class ITextFieldDropdownAttendanceBottomSheet extends ITextFieldBase {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final resolvedHintText = hintText ?? l10n.coreSelect;
+    final textField = ITextFieldBase(
+      controller: controller,
+      label: label,
+      labelStyle: labelStyle,
+      subLabel: subLabel,
+      subLabelStyle: subLabelStyle,
+      hintText: resolvedHintText,
+      validator: validator,
+      isRequired: isRequired,
+      errorText: errorText,
+      readOnly: readOnly,
+      suffixIcon: suffixIcon,
+      borderColor: borderColor,
+    );
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
         _showOptionsBottomSheet(context);
       },
       child: AbsorbPointer(
-        child: super.build(context),
+        child: textField,
       ),
     );
   }
@@ -79,7 +96,7 @@ class ITextFieldDropdownAttendanceBottomSheet extends ITextFieldBase {
                           controller?.text = option;
                           Navigator.pop(modalContext);
                         },
-                        child: Text("TEST"),
+                        child: Text(option),
                       );
                     },
                   ),

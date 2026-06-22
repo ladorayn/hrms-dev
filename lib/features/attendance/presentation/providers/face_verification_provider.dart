@@ -7,6 +7,7 @@ import 'package:hrms_mobile/core/data/models/face_recognition/face_verify_respon
 import 'package:hrms_mobile/core/data/repositories/general_repository/general_repository.dart';
 import 'package:hrms_mobile/core/data/repositories/general_repository/general_repository_impl.dart';
 import 'package:hrms_mobile/core/data/usecases/general/general_usecases.dart';
+import 'package:hrms_mobile/core/config/manual_capture.dart';
 import 'package:hrms_mobile/core/enums/face_step_enum.dart';
 import 'package:hrms_mobile/core/network/dio_provider.dart';
 import 'package:hrms_mobile/features/attendance/domain/entities/face_verification_state.dart';
@@ -64,6 +65,12 @@ class FaceVerification extends _$FaceVerification {
       step: VerificationStep.loading,
       photoPath: path,
     );
+
+    if (isManualCaptureBypassActive) {
+      await Future.delayed(const Duration(milliseconds: 400));
+      state = state.copyWith(step: VerificationStep.success);
+      return;
+    }
 
     try {
       final file = File(path);

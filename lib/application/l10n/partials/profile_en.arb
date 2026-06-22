@@ -1,0 +1,109 @@
+{
+  "@@locale": "en",
+
+  "profileMyProfile": "My Profile",
+  "profileAttendanceAndOvertime": "Attendance and Overtime",
+  "profileMyPayslip": "My Payslip",
+  "profileChangeLanguage": "Change Language",
+  "languageEnglish": "English",
+  "languageIndonesian": "Bahasa Indonesia",
+
+  "profileLogOut": "Log Out",
+  "profileEmployeeId": "Employee ID: {employeeId}",
+  "@profileEmployeeId": {
+    "placeholders": {
+      "employeeId": {
+        "type": "String"
+      }
+    }
+  },
+  "profileStatDays": "Days",
+  "profileStatHours": "Hours",
+  "profileStatAttendance": "Attendance",
+  "profileStatTimeOff": "Time Off",
+  "profileStatOvertime": "Overtime",
+  "profileErrorLoadingStats": "Error loading stats",
+  "profileFailedToLoad": "Failed to load profile: {error}",
+  "@profileFailedToLoad": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "profilePersonalInformation": "Personal Information",
+  "profileEmployeeInformation": "Employee Information",
+  "profileEditProfile": "Edit Profile",
+  "profilePhoto": "Photo",
+  "profileName": "Name",
+  "profileGender": "Gender",
+  "profileGenderMale": "Male",
+  "profileGenderFemale": "Female",
+  "profilePlaceOfBirth": "Place of Birth",
+  "profileBornDate": "Born Date",
+  "profileMaritalStatus": "Marital Status",
+  "profileMaritalStatusSingle": "Single",
+  "profileMaritalStatusMarried": "Married",
+  "profileMaritalStatusDivorced": "Divorced",
+  "profileMaritalStatusWidowed": "Widowed",
+  "profileBloodType": "Blood Type",
+  "profileHeight": "Height",
+  "profileWeight": "Weight",
+  "profileUnitCm": "cm",
+  "profileUnitKg": "kg",
+  "profileHeightWithUnit": "{height} cm",
+  "@profileHeightWithUnit": {
+    "placeholders": {
+      "height": {
+        "type": "String"
+      }
+    }
+  },
+  "profileWeightWithUnit": "{weight} kg",
+  "@profileWeightWithUnit": {
+    "placeholders": {
+      "weight": {
+        "type": "String"
+      }
+    }
+  },
+  "profileIdNumber": "ID Number",
+  "profileNpwp": "Taxpayer ID Number (NPWP)",
+  "profileBpjs": "Health Insurance Number (BPJS)",
+  "profileCitizenIdAddress": "Citizen ID Address",
+  "profileResidentialAddress": "Residential Address",
+  "profileHobby": "Hobby",
+  "profileSocialMedia": "Social Media",
+  "profileNoSocialMedia": "No social media accounts linked.",
+  "profileAddMore": "Add more",
+  "profileUpdating": "Updating...",
+  "profileUpdateProfile": "Update Profile",
+  "profileAttachmentUploadFailed": "Attachment upload failed: {error}",
+  "@profileAttachmentUploadFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "profileUpdatedSuccessfully": "Profile updated successfully!",
+  "profileSubmissionFailed": "Submission Failed",
+  "profileUpdateFailed": "Update Failed: {error}",
+  "@profileUpdateFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "profilePosition": "Position",
+  "profileDepartment": "Department",
+  "profileJobLevel": "Job Level",
+  "profilePrimaryDirectReport": "Primary Direct Report",
+  "profileAdditionalDirectReport": "Additional Direct Report",
+  "profileTeam": "Team",
+  "profileNoTeamAssigned": "No team assigned",
+  "profileEmploymentStartDate": "Employment Start Date",
+  "profileEmploymentEndDate": "Employment End Date",
+  "profileUnknown": "Unknown"
+}

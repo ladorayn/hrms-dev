@@ -1,13 +1,16 @@
 // features/profile/presentation/screens/profile_screen.dart
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart'; // Import Riverpod
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
+import 'package:hrms_mobile/application/l10n/locale_provider.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/features/auth/presentation/providers/auth/auth_provider.dart';
 import 'package:hrms_mobile/features/profile/presentation/providers/profile_provider.dart';
+import 'package:hrms_mobile/features/profile/presentation/widgets/language_picker_bottom_sheet.dart';
 import 'package:hrms_mobile/features/profile/presentation/widgets/profile_app_bar.dart';
 import 'package:hrms_mobile/features/profile/presentation/widgets/statistics_card.dart';
 import 'package:hrms_mobile/features/profile/presentation/widgets/user_info.dart';
@@ -17,11 +20,18 @@ import '../widgets/profile_menu_item.dart';
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
 
+  String _currentLanguageLabel(AppLocalizations l10n, String? languageCode) {
+    return languageCode == 'id' ? l10n.languageIndonesian : l10n.languageEnglish;
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
+    final localeAsync = ref.watch(localeProvider);
     final authP = ref.watch(authProvider);
     final profileAsync =
         ref.watch(employeeDetailProvider(id: authP.value?.id ?? 0));
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xFFF8F8F8),
@@ -59,10 +69,9 @@ class ProfileScreen extends ConsumerWidget {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        // --- Menu Items ---
                         ProfileMenuItem(
                           icon: Icons.person_outline,
-                          title: 'My Profile',
+                          title: l10n.profileMyProfile,
                           onTap: () {
                             globalNavigatorKey.currentContext
                                 ?.pushNamed(RoutePaths.profileDetailName);
@@ -70,7 +79,7 @@ class ProfileScreen extends ConsumerWidget {
                         ),
                         ProfileMenuItem(
                           icon: Icons.history_toggle_off_outlined,
-                          title: 'Attendance and Overtime',
+                          title: l10n.profileAttendanceAndOvertime,
                           onTap: () {
                             globalNavigatorKey.currentContext
                                 ?.pushNamed(RoutePaths.attendance);
@@ -78,23 +87,25 @@ class ProfileScreen extends ConsumerWidget {
                         ),
                         ProfileMenuItem(
                           icon: Icons.wallet_outlined,
-                          title: 'My Payslip',
+                          title: l10n.profileMyPayslip,
                           onTap: () {
                             globalNavigatorKey.currentContext
                                 ?.pushNamed(RoutePaths.payslipName);
                           },
                         ),
-                        // ProfileMenuItem(
-                        //   icon: Icons.description_outlined,
-                        //   title: 'Document',
-                        //   onTap: () {},
-                        // ),
-                        // ProfileMenuItem(
-                        //   icon: Icons.gavel_outlined,
-                        //   title: 'Penalty',
-                        //   onTap: () {},
-                        //   showDivider: false,
-                        // ),
+                        ProfileMenuItem(
+                          icon: Icons.language,
+                          title: l10n.profileChangeLanguage,
+                          subtitle: _currentLanguageLabel(
+                            l10n,
+                            localeAsync.value?.languageCode,
+                          ),
+                          onTap: () => showLanguagePickerBottomSheet(
+                            context,
+                            ref,
+                          ),
+                          showDivider: false,
+                        ),
                       ],
                     ),
                   ),

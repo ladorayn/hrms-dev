@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/data/models/form_fields_response.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
@@ -218,6 +219,7 @@ class _SupervisorAssessmentFormScreenState
   }
 
   Future<void> _onSubmit(int statusSubmission) async {
+    final l10n = AppLocalizations.of(context)!;
     final submissions = FormSubmissionMapper.mapAnswersToSubmissions(
       checkboxAnswers: _checkboxAnswers,
       singleSelectionAnswers: _singleSelectionAnswers,
@@ -238,21 +240,22 @@ class _SupervisorAssessmentFormScreenState
       if (mounted) {
         ref.invalidate(assessmentListRProvider);
         ref.invalidate(performanceSupervisorAssessmentsProvider);
-        showCustomToast(context,
-            'Supervisor Assessment Submitted Successfully!', ToastType.success);
+        showCustomToast(context, l10n.performanceSupervisorSubmitted,
+            ToastType.success);
         globalNavigatorKey.currentContext?.go(RoutePaths.performance);
       }
     } catch (e) {
       if (mounted) {
         context.pop();
-        showCustomToast(
-            context, 'Submission Failed: ${e.toString()}', ToastType.error);
+        showCustomToast(context, l10n.performanceSubmissionFailed(e.toString()),
+            ToastType.error);
       }
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final formDetailAsync = ref.watch(
         performanceFormFieldsByGroupDetailProvider(
             formId: widget.assessment.form?.id ?? 0));
@@ -279,13 +282,14 @@ class _SupervisorAssessmentFormScreenState
     }
 
     return Scaffold(
-      appBar: IAppBar(title: "Supervisor Assessment"),
+      appBar: IAppBar(title: l10n.performanceSupervisorAssessment),
       body: Column(
         children: [
           Expanded(
             child: formDetailAsync.when(
               loading: () => const Center(child: CircularProgressIndicator()),
-              error: (err, stack) => Center(child: Text('Error: $err')),
+              error: (err, stack) =>
+                  Center(child: Text(l10n.performanceError(err.toString()))),
               data: (detail) {
                 if (!_isStateInitialized || formAnswerAsync.isLoading) {
                   return const Center(child: CircularProgressIndicator());
@@ -311,22 +315,23 @@ class _SupervisorAssessmentFormScreenState
   }
 
   Widget _buildFooter() {
+    final l10n = AppLocalizations.of(context)!;
     if (_isFormReadOnly) {
       return Container(
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
         color: IColors.light.grayscale.g10,
         child: Center(
-          child: Text('Assessment is read-only.',
+          child: Text(l10n.performanceAssessmentReadOnlyShort,
               style: TextStyle(color: IColors.light.grayscale.g60)),
         ),
       );
     }
     return IFooterButton(
-      text: "Submit Form",
+      text: l10n.performanceSubmitForm,
       onPressed: _isFormValid
           ? () => _showPopUpConfirmationSubmission(context, 2)
           : null,
-      secondaryText: "Save Draft",
+      secondaryText: l10n.performanceSaveDraft,
       onSecondaryPressed: _isFormValid
           ? () => _showPopUpConfirmationSubmission(context, 1)
           : null,
@@ -335,8 +340,10 @@ class _SupervisorAssessmentFormScreenState
 
   Future<void> _showPopUpConfirmationSubmission(
       BuildContext context, int statusSubmission) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
-    final buttonText = statusSubmission == 2 ? "Submit" : "Save Draft";
+    final buttonText =
+        statusSubmission == 2 ? l10n.performanceSubmit : l10n.performanceSaveDraft;
 
     return showDialog(
       context: context,
@@ -356,8 +363,8 @@ class _SupervisorAssessmentFormScreenState
                 SizedBox(height: 16.h),
                 Text(
                   statusSubmission == 2
-                      ? 'Are you sure you want to submit this supervisor assessment form?'
-                      : 'Are you sure you want to save this draft?',
+                      ? l10n.performanceConfirmSubmitSupervisor
+                      : l10n.performanceConfirmSaveDraft,
                   textAlign: TextAlign.center,
                   style: textTheme.titleSmall
                       ?.copyWith(fontWeight: FontWeight.w600),
@@ -365,8 +372,8 @@ class _SupervisorAssessmentFormScreenState
                 SizedBox(height: 16.h),
                 Text(
                   statusSubmission == 2
-                      ? "Once submitted, you won’t be able to make any changes."
-                      : "You can continue editing the draft later.",
+                      ? l10n.performanceConfirmNoChanges
+                      : l10n.performanceCanEditDraftLater,
                   textAlign: TextAlign.center,
                   style: textTheme.bodySmall
                       ?.copyWith(color: Colors.grey.shade600),
@@ -388,7 +395,7 @@ class _SupervisorAssessmentFormScreenState
                                 borderRadius: BorderRadius.circular(8),
                               ),
                             ),
-                            child: Text("Cancel"))),
+                            child: Text(l10n.performanceCancel))),
                     SizedBox(width: 10.w),
                     Expanded(
                         child: ElevatedButton(

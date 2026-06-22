@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 
 class ITextFieldDropdownMultiSelect<T> extends StatelessWidget {
@@ -40,6 +41,7 @@ class ITextFieldDropdownMultiSelect<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -80,10 +82,11 @@ class ITextFieldDropdownMultiSelect<T> extends StatelessWidget {
                 builder: (_) => _MultiSelectBottomSheet<T>(
                   allItems: allItems!,
                   initialSelectedItems: selectedItems,
-                  bottomSheetTitle: bottomSheetTitle ?? 'Select Items',
-                  searchHintText: searchHintText ?? 'Search...',
+                  bottomSheetTitle: bottomSheetTitle ?? l10n.coreSelectItems,
+                  searchHintText: searchHintText ?? l10n.coreSearch,
                   itemToString: itemToString,
                   itemToSubtitle: itemToSubtitle,
+                  confirmButtonText: l10n.coreDone,
                 ),
               );
             }
@@ -109,7 +112,7 @@ class ITextFieldDropdownMultiSelect<T> extends StatelessWidget {
                         ? [
                             Padding(
                               padding: EdgeInsets.symmetric(vertical: 4.h),
-                              child: Text('Select...',
+                              child: Text(l10n.coreSelect,
                                   style:
                                       TextStyle(color: Colors.grey.shade600)),
                             )
@@ -186,6 +189,7 @@ class _MultiSelectBottomSheet<T> extends StatefulWidget {
   final List<T> initialSelectedItems;
   final String bottomSheetTitle;
   final String searchHintText;
+  final String confirmButtonText;
   final String Function(T item) itemToString;
   final String? Function(T item)? itemToSubtitle;
 
@@ -194,6 +198,7 @@ class _MultiSelectBottomSheet<T> extends StatefulWidget {
     required this.initialSelectedItems,
     required this.bottomSheetTitle,
     required this.searchHintText,
+    required this.confirmButtonText,
     required this.itemToString,
     this.itemToSubtitle,
   });
@@ -344,7 +349,7 @@ class _MultiSelectBottomSheetState<T>
                   ),
                   minimumSize: Size(double.infinity, 48.h),
                 ),
-                child: const Text('udah'),
+                child: Text(widget.confirmButtonText),
               )
             ],
           ),

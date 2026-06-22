@@ -1,18 +1,15 @@
 {
   "@@locale": "id",
-
   "signIn": "Masuk",
   "continueButton": "Lanjutkan",
   "resetPassword": "Atur Ulang Kata Sandi",
   "forgotPassword": "Lupa Kata Sandi?",
-
   "formEmail": "Email",
   "formHintEmail": "Masukkan email Anda",
   "formPassword": "Kata Sandi",
   "formHintPassword": "Masukkan kata sandi Anda",
   "formPasswordConfirmation": "Konfirmasi Kata Sandi",
   "formPhone": "Nomor Telepon",
-
   "loginFailed": "Gagal masuk: {error}",
   "@loginFailed": {
     "placeholders": {
@@ -21,25 +18,19 @@
       }
     }
   },
-
   "resetPasswordEmail_title": "Atur Ulang Kata Sandi",
   "resetPasswordEmail_body": "Masukkan email terdaftar Anda untuk mengatur ulang kata sandi",
   "resetPasswordEmail_linkSentSnackbar": "Tautan terkirim! Periksa email Anda.",
-
   "resetPasswordCheckEmail_title": "Silakan Periksa Email Anda",
   "resetPasswordCheckEmail_body": "Tautan atur ulang kata sandi telah dikirim ke email Anda yang terdaftar.",
   "resetPasswordCheckEmail_didNotReceive": "Tidak menerima email? ",
   "resetPasswordCheckEmail_resend": "Kirim Ulang Email",
   "resetPasswordCheckEmail_resendingSnackbar": "Mengirim ulang tautan...",
-
   "resetPasswordCreate_title": "Buat Kata Sandi Baru",
   "resetPasswordCreate_subtitle": "Buat kata sandi baru untuk akun Anda",
-
   "resetPasswordSuccess_title": "Kata Sandi Berhasil Diatur Ulang",
   "resetPasswordSuccess_body": "Silakan masuk menggunakan kata sandi baru Anda.",
-
   "errorUnknown": "Terjadi kesalahan yang tidak diketahui",
-
   "formValidationRequired": "{fieldName} wajib diisi",
   "@formValidationRequired": {
     "placeholders": {
@@ -73,5 +64,635 @@
   "formValidationEmailInvalid": "Harap masukkan email yang valid",
   "formValidationOnlyAlphanumeric": "Hanya huruf dan angka yang diperbolehkan",
   "formValidationPasswordInvalid": "Kata sandi yang Anda masukkan salah",
-  "formValidationPasswordCriteriaInvalid": "Kata sandi tidak memenuhi kriteria yang disyaratkan"
+  "formValidationPasswordCriteriaInvalid": "Kata sandi tidak memenuhi kriteria yang disyaratkan",
+  "navHome": "Beranda",
+  "navPerformance": "Kinerja",
+  "navLeaveRequest": "Pengajuan Cuti",
+  "navInbox": "Kotak Masuk",
+  "navProfile": "Profil",
+  "profileMyProfile": "Profil Saya",
+  "profileAttendanceAndOvertime": "Kehadiran dan Lembur",
+  "profileMyPayslip": "Slip Gaji Saya",
+  "profileChangeLanguage": "Ubah Bahasa",
+  "languageEnglish": "English",
+  "languageIndonesian": "Bahasa Indonesia",
+  "dashboardClockIn": "Masuk",
+  "dashboardClockOut": "Keluar",
+  "dashboardWorkingTimeDuration": "Durasi Waktu Kerja",
+  "dashboardOvertimeDuration": "Durasi Lembur",
+  "dashboardOvertimeRequest": "Permintaan Lembur",
+  "dashboardNewLeaveRequest": "Permintaan Cuti Baru",
+  "dashboardOffboardingStatusError": "Gagal memuat status offboarding {error}",
+  "@dashboardOffboardingStatusError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "dashboardRecentActivity": "Aktivitas Terbaru",
+  "dashboardCouldNotLoadActivities": "Tidak dapat memuat aktivitas",
+  "dashboardNoRecentActivity": "Tidak ada aktivitas terbaru.",
+  "dashboardOffboardingTitle": "🔔 Selesaikan Proses Offboarding Anda!",
+  "dashboardOffboardingSubtitle": "Mari selesaikan semuanya dengan lancar sebelum Anda pergi",
+  "dashboardOffboardingStartButton": "Mulai Proses Offboarding",
+  "splashError": "Kesalahan: {error}",
+  "@splashError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "profileLogOut": "Keluar",
+  "profileEmployeeId": "ID Karyawan: {employeeId}",
+  "@profileEmployeeId": {
+    "placeholders": {
+      "employeeId": {
+        "type": "String"
+      }
+    }
+  },
+  "profileStatDays": "Hari",
+  "profileStatHours": "Jam",
+  "profileStatAttendance": "Kehadiran",
+  "profileStatTimeOff": "Cuti",
+  "profileStatOvertime": "Lembur",
+  "profileErrorLoadingStats": "Gagal memuat statistik",
+  "profileFailedToLoad": "Gagal memuat profil: {error}",
+  "@profileFailedToLoad": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "profilePersonalInformation": "Informasi Pribadi",
+  "profileEmployeeInformation": "Informasi Karyawan",
+  "profileEditProfile": "Ubah Profil",
+  "profilePhoto": "Foto",
+  "profileName": "Nama",
+  "profileGender": "Jenis Kelamin",
+  "profileGenderMale": "Laki-laki",
+  "profileGenderFemale": "Perempuan",
+  "profilePlaceOfBirth": "Tempat Lahir",
+  "profileBornDate": "Tanggal Lahir",
+  "profileMaritalStatus": "Status Pernikahan",
+  "profileMaritalStatusSingle": "Belum Menikah",
+  "profileMaritalStatusMarried": "Menikah",
+  "profileMaritalStatusDivorced": "Cerai",
+  "profileMaritalStatusWidowed": "Janda/Duda",
+  "profileBloodType": "Golongan Darah",
+  "profileHeight": "Tinggi Badan",
+  "profileWeight": "Berat Badan",
+  "profileUnitCm": "cm",
+  "profileUnitKg": "kg",
+  "profileHeightWithUnit": "{height} cm",
+  "@profileHeightWithUnit": {
+    "placeholders": {
+      "height": {
+        "type": "String"
+      }
+    }
+  },
+  "profileWeightWithUnit": "{weight} kg",
+  "@profileWeightWithUnit": {
+    "placeholders": {
+      "weight": {
+        "type": "String"
+      }
+    }
+  },
+  "profileIdNumber": "Nomor Identitas",
+  "profileNpwp": "Nomor NPWP",
+  "profileBpjs": "Nomor BPJS Kesehatan",
+  "profileCitizenIdAddress": "Alamat KTP",
+  "profileResidentialAddress": "Alamat Domisili",
+  "profileHobby": "Hobi",
+  "profileSocialMedia": "Media Sosial",
+  "profileNoSocialMedia": "Tidak ada akun media sosial yang terhubung.",
+  "profileAddMore": "Tambah lagi",
+  "profileUpdating": "Memperbarui...",
+  "profileUpdateProfile": "Perbarui Profil",
+  "profileAttachmentUploadFailed": "Gagal mengunggah lampiran: {error}",
+  "@profileAttachmentUploadFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "profileUpdatedSuccessfully": "Profil berhasil diperbarui!",
+  "profileSubmissionFailed": "Pengiriman Gagal",
+  "profileUpdateFailed": "Pembaruan Gagal: {error}",
+  "@profileUpdateFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "profilePosition": "Jabatan",
+  "profileDepartment": "Departemen",
+  "profileJobLevel": "Level Jabatan",
+  "profilePrimaryDirectReport": "Atasan Langsung Utama",
+  "profileAdditionalDirectReport": "Atasan Langsung Tambahan",
+  "profileTeam": "Tim",
+  "profileNoTeamAssigned": "Belum ada tim yang ditugaskan",
+  "profileEmploymentStartDate": "Tanggal Mulai Bekerja",
+  "profileEmploymentEndDate": "Tanggal Berakhir Bekerja",
+  "profileUnknown": "Tidak Diketahui",
+  "attendanceTab": "Kehadiran",
+  "overtimeTab": "Lembur",
+  "attendanceClockInLabel": "Masuk",
+  "attendanceClockOutLabel": "Keluar",
+  "attendanceClockInTitle": "Masuk",
+  "attendanceClockOutTitle": "Keluar",
+  "attendanceClockInSentence": "masuk",
+  "attendanceClockOutSentence": "keluar",
+  "attendanceClockInCapitalize": "Masuk",
+  "attendanceClockOutCapitalize": "Keluar",
+  "attendanceShift": "Shift",
+  "attendanceNotes": "Catatan",
+  "attendanceLocation": "Lokasi",
+  "attendanceDuration": "Durasi",
+  "attendanceOvertime": "Lembur",
+  "attendanceFilterByStatus": "Filter berdasarkan Status",
+  "attendanceStatusAll": "Semua",
+  "attendanceStatusWaiting": "Menunggu",
+  "attendanceStatusApproved": "Disetujui",
+  "attendanceStatusRejected": "Ditolak",
+  "attendanceStatLateClockIn": "Terlambat Masuk",
+  "attendanceStatEarlyClockOut": "Pulang Lebih Awal",
+  "attendanceStatAbsent": "Tidak Hadir",
+  "attendanceStatDayOff": "Hari Libur",
+  "attendancePendingRequest": "Permintaan Tertunda",
+  "attendanceApprovedRequest": "Permintaan Disetujui",
+  "attendanceRejectedRequest": "Permintaan Ditolak",
+  "attendanceOvertimeRequestTitle": "Permintaan Lembur",
+  "attendanceOvertimeDuration": "Durasi Lembur",
+  "attendanceNoDataForPeriod": "Tidak ada data kehadiran untuk periode ini.",
+  "attendanceNoOvertimeDataForPeriod": "Tidak ada data lembur untuk periode ini.",
+  "attendanceErrorTryAgainLater": "Kesalahan: Silakan coba lagi nanti!",
+  "attendanceNetworkError": "Terjadi kesalahan jaringan.",
+  "attendanceUnexpectedError": "Terjadi kesalahan yang tidak terduga: {error}",
+  "@attendanceUnexpectedError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "attendanceTodayWithDay": "Hari ini, {day}",
+  "@attendanceTodayWithDay": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "attendanceTodayWithDate": "Hari ini, {date}",
+  "@attendanceTodayWithDate": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "attendanceToday": "Hari ini",
+  "attendanceYesterday": "Kemarin",
+  "attendanceDaysAgo": "{count} hari yang lalu",
+  "@attendanceDaysAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "attendanceLocationConfirmed": "Lokasi Terkonfirmasi",
+  "attendanceLocationConfirmedBody": "Silakan selesaikan verifikasi wajah untuk melanjutkan {activity}. Langkah ini membantu memastikan pelacakan kehadiran yang aman dan akurat.",
+  "@attendanceLocationConfirmedBody": {
+    "placeholders": {
+      "activity": {
+        "type": "String"
+      }
+    }
+  },
+  "attendanceStartVerification": "Mulai Verifikasi",
+  "attendanceRegisterYourFace": "Daftarkan Wajah Anda",
+  "attendanceVerificationInProgress": "Verifikasi {activity} Sedang Berlangsung",
+  "@attendanceVerificationInProgress": {
+    "placeholders": {
+      "activity": {
+        "type": "String"
+      }
+    }
+  },
+  "attendanceLocationVerificationBody": "Kami sedang memverifikasi lokasi Anda saat ini sebelum menyelesaikan proses {activity}. Pastikan akses lokasi diaktifkan dan Anda berada dalam area kerja yang diizinkan.",
+  "@attendanceLocationVerificationBody": {
+    "placeholders": {
+      "activity": {
+        "type": "String"
+      }
+    }
+  },
+  "attendanceLocationNotValid": "Lokasi tidak valid. Anda berjarak ~{distance}m. Radius maksimum adalah {maxRadius}m.",
+  "@attendanceLocationNotValid": {
+    "placeholders": {
+      "distance": {
+        "type": "String"
+      },
+      "maxRadius": {
+        "type": "String"
+      }
+    }
+  },
+  "attendanceCouldNotGetLocation": "Kesalahan: Tidak dapat mendapatkan lokasi. {error}",
+  "@attendanceCouldNotGetLocation": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "attendancePleaseFillRequiredFields": "Harap isi semua kolom yang wajib diisi.",
+  "attendanceNoActiveAttendance": "Tidak ada kehadiran aktif yang ditemukan.",
+  "attendanceSaveActivity": "Simpan {activity}",
+  "@attendanceSaveActivity": {
+    "placeholders": {
+      "activity": {
+        "type": "String"
+      }
+    }
+  },
+  "attendanceEditRequest": "Ubah Permintaan Kehadiran",
+  "attendanceSubmittedRecord": "Catatan yang Diajukan",
+  "attendanceAdjustment": "Penyesuaian Kehadiran",
+  "attendanceClockInField": "Jam Masuk",
+  "attendanceClockOutField": "Jam Keluar",
+  "attendanceAdjustmentNotes": "Catatan Penyesuaian",
+  "attendanceSendAdjustmentRequest": "Kirim Permintaan Penyesuaian",
+  "attendanceUpdateSuccess": "Pembaruan Berhasil!",
+  "attendanceUpdateFailed": "Pembaruan Gagal!",
+  "attendanceUpdateFailedWithError": "Pembaruan Gagal: {error}",
+  "@attendanceUpdateFailedWithError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "attendanceFaceRegistration": "Pendaftaran Wajah",
+  "attendanceFaceVerification": "Verifikasi Wajah",
+  "attendanceFaceStepFrontInstruction": "Hadapkan wajah Anda langsung ke kamera dan pastikan wajah terlihat jelas",
+  "attendanceFaceStepRightInstruction": "Putar kepala Anda perlahan ke kanan dan tetap dalam bingkai",
+  "attendanceFaceStepLeftInstruction": "Putar kepala Anda perlahan ke kiri dan tetap dalam bingkai",
+  "attendanceFaceStepUploadingInstruction": "Mengunggah foto dan memverifikasi wajah...",
+  "attendanceFaceStepFailedInstruction": "Pendaftaran Wajah Gagal!",
+  "attendanceFaceStepSuccessInstruction": "Pendaftaran Wajah Berhasil!",
+  "attendanceFaceStepTakeFrontPhoto": "Ambil Foto Depan",
+  "attendanceFaceStepTakeRightPhoto": "Ambil Foto Kanan",
+  "attendanceFaceStepTakeLeftPhoto": "Ambil Foto Kiri",
+  "attendanceFaceStepUploading": "Mengunggah...",
+  "attendanceFaceStepTryAgain": "Coba Lagi",
+  "attendanceFaceStepDone": "Selesai",
+  "attendanceVerificationInitialInstruction": "Hadapkan wajah Anda langsung ke kamera dan pastikan wajah terlihat jelas",
+  "attendanceVerificationLoadingInstruction": "Memverifikasi...",
+  "attendanceVerificationSuccessInstruction": "Verifikasi Wajah Berhasil!",
+  "attendanceVerificationFailedInstruction": "Verifikasi Wajah Gagal!",
+  "attendanceVerificationTakePhoto": "Ambil Foto",
+  "activityLogClockIn": "Masuk",
+  "activityLogClockOut": "Keluar",
+  "activityLogOvertimeCreated": "Lembur Dibuat",
+  "activityLogOvertimeApproved": "Lembur Disetujui",
+  "activityLogOvertimeRejected": "Lembur Ditolak",
+  "activityLogOvertimeUpdated": "Lembur Diperbarui",
+  "activityLogUnknown": "Aktivitas Tidak Diketahui",
+  "overtimeRequestTitle": "Permintaan Lembur",
+  "overtimeRequestDate": "Tanggal Permintaan",
+  "overtimeStartTime": "Waktu Mulai",
+  "overtimeEndTime": "Waktu Selesai",
+  "overtimeNotes": "Catatan Lembur",
+  "overtimeRequestButton": "Ajukan Lembur",
+  "overtimeSubmittedSuccess": "Permintaan lembur berhasil diajukan!",
+  "overtimeEditRequest": "Ubah Permintaan Lembur",
+  "overtimeAdjustment": "Penyesuaian Lembur",
+  "overtimeAdjustmentNotes": "Catatan Penyesuaian",
+  "overtimeSendAdjustmentRequest": "Kirim Permintaan Penyesuaian",
+  "overtimeAdjustmentSentSuccess": "Permintaan penyesuaian berhasil dikirim!",
+  "overtimeNoAttendanceLog": "Tidak ada catatan kehadiran untuk tanggal ini.",
+  "leaveBalance": "Saldo Cuti",
+  "leaveTimeOffUsed": "Cuti Terpakai",
+  "leaveTimeOff": "Sisa Cuti",
+  "leaveDays": "Hari",
+  "leaveYourRequests": "Pengajuan Cuti Anda",
+  "leaveNoHistoryFound": "Riwayat cuti tidak ditemukan.",
+  "leaveFailedToLoadHistory": "Gagal memuat riwayat: {error}",
+  "@leaveFailedToLoadHistory": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "leaveRequestDetail": "Detail Pengajuan Cuti",
+  "leaveRequestDetailSection": "Detail Pengajuan",
+  "leaveType": "Jenis Cuti",
+  "leaveDuration": "Durasi",
+  "leaveReason": "Alasan",
+  "leaveAttachment": "Lampiran",
+  "leaveApproval": "Persetujuan",
+  "leaveNoApproversAssigned": "Belum ada penyetuju yang ditugaskan.",
+  "leaveDaysCount": "({count} Hari)",
+  "@leaveDaysCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "leaveNewRequest": "Pengajuan Cuti Baru",
+  "leaveStartDate": "Tanggal Mulai",
+  "leaveEndDate": "Tanggal Selesai",
+  "leaveSendRequest": "Kirim Permintaan",
+  "leaveSubmitting": "Mengirim...",
+  "leaveSubmittedSuccess": "Pengajuan cuti berhasil dikirim!",
+  "leaveSubmittedFailed": "Pengajuan cuti gagal dikirim!",
+  "leaveFailedToLoadTypes": "Gagal memuat jenis cuti",
+  "leaveCouldNotLoadBalance": "Tidak dapat memuat saldo cuti:",
+  "leaveSubmissionFailedPrefix": "Pengiriman Gagal:",
+  "leaveTypeAnnualLeave": "Cuti Tahunan",
+  "leaveTypeSickLeave": "Cuti Sakit",
+  "leaveTypeMaternityLeave": "Cuti Melahirkan",
+  "leaveTypeMenstrualLeave": "Cuti Haid",
+  "leaveTypeMarriageLeave": "Cuti Menikah",
+  "leaveTypeChildsMarriageLeave": "Cuti Menikahkan Anak",
+  "leaveTypePaternityLeave": "Cuti Ayah",
+  "leaveTypeBereavementLeave": "Cuti Duka",
+  "leaveTypeNaturalDisasterLeave": "Cuti Bencana Alam",
+  "leaveTypeUnpaidLeave": "Cuti Tanpa Bayar",
+  "leaveTypeExtendedLeave": "Cuti Perpanjangan",
+  "leaveTypeStudyLeave": "Cuti Belajar",
+  "leaveTypeReligiousLeave": "Cuti Keagamaan",
+  "leaveTypeUnknown": "Tidak Diketahui",
+  "offboardingProcess": "Proses Offboarding",
+  "offboardingCompleteTasksTitle": "Selesaikan Tugas Offboarding Anda",
+  "offboardingCompleteTasksSubtitle": "Selesaikan tugas offboarding Anda untuk memastikan proses keluar berjalan lancar",
+  "offboardingError": "Kesalahan: {error}",
+  "offboardingStart": "Mulai",
+  "offboardingEdit": "Ubah",
+  "offboardingExitInterviewSchedule": "Jadwal Wawancara Keluar",
+  "offboardingExitInterviewForm": "Formulir Wawancara Keluar",
+  "offboardingWorkHandover": "Serah Terima Pekerjaan & Tanggung Jawab",
+  "offboardingDocumentHandover": "Serah Terima Dokumen",
+  "offboardingResponsibilityHandover": "Serah Terima Tanggung Jawab",
+  "offboardingDate": "Tanggal",
+  "offboardingTime": "Waktu",
+  "offboardingInterviewer": "Pewawancara",
+  "offboardingHandoverSubmitted": "Serah terima berhasil dikirim!",
+  "offboardingFillWorksFields": "Harap isi semua kolom \"Pekerjaan\".",
+  "offboardingFillDocumentNameFields": "Harap isi semua kolom \"Nama Dokumen\".",
+  "offboardingSelectRecipient": "Harap pilih setidaknya satu penerima untuk semua item.",
+  "offboardingIdNotFound": "ID offboarding tidak ditemukan. Silakan coba lagi.",
+  "offboardingErrorLoadingData": "Gagal memuat data: {error}",
+  "offboardingFailedToLoadData": "Gagal memuat data",
+  "offboardingAdd": "Tambah",
+  "offboardingSubmitting": "Mengirim...",
+  "offboardingSubmit": "Kirim",
+  "offboardingWorks": "Pekerjaan",
+  "offboardingDocumentName": "Nama Dokumen",
+  "offboardingHandedOverTo": "Diserahkan Kepada",
+  "offboardingEmployees": "Karyawan",
+  "offboardingSearchEmployee": "Cari Karyawan",
+  "offboardingDone": "Selesai",
+  "offboardingWork": "Pekerjaan",
+  "offboardingValidating": "Memvalidasi...",
+  "offboardingValidateNow": "Validasi Sekarang",
+  "offboardingWorkValidated": "Pekerjaan berhasil divalidasi!",
+  "offboardingHandoverValidated": "Serah terima berhasil divalidasi!",
+  "offboardingNoItemsFound": "Tidak ada item yang ditemukan",
+  "offboardingNoDocumentsFound": "Tidak ada dokumen yang ditemukan",
+  "offboardingFormSubmitted": "Formulir berhasil dikirim!",
+  "offboardingSubmissionFailed": "Pengiriman Gagal",
+  "offboardingSubmitForm": "Kirim Formulir",
+  "offboardingNotes": "Catatan",
+  "offboardingSelectOption": "Pilih salah satu opsi",
+  "offboardingUnknownFieldType": "Jenis kolom tidak dikenal: {type}",
+  "offboardingConfirmSubmit": "Apakah Anda yakin ingin mengirim formulir wawancara keluar ini?",
+  "offboardingConfirmNoChanges": "Setelah dikirim, Anda tidak dapat melakukan perubahan.",
+  "offboardingCancel": "Batal",
+  "performanceTitle": "Kinerja",
+  "performanceMyOkr": "OKR Saya",
+  "performanceSupervisorAssessment": "Penilaian Atasan",
+  "performanceSelfAssessment": "Penilaian Diri",
+  "performanceDueDate": "Batas Waktu ",
+  "performanceNotAvailable": "Tidak Tersedia",
+  "performanceErrorLoadingSelfAssessments": "Gagal memuat Penilaian Diri: {error}",
+  "performanceErrorLoadingOkr": "Gagal memuat OKR: {error}",
+  "performanceLoadingSupervisorAssessments": "Memuat penilaian atasan...",
+  "performanceErrorLoadingSupervisorAssessments": "Gagal memuat penilaian atasan: {error}",
+  "performanceSupervisorDataNotAvailable": "Data penilaian atasan tidak tersedia.",
+  "performanceSelfAssessmentWithPeriod": "Penilaian Diri - {period}",
+  "performanceMyOkrWithPeriod": "OKR Saya - {period}",
+  "performanceOkrTab": "OKR",
+  "performanceDashboardTab": "Dasbor",
+  "performanceObjective": "TUJUAN",
+  "performanceKeyResult": "HASIL KUNCI",
+  "performanceNoObjectivesFound": "Tidak ada tujuan yang ditemukan",
+  "performanceNoGraphData": "Tidak ada data grafik yang tersedia",
+  "performanceNoTitle": "Tanpa Judul",
+  "performanceObjectiveFallback": "Tujuan",
+  "performanceMetricFallback": "Metrik",
+  "performanceSelectRange": "Pilih Rentang",
+  "performanceErrorLoadingGraph": "Gagal memuat grafik: {error}",
+  "performanceAvgActual": "Rata-rata Aktual",
+  "performanceAvgTarget": "Rata-rata Target",
+  "performanceApplyFilter": "Terapkan Filter",
+  "performanceStartDate": "Tanggal Mulai",
+  "performanceEndDate": "Tanggal Selesai",
+  "performanceTo": "HINGGA",
+  "performanceWeek": "Minggu",
+  "performanceMonth": "Bulan",
+  "performanceQuarter": "Kuartal",
+  "performanceYear": "Tahun",
+  "performanceWeekLabel": "Minggu {number}",
+  "performanceYearRequired": "Tahun*",
+  "performanceKeyResultData": "Data Hasil Kunci",
+  "performanceFillRequiredFields": "Harap isi semua kolom wajib dengan benar.",
+  "performanceProgressSaved": "Progres berhasil disimpan!",
+  "performanceNetworkError": "Terjadi kesalahan jaringan.",
+  "performanceUnexpectedError": "Terjadi kesalahan yang tidak terduga: {error}",
+  "performanceRequired": "Wajib diisi",
+  "performanceTargetForPeriod": "Target untuk periode ini",
+  "performanceSaving": "Menyimpan...",
+  "performanceSave": "Simpan",
+  "performanceError": "Kesalahan: {error}",
+  "performanceTeamMemberInformation": "Informasi Anggota Tim",
+  "performanceEmployeeName": "Nama Karyawan",
+  "performancePosition": "Jabatan",
+  "performanceJobLevel": "Tingkat Jabatan",
+  "performanceDepartment": "Departemen",
+  "performanceSubmittedOn": "Dikirim pada",
+  "performanceValidatedOn": "Divalidasi pada",
+  "performanceEmployeeInformation": "Informasi Karyawan",
+  "performanceCurrentPosition": "Jabatan Saat Ini",
+  "performanceCurrentJobLevel": "Tingkat Jabatan Saat Ini",
+  "performanceTargetPosition": "Jabatan Target",
+  "performanceTargetJobLevel": "Tingkat Jabatan Target",
+  "performanceEmployeeStartDate": "Tanggal Mulai Karyawan",
+  "performanceAssessmentSchedule": "Jadwal Penilaian",
+  "performanceDate": "Tanggal",
+  "performanceTime": "Waktu",
+  "performanceNotes": "Catatan",
+  "performanceAssessmentForm": "Formulir Penilaian",
+  "performanceSupervisorAssessmentSchedule": "Jadwal Penilaian Atasan",
+  "performanceSupervisorAssessmentList": "Daftar Penilaian Atasan",
+  "performanceErrorLoadingAssessments": "Gagal memuat penilaian: {error}\nTarik ke bawah untuk mencoba lagi.",
+  "performanceNoSupervisorAssessments": "Tidak ada penilaian atasan yang ditemukan.",
+  "performanceErrorLoadingDetails": "Gagal memuat detail: {error}",
+  "performanceFormSubmitted": "Formulir berhasil dikirim!",
+  "performanceSubmissionFailed": "Pengiriman gagal: {error}",
+  "performanceAssessmentReadOnly": "Penilaian ini hanya dapat dibaca.",
+  "performanceSubmitSelfAssessment": "Kirim Penilaian Diri",
+  "performanceSaveAsDraft": "Simpan sebagai Draf",
+  "performanceConfirmSubmitSelfAssessment": "Apakah Anda yakin ingin mengirim formulir penilaian diri ini?",
+  "performanceConfirmNoChanges": "Setelah dikirim, Anda tidak dapat melakukan perubahan.",
+  "performanceCancel": "Batal",
+  "performanceSubmitForm": "Kirim Formulir",
+  "performanceUnknownType": "Jenis tidak dikenal: {type}",
+  "performanceEmployeeSubmittedReadOnly": "Ini adalah penilaian yang dikirim karyawan (Hanya Baca).",
+  "performanceAddComments": "Tambahkan komentar Anda di sini...",
+  "performanceEnterComment": "Masukkan komentar...",
+  "performanceValidationSuccessful": "Validasi Berhasil",
+  "performanceFailed": "Gagal: {error}",
+  "performanceValidationCompleteReadOnly": "Validasi selesai dan hanya dapat dibaca.",
+  "performanceValidateSelfAssessment": "Validasi Penilaian Diri",
+  "performanceMySelfAssessment": "Penilaian Diri Saya",
+  "performanceTeamMemberSelfAssessment": "Penilaian Diri Anggota Tim",
+  "performanceAssessmentValidationTab": "Validasi Penilaian",
+  "performanceSupervisorSubmitted": "Penilaian Atasan berhasil dikirim!",
+  "performanceAssessmentReadOnlyShort": "Penilaian hanya dapat dibaca.",
+  "performanceSaveDraft": "Simpan Draf",
+  "performanceSubmit": "Kirim",
+  "performanceConfirmSubmitSupervisor": "Apakah Anda yakin ingin mengirim formulir penilaian atasan ini?",
+  "performanceConfirmSaveDraft": "Apakah Anda yakin ingin menyimpan draf ini?",
+  "performanceCanEditDraftLater": "Anda dapat melanjutkan pengeditan draf nanti.",
+  "inboxTitle": "Kotak Masuk",
+  "inboxEmpty": "Tidak ada notifikasi di kotak masuk Anda.",
+  "inboxError": "Terjadi kesalahan",
+  "inboxNoTitle": "Tanpa Judul",
+  "inboxNoContent": "Tidak ada konten",
+  "inboxNotAvailable": "Tidak Tersedia",
+  "payslipMyPayslip": "Slip Gaji Saya",
+  "payslipPeriodFallback": "Periode Slip Gaji",
+  "payslipViewPayslip": "Lihat Slip Gaji",
+  "payslipRequestAccess": "Minta Akses",
+  "payslipPrintRequest": "Permintaan Cetak",
+  "payslipLastMonths": "{count, plural, =1{1 Bulan Terakhir} other{{count} Bulan Terakhir}}",
+  "payslipListError": "Kesalahan: {error}",
+  "payslipNotAvailable": "Tidak Tersedia",
+  "payslipTitleWithPeriod": "Slip Gaji {period}",
+  "payslipLoading": "Memuat",
+  "payslipDetailLoadFailed": "Gagal memuat detail slip gaji: {error}",
+  "payslipEnterPassword": "Silakan masukkan kata sandi Anda.",
+  "payslipIdMissing": "Kesalahan: ID slip gaji tidak ditemukan.",
+  "payslipAccessFailed": "Akses Gagal: {error}",
+  "payslipEnterPasswordToContinue": "Masukkan Kata Sandi Anda untuk Melanjutkan",
+  "payslipPasswordSecurityMessage": "Untuk alasan keamanan, silakan masukkan kata sandi akun Anda untuk mengakses slip gaji yang dipilih.",
+  "payslipAccessPayslip": "Akses Slip Gaji",
+  "payslipFallbackLabel": "Slip Gaji",
+  "payslipPrintPayslipRequest": "Permintaan Cetak Slip Gaji",
+  "payslipSendPrintRequest": "Kirim Permintaan Cetak",
+  "payslipPrintRequestSubmitted": "Permintaan Cetak Slip Gaji Telah Dikirim",
+  "payslipPrintRequestSubmittedBody": "Kami telah menerima permintaan Anda untuk mencetak slip gaji. Mohon tunggu sementara kami memprosesnya; Anda akan diberitahu ketika slip siap diambil.",
+  "payslipPayrollDetails": "Detail Penggajian",
+  "payslipConfidential": "*RAHASIA",
+  "payslipPayrollPeriod": "Periode Penggajian",
+  "payslipEmployeeId": "ID Karyawan",
+  "payslipJobLevel": "Tingkat Jabatan",
+  "payslipTaxpayerId": "Nomor Pokok Wajib Pajak (NPWP)",
+  "payslipEmployeeName": "Nama Karyawan",
+  "payslipPosition": "Jabatan",
+  "payslipDepartment": "Departemen",
+  "payslipBasicSalary": "Gaji Pokok",
+  "payslipOvertime": "Lembur",
+  "payslipEarnings": "Pendapatan",
+  "payslipDeductions": "Potongan",
+  "payslipTakeHomePay": "Gaji Bersih",
+  "payslipNotes": "Catatan",
+  "payslipNotesDisclaimer": "INI ADALAH CETAKAN YANG DIHASILKAN KOMPUTER DAN TIDAK MEMERLUKAN TANDA TANGAN\n\nHARAP DIPERHATIKAN, ISI PERNYATAAN INI ADALAH RAHASIA KECUALI ANDA DIMINTA UNTUK MENGUNGKAPKANNYA UNTUK KEPERLUAN PAJAK, HUKUM, ATAU KEPENTINGAN PEMERINTAH. SETIAP PELANGGARAN ATAS KEWAJIBAN MENJAGA KERAHASIAAN INI AKAN DIKENAKAN SANKSI, YANG MUNGKIN BERUPA TINDAKAN KEDISIPLINAN.",
+  "payslipBenefits": "Tunjangan",
+  "payslipBenefitsDescription": "Berikut tunjangan yang Anda terima dari perusahaan, namun tidak termasuk dalam gaji bersih (THP).",
+  "payslipBenefitWorkAccident": "Jaminan Kecelakaan Kerja",
+  "payslipBenefitDeath": "Jaminan Kematian",
+  "payslipBenefitOldAge": "Jaminan Hari Tua",
+  "payslipBenefitPension": "Jaminan Pensiun",
+  "payslipBenefitHealth": "BPJS Kesehatan",
+  "payslipTotalBenefits": "Total Tunjangan",
+  "payslipStatusLocked": "Terkunci",
+  "payslipStatusRequestSent": "Permintaan telah dikirim",
+  "payslipStatusDaysLeft": "Sisa {days} Hari",
+  "payslipStatusUnknown": "Tidak Diketahui",
+  "payslipPrintStatusProcessed": "Diproses",
+  "payslipPrintStatusPending": "Menunggu",
+  "payslipPrintStatusReady": "Siap",
+  "coreNotAvailable": "-",
+  "coreSelect": "Pilih",
+  "coreSelectOption": "Pilih salah satu opsi",
+  "coreSelectItems": "Pilih Item",
+  "coreSearch": "Cari...",
+  "coreDone": "Selesai",
+  "coreConfirmOk": "OK",
+  "coreSelectImage": "Pilih Gambar",
+  "coreUploadFile": "Unggah Berkas",
+  "coreAttachments": "Lampiran",
+  "coreSocialMedia": "Media Sosial",
+  "coreSocialMediaHint": "Jenis",
+  "coreCountries": "Negara",
+  "coreCountryCode": "Kode",
+  "coreUnknownFieldType": "Jenis bidang tidak dikenal: {type}",
+  "@coreUnknownFieldType": {
+    "placeholders": {
+      "type": {
+        "type": "String"
+      }
+    }
+  },
+  "coreErrorWithDetail": "Kesalahan: {error}",
+  "@coreErrorWithDetail": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "coreUpdatedJustNow": "Diperbarui baru saja",
+  "coreUpdatedDaysAgo": "diperbarui {days}h lalu",
+  "@coreUpdatedDaysAgo": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "coreUpdatedHoursAgo": "diperbarui {hours}j lalu",
+  "@coreUpdatedHoursAgo": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "coreUpdatedMinutesAgo": "diperbarui {minutes}m lalu",
+  "@coreUpdatedMinutesAgo": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "attendanceLocationServicesDisabled": "Layanan lokasi dinonaktifkan.",
+  "attendanceLocationPermissionDenied": "Izin lokasi ditolak.",
+  "attendanceLocationPermissionDeniedForever": "Izin lokasi ditolak secara permanen. Kami tidak dapat meminta izin.",
+  "attendanceManualCaptureBypass": "Tangkapan manual (lewati lokasi)"
 }

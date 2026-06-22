@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
@@ -43,11 +44,12 @@ class OffboardingScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final progressAsync = ref.watch(offboardingProgressPProvider(id: data.id));
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: IAppBar(title: "Offboarding Process"),
+      appBar: IAppBar(title: l10n.offboardingProcess),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: Column(
@@ -55,13 +57,13 @@ class OffboardingScreen extends ConsumerWidget {
           children: [
             SizedBox(height: 16.h),
             Text(
-              "Complete Your Offboarding Tasks",
+              l10n.offboardingCompleteTasksTitle,
               style: textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600, color: Colors.black87),
             ),
             SizedBox(height: 4.h),
             Text(
-              "Complete your offboarding tasks to ensure a smooth exit",
+              l10n.offboardingCompleteTasksSubtitle,
               style: textTheme.bodySmall?.copyWith(
                   fontWeight: FontWeight.w400, color: Colors.grey.shade600),
             ),
@@ -69,7 +71,8 @@ class OffboardingScreen extends ConsumerWidget {
             Expanded(
               child: progressAsync.when(
                 loading: () => const Center(child: CircularProgressIndicator()),
-                error: (err, stack) => Center(child: Text('Error: $err')),
+                error: (err, stack) => Center(
+                    child: Text(l10n.offboardingError(err.toString()))),
                 data: (progressList) {
                   return ListView.builder(
                     itemCount: progressList.length,
@@ -189,6 +192,7 @@ class OffboardingScreen extends ConsumerWidget {
 
   Widget _buildTaskContent(BuildContext context, OffboardingTask task,
       OffboardingStatusResponse data, String type) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
 
     final bool isEquipment = type == 'equipment_facility_return';
@@ -197,7 +201,9 @@ class OffboardingScreen extends ConsumerWidget {
         type == 'work_handover' || type == 'document_handover';
     final bool isCompleted = task.status == TaskStatus.completed;
     final bool shouldShowButton = !isEquipment && !(isExitForm && isCompleted);
-    final String buttonLabel = (isHandover && isCompleted) ? "Edit" : "Start";
+    final String buttonLabel = (isHandover && isCompleted)
+        ? l10n.offboardingEdit
+        : l10n.offboardingStart;
 
     return Padding(
       padding: EdgeInsets.only(left: 16.w, top: 8.h, bottom: 24.h, right: 8.w),

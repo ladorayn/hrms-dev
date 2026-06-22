@@ -1,0 +1,99 @@
+{
+  "@@locale": "en",
+
+  "payslipMyPayslip": "My Payslip",
+  "payslipPeriodFallback": "Payslip Period",
+  "payslipViewPayslip": "View Payslip",
+  "payslipRequestAccess": "Request Access",
+  "payslipPrintRequest": "Print Request",
+  "payslipLastMonths": "Last {count, plural, =1{1 Month} other{{count} Months}}",
+  "@payslipLastMonths": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "payslipListError": "Error: {error}",
+  "@payslipListError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "payslipNotAvailable": "N/A",
+  "payslipTitleWithPeriod": "Payslip {period}",
+  "@payslipTitleWithPeriod": {
+    "placeholders": {
+      "period": {
+        "type": "String"
+      }
+    }
+  },
+  "payslipLoading": "Loading",
+  "payslipDetailLoadFailed": "Failed to load payslip detail: {error}",
+  "@payslipDetailLoadFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "payslipEnterPassword": "Please enter your password.",
+  "payslipIdMissing": "Error: Payslip ID is missing.",
+  "payslipAccessFailed": "Access Failed: {error}",
+  "@payslipAccessFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "payslipEnterPasswordToContinue": "Enter Your Password to Continue",
+  "payslipPasswordSecurityMessage": "For security reasons, please enter your account password to access your selected payslip.",
+  "payslipAccessPayslip": "Access Payslip",
+  "payslipFallbackLabel": "Payslip",
+  "payslipPrintPayslipRequest": "Print Payslip Request",
+  "payslipSendPrintRequest": "Send Print Request",
+  "payslipPrintRequestSubmitted": "Payslip Print Request Submitted",
+  "payslipPrintRequestSubmittedBody": "We've received your request to print the payslip. Please wait while we process it, you'll be informed when it's ready to pick up.",
+  "payslipPayrollDetails": "Payroll Details",
+  "payslipConfidential": "*CONFIDENTIAL",
+  "payslipPayrollPeriod": "Payroll Period",
+  "payslipEmployeeId": "Employee ID",
+  "payslipJobLevel": "Job Level",
+  "payslipTaxpayerId": "Taxpayer ID Number (NPWP)",
+  "payslipEmployeeName": "Employee Name",
+  "payslipPosition": "Position",
+  "payslipDepartment": "Department",
+  "payslipBasicSalary": "Basic Salary",
+  "payslipOvertime": "Overtime",
+  "payslipEarnings": "Earnings",
+  "payslipDeductions": "Deductions",
+  "payslipTakeHomePay": "Take Home Pay",
+  "payslipNotes": "Notes",
+  "payslipNotesDisclaimer": "THIS IS COMPUTER GENERATED PRINTOUT AND NO SIGNATURE IS REQUIRED\n\nPLEASE NOTE THAT THE CONTENTS OF THIS STATEMENT SHOULD BE TREATED WITH ABSOLUTE CONFIDENTIALITY EXCEPT TO THE EXTENT YOU ARE REQUIRED TO MAKE DISCLOSURE FOR ANY TAX, LEGAL, OR REGULATORY PURPOSES. ANY BREACH OF THIS CONFIDENTIALITY OBLIGATION WILL BE DEALT WITH SERIOUSLY, WHICH MAY INVOLVE DISCIPLINARY ACTION BEING TAKEN.",
+  "payslipBenefits": "Benefits",
+  "payslipBenefitsDescription": "These are the benefits you'll get from the company, but not included in your take-home pay (THP).",
+  "payslipBenefitWorkAccident": "Work Accident Insurance",
+  "payslipBenefitDeath": "Death Insurance",
+  "payslipBenefitOldAge": "Old Age Insurance",
+  "payslipBenefitPension": "Pension Insurance",
+  "payslipBenefitHealth": "BPJS Health",
+  "payslipTotalBenefits": "Total Benefits",
+  "payslipStatusLocked": "Locked",
+  "payslipStatusRequestSent": "Request has been sent",
+  "payslipStatusDaysLeft": "{days} Days Left",
+  "@payslipStatusDaysLeft": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "payslipStatusUnknown": "Unknown",
+  "payslipPrintStatusProcessed": "Processed",
+  "payslipPrintStatusPending": "Pending",
+  "payslipPrintStatusReady": "Ready"
+}

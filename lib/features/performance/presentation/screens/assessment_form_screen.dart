@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/data/models/form_fields_response.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
@@ -232,6 +233,7 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
   }
 
   Future<void> _onSubmit(int statusSubmission) async {
+    final l10n = AppLocalizations.of(context)!;
     final List<SubmissionForm> submissions = [];
 
     _ratingAnswers.forEach((fieldId, rating) {
@@ -275,20 +277,21 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
       if (mounted) {
         ref.invalidate(assessmentListRProvider);
         showCustomToast(
-            context, 'Form Submitted Successfully!', ToastType.success);
+            context, l10n.performanceFormSubmitted, ToastType.success);
         context.go(RoutePaths.performance);
       }
     } catch (e) {
       if (mounted) {
         context.pop();
-        showCustomToast(
-            context, 'Submission Failed: ${e.toString()}', ToastType.error);
+        showCustomToast(context, l10n.performanceSubmissionFailed(e.toString()),
+            ToastType.error);
       }
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final formDetailAsync = ref.watch(
         performanceFormFieldsByGroupDetailProvider(
             formId: widget.assessment.formId ?? 14));
@@ -317,13 +320,16 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
     }
 
     return Scaffold(
-      appBar: IAppBar(title: "Self Assessment - ${widget.assessment.period}"),
+      appBar: IAppBar(
+          title: l10n.performanceSelfAssessmentWithPeriod(
+              widget.assessment.period ?? '')),
       body: Column(
         children: [
           Expanded(
             child: formDetailAsync.when(
               loading: () => const Center(child: CircularProgressIndicator()),
-              error: (err, stack) => Center(child: Text('Error: $err')),
+              error: (err, stack) =>
+                  Center(child: Text(l10n.performanceError(err.toString()))),
               data: (detail) {
                 if (!_isStateInitialized || formAnsweredAsync.isLoading) {
                   return const Center(child: CircularProgressIndicator());
@@ -366,22 +372,23 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
   }
 
   Widget _buildFooter() {
+    final l10n = AppLocalizations.of(context)!;
     if (_isFormReadOnly) {
       return Container(
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
         color: IColors.light.grayscale.g10,
-        child: const Center(
-          child: Text('This assessment is read-only.',
-              style: TextStyle(color: Color(0xFF9E9E9E))),
+        child: Center(
+          child: Text(l10n.performanceAssessmentReadOnly,
+              style: const TextStyle(color: Color(0xFF9E9E9E))),
         ),
       );
     }
     return IFooterButton(
-      text: "Submit Self Assessment",
+      text: l10n.performanceSubmitSelfAssessment,
       onPressed: _isFormValid
           ? () => _showPopUpConfirmationSubmission(context, 2)
           : null,
-      secondaryText: "Save as Draft",
+      secondaryText: l10n.performanceSaveAsDraft,
       onSecondaryPressed: _isFormValid
           ? () => _showPopUpConfirmationSubmission(context, 1)
           : null,
@@ -433,7 +440,8 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
       case 'radio':
         return _buildSingleSelectionSection(field);
       default:
-        return Text('Unknown type: ${field.type}');
+        return Text(AppLocalizations.of(context)!
+            .performanceUnknownType(field.type ?? ''));
     }
   }
 
@@ -538,7 +546,9 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
 
   Future<void> _showPopUpConfirmationSubmission(
       BuildContext context, int statusSubmission) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
+    final isSubmit = statusSubmission == 2;
     return showDialog(
       context: context,
       barrierDismissible: false,
@@ -556,14 +566,18 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
                 SvgPicture.asset(IAssets.questionMark),
                 SizedBox(height: 16.h),
                 Text(
-                  'Are you sure you want to submit this self assessment form?',
+                  isSubmit
+                      ? l10n.performanceConfirmSubmitSelfAssessment
+                      : l10n.performanceConfirmSaveDraft,
                   textAlign: TextAlign.center,
                   style: textTheme.titleSmall
                       ?.copyWith(fontWeight: FontWeight.w600),
                 ),
                 SizedBox(height: 16.h),
                 Text(
-                  "Once submitted, you won’t be able to make any changes.",
+                  isSubmit
+                      ? l10n.performanceConfirmNoChanges
+                      : l10n.performanceCanEditDraftLater,
                   textAlign: TextAlign.center,
                   style: textTheme.bodySmall
                       ?.copyWith(color: Colors.grey.shade600),
@@ -585,7 +599,7 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
                                 borderRadius: BorderRadius.circular(8),
                               ),
                             ),
-                            child: Text("Cancel"))),
+                            child: Text(l10n.performanceCancel))),
                     SizedBox(width: 10.w),
                     Expanded(
                         child: ElevatedButton(
@@ -602,7 +616,9 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
                               ),
                             ),
                             child: Text(
-                              "Submit Form",
+                              isSubmit
+                                  ? l10n.performanceSubmitForm
+                                  : l10n.performanceSaveDraft,
                               textAlign: TextAlign.center,
                             ))),
                   ],

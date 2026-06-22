@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/application/theme/i_theme.dart';
 import 'package:hrms_mobile/core/data/models/employees/employee_profile_response.dart';
@@ -13,12 +14,13 @@ class EmployeeInfoSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final employment = profile.user?.employment;
 
     final primaryReportNames = profile
             .user?.employeeProfile?.reportingRelationships
             ?.where((r) => r.relationshipType == 'primary')
-            .map((r) => r.name ?? 'Unknown')
+            .map((r) => r.name ?? l10n.profileUnknown)
             .toList() ??
         [];
     final primaryReportValue =
@@ -27,7 +29,7 @@ class EmployeeInfoSection extends StatelessWidget {
     final additionalReportNames = profile
             .user?.employeeProfile?.reportingRelationships
             ?.where((r) => r.relationshipType != 'primary')
-            .map((r) => r.name ?? 'Unknown')
+            .map((r) => r.name ?? l10n.profileUnknown)
             .toList() ??
         [];
     final additionalReportValue =
@@ -52,32 +54,32 @@ class EmployeeInfoSection extends StatelessWidget {
                 children: [
                   Expanded(
                       child: ProfileDetailItem(
-                          label: "Position",
+                          label: l10n.profilePosition,
                           value: employment?.jobPosition?.name ?? '-')),
                   SizedBox(width: 16.w),
                   Expanded(
                       child: ProfileDetailItem(
-                          label: "Department",
+                          label: l10n.profileDepartment,
                           value: employment?.department?.name ?? '-')),
                 ],
               ),
               SizedBox(height: 16.h),
               ProfileDetailItem(
-                  label: "Job Level", value: employment?.jobLevel?.name ?? '-'),
+                  label: l10n.profileJobLevel, value: employment?.jobLevel?.name ?? '-'),
               SizedBox(height: 16.h),
               ProfileDetailItem(
-                label: "Primary Direct Report",
+                label: l10n.profilePrimaryDirectReport,
                 value: primaryReportValue,
               ),
               SizedBox(height: 16.h),
               ProfileDetailItem(
-                label: "Additional Direct Report",
+                label: l10n.profileAdditionalDirectReport,
                 value: additionalReportValue,
               ),
               SizedBox(height: 16.h),
               ProfileDetailItem(
-                label: "Team",
-                value: teams.isEmpty ? "No team assigned" : null,
+                label: l10n.profileTeam,
+                value: teams.isEmpty ? l10n.profileNoTeamAssigned : null,
               ),
               if (teams.isNotEmpty)
                 Wrap(
@@ -93,13 +95,13 @@ class EmployeeInfoSection extends StatelessWidget {
                 children: [
                   Expanded(
                       child: ProfileDetailItem(
-                          label: "Employment Start Date",
+                          label: l10n.profileEmploymentStartDate,
                           value: DateTimeHelper.formatDate(
                               employment?.startDate ?? '-'))),
                   SizedBox(width: 16.w),
                   Expanded(
                       child: ProfileDetailItem(
-                          label: "Employment End Date",
+                          label: l10n.profileEmploymentEndDate,
                           value: DateTimeHelper.formatDate(
                               employment?.endDate ?? '-'))),
                 ],

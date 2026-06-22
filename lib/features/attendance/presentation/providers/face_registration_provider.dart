@@ -6,6 +6,7 @@ import 'package:hrms_mobile/core/data/models/face_recognition/upload_face_respon
 import 'package:hrms_mobile/core/data/repositories/general_repository/general_repository.dart';
 import 'package:hrms_mobile/core/data/repositories/general_repository/general_repository_impl.dart';
 import 'package:hrms_mobile/core/data/usecases/general/general_usecases.dart';
+import 'package:hrms_mobile/core/config/manual_capture.dart';
 import 'package:hrms_mobile/core/enums/face_step_enum.dart';
 import 'package:hrms_mobile/core/network/dio_provider.dart';
 import 'package:hrms_mobile/features/attendance/domain/entities/face_registration_state.dart';
@@ -89,6 +90,25 @@ class FaceRegistration extends _$FaceRegistration {
     updatedPhotos[index] = path;
 
     state = state.copyWith(photos: updatedPhotos);
+
+    if (isManualCaptureBypassActive) {
+      FaceStep nextStep;
+      final nextIndex = index + 1;
+      if (index == 0) {
+        nextStep = FaceStep.right;
+      } else if (index == 1) {
+        nextStep = FaceStep.left;
+      } else if (index == 2) {
+        nextStep = FaceStep.success;
+      } else {
+        return;
+      }
+      state = state.copyWith(
+        step: nextStep,
+        progress: nextIndex / 3.0,
+      );
+      return;
+    }
 
     final file = File(path);
     final platformFile = PlatformFile(

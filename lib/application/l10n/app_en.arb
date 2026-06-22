@@ -1,17 +1,14 @@
 {
   "@@locale": "en",
-
   "signIn": "Sign In",
   "continueButton": "Continue",
   "resetPassword": "Reset Password",
   "forgotPassword": "Forgot Password?",
-
   "formEmail": "Email",
   "formHintEmail": "Enter your email",
   "formPassword": "Password",
   "formHintPassword": "Enter your password",
   "formPasswordConfirmation": "Password Confirmation",
-
   "loginFailed": "Login failed: {error}",
   "@loginFailed": {
     "description": "Error message shown on login failure.",
@@ -22,25 +19,19 @@
       }
     }
   },
-
   "resetPasswordEmail_title": "Reset Password",
   "resetPasswordEmail_body": "Enter your registered email to reset your password",
   "resetPasswordEmail_linkSentSnackbar": "Reset link sent! Check your email.",
-
   "resetPasswordCheckEmail_title": "Please Check Your Email",
   "resetPasswordCheckEmail_body": "A reset password link has been sent to your registered email.",
   "resetPasswordCheckEmail_didNotReceive": "Didn't receive an email? ",
   "resetPasswordCheckEmail_resend": "Resend Email",
   "resetPasswordCheckEmail_resendingSnackbar": "Resending reset link...",
-
   "resetPasswordCreate_title": "Create a New Password",
   "resetPasswordCreate_subtitle": "Create a new password for your account",
-
   "resetPasswordSuccess_title": "Password Reset Successful",
   "resetPasswordSuccess_body": "Please sign in using your new password.",
-
   "errorUnknown": "An unknown error occurred",
-
   "formValidationRequired": "{fieldName} is required",
   "@formValidationRequired": {
     "placeholders": {
@@ -76,5 +67,796 @@
   "formValidationOnlyAlphanumeric": "Only letters and numbers are allowed",
   "formValidationPasswordInvalid": "The password you entered is incorrect",
   "formValidationPasswordCriteriaInvalid": "Password does not meet the required criteria",
-  "formPhone": "Phone Number"
+  "formPhone": "Phone Number",
+  "navHome": "Home",
+  "navPerformance": "Performance",
+  "navLeaveRequest": "Leave Request",
+  "navInbox": "Inbox",
+  "navProfile": "Profile",
+  "profileMyProfile": "My Profile",
+  "profileAttendanceAndOvertime": "Attendance and Overtime",
+  "profileMyPayslip": "My Payslip",
+  "profileChangeLanguage": "Change Language",
+  "languageEnglish": "English",
+  "languageIndonesian": "Bahasa Indonesia",
+  "dashboardClockIn": "Clock In",
+  "dashboardClockOut": "Clock Out",
+  "dashboardWorkingTimeDuration": "Working Time Duration",
+  "dashboardOvertimeDuration": "Overtime Duration",
+  "dashboardOvertimeRequest": "Overtime Request",
+  "dashboardNewLeaveRequest": "New Leave Request",
+  "dashboardOffboardingStatusError": "Error fetching offboarding status {error}",
+  "@dashboardOffboardingStatusError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "dashboardRecentActivity": "Recent Activity",
+  "dashboardCouldNotLoadActivities": "Could not load activities",
+  "dashboardNoRecentActivity": "No recent activity.",
+  "dashboardOffboardingTitle": "🔔 Complete Your Offboarding Journey!",
+  "dashboardOffboardingSubtitle": "Let's wrap things up smoothly before you leave",
+  "dashboardOffboardingStartButton": "Start Offboarding Process",
+  "splashError": "Error: {error}",
+  "@splashError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "profileLogOut": "Log Out",
+  "profileEmployeeId": "Employee ID: {employeeId}",
+  "@profileEmployeeId": {
+    "placeholders": {
+      "employeeId": {
+        "type": "String"
+      }
+    }
+  },
+  "profileStatDays": "Days",
+  "profileStatHours": "Hours",
+  "profileStatAttendance": "Attendance",
+  "profileStatTimeOff": "Time Off",
+  "profileStatOvertime": "Overtime",
+  "profileErrorLoadingStats": "Error loading stats",
+  "profileFailedToLoad": "Failed to load profile: {error}",
+  "@profileFailedToLoad": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "profilePersonalInformation": "Personal Information",
+  "profileEmployeeInformation": "Employee Information",
+  "profileEditProfile": "Edit Profile",
+  "profilePhoto": "Photo",
+  "profileName": "Name",
+  "profileGender": "Gender",
+  "profileGenderMale": "Male",
+  "profileGenderFemale": "Female",
+  "profilePlaceOfBirth": "Place of Birth",
+  "profileBornDate": "Born Date",
+  "profileMaritalStatus": "Marital Status",
+  "profileMaritalStatusSingle": "Single",
+  "profileMaritalStatusMarried": "Married",
+  "profileMaritalStatusDivorced": "Divorced",
+  "profileMaritalStatusWidowed": "Widowed",
+  "profileBloodType": "Blood Type",
+  "profileHeight": "Height",
+  "profileWeight": "Weight",
+  "profileUnitCm": "cm",
+  "profileUnitKg": "kg",
+  "profileHeightWithUnit": "{height} cm",
+  "@profileHeightWithUnit": {
+    "placeholders": {
+      "height": {
+        "type": "String"
+      }
+    }
+  },
+  "profileWeightWithUnit": "{weight} kg",
+  "@profileWeightWithUnit": {
+    "placeholders": {
+      "weight": {
+        "type": "String"
+      }
+    }
+  },
+  "profileIdNumber": "ID Number",
+  "profileNpwp": "Taxpayer ID Number (NPWP)",
+  "profileBpjs": "Health Insurance Number (BPJS)",
+  "profileCitizenIdAddress": "Citizen ID Address",
+  "profileResidentialAddress": "Residential Address",
+  "profileHobby": "Hobby",
+  "profileSocialMedia": "Social Media",
+  "profileNoSocialMedia": "No social media accounts linked.",
+  "profileAddMore": "Add more",
+  "profileUpdating": "Updating...",
+  "profileUpdateProfile": "Update Profile",
+  "profileAttachmentUploadFailed": "Attachment upload failed: {error}",
+  "@profileAttachmentUploadFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "profileUpdatedSuccessfully": "Profile updated successfully!",
+  "profileSubmissionFailed": "Submission Failed",
+  "profileUpdateFailed": "Update Failed: {error}",
+  "@profileUpdateFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "profilePosition": "Position",
+  "profileDepartment": "Department",
+  "profileJobLevel": "Job Level",
+  "profilePrimaryDirectReport": "Primary Direct Report",
+  "profileAdditionalDirectReport": "Additional Direct Report",
+  "profileTeam": "Team",
+  "profileNoTeamAssigned": "No team assigned",
+  "profileEmploymentStartDate": "Employment Start Date",
+  "profileEmploymentEndDate": "Employment End Date",
+  "profileUnknown": "Unknown",
+  "attendanceTab": "Attendance",
+  "overtimeTab": "Overtime",
+  "attendanceClockInLabel": "Clock-In",
+  "attendanceClockOutLabel": "Clock-Out",
+  "attendanceClockInTitle": "Clock-In",
+  "attendanceClockOutTitle": "Clock-Out",
+  "attendanceClockInSentence": "clock in",
+  "attendanceClockOutSentence": "clock out",
+  "attendanceClockInCapitalize": "Clock In",
+  "attendanceClockOutCapitalize": "Clock Out",
+  "attendanceShift": "Shift",
+  "attendanceNotes": "Notes",
+  "attendanceLocation": "Location",
+  "attendanceDuration": "Duration",
+  "attendanceOvertime": "Overtime",
+  "attendanceFilterByStatus": "Filter by Status",
+  "attendanceStatusAll": "All",
+  "attendanceStatusWaiting": "Waiting",
+  "attendanceStatusApproved": "Approved",
+  "attendanceStatusRejected": "Rejected",
+  "attendanceStatLateClockIn": "Late Clock In",
+  "attendanceStatEarlyClockOut": "Early Clock Out",
+  "attendanceStatAbsent": "Absent",
+  "attendanceStatDayOff": "Day Off",
+  "attendancePendingRequest": "Pending Request",
+  "attendanceApprovedRequest": "Approved Request",
+  "attendanceRejectedRequest": "Rejected Request",
+  "attendanceOvertimeRequestTitle": "Overtime Request",
+  "attendanceOvertimeDuration": "Overtime Duration",
+  "attendanceNoDataForPeriod": "No attendance data for this period.",
+  "attendanceNoOvertimeDataForPeriod": "No overtime data for this period.",
+  "attendanceErrorTryAgainLater": "Error: Please try again later!",
+  "attendanceNetworkError": "A network error occurred.",
+  "attendanceUnexpectedError": "An unexpected error occurred: {error}",
+  "@attendanceUnexpectedError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "attendanceTodayWithDay": "Today, {day}",
+  "@attendanceTodayWithDay": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "attendanceTodayWithDate": "Today, {date}",
+  "@attendanceTodayWithDate": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "attendanceToday": "Today",
+  "attendanceYesterday": "Yesterday",
+  "attendanceDaysAgo": "{count} days ago",
+  "@attendanceDaysAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "attendanceLocationConfirmed": "Location Confirmed",
+  "attendanceLocationConfirmedBody": "Please complete face verification to proceed with {activity}. This step helps ensure secure and accurate attendance tracking.",
+  "@attendanceLocationConfirmedBody": {
+    "placeholders": {
+      "activity": {
+        "type": "String"
+      }
+    }
+  },
+  "attendanceStartVerification": "Start Verification",
+  "attendanceRegisterYourFace": "Register Your Face",
+  "attendanceVerificationInProgress": "{activity} Verification in Progress",
+  "@attendanceVerificationInProgress": {
+    "placeholders": {
+      "activity": {
+        "type": "String"
+      }
+    }
+  },
+  "attendanceLocationVerificationBody": "We're verifying your current location before completing the {activity} process. Please make sure location access is enabled and you're within the allowed work area.",
+  "@attendanceLocationVerificationBody": {
+    "placeholders": {
+      "activity": {
+        "type": "String"
+      }
+    }
+  },
+  "attendanceLocationNotValid": "Location is not valid. You are ~{distance}m away. Max radius is {maxRadius}m.",
+  "@attendanceLocationNotValid": {
+    "placeholders": {
+      "distance": {
+        "type": "String"
+      },
+      "maxRadius": {
+        "type": "String"
+      }
+    }
+  },
+  "attendanceCouldNotGetLocation": "Error: Could not get location. {error}",
+  "@attendanceCouldNotGetLocation": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "attendancePleaseFillRequiredFields": "Please fill all required fields.",
+  "attendanceNoActiveAttendance": "No active attendance found.",
+  "attendanceSaveActivity": "Save {activity}",
+  "@attendanceSaveActivity": {
+    "placeholders": {
+      "activity": {
+        "type": "String"
+      }
+    }
+  },
+  "attendanceEditRequest": "Edit Attendance Request",
+  "attendanceSubmittedRecord": "Submitted Record",
+  "attendanceAdjustment": "Attendance Adjustment",
+  "attendanceClockInField": "Clock In",
+  "attendanceClockOutField": "Clock Out",
+  "attendanceAdjustmentNotes": "Adjustment Notes",
+  "attendanceSendAdjustmentRequest": "Send Adjustment Request",
+  "attendanceUpdateSuccess": "Update Success!",
+  "attendanceUpdateFailed": "Update Failed!",
+  "attendanceUpdateFailedWithError": "Update Failed: {error}",
+  "@attendanceUpdateFailedWithError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "attendanceFaceRegistration": "Face Registration",
+  "attendanceFaceVerification": "Face Verification",
+  "attendanceFaceStepFrontInstruction": "Face the camera directly and make sure your face is clearly visible",
+  "attendanceFaceStepRightInstruction": "Slowly turn your head to the right and keep it within the frame",
+  "attendanceFaceStepLeftInstruction": "Slowly turn your head to the left and keep it within the frame",
+  "attendanceFaceStepUploadingInstruction": "Uploading photo and verifying face...",
+  "attendanceFaceStepFailedInstruction": "Face Registration Failed!",
+  "attendanceFaceStepSuccessInstruction": "Face Registration Success!",
+  "attendanceFaceStepTakeFrontPhoto": "Take Front Photo",
+  "attendanceFaceStepTakeRightPhoto": "Take Right Photo",
+  "attendanceFaceStepTakeLeftPhoto": "Take Left Photo",
+  "attendanceFaceStepUploading": "Uploading...",
+  "attendanceFaceStepTryAgain": "Try Again",
+  "attendanceFaceStepDone": "Done",
+  "attendanceVerificationInitialInstruction": "Face the camera directly and make sure your face is clearly visible",
+  "attendanceVerificationLoadingInstruction": "Verifying...",
+  "attendanceVerificationSuccessInstruction": "Face Verification Success!",
+  "attendanceVerificationFailedInstruction": "Face Verification Failed!",
+  "attendanceVerificationTakePhoto": "Take Photo",
+  "activityLogClockIn": "Clock In",
+  "activityLogClockOut": "Clock Out",
+  "activityLogOvertimeCreated": "Overtime Created",
+  "activityLogOvertimeApproved": "Overtime Approved",
+  "activityLogOvertimeRejected": "Overtime Rejected",
+  "activityLogOvertimeUpdated": "Overtime Updated",
+  "activityLogUnknown": "Unknown Activity",
+  "overtimeRequestTitle": "Overtime Request",
+  "overtimeRequestDate": "Request Date",
+  "overtimeStartTime": "Start Time",
+  "overtimeEndTime": "End Time",
+  "overtimeNotes": "Overtime Notes",
+  "overtimeRequestButton": "Request Overtime",
+  "overtimeSubmittedSuccess": "Overtime request submitted successfully!",
+  "overtimeEditRequest": "Edit Overtime Request",
+  "overtimeAdjustment": "Overtime Adjustment",
+  "overtimeAdjustmentNotes": "Adjustment Notes",
+  "overtimeSendAdjustmentRequest": "Send Adjustment Request",
+  "overtimeAdjustmentSentSuccess": "Adjustment request sent successfully!",
+  "overtimeNoAttendanceLog": "No attendance log for this date.",
+  "leaveBalance": "Leave Balance",
+  "leaveTimeOffUsed": "Time Off Used",
+  "leaveTimeOff": "Time Off",
+  "leaveDays": "Days",
+  "leaveYourRequests": "Your Leave Request",
+  "leaveNoHistoryFound": "No leave history found.",
+  "leaveFailedToLoadHistory": "Failed to load history: {error}",
+  "@leaveFailedToLoadHistory": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "leaveRequestDetail": "Leave Request Detail",
+  "leaveRequestDetailSection": "Request Detail",
+  "leaveType": "Leave Type",
+  "leaveDuration": "Duration",
+  "leaveReason": "Reason",
+  "leaveAttachment": "Attachment",
+  "leaveApproval": "Approval",
+  "leaveNoApproversAssigned": "No approvers assigned.",
+  "leaveDaysCount": "({count} Days)",
+  "@leaveDaysCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "leaveNewRequest": "New Leave Request",
+  "leaveStartDate": "Start Date",
+  "leaveEndDate": "End Date",
+  "leaveSendRequest": "Send Request",
+  "leaveSubmitting": "Submitting...",
+  "leaveSubmittedSuccess": "Leave request submitted successfully!",
+  "leaveSubmittedFailed": "Leave request submitted failed!",
+  "leaveFailedToLoadTypes": "Failed to load leave types",
+  "leaveCouldNotLoadBalance": "Could not load leave balance:",
+  "leaveSubmissionFailedPrefix": "Submission Failed:",
+  "leaveTypeAnnualLeave": "Annual Leave",
+  "leaveTypeSickLeave": "Sick Leave",
+  "leaveTypeMaternityLeave": "Maternity Leave",
+  "leaveTypeMenstrualLeave": "Menstrual Leave",
+  "leaveTypeMarriageLeave": "Marriage Leave",
+  "leaveTypeChildsMarriageLeave": "Child's Marriage Leave",
+  "leaveTypePaternityLeave": "Paternity Leave",
+  "leaveTypeBereavementLeave": "Bereavement Leave",
+  "leaveTypeNaturalDisasterLeave": "Natural Disaster Leave",
+  "leaveTypeUnpaidLeave": "Unpaid Leave",
+  "leaveTypeExtendedLeave": "Extended Leave",
+  "leaveTypeStudyLeave": "Study Leave",
+  "leaveTypeReligiousLeave": "Religious Leave",
+  "leaveTypeUnknown": "Unknown",
+  "offboardingProcess": "Offboarding Process",
+  "offboardingCompleteTasksTitle": "Complete Your Offboarding Tasks",
+  "offboardingCompleteTasksSubtitle": "Complete your offboarding tasks to ensure a smooth exit",
+  "offboardingError": "Error: {error}",
+  "@offboardingError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "offboardingStart": "Start",
+  "offboardingEdit": "Edit",
+  "offboardingExitInterviewSchedule": "Exit Interview Schedule",
+  "offboardingExitInterviewForm": "Exit Interview Form",
+  "offboardingWorkHandover": "Work & Responsibilities Handover",
+  "offboardingDocumentHandover": "Document Handover",
+  "offboardingResponsibilityHandover": "Responsibility Handover",
+  "offboardingDate": "Date",
+  "offboardingTime": "Time",
+  "offboardingInterviewer": "Interviewer",
+  "offboardingHandoverSubmitted": "Handover submitted successfully!",
+  "offboardingFillWorksFields": "Please fill in all \"Works\" fields.",
+  "offboardingFillDocumentNameFields": "Please fill in all \"Document Name\" fields.",
+  "offboardingSelectRecipient": "Please select at least one recipient for all items.",
+  "offboardingIdNotFound": "Could not find offboarding ID. Please try again.",
+  "offboardingErrorLoadingData": "Error loading data: {error}",
+  "@offboardingErrorLoadingData": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "offboardingFailedToLoadData": "Failed to load data",
+  "offboardingAdd": "Add",
+  "offboardingSubmitting": "Submitting...",
+  "offboardingSubmit": "Submit",
+  "offboardingWorks": "Works",
+  "offboardingDocumentName": "Document Name",
+  "offboardingHandedOverTo": "Handed Over To",
+  "offboardingEmployees": "Employees",
+  "offboardingSearchEmployee": "Search Employee",
+  "offboardingDone": "Done",
+  "offboardingWork": "Work",
+  "offboardingValidating": "Validating...",
+  "offboardingValidateNow": "Validate Now",
+  "offboardingWorkValidated": "Work validated successfully!",
+  "offboardingHandoverValidated": "Handover validated successfully!",
+  "offboardingNoItemsFound": "No items found",
+  "offboardingNoDocumentsFound": "No documents found",
+  "offboardingFormSubmitted": "Form Submitted Successfully!",
+  "offboardingSubmissionFailed": "Submission Failed",
+  "offboardingSubmitForm": "Submit Form",
+  "offboardingNotes": "Notes",
+  "offboardingSelectOption": "Select an option",
+  "offboardingUnknownFieldType": "Unknown field type: {type}",
+  "@offboardingUnknownFieldType": {
+    "placeholders": {
+      "type": {
+        "type": "String"
+      }
+    }
+  },
+  "offboardingConfirmSubmit": "Are you sure you want to submit this exit interview form?",
+  "offboardingConfirmNoChanges": "Once submitted, you won't be able to make any changes.",
+  "offboardingCancel": "Cancel",
+  "performanceTitle": "Performance",
+  "performanceMyOkr": "My OKR",
+  "performanceSupervisorAssessment": "Supervisor Assessment",
+  "performanceSelfAssessment": "Self Assessment",
+  "performanceDueDate": "Due Date ",
+  "performanceNotAvailable": "N/A",
+  "performanceErrorLoadingSelfAssessments": "Error loading Self Assessments: {error}",
+  "@performanceErrorLoadingSelfAssessments": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "performanceErrorLoadingOkr": "Error loading OKR: {error}",
+  "@performanceErrorLoadingOkr": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "performanceLoadingSupervisorAssessments": "Loading supervisor assessments...",
+  "performanceErrorLoadingSupervisorAssessments": "Error loading supervisor assessments: {error}",
+  "@performanceErrorLoadingSupervisorAssessments": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "performanceSupervisorDataNotAvailable": "Supervisor assessments data not available.",
+  "performanceSelfAssessmentWithPeriod": "Self Assessment - {period}",
+  "@performanceSelfAssessmentWithPeriod": {
+    "placeholders": {
+      "period": {
+        "type": "String"
+      }
+    }
+  },
+  "performanceMyOkrWithPeriod": "My OKR - {period}",
+  "@performanceMyOkrWithPeriod": {
+    "placeholders": {
+      "period": {
+        "type": "String"
+      }
+    }
+  },
+  "performanceOkrTab": "OKR",
+  "performanceDashboardTab": "Dashboard",
+  "performanceObjective": "OBJECTIVE",
+  "performanceKeyResult": "KEY RESULT",
+  "performanceNoObjectivesFound": "No objectives found",
+  "performanceNoGraphData": "No graph data available",
+  "performanceNoTitle": "No Title",
+  "performanceObjectiveFallback": "Objective",
+  "performanceMetricFallback": "Metric",
+  "performanceSelectRange": "Select Range",
+  "performanceErrorLoadingGraph": "Error loading graph: {error}",
+  "@performanceErrorLoadingGraph": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "performanceAvgActual": "Avg. Actual",
+  "performanceAvgTarget": "Avg. Target",
+  "performanceApplyFilter": "Apply Filter",
+  "performanceStartDate": "Start Date",
+  "performanceEndDate": "End Date",
+  "performanceTo": "TO",
+  "performanceWeek": "Week",
+  "performanceMonth": "Month",
+  "performanceQuarter": "Quarter",
+  "performanceYear": "Year",
+  "performanceWeekLabel": "Week {number}",
+  "@performanceWeekLabel": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "performanceYearRequired": "Year*",
+  "performanceKeyResultData": "Key Result Data",
+  "performanceFillRequiredFields": "Please fill all required fields correctly.",
+  "performanceProgressSaved": "Progress saved successfully!",
+  "performanceNetworkError": "A network error occurred.",
+  "performanceUnexpectedError": "An unexpected error occurred: {error}",
+  "@performanceUnexpectedError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "performanceRequired": "Required",
+  "performanceTargetForPeriod": "Target for this period",
+  "performanceSaving": "Saving...",
+  "performanceSave": "Save",
+  "performanceError": "Error: {error}",
+  "@performanceError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "performanceTeamMemberInformation": "Team Member Information",
+  "performanceEmployeeName": "Employee Name",
+  "performancePosition": "Position",
+  "performanceJobLevel": "Job Level",
+  "performanceDepartment": "Department",
+  "performanceSubmittedOn": "Submitted on",
+  "performanceValidatedOn": "Validated on",
+  "performanceEmployeeInformation": "Employee Information",
+  "performanceCurrentPosition": "Current Position",
+  "performanceCurrentJobLevel": "Current Job Level",
+  "performanceTargetPosition": "Target Position",
+  "performanceTargetJobLevel": "Target Job Level",
+  "performanceEmployeeStartDate": "Employee Start Date",
+  "performanceAssessmentSchedule": "Assessment Schedule",
+  "performanceDate": "Date",
+  "performanceTime": "Time",
+  "performanceNotes": "Notes",
+  "performanceAssessmentForm": "Assessment Form",
+  "performanceSupervisorAssessmentSchedule": "Supervisor Assessment Schedule",
+  "performanceSupervisorAssessmentList": "Supervisor Assessment List",
+  "performanceErrorLoadingAssessments": "Error loading assessments: {error}\nPull down to retry.",
+  "@performanceErrorLoadingAssessments": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "performanceNoSupervisorAssessments": "No supervisor assessments found.",
+  "performanceErrorLoadingDetails": "Error loading details: {error}",
+  "@performanceErrorLoadingDetails": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "performanceFormSubmitted": "Form Submitted Successfully!",
+  "performanceSubmissionFailed": "Submission Failed: {error}",
+  "@performanceSubmissionFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "performanceAssessmentReadOnly": "This assessment is read-only.",
+  "performanceSubmitSelfAssessment": "Submit Self Assessment",
+  "performanceSaveAsDraft": "Save as Draft",
+  "performanceConfirmSubmitSelfAssessment": "Are you sure you want to submit this self assessment form?",
+  "performanceConfirmNoChanges": "Once submitted, you won't be able to make any changes.",
+  "performanceCancel": "Cancel",
+  "performanceSubmitForm": "Submit Form",
+  "performanceUnknownType": "Unknown type: {type}",
+  "@performanceUnknownType": {
+    "placeholders": {
+      "type": {
+        "type": "String"
+      }
+    }
+  },
+  "performanceEmployeeSubmittedReadOnly": "This is the employee's submitted assessment (Read-Only).",
+  "performanceAddComments": "Add your comments here...",
+  "performanceEnterComment": "Enter comment...",
+  "performanceValidationSuccessful": "Validation Successful",
+  "performanceFailed": "Failed: {error}",
+  "@performanceFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "performanceValidationCompleteReadOnly": "Validation complete and read-only.",
+  "performanceValidateSelfAssessment": "Validate Self Assessment",
+  "performanceMySelfAssessment": "My Self Assessment",
+  "performanceTeamMemberSelfAssessment": "Team Member Self Assessment",
+  "performanceAssessmentValidationTab": "Assessment Validation",
+  "performanceSupervisorSubmitted": "Supervisor Assessment Submitted Successfully!",
+  "performanceAssessmentReadOnlyShort": "Assessment is read-only.",
+  "performanceSaveDraft": "Save Draft",
+  "performanceSubmit": "Submit",
+  "performanceConfirmSubmitSupervisor": "Are you sure you want to submit this supervisor assessment form?",
+  "performanceConfirmSaveDraft": "Are you sure you want to save this draft?",
+  "performanceCanEditDraftLater": "You can continue editing the draft later.",
+  "inboxTitle": "Inbox",
+  "inboxEmpty": "No notifications in your inbox.",
+  "inboxError": "Something went wrong",
+  "inboxNoTitle": "No Title",
+  "inboxNoContent": "No content available",
+  "inboxNotAvailable": "N/A",
+  "payslipMyPayslip": "My Payslip",
+  "payslipPeriodFallback": "Payslip Period",
+  "payslipViewPayslip": "View Payslip",
+  "payslipRequestAccess": "Request Access",
+  "payslipPrintRequest": "Print Request",
+  "payslipLastMonths": "Last {count, plural, =1{1 Month} other{{count} Months}}",
+  "@payslipLastMonths": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "payslipListError": "Error: {error}",
+  "@payslipListError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "payslipNotAvailable": "N/A",
+  "payslipTitleWithPeriod": "Payslip {period}",
+  "@payslipTitleWithPeriod": {
+    "placeholders": {
+      "period": {
+        "type": "String"
+      }
+    }
+  },
+  "payslipLoading": "Loading",
+  "payslipDetailLoadFailed": "Failed to load payslip detail: {error}",
+  "@payslipDetailLoadFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "payslipEnterPassword": "Please enter your password.",
+  "payslipIdMissing": "Error: Payslip ID is missing.",
+  "payslipAccessFailed": "Access Failed: {error}",
+  "@payslipAccessFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "payslipEnterPasswordToContinue": "Enter Your Password to Continue",
+  "payslipPasswordSecurityMessage": "For security reasons, please enter your account password to access your selected payslip.",
+  "payslipAccessPayslip": "Access Payslip",
+  "payslipFallbackLabel": "Payslip",
+  "payslipPrintPayslipRequest": "Print Payslip Request",
+  "payslipSendPrintRequest": "Send Print Request",
+  "payslipPrintRequestSubmitted": "Payslip Print Request Submitted",
+  "payslipPrintRequestSubmittedBody": "We've received your request to print the payslip. Please wait while we process it, you'll be informed when it's ready to pick up.",
+  "payslipPayrollDetails": "Payroll Details",
+  "payslipConfidential": "*CONFIDENTIAL",
+  "payslipPayrollPeriod": "Payroll Period",
+  "payslipEmployeeId": "Employee ID",
+  "payslipJobLevel": "Job Level",
+  "payslipTaxpayerId": "Taxpayer ID Number (NPWP)",
+  "payslipEmployeeName": "Employee Name",
+  "payslipPosition": "Position",
+  "payslipDepartment": "Department",
+  "payslipBasicSalary": "Basic Salary",
+  "payslipOvertime": "Overtime",
+  "payslipEarnings": "Earnings",
+  "payslipDeductions": "Deductions",
+  "payslipTakeHomePay": "Take Home Pay",
+  "payslipNotes": "Notes",
+  "payslipNotesDisclaimer": "THIS IS COMPUTER GENERATED PRINTOUT AND NO SIGNATURE IS REQUIRED\n\nPLEASE NOTE THAT THE CONTENTS OF THIS STATEMENT SHOULD BE TREATED WITH ABSOLUTE CONFIDENTIALITY EXCEPT TO THE EXTENT YOU ARE REQUIRED TO MAKE DISCLOSURE FOR ANY TAX, LEGAL, OR REGULATORY PURPOSES. ANY BREACH OF THIS CONFIDENTIALITY OBLIGATION WILL BE DEALT WITH SERIOUSLY, WHICH MAY INVOLVE DISCIPLINARY ACTION BEING TAKEN.",
+  "payslipBenefits": "Benefits",
+  "payslipBenefitsDescription": "These are the benefits you'll get from the company, but not included in your take-home pay (THP).",
+  "payslipBenefitWorkAccident": "Work Accident Insurance",
+  "payslipBenefitDeath": "Death Insurance",
+  "payslipBenefitOldAge": "Old Age Insurance",
+  "payslipBenefitPension": "Pension Insurance",
+  "payslipBenefitHealth": "BPJS Health",
+  "payslipTotalBenefits": "Total Benefits",
+  "payslipStatusLocked": "Locked",
+  "payslipStatusRequestSent": "Request has been sent",
+  "payslipStatusDaysLeft": "{days} Days Left",
+  "@payslipStatusDaysLeft": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "payslipStatusUnknown": "Unknown",
+  "payslipPrintStatusProcessed": "Processed",
+  "payslipPrintStatusPending": "Pending",
+  "payslipPrintStatusReady": "Ready",
+  "coreSelect": "Select",
+  "coreSelectOption": "Select an option",
+  "coreSelectItems": "Select Items",
+  "coreSearch": "Search...",
+  "coreDone": "Done",
+  "coreConfirmOk": "OK",
+  "coreSelectImage": "Select Image",
+  "coreUploadFile": "Upload File",
+  "coreAttachments": "Attachments",
+  "coreSocialMedia": "Social Media",
+  "coreSocialMediaHint": "Type",
+  "coreCountries": "Countries",
+  "coreCountryCode": "Code",
+  "coreUnknownFieldType": "Unknown field type: {type}",
+  "@coreUnknownFieldType": {
+    "placeholders": {
+      "type": {
+        "type": "String"
+      }
+    }
+  },
+  "coreNotAvailable": "-",
+  "coreErrorWithDetail": "Error: {error}",
+  "@coreErrorWithDetail": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "coreUpdatedJustNow": "Updated just now",
+  "coreUpdatedDaysAgo": "updated {days}d ago",
+  "@coreUpdatedDaysAgo": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "coreUpdatedHoursAgo": "updated {hours}h ago",
+  "@coreUpdatedHoursAgo": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "coreUpdatedMinutesAgo": "updated {minutes}m ago",
+  "@coreUpdatedMinutesAgo": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "attendanceLocationServicesDisabled": "Location services are disabled.",
+  "attendanceLocationPermissionDenied": "Location permissions are denied.",
+  "attendanceLocationPermissionDeniedForever": "Location permissions are permanently denied. We cannot request permissions.",
+  "attendanceManualCaptureBypass": "Manual capture (location bypass)"
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/features/inbox/data/models/response/notification_response.dart';
 import 'package:hrms_mobile/features/offboarding/data/models/response/offboarding_schedule.dart';
@@ -15,8 +16,9 @@ class ExitInterviewScheduleScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: IAppBar(title: "Exit Interview Schedule"),
+      appBar: IAppBar(title: l10n.offboardingExitInterviewSchedule),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(

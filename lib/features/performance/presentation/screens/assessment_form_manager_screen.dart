@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/assessment_list.dart';
@@ -21,10 +22,11 @@ class AssessmentFormManagerScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      appBar: IAppBar(title: "Self Assessment - $period"),
+      appBar: IAppBar(title: l10n.performanceSelfAssessmentWithPeriod(period)),
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xFFF8F8F8),
       body: DefaultTabController(
@@ -42,9 +44,9 @@ class AssessmentFormManagerScreen extends ConsumerWidget {
                 indicatorSize: TabBarIndicatorSize.tab,
                 labelStyle:
                     textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600),
-                tabs: const [
-                  Tab(text: "Self Assessment"),
-                  Tab(text: "Assessment Validation"),
+                tabs: [
+                  Tab(text: l10n.performanceSelfAssessment),
+                  Tab(text: l10n.performanceAssessmentValidationTab),
                 ],
               ),
             ),

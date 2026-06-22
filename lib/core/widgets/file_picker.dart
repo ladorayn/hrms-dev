@@ -5,17 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart'; // Assuming your assets are here
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:path/path.dart' as p;
 
 class IFilePicker extends StatefulWidget {
-  final String title;
+  final String? title;
   final String? errorText;
   final Function(PlatformFile?) onFileSelected;
 
   const IFilePicker({
     super.key,
-    this.title = "Attachments",
+    this.title,
     this.errorText,
     required this.onFileSelected,
   });
@@ -59,6 +60,8 @@ class _IFilePickerState extends State<IFilePicker> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final titleText = widget.title ?? l10n.coreAttachments;
     final textTheme = Theme.of(context).textTheme;
 
     final theme = Theme.of(context);
@@ -70,7 +73,7 @@ class _IFilePickerState extends State<IFilePicker> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(widget.title, style: textTheme.bodySmall),
+        Text(titleText, style: textTheme.bodySmall),
         const SizedBox(height: 8),
         if (_selectedFile != null)
           _buildFileCard(context)
@@ -91,6 +94,7 @@ class _IFilePickerState extends State<IFilePicker> {
   }
 
   Widget _buildUploadButton() {
+    final l10n = AppLocalizations.of(context)!;
     return OutlinedButton.icon(
       onPressed: _pickFile,
       icon: SvgPicture.asset(
@@ -99,7 +103,7 @@ class _IFilePickerState extends State<IFilePicker> {
         colorFilter:
             ColorFilter.mode(IColors.light.primary.main, BlendMode.srcIn),
       ),
-      label: const Text('Upload File'),
+      label: Text(l10n.coreUploadFile),
       style: OutlinedButton.styleFrom(
         foregroundColor: IColors.light.primary.main,
         side: BorderSide(color: IColors.light.primary.main),

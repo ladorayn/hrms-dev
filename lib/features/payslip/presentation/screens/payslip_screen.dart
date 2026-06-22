@@ -4,20 +4,22 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/enums/payslip_view_enum.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
-import 'package:hrms_mobile/features/payslip/data/models/response/payslip_list_response.dart'; // Added Import
-import 'package:hrms_mobile/features/payslip/presentation/providers/payslip_provider.dart'; // Added Import
+import 'package:hrms_mobile/features/payslip/data/models/response/payslip_list_response.dart';
+import 'package:hrms_mobile/features/payslip/presentation/providers/payslip_provider.dart';
 import 'package:hrms_mobile/features/payslip/presentation/widgets/payslip_view_status.dart';
 
 class PayslipScreen extends ConsumerWidget {
   const PayslipScreen({super.key});
 
-  void showModalPayslip(BuildContext context, PayslipDataList payslip) {
-    final title = payslip.payrun?.periodLabel ?? 'Payslip Period';
+  void showModalPayslip(
+      BuildContext context, PayslipDataList payslip, AppLocalizations l10n) {
+    final title = payslip.payrun?.periodLabel ?? l10n.payslipPeriodFallback;
     final textTheme = Theme.of(context).textTheme;
 
     final isViewGranted = payslip.viewAccessGranted ?? false;
@@ -46,7 +48,6 @@ class PayslipScreen extends ConsumerWidget {
                       .titleLarge
                       ?.copyWith(color: IColors.light.primary.main)),
               const SizedBox(height: 16),
-              // --- View Payslip Section ---
               GestureDetector(
                 onTap: () {
                   if (isViewGranted) {
@@ -68,7 +69,7 @@ class PayslipScreen extends ConsumerWidget {
                             color: IColors.light.primary.main,
                           ),
                           SizedBox(width: 8.w),
-                          const Text("View Payslip"),
+                          Text(l10n.payslipViewPayslip),
                           SizedBox(width: 8.w),
                           PayslipViewStatus(
                             type: viewType,
@@ -96,7 +97,7 @@ class PayslipScreen extends ConsumerWidget {
                             );
                           },
                           child: Text(
-                            "Request Access",
+                            l10n.payslipRequestAccess,
                             style: textTheme.labelSmall?.copyWith(
                               fontWeight: FontWeight.w700,
                               color: Colors.white,
@@ -121,7 +122,6 @@ class PayslipScreen extends ConsumerWidget {
                 ),
               ),
               Divider(color: IColors.light.grayscale.g10),
-              // --- Print Request Section ---
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 12.sp),
                 child: Row(
@@ -131,7 +131,7 @@ class PayslipScreen extends ConsumerWidget {
                       children: [
                         SvgPicture.asset(IAssets.printer),
                         SizedBox(width: 8.w),
-                        const Text("Print Request"),
+                        Text(l10n.payslipPrintRequest),
                       ],
                     ),
                     if (showRequestPrintAccess)
@@ -153,7 +153,7 @@ class PayslipScreen extends ConsumerWidget {
                               extra: payslip);
                         },
                         child: Text(
-                          "Request Access",
+                          l10n.payslipRequestAccess,
                           style: textTheme.labelSmall?.copyWith(
                             fontWeight: FontWeight.w700,
                             color: Colors.white,
@@ -185,12 +185,13 @@ class PayslipScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
 
     final payslipListAsync = ref.watch(payslipListProvider);
 
     return Scaffold(
-      appBar: const IAppBar(title: "My Payslip"),
+      appBar: IAppBar(title: l10n.payslipMyPayslip),
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xFFF8F8F8),
       body: SafeArea(
@@ -208,8 +209,8 @@ class PayslipScreen extends ConsumerWidget {
                 child: payslipListAsync.when(
                   loading: () =>
                       const Center(child: CircularProgressIndicator()),
-                  error: (err, stack) =>
-                      Center(child: Text('Error: ${err.toString()}')),
+                  error: (err, stack) => Center(
+                      child: Text(l10n.payslipListError(err.toString()))),
                   data: (payslips) {
                     final dataList = payslips
                         .where((p) => p.payrun?.periodLabel != null)
@@ -224,8 +225,7 @@ class PayslipScreen extends ConsumerWidget {
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 30.w),
                             child: Text(
-                              // Use the actual count
-                              "Last $count Month${count != 1 ? 's' : ''}",
+                              l10n.payslipLastMonths(count),
                               style: textTheme.bodySmall
                                   ?.copyWith(color: const Color(0xFF8E8E8E)),
                             ),
@@ -234,12 +234,12 @@ class PayslipScreen extends ConsumerWidget {
                             child: ListView.separated(
                                 itemBuilder: (context, index) {
                                   final payslip = dataList[index];
-                                  final title =
-                                      payslip.payrun?.periodLabel ?? 'N/A';
+                                  final title = payslip.payrun?.periodLabel ??
+                                      l10n.payslipNotAvailable;
 
                                   return GestureDetector(
                                     onTap: () {
-                                      showModalPayslip(context, payslip);
+                                      showModalPayslip(context, payslip, l10n);
                                     },
                                     child: ListTile(
                                       title: Text(title),
