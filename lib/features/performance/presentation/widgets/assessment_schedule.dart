@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/util/datetime_utils.dart';
 import 'package:hrms_mobile/core/widgets/label_value.dart';
 import 'package:hrms_mobile/features/inbox/data/models/response/notification_response.dart';
-import 'package:hrms_mobile/features/performance/data/models/response/supervisor_assessment.dart'; // Contains SupervisorAssessmentDetail
+import 'package:hrms_mobile/features/performance/data/models/response/supervisor_assessment.dart';
 
 class AssessmentScheduleWidget extends StatelessWidget {
   final SupervisorAssessmentDetail? assessmentDetail;
@@ -15,6 +16,7 @@ class AssessmentScheduleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final schedule = assessmentDetail?.schedule ??
         AssessmentSchedule(
           id: int.parse(schedulePayload?.scheduleId ?? '0'),
@@ -26,19 +28,21 @@ class AssessmentScheduleWidget extends StatelessWidget {
     final hasSchedule = schedule != null;
 
     final scheduleDate = hasSchedule && schedule.date != null
-        ? DateTimeHelper.formatDateFromISO(schedule.date!)
-        : '-';
+        ? DateTimeHelper.formatDateFromISO(schedule.date!, context: context)
+        : l10n.performanceNotAvailable;
 
     String scheduleTime;
     if (hasSchedule && schedule.startTime != null && schedule.endTime != null) {
-      final startTime = DateTimeHelper.formatTimeFromRaw(schedule.startTime!);
-      final endTime = DateTimeHelper.formatTimeFromRaw(schedule.endTime!);
+      final startTime =
+          DateTimeHelper.formatTimeFromRaw(schedule.startTime!, context: context);
+      final endTime =
+          DateTimeHelper.formatTimeFromRaw(schedule.endTime!, context: context);
       scheduleTime = '$startTime - $endTime';
     } else {
-      scheduleTime = '-';
+      scheduleTime = l10n.performanceNotAvailable;
     }
 
-    final scheduleNotes = schedule?.notes ?? '-';
+    final scheduleNotes = schedule?.notes ?? l10n.performanceNotAvailable;
 
     return Container(
       padding: EdgeInsets.all(16.w),
@@ -48,52 +52,27 @@ class AssessmentScheduleWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Assessment Schedule",
+          Text(l10n.performanceAssessmentSchedule,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: IColors.light.primary.main)),
           SizedBox(height: 12.h),
-
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(child: LabelValue(label: "Date", value: scheduleDate)),
+              Expanded(
+                  child: LabelValue(label: l10n.performanceDate, value: scheduleDate)),
               SizedBox(width: 16.w),
               Expanded(
                 child: LabelValue(
-                  label: "Time",
+                  label: l10n.performanceTime,
                   value: scheduleTime,
                 ),
               )
             ],
           ),
           SizedBox(height: 16.h),
-
-          // Notes
-          LabelValue(label: "Notes", value: scheduleNotes),
-
-          /// it commented out, it might be needed in the future
-          // SizedBox(height: 16.h),
-
-          // Text("Participants",
-          //     style: Theme.of(context).textTheme.titleSmall?.copyWith(
-          //         fontWeight: FontWeight.bold,
-          //         color: IColors.light.primary.main)),
-          // SizedBox(height: 8.h),
-          // if (schedule?.participants != null &&
-          //     schedule!.participants!.isNotEmpty)
-          //   ...schedule.participants!
-          //       .map((p) => Padding(
-          //             padding: EdgeInsets.only(bottom: 4.h),
-          //             child: Text(
-          //               '• ${p.name ?? 'Unknown'} (${p.employeeCode ?? 'N/A'})',
-          //               style: Theme.of(context).textTheme.bodyMedium,
-          //             ),
-          //           ))
-          //       .toList()
-          // else
-          //   Text('No participants scheduled.',
-          //       style: Theme.of(context).textTheme.bodyMedium),
+          LabelValue(label: l10n.performanceNotes, value: scheduleNotes),
         ],
       ),
     );

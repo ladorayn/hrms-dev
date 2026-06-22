@@ -1,0 +1,49 @@
+{
+  "@@locale": "en",
+
+  "coreNotAvailable": "-",
+  "coreSelect": "Select",
+  "coreSelectOption": "Select an option",
+  "coreSelectItems": "Select Items",
+  "coreSearch": "Search...",
+  "coreDone": "Done",
+  "coreConfirmOk": "OK",
+  "coreSelectImage": "Select Image",
+  "coreUploadFile": "Upload File",
+  "coreAttachments": "Attachments",
+  "coreSocialMedia": "Social Media",
+  "coreSocialMediaHint": "Type",
+  "coreCountries": "Countries",
+  "coreCountryCode": "Code",
+  "coreUnknownFieldType": "Unknown field type: {type}",
+  "@coreUnknownFieldType": {
+    "placeholders": {
+      "type": { "type": "String" }
+    }
+  },
+  "coreErrorWithDetail": "Error: {error}",
+  "@coreErrorWithDetail": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+  "coreUpdatedJustNow": "Updated just now",
+  "coreUpdatedDaysAgo": "updated {days}d ago",
+  "@coreUpdatedDaysAgo": {
+    "placeholders": {
+      "days": { "type": "int" }
+    }
+  },
+  "coreUpdatedHoursAgo": "updated {hours}h ago",
+  "@coreUpdatedHoursAgo": {
+    "placeholders": {
+      "hours": { "type": "int" }
+    }
+  },
+  "coreUpdatedMinutesAgo": "updated {minutes}m ago",
+  "@coreUpdatedMinutesAgo": {
+    "placeholders": {
+      "minutes": { "type": "int" }
+    }
+  }
+}

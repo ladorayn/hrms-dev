@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/core/enums/attendance_enum.dart';
 import 'package:hrms_mobile/core/enums/face_step_enum.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
@@ -38,6 +39,7 @@ class FaceVerificationScreen extends ConsumerWidget {
     });
 
     final state = ref.watch(faceVerificationProvider);
+    final l10n = AppLocalizations.of(context)!;
     final notifier = ref.read(faceVerificationProvider.notifier);
 
     final isFailed = state.step == VerificationStep.failed;
@@ -46,7 +48,7 @@ class FaceVerificationScreen extends ConsumerWidget {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: IAppBar(title: "Face Verification"),
+      appBar: IAppBar(title: l10n.attendanceFaceVerification),
       body: Column(
         children: [
           Expanded(
@@ -108,7 +110,7 @@ class FaceVerificationScreen extends ConsumerWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24),
                     child: Text(
-                      state.step.instruction,
+                      state.step.instruction(l10n),
                       textAlign: TextAlign.center,
                       style: (isSuccess || isFailed)
                           ? Theme.of(context).textTheme.headlineSmall?.copyWith(
@@ -126,7 +128,7 @@ class FaceVerificationScreen extends ConsumerWidget {
           ),
           if (!isSuccess && !isLoading)
             IFooterButton(
-              text: state.step.buttonText,
+              text: state.step.buttonText(l10n),
               onPressed: () async {
                 if (isFailed) {
                   notifier.retry();

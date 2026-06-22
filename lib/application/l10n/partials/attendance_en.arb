@@ -1,0 +1,179 @@
+{
+  "@@locale": "en",
+
+  "attendanceTab": "Attendance",
+  "overtimeTab": "Overtime",
+
+  "attendanceClockInLabel": "Clock-In",
+  "attendanceClockOutLabel": "Clock-Out",
+  "attendanceClockInTitle": "Clock-In",
+  "attendanceClockOutTitle": "Clock-Out",
+  "attendanceClockInSentence": "clock in",
+  "attendanceClockOutSentence": "clock out",
+  "attendanceClockInCapitalize": "Clock In",
+  "attendanceClockOutCapitalize": "Clock Out",
+
+  "attendanceShift": "Shift",
+  "attendanceNotes": "Notes",
+  "attendanceLocation": "Location",
+  "attendanceDuration": "Duration",
+  "attendanceOvertime": "Overtime",
+
+  "attendanceFilterByStatus": "Filter by Status",
+  "attendanceStatusAll": "All",
+  "attendanceStatusWaiting": "Waiting",
+  "attendanceStatusApproved": "Approved",
+  "attendanceStatusRejected": "Rejected",
+
+  "attendanceStatLateClockIn": "Late Clock In",
+  "attendanceStatEarlyClockOut": "Early Clock Out",
+  "attendanceStatAbsent": "Absent",
+  "attendanceStatDayOff": "Day Off",
+
+  "attendancePendingRequest": "Pending Request",
+  "attendanceApprovedRequest": "Approved Request",
+  "attendanceRejectedRequest": "Rejected Request",
+
+  "attendanceOvertimeRequestTitle": "Overtime Request",
+  "attendanceOvertimeDuration": "Overtime Duration",
+  "attendanceNoDataForPeriod": "No attendance data for this period.",
+  "attendanceNoOvertimeDataForPeriod": "No overtime data for this period.",
+  "attendanceErrorTryAgainLater": "Error: Please try again later!",
+  "attendanceNetworkError": "A network error occurred.",
+  "attendanceUnexpectedError": "An unexpected error occurred: {error}",
+  "@attendanceUnexpectedError": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+
+  "attendanceTodayWithDay": "Today, {day}",
+  "@attendanceTodayWithDay": {
+    "placeholders": {
+      "day": { "type": "String" }
+    }
+  },
+  "attendanceTodayWithDate": "Today, {date}",
+  "@attendanceTodayWithDate": {
+    "placeholders": {
+      "date": { "type": "String" }
+    }
+  },
+  "attendanceToday": "Today",
+  "attendanceYesterday": "Yesterday",
+  "attendanceDaysAgo": "{count} days ago",
+  "@attendanceDaysAgo": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+
+  "attendanceLocationConfirmed": "Location Confirmed",
+  "attendanceLocationConfirmedBody": "Please complete face verification to proceed with {activity}. This step helps ensure secure and accurate attendance tracking.",
+  "@attendanceLocationConfirmedBody": {
+    "placeholders": {
+      "activity": { "type": "String" }
+    }
+  },
+  "attendanceStartVerification": "Start Verification",
+  "attendanceRegisterYourFace": "Register Your Face",
+
+  "attendanceVerificationInProgress": "{activity} Verification in Progress",
+  "@attendanceVerificationInProgress": {
+    "placeholders": {
+      "activity": { "type": "String" }
+    }
+  },
+  "attendanceLocationVerificationBody": "We're verifying your current location before completing the {activity} process. Please make sure location access is enabled and you're within the allowed work area.",
+  "@attendanceLocationVerificationBody": {
+    "placeholders": {
+      "activity": { "type": "String" }
+    }
+  },
+  "attendanceLocationNotValid": "Location is not valid. You are ~{distance}m away. Max radius is {maxRadius}m.",
+  "@attendanceLocationNotValid": {
+    "placeholders": {
+      "distance": { "type": "String" },
+      "maxRadius": { "type": "String" }
+    }
+  },
+  "attendanceCouldNotGetLocation": "Error: Could not get location. {error}",
+  "@attendanceCouldNotGetLocation": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+  "attendanceLocationServicesDisabled": "Location services are disabled.",
+  "attendanceLocationPermissionDenied": "Location permissions are denied.",
+  "attendanceLocationPermissionDeniedForever": "Location permissions are permanently denied. We cannot request permissions.",
+  "attendanceManualCaptureBypass": "Manual capture (location bypass)",
+
+  "attendancePleaseFillRequiredFields": "Please fill all required fields.",
+  "attendanceNoActiveAttendance": "No active attendance found.",
+  "attendanceSaveActivity": "Save {activity}",
+  "@attendanceSaveActivity": {
+    "placeholders": {
+      "activity": { "type": "String" }
+    }
+  },
+
+  "attendanceEditRequest": "Edit Attendance Request",
+  "attendanceSubmittedRecord": "Submitted Record",
+  "attendanceAdjustment": "Attendance Adjustment",
+  "attendanceClockInField": "Clock In",
+  "attendanceClockOutField": "Clock Out",
+  "attendanceAdjustmentNotes": "Adjustment Notes",
+  "attendanceSendAdjustmentRequest": "Send Adjustment Request",
+  "attendanceUpdateSuccess": "Update Success!",
+  "attendanceUpdateFailed": "Update Failed!",
+  "attendanceUpdateFailedWithError": "Update Failed: {error}",
+  "@attendanceUpdateFailedWithError": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+
+  "attendanceFaceRegistration": "Face Registration",
+  "attendanceFaceVerification": "Face Verification",
+
+  "attendanceFaceStepFrontInstruction": "Face the camera directly and make sure your face is clearly visible",
+  "attendanceFaceStepRightInstruction": "Slowly turn your head to the right and keep it within the frame",
+  "attendanceFaceStepLeftInstruction": "Slowly turn your head to the left and keep it within the frame",
+  "attendanceFaceStepUploadingInstruction": "Uploading photo and verifying face...",
+  "attendanceFaceStepFailedInstruction": "Face Registration Failed!",
+  "attendanceFaceStepSuccessInstruction": "Face Registration Success!",
+  "attendanceFaceStepTakeFrontPhoto": "Take Front Photo",
+  "attendanceFaceStepTakeRightPhoto": "Take Right Photo",
+  "attendanceFaceStepTakeLeftPhoto": "Take Left Photo",
+  "attendanceFaceStepUploading": "Uploading...",
+  "attendanceFaceStepTryAgain": "Try Again",
+  "attendanceFaceStepDone": "Done",
+
+  "attendanceVerificationInitialInstruction": "Face the camera directly and make sure your face is clearly visible",
+  "attendanceVerificationLoadingInstruction": "Verifying...",
+  "attendanceVerificationSuccessInstruction": "Face Verification Success!",
+  "attendanceVerificationFailedInstruction": "Face Verification Failed!",
+  "attendanceVerificationTakePhoto": "Take Photo",
+
+  "activityLogClockIn": "Clock In",
+  "activityLogClockOut": "Clock Out",
+  "activityLogOvertimeCreated": "Overtime Created",
+  "activityLogOvertimeApproved": "Overtime Approved",
+  "activityLogOvertimeRejected": "Overtime Rejected",
+  "activityLogOvertimeUpdated": "Overtime Updated",
+  "activityLogUnknown": "Unknown Activity",
+
+  "overtimeRequestTitle": "Overtime Request",
+  "overtimeRequestDate": "Request Date",
+  "overtimeStartTime": "Start Time",
+  "overtimeEndTime": "End Time",
+  "overtimeNotes": "Overtime Notes",
+  "overtimeRequestButton": "Request Overtime",
+  "overtimeSubmittedSuccess": "Overtime request submitted successfully!",
+  "overtimeEditRequest": "Edit Overtime Request",
+  "overtimeAdjustment": "Overtime Adjustment",
+  "overtimeAdjustmentNotes": "Adjustment Notes",
+  "overtimeSendAdjustmentRequest": "Send Adjustment Request",
+  "overtimeAdjustmentSentSuccess": "Adjustment request sent successfully!",
+  "overtimeNoAttendanceLog": "No attendance log for this date."
+}

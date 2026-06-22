@@ -1,0 +1,32 @@
+{
+  "@@locale": "en",
+
+  "dashboardClockIn": "Clock In",
+  "dashboardClockOut": "Clock Out",
+  "dashboardWorkingTimeDuration": "Working Time Duration",
+  "dashboardOvertimeDuration": "Overtime Duration",
+  "dashboardOvertimeRequest": "Overtime Request",
+  "dashboardNewLeaveRequest": "New Leave Request",
+  "dashboardOffboardingStatusError": "Error fetching offboarding status {error}",
+  "@dashboardOffboardingStatusError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "dashboardRecentActivity": "Recent Activity",
+  "dashboardCouldNotLoadActivities": "Could not load activities",
+  "dashboardNoRecentActivity": "No recent activity.",
+  "dashboardOffboardingTitle": "🔔 Complete Your Offboarding Journey!",
+  "dashboardOffboardingSubtitle": "Let's wrap things up smoothly before you leave",
+  "dashboardOffboardingStartButton": "Start Offboarding Process",
+  "splashError": "Error: {error}",
+  "@splashError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  }
+}

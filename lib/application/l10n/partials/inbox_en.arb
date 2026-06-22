@@ -1,0 +1,10 @@
+{
+  "@@locale": "en",
+
+  "inboxTitle": "Inbox",
+  "inboxEmpty": "No notifications in your inbox.",
+  "inboxError": "Something went wrong",
+  "inboxNoTitle": "No Title",
+  "inboxNoContent": "No content available",
+  "inboxNotAvailable": "N/A"
+}

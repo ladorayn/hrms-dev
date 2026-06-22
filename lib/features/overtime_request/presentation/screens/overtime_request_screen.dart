@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/core/errors/exceptions.dart';
 import 'package:hrms_mobile/core/util/general_utils.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
@@ -65,7 +66,8 @@ class _OvertimeRequestScreenState extends ConsumerState<OvertimeRequestScreen> {
         .submitRequest(request);
 
     if (success && mounted) {
-      showCustomToast(context, 'Overtime request submitted successfully!',
+      final l10n = AppLocalizations.of(context)!;
+      showCustomToast(context, l10n.overtimeSubmittedSuccess,
           ToastType.success);
       // ScaffoldMessenger.of(context).showSnackBar(
       //   const SnackBar(
@@ -78,6 +80,7 @@ class _OvertimeRequestScreenState extends ConsumerState<OvertimeRequestScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
 
     final overtimeState = ref.watch(overtimeRequestNotifierProvider);
@@ -113,7 +116,7 @@ class _OvertimeRequestScreenState extends ConsumerState<OvertimeRequestScreen> {
     );
 
     return Scaffold(
-      appBar: IAppBar(title: "Overtime Request"),
+      appBar: IAppBar(title: l10n.overtimeRequestTitle),
       body: Column(
         children: [
           Expanded(
@@ -124,7 +127,7 @@ class _OvertimeRequestScreenState extends ConsumerState<OvertimeRequestScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ITextFieldDatePicker(
-                    label: "Request Date",
+                    label: l10n.overtimeRequestDate,
                     controller: _attendanceDateController,
                     isRequired: true,
                     errorText: validationErrors['overtime_date'],
@@ -137,7 +140,8 @@ class _OvertimeRequestScreenState extends ConsumerState<OvertimeRequestScreen> {
                   SizedBox(height: 10.h),
                   historyState.when(
                     loading: () => const CircularProgressIndicator(),
-                    error: (err, stack) => Text('Error: $err'),
+                    error: (err, stack) =>
+                        Text(l10n.coreErrorWithDetail(err.toString())),
                     data: (historyList) {
                       final attendanceLog =
                           historyList.isNotEmpty ? historyList.first : null;
@@ -154,7 +158,7 @@ class _OvertimeRequestScreenState extends ConsumerState<OvertimeRequestScreen> {
                     children: [
                       Expanded(
                         child: ITextFieldTimePicker(
-                          label: "Start Time",
+                          label: l10n.overtimeStartTime,
                           isRequired: true,
                           controller: _clockInController,
                           errorText: validationErrors['start_time'],
@@ -168,7 +172,7 @@ class _OvertimeRequestScreenState extends ConsumerState<OvertimeRequestScreen> {
                       SizedBox(width: 10.w),
                       Expanded(
                         child: ITextFieldTimePicker(
-                          label: "End Time",
+                          label: l10n.overtimeEndTime,
                           isRequired: true,
                           controller: _clockOutController,
                           errorText: validationErrors['end_time'],
@@ -184,7 +188,7 @@ class _OvertimeRequestScreenState extends ConsumerState<OvertimeRequestScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Duration",
+                            l10n.attendanceDuration,
                             style: textTheme.labelMedium,
                           ),
                           SizedBox(height: 12.h),
@@ -198,7 +202,7 @@ class _OvertimeRequestScreenState extends ConsumerState<OvertimeRequestScreen> {
                   ),
                   SizedBox(height: 10.h),
                   ITextFieldTextArea(
-                    label: "Overtime Notes",
+                    label: l10n.overtimeNotes,
                     controller: _notesController,
                     isRequired: true,
                     errorText: validationErrors['notes'],
@@ -209,7 +213,7 @@ class _OvertimeRequestScreenState extends ConsumerState<OvertimeRequestScreen> {
           ),
           IFooterButton(
             onPressed: _submitOvertime,
-            text: "Request Overtime",
+            text: l10n.overtimeRequestButton,
           ),
         ],
       ),

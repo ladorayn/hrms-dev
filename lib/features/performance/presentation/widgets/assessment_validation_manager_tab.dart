@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/data/models/form_fields_response.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
@@ -228,6 +229,7 @@ class _AssessmentValidationFormTabManagerScreenState
 
   Future<void> _onSubmit() async {
     if (_isValidationCompleted) return;
+    final l10n = AppLocalizations.of(context)!;
     final List<SubmissionForm> submissions = [];
 
     _checkboxAnswers.forEach((fieldId, answers) {
@@ -269,17 +271,22 @@ class _AssessmentValidationFormTabManagerScreenState
               request: request, assessmentId: widget.employeeSelfAssessmentId);
       if (mounted) {
         ref.invalidate(assessmentListRProvider);
-        showCustomToast(context, 'Validation Successful', ToastType.success);
+        showCustomToast(
+            context, l10n.performanceValidationSuccessful, ToastType.success);
         context.go(RoutePaths.performance);
       }
     } catch (e) {
-      if (mounted) showCustomToast(context, 'Failed: $e', ToastType.error);
+      if (mounted) {
+        showCustomToast(
+            context, l10n.performanceFailed(e.toString()), ToastType.error);
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    final l10n = AppLocalizations.of(context)!;
 
     final formDetailAsync = ref.watch(
         performanceFormFieldsByGroupDetailProvider(formId: widget.formId));
@@ -314,7 +321,8 @@ class _AssessmentValidationFormTabManagerScreenState
           Expanded(
             child: formDetailAsync.when(
               loading: () => const Center(child: CircularProgressIndicator()),
-              error: (err, stack) => Center(child: Text('Error: $err')),
+              error: (err, stack) =>
+                  Center(child: Text(l10n.performanceError(err.toString()))),
               data: (detail) {
                 // Also wait for answers before showing the form
                 if (!_isStateInitialized || formAnsweredAsync.isLoading) {
@@ -358,18 +366,19 @@ class _AssessmentValidationFormTabManagerScreenState
   }
 
   Widget _buildFooter() {
+    final l10n = AppLocalizations.of(context)!;
     if (_isValidationCompleted) {
       return Container(
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
         color: IColors.light.grayscale.g10,
         child: Center(
-          child: Text('Validation complete and read-only.',
+          child: Text(l10n.performanceValidationCompleteReadOnly,
               style: TextStyle(color: IColors.light.grayscale.g60)),
         ),
       );
     }
     return IFooterButton(
-      text: "Validate Self Assessment",
+      text: l10n.performanceValidateSelfAssessment,
       onPressed: _isFormValid ? _onSubmit : null,
     );
   }
@@ -403,6 +412,7 @@ class _AssessmentValidationFormTabManagerScreenState
   }
 
   Widget _buildDynamicField(FormFields field) {
+    final l10n = AppLocalizations.of(context)!;
     switch (field.type) {
       case 'checkbox':
         return _buildCheckboxSection(field);
@@ -415,7 +425,7 @@ class _AssessmentValidationFormTabManagerScreenState
       case 'radio':
         return _buildSingleSelectionSection(field);
       default:
-        return Text('Unknown type: ${field.type}');
+        return Text(l10n.performanceUnknownType(field.type ?? ''));
     }
   }
 
@@ -468,6 +478,7 @@ class _AssessmentValidationFormTabManagerScreenState
   }
 
   Widget _buildTextAreaSection(FormFields field) {
+    final l10n = AppLocalizations.of(context)!;
     final controller = _notesControllers[field.id];
     if (controller == null) return const SizedBox.shrink();
     return Column(
@@ -476,7 +487,7 @@ class _AssessmentValidationFormTabManagerScreenState
         _buildFieldHeader(field),
         ITextFieldTextArea(
           controller: controller,
-          hintText: 'Enter comment...',
+          hintText: l10n.performanceEnterComment,
           readOnly: _isValidationCompleted,
         ),
       ],

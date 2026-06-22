@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/widgets/text_field/base/i_text_field.dart';
 
@@ -73,10 +74,11 @@ class _ITextFieldTimePickerState extends State<ITextFieldTimePicker> {
 
   /// Opens the time picker dialog and handles the selected time.
   Future<void> _selectTime(BuildContext context) async {
+    final l10n = AppLocalizations.of(context)!;
     final TimeOfDay? picked = await showTimePicker(
       context: context,
       initialTime: _selectedTime ?? TimeOfDay.now(),
-      confirmText: 'Oke',
+      confirmText: l10n.coreConfirmOk,
     );
 
     if (picked != null && picked != _selectedTime) {

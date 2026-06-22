@@ -8,6 +8,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hrms_mobile/application/l10n/app_localizations.dart';
+import 'package:hrms_mobile/application/l10n/locale_provider.dart';
 import 'package:hrms_mobile/application/theme/i_theme.dart';
 import 'package:hrms_mobile/core/routes/app_router.dart';
 import 'package:hrms_mobile/core/services/notifications/local_notification_service.dart';
@@ -82,6 +83,7 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     ref.watch(fcmTokenSyncProvider);
     final router = ref.watch(appRouterProvider);
+    final localeAsync = ref.watch(localeProvider);
 
     return ScreenUtilInit(
         designSize: const Size(375, 812),
@@ -91,6 +93,7 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
           return MaterialApp.router(
             title: ' ESS CPS',
             theme: ITheme.light,
+            locale: localeAsync.value,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
             themeMode: ThemeMode.system,

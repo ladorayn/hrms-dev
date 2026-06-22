@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/errors/exceptions.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
@@ -52,8 +53,9 @@ class _KeyResultDataScreenState extends ConsumerState<KeyResultDataScreen> {
   }
 
   Future<void> _onSaveProgress() async {
+    final l10n = AppLocalizations.of(context)!;
     if (!_formKey.currentState!.validate()) {
-      showCustomToast(context, 'Please fill all required fields correctly.',
+      showCustomToast(context, l10n.performanceFillRequiredFields,
           ToastType.info);
       return;
     }
@@ -75,7 +77,7 @@ class _KeyResultDataScreenState extends ConsumerState<KeyResultDataScreen> {
 
       if (mounted) {
         showCustomToast(
-            context, 'Progress saved successfully!', ToastType.success);
+            context, l10n.performanceProgressSaved, ToastType.success);
         ref.invalidate(oKRTrackingRProvider(okrKeyResult: widget.kr.id));
       }
     } catch (error) {
@@ -84,12 +86,12 @@ class _KeyResultDataScreenState extends ConsumerState<KeyResultDataScreen> {
           final exception = error;
           showCustomToast(context, exception.message, ToastType.error);
         } else if (error is DioException) {
-          showCustomToast(context, error.message ?? 'A network error occurred.',
+          showCustomToast(context, error.message ?? l10n.performanceNetworkError,
               ToastType.error);
         } else {
           showCustomToast(
               context,
-              'An unexpected error occurred: ${error.toString()}',
+              l10n.performanceUnexpectedError(error.toString()),
               ToastType.error);
         }
       }
@@ -102,6 +104,7 @@ class _KeyResultDataScreenState extends ConsumerState<KeyResultDataScreen> {
     required String targetValue,
     required TextEditingController controller,
   }) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
     return Padding(
       padding: EdgeInsets.only(top: 8.h),
@@ -141,7 +144,9 @@ class _KeyResultDataScreenState extends ConsumerState<KeyResultDataScreen> {
                         controller: controller,
                         keyboardType: TextInputType.number,
                         validator: (value) {
-                          if (value == null || value.isEmpty) return 'Required';
+                          if (value == null || value.isEmpty) {
+                            return l10n.performanceRequired;
+                          }
                           return null;
                         },
                         decoration: const InputDecoration(
@@ -171,6 +176,7 @@ class _KeyResultDataScreenState extends ConsumerState<KeyResultDataScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final trackingAsync =
         ref.watch(oKRTrackingRProvider(okrKeyResult: widget.kr.id));
 
@@ -178,10 +184,11 @@ class _KeyResultDataScreenState extends ConsumerState<KeyResultDataScreen> {
     final isSubmitting = submissionState is AsyncLoading;
 
     return Scaffold(
-      appBar: IAppBar(title: "Key Result Data"),
+      appBar: IAppBar(title: l10n.performanceKeyResultData),
       body: trackingAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (err, stack) => Center(child: Text('Error: $err')),
+        error: (err, stack) =>
+            Center(child: Text(l10n.performanceError(err.toString()))),
         data: (tracking) {
           // Initialize controllers for each period in the tracking table
           for (var item in tracking.trackingTable ?? []) {
@@ -207,7 +214,7 @@ class _KeyResultDataScreenState extends ConsumerState<KeyResultDataScreen> {
                       ...(tracking.trackingTable ?? []).map((item) {
                         return _buildWeeklyInputRow(
                           weekLabel: item.label ?? '',
-                          dateLabel: "Target for this period",
+                          dateLabel: l10n.performanceTargetForPeriod,
                           targetValue: item.targetValue ?? "",
                           controller: _controllers[item.periodId]!,
                         );
@@ -217,7 +224,7 @@ class _KeyResultDataScreenState extends ConsumerState<KeyResultDataScreen> {
                 ),
               ),
               IFooterButton(
-                text: isSubmitting ? "Saving..." : "Save",
+                text: isSubmitting ? l10n.performanceSaving : l10n.performanceSave,
                 onPressed: isSubmitting ? null : _onSaveProgress,
               ),
             ],
@@ -228,10 +235,11 @@ class _KeyResultDataScreenState extends ConsumerState<KeyResultDataScreen> {
   }
 
   Widget _buildHeader(OKRTracking tracking) {
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('OBJECTIVE',
+        Text(l10n.performanceObjective,
             style: Theme.of(context).textTheme.labelSmall?.copyWith(
                 color: IColors.light.grayscale.g50,
                 fontWeight: FontWeight.w600)),

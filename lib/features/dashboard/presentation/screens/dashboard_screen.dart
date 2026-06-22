@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/enums/attendance_enum.dart';
 import 'package:hrms_mobile/core/errors/exceptions.dart';
@@ -30,6 +31,7 @@ class DashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
     final todayAttendanceState = ref.watch(todayAttendanceProvider);
     final authP = ref.watch(authProvider);
@@ -98,7 +100,9 @@ class DashboardScreen extends ConsumerWidget {
       }
     });
 
-    final String todayDate = DateFormat('MMMM d, y').format(DateTime.now());
+    final locale = Localizations.localeOf(context).toString();
+    final String todayDate =
+        DateFormat('MMMM d, y', locale).format(DateTime.now());
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -305,7 +309,7 @@ class DashboardScreen extends ConsumerWidget {
                                                             .start,
                                                     children: [
                                                       Text(
-                                                        'Clock In',
+                                                        l10n.dashboardClockIn,
                                                         style: TextStyle(
                                                             color: Color(
                                                                 0xFF8E8E8E),
@@ -363,8 +367,8 @@ class DashboardScreen extends ConsumerWidget {
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: [
-                                                      const Text(
-                                                        'Clock Out',
+                                                      Text(
+                                                        l10n.dashboardClockOut,
                                                         style: TextStyle(
                                                             color: Color(
                                                                 0xFF8E8E8E)),
@@ -437,7 +441,7 @@ class DashboardScreen extends ConsumerWidget {
                                                         children: [
                                                           Flexible(
                                                             child: Text(
-                                                              "Working Time Duration",
+                                                              l10n.dashboardWorkingTimeDuration,
                                                               style: textTheme
                                                                   .labelSmall
                                                                   ?.copyWith(
@@ -483,7 +487,7 @@ class DashboardScreen extends ConsumerWidget {
                                                           children: [
                                                             Flexible(
                                                               child: Text(
-                                                                "Overtime Duration",
+                                                                l10n.dashboardOvertimeDuration,
                                                                 style: textTheme
                                                                     .labelSmall
                                                                     ?.copyWith(
@@ -576,7 +580,7 @@ class DashboardScreen extends ConsumerWidget {
                               ),
                               const SizedBox(height: 10),
                               Text(
-                                'Overtime Request',
+                                l10n.dashboardOvertimeRequest,
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 12.sp,
@@ -609,7 +613,7 @@ class DashboardScreen extends ConsumerWidget {
                               ),
                               const SizedBox(height: 10),
                               Text(
-                                'New Leave Request',
+                                l10n.dashboardNewLeaveRequest,
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 12.sp,
@@ -637,13 +641,13 @@ class DashboardScreen extends ConsumerWidget {
                     if (error is DataNotFoundException) {
                       return const SizedBox.shrink();
                     }
-                    return Text("Error fetching offboarding status $error");
+                    return Text(l10n.dashboardOffboardingStatusError(error.toString()));
                   },
                   loading: () => const SizedBox.shrink(),
                 ),
                 SizedBox(height: 4.h),
                 Text(
-                  'Recent Activity',
+                  l10n.dashboardRecentActivity,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18.sp,
@@ -656,10 +660,10 @@ class DashboardScreen extends ConsumerWidget {
                     loading: () =>
                         const Center(child: CircularProgressIndicator()),
                     error: (error, stackTrace) =>
-                        const Center(child: Text('Could not load activities')),
+                        Center(child: Text(l10n.dashboardCouldNotLoadActivities)),
                     data: (logs) {
                       if (logs.isEmpty) {
-                        return const Center(child: Text('No recent activity.'));
+                        return Center(child: Text(l10n.dashboardNoRecentActivity));
                       }
                       return ListView.builder(
                         physics: const AlwaysScrollableScrollPhysics(),
@@ -684,6 +688,8 @@ class DashboardScreen extends ConsumerWidget {
 }
 
 Widget _buildClockInButton(BuildContext context, WidgetRef ref) {
+  final l10n = AppLocalizations.of(context)!;
+
   return SizedBox(
     width: double.infinity,
     child: ElevatedButton.icon(
@@ -695,7 +701,7 @@ Widget _buildClockInButton(BuildContext context, WidgetRef ref) {
         color: Colors.white,
       ),
       label: Text(
-        'Clock In',
+        l10n.dashboardClockIn,
         style: TextStyle(
           fontSize: 12.sp,
           fontWeight: FontWeight.w600,
@@ -725,6 +731,8 @@ Widget _buildTimeDisplay(String time) {
 
 Widget _buildClockOutButton(BuildContext context, WidgetRef ref,
     {required bool enabled}) {
+  final l10n = AppLocalizations.of(context)!;
+
   return SizedBox(
     width: double.infinity,
     child: ElevatedButton.icon(
@@ -738,7 +746,7 @@ Widget _buildClockOutButton(BuildContext context, WidgetRef ref,
         color: enabled ? Colors.white : Colors.grey,
       ),
       label: Text(
-        'Clock Out',
+        l10n.dashboardClockOut,
         style: TextStyle(
           fontSize: 12.sp,
           fontWeight: FontWeight.w600,
@@ -760,6 +768,8 @@ Widget _buildClockOutButton(BuildContext context, WidgetRef ref,
 }
 
 Widget _buildInitialState(BuildContext context, WidgetRef ref) {
+  final l10n = AppLocalizations.of(context)!;
+
   return Container(
     decoration: BoxDecoration(
       color: IColors.light.primary.focused,
@@ -798,9 +808,9 @@ Widget _buildInitialState(BuildContext context, WidgetRef ref) {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            'Clock In',
-                            style: TextStyle(color: Color(0xFF8E8E8E)),
+                          Text(
+                            l10n.dashboardClockIn,
+                            style: const TextStyle(color: Color(0xFF8E8E8E)),
                           ),
                           const SizedBox(height: 4),
                           _buildClockInButton(context, ref),
@@ -834,7 +844,7 @@ Widget _buildInitialState(BuildContext context, WidgetRef ref) {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Clock Out',
+                            l10n.dashboardClockOut,
                             style: TextStyle(
                                 color: Color(0xFF8E8E8E), fontSize: 10.sp),
                           ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
@@ -17,11 +18,12 @@ class OKRListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
       appBar: IAppBar(
-        title: "My OKR",
+        title: l10n.performanceMyOkr,
         onBack: () {
           ref.invalidate(oKRListRProvider);
           context.pop();
@@ -37,12 +39,13 @@ class OKRListScreen extends ConsumerWidget {
                   padding: EdgeInsets.only(top: 20.h),
                   itemBuilder: (context, index) {
                     final item = okrs[index];
-                    final title = item.period ?? 'N/A';
+                    final title = item.period ?? l10n.performanceNotAvailable;
 
                     final statusLabel = item.statusLabel ?? '';
                     final status = item.status;
-                    final dueDate =
-                        DateTimeHelper.formatDateFromISO(item.endDate ?? '');
+                    final dueDate = DateTimeHelper.formatDateFromISO(
+                        item.endDate ?? '',
+                        context: context);
 
                     return GestureDetector(
                       onTap: () {
@@ -134,6 +137,7 @@ class OKRListScreen extends ConsumerWidget {
   }
 
   Widget _buildDueDateLabel(BuildContext context, String date) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
     final warningColor = IColors.light.warning.main;
 
@@ -161,7 +165,7 @@ class OKRListScreen extends ConsumerWidget {
             TextSpan(
               style: baseStyle,
               children: [
-                const TextSpan(text: 'Due Date '),
+                TextSpan(text: l10n.performanceDueDate),
                 TextSpan(
                   text: date,
                   style: baseStyle?.copyWith(

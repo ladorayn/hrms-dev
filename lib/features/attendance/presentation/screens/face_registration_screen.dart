@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/core/enums/attendance_enum.dart';
 import 'package:hrms_mobile/core/enums/face_step_enum.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
@@ -36,6 +37,7 @@ class FaceRegistrationScreen extends ConsumerWidget {
       }
     });
     final state = ref.watch(faceRegistrationProvider(initialFaceCount));
+    final l10n = AppLocalizations.of(context)!;
     final isSuccess = state.step == FaceStep.success;
     final isFailed = state.step == FaceStep.failed;
 
@@ -43,7 +45,7 @@ class FaceRegistrationScreen extends ConsumerWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: IAppBar(
-        title: "Face Registration",
+        title: l10n.attendanceFaceRegistration,
         onBack: () => globalNavigatorKey.currentContext?.pop(),
       ),
       body: Column(
@@ -115,7 +117,7 @@ class FaceRegistrationScreen extends ConsumerWidget {
                             height: 40,
                           ),
                         Text(
-                          state.step.instruction,
+                          state.step.instruction(l10n),
                           // Make success text more prominent
                           style: (isSuccess || isFailed)
                               ? Theme.of(context)
@@ -139,7 +141,7 @@ class FaceRegistrationScreen extends ConsumerWidget {
           ),
           if (!isSuccess)
             IFooterButton(
-              text: state.step.buttonText,
+              text: state.step.buttonText(l10n),
               onPressed: () async {
                 switch (state.step) {
                   case FaceStep.success:

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
@@ -15,10 +16,11 @@ class SelfAssessmentScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      appBar: IAppBar(title: "Self Assessment"),
+      appBar: IAppBar(title: l10n.performanceSelfAssessment),
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -29,7 +31,7 @@ class SelfAssessmentScreen extends ConsumerWidget {
                   padding: EdgeInsets.only(top: 20.h),
                   itemBuilder: (context, index) {
                     final item = assessments[index];
-                    final title = item.period ?? 'N/A';
+                    final title = item.period ?? l10n.performanceNotAvailable;
                     final status = item.status ?? 'unknown';
 
                     final statusLabel = item.status ?? status;
@@ -127,6 +129,7 @@ class SelfAssessmentScreen extends ConsumerWidget {
   }
 
   Widget _buildDueDateLabel(BuildContext context, String date) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
     final warningColor = IColors.light.warning.main;
 
@@ -154,7 +157,7 @@ class SelfAssessmentScreen extends ConsumerWidget {
             TextSpan(
               style: baseStyle,
               children: [
-                const TextSpan(text: 'Due Date '),
+                TextSpan(text: l10n.performanceDueDate),
                 TextSpan(
                   text: date,
                   style: baseStyle?.copyWith(

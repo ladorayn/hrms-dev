@@ -1,0 +1,49 @@
+{
+  "@@locale": "id",
+
+  "coreNotAvailable": "-",
+  "coreSelect": "Pilih",
+  "coreSelectOption": "Pilih salah satu opsi",
+  "coreSelectItems": "Pilih Item",
+  "coreSearch": "Cari...",
+  "coreDone": "Selesai",
+  "coreConfirmOk": "OK",
+  "coreSelectImage": "Pilih Gambar",
+  "coreUploadFile": "Unggah Berkas",
+  "coreAttachments": "Lampiran",
+  "coreSocialMedia": "Media Sosial",
+  "coreSocialMediaHint": "Jenis",
+  "coreCountries": "Negara",
+  "coreCountryCode": "Kode",
+  "coreUnknownFieldType": "Jenis bidang tidak dikenal: {type}",
+  "@coreUnknownFieldType": {
+    "placeholders": {
+      "type": { "type": "String" }
+    }
+  },
+  "coreErrorWithDetail": "Kesalahan: {error}",
+  "@coreErrorWithDetail": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+  "coreUpdatedJustNow": "Diperbarui baru saja",
+  "coreUpdatedDaysAgo": "diperbarui {days}h lalu",
+  "@coreUpdatedDaysAgo": {
+    "placeholders": {
+      "days": { "type": "int" }
+    }
+  },
+  "coreUpdatedHoursAgo": "diperbarui {hours}j lalu",
+  "@coreUpdatedHoursAgo": {
+    "placeholders": {
+      "hours": { "type": "int" }
+    }
+  },
+  "coreUpdatedMinutesAgo": "diperbarui {minutes}m lalu",
+  "@coreUpdatedMinutesAgo": {
+    "placeholders": {
+      "minutes": { "type": "int" }
+    }
+  }
+}

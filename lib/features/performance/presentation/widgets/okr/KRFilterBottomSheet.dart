@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/widgets/text_field/base/i_text_field.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_date_picker.dart';
@@ -29,24 +30,29 @@ class _KRFilterBottomSheetState extends State<KRFilterBottomSheet> {
   DateTime? _startDate;
   DateTime? _endDate;
 
+  int _extractWeekNumber(String value) {
+    final match = RegExp(r'\d+').firstMatch(value);
+    return int.tryParse(match?.group(0) ?? '') ?? 1;
+  }
+
   void _handleApply() {
     Map<String, dynamic> params = {};
     final sY = _startYearCtrl.text;
     final eY = _endYearCtrl.text;
 
     switch (widget.frequency) {
-      case 0: // Weekly: YYYY-W[01-53]
+      case 0:
         params = {
-          'start_week': '$sY-${_startValCtrl.text.replaceAll("Week ", "W")}',
-          'end_week': '$eY-${_endValCtrl.text.replaceAll("Week ", "W")}',
+          'start_week': '$sY-W${_extractWeekNumber(_startValCtrl.text).toString().padLeft(2, '0')}',
+          'end_week': '$eY-W${_extractWeekNumber(_endValCtrl.text).toString().padLeft(2, '0')}',
         };
         break;
-      case 1: // Monthly: YYYY-[01-12]-1
+      case 1:
         final sM = _getMonthIndex(_startValCtrl.text);
         final eM = _getMonthIndex(_endValCtrl.text);
         params = {'start_month': '$sY-$sM-1', 'end_month': '$eY-$eM-1'};
         break;
-      case 2: // Quarterly: Integer 1-10
+      case 2:
         params = {
           'start_quarter':
               int.tryParse(_startValCtrl.text.replaceAll("Q", "")) ?? 1,
@@ -54,10 +60,10 @@ class _KRFilterBottomSheetState extends State<KRFilterBottomSheet> {
               int.tryParse(_endValCtrl.text.replaceAll("Q", "")) ?? 4,
         };
         break;
-      case 3: // Yearly: YYYY
+      case 3:
         params = {'start_year': sY, 'end_year': eY};
         break;
-      case 4: // Daily: YYYY-MM-DD
+      case 4:
         if (_startDate != null && _endDate != null) {
           params = {
             'start_date': DateFormat('yyyy-MM-dd').format(_startDate!),
@@ -70,38 +76,34 @@ class _KRFilterBottomSheetState extends State<KRFilterBottomSheet> {
     Navigator.pop(context);
   }
 
+  List<String> _getMonthOptions() {
+    final locale = Localizations.localeOf(context).toString();
+    return List.generate(
+      12,
+      (i) => DateFormat.MMMM(locale).format(DateTime(2024, i + 1)),
+    );
+  }
+
   String _getMonthIndex(String name) {
-    int idx = [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-          "August",
-          "September",
-          "October",
-          "November",
-          "December"
-        ].indexOf(name) +
-        1;
+    final idx = _getMonthOptions().indexOf(name) + 1;
     return idx.toString().padLeft(2, '0');
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Padding(
       padding: EdgeInsets.fromLTRB(
           20.w, 20.h, 20.w, 40.h + MediaQuery.of(context).viewInsets.bottom),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text("Select Range",
+          Text(l10n.performanceSelectRange,
               style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold)),
           SizedBox(height: 24.h),
-          if (widget.frequency == 4) _buildDailySection(),
-          if (widget.frequency != 4) _buildGridSection(),
+          if (widget.frequency == 4) _buildDailySection(l10n),
+          if (widget.frequency != 4) _buildGridSection(l10n),
           SizedBox(height: 32.h),
           SizedBox(
             width: double.infinity,
@@ -112,8 +114,8 @@ class _KRFilterBottomSheetState extends State<KRFilterBottomSheet> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.r))),
               onPressed: _handleApply,
-              child: const Text("Apply Filter",
-                  style: TextStyle(color: Colors.white)),
+              child: Text(l10n.performanceApplyFilter,
+                  style: const TextStyle(color: Colors.white)),
             ),
           )
         ],
@@ -121,45 +123,46 @@ class _KRFilterBottomSheetState extends State<KRFilterBottomSheet> {
     );
   }
 
-  Widget _buildDailySection() {
+  Widget _buildDailySection(AppLocalizations l10n) {
     return Column(
       children: [
         ITextFieldDatePicker(
-            label: "Start Date", onDateChanged: (d) => _startDate = d),
+            label: l10n.performanceStartDate,
+            onDateChanged: (d) => _startDate = d),
         SizedBox(height: 16.h),
         ITextFieldDatePicker(
-            label: "End Date", onDateChanged: (d) => _endDate = d),
+            label: l10n.performanceEndDate, onDateChanged: (d) => _endDate = d),
       ],
     );
   }
 
-  Widget _buildGridSection() {
+  Widget _buildGridSection(AppLocalizations l10n) {
     return Column(
       children: [
-        _buildInputRow(isStart: true),
+        _buildInputRow(l10n, isStart: true),
         Padding(
           padding: EdgeInsets.symmetric(vertical: 12.h),
           child: Align(
               alignment: Alignment.centerLeft,
-              child: Text("TO",
+              child: Text(l10n.performanceTo,
                   style: TextStyle(
                       fontSize: 10.sp,
                       fontWeight: FontWeight.bold,
                       color: Colors.grey))),
         ),
-        _buildInputRow(isStart: false),
+        _buildInputRow(l10n, isStart: false),
       ],
     );
   }
 
-  Widget _buildInputRow({required bool isStart}) {
+  Widget _buildInputRow(AppLocalizations l10n, {required bool isStart}) {
     final label = switch (widget.frequency) {
-      0 => "Week",
-      1 => "Month",
-      2 => "Quarter",
-      _ => "Year"
+      0 => l10n.performanceWeek,
+      1 => l10n.performanceMonth,
+      2 => l10n.performanceQuarter,
+      _ => l10n.performanceYear
     };
-    final options = _getOptions();
+    final options = _getOptions(l10n);
 
     return Row(
       children: [
@@ -176,7 +179,7 @@ class _KRFilterBottomSheetState extends State<KRFilterBottomSheet> {
         ],
         Expanded(
           child: ITextFieldBase(
-            label: "Year*",
+            label: l10n.performanceYearRequired,
             controller: isStart ? _startYearCtrl : _endYearCtrl,
             keyboardType: TextInputType.number,
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -186,23 +189,11 @@ class _KRFilterBottomSheetState extends State<KRFilterBottomSheet> {
     );
   }
 
-  List<String> _getOptions() {
-    if (widget.frequency == 0) return List.generate(53, (i) => "Week ${i + 1}");
-    if (widget.frequency == 1)
-      return [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December"
-      ];
+  List<String> _getOptions(AppLocalizations l10n) {
+    if (widget.frequency == 0) {
+      return List.generate(53, (i) => l10n.performanceWeekLabel(i + 1));
+    }
+    if (widget.frequency == 1) return _getMonthOptions();
     if (widget.frequency == 2) return ["Q1", "Q2", "Q3", "Q4"];
     return [];
   }

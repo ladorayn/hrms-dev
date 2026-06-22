@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/features/attendance/presentation/widgets/attendance_log_tab.dart';
 import 'package:hrms_mobile/features/attendance/presentation/widgets/overtime_log_tab.dart';
@@ -10,6 +11,7 @@ class AttendanceOvertimeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
 
     return DefaultTabController(
@@ -21,7 +23,7 @@ class AttendanceOvertimeScreen extends ConsumerWidget {
           backgroundColor: Colors.white,
           centerTitle: false,
           title: Text(
-            'Attendance and Overtime',
+            l10n.profileAttendanceAndOvertime,
             style: textTheme.titleLarge?.copyWith(fontSize: 18),
           ),
           leading: IconButton(
@@ -44,8 +46,8 @@ class AttendanceOvertimeScreen extends ConsumerWidget {
                   indicatorSize: TabBarIndicatorSize.tab,
                   dividerColor: Colors.transparent,
                   tabs: [
-                    Tab(text: "Attendance"),
-                    Tab(text: "Overtime"),
+                    Tab(text: l10n.attendanceTab),
+                    Tab(text: l10n.overtimeTab),
                   ],
                 ),
               ],

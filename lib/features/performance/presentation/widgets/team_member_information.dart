@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/core/util/datetime_utils.dart';
 import 'package:hrms_mobile/core/widgets/label_value.dart';
 import 'package:hrms_mobile/core/widgets/section_title.dart';
@@ -12,8 +13,7 @@ class TeamMemberInfoSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final valueColor = Colors.black;
+    final l10n = AppLocalizations.of(context)!;
 
     return Container(
       padding: EdgeInsets.all(16.w),
@@ -24,7 +24,7 @@ class TeamMemberInfoSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TextTitle("Team Member Information"),
+          TextTitle(l10n.performanceTeamMemberInformation),
           SizedBox(
             height: 4.h,
           ),
@@ -36,13 +36,13 @@ class TeamMemberInfoSection extends StatelessWidget {
                 children: [
                   Expanded(
                       child: LabelValue(
-                          label: "Employee Name",
-                          value: member.userName ?? 'N/A')),
+                          label: l10n.performanceEmployeeName,
+                          value: member.userName ?? l10n.performanceNotAvailable)),
                   SizedBox(width: 16.w),
                   Expanded(
                     child: LabelValue(
-                      label: "Position",
-                      value: member.jobPositionName ?? 'N/A',
+                      label: l10n.performancePosition,
+                      value: member.jobPositionName ?? l10n.performanceNotAvailable,
                     ),
                   )
                 ],
@@ -53,13 +53,13 @@ class TeamMemberInfoSection extends StatelessWidget {
                 children: [
                   Expanded(
                       child: LabelValue(
-                          label: "Job Level",
-                          value: member.jobLevelName ?? 'N/A')),
+                          label: l10n.performanceJobLevel,
+                          value: member.jobLevelName ?? l10n.performanceNotAvailable)),
                   SizedBox(width: 16.w),
                   Expanded(
                       child: LabelValue(
-                          label: "Department",
-                          value: member.departmentName ?? 'N/A')),
+                          label: l10n.performanceDepartment,
+                          value: member.departmentName ?? l10n.performanceNotAvailable)),
                 ],
               ),
               SizedBox(height: 16.h),
@@ -68,19 +68,21 @@ class TeamMemberInfoSection extends StatelessWidget {
                 children: [
                   Expanded(
                       child: LabelValue(
-                          label: "Submitted on",
+                          label: l10n.performanceSubmittedOn,
                           value: member.submittedAt != null
                               ? DateTimeHelper.formatDateAndTime24H(
-                                  member.submittedAt!)
-                              : 'N/A')),
+                                  member.submittedAt!,
+                                  context: context)
+                              : l10n.performanceNotAvailable)),
                   SizedBox(width: 16.w),
                   Expanded(
                       child: LabelValue(
-                          label: "Validated on",
+                          label: l10n.performanceValidatedOn,
                           value: member.validatedAt != null
                               ? DateTimeHelper.formatDateAndTime24H(
-                                  member.validatedAt!)
-                              : 'N/A')),
+                                  member.validatedAt!,
+                                  context: context)
+                              : l10n.performanceNotAvailable)),
                 ],
               ),
             ],

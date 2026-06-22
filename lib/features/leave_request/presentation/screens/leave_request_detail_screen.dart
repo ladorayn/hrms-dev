@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/features/leave_request/presentation/providers/leave_provider.dart';
@@ -19,20 +20,23 @@ class LeaveRequestDetailScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
 
     final leaveDetailAsync = ref.watch(leaveDataProvider(id: leaveId));
 
     return Scaffold(
-      appBar: IAppBar(title: "Leave Request Detail"),
+      appBar: IAppBar(title: l10n.leaveRequestDetail),
       body: leaveDetailAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (err, stack) => Center(child: Text("Error: $err")),
+        error: (err, stack) =>
+            Center(child: Text(l10n.coreErrorWithDetail('$err'))),
         data: (leave) {
           final startDate = DateTime.parse(leave.startDate);
           final endDate = DateTime.parse(leave.endDate);
+          final locale = Localizations.localeOf(context).toString();
           final duration =
-              '${DateFormat('MMM d').format(startDate)} - ${DateFormat('MMM d, yyyy').format(endDate)}';
+              '${DateFormat('MMM d', locale).format(startDate)} - ${DateFormat('MMM d, yyyy', locale).format(endDate)}';
 
           return Column(
             children: [
@@ -51,7 +55,7 @@ class LeaveRequestDetailScreen extends ConsumerWidget {
                         spacing: 10.h,
                         children: [
                           Text(
-                            "Request Detail",
+                            l10n.leaveRequestDetailSection,
                             style: textTheme.titleMedium
                                 ?.copyWith(color: IColors.light.primary.main),
                           ),
@@ -61,7 +65,7 @@ class LeaveRequestDetailScreen extends ConsumerWidget {
                             spacing: 5.h,
                             children: [
                               Text(
-                                "Leave Type",
+                                l10n.leaveType,
                                 style: textTheme.bodySmall?.copyWith(
                                     color: IColors.light.grayscale.g30),
                               ),
@@ -89,7 +93,7 @@ class LeaveRequestDetailScreen extends ConsumerWidget {
                             spacing: 5.h,
                             children: [
                               Text(
-                                "Duration",
+                                l10n.leaveDuration,
                                 style: textTheme.bodySmall?.copyWith(
                                     color: IColors.light.grayscale.g30),
                               ),
@@ -103,7 +107,7 @@ class LeaveRequestDetailScreen extends ConsumerWidget {
                                   ),
                                   SizedBox(width: 4.w),
                                   Text(
-                                    '(${leave.day} Days)',
+                                    l10n.leaveDaysCount(leave.day),
                                     style: textTheme.bodyLarge
                                         ?.copyWith(color: Colors.grey.shade600),
                                   ),
@@ -117,7 +121,7 @@ class LeaveRequestDetailScreen extends ConsumerWidget {
                             spacing: 5.h,
                             children: [
                               Text(
-                                "Reason",
+                                l10n.leaveReason,
                                 style: textTheme.bodySmall?.copyWith(
                                     color: IColors.light.grayscale.g30),
                               ),
@@ -135,7 +139,7 @@ class LeaveRequestDetailScreen extends ConsumerWidget {
                               spacing: 5.h,
                               children: [
                                 Text(
-                                  "Attachment",
+                                  l10n.leaveAttachment,
                                   style: textTheme.bodySmall?.copyWith(
                                       color: IColors.light.grayscale.g30),
                                 ),
@@ -179,12 +183,12 @@ class LeaveRequestDetailScreen extends ConsumerWidget {
                         spacing: 10.h,
                         children: [
                           Text(
-                            "Approval",
+                            l10n.leaveApproval,
                             style: textTheme.titleMedium
                                 ?.copyWith(color: IColors.light.primary.main),
                           ),
                           if (leave.approvers.isEmpty)
-                            Text("No approvers assigned.",
+                            Text(l10n.leaveNoApproversAssigned,
                                 style: textTheme.bodyLarge)
                           else
                             ...leave.approvers.map((approver) {

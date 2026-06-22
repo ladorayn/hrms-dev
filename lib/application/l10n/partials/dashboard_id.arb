@@ -1,0 +1,32 @@
+{
+  "@@locale": "id",
+
+  "dashboardClockIn": "Masuk",
+  "dashboardClockOut": "Keluar",
+  "dashboardWorkingTimeDuration": "Durasi Waktu Kerja",
+  "dashboardOvertimeDuration": "Durasi Lembur",
+  "dashboardOvertimeRequest": "Permintaan Lembur",
+  "dashboardNewLeaveRequest": "Permintaan Cuti Baru",
+  "dashboardOffboardingStatusError": "Gagal memuat status offboarding {error}",
+  "@dashboardOffboardingStatusError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "dashboardRecentActivity": "Aktivitas Terbaru",
+  "dashboardCouldNotLoadActivities": "Tidak dapat memuat aktivitas",
+  "dashboardNoRecentActivity": "Tidak ada aktivitas terbaru.",
+  "dashboardOffboardingTitle": "🔔 Selesaikan Proses Offboarding Anda!",
+  "dashboardOffboardingSubtitle": "Mari selesaikan semuanya dengan lancar sebelum Anda pergi",
+  "dashboardOffboardingStartButton": "Mulai Proses Offboarding",
+  "splashError": "Kesalahan: {error}",
+  "@splashError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  }
+}

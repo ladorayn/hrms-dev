@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 
 class PerformanceMenu extends StatelessWidget {
@@ -43,6 +44,7 @@ class PerformanceMenu extends StatelessWidget {
   }
 
   Widget _buildDueDateLabel(BuildContext context, String date) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
     final warningColor = IColors.light.warning.main;
 
@@ -73,7 +75,7 @@ class PerformanceMenu extends StatelessWidget {
               TextSpan(
                 style: baseStyle,
                 children: [
-                  const TextSpan(text: 'Due Date '),
+                  TextSpan(text: l10n.performanceDueDate),
                   TextSpan(
                     text: date,
                     style: baseStyle?.copyWith(

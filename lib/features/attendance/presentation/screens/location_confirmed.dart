@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
+import 'package:hrms_mobile/core/config/manual_capture.dart';
 import 'package:hrms_mobile/core/enums/attendance_enum.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
@@ -39,6 +41,7 @@ class LocationConfirmedScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
 
     final authP = ref.watch(authProvider);
@@ -51,7 +54,7 @@ class LocationConfirmedScreen extends ConsumerWidget {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: IAppBar(title: activity.title),
+      appBar: IAppBar(title: activity.title(l10n)),
       body: Column(
         children: [
           Expanded(
@@ -74,7 +77,7 @@ class LocationConfirmedScreen extends ConsumerWidget {
                           height: 12,
                         ),
                         Text(
-                          "Location Confirmed",
+                          l10n.attendanceLocationConfirmed,
                           style: textTheme.titleLarge,
                         )
                       ],
@@ -87,7 +90,8 @@ class LocationConfirmedScreen extends ConsumerWidget {
                     ),
                     const SizedBox(height: 32),
                     Text(
-                      "Please complete face verification to proceed with ${activity.sentence}. This step helps ensure secure and accurate attendance tracking.",
+                      l10n.attendanceLocationConfirmedBody(
+                          activity.sentence(l10n)),
                       textAlign: TextAlign.center,
                     )
                   ],
@@ -97,6 +101,23 @@ class LocationConfirmedScreen extends ConsumerWidget {
           ),
           IFooterButton(
             onPressed: () {
+              if (isManualCaptureBypassActive) {
+                if (faces.length >= 3) {
+                  globalNavigatorKey.currentContext?.pushNamed(
+                    RoutePaths.faceVerification,
+                    extra: activity,
+                  );
+                } else {
+                  globalNavigatorKey.currentContext?.pushNamed(
+                    RoutePaths.faceRegistration,
+                    extra: {
+                      'activity': activity,
+                      'initialFaceCount': faceCount,
+                    },
+                  );
+                }
+                return;
+              }
               if (faces.length >= 3) {
                 globalNavigatorKey.currentContext
                     ?.pushNamed(RoutePaths.faceVerification, extra: activity);
@@ -110,8 +131,11 @@ class LocationConfirmedScreen extends ConsumerWidget {
                 );
               }
             },
-            text:
-                faces.length >= 3 ? "Start Verification" : "Register Your Face",
+            text: isManualCaptureBypassActive
+                ? l10n.continueButton
+                : faces.length >= 3
+                    ? l10n.attendanceStartVerification
+                    : l10n.attendanceRegisterYourFace,
           ),
         ],
       ),

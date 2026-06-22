@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
@@ -13,6 +14,7 @@ class SupervisorAssessmentsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final supervisorAssessmentAsync =
         ref.watch(performanceSupervisorAssessmentsProvider);
 
@@ -22,7 +24,7 @@ class SupervisorAssessmentsScreen extends ConsumerWidget {
     }
 
     return Scaffold(
-      appBar: IAppBar(title: "Supervisor Assessment"),
+      appBar: IAppBar(title: l10n.performanceSupervisorAssessment),
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -36,7 +38,7 @@ class SupervisorAssessmentsScreen extends ConsumerWidget {
                 child: Padding(
                   padding: EdgeInsets.all(32.0.w),
                   child: Text(
-                    'Error loading assessments: $error\nPull down to retry.',
+                    l10n.performanceErrorLoadingAssessments('$error'),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -44,10 +46,10 @@ class SupervisorAssessmentsScreen extends ConsumerWidget {
             ),
             data: (assessments) {
               final content = assessments.isEmpty
-                  ? const Center(
+                  ? Center(
                       child: Padding(
                         padding: EdgeInsets.only(top: 50),
-                        child: Text('No supervisor assessments found.'),
+                        child: Text(l10n.performanceNoSupervisorAssessments),
                       ),
                     )
                   : Column(
@@ -55,7 +57,7 @@ class SupervisorAssessmentsScreen extends ConsumerWidget {
                       children: [
                         buildAssessmentSection(
                           context,
-                          title: 'Supervisor Assessment List',
+                          title: l10n.performanceSupervisorAssessmentList,
                           children: assessments.map((assessment) {
                             return buildSupervisorAssessmentTile(
                               context,

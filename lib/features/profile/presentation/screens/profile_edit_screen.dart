@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/constants/general.dart';
 import 'package:hrms_mobile/core/data/entities/country_code.dart';
@@ -160,11 +161,20 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
     });
   }
 
-  String _getMaritalStatusCode(String label) {
-    if (label == 'Married') return '2';
-    if (label == 'Divorced') return '3';
-    if (label == 'Widowed') return '4';
-    return '1'; // Default to 'Single'
+  String _getMaritalStatusCode(String label, AppLocalizations l10n) {
+    if (label == l10n.profileMaritalStatusMarried) return '2';
+    if (label == l10n.profileMaritalStatusDivorced) return '3';
+    if (label == l10n.profileMaritalStatusWidowed) return '4';
+    return '1';
+  }
+
+  List<String> _maritalStatusOptions(AppLocalizations l10n) {
+    return [
+      l10n.profileMaritalStatusSingle,
+      l10n.profileMaritalStatusMarried,
+      l10n.profileMaritalStatusDivorced,
+      l10n.profileMaritalStatusWidowed,
+    ];
   }
 
   void _removeSocialMediaField(Key key) {
@@ -181,6 +191,8 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
   }
 
   Future<void> _onUpdateProfile() async {
+    final l10n = AppLocalizations.of(context)!;
+
     setState(() {
       _validationErrors = {};
     });
@@ -207,7 +219,7 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
       } catch (e) {
         if (mounted) {
           showCustomToast(
-              context, 'Attachment upload failed: $e', ToastType.error);
+              context, l10n.profileAttachmentUploadFailed('$e'), ToastType.error);
           // ScaffoldMessenger.of(context).showSnackBar(
           //   SnackBar(content: Text('Attachment upload failed: $e')),
           // );
@@ -229,7 +241,7 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
           ? DateFormat('y-MM-dd').format(_selectedDob!)
           : profile.user?.employeeProfile?.dateOfBirth?.split('T').first ?? '',
       placeOfBirth: _placeOfBirthController.text,
-      maritalStatus: _getMaritalStatusCode(_maritalStatusController.text),
+      maritalStatus: _getMaritalStatusCode(_maritalStatusController.text, l10n),
       bloodType: _bloodTypeController.text,
       height: int.tryParse(_heightController.text) ?? 0,
       weight: int.tryParse(_weightController.text) ?? 0,
@@ -267,7 +279,7 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
 
       if (mounted) {
         showCustomToast(
-            context, 'Profile updated successfully!', ToastType.success);
+            context, l10n.profileUpdatedSuccessfully, ToastType.success);
         // ScaffoldMessenger.of(context).showSnackBar(
         //   const SnackBar(content: Text('Profile updated successfully!')),
         // );
@@ -275,7 +287,7 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
       }
     } catch (e) {
       if (mounted) {
-        showCustomToast(context, 'Submission Failed', ToastType.error);
+        showCustomToast(context, l10n.profileSubmissionFailed, ToastType.error);
         // ScaffoldMessenger.of(context).showSnackBar(
         //   SnackBar(content: Text('Submission Failed')),
         // );
@@ -285,6 +297,7 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final editState = ref.watch(employeeProfileEditProvider);
     final isUpdating = editState.isLoading;
 
@@ -299,7 +312,7 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
         } else {
           showCustomToast(
               context,
-              'Update Failed: ${error.toString().split(':').last}',
+              l10n.profileUpdateFailed(error.toString().split(':').last),
               ToastType.error);
           // ScaffoldMessenger.of(context).showSnackBar(
           //   SnackBar(
@@ -311,7 +324,7 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
     });
 
     return Scaffold(
-      appBar: IAppBar(title: "Edit Profile"),
+      appBar: IAppBar(title: l10n.profileEditProfile),
       resizeToAvoidBottomInset: true,
       body: Column(
         children: [
@@ -321,10 +334,10 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
               child: ListView(
                 padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 24.h),
                 children: [
-                  const SectionTitle("Personal Information"),
+                  SectionTitle(l10n.profilePersonalInformation),
                   SizedBox(height: 16.h),
                   IProfileImagePicker(
-                    label: 'Photo',
+                    label: l10n.profilePhoto,
                     isOptional: true,
                     initialImageUrl:
                         widget.profile.user?.employeeProfile?.photoProfileUrl,
@@ -344,7 +357,7 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                   ),
                   SizedBox(height: 16.h),
                   ITextFieldBase(
-                    label: 'Name',
+                    label: l10n.profileName,
                     controller: _nameController,
                     isRequired: true,
                     borderColor: IColors.light.grayscale.g30,
@@ -352,7 +365,7 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                   ),
                   SizedBox(height: 16.h),
                   ITextFieldBase(
-                    label: 'Email',
+                    label: l10n.formEmail,
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
                     isRequired: true,
@@ -361,7 +374,7 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                   ),
                   SizedBox(height: 16.h),
                   ITextFieldPhone(
-                    label: 'Phone Number',
+                    label: l10n.formPhone,
                     phoneController: _phoneController,
                     isRequired: true,
                     countryCodes: kCountryCodes,
@@ -373,11 +386,11 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                   ),
                   SizedBox(height: 16.h),
                   IRadioButtonGroup<Gender>(
-                    label: 'Gender',
+                    label: l10n.profileGender,
                     isRequired: true,
-                    options: const {
-                      'Male': Gender.male,
-                      'Female': Gender.female,
+                    options: {
+                      l10n.profileGenderMale: Gender.male,
+                      l10n.profileGenderFemale: Gender.female,
                     },
                     initialValue: _selectedGender,
                     onChanged: (selectedGender) {
@@ -389,7 +402,7 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                   ),
                   SizedBox(height: 16.h),
                   ITextFieldBase(
-                    label: 'Place of Birth',
+                    label: l10n.profilePlaceOfBirth,
                     controller: _placeOfBirthController,
                     isRequired: true,
                     borderColor: IColors.light.grayscale.g30,
@@ -397,7 +410,7 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                   ),
                   SizedBox(height: 16.h),
                   ITextFieldDatePicker(
-                    label: 'Born Date',
+                    label: l10n.profileBornDate,
                     controller: _dobController,
                     isRequired: true,
                     initialDate: _selectedDob,
@@ -412,10 +425,10 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                   ),
                   SizedBox(height: 16.h),
                   ITextFieldDropdownBottomSheet(
-                    label: 'Marital Status',
+                    label: l10n.profileMaritalStatus,
                     controller: _maritalStatusController,
                     isRequired: true,
-                    options: const ['Single', 'Married', 'Divorced', 'Widowed'],
+                    options: _maritalStatusOptions(l10n),
                     onOptionSelected: (selected) {
                       _maritalStatusController.text = selected;
                     },
@@ -423,7 +436,7 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                   ),
                   SizedBox(height: 16.h),
                   ITextFieldDropdownBottomSheet(
-                    label: 'Blood Type',
+                    label: l10n.profileBloodType,
                     controller: _bloodTypeController,
                     isRequired: true,
                     options: const ['A', 'B', 'AB', 'O'],
@@ -438,11 +451,11 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                     children: [
                       Expanded(
                         child: ITextFieldBase(
-                          label: 'Height',
+                          label: l10n.profileHeight,
                           controller: _heightController,
                           isRequired: true,
                           keyboardType: TextInputType.number,
-                          suffix: const Text('cm'),
+                          suffix: Text(l10n.profileUnitCm),
                           borderColor: IColors.light.grayscale.g30,
                           errorText: _validationErrors['height'],
                         ),
@@ -450,11 +463,11 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                       SizedBox(width: 16.w),
                       Expanded(
                         child: ITextFieldBase(
-                          label: 'Weight',
+                          label: l10n.profileWeight,
                           controller: _weightController,
                           isRequired: true,
                           keyboardType: TextInputType.number,
-                          suffix: const Text('kg'),
+                          suffix: Text(l10n.profileUnitKg),
                           borderColor: IColors.light.grayscale.g30,
                           errorText: _validationErrors['weight'],
                         ),
@@ -463,7 +476,7 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                   ),
                   SizedBox(height: 16.h),
                   ITextFieldBase(
-                    label: 'ID Number',
+                    label: l10n.profileIdNumber,
                     controller: _idNumberController,
                     isRequired: true,
                     keyboardType: TextInputType.number,
@@ -472,7 +485,7 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                   ),
                   SizedBox(height: 16.h),
                   ITextFieldBase(
-                    label: 'Taxpayer ID Number (NPWP)',
+                    label: l10n.profileNpwp,
                     controller: _npwpController,
                     isRequired: true,
                     borderColor: IColors.light.grayscale.g30,
@@ -480,7 +493,7 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                   ),
                   SizedBox(height: 16.h),
                   ITextFieldBase(
-                    label: 'Health Insurance Number (BPJS)',
+                    label: l10n.profileBpjs,
                     controller: _bpjsController,
                     isRequired: true,
                     keyboardType: TextInputType.number,
@@ -489,28 +502,28 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                   ),
                   SizedBox(height: 16.h),
                   ITextFieldTextArea(
-                    label: 'Citizen ID Address',
+                    label: l10n.profileCitizenIdAddress,
                     controller: _citizenAddressController,
                     isRequired: true,
                     errorText: _validationErrors['citizen_id_address'],
                   ),
                   SizedBox(height: 16.h),
                   ITextFieldTextArea(
-                    label: 'Residential Address',
+                    label: l10n.profileResidentialAddress,
                     controller: _residentialAddressController,
                     isRequired: true,
                     errorText: _validationErrors['residential_address'],
                   ),
                   SizedBox(height: 16.h),
                   ITextFieldBase(
-                    label: 'Hobby',
+                    label: l10n.profileHobby,
                     controller: _hobbyController,
                     isRequired: true,
                     borderColor: IColors.light.grayscale.g30,
                     errorText: _validationErrors['hobby'],
                   ),
                   SizedBox(height: 16.h),
-                  Text('Social Media',
+                  Text(l10n.profileSocialMedia,
                       style: Theme.of(context).textTheme.bodySmall),
                   SizedBox(height: 8.h),
                   ..._socialMediaFieldsData.map((fieldData) {
@@ -531,14 +544,14 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                   TextButton.icon(
                     onPressed: _addSocialMediaField,
                     icon: const Icon(Icons.add),
-                    label: const Text('Add more'),
+                    label: Text(l10n.profileAddMore),
                   ),
                 ],
               ),
             ),
           ),
           IFooterButton(
-            text: isUpdating ? "Updating..." : "Update Profile",
+            text: isUpdating ? l10n.profileUpdating : l10n.profileUpdateProfile,
             onPressed: isUpdating ? null : _onUpdateProfile,
           )
         ],

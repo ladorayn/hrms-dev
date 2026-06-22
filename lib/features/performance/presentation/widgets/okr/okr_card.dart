@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/util/datetime_utils.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/okr_list.dart';
@@ -147,6 +148,7 @@ class OKRCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
     final statusStyles = _getStatusStyles();
 
@@ -173,14 +175,14 @@ class OKRCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "KEY RESULT",
+                      l10n.performanceKeyResult,
                       style: textTheme.labelSmall?.copyWith(
                           color: IColors.light.grayscale.g50,
                           fontWeight: FontWeight.w600),
                     ),
                     SizedBox(height: 4.h),
                     Text(
-                      DateTimeHelper.getTimeAgo(kr?.updatedAt),
+                      DateTimeHelper.getTimeAgo(kr?.updatedAt, l10n),
                       style: textTheme.labelSmall?.copyWith(
                         color: IColors.light.grayscale.gNew,
                       ),
@@ -223,7 +225,7 @@ class OKRCard extends StatelessWidget {
               ],
             ),
             SizedBox(height: 12.h),
-            Text(kr?.title ?? '-'),
+            Text(kr?.title ?? l10n.performanceNotAvailable),
             SizedBox(height: 12.h),
             Row(
               children: [

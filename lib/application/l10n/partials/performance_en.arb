@@ -1,0 +1,142 @@
+{
+  "@@locale": "en",
+
+  "performanceTitle": "Performance",
+  "performanceMyOkr": "My OKR",
+  "performanceSupervisorAssessment": "Supervisor Assessment",
+  "performanceSelfAssessment": "Self Assessment",
+  "performanceDueDate": "Due Date ",
+  "performanceNotAvailable": "N/A",
+  "performanceErrorLoadingSelfAssessments": "Error loading Self Assessments: {error}",
+  "@performanceErrorLoadingSelfAssessments": {
+    "placeholders": { "error": { "type": "String" } }
+  },
+  "performanceErrorLoadingOkr": "Error loading OKR: {error}",
+  "@performanceErrorLoadingOkr": {
+    "placeholders": { "error": { "type": "String" } }
+  },
+  "performanceLoadingSupervisorAssessments": "Loading supervisor assessments...",
+  "performanceErrorLoadingSupervisorAssessments": "Error loading supervisor assessments: {error}",
+  "@performanceErrorLoadingSupervisorAssessments": {
+    "placeholders": { "error": { "type": "String" } }
+  },
+  "performanceSupervisorDataNotAvailable": "Supervisor assessments data not available.",
+  "performanceSelfAssessmentWithPeriod": "Self Assessment - {period}",
+  "@performanceSelfAssessmentWithPeriod": {
+    "placeholders": { "period": { "type": "String" } }
+  },
+  "performanceMyOkrWithPeriod": "My OKR - {period}",
+  "@performanceMyOkrWithPeriod": {
+    "placeholders": { "period": { "type": "String" } }
+  },
+  "performanceOkrTab": "OKR",
+  "performanceDashboardTab": "Dashboard",
+  "performanceObjective": "OBJECTIVE",
+  "performanceKeyResult": "KEY RESULT",
+  "performanceNoObjectivesFound": "No objectives found",
+  "performanceNoGraphData": "No graph data available",
+  "performanceNoTitle": "No Title",
+  "performanceObjectiveFallback": "Objective",
+  "performanceMetricFallback": "Metric",
+  "performanceSelectRange": "Select Range",
+  "performanceErrorLoadingGraph": "Error loading graph: {error}",
+  "@performanceErrorLoadingGraph": {
+    "placeholders": { "error": { "type": "String" } }
+  },
+  "performanceAvgActual": "Avg. Actual",
+  "performanceAvgTarget": "Avg. Target",
+  "performanceApplyFilter": "Apply Filter",
+  "performanceStartDate": "Start Date",
+  "performanceEndDate": "End Date",
+  "performanceTo": "TO",
+  "performanceWeek": "Week",
+  "performanceMonth": "Month",
+  "performanceQuarter": "Quarter",
+  "performanceYear": "Year",
+  "performanceWeekLabel": "Week {number}",
+  "@performanceWeekLabel": {
+    "placeholders": { "number": { "type": "int" } }
+  },
+  "performanceYearRequired": "Year*",
+  "performanceKeyResultData": "Key Result Data",
+  "performanceFillRequiredFields": "Please fill all required fields correctly.",
+  "performanceProgressSaved": "Progress saved successfully!",
+  "performanceNetworkError": "A network error occurred.",
+  "performanceUnexpectedError": "An unexpected error occurred: {error}",
+  "@performanceUnexpectedError": {
+    "placeholders": { "error": { "type": "String" } }
+  },
+  "performanceRequired": "Required",
+  "performanceTargetForPeriod": "Target for this period",
+  "performanceSaving": "Saving...",
+  "performanceSave": "Save",
+  "performanceError": "Error: {error}",
+  "@performanceError": {
+    "placeholders": { "error": { "type": "String" } }
+  },
+  "performanceTeamMemberInformation": "Team Member Information",
+  "performanceEmployeeName": "Employee Name",
+  "performancePosition": "Position",
+  "performanceJobLevel": "Job Level",
+  "performanceDepartment": "Department",
+  "performanceSubmittedOn": "Submitted on",
+  "performanceValidatedOn": "Validated on",
+  "performanceEmployeeInformation": "Employee Information",
+  "performanceCurrentPosition": "Current Position",
+  "performanceCurrentJobLevel": "Current Job Level",
+  "performanceTargetPosition": "Target Position",
+  "performanceTargetJobLevel": "Target Job Level",
+  "performanceEmployeeStartDate": "Employee Start Date",
+  "performanceAssessmentSchedule": "Assessment Schedule",
+  "performanceDate": "Date",
+  "performanceTime": "Time",
+  "performanceNotes": "Notes",
+  "performanceAssessmentForm": "Assessment Form",
+  "performanceSupervisorAssessmentSchedule": "Supervisor Assessment Schedule",
+  "performanceSupervisorAssessmentList": "Supervisor Assessment List",
+  "performanceErrorLoadingAssessments": "Error loading assessments: {error}\nPull down to retry.",
+  "@performanceErrorLoadingAssessments": {
+    "placeholders": { "error": { "type": "String" } }
+  },
+  "performanceNoSupervisorAssessments": "No supervisor assessments found.",
+  "performanceErrorLoadingDetails": "Error loading details: {error}",
+  "@performanceErrorLoadingDetails": {
+    "placeholders": { "error": { "type": "String" } }
+  },
+  "performanceFormSubmitted": "Form Submitted Successfully!",
+  "performanceSubmissionFailed": "Submission Failed: {error}",
+  "@performanceSubmissionFailed": {
+    "placeholders": { "error": { "type": "String" } }
+  },
+  "performanceAssessmentReadOnly": "This assessment is read-only.",
+  "performanceSubmitSelfAssessment": "Submit Self Assessment",
+  "performanceSaveAsDraft": "Save as Draft",
+  "performanceConfirmSubmitSelfAssessment": "Are you sure you want to submit this self assessment form?",
+  "performanceConfirmNoChanges": "Once submitted, you won't be able to make any changes.",
+  "performanceCancel": "Cancel",
+  "performanceSubmitForm": "Submit Form",
+  "performanceUnknownType": "Unknown type: {type}",
+  "@performanceUnknownType": {
+    "placeholders": { "type": { "type": "String" } }
+  },
+  "performanceEmployeeSubmittedReadOnly": "This is the employee's submitted assessment (Read-Only).",
+  "performanceAddComments": "Add your comments here...",
+  "performanceEnterComment": "Enter comment...",
+  "performanceValidationSuccessful": "Validation Successful",
+  "performanceFailed": "Failed: {error}",
+  "@performanceFailed": {
+    "placeholders": { "error": { "type": "String" } }
+  },
+  "performanceValidationCompleteReadOnly": "Validation complete and read-only.",
+  "performanceValidateSelfAssessment": "Validate Self Assessment",
+  "performanceMySelfAssessment": "My Self Assessment",
+  "performanceTeamMemberSelfAssessment": "Team Member Self Assessment",
+  "performanceAssessmentValidationTab": "Assessment Validation",
+  "performanceSupervisorSubmitted": "Supervisor Assessment Submitted Successfully!",
+  "performanceAssessmentReadOnlyShort": "Assessment is read-only.",
+  "performanceSaveDraft": "Save Draft",
+  "performanceSubmit": "Submit",
+  "performanceConfirmSubmitSupervisor": "Are you sure you want to submit this supervisor assessment form?",
+  "performanceConfirmSaveDraft": "Are you sure you want to save this draft?",
+  "performanceCanEditDraftLater": "You can continue editing the draft later."
+}

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/features/payslip/data/models/response/payslip_list_response.dart';
 import 'package:hrms_mobile/features/payslip/data/models/response/payslip_request_view_response.dart';
@@ -26,6 +27,9 @@ class PayslipDetailsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final notAvailable = l10n.payslipNotAvailable;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -33,14 +37,14 @@ class PayslipDetailsSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Payroll Details",
+              l10n.payslipPayrollDetails,
               style: textTheme.titleMedium?.copyWith(
                 color: IColors.light.primary.main,
                 fontWeight: FontWeight.w700,
               ),
             ),
             Text(
-              "*CONFIDENTIAL",
+              l10n.payslipConfidential,
               style: textTheme.labelMedium?.copyWith(
                 color: confidentialColor,
                 fontWeight: FontWeight.w600,
@@ -52,43 +56,65 @@ class PayslipDetailsSection extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Left Column
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildDetailItem(textTheme, labelColor, valueColor,
-                      "Payroll Period", payslip?.payrun?.periodLabel ?? '-'),
-                  SizedBox(height: 16.h),
-                  _buildDetailItem(textTheme, labelColor, valueColor,
-                      "Employee ID", "${detailData?.employee?.id ?? "N/A"}"),
-                  SizedBox(height: 16.h),
-                  _buildDetailItem(textTheme, labelColor, valueColor,
-                      "Job Level", detailData?.employee?.jobLevel ?? "N/A"),
+                  _buildDetailItem(
+                      textTheme,
+                      labelColor,
+                      valueColor,
+                      l10n.payslipPayrollPeriod,
+                      payslip?.payrun?.periodLabel ?? '-'),
                   SizedBox(height: 16.h),
                   _buildDetailItem(
                       textTheme,
                       labelColor,
                       valueColor,
-                      "Taxpayer ID Number (NPWP)",
-                      detailData?.employee?.npwp ?? "N/A"),
+                      l10n.payslipEmployeeId,
+                      '${detailData?.employee?.id ?? notAvailable}'),
+                  SizedBox(height: 16.h),
+                  _buildDetailItem(
+                      textTheme,
+                      labelColor,
+                      valueColor,
+                      l10n.payslipJobLevel,
+                      detailData?.employee?.jobLevel ?? notAvailable),
+                  SizedBox(height: 16.h),
+                  _buildDetailItem(
+                      textTheme,
+                      labelColor,
+                      valueColor,
+                      l10n.payslipTaxpayerId,
+                      detailData?.employee?.npwp ?? notAvailable),
                 ],
               ),
             ),
             SizedBox(width: 16.w),
-            // Right Column
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildDetailItem(textTheme, labelColor, valueColor,
-                      "Employee Name", detailData?.employee?.name ?? "N/A"),
+                  _buildDetailItem(
+                      textTheme,
+                      labelColor,
+                      valueColor,
+                      l10n.payslipEmployeeName,
+                      detailData?.employee?.name ?? notAvailable),
                   SizedBox(height: 16.h),
-                  _buildDetailItem(textTheme, labelColor, valueColor,
-                      "Position", detailData?.employee?.jobTitle ?? "N/A"),
+                  _buildDetailItem(
+                      textTheme,
+                      labelColor,
+                      valueColor,
+                      l10n.payslipPosition,
+                      detailData?.employee?.jobTitle ?? notAvailable),
                   SizedBox(height: 16.h),
-                  _buildDetailItem(textTheme, labelColor, valueColor,
-                      "Department", detailData?.employee?.department ?? "N/A"),
+                  _buildDetailItem(
+                      textTheme,
+                      labelColor,
+                      valueColor,
+                      l10n.payslipDepartment,
+                      detailData?.employee?.department ?? notAvailable),
                 ],
               ),
             ),
@@ -98,7 +124,6 @@ class PayslipDetailsSection extends StatelessWidget {
     );
   }
 
-  // Helper widget is now private to this file
   Widget _buildDetailItem(
     TextTheme textTheme,
     Color? labelColor,

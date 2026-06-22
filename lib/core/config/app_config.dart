@@ -9,6 +9,11 @@ class AppConfig {
   static bool get USE_MOCK_SERVER =>
       dotenv.get('USE_MOCK_SERVER', fallback: 'false').toLowerCase() == 'true';
 
+  /// User-manual capture only. Pair with kDebugMode; keep false in .env.prod.
+  static bool get manualCaptureBypass =>
+      dotenv.get('MANUAL_CAPTURE_BYPASS', fallback: 'false').toLowerCase() ==
+      'true';
+
   static String get BASE_URL_FACE_SERVICE =>
       dotenv.get('FACE_BASE_URL', fallback: 'https://face.okejobhub.fun/');
 

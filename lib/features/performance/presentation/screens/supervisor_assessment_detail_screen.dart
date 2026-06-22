@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
@@ -21,6 +22,7 @@ class SupervisorAssessmentDetailScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final detailAsync = ref.watch(
       performanceSupervisorAssessmentDetailProvider(
         supervisorAssessmentId: assessment.id,
@@ -28,12 +30,12 @@ class SupervisorAssessmentDetailScreen extends ConsumerWidget {
     );
 
     return Scaffold(
-      appBar: IAppBar(title: "Supervisor Assessment"),
+      appBar: IAppBar(title: l10n.performanceSupervisorAssessment),
       backgroundColor: IColors.light.grayscale.g10,
       body: detailAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (err, stack) =>
-            Center(child: Text('Error loading details: $err')),
+        error: (err, stack) => Center(
+            child: Text(l10n.performanceErrorLoadingDetails(err.toString()))),
         data: (detail) {
           final bool isCompleted = detail.statusLabel == 'Completed';
 

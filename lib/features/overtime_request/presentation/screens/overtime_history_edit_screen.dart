@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/errors/exceptions.dart';
 import 'package:hrms_mobile/core/util/datetime_utils.dart';
@@ -81,8 +82,9 @@ class _OvertimeHistoryEditScreenState
             overtimeId: widget.overtime.id.toString(), request: request);
 
     if (success && mounted) {
+      final l10n = AppLocalizations.of(context)!;
       showCustomToast(
-          context, 'Adjustment request sent successfully!', ToastType.success);
+          context, l10n.overtimeAdjustmentSentSuccess, ToastType.success);
       // ScaffoldMessenger.of(context).showSnackBar(
       //   const SnackBar(content: Text('Adjustment request sent successfully!')),
       // );
@@ -107,6 +109,7 @@ class _OvertimeHistoryEditScreenState
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
 
     final overtimeState = ref.watch(overtimeRequestNotifierProvider);
@@ -130,7 +133,7 @@ class _OvertimeHistoryEditScreenState
     }
 
     return Scaffold(
-      appBar: IAppBar(title: "Edit Overtime Request"),
+      appBar: IAppBar(title: l10n.overtimeEditRequest),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -142,7 +145,7 @@ class _OvertimeHistoryEditScreenState
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Overtime Adjustment",
+                      l10n.overtimeAdjustment,
                       style: textTheme.titleLarge?.copyWith(
                         fontSize: 20,
                         color: IColors.light.primary.main,
@@ -150,7 +153,7 @@ class _OvertimeHistoryEditScreenState
                     ),
                     const SizedBox(height: 12),
                     ITextFieldTimePicker(
-                      label: "Clock In",
+                      label: l10n.attendanceClockInField,
                       initialTime: _selectedClockIn,
                       controller: _clockInController,
                       errorText: validationErrors['start_time'],
@@ -160,7 +163,7 @@ class _OvertimeHistoryEditScreenState
                       },
                     ),
                     ITextFieldTimePicker(
-                      label: "Clock Out",
+                      label: l10n.attendanceClockOutField,
                       initialTime: _selectedClockOut,
                       controller: _clockOutController,
                       errorText: validationErrors['end_time'],
@@ -173,13 +176,13 @@ class _OvertimeHistoryEditScreenState
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text("Duration"),
+                        Text(l10n.attendanceDuration),
                         Text(_durationText), // Use state variable
                       ],
                     ),
                     const SizedBox(height: 12),
                     ITextFieldTextArea(
-                      label: "Adjustment Notes",
+                      label: l10n.overtimeAdjustmentNotes,
                       controller: _notesController,
                       errorText: validationErrors['notes'],
                     ),
@@ -189,7 +192,7 @@ class _OvertimeHistoryEditScreenState
             ),
           ),
           IFooterButton(
-            text: "Send Adjustment Request",
+            text: l10n.overtimeSendAdjustmentRequest,
             onPressed: _submitAdjustment, // Call the submission method
           )
         ],

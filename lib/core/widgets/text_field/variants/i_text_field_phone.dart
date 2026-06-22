@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // 1. Import this
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/data/entities/country_code.dart';
 import 'package:hrms_mobile/core/widgets/text_field/base/i_text_field.dart';
@@ -59,6 +60,7 @@ class _ITextFieldPhoneState extends State<ITextFieldPhone> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
     final colorScheme = theme.colorScheme;
@@ -89,10 +91,10 @@ class _ITextFieldPhoneState extends State<ITextFieldPhone> {
             SizedBox(
               width: 80.w,
               child: ITextFieldDropdownBottomSheet(
-                label: 'Countries',
+                label: l10n.coreCountries,
                 controller: _countryCodeController,
                 textFieldOnly: true,
-                hintText: 'Code',
+                hintText: l10n.coreCountryCode,
                 updateTextOnSelect: false,
                 options: widget.countryCodes.map((c) => c.toString()).toList(),
                 onOptionSelected: (String selectedOptionString) {

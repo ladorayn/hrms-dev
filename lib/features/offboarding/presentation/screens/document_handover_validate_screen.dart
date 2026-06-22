@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/core/widgets/text_field/base/i_text_field.dart';
@@ -37,6 +38,7 @@ class _DocumentHandoverValidateScreenState
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final authP = ref.watch(authProvider);
     final docHandoverAsync = ref.watch(
       offboardingGetHandoverProvider(
@@ -48,13 +50,14 @@ class _DocumentHandoverValidateScreenState
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const IAppBar(title: "Document Handover"),
+      appBar: IAppBar(title: l10n.offboardingDocumentHandover),
       body: docHandoverAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (err, _) => Center(child: Text('Error: $err')),
+        error: (err, _) =>
+            Center(child: Text(l10n.offboardingError(err.toString()))),
         data: (list) {
           if (list.isEmpty) {
-            return const Center(child: Text("No documents found"));
+            return Center(child: Text(l10n.offboardingNoDocumentsFound));
           }
 
           return ListView.builder(
@@ -97,6 +100,7 @@ class _DocumentHandoverCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
 
     final submissionState =
@@ -110,7 +114,7 @@ class _DocumentHandoverCard extends ConsumerWidget {
           data: (_) {
             showCustomToast(
               context,
-              "Handover validated successfully!",
+              l10n.offboardingHandoverValidated,
               ToastType.success,
             );
             ref.invalidate(offboardingGetHandoverProvider);
@@ -142,7 +146,7 @@ class _DocumentHandoverCard extends ConsumerWidget {
           children: [
             ITextFieldBase(
               controller: controller,
-              label: "Document Name",
+              label: l10n.offboardingDocumentName,
               isRequired: true,
               readOnly: true,
               enabled: false,
@@ -176,7 +180,9 @@ class _DocumentHandoverCard extends ConsumerWidget {
                 elevation: 0,
               ),
               child: Text(
-                isLoading ? "Validating..." : "Validate Now",
+                isLoading
+                    ? l10n.offboardingValidating
+                    : l10n.offboardingValidateNow,
                 style: textTheme.labelLarge?.copyWith(
                   color: Colors.white,
                   fontWeight: FontWeight.w600,

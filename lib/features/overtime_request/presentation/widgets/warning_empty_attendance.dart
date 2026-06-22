@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 
 class WarningEmptyAttendance extends StatelessWidget {
@@ -7,6 +8,7 @@ class WarningEmptyAttendance extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
     return Container(
       padding: EdgeInsets.only(left: 16, top: 10, bottom: 10),
@@ -22,7 +24,7 @@ class WarningEmptyAttendance extends StatelessWidget {
             color: IColors.light.warning.main,
           ),
           Text(
-            "No attendance log for this date.",
+            l10n.overtimeNoAttendanceLog,
             style: textTheme.bodyMedium?.copyWith(
                 color: IColors.light.warning.main, fontWeight: FontWeight.w700),
           )

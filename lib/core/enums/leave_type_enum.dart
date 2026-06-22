@@ -1,7 +1,6 @@
-// lib/core/enums/leave_type_enum.dart
 import 'package:flutter/material.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 
-// A simple helper class to hold color pairs
 class LeaveTypeColors {
   final Color background;
   final Color foreground;
@@ -24,7 +23,6 @@ enum LeaveType {
   religiousLeave,
   unknown;
 
-  /// Safely parses a string from an API into a LeaveType enum.
   factory LeaveType.fromString(String? type) {
     switch (type) {
       case 'Annual Leave':
@@ -37,40 +35,37 @@ enum LeaveType {
   }
 }
 
-// Add this extension in the same file as the enum
-
 extension LeaveTypeExtension on LeaveType {
-  /// Provides a user-friendly string for display in the UI.
-  String get displayName {
+  String displayName(AppLocalizations l10n) {
     switch (this) {
       case LeaveType.annualLeave:
-        return 'Annual Leave';
+        return l10n.leaveTypeAnnualLeave;
       case LeaveType.sickLeave:
-        return 'Sick Leave';
+        return l10n.leaveTypeSickLeave;
       case LeaveType.maternityLeave:
-        return 'Maternity Leave';
+        return l10n.leaveTypeMaternityLeave;
       case LeaveType.menstrualLeave:
-        return 'Menstrual Leave';
+        return l10n.leaveTypeMenstrualLeave;
       case LeaveType.marriageLeave:
-        return 'Marriage Leave';
+        return l10n.leaveTypeMarriageLeave;
       case LeaveType.childsMarriageLeave:
-        return 'Child\'s Marriage Leave';
+        return l10n.leaveTypeChildsMarriageLeave;
       case LeaveType.paternityLeave:
-        return 'Paternity Leave';
+        return l10n.leaveTypePaternityLeave;
       case LeaveType.bereavementLeave:
-        return 'Bereavement Leave';
+        return l10n.leaveTypeBereavementLeave;
       case LeaveType.naturalDisasterLeave:
-        return 'Natural Disaster Leave';
+        return l10n.leaveTypeNaturalDisasterLeave;
       case LeaveType.unpaidLeave:
-        return 'Unpaid Leave';
+        return l10n.leaveTypeUnpaidLeave;
       case LeaveType.extendedLeave:
-        return 'Extended Leave';
+        return l10n.leaveTypeExtendedLeave;
       case LeaveType.studyLeave:
-        return 'Study Leave';
+        return l10n.leaveTypeStudyLeave;
       case LeaveType.religiousLeave:
-        return 'Religious Leave';
+        return l10n.leaveTypeReligiousLeave;
       case LeaveType.unknown:
-        return 'Unknown';
+        return l10n.leaveTypeUnknown;
     }
   }
 
@@ -82,28 +77,28 @@ extension LeaveTypeExtension on LeaveType {
       case LeaveType.marriageLeave:
       case LeaveType.childsMarriageLeave:
         return const LeaveTypeColors(
-            Color(0xFFEDF6FC), Color(0xFF18618B)); // Blue
+            Color(0xFFEDF6FC), Color(0xFF18618B));
 
       case LeaveType.sickLeave:
       case LeaveType.menstrualLeave:
         return const LeaveTypeColors(
-            Color(0xFFF7E9F2), Color(0xFFC964A2)); // Pink
+            Color(0xFFF7E9F2), Color(0xFFC964A2));
 
       case LeaveType.bereavementLeave:
       case LeaveType.naturalDisasterLeave:
       case LeaveType.unpaidLeave:
         return const LeaveTypeColors(
-            Color(0xFFF5F5F5), Color(0xFF616161)); // Gray
+            Color(0xFFF5F5F5), Color(0xFF616161));
 
       case LeaveType.extendedLeave:
       case LeaveType.studyLeave:
       case LeaveType.religiousLeave:
         return const LeaveTypeColors(
-            Color(0xFFE8F5E9), Color(0xFF388E3C)); // Green
+            Color(0xFFE8F5E9), Color(0xFF388E3C));
 
       default:
         return const LeaveTypeColors(
-            Color(0xFFF5F5F5), Color(0xFF616161)); // Gray
+            Color(0xFFF5F5F5), Color(0xFF616161));
     }
   }
 }

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -66,6 +67,7 @@ class _IProfileImagePickerState extends State<IProfileImagePicker> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,7 +108,7 @@ class _IProfileImagePickerState extends State<IProfileImagePicker> {
                 children: [
                   SvgPicture.asset(IAssets.imagePlaceholder),
                   SizedBox(width: 4.w),
-                  Text("Select Image"),
+                  Text(l10n.coreSelectImage),
                 ],
               ),
             ),

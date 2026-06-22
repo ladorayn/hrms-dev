@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/util/datetime_utils.dart';
 import 'package:hrms_mobile/core/util/general_utils.dart';
@@ -87,6 +88,7 @@ class _AttendanceEditFormScreenState
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
 
     final authP = ref.watch(authProvider);
@@ -154,19 +156,19 @@ class _AttendanceEditFormScreenState
                 periodToInvalidate: attendancePeriod);
 
         if (success) {
-          showCustomToast(context, 'Update Success!', ToastType.success);
+          showCustomToast(context, l10n.attendanceUpdateSuccess, ToastType.success);
           // ScaffoldMessenger.of(context).showSnackBar(
           //   SnackBar(content: Text('Update Success!')),
           // );
         } else {
-          showCustomToast(context, 'Update Failed!', ToastType.error);
+          showCustomToast(context, l10n.attendanceUpdateFailed, ToastType.error);
           // ScaffoldMessenger.of(context).showSnackBar(
           //   SnackBar(content: Text('Update Failed!')),
           // );
         }
       } catch (e) {
         showCustomToast(
-            context, 'Update Failed: ${e.toString()}', ToastType.error);
+            context, l10n.attendanceUpdateFailedWithError(e.toString()), ToastType.error);
         // ScaffoldMessenger.of(context).showSnackBar(
         //   SnackBar(content: Text('Update Failed: ${e.toString()}')),
         // );
@@ -181,7 +183,7 @@ class _AttendanceEditFormScreenState
         surfaceTintColor: Colors.white,
         scrolledUnderElevation: 0.0,
         title: Text(
-          'Edit Attendance Request',
+          l10n.attendanceEditRequest,
           style: textTheme.titleLarge?.copyWith(fontSize: 18),
         ),
         leading: IconButton(
@@ -207,7 +209,7 @@ class _AttendanceEditFormScreenState
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Submitted Record",
+                      l10n.attendanceSubmittedRecord,
                       style: textTheme.titleLarge?.copyWith(
                         fontSize: 20,
                         color: IColors.light.primary.main,
@@ -228,7 +230,7 @@ class _AttendanceEditFormScreenState
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Attendance Adjustment",
+                      l10n.attendanceAdjustment,
                       style: textTheme.titleLarge?.copyWith(
                         fontSize: 20,
                         color: IColors.light.primary.main,
@@ -241,7 +243,7 @@ class _AttendanceEditFormScreenState
                       controller: _clockInController,
                       initialTime: DateTimeHelper.parseTimeOfDay(
                           widget.attendance.clock.inAt),
-                      label: "Clock In",
+                      label: l10n.attendanceClockInField,
                       errorText: validationErrors['clock_in_at'],
                       onTimeChanged: (newTime) {
                         setState(() {
@@ -259,7 +261,7 @@ class _AttendanceEditFormScreenState
                       controller: _clockOutController,
                       initialTime: DateTimeHelper.parseTimeOfDay(
                           widget.attendance.clock.outAt),
-                      label: "Clock Out",
+                      label: l10n.attendanceClockOutField,
                       errorText: validationErrors['clock_out_at'],
                       onTimeChanged: (newTime) {
                         setState(() {
@@ -278,7 +280,7 @@ class _AttendanceEditFormScreenState
                       loading: () {
                         return ITextFieldDropdownBottomSheet(
                           enabled: false,
-                          label: "Shift",
+                          label: l10n.attendanceShift,
                           controller: _shiftController,
                           options: [],
                           onOptionSelected: (selectedOption) {},
@@ -287,7 +289,7 @@ class _AttendanceEditFormScreenState
                       error: (err, stack) {
                         return ITextFieldDropdownBottomSheet(
                           enabled: false,
-                          label: "Shift",
+                          label: l10n.attendanceShift,
                           controller: _shiftController,
                           options: [],
                           onOptionSelected: (selectedOption) {},
@@ -299,7 +301,7 @@ class _AttendanceEditFormScreenState
                             .toList();
 
                         return ITextFieldDropdownBottomSheet(
-                          label: "Shift",
+                          label: l10n.attendanceShift,
                           controller: _shiftController,
                           options: shiftOptions,
                           errorText: validationErrors['shift_id'],
@@ -325,7 +327,7 @@ class _AttendanceEditFormScreenState
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Duration"),
+                              Text(l10n.attendanceDuration),
                               Text(durationText),
                             ],
                           ),
@@ -335,7 +337,7 @@ class _AttendanceEditFormScreenState
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Overtime"),
+                              Text(l10n.attendanceOvertime),
                               Text(overtimeText),
                             ],
                           ),
@@ -346,7 +348,7 @@ class _AttendanceEditFormScreenState
                       height: 12,
                     ),
                     ITextFieldTextArea(
-                      label: "Adjustment Notes",
+                      label: l10n.attendanceAdjustmentNotes,
                       controller: _notesController,
                       onChanged: (val) {},
                     ),
@@ -356,7 +358,7 @@ class _AttendanceEditFormScreenState
             ),
           ),
           IFooterButton(
-            text: "Send Adjustment Request",
+            text: l10n.attendanceSendAdjustmentRequest,
             onPressed: () {
               if (!isLoading) {
                 onUpdatePressed();
@@ -374,24 +376,25 @@ class AttendanceCard extends StatelessWidget {
 
   const AttendanceCard({super.key, required this.item});
 
-  String _formatDate(String dateStr) {
+  String _formatDate(String dateStr, String locale) {
     final date = DateTime.parse(dateStr);
-    // As it's currently October 2025, showing the month is helpful
-    return DateFormat('E, d').format(date);
+    return DateFormat('E, d', locale).format(date);
   }
 
-  String _formatTime(String? timeStr) {
+  String _formatTime(String? timeStr, String locale) {
     if (timeStr == null) return "-";
     try {
       final time = DateFormat('HH:mm').parse(timeStr);
-      return DateFormat('hh:mm a').format(time);
+      return DateFormat('hh:mm a', locale).format(time);
     } catch (e) {
-      return timeStr; // Return original string if parsing fails
+      return timeStr;
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final locale = Localizations.localeOf(context).toString();
     final textTheme = Theme.of(context).textTheme;
     return Container(
       decoration: BoxDecoration(
@@ -416,7 +419,7 @@ class AttendanceCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  _formatDate(item.attendanceDate),
+                  _formatDate(item.attendanceDate, locale),
                   style: textTheme.titleMedium
                       ?.copyWith(fontWeight: FontWeight.bold),
                 ),
@@ -432,7 +435,7 @@ class AttendanceCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _buildTimeColumn(
-                    context, "Clock-In", _formatTime(item.clock.inAt)),
+                    context, l10n.attendanceClockInLabel, _formatTime(item.clock.inAt, locale)),
                 Expanded(
                   child: _buildDurationDisplay(
                       context,
@@ -444,14 +447,14 @@ class AttendanceCard extends StatelessWidget {
                   child: Row(
                     children: [
                       _buildTimeColumn(
-                          context, "Clock-Out", _formatTime(item.clock.outAt),
+                          context, l10n.attendanceClockOutLabel, _formatTime(item.clock.outAt, locale),
                           color: Colors.orange),
                       VerticalDivider(
                         width: 20.w,
                         thickness: 2,
                         color: IColors.light.grayscale.g20,
                       ),
-                      _buildTimeColumn(context, "Overtime",
+                      _buildTimeColumn(context, l10n.attendanceOvertime,
                           item.clock.overtimeDurationFormatted ?? "0h 0m",
                           isEnd: true),
                     ],
@@ -516,12 +519,13 @@ class AttendanceCard extends StatelessWidget {
   }
 
   Widget _buildLocation(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final lat = double.tryParse(item.location.latitude ?? '') ?? 0.0;
     final lng = double.tryParse(item.location.longitude ?? '') ?? 0.0;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Location", style: Theme.of(context).textTheme.bodySmall),
+        Text(l10n.attendanceLocation, style: Theme.of(context).textTheme.bodySmall),
         SizedBox(height: 8.h),
         Container(
           decoration: BoxDecoration(
@@ -569,10 +573,11 @@ class AttendanceCard extends StatelessWidget {
   }
 
   Widget _buildNotes(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Notes", style: Theme.of(context).textTheme.bodySmall),
+        Text(l10n.attendanceNotes, style: Theme.of(context).textTheme.bodySmall),
         SizedBox(height: 4.h),
         Text(
           item.notes ?? "-",

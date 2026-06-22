@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/features/payslip/data/models/response/payslip_list_response.dart';
-import 'package:hrms_mobile/features/payslip/presentation/providers/payslip_provider.dart'; // Import provider file
+import 'package:hrms_mobile/features/payslip/presentation/providers/payslip_provider.dart';
 import 'package:hrms_mobile/features/payslip/presentation/widgets/earnings_deductions_table.dart';
 import 'package:hrms_mobile/features/payslip/presentation/widgets/payslip_details_section.dart';
 import 'package:hrms_mobile/features/payslip/presentation/widgets/payslip_notes_section.dart';
@@ -16,6 +17,7 @@ class PayslipViewScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
     final headerColor = const Color(0xFF323232);
     final confidentialColor = Colors.red[600];
@@ -26,15 +28,17 @@ class PayslipViewScreen extends ConsumerWidget {
     final payslipDetailAsync =
         ref.watch(payslipDetailProvider(id: payslip.id!));
 
-    final appBarTitle = "Payslip ${payslip.payrun?.periodLabel ?? 'Loading'}";
+    final periodLabel =
+        payslip.payrun?.periodLabel ?? l10n.payslipLoading;
+    final appBarTitle = l10n.payslipTitleWithPeriod(periodLabel);
 
     return Scaffold(
       appBar: IAppBar(title: appBarTitle),
       resizeToAvoidBottomInset: false,
       body: payslipDetailAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (err, stack) =>
-            Center(child: Text('Failed to load payslip detail: $err')),
+        error: (err, stack) => Center(
+            child: Text(l10n.payslipDetailLoadFailed(err.toString()))),
         data: (detailData) {
           return SingleChildScrollView(
             child: Padding(
@@ -42,7 +46,6 @@ class PayslipViewScreen extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // --- Payroll Details Section ---
                   PayslipDetailsSection(
                     textTheme: textTheme,
                     headerColor: headerColor,
@@ -58,8 +61,6 @@ class PayslipViewScreen extends ConsumerWidget {
                     color: IColors.light.grayscale.g20,
                   ),
                   SizedBox(height: 24.h),
-
-                  // ---  Table Earnings Deductions ---
                   EarningsDeductionsTable(
                     textTheme: textTheme,
                     headerColor: headerColor,

@@ -1,0 +1,56 @@
+{
+  "@@locale": "id",
+
+  "leaveBalance": "Saldo Cuti",
+  "leaveTimeOffUsed": "Cuti Terpakai",
+  "leaveTimeOff": "Sisa Cuti",
+  "leaveDays": "Hari",
+  "leaveYourRequests": "Pengajuan Cuti Anda",
+  "leaveNoHistoryFound": "Riwayat cuti tidak ditemukan.",
+  "leaveFailedToLoadHistory": "Gagal memuat riwayat: {error}",
+  "@leaveFailedToLoadHistory": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+  "leaveRequestDetail": "Detail Pengajuan Cuti",
+  "leaveRequestDetailSection": "Detail Pengajuan",
+  "leaveType": "Jenis Cuti",
+  "leaveDuration": "Durasi",
+  "leaveReason": "Alasan",
+  "leaveAttachment": "Lampiran",
+  "leaveApproval": "Persetujuan",
+  "leaveNoApproversAssigned": "Belum ada penyetuju yang ditugaskan.",
+  "leaveDaysCount": "({count} Hari)",
+  "@leaveDaysCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+
+  "leaveNewRequest": "Pengajuan Cuti Baru",
+  "leaveStartDate": "Tanggal Mulai",
+  "leaveEndDate": "Tanggal Selesai",
+  "leaveSendRequest": "Kirim Permintaan",
+  "leaveSubmitting": "Mengirim...",
+  "leaveSubmittedSuccess": "Pengajuan cuti berhasil dikirim!",
+  "leaveSubmittedFailed": "Pengajuan cuti gagal dikirim!",
+  "leaveFailedToLoadTypes": "Gagal memuat jenis cuti",
+  "leaveCouldNotLoadBalance": "Tidak dapat memuat saldo cuti:",
+  "leaveSubmissionFailedPrefix": "Pengiriman Gagal:",
+
+  "leaveTypeAnnualLeave": "Cuti Tahunan",
+  "leaveTypeSickLeave": "Cuti Sakit",
+  "leaveTypeMaternityLeave": "Cuti Melahirkan",
+  "leaveTypeMenstrualLeave": "Cuti Haid",
+  "leaveTypeMarriageLeave": "Cuti Menikah",
+  "leaveTypeChildsMarriageLeave": "Cuti Menikahkan Anak",
+  "leaveTypePaternityLeave": "Cuti Ayah",
+  "leaveTypeBereavementLeave": "Cuti Duka",
+  "leaveTypeNaturalDisasterLeave": "Cuti Bencana Alam",
+  "leaveTypeUnpaidLeave": "Cuti Tanpa Bayar",
+  "leaveTypeExtendedLeave": "Cuti Perpanjangan",
+  "leaveTypeStudyLeave": "Cuti Belajar",
+  "leaveTypeReligiousLeave": "Cuti Keagamaan",
+  "leaveTypeUnknown": "Tidak Diketahui"
+}

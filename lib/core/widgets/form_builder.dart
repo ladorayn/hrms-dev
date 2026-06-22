@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/data/models/form_fields_response.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
@@ -133,6 +134,7 @@ class AssessmentFormBuilder extends StatelessWidget {
   }
 
   Widget _buildDynamicField(BuildContext context, FormFields field) {
+    final l10n = AppLocalizations.of(context)!;
     switch (field.type) {
       case 'checkbox':
         return _buildCheckboxSection(context, field);
@@ -145,7 +147,7 @@ class AssessmentFormBuilder extends StatelessWidget {
       case 'radio':
         return _buildSingleSelectionSection(context, field);
       default:
-        return Text('Unknown field type: ${field.type}');
+        return Text(l10n.coreUnknownFieldType(field.type ?? ''));
     }
   }
 
@@ -256,6 +258,7 @@ class AssessmentFormBuilder extends StatelessWidget {
   }
 
   Widget _buildSingleSelectionSection(BuildContext context, FormFields field) {
+    final l10n = AppLocalizations.of(context)!;
     if (field.options == null || field.options is! List) {
       return const SizedBox.shrink();
     }
@@ -278,7 +281,7 @@ class AssessmentFormBuilder extends StatelessWidget {
               contentPadding: EdgeInsets.symmetric(horizontal: 12.w),
             ),
             value: selectedOption,
-            hint: const Text('Select an option'),
+            hint: Text(l10n.coreSelectOption),
             items: options.map((String option) {
               return DropdownMenuItem<String>(
                 value: option,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/core/data/models/form_fields_response.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
 import 'package:hrms_mobile/features/performance/data/models/request/assessment_answer_request.dart';
@@ -217,6 +218,7 @@ class _AssessmentTabFormManagerScreenState
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    final l10n = AppLocalizations.of(context)!;
 
     final formDetailAsync = ref.watch(
         performanceFormFieldsByGroupDetailProvider(formId: widget.formId));
@@ -249,7 +251,8 @@ class _AssessmentTabFormManagerScreenState
         Expanded(
           child: formDetailAsync.when(
             loading: () => const Center(child: CircularProgressIndicator()),
-            error: (err, stack) => Center(child: Text('Error: $err')),
+            error: (err, stack) =>
+                Center(child: Text(l10n.performanceError(err.toString()))),
             data: (detail) {
               if (!_isStateInitialized || formAnsweredAsync.isLoading) {
                 return const Center(child: CircularProgressIndicator());
@@ -288,8 +291,7 @@ class _AssessmentTabFormManagerScreenState
           Container(
             padding: EdgeInsets.all(16.w),
             color: Colors.white,
-            child: Text(
-                'This is the employee\'s submitted assessment (Read-Only).',
+            child: Text(l10n.performanceEmployeeSubmittedReadOnly,
                 style: TextStyle(color: IColors.light.grayscale.g60)),
           ),
       ],
@@ -323,6 +325,7 @@ class _AssessmentTabFormManagerScreenState
   }
 
   Widget _buildDynamicField(FormFields field) {
+    final l10n = AppLocalizations.of(context)!;
     switch (field.type) {
       case 'checkbox':
         return _buildCheckboxSection(field);
@@ -335,7 +338,7 @@ class _AssessmentTabFormManagerScreenState
       case 'radio':
         return _buildSingleSelectionSection(field);
       default:
-        return Text('Unknown type: ${field.type}');
+        return Text(l10n.performanceUnknownType(field.type ?? ''));
     }
   }
 
@@ -387,6 +390,7 @@ class _AssessmentTabFormManagerScreenState
   }
 
   Widget _buildTextAreaSection(FormFields field) {
+    final l10n = AppLocalizations.of(context)!;
     final controller = _notesControllers[field.id];
     if (controller == null) return const SizedBox.shrink();
     return Column(
@@ -395,7 +399,9 @@ class _AssessmentTabFormManagerScreenState
         _buildFieldHeader(field),
         ITextFieldTextArea(
           controller: controller,
-          hintText: widget.isReadOnly && controller.text.isEmpty ? 'N/A' : '',
+          hintText: widget.isReadOnly && controller.text.isEmpty
+              ? l10n.performanceNotAvailable
+              : '',
           readOnly: widget.isReadOnly,
         ),
       ],

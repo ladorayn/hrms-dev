@@ -57,8 +57,8 @@ class _MonthSelectorState extends ConsumerState<MonthSelector> {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    // Format the date to "Month Year" e.g., "September 2025"
-    final formattedDate = DateFormat('MMMM yyyy').format(_selectedDate);
+    final locale = Localizations.localeOf(context).toString();
+    final formattedDate = DateFormat('MMMM yyyy', locale).format(_selectedDate);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,

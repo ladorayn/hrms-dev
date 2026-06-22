@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_text_area.dart';
 import 'package:hrms_mobile/core/widgets/toastbar.dart';
@@ -36,6 +37,7 @@ class _WorkHandoverValidateScreenState
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final authP = ref.watch(authProvider);
     final workHandoverAsync = ref.watch(
       offboardingGetHandoverProvider(
@@ -47,13 +49,14 @@ class _WorkHandoverValidateScreenState
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const IAppBar(title: "Work & Responsibilities Handover"),
+      appBar: IAppBar(title: l10n.offboardingWorkHandover),
       body: workHandoverAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (err, _) => Center(child: Text('Error: $err')),
+        error: (err, _) =>
+            Center(child: Text(l10n.offboardingError(err.toString()))),
         data: (list) {
           if (list.isEmpty) {
-            return const Center(child: Text("No items found"));
+            return Center(child: Text(l10n.offboardingNoItemsFound));
           }
 
           return ListView.builder(
@@ -96,6 +99,7 @@ class _WorkHandoverCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
 
     final submissionState =
@@ -109,7 +113,7 @@ class _WorkHandoverCard extends ConsumerWidget {
           data: (_) {
             showCustomToast(
               context,
-              "Work validated successfully!",
+              l10n.offboardingWorkValidated,
               ToastType.success,
             );
             ref.invalidate(offboardingGetHandoverProvider);
@@ -141,7 +145,7 @@ class _WorkHandoverCard extends ConsumerWidget {
           children: [
             ITextFieldTextArea(
               controller: controller,
-              label: "Work",
+              label: l10n.offboardingWork,
               isRequired: true,
               readOnly: true,
               enabled: false,
@@ -174,7 +178,9 @@ class _WorkHandoverCard extends ConsumerWidget {
                 elevation: 0,
               ),
               child: Text(
-                isLoading ? "Validating..." : "Validate Now",
+                isLoading
+                    ? l10n.offboardingValidating
+                    : l10n.offboardingValidateNow,
                 style: textTheme.labelLarge?.copyWith(
                   color: Colors.white,
                   fontWeight: FontWeight.w600,

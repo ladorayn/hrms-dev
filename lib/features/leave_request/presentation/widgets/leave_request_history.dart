@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/features/leave_request/data/models/request/leave_request.dart';
@@ -14,6 +15,7 @@ class LeaveRequestItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
 
     final durationInDays = request.day;
@@ -21,9 +23,11 @@ class LeaveRequestItem extends StatelessWidget {
     final startDate = DateTime.parse(request.startDate);
     final endDate = DateTime.parse(request.endDate);
 
+    final locale = Localizations.localeOf(context).toString();
+
     // Format dates
-    final startFormatted = DateFormat('MMM d').format(startDate);
-    final endFormatted = DateFormat('MMM d, yyyy').format(endDate);
+    final startFormatted = DateFormat('MMM d', locale).format(startDate);
+    final endFormatted = DateFormat('MMM d, yyyy', locale).format(endDate);
 
     return GestureDetector(
       onTap: () {
@@ -72,7 +76,7 @@ class LeaveRequestItem extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Duration', style: textTheme.bodySmall),
+                    Text(l10n.leaveDuration, style: textTheme.bodySmall),
                     const SizedBox(height: 4),
                     Text(
                       '$startFormatted - $endFormatted',
@@ -82,7 +86,7 @@ class LeaveRequestItem extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  '($durationInDays Days)',
+                  l10n.leaveDaysCount(durationInDays),
                   style: textTheme.bodyMedium
                       ?.copyWith(color: Colors.grey.shade600),
                 ),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 
 class MainScreen extends StatelessWidget {
@@ -16,6 +17,8 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       body: child,
       bottomNavigationBar: BottomNavigationBar(
@@ -28,35 +31,35 @@ class MainScreen extends StatelessWidget {
               IAssets.home,
             ),
             activeIcon: SvgPicture.asset(IAssets.homeActive),
-            label: 'Home',
+            label: l10n.navHome,
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
               IAssets.storeReport,
             ),
             activeIcon: SvgPicture.asset(IAssets.storeReportActive),
-            label: 'Performance',
+            label: l10n.navPerformance,
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
               IAssets.documentMenu,
             ),
             activeIcon: SvgPicture.asset(IAssets.documentMenuActive),
-            label: 'Leave Request',
+            label: l10n.navLeaveRequest,
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
               IAssets.inbox,
             ),
             activeIcon: SvgPicture.asset(IAssets.inboxActive),
-            label: 'Inbox',
+            label: l10n.navInbox,
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
               IAssets.userMenu,
             ),
             activeIcon: SvgPicture.asset(IAssets.userMenuActive),
-            label: 'Profile',
+            label: l10n.navProfile,
           ),
         ],
       ),

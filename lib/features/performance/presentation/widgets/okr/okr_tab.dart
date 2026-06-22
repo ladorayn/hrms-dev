@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
 import 'package:hrms_mobile/features/performance/data/models/response/okr_list.dart';
@@ -26,6 +27,7 @@ class _OKRTabState extends ConsumerState<OKRTab> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final okrDetailAsync =
         ref.watch(oKRDetailRProvider(okrId: widget.okrList.id));
 
@@ -33,12 +35,13 @@ class _OKRTabState extends ConsumerState<OKRTab> {
       padding: EdgeInsets.all(16.sp),
       child: okrDetailAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (err, stack) => Center(child: Text('Error: $err')),
+        error: (err, stack) =>
+            Center(child: Text(l10n.performanceError('$err'))),
         data: (okrDetail) {
           final objectives = okrDetail.objectives ?? [];
 
           if (objectives.isEmpty) {
-            return const Center(child: Text("No objectives found"));
+            return Center(child: Text(l10n.performanceNoObjectivesFound));
           }
 
           return Column(
@@ -47,7 +50,7 @@ class _OKRTabState extends ConsumerState<OKRTab> {
                 child: ListView.builder(
                   itemCount: objectives.length,
                   itemBuilder: (context, index) {
-                    return _buildCollapsableData(objectives[index]);
+                    return _buildCollapsableData(context, objectives[index]);
                   },
                 ),
               ),
@@ -58,7 +61,8 @@ class _OKRTabState extends ConsumerState<OKRTab> {
     );
   }
 
-  Widget _buildCollapsableData(Objective objective) {
+  Widget _buildCollapsableData(BuildContext context, Objective objective) {
+    final l10n = AppLocalizations.of(context)!;
     return ExpansionTile(
       collapsedIconColor: IColors.light.primary.main,
       expansionAnimationStyle: AnimationStyle(
@@ -69,7 +73,7 @@ class _OKRTabState extends ConsumerState<OKRTab> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
       collapsedBackgroundColor: Colors.white,
       backgroundColor: Colors.white,
-      title: SectionTitle(objective.title ?? "No Title"),
+      title: SectionTitle(objective.title ?? l10n.performanceNoTitle),
       tilePadding: EdgeInsets.zero,
       children: (objective.keyResults ?? []).map<Widget>((kr) {
         return OKRCard(

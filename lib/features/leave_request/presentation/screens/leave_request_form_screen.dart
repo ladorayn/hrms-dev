@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/core/errors/exceptions.dart';
 import 'package:hrms_mobile/core/widgets/file_picker.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
@@ -50,11 +51,12 @@ class _LeaveRequestFormScreenState
   }
 
   Future<void> _submitLeaveRequest() async {
+    final l10n = AppLocalizations.of(context)!;
     if (_selectedLeaveType == null ||
         _selectedStartDate == null ||
         _selectedEndDate == null) {
       showCustomToast(
-          context, 'Please fill all required fields.', ToastType.info);
+          context, l10n.attendancePleaseFillRequiredFields, ToastType.info);
       // ScaffoldMessenger.of(context).showSnackBar(
       //   SnackBar(
       //     backgroundColor: Colors.red[600],
@@ -95,7 +97,7 @@ class _LeaveRequestFormScreenState
       } catch (e) {
         if (mounted) {
           showCustomToast(
-              context, 'Attachment upload failed: $e', ToastType.error);
+              context, l10n.profileAttachmentUploadFailed('$e'), ToastType.error);
           // ScaffoldMessenger.of(context).showSnackBar(
           //   SnackBar(content: Text('Attachment upload failed: $e')),
           // );
@@ -125,7 +127,7 @@ class _LeaveRequestFormScreenState
           .submitForm(request: request);
 
       if (mounted) {
-        showCustomToast(context, 'Leave request submitted successfully!',
+        showCustomToast(context, l10n.leaveSubmittedSuccess,
             ToastType.success);
         // ScaffoldMessenger.of(context).showSnackBar(
         //   const SnackBar(
@@ -138,7 +140,7 @@ class _LeaveRequestFormScreenState
     } catch (e) {
       if (mounted) {
         showCustomToast(
-            context, 'Leave request submitted failed!', ToastType.error);
+            context, l10n.leaveSubmittedFailed, ToastType.error);
         // ScaffoldMessenger.of(context).showSnackBar(
         //   const SnackBar(content: Text('Leave request submitted failed!')),
         // );
@@ -148,6 +150,7 @@ class _LeaveRequestFormScreenState
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
 
     final leaveTypesAsync = ref.watch(leaveTypesProvider);
@@ -161,7 +164,7 @@ class _LeaveRequestFormScreenState
         final error = state.error;
         showCustomToast(
             context,
-            'Submission Failed: ${error.toString().split(':').last}',
+            '${l10n.leaveSubmissionFailedPrefix} ${error.toString().split(':').last}',
             ToastType.error);
         // ScaffoldMessenger.of(context).showSnackBar(
         //   SnackBar(
@@ -180,7 +183,7 @@ class _LeaveRequestFormScreenState
     }
 
     return Scaffold(
-      appBar: IAppBar(title: "New Leave Request"),
+      appBar: IAppBar(title: l10n.leaveNewRequest),
       body: GestureDetector(
         onTap: () {
           FocusScope.of(context).unfocus();
@@ -201,7 +204,7 @@ class _LeaveRequestFormScreenState
                             leaveTypes.map((lt) => lt.name).toList();
 
                         return ITextFieldDropdownBottomSheet(
-                          label: "Leave Type",
+                          label: l10n.leaveType,
                           controller: _leaveTypeController,
                           options: leaveTypeNames,
                           isRequired: true,
@@ -223,16 +226,16 @@ class _LeaveRequestFormScreenState
                         ),
                       ),
                       error: (e, s) => ITextFieldDropdownBottomSheet(
-                        label: "Leave Type",
+                        label: l10n.leaveType,
                         controller: _leaveTypeController,
                         options: const [],
-                        errorText: "Failed to load leave types",
+                        errorText: l10n.leaveFailedToLoadTypes,
                         onOptionSelected: (selectedOption) {},
                       ),
                     ),
                     SizedBox(height: 10.h), // Use height for vertical spacing
                     ITextFieldDatePicker(
-                      label: "Start Date",
+                      label: l10n.leaveStartDate,
                       isRequired: true,
                       controller: _clockInController,
                       // --- Use validation errors ---
@@ -245,7 +248,7 @@ class _LeaveRequestFormScreenState
                     ),
                     SizedBox(height: 10.h), // Use height for vertical spacing
                     ITextFieldDatePicker(
-                      label: "End Date",
+                      label: l10n.leaveEndDate,
                       isRequired: true,
                       controller: _clockOutController,
                       // --- Use validation errors ---
@@ -258,14 +261,14 @@ class _LeaveRequestFormScreenState
                     ),
                     SizedBox(height: 10.h),
                     ITextFieldTextArea(
-                      label: "Reason",
+                      label: l10n.leaveReason,
                       controller: _notesController,
                       // --- Use validation errors ---
                       errorText: validationErrors['reason'],
                     ),
                     SizedBox(height: 10.h),
                     IFilePicker(
-                      title: "Attachment",
+                      title: l10n.leaveAttachment,
                       errorText: validationErrors['attachment'],
                       onFileSelected: (file) {
                         setState(() {
@@ -280,7 +283,7 @@ class _LeaveRequestFormScreenState
             IFooterButton(
               // --- Call the correct submit function ---
               onPressed: isSubmitting ? null : _submitLeaveRequest,
-              text: isSubmitting ? "Submitting..." : "Send Request",
+              text: isSubmitting ? l10n.leaveSubmitting : l10n.leaveSendRequest,
             ),
           ],
         ),

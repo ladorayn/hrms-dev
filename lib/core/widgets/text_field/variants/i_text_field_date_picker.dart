@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/widgets/text_field/base/i_text_field.dart';
 import 'package:intl/intl.dart';
@@ -45,7 +46,7 @@ class _ITextFieldDatePickerState extends State<ITextFieldDatePicker> {
     _controller = widget.controller ?? TextEditingController();
     _selectedDate = widget.initialDate;
 
-    // Set initial text if initialDate is provided
+    // Set initial text if initialDate is provided (locale applied in build)
     if (_selectedDate != null) {
       _setTextFromDateTime(_selectedDate!);
     }
@@ -77,29 +78,40 @@ class _ITextFieldDatePickerState extends State<ITextFieldDatePicker> {
   }
 
   Future<void> _selectDate(BuildContext context) async {
+    final l10n = AppLocalizations.of(context)!;
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: _selectedDate ?? DateTime.now(),
       firstDate: widget.firstDate ?? DateTime(1900),
       lastDate: widget.lastDate ?? DateTime(2100),
-      confirmText: 'Oke',
+      confirmText: l10n.coreConfirmOk,
     );
 
     if (picked != null && picked != _selectedDate) {
       setState(() {
         _selectedDate = picked;
-        _setTextFromDateTime(picked);
+        _setTextFromDateTime(
+          picked,
+          Localizations.localeOf(context).toString(),
+        );
         widget.onDateChanged?.call(picked);
       });
     }
   }
 
-  void _setTextFromDateTime(DateTime date) {
-    _controller.text = DateFormat('MMMM d, y').format(date);
+  void _setTextFromDateTime(DateTime date, [String? locale]) {
+    _controller.text =
+        DateFormat('MMMM d, y', locale).format(date);
   }
 
   @override
   Widget build(BuildContext context) {
+    if (_selectedDate != null) {
+      _setTextFromDateTime(
+        _selectedDate!,
+        Localizations.localeOf(context).toString(),
+      );
+    }
     return ITextFieldBase(
       controller: _controller,
       isRequired: widget.isRequired,

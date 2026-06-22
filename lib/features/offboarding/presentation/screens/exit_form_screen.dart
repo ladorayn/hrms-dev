@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/data/models/form_fields_response.dart';
 import 'package:hrms_mobile/core/errors/exceptions.dart';
@@ -149,6 +150,7 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
   }
 
   Future<void> _onSubmit() async {
+    final l10n = AppLocalizations.of(context)!;
     final List<SubmissionForm> submissions = [];
 
     _checkboxAnswers.forEach((fieldId, answers) {
@@ -202,7 +204,7 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
       ref.invalidate(exitFormSubmissionProvider);
       if (mounted) {
         showCustomToast(
-            context, 'Form Submitted Successfully!', ToastType.success);
+            context, l10n.offboardingFormSubmitted, ToastType.success);
         ref.invalidate(offboardingProgressPProvider(id: widget.data.id));
         context.pop(); // Pop the dialog
         globalNavigatorKey.currentContext?.pop();
@@ -217,7 +219,8 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
           showCustomToast(context, displayErrors[displayErrors.keys.first]!,
               ToastType.error);
         } else {
-          showCustomToast(context, 'Submission Failed', ToastType.error);
+          showCustomToast(context, l10n.offboardingSubmissionFailed,
+              ToastType.error);
         }
       }
     }
@@ -225,6 +228,7 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final formFieldsAsync = ref
         .watch(offboardingFormFieldsProvider(formId: widget.data.formId ?? 0));
 
@@ -238,13 +242,14 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
     });
 
     return Scaffold(
-      appBar: IAppBar(title: "Exit Interview Form"),
+      appBar: IAppBar(title: l10n.offboardingExitInterviewForm),
       body: Column(
         children: [
           Expanded(
             child: formFieldsAsync.when(
               loading: () => const Center(child: CircularProgressIndicator()),
-              error: (err, stack) => Center(child: Text('Error: $err')),
+              error: (err, stack) => Center(
+                  child: Text(l10n.offboardingError(err.toString()))),
               data: (formFields) {
                 return ListView.separated(
                   padding:
@@ -264,7 +269,7 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
             ),
           ),
           IFooterButton(
-            text: "Submit Form",
+            text: l10n.offboardingSubmitForm,
             onPressed: _isFormValid
                 ? () {
                     if (_isStateInitialized) {
@@ -279,6 +284,7 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
   }
 
   Widget _buildDynamicField(FormFields field) {
+    final l10n = AppLocalizations.of(context)!;
     switch (field.type) {
       case 'checkbox':
         return _buildCheckboxSection(field);
@@ -292,7 +298,7 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
       case 'radio':
         return _buildSingleSelectionSection(field);
       default:
-        return Text('Unknown field type: ${field.type}');
+        return Text(l10n.offboardingUnknownFieldType(field.type ?? ''));
     }
   }
 
@@ -349,6 +355,7 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
   }
 
   Widget _buildRatingSection(FormFields field) {
+    final l10n = AppLocalizations.of(context)!;
     final selectedRating = _ratingAnswers[field.id];
     final notesController = _notesControllers[field.id];
 
@@ -412,7 +419,7 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
           SizedBox(height: 12.h),
           ITextFieldTextArea(
             controller: notesController,
-            label: 'Notes',
+            label: l10n.offboardingNotes,
             hintText: '',
           ),
         ],
@@ -421,6 +428,7 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
   }
 
   Widget _buildTextAreaSection(FormFields field) {
+    final l10n = AppLocalizations.of(context)!;
     final controller = _notesControllers[field.id];
     if (controller == null) return const SizedBox.shrink();
 
@@ -432,7 +440,7 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
         SizedBox(height: 12.h),
         ITextFieldTextArea(
           controller: controller,
-          label: 'Notes',
+          label: l10n.offboardingNotes,
           hintText: '',
         ),
       ],
@@ -440,6 +448,7 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
   }
 
   Widget _buildSingleSelectionSection(FormFields field) {
+    final l10n = AppLocalizations.of(context)!;
     if (field.options == null || field.options is! List) {
       return const SizedBox.shrink();
     }
@@ -462,7 +471,7 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
               contentPadding: EdgeInsets.symmetric(horizontal: 12.w),
             ),
             value: selectedOption,
-            hint: const Text('Pilih salah satu opsi'),
+            hint: Text(l10n.offboardingSelectOption),
             items: options.map((String option) {
               return DropdownMenuItem<String>(
                 value: option,
@@ -498,6 +507,7 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
   }
 
   Future<void> _showPopUpConfirmationSubmission(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
     return showDialog(
       context: context,
@@ -516,14 +526,14 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
                 SvgPicture.asset(IAssets.questionMark),
                 SizedBox(height: 16.h),
                 Text(
-                  'Are you sure you want to submit this exit interview form?',
+                  l10n.offboardingConfirmSubmit,
                   textAlign: TextAlign.center,
                   style: textTheme.titleSmall
                       ?.copyWith(fontWeight: FontWeight.w600),
                 ),
                 SizedBox(height: 16.h),
                 Text(
-                  "Once submitted, you won’t be able to make any changes.",
+                  l10n.offboardingConfirmNoChanges,
                   textAlign: TextAlign.center,
                   style: textTheme.bodySmall
                       ?.copyWith(color: Colors.grey.shade600),
@@ -545,7 +555,7 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
                                 borderRadius: BorderRadius.circular(8),
                               ),
                             ),
-                            child: Text("Cancel"))),
+                            child: Text(l10n.offboardingCancel))),
                     SizedBox(width: 10.w),
                     Expanded(
                         child: ElevatedButton(
@@ -562,7 +572,7 @@ class _ExitFormScreenState extends ConsumerState<ExitFormScreen> {
                               ),
                             ),
                             child: Text(
-                              "Submit Form",
+                              l10n.offboardingSubmitForm,
                               textAlign: TextAlign.center,
                             ))),
                   ],

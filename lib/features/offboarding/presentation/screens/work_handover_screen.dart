@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/data/models/employees/employees_response.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
@@ -109,6 +110,7 @@ class _WorkHandoverScreenState extends ConsumerState<WorkHandoverScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final handoverState = ref.watch(handoverSubmissionProvider);
     final existingDataAsync = ref.watch(offboardingGetHandoverItemProvider(
       request: HandoverCategoryItemRequest(
@@ -123,7 +125,7 @@ class _WorkHandoverScreenState extends ConsumerState<WorkHandoverScreen> {
         error: (e, s) => _showSnackBar(e.toString(), isError: true),
         data: (data) {
           if (data != null) {
-            _showSnackBar("Handover submitted successfully!");
+            _showSnackBar(l10n.offboardingHandoverSubmitted);
             ref.invalidate(offboardingProgressPProvider(id: widget.data.id));
             Navigator.of(context).pop();
           }
@@ -134,12 +136,11 @@ class _WorkHandoverScreenState extends ConsumerState<WorkHandoverScreen> {
     Future<void> onSubmit() async {
       for (var item in _handoverItems) {
         if (item.worksController.text.isEmpty) {
-          _showSnackBar('Please fill in all "Works" fields.', isError: true);
+          _showSnackBar(l10n.offboardingFillWorksFields, isError: true);
           return;
         }
         if (item.selectedEmployees.isEmpty) {
-          _showSnackBar('Please select at least one recipient for all items.',
-              isError: true);
+          _showSnackBar(l10n.offboardingSelectRecipient, isError: true);
           return;
         }
       }
@@ -165,8 +166,7 @@ class _WorkHandoverScreenState extends ConsumerState<WorkHandoverScreen> {
       final int? offboardingId = widget.data.id;
 
       if (offboardingId == null) {
-        _showSnackBar('Could not find offboarding ID. Please try again.',
-            isError: true);
+        _showSnackBar(l10n.offboardingIdNotFound, isError: true);
         return;
       }
       await ref.read(handoverSubmissionProvider.notifier).submitForm(
@@ -176,10 +176,11 @@ class _WorkHandoverScreenState extends ConsumerState<WorkHandoverScreen> {
     }
 
     return Scaffold(
-      appBar: const IAppBar(title: "Work & Responsibilities Handover"),
+      appBar: IAppBar(title: l10n.offboardingWorkHandover),
       body: existingDataAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (err, stack) => Center(child: Text("Error loading data: $err")),
+        error: (err, stack) => Center(
+            child: Text(l10n.offboardingErrorLoadingData(err.toString()))),
         data: (_) => Column(
           children: [
             Expanded(
@@ -197,7 +198,7 @@ class _WorkHandoverScreenState extends ConsumerState<WorkHandoverScreen> {
               child: OutlinedButton.icon(
                 onPressed: _addNewHandoverItem,
                 icon: const Icon(Icons.add),
-                label: const Text('Add'),
+                label: Text(l10n.offboardingAdd),
                 style: OutlinedButton.styleFrom(
                   foregroundColor: IColors.light.primary.main,
                   minimumSize: const Size.fromHeight(50),
@@ -212,7 +213,9 @@ class _WorkHandoverScreenState extends ConsumerState<WorkHandoverScreen> {
               ),
             ),
             IFooterButton(
-              text: handoverState.isLoading ? "Submitting..." : "Submit",
+              text: handoverState.isLoading
+                  ? l10n.offboardingSubmitting
+                  : l10n.offboardingSubmit,
               onPressed: handoverState.isLoading ? null : onSubmit,
             ),
           ],
@@ -223,6 +226,7 @@ class _WorkHandoverScreenState extends ConsumerState<WorkHandoverScreen> {
 
   Widget _buildHandoverCard(
       int index, HandoverItem item, BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
     return Card(
       margin: EdgeInsets.only(bottom: 16.h),
@@ -242,13 +246,13 @@ class _WorkHandoverScreenState extends ConsumerState<WorkHandoverScreen> {
                 children: [
                   ITextFieldTextArea(
                       controller: item.worksController,
-                      label: "Works",
+                      label: l10n.offboardingWorks,
                       hintText: '',
                       isRequired: true,
                       labelStyle: textTheme.bodySmall),
                   SizedBox(height: 16.h),
                   ITextFieldDropdownMultiSelect<Employee>(
-                    label: 'Handed Over To',
+                    label: l10n.offboardingHandedOverTo,
                     isRequired: true,
                     selectedItems: item.selectedEmployees,
                     itemToString: (employee) => employee.name ?? '-',
@@ -346,6 +350,7 @@ class _EmployeeSelectionSheetState
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final asyncEmployees = ref.watch(paginatedEmployeeProvider(
       search: _searchQuery,
     ));
@@ -373,13 +378,13 @@ class _EmployeeSelectionSheetState
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Employees',
+                      Text(l10n.offboardingEmployees,
                           style: Theme.of(context).textTheme.titleLarge),
                       SizedBox(height: 12.h),
                       TextField(
                         controller: _searchController,
                         decoration: InputDecoration(
-                          hintText: 'Search Employee',
+                          hintText: l10n.offboardingSearchEmployee,
                           prefixIcon: const Icon(Icons.search),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12.r),
@@ -432,7 +437,8 @@ class _EmployeeSelectionSheetState
                     },
                     loading: () =>
                         const Center(child: CircularProgressIndicator()),
-                    error: (e, s) => Center(child: Text('Error: $e')),
+                    error: (e, s) =>
+                        Center(child: Text(l10n.offboardingError(e.toString()))),
                   ),
                 ),
                 Container(
@@ -452,7 +458,7 @@ class _EmployeeSelectionSheetState
                       ),
                       minimumSize: Size(double.infinity, 48.h),
                     ),
-                    child: const Text('Done'),
+                    child: Text(l10n.offboardingDone),
                   ),
                 ),
               ],

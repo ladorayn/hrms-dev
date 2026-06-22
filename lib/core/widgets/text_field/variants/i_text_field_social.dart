@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hrms_mobile/application/assets/i_assets.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/widgets/text_field/base/i_text_field.dart';
 import 'package:hrms_mobile/core/widgets/text_field/variants/i_text_field_dropdown_bottom_sheet.dart';
@@ -48,6 +49,7 @@ class _ITextFieldSocialState extends State<ITextFieldSocial> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -55,8 +57,8 @@ class _ITextFieldSocialState extends State<ITextFieldSocial> {
         SizedBox(
           width: 100.w, // Fixed width for the dropdown
           child: ITextFieldDropdownBottomSheet(
-            label: 'Social Media',
-            hintText: 'Type',
+            label: l10n.coreSocialMedia,
+            hintText: l10n.coreSocialMediaHint,
             textFieldOnly: true,
             options: const ['Instagram', 'Twitter', 'LinkedIn', 'Other'],
             onOptionSelected: (selected) {
