@@ -160,15 +160,7 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
   }
 
   void _populateRatingAnswer(int fieldId, FieldsAnswer answer) {
-    final ratingValue = answer.value;
-    int? rating;
-    if (ratingValue is String) {
-      rating = int.tryParse(ratingValue);
-    } else if (ratingValue is int) {
-      rating = ratingValue;
-    }
-    ;
-
+    final rating = _parseRatingValue(answer.value);
     if (rating != null) _ratingAnswers[fieldId] = rating;
 
     if (answer.additionalData is Map<String, dynamic>) {
@@ -177,6 +169,13 @@ class _AssessmentFormScreenState extends ConsumerState<AssessmentFormScreen> {
         _notesControllers[fieldId]!.text = notes;
       }
     }
+  }
+
+  int? _parseRatingValue(dynamic ratingValue) {
+    if (ratingValue is int) return ratingValue;
+    if (ratingValue is num) return ratingValue.toInt();
+    if (ratingValue is String) return int.tryParse(ratingValue);
+    return null;
   }
 
   void _populateTextAnswer(int fieldId, FieldsAnswer answer) {

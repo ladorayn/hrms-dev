@@ -81,20 +81,31 @@ class CompetencyRatingField extends ConsumerWidget {
             children: List.generate(options.max - options.min + 1, (index) {
               final rating = options.min + index;
               final isSelected = rating == selectedRating;
+              final selectedBg = IColors.light.primary.main;
+              final unselectedBg =
+                  isDisabled ? IColors.light.grayscale.g10 : Colors.white;
+              final selectedFg = Colors.white;
+              final unselectedFg = IColors.light.primary.main;
 
+              // When onPressed is null, Flutter uses disabled* colors and
+              // ignores backgroundColor/foregroundColor — keep selected look.
               final buttonStyle = ElevatedButton.styleFrom(
-                backgroundColor: isSelected
-                    ? IColors.light.primary.main
-                    : (isDisabled ? IColors.light.grayscale.g10 : Colors.white),
-                foregroundColor:
-                    isSelected ? Colors.white : IColors.light.primary.main,
+                backgroundColor: isSelected ? selectedBg : unselectedBg,
+                foregroundColor: isSelected ? selectedFg : unselectedFg,
+                disabledBackgroundColor:
+                    isSelected ? selectedBg : IColors.light.grayscale.g10,
+                disabledForegroundColor:
+                    isSelected ? selectedFg : unselectedFg,
                 minimumSize: Size(45.w, 40.h),
                 padding: EdgeInsets.zero,
                 shape: RoundedRectangleBorder(
                   side: BorderSide(
-                      color: isDisabled
-                          ? IColors.light.grayscale.g30
-                          : IColors.light.primary.main),
+                    color: isSelected
+                        ? selectedBg
+                        : (isDisabled
+                            ? IColors.light.grayscale.g30
+                            : IColors.light.primary.main),
+                  ),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 elevation: isDisabled ? 0 : 2,

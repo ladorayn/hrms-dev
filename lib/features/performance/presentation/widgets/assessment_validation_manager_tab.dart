@@ -184,6 +184,26 @@ class _AssessmentValidationFormTabManagerScreenState
     if (answer.value is String) _singleSelectionAnswers[fieldId] = answer.value;
   }
 
+  /// Validation tab must show the manager submission (`validatedFor` set).
+  /// Before validation exists, fall back to the employee's self-assessment.
+  FormAnswer? _resolveValidationFormAnswer(List<AssessmentAnswer>? answerList) {
+    if (answerList == null || answerList.isEmpty) return null;
+
+    final validationAnswers =
+        answerList.where((a) => a.validatedFor != null).toList();
+    if (validationAnswers.isNotEmpty) {
+      return validationAnswers.last.data;
+    }
+
+    final employeeAnswers =
+        answerList.where((a) => a.validatedFor == null).toList();
+    if (employeeAnswers.isNotEmpty) {
+      return employeeAnswers.first.data;
+    }
+
+    return answerList.first.data;
+  }
+
   void _validateForm() {
     final formFields = _allFields;
     if (formFields.isEmpty) {
@@ -302,14 +322,12 @@ class _AssessmentValidationFormTabManagerScreenState
         !_isStateInitialized) {
       final detail = formDetailAsync.value!;
       final List<AssessmentAnswer>? answerList = formAnsweredAsync.value;
-      final FormAnswer? firstAnswer =
-          (answerList != null && answerList.isNotEmpty)
-              ? answerList[0].data
-              : null;
+      // Prefer supervisor validation submission; otherwise prefill from employee.
+      final FormAnswer? answerToShow = _resolveValidationFormAnswer(answerList);
 
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (mounted) {
-          _initializeState(detail.groups, firstAnswer);
+          _initializeState(detail.groups, answerToShow);
         }
       });
     }
