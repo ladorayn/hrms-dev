@@ -229,7 +229,7 @@ class PerformanceRemoteSource {
   Future<BasePaginatedResponse<OKRList>> getOKRList() async {
     try {
       final response = await _dio.get(
-        'api/v1/okr/cycles',
+        'api/ess/okr',
       );
 
       return BasePaginatedResponse.fromJson(
