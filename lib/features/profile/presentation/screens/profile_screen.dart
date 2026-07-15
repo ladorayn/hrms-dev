@@ -15,7 +15,13 @@ import 'package:hrms_mobile/features/profile/presentation/widgets/profile_app_ba
 import 'package:hrms_mobile/features/profile/presentation/widgets/statistics_card.dart';
 import 'package:hrms_mobile/features/profile/presentation/widgets/user_info.dart';
 
+import 'package:package_info_plus/package_info_plus.dart';
+
 import '../widgets/profile_menu_item.dart';
+
+final packageInfoProvider = FutureProvider<PackageInfo>((ref) async {
+  return await PackageInfo.fromPlatform();
+});
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
@@ -31,6 +37,7 @@ class ProfileScreen extends ConsumerWidget {
     final authP = ref.watch(authProvider);
     final profileAsync =
         ref.watch(employeeDetailProvider(id: authP.value?.id ?? 0));
+    final packageInfoAsync = ref.watch(packageInfoProvider);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -87,7 +94,7 @@ class ProfileScreen extends ConsumerWidget {
                         ),
                         ProfileMenuItem(
                           icon: Icons.card_travel_outlined,
-                          title: 'Business Trip',
+                          title: l10n.businessTripTitle,
                           onTap: () {
                             globalNavigatorKey.currentContext
                                 ?.pushNamed(RoutePaths.businessTripName);
@@ -113,6 +120,20 @@ class ProfileScreen extends ConsumerWidget {
                             ref,
                           ),
                           showDivider: false,
+                        ),
+                        packageInfoAsync.when(
+                          data: (info) => Padding(
+                            padding: EdgeInsets.symmetric(vertical: 24.sp),
+                            child: Text(
+                              'Version ${info.version}+${info.buildNumber}',
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 12.sp,
+                              ),
+                            ),
+                          ),
+                          loading: () => const SizedBox.shrink(),
+                          error: (_, __) => const SizedBox.shrink(),
                         ),
                       ],
                     ),

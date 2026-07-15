@@ -1,0 +1,43 @@
+{
+  "@@locale": "en",
+
+  "businessTripTitle": "Business Trip",
+  "businessTripNewRequest": "New Business Trip Request",
+  "businessTripYourTrips": "Your Business Trips",
+  "businessTripNoTripsFound": "No business trips found.",
+  "businessTripFailedLoadData": "Failed to load data: {error}",
+  "@businessTripFailedLoadData": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+
+  "businessTripDetailTitle": "Business Trip Detail",
+  "businessTripDestination": "Destination",
+  "businessTripReason": "Reason",
+  "businessTripNotes": "Notes",
+  "businessTripDuration": "Duration",
+  "businessTripDays": "({days} Days)",
+  "@businessTripDays": {
+    "placeholders": {
+      "days": { "type": "int" }
+    }
+  },
+  "businessTripApprover": "Approver",
+  "businessTripCancelRequest": "Cancel Request",
+  "businessTripCancelConfirmTitle": "Cancel Request",
+  "businessTripCancelConfirmBody": "Are you sure you want to cancel this request?",
+  "businessTripCancelNo": "No",
+  "businessTripCancelYes": "Yes",
+  "businessTripCancelSuccess": "Request cancelled successfully",
+  "businessTripCancelFailed": "Failed to cancel request",
+
+  "businessTripFormTitle": "New Business Trip",
+  "businessTripStartDate": "Start Date",
+  "businessTripEndDate": "End Date",
+  "businessTripFillAllFields": "Please fill all fields.",
+  "businessTripSubmitSuccess": "Business trip requested successfully!",
+  "businessTripSubmitFailed": "Submission failed!",
+  "businessTripSendRequest": "Send Request",
+  "businessTripSubmitting": "Submitting..."
+}

@@ -2950,6 +2950,168 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Manual capture (location bypass)'**
   String get attendanceManualCaptureBypass;
+
+  /// No description provided for @businessTripTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Business Trip'**
+  String get businessTripTitle;
+
+  /// No description provided for @businessTripNewRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'New Business Trip Request'**
+  String get businessTripNewRequest;
+
+  /// No description provided for @businessTripYourTrips.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Business Trips'**
+  String get businessTripYourTrips;
+
+  /// No description provided for @businessTripNoTripsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No business trips found.'**
+  String get businessTripNoTripsFound;
+
+  /// No description provided for @businessTripFailedLoadData.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load data: {error}'**
+  String businessTripFailedLoadData(String error);
+
+  /// No description provided for @businessTripDetailTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Business Trip Detail'**
+  String get businessTripDetailTitle;
+
+  /// No description provided for @businessTripDestination.
+  ///
+  /// In en, this message translates to:
+  /// **'Destination'**
+  String get businessTripDestination;
+
+  /// No description provided for @businessTripReason.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason'**
+  String get businessTripReason;
+
+  /// No description provided for @businessTripNotes.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get businessTripNotes;
+
+  /// No description provided for @businessTripDuration.
+  ///
+  /// In en, this message translates to:
+  /// **'Duration'**
+  String get businessTripDuration;
+
+  /// No description provided for @businessTripDays.
+  ///
+  /// In en, this message translates to:
+  /// **'({days} Days)'**
+  String businessTripDays(int days);
+
+  /// No description provided for @businessTripApprover.
+  ///
+  /// In en, this message translates to:
+  /// **'Approver'**
+  String get businessTripApprover;
+
+  /// No description provided for @businessTripCancelRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Request'**
+  String get businessTripCancelRequest;
+
+  /// No description provided for @businessTripCancelConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Request'**
+  String get businessTripCancelConfirmTitle;
+
+  /// No description provided for @businessTripCancelConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to cancel this request?'**
+  String get businessTripCancelConfirmBody;
+
+  /// No description provided for @businessTripCancelNo.
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get businessTripCancelNo;
+
+  /// No description provided for @businessTripCancelYes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get businessTripCancelYes;
+
+  /// No description provided for @businessTripCancelSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Request cancelled successfully'**
+  String get businessTripCancelSuccess;
+
+  /// No description provided for @businessTripCancelFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to cancel request'**
+  String get businessTripCancelFailed;
+
+  /// No description provided for @businessTripFormTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'New Business Trip'**
+  String get businessTripFormTitle;
+
+  /// No description provided for @businessTripStartDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Date'**
+  String get businessTripStartDate;
+
+  /// No description provided for @businessTripEndDate.
+  ///
+  /// In en, this message translates to:
+  /// **'End Date'**
+  String get businessTripEndDate;
+
+  /// No description provided for @businessTripFillAllFields.
+  ///
+  /// In en, this message translates to:
+  /// **'Please fill all fields.'**
+  String get businessTripFillAllFields;
+
+  /// No description provided for @businessTripSubmitSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Business trip requested successfully!'**
+  String get businessTripSubmitSuccess;
+
+  /// No description provided for @businessTripSubmitFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Submission failed!'**
+  String get businessTripSubmitFailed;
+
+  /// No description provided for @businessTripSendRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Request'**
+  String get businessTripSendRequest;
+
+  /// No description provided for @businessTripSubmitting.
+  ///
+  /// In en, this message translates to:
+  /// **'Submitting...'**
+  String get businessTripSubmitting;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

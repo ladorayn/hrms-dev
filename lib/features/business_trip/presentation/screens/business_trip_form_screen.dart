@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/core/widgets/i_footer_button.dart';
@@ -39,12 +40,12 @@ class _BusinessTripFormScreenState extends ConsumerState<BusinessTripFormScreen>
     super.dispose();
   }
 
-  Future<void> _submitRequest() async {
+  Future<void> _submitRequest(AppLocalizations l10n) async {
     if (_selectedStartDate == null ||
         _selectedEndDate == null ||
         _destinationController.text.isEmpty ||
         _reasonController.text.isEmpty) {
-      showCustomToast(context, 'Please fill all fields.', ToastType.info);
+      showCustomToast(context, l10n.businessTripFillAllFields, ToastType.info);
       return;
     }
 
@@ -65,19 +66,20 @@ class _BusinessTripFormScreenState extends ConsumerState<BusinessTripFormScreen>
           .submitForm(request: request);
 
       if (mounted) {
-        showCustomToast(context, 'Business trip requested successfully!', ToastType.success);
+        showCustomToast(context, l10n.businessTripSubmitSuccess, ToastType.success);
         ref.invalidate(businessTripsProvider);
         context.pop();
       }
     } catch (e) {
       if (mounted) {
-        showCustomToast(context, 'Submission failed!', ToastType.error);
+        showCustomToast(context, l10n.businessTripSubmitFailed, ToastType.error);
       }
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final submissionState = ref.watch(businessTripSubmissionProvider);
     final isSubmitting = submissionState.isLoading;
 
@@ -85,13 +87,13 @@ class _BusinessTripFormScreenState extends ConsumerState<BusinessTripFormScreen>
       if (state.hasError && !state.isLoading) {
         showCustomToast(
             context,
-            'Submission Failed: ${state.error.toString().split(':').last}',
+            '${l10n.businessTripSubmitFailed} ${state.error.toString().split(':').last}',
             ToastType.error);
       }
     });
 
     return Scaffold(
-      appBar: IAppBar(title: "New Business Trip"),
+      appBar: IAppBar(title: l10n.businessTripFormTitle),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: Column(
@@ -102,7 +104,7 @@ class _BusinessTripFormScreenState extends ConsumerState<BusinessTripFormScreen>
                 child: Column(
                   children: [
                     ITextFieldDatePicker(
-                      label: "Start Date",
+                      label: l10n.businessTripStartDate,
                       isRequired: true,
                       controller: _startDateController,
                       onDateChanged: (newDate) {
@@ -118,7 +120,7 @@ class _BusinessTripFormScreenState extends ConsumerState<BusinessTripFormScreen>
                     ),
                     SizedBox(height: 10.h),
                     ITextFieldDatePicker(
-                      label: "End Date",
+                      label: l10n.businessTripEndDate,
                       isRequired: true,
                       controller: _endDateController,
                       firstDate: _selectedStartDate ?? DateTime.now(),
@@ -130,14 +132,14 @@ class _BusinessTripFormScreenState extends ConsumerState<BusinessTripFormScreen>
                     ),
                     SizedBox(height: 10.h),
                     ITextFieldBase(
-                      label: "Destination",
+                      label: l10n.businessTripDestination,
                       controller: _destinationController,
                       isRequired: true,
                       borderColor: IColors.light.grayscale.g30,
                     ),
                     SizedBox(height: 10.h),
                     ITextFieldTextArea(
-                      label: "Reason",
+                      label: l10n.businessTripReason,
                       controller: _reasonController,
                       isRequired: true,
                     ),
@@ -146,8 +148,8 @@ class _BusinessTripFormScreenState extends ConsumerState<BusinessTripFormScreen>
               ),
             ),
             IFooterButton(
-              onPressed: isSubmitting ? null : _submitRequest,
-              text: isSubmitting ? "Submitting..." : "Send Request",
+              onPressed: isSubmitting ? null : () => _submitRequest(l10n),
+              text: isSubmitting ? l10n.businessTripSubmitting : l10n.businessTripSendRequest,
             ),
           ],
         ),

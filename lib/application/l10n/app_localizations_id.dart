@@ -1547,4 +1547,89 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get attendanceManualCaptureBypass => 'Tangkapan manual (lewati lokasi)';
+
+  @override
+  String get businessTripTitle => 'Perjalanan Dinas';
+
+  @override
+  String get businessTripNewRequest => 'Permintaan Perjalanan Dinas Baru';
+
+  @override
+  String get businessTripYourTrips => 'Perjalanan Dinas Anda';
+
+  @override
+  String get businessTripNoTripsFound => 'Tidak ada perjalanan dinas ditemukan.';
+
+  @override
+  String businessTripFailedLoadData(String error) {
+    return 'Gagal memuat data: $error';
+  }
+
+  @override
+  String get businessTripDetailTitle => 'Detail Perjalanan Dinas';
+
+  @override
+  String get businessTripDestination => 'Tujuan';
+
+  @override
+  String get businessTripReason => 'Alasan';
+
+  @override
+  String get businessTripNotes => 'Catatan';
+
+  @override
+  String get businessTripDuration => 'Durasi';
+
+  @override
+  String businessTripDays(int days) {
+    return '($days Hari)';
+  }
+
+  @override
+  String get businessTripApprover => 'Penyetuju';
+
+  @override
+  String get businessTripCancelRequest => 'Batalkan Permintaan';
+
+  @override
+  String get businessTripCancelConfirmTitle => 'Batalkan Permintaan';
+
+  @override
+  String get businessTripCancelConfirmBody => 'Apakah Anda yakin ingin membatalkan permintaan ini?';
+
+  @override
+  String get businessTripCancelNo => 'Tidak';
+
+  @override
+  String get businessTripCancelYes => 'Ya';
+
+  @override
+  String get businessTripCancelSuccess => 'Permintaan berhasil dibatalkan';
+
+  @override
+  String get businessTripCancelFailed => 'Gagal membatalkan permintaan';
+
+  @override
+  String get businessTripFormTitle => 'Perjalanan Dinas Baru';
+
+  @override
+  String get businessTripStartDate => 'Tanggal Mulai';
+
+  @override
+  String get businessTripEndDate => 'Tanggal Selesai';
+
+  @override
+  String get businessTripFillAllFields => 'Harap isi semua kolom.';
+
+  @override
+  String get businessTripSubmitSuccess => 'Permintaan perjalanan dinas berhasil!';
+
+  @override
+  String get businessTripSubmitFailed => 'Pengiriman gagal!';
+
+  @override
+  String get businessTripSendRequest => 'Kirim Permintaan';
+
+  @override
+  String get businessTripSubmitting => 'Mengirim...';
 }

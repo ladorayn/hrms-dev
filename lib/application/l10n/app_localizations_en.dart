@@ -1547,4 +1547,89 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get attendanceManualCaptureBypass => 'Manual capture (location bypass)';
+
+  @override
+  String get businessTripTitle => 'Business Trip';
+
+  @override
+  String get businessTripNewRequest => 'New Business Trip Request';
+
+  @override
+  String get businessTripYourTrips => 'Your Business Trips';
+
+  @override
+  String get businessTripNoTripsFound => 'No business trips found.';
+
+  @override
+  String businessTripFailedLoadData(String error) {
+    return 'Failed to load data: $error';
+  }
+
+  @override
+  String get businessTripDetailTitle => 'Business Trip Detail';
+
+  @override
+  String get businessTripDestination => 'Destination';
+
+  @override
+  String get businessTripReason => 'Reason';
+
+  @override
+  String get businessTripNotes => 'Notes';
+
+  @override
+  String get businessTripDuration => 'Duration';
+
+  @override
+  String businessTripDays(int days) {
+    return '($days Days)';
+  }
+
+  @override
+  String get businessTripApprover => 'Approver';
+
+  @override
+  String get businessTripCancelRequest => 'Cancel Request';
+
+  @override
+  String get businessTripCancelConfirmTitle => 'Cancel Request';
+
+  @override
+  String get businessTripCancelConfirmBody => 'Are you sure you want to cancel this request?';
+
+  @override
+  String get businessTripCancelNo => 'No';
+
+  @override
+  String get businessTripCancelYes => 'Yes';
+
+  @override
+  String get businessTripCancelSuccess => 'Request cancelled successfully';
+
+  @override
+  String get businessTripCancelFailed => 'Failed to cancel request';
+
+  @override
+  String get businessTripFormTitle => 'New Business Trip';
+
+  @override
+  String get businessTripStartDate => 'Start Date';
+
+  @override
+  String get businessTripEndDate => 'End Date';
+
+  @override
+  String get businessTripFillAllFields => 'Please fill all fields.';
+
+  @override
+  String get businessTripSubmitSuccess => 'Business trip requested successfully!';
+
+  @override
+  String get businessTripSubmitFailed => 'Submission failed!';
+
+  @override
+  String get businessTripSendRequest => 'Send Request';
+
+  @override
+  String get businessTripSubmitting => 'Submitting...';
 }

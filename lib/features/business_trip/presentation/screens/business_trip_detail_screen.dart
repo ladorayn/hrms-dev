@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/theme/i_colors.dart';
 import 'package:hrms_mobile/core/widgets/i_app_bar.dart';
 import 'package:hrms_mobile/core/widgets/toastbar.dart';
@@ -15,20 +16,20 @@ class BusinessTripDetailScreen extends ConsumerWidget {
 
   const BusinessTripDetailScreen({super.key, required this.id});
 
-  void _cancelTrip(BuildContext context, WidgetRef ref) async {
+  void _cancelTrip(BuildContext context, WidgetRef ref, AppLocalizations l10n) async {
     final confirm = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text("Cancel Request"),
-        content: const Text("Are you sure you want to cancel this request?"),
+        title: Text(l10n.businessTripCancelConfirmTitle),
+        content: Text(l10n.businessTripCancelConfirmBody),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text("No"),
+            child: Text(l10n.businessTripCancelNo),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
-            child: const Text("Yes"),
+            child: Text(l10n.businessTripCancelYes),
           ),
         ],
       ),
@@ -40,7 +41,7 @@ class BusinessTripDetailScreen extends ConsumerWidget {
             .read(businessTripCancellationProvider.notifier)
             .cancelTrip(id: id);
         if (context.mounted) {
-          showCustomToast(context, 'Request cancelled successfully', ToastType.success);
+          showCustomToast(context, l10n.businessTripCancelSuccess, ToastType.success);
         }
         ref.invalidate(businessTripsProvider);
         if (context.mounted) {
@@ -48,7 +49,7 @@ class BusinessTripDetailScreen extends ConsumerWidget {
         }
       } catch (e) {
         if (context.mounted) {
-          showCustomToast(context, 'Failed to cancel request', ToastType.error);
+          showCustomToast(context, l10n.businessTripCancelFailed, ToastType.error);
         }
       }
     }
@@ -56,11 +57,12 @@ class BusinessTripDetailScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final detailAsync = ref.watch(businessTripDetailProvider(id: id));
     final cancelState = ref.watch(businessTripCancellationProvider);
 
     return Scaffold(
-      appBar: IAppBar(title: "Business Trip Detail"),
+      appBar: IAppBar(title: l10n.businessTripDetailTitle),
       backgroundColor: Colors.white,
       body: detailAsync.when(
         data: (data) {
@@ -69,12 +71,12 @@ class BusinessTripDetailScreen extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildHeader(context, data),
+                _buildHeader(context, data, l10n),
                 const SizedBox(height: 24),
-                _buildDetailRow("Destination", data.destination ?? '-'),
-                _buildDetailRow("Reason", data.reason ?? '-'),
-                _buildDetailRow("Notes", data.notes ?? '-'),
-                _buildApproverInfo(data.approver),
+                _buildDetailRow(l10n.businessTripDestination, data.destination ?? '-'),
+                _buildDetailRow(l10n.businessTripReason, data.reason ?? '-'),
+                _buildDetailRow(l10n.businessTripNotes, data.notes ?? '-'),
+                _buildApproverInfo(data.approver, l10n),
                 const SizedBox(height: 32),
                 if (data.status == 0) // Waiting
                   SizedBox(
@@ -90,14 +92,14 @@ class BusinessTripDetailScreen extends ConsumerWidget {
                           side: BorderSide(color: IColors.light.error.hover),
                         ),
                       ),
-                      onPressed: cancelState.isLoading ? null : () => _cancelTrip(context, ref),
+                      onPressed: cancelState.isLoading ? null : () => _cancelTrip(context, ref, l10n),
                       child: cancelState.isLoading
                           ? const SizedBox(
                               height: 20,
                               width: 20,
                               child: CircularProgressIndicator(strokeWidth: 2),
                             )
-                          : const Text("Cancel Request"),
+                          : Text(l10n.businessTripCancelRequest),
                     ),
                   ),
               ],
@@ -110,7 +112,7 @@ class BusinessTripDetailScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildHeader(BuildContext context, BusinessTripData data) {
+  Widget _buildHeader(BuildContext context, BusinessTripData data, AppLocalizations l10n) {
     final textTheme = Theme.of(context).textTheme;
 
     final startDate = data.startDate != null ? DateTime.tryParse(data.startDate!) : null;
@@ -132,7 +134,7 @@ class BusinessTripDetailScreen extends ConsumerWidget {
           children: [
             Expanded(
               child: Text(
-                data.destination ?? 'Business Trip',
+                data.destination ?? l10n.businessTripTitle,
                 style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
               ),
             ),
@@ -156,13 +158,13 @@ class BusinessTripDetailScreen extends ConsumerWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Duration", style: textTheme.bodySmall),
+                  Text(l10n.businessTripDuration, style: textTheme.bodySmall),
                   const SizedBox(height: 4),
                   Text("$startFormatted - $endFormatted", style: textTheme.bodyMedium),
                 ],
               ),
               Text(
-                "($durationInDays Days)",
+                l10n.businessTripDays(durationInDays),
                 style: textTheme.bodyMedium?.copyWith(color: Colors.grey.shade600),
               ),
             ],
@@ -198,7 +200,7 @@ class BusinessTripDetailScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildApproverInfo(BusinessTripApprover? approver) {
+  Widget _buildApproverInfo(BusinessTripApprover? approver, AppLocalizations l10n) {
     if (approver == null) return const SizedBox.shrink();
 
     return Padding(
@@ -218,7 +220,7 @@ class BusinessTripDetailScreen extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text("Approver", style: TextStyle(color: Colors.blue, fontSize: 12)),
+                  Text(l10n.businessTripApprover, style: const TextStyle(color: Colors.blue, fontSize: 12)),
                   Text(
                     approver.name ?? '-',
                     style: const TextStyle(fontWeight: FontWeight.w600),
