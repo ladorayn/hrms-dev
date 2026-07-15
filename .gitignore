@@ -51,5 +51,13 @@ app.*.map.json
 android/app/*.jks
 android/key.properties
 
-# # Environment variables
-# .env.*
+# Environment variables
+.env*
+
+# Firebase config and credentials
+lib/firebase_options.dart
+ios/Runner/GoogleService-Info.plist
+ios/Runner/**/GoogleService-Info.plist
+macos/Runner/GoogleService-Info.plist
+android/app/google-services.json
+android/app/src/**/google-services.json
