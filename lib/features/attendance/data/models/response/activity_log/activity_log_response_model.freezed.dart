@@ -453,6 +453,8 @@ mixin _$Properties {
   int? get attendanceStatus => throw _privateConstructorUsedError;
   @JsonKey(name: 'attendance_status_label')
   String? get attendanceStatusLabel => throw _privateConstructorUsedError;
+  @JsonKey(name: 'attendance_source')
+  String? get attendanceSource => throw _privateConstructorUsedError;
   @JsonKey(name: 'clock_in_at')
   String? get clockInAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'clock_in_status')
@@ -514,6 +516,7 @@ abstract class $PropertiesCopyWith<$Res> {
       {@JsonKey(name: 'attendance_id') int? attendanceId,
       @JsonKey(name: 'attendance_status') int? attendanceStatus,
       @JsonKey(name: 'attendance_status_label') String? attendanceStatusLabel,
+      @JsonKey(name: 'attendance_source') String? attendanceSource,
       @JsonKey(name: 'clock_in_at') String? clockInAt,
       @JsonKey(name: 'clock_in_status') int? clockInStatus,
       @JsonKey(name: 'clock_in_status_label') String? clockInStatusLabel,
@@ -558,6 +561,7 @@ class _$PropertiesCopyWithImpl<$Res, $Val extends Properties>
     Object? attendanceId = freezed,
     Object? attendanceStatus = freezed,
     Object? attendanceStatusLabel = freezed,
+    Object? attendanceSource = freezed,
     Object? clockInAt = freezed,
     Object? clockInStatus = freezed,
     Object? clockInStatusLabel = freezed,
@@ -593,6 +597,10 @@ class _$PropertiesCopyWithImpl<$Res, $Val extends Properties>
       attendanceStatusLabel: freezed == attendanceStatusLabel
           ? _value.attendanceStatusLabel
           : attendanceStatusLabel // ignore: cast_nullable_to_non_nullable
+              as String?,
+      attendanceSource: freezed == attendanceSource
+          ? _value.attendanceSource
+          : attendanceSource // ignore: cast_nullable_to_non_nullable
               as String?,
       clockInAt: freezed == clockInAt
           ? _value.clockInAt
@@ -712,6 +720,7 @@ abstract class _$$PropertiesImplCopyWith<$Res>
       {@JsonKey(name: 'attendance_id') int? attendanceId,
       @JsonKey(name: 'attendance_status') int? attendanceStatus,
       @JsonKey(name: 'attendance_status_label') String? attendanceStatusLabel,
+      @JsonKey(name: 'attendance_source') String? attendanceSource,
       @JsonKey(name: 'clock_in_at') String? clockInAt,
       @JsonKey(name: 'clock_in_status') int? clockInStatus,
       @JsonKey(name: 'clock_in_status_label') String? clockInStatusLabel,
@@ -755,6 +764,7 @@ class __$$PropertiesImplCopyWithImpl<$Res>
     Object? attendanceId = freezed,
     Object? attendanceStatus = freezed,
     Object? attendanceStatusLabel = freezed,
+    Object? attendanceSource = freezed,
     Object? clockInAt = freezed,
     Object? clockInStatus = freezed,
     Object? clockInStatusLabel = freezed,
@@ -790,6 +800,10 @@ class __$$PropertiesImplCopyWithImpl<$Res>
       attendanceStatusLabel: freezed == attendanceStatusLabel
           ? _value.attendanceStatusLabel
           : attendanceStatusLabel // ignore: cast_nullable_to_non_nullable
+              as String?,
+      attendanceSource: freezed == attendanceSource
+          ? _value.attendanceSource
+          : attendanceSource // ignore: cast_nullable_to_non_nullable
               as String?,
       clockInAt: freezed == clockInAt
           ? _value.clockInAt
@@ -890,6 +904,7 @@ class _$PropertiesImpl implements _Properties {
       {@JsonKey(name: 'attendance_id') this.attendanceId,
       @JsonKey(name: 'attendance_status') this.attendanceStatus,
       @JsonKey(name: 'attendance_status_label') this.attendanceStatusLabel,
+      @JsonKey(name: 'attendance_source') this.attendanceSource,
       @JsonKey(name: 'clock_in_at') this.clockInAt,
       @JsonKey(name: 'clock_in_status') this.clockInStatus,
       @JsonKey(name: 'clock_in_status_label') this.clockInStatusLabel,
@@ -925,6 +940,9 @@ class _$PropertiesImpl implements _Properties {
   @override
   @JsonKey(name: 'attendance_status_label')
   final String? attendanceStatusLabel;
+  @override
+  @JsonKey(name: 'attendance_source')
+  final String? attendanceSource;
   @override
   @JsonKey(name: 'clock_in_at')
   final String? clockInAt;
@@ -990,7 +1008,7 @@ class _$PropertiesImpl implements _Properties {
 
   @override
   String toString() {
-    return 'Properties(attendanceId: $attendanceId, attendanceStatus: $attendanceStatus, attendanceStatusLabel: $attendanceStatusLabel, clockInAt: $clockInAt, clockInStatus: $clockInStatus, clockInStatusLabel: $clockInStatusLabel, clockOutAt: $clockOutAt, clockOutStatus: $clockOutStatus, clockOutStatusLabel: $clockOutStatusLabel, scheduledClockIn: $scheduledClockIn, scheduledClockOut: $scheduledClockOut, toleranceMinutes: $toleranceMinutes, overtimeDate: $overtimeDate, userId: $userId, startTime: $startTime, endTime: $endTime, duration: $duration, status: $status, statusLabel: $statusLabel, notes: $notes, approvedBy: $approvedBy, approver: $approver, requestDate: $requestDate, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'Properties(attendanceId: $attendanceId, attendanceStatus: $attendanceStatus, attendanceStatusLabel: $attendanceStatusLabel, attendanceSource: $attendanceSource, clockInAt: $clockInAt, clockInStatus: $clockInStatus, clockInStatusLabel: $clockInStatusLabel, clockOutAt: $clockOutAt, clockOutStatus: $clockOutStatus, clockOutStatusLabel: $clockOutStatusLabel, scheduledClockIn: $scheduledClockIn, scheduledClockOut: $scheduledClockOut, toleranceMinutes: $toleranceMinutes, overtimeDate: $overtimeDate, userId: $userId, startTime: $startTime, endTime: $endTime, duration: $duration, status: $status, statusLabel: $statusLabel, notes: $notes, approvedBy: $approvedBy, approver: $approver, requestDate: $requestDate, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -1004,6 +1022,8 @@ class _$PropertiesImpl implements _Properties {
                 other.attendanceStatus == attendanceStatus) &&
             (identical(other.attendanceStatusLabel, attendanceStatusLabel) ||
                 other.attendanceStatusLabel == attendanceStatusLabel) &&
+            (identical(other.attendanceSource, attendanceSource) ||
+                other.attendanceSource == attendanceSource) &&
             (identical(other.clockInAt, clockInAt) ||
                 other.clockInAt == clockInAt) &&
             (identical(other.clockInStatus, clockInStatus) ||
@@ -1053,6 +1073,7 @@ class _$PropertiesImpl implements _Properties {
         attendanceId,
         attendanceStatus,
         attendanceStatusLabel,
+        attendanceSource,
         clockInAt,
         clockInStatus,
         clockInStatusLabel,
@@ -1099,6 +1120,7 @@ abstract class _Properties implements Properties {
       @JsonKey(name: 'attendance_status') final int? attendanceStatus,
       @JsonKey(name: 'attendance_status_label')
       final String? attendanceStatusLabel,
+      @JsonKey(name: 'attendance_source') final String? attendanceSource,
       @JsonKey(name: 'clock_in_at') final String? clockInAt,
       @JsonKey(name: 'clock_in_status') final int? clockInStatus,
       @JsonKey(name: 'clock_in_status_label') final String? clockInStatusLabel,
@@ -1135,6 +1157,9 @@ abstract class _Properties implements Properties {
   @override
   @JsonKey(name: 'attendance_status_label')
   String? get attendanceStatusLabel;
+  @override
+  @JsonKey(name: 'attendance_source')
+  String? get attendanceSource;
   @override
   @JsonKey(name: 'clock_in_at')
   String? get clockInAt;

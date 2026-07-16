@@ -367,7 +367,27 @@ class AttendanceCard extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 32.sp),
+          (() {
+            final source = (item.metadata.generatedVia != null &&
+                    item.metadata.generatedVia!.isNotEmpty)
+                ? item.metadata.generatedVia
+                : (item.metadata.createdVia != null &&
+                        item.metadata.createdVia!.isNotEmpty)
+                    ? item.metadata.createdVia
+                    : null;
+            if (source != null) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 2),
+                  _buildGeneratedViaBadge(context, source),
+                  SizedBox(height: 12.sp),
+                ],
+              );
+            } else {
+              return SizedBox(height: 32.sp);
+            }
+          })(),
           Row(
             children: [
               _buildTimeColumn(
@@ -520,6 +540,86 @@ class AttendanceCard extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
         ),
       ],
+    );
+  }
+
+  Widget _buildGeneratedViaBadge(BuildContext context, String? source) {
+    if (source == null || source.isEmpty) return const SizedBox.shrink();
+
+    final textTheme = Theme.of(context).textTheme;
+    final String label;
+    final Widget icon;
+    final Color bgColor;
+    final Color textColor;
+
+    switch (source.toLowerCase()) {
+      case 'iclock':
+        label = "Fingerprint";
+        icon = SvgPicture.asset(
+          IAssets.biometric,
+          width: 12.sp,
+          height: 12.sp,
+          colorFilter: ColorFilter.mode(
+            IColors.light.primary.main,
+            BlendMode.srcIn,
+          ),
+        );
+        bgColor = IColors.light.primary.background;
+        textColor = IColors.light.primary.main;
+        break;
+      case 'ess':
+      case 'manual':
+        label = "Attendance in App";
+        icon = Icon(
+          Icons.smartphone_rounded,
+          size: 12.sp,
+          color: IColors.light.success.main,
+        );
+        bgColor = IColors.light.success.background;
+        textColor = IColors.light.success.main;
+        break;
+      case 'cronjob':
+        label = "System Auto-Validation";
+        icon = Icon(
+          Icons.autorenew_rounded,
+          size: 12.sp,
+          color: IColors.light.warning.hover,
+        );
+        bgColor = IColors.light.warning.background;
+        textColor = IColors.light.warning.hover;
+        break;
+      default:
+        label = source;
+        icon = Icon(
+          Icons.info_outline_rounded,
+          size: 12.sp,
+          color: IColors.light.grayscale.g60,
+        );
+        bgColor = IColors.light.grayscale.g10;
+        textColor = IColors.light.grayscale.g60;
+    }
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      decoration: BoxDecoration(
+        color: bgColor,
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          icon,
+          SizedBox(width: 4.sp),
+          Text(
+            label,
+            style: textTheme.bodySmall?.copyWith(
+              color: textColor,
+              fontWeight: FontWeight.bold,
+              fontSize: 10.sp,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

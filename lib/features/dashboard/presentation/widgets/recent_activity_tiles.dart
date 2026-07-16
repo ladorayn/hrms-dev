@@ -34,6 +34,26 @@ class AttendanceListTile extends StatelessWidget {
     statusLabel = getStatusLabel(log);
     iconAsset = getIconAsset(log);
 
+    final source = log.properties?.attendanceSource;
+    if (source != null && source.isNotEmpty) {
+      final String sourceLabel;
+      switch (source.toLowerCase()) {
+        case 'iclock':
+          sourceLabel = 'Fingerprint';
+          break;
+        case 'manual':
+        case 'ess':
+          sourceLabel = 'Attendance in App';
+          break;
+        case 'cronjob':
+          sourceLabel = 'System Auto-Validation';
+          break;
+        default:
+          sourceLabel = source;
+      }
+      subtitleTile = "$subtitleTile • $sourceLabel";
+    }
+
     return ListTile(
       leading: CircleAvatar(
         backgroundColor: IColors.light.primary.background,

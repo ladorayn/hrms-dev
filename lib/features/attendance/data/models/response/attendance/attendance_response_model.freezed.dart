@@ -1055,6 +1055,8 @@ mixin _$Metadata {
   String? get createdVia => throw _privateConstructorUsedError;
   @JsonKey(name: "created_at")
   String? get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: "generated_via")
+  String? get generatedVia => throw _privateConstructorUsedError;
   @JsonKey(name: "shift_id")
   int? get shiftId => throw _privateConstructorUsedError;
   @JsonKey(name: "shift_name")
@@ -1091,6 +1093,7 @@ abstract class $MetadataCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: "created_via") String? createdVia,
       @JsonKey(name: "created_at") String? createdAt,
+      @JsonKey(name: "generated_via") String? generatedVia,
       @JsonKey(name: "shift_id") int? shiftId,
       @JsonKey(name: "shift_name") String? shiftName,
       @JsonKey(name: "day_of_week") int? dayOfWeek,
@@ -1121,6 +1124,7 @@ class _$MetadataCopyWithImpl<$Res, $Val extends Metadata>
   $Res call({
     Object? createdVia = freezed,
     Object? createdAt = freezed,
+    Object? generatedVia = freezed,
     Object? shiftId = freezed,
     Object? shiftName = freezed,
     Object? dayOfWeek = freezed,
@@ -1139,6 +1143,10 @@ class _$MetadataCopyWithImpl<$Res, $Val extends Metadata>
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
+              as String?,
+      generatedVia: freezed == generatedVia
+          ? _value.generatedVia
+          : generatedVia // ignore: cast_nullable_to_non_nullable
               as String?,
       shiftId: freezed == shiftId
           ? _value.shiftId
@@ -1205,6 +1213,7 @@ abstract class _$$MetadataImplCopyWith<$Res>
   $Res call(
       {@JsonKey(name: "created_via") String? createdVia,
       @JsonKey(name: "created_at") String? createdAt,
+      @JsonKey(name: "generated_via") String? generatedVia,
       @JsonKey(name: "shift_id") int? shiftId,
       @JsonKey(name: "shift_name") String? shiftName,
       @JsonKey(name: "day_of_week") int? dayOfWeek,
@@ -1234,6 +1243,7 @@ class __$$MetadataImplCopyWithImpl<$Res>
   $Res call({
     Object? createdVia = freezed,
     Object? createdAt = freezed,
+    Object? generatedVia = freezed,
     Object? shiftId = freezed,
     Object? shiftName = freezed,
     Object? dayOfWeek = freezed,
@@ -1252,6 +1262,10 @@ class __$$MetadataImplCopyWithImpl<$Res>
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
+              as String?,
+      generatedVia: freezed == generatedVia
+          ? _value.generatedVia
+          : generatedVia // ignore: cast_nullable_to_non_nullable
               as String?,
       shiftId: freezed == shiftId
           ? _value.shiftId
@@ -1299,6 +1313,7 @@ class _$MetadataImpl implements _Metadata {
   const _$MetadataImpl(
       {@JsonKey(name: "created_via") this.createdVia,
       @JsonKey(name: "created_at") this.createdAt,
+      @JsonKey(name: "generated_via") this.generatedVia,
       @JsonKey(name: "shift_id") this.shiftId,
       @JsonKey(name: "shift_name") this.shiftName,
       @JsonKey(name: "day_of_week") this.dayOfWeek,
@@ -1318,6 +1333,9 @@ class _$MetadataImpl implements _Metadata {
   @override
   @JsonKey(name: "created_at")
   final String? createdAt;
+  @override
+  @JsonKey(name: "generated_via")
+  final String? generatedVia;
   @override
   @JsonKey(name: "shift_id")
   final int? shiftId;
@@ -1347,7 +1365,7 @@ class _$MetadataImpl implements _Metadata {
 
   @override
   String toString() {
-    return 'Metadata(createdVia: $createdVia, createdAt: $createdAt, shiftId: $shiftId, shiftName: $shiftName, dayOfWeek: $dayOfWeek, toleranceMinutes: $toleranceMinutes, workScheduleId: $workScheduleId, locationName: $locationName, expectedStartTime: $expectedStartTime, expectedEndTime: $expectedEndTime, coordinates: $coordinates)';
+    return 'Metadata(createdVia: $createdVia, createdAt: $createdAt, generatedVia: $generatedVia, shiftId: $shiftId, shiftName: $shiftName, dayOfWeek: $dayOfWeek, toleranceMinutes: $toleranceMinutes, workScheduleId: $workScheduleId, locationName: $locationName, expectedStartTime: $expectedStartTime, expectedEndTime: $expectedEndTime, coordinates: $coordinates)';
   }
 
   @override
@@ -1359,6 +1377,8 @@ class _$MetadataImpl implements _Metadata {
                 other.createdVia == createdVia) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
+            (identical(other.generatedVia, generatedVia) ||
+                other.generatedVia == generatedVia) &&
             (identical(other.shiftId, shiftId) || other.shiftId == shiftId) &&
             (identical(other.shiftName, shiftName) ||
                 other.shiftName == shiftName) &&
@@ -1384,6 +1404,7 @@ class _$MetadataImpl implements _Metadata {
       runtimeType,
       createdVia,
       createdAt,
+      generatedVia,
       shiftId,
       shiftName,
       dayOfWeek,
@@ -1414,6 +1435,7 @@ abstract class _Metadata implements Metadata {
   const factory _Metadata(
       {@JsonKey(name: "created_via") final String? createdVia,
       @JsonKey(name: "created_at") final String? createdAt,
+      @JsonKey(name: "generated_via") final String? generatedVia,
       @JsonKey(name: "shift_id") final int? shiftId,
       @JsonKey(name: "shift_name") final String? shiftName,
       @JsonKey(name: "day_of_week") final int? dayOfWeek,
@@ -1433,6 +1455,9 @@ abstract class _Metadata implements Metadata {
   @override
   @JsonKey(name: "created_at")
   String? get createdAt;
+  @override
+  @JsonKey(name: "generated_via")
+  String? get generatedVia;
   @override
   @JsonKey(name: "shift_id")
   int? get shiftId;

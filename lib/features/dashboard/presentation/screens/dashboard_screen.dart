@@ -37,11 +37,60 @@ class DashboardScreen extends ConsumerWidget {
     final authP = ref.watch(authProvider);
     final profileAsync =
         ref.watch(employeeDetailProvider(id: authP.value?.id ?? 0));
-    final companyP = ref.watch(companyProfileProvider);
     final recentActivityState = ref.watch(recentActivityProvider(limit: 10));
     final String? attendanceId = todayAttendanceState.hasValue
         ? todayAttendanceState.value?.id.toString()
         : null;
+
+    final today = DateTime.now();
+    final locale = Localizations.localeOf(context).toString();
+
+    // Helper to format activity log time
+    String formatActivityTime(ActivityLogModel log) {
+      try {
+        final isClockIn = log.event == 'clock_in' || log.isClockIn == true;
+        final timeStr = isClockIn
+            ? log.properties?.clockInAt
+            : log.properties?.clockOutAt;
+        if (timeStr != null && timeStr.isNotEmpty) {
+          return DateFormat('hh:mm a', locale).format(DateTime.parse(timeStr));
+        }
+      } catch (_) {}
+      if (log.createdAt != null) {
+        return DateFormat('hh:mm a', locale).format(log.createdAt!.toLocal());
+      }
+      return '';
+    }
+
+    // Check recent activities for today's clock events
+    final recentLogs = recentActivityState.value ?? [];
+    ActivityLogModel? todayClockInLog;
+    ActivityLogModel? todayClockOutLog;
+    for (final log in recentLogs) {
+      if (log.createdAt != null &&
+          log.createdAt!.year == today.year &&
+          log.createdAt!.month == today.month &&
+          log.createdAt!.day == today.day) {
+        final isClockIn = log.event == 'clock_in' || log.isClockIn == true;
+        final isClockOut = log.event == 'clock_out' || log.isClockOut == true;
+        if (isClockIn) {
+          todayClockInLog = log;
+        }
+        if (isClockOut && todayClockOutLog == null) {
+          todayClockOutLog = log;
+        }
+      }
+    }
+
+    // Determine resolved clock in/out times
+    final attendanceData = todayAttendanceState.value;
+    final String? clockInTime = (attendanceData?.clock?.inAt != null && attendanceData!.clock!.inAt!.isNotEmpty)
+        ? attendanceData.clock!.inAt
+        : (todayClockInLog != null ? formatActivityTime(todayClockInLog) : null);
+
+    final String? clockOutTime = (attendanceData?.clock?.outAt != null && attendanceData!.clock!.outAt!.isNotEmpty)
+        ? attendanceData.clock!.outAt
+        : (todayClockOutLog != null ? formatActivityTime(todayClockOutLog) : null);
 
     final getDetail = attendanceId != null
         ? ref.watch(getDetailAttendanceProvider(attendanceId: attendanceId))
@@ -71,7 +120,7 @@ class DashboardScreen extends ConsumerWidget {
                   log.createdAt?.year == today.year &&
                   log.createdAt?.month == today.month &&
                   log.createdAt?.day == today.day &&
-                  (log.eventType == 'clock_in' || log.eventType == 'clock_out'),
+                  (log.event == 'clock_in' || log.event == 'clock_out' || log.isClockIn == true || log.isClockOut == true),
             );
           } catch (_) {
             todayLog = null;
@@ -100,7 +149,7 @@ class DashboardScreen extends ConsumerWidget {
       }
     });
 
-    final locale = Localizations.localeOf(context).toString();
+    Localizations.localeOf(context).toString();
     final String todayDate =
         DateFormat('MMMM d, y', locale).format(DateTime.now());
 
@@ -261,7 +310,9 @@ class DashboardScreen extends ConsumerWidget {
                             const Center(child: CircularProgressIndicator()),
                         error: (err, stack) {
                           debugPrint('Error in todayAttendanceProvider: $err');
-                          return _buildInitialState(context, ref);
+                          return _buildInitialState(context, ref,
+                              clockInTime: clockInTime,
+                              clockOutTime: clockOutTime);
                         },
                         data: (attendanceData) {
                           return Container(
@@ -316,26 +367,17 @@ class DashboardScreen extends ConsumerWidget {
                                                             fontSize: 12.sp),
                                                       ),
                                                       SizedBox(
-                                                        height: (attendanceData
-                                                                        ?.clock
-                                                                        ?.outAt ==
-                                                                    null &&
-                                                                attendanceData
-                                                                        ?.clock
-                                                                        ?.inAt !=
-                                                                    null)
+                                                        height: (clockOutTime == null &&
+                                                                clockInTime != null)
                                                             ? 15.w
                                                             : 4.w,
                                                       ),
-                                                      if (attendanceData ==
-                                                          null)
+                                                      if (clockInTime == null)
                                                         _buildClockInButton(
                                                             context, ref)
                                                       else
                                                         _buildTimeDisplay(
-                                                            attendanceData.clock
-                                                                    ?.inAt ??
-                                                                ''),
+                                                            clockInTime),
                                                     ],
                                                   ),
                                                 ),
@@ -374,23 +416,13 @@ class DashboardScreen extends ConsumerWidget {
                                                                 0xFF8E8E8E)),
                                                       ),
                                                       const SizedBox(height: 4),
-                                                      if (attendanceData ==
-                                                          null)
-                                                        _buildClockOutButton(
-                                                            context, ref,
-                                                            enabled: false)
-                                                      else if (attendanceData
-                                                              .clock?.outAt ==
-                                                          null)
-                                                        _buildClockOutButton(
-                                                            context, ref,
-                                                            enabled: true)
-                                                      else
-                                                        // Already clocked out, show the time
+                                                      if (clockOutTime != null)
                                                         _buildTimeDisplay(
-                                                            attendanceData.clock
-                                                                    ?.outAt ??
-                                                                ''),
+                                                            clockOutTime)
+                                                      else
+                                                        _buildClockOutButton(
+                                                            context, ref,
+                                                            enabled: clockInTime != null),
                                                     ],
                                                   ),
                                                 ),
@@ -767,7 +799,8 @@ Widget _buildClockOutButton(BuildContext context, WidgetRef ref,
   );
 }
 
-Widget _buildInitialState(BuildContext context, WidgetRef ref) {
+Widget _buildInitialState(BuildContext context, WidgetRef ref,
+    {String? clockInTime, String? clockOutTime}) {
   final l10n = AppLocalizations.of(context)!;
 
   return Container(
@@ -813,7 +846,10 @@ Widget _buildInitialState(BuildContext context, WidgetRef ref) {
                             style: const TextStyle(color: Color(0xFF8E8E8E)),
                           ),
                           const SizedBox(height: 4),
-                          _buildClockInButton(context, ref),
+                          if (clockInTime != null)
+                            _buildTimeDisplay(clockInTime)
+                          else
+                            _buildClockInButton(context, ref),
                         ],
                       ),
                     ),
@@ -849,7 +885,11 @@ Widget _buildInitialState(BuildContext context, WidgetRef ref) {
                                 color: Color(0xFF8E8E8E), fontSize: 10.sp),
                           ),
                           const SizedBox(height: 4),
-                          _buildClockOutButton(context, ref, enabled: false),
+                          if (clockOutTime != null)
+                            _buildTimeDisplay(clockOutTime)
+                          else
+                            _buildClockOutButton(context, ref,
+                                enabled: clockInTime != null),
                         ],
                       ),
                     ),
