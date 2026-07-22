@@ -38,6 +38,7 @@ extension AttendanceMapper on detail.AttendanceDetail {
         dayOfWeek: metadata.dayOfWeek,
         createdVia: metadata.createdVia,
         createdAt: metadata.createdAt,
+        generatedVia: metadata.generatedVia,
         shiftId: metadata.shiftId,
         workScheduleId: metadata.workScheduleId,
         shiftName: metadata.shiftName,

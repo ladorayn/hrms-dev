@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:hrms_mobile/core/constants/mock_values.dart';
 import 'package:hrms_mobile/core/data/models/base_paginated_response.dart';
 import 'package:hrms_mobile/core/data/models/base_response.dart';
 import 'package:hrms_mobile/core/data/models/paginated_response.dart';
@@ -104,7 +103,6 @@ class AttendanceRemoteSource {
         'api/ess/activity-logs',
         queryParameters: {'limit': limit, 'page': page},
       );
-
       return BasePaginatedResponse.fromJson(
         response.data,
         (json) => ActivityLogModel.fromJson(json as Map<String, dynamic>),
@@ -347,7 +345,8 @@ class AttendanceRemoteSource {
         queryParameters: request.toJson(),
       );
 
-      return BranchListResponseModel.fromJson(response.data as Map<String, dynamic>);
+      return BranchListResponseModel.fromJson(
+          response.data as Map<String, dynamic>);
     } on DioException catch (e) {
       throw handleDioError(e);
     }
@@ -356,7 +355,8 @@ class AttendanceRemoteSource {
   Future<BranchListResponseModel> getBranchesByUrl(String url) async {
     try {
       final response = await _dio.get(url);
-      return BranchListResponseModel.fromJson(response.data as Map<String, dynamic>);
+      return BranchListResponseModel.fromJson(
+          response.data as Map<String, dynamic>);
     } on DioException catch (e) {
       throw handleDioError(e);
     }

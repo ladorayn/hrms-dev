@@ -30,6 +30,7 @@ class Properties with _$Properties {
     @JsonKey(name: 'attendance_id') int? attendanceId,
     @JsonKey(name: 'attendance_status') int? attendanceStatus,
     @JsonKey(name: 'attendance_status_label') String? attendanceStatusLabel,
+    @JsonKey(name: 'attendance_source') String? attendanceSource,
     @JsonKey(name: 'clock_in_at') String? clockInAt,
     @JsonKey(name: 'clock_in_status') int? clockInStatus,
     @JsonKey(name: 'clock_in_status_label') String? clockInStatusLabel,

@@ -1253,3 +1253,520 @@ const mockPayslip = {
     "next": null
   }
 };
+
+const Map<String, dynamic> mockAttendanceDetail = {
+  "status": "success",
+  "message": "Users attendance data retrieved successfully",
+  "data": {
+    "id": 8206,
+    "attendance_date": "2026-07-22",
+    "clock": {
+      "in_at": "08:30",
+      "out_at": "20:15",
+      "duration": "8h 45m",
+      "overtime_duration": 6,
+      "overtime_duration_fomated": "0h 0m"
+    },
+    "duration": null,
+    "location": {
+      "latitude": null,
+      "longitude": null
+    },
+    "shift_id": 1,
+    "shift": {
+      "id": 1,
+      "name": "Morning Shift",
+      "start_time": null,
+      "end_time": null
+    },
+    "status": 3,
+    "clock_in_status": null,
+    "clock_out_status": null,
+    "status_label": "Absent",
+    "clock_in_status_label": "Unknown",
+    "clock_out_status_label": "Unknown",
+    "notes": null,
+    "approved_at": null,
+    "rejected_reason": null,
+    "remarks": "Automatically marked as absent - No attendance recorded",
+    "metadata": {
+      "generated_via": "cronjob",
+      "expected_start_time": "09:00:00",
+      "expected_end_time": "17:00:00",
+      "work_schedule_id": 79,
+      "shift_id": 1,
+      "generated_at": "2026-07-22T16:30:17.776818Z",
+      "marked_absent_at": "2026-07-22T16:30:17.776994Z"
+    },
+    "created_at": "2026-07-22 23:30:17",
+    "updated_at": "2026-07-22 23:30:17"
+  }
+};
+
+const Map<String, dynamic> mockAttendanceHistory = {
+  "status": "success",
+  "message": "Users attendance data retrieved successfully",
+  "data": {
+    "data": [
+      {
+        "id": 8206,
+        "attendance_date": "2026-07-22",
+        "clock": {
+          "in_at": "08:30",
+          "out_at": "20:15",
+          "duration": "8h 45m",
+          "overtime_duration": 6,
+          "overtime_duration_fomated": "0h 0m"
+        },
+        "duration": null,
+        "location": {
+          "latitude": null,
+          "longitude": null
+        },
+        "shift_id": 1,
+        "shift": {
+          "id": 1,
+          "name": "Morning Shift",
+          "start_time": null,
+          "end_time": null
+        },
+        "status": 3,
+        "clock_in_status": null,
+        "clock_out_status": null,
+        "status_label": "Absent",
+        "clock_in_status_label": "Unknown",
+        "clock_out_status_label": "Unknown",
+        "notes": null,
+        "approved_at": null,
+        "rejected_reason": null,
+        "remarks": "Automatically marked as absent - No attendance recorded",
+        "metadata": {
+          "generated_via": "cronjob",
+          "expected_start_time": "09:00:00",
+          "expected_end_time": "17:00:00",
+          "work_schedule_id": 79,
+          "shift_id": 1,
+          "generated_at": "2026-07-22T16:30:17.776818Z",
+          "marked_absent_at": "2026-07-22T16:30:17.776994Z"
+        },
+        "created_at": "2026-07-22 23:30:17",
+        "updated_at": "2026-07-22 23:30:17"
+      },
+      {
+        "id": 8149,
+        "attendance_date": "2026-07-20",
+        "clock": {
+          "in_at": null,
+          "out_at": null,
+          "duration": null,
+          "overtime_duration": null,
+          "overtime_duration_fomated": "0h 0m"
+        },
+        "duration": null,
+        "location": {
+          "latitude": null,
+          "longitude": null
+        },
+        "shift_id": 1,
+        "shift": {
+          "id": 1,
+          "name": "Morning Shift",
+          "start_time": null,
+          "end_time": null
+        },
+        "status": 3,
+        "clock_in_status": null,
+        "clock_out_status": null,
+        "status_label": "Absent",
+        "clock_in_status_label": "Unknown",
+        "clock_out_status_label": "Unknown",
+        "notes": null,
+        "approved_at": null,
+        "rejected_reason": null,
+        "remarks": "Automatically marked as absent - No attendance recorded",
+        "metadata": {
+          "generated_via": "cronjob",
+          "expected_start_time": "09:00:00",
+          "expected_end_time": "17:00:00",
+          "work_schedule_id": 78,
+          "shift_id": 1,
+          "generated_at": "2026-07-20T16:30:09.690958Z",
+          "marked_absent_at": "2026-07-20T16:30:09.691124Z"
+        },
+        "created_at": "2026-07-20 23:30:09",
+        "updated_at": "2026-07-20 23:30:09"
+      },
+      {
+        "id": 8070,
+        "attendance_date": "2026-07-17",
+        "clock": {
+          "in_at": null,
+          "out_at": null,
+          "duration": null,
+          "overtime_duration": null,
+          "overtime_duration_fomated": "0h 0m"
+        },
+        "duration": null,
+        "location": {
+          "latitude": null,
+          "longitude": null
+        },
+        "shift_id": 1,
+        "shift": {
+          "id": 1,
+          "name": "Morning Shift",
+          "start_time": null,
+          "end_time": null
+        },
+        "status": 3,
+        "clock_in_status": null,
+        "clock_out_status": null,
+        "status_label": "Absent",
+        "clock_in_status_label": "Unknown",
+        "clock_out_status_label": "Unknown",
+        "notes": null,
+        "approved_at": null,
+        "rejected_reason": null,
+        "remarks": "Automatically marked as absent - No attendance recorded",
+        "metadata": {
+          "generated_via": "cronjob",
+          "expected_start_time": "09:00:00",
+          "expected_end_time": "17:00:00",
+          "work_schedule_id": 82,
+          "shift_id": 1,
+          "generated_at": "2026-07-17T16:30:06.694189Z",
+          "marked_absent_at": "2026-07-17T16:30:06.694323Z"
+        },
+        "created_at": "2026-07-17 23:30:06",
+        "updated_at": "2026-07-17 23:30:06"
+      },
+      {
+        "id": 7966,
+        "attendance_date": "2026-07-16",
+        "clock": {
+          "in_at": "13:49",
+          "out_at": "14:37",
+          "duration": "0h 48m",
+          "overtime_duration": 0,
+          "overtime_duration_fomated": "0h 0m"
+        },
+        "duration": "0h 48m",
+        "location": {
+          "latitude": "-6.1949850",
+          "longitude": "106.8230700"
+        },
+        "approver": {
+          "id": 18,
+          "name": "Lado",
+          "email": "ladorayhannajib@gmail.com",
+          "phone": null,
+          "employee_id": 15,
+          "employee_code": "09250015",
+          "photo_profile": "users/photo_profile/6a1fbd938bf2b.png",
+          "photo_profile_url": "https://bucket.okejobhub.fun/users/photo_profile/6a1fbd938bf2b.png"
+        },
+        "shift_id": null,
+        "status": 1,
+        "clock_in_status": 1,
+        "clock_out_status": 1,
+        "status_label": "Approved",
+        "clock_in_status_label": "On Time",
+        "clock_out_status_label": "On Time",
+        "notes": null,
+        "approved_at": "2026-07-16 14:38:32",
+        "rejected_reason": null,
+        "remarks": null,
+        "metadata": {
+          "created_via": "ess",
+          "created_at": "2026-07-16T06:49:10.812995Z",
+          "shift_id": 1,
+          "shift_name": "Morning Shift",
+          "day_of_week": 4,
+          "tolerance_minutes": 700,
+          "work_schedule_id": 81,
+          "location_name": "Monumen Selamat Datang, Bundaran Hotel Indonesia, RW 05, Menteng, Jakarta Pusat, Daerah Khusus Ibukota Jakarta, Jawa, 10310, Indonesia",
+          "coordinates": {
+            "latitude": -6.194985,
+            "longitude": 106.82307
+          }
+        },
+        "created_at": "2026-07-16 13:49:10",
+        "updated_at": "2026-07-16 14:38:32"
+      },
+      {
+        "id": 7958,
+        "attendance_date": "2026-07-15",
+        "clock": {
+          "in_at": null,
+          "out_at": null,
+          "duration": null,
+          "overtime_duration": null,
+          "overtime_duration_fomated": "0h 0m"
+        },
+        "duration": null,
+        "location": {
+          "latitude": null,
+          "longitude": null
+        },
+        "shift_id": 1,
+        "shift": {
+          "id": 1,
+          "name": "Morning Shift",
+          "start_time": null,
+          "end_time": null
+        },
+        "status": 3,
+        "clock_in_status": null,
+        "clock_out_status": null,
+        "status_label": "Absent",
+        "clock_in_status_label": "Unknown",
+        "clock_out_status_label": "Unknown",
+        "notes": null,
+        "approved_at": null,
+        "rejected_reason": null,
+        "remarks": "Automatically marked as absent - No attendance recorded",
+        "metadata": {
+          "generated_via": "cronjob",
+          "expected_start_time": "09:00:00",
+          "expected_end_time": "17:00:00",
+          "work_schedule_id": 80,
+          "shift_id": 1,
+          "generated_at": "2026-07-15T16:30:05.372228Z",
+          "marked_absent_at": "2026-07-15T16:30:05.372420Z"
+        },
+        "created_at": "2026-07-15 23:30:05",
+        "updated_at": "2026-07-15 23:30:05"
+      },
+      {
+        "id": 7903,
+        "attendance_date": "2026-07-14",
+        "clock": {
+          "in_at": null,
+          "out_at": null,
+          "duration": null,
+          "overtime_duration": null,
+          "overtime_duration_fomated": "0h 0m"
+        },
+        "duration": null,
+        "location": {
+          "latitude": null,
+          "longitude": null
+        },
+        "shift_id": 1,
+        "shift": {
+          "id": 1,
+          "name": "Morning Shift",
+          "start_time": null,
+          "end_time": null
+        },
+        "status": 3,
+        "clock_in_status": null,
+        "clock_out_status": null,
+        "status_label": "Absent",
+        "clock_in_status_label": "Unknown",
+        "clock_out_status_label": "Unknown",
+        "notes": null,
+        "approved_at": null,
+        "rejected_reason": null,
+        "remarks": "Automatically marked as absent - No attendance recorded",
+        "metadata": {
+          "generated_via": "cronjob",
+          "expected_start_time": "09:00:00",
+          "expected_end_time": "17:00:00",
+          "work_schedule_id": 79,
+          "shift_id": 1,
+          "generated_at": "2026-07-14T16:30:04.777347Z",
+          "marked_absent_at": "2026-07-14T16:30:04.777476Z"
+        },
+        "created_at": "2026-07-14 23:30:04",
+        "updated_at": "2026-07-14 23:30:04"
+      },
+      {
+        "id": 7846,
+        "attendance_date": "2026-07-13",
+        "clock": {
+          "in_at": null,
+          "out_at": null,
+          "duration": null,
+          "overtime_duration": null,
+          "overtime_duration_fomated": "0h 0m"
+        },
+        "duration": null,
+        "location": {
+          "latitude": null,
+          "longitude": null
+        },
+        "shift_id": 1,
+        "shift": {
+          "id": 1,
+          "name": "Morning Shift",
+          "start_time": null,
+          "end_time": null
+        },
+        "status": 3,
+        "clock_in_status": null,
+        "clock_out_status": null,
+        "status_label": "Absent",
+        "clock_in_status_label": "Unknown",
+        "clock_out_status_label": "Unknown",
+        "notes": null,
+        "approved_at": null,
+        "rejected_reason": null,
+        "remarks": "Automatically marked as absent - No attendance recorded",
+        "metadata": {
+          "generated_via": "cronjob",
+          "expected_start_time": "09:00:00",
+          "expected_end_time": "17:00:00",
+          "work_schedule_id": 78,
+          "shift_id": 1,
+          "generated_at": "2026-07-13T16:30:02.927383Z",
+          "marked_absent_at": "2026-07-13T16:30:02.927576Z"
+        },
+        "created_at": "2026-07-13 23:30:02",
+        "updated_at": "2026-07-13 23:30:02"
+      },
+      {
+        "id": 7769,
+        "attendance_date": "2026-07-10",
+        "clock": {
+          "in_at": null,
+          "out_at": null,
+          "duration": null,
+          "overtime_duration": null,
+          "overtime_duration_fomated": "0h 0m"
+        },
+        "duration": null,
+        "location": {
+          "latitude": null,
+          "longitude": null
+        },
+        "shift_id": 1,
+        "shift": {
+          "id": 1,
+          "name": "Morning Shift",
+          "start_time": null,
+          "end_time": null
+        },
+        "status": 3,
+        "clock_in_status": null,
+        "clock_out_status": null,
+        "status_label": "Absent",
+        "clock_in_status_label": "Unknown",
+        "clock_out_status_label": "Unknown",
+        "notes": null,
+        "approved_at": null,
+        "rejected_reason": null,
+        "remarks": "Automatically marked as absent - No attendance recorded",
+        "metadata": {
+          "generated_via": "cronjob",
+          "expected_start_time": "09:00:00",
+          "expected_end_time": "17:00:00",
+          "work_schedule_id": 82,
+          "shift_id": 1,
+          "generated_at": "2026-07-10T16:30:01.633904Z",
+          "marked_absent_at": "2026-07-10T16:30:01.634136Z"
+        },
+        "created_at": "2026-07-10 23:30:01",
+        "updated_at": "2026-07-10 23:30:01"
+      },
+      {
+        "id": 7715,
+        "attendance_date": "2026-07-09",
+        "clock": {
+          "in_at": null,
+          "out_at": null,
+          "duration": null,
+          "overtime_duration": null,
+          "overtime_duration_fomated": "0h 0m"
+        },
+        "duration": null,
+        "location": {
+          "latitude": null,
+          "longitude": null
+        },
+        "shift_id": 1,
+        "shift": {
+          "id": 1,
+          "name": "Morning Shift",
+          "start_time": null,
+          "end_time": null
+        },
+        "status": 3,
+        "clock_in_status": null,
+        "clock_out_status": null,
+        "status_label": "Absent",
+        "clock_in_status_label": "Unknown",
+        "clock_out_status_label": "Unknown",
+        "notes": null,
+        "approved_at": null,
+        "rejected_reason": null,
+        "remarks": "Automatically marked as absent - No attendance recorded",
+        "metadata": {
+          "generated_via": "cronjob",
+          "expected_start_time": "09:00:00",
+          "expected_end_time": "17:00:00",
+          "work_schedule_id": 81,
+          "shift_id": 1,
+          "generated_at": "2026-07-09T16:30:03.245877Z",
+          "marked_absent_at": "2026-07-09T16:30:03.246076Z"
+        },
+        "created_at": "2026-07-09 23:30:03",
+        "updated_at": "2026-07-09 23:30:03"
+      },
+      {
+        "id": 7661,
+        "attendance_date": "2026-07-08",
+        "clock": {
+          "in_at": null,
+          "out_at": null,
+          "duration": null,
+          "overtime_duration": null,
+          "overtime_duration_fomated": "0h 0m"
+        },
+        "duration": null,
+        "location": {
+          "latitude": null,
+          "longitude": null
+        },
+        "shift_id": 1,
+        "shift": {
+          "id": 1,
+          "name": "Morning Shift",
+          "start_time": null,
+          "end_time": null
+        },
+        "status": 3,
+        "clock_in_status": null,
+        "clock_out_status": null,
+        "status_label": "Absent",
+        "clock_in_status_label": "Unknown",
+        "clock_out_status_label": "Unknown",
+        "notes": null,
+        "approved_at": null,
+        "rejected_reason": null,
+        "remarks": "Automatically marked as absent - No attendance recorded",
+        "metadata": {
+          "generated_via": "cronjob",
+          "expected_start_time": "09:00:00",
+          "expected_end_time": "17:00:00",
+          "work_schedule_id": 80,
+          "shift_id": 1,
+          "generated_at": "2026-07-08T16:30:03.497850Z",
+          "marked_absent_at": "2026-07-08T16:30:03.497990Z"
+        },
+        "created_at": "2026-07-08 23:30:03",
+        "updated_at": "2026-07-08 23:30:03"
+      }
+    ],
+    "current_page": 1,
+    "per_page": 10,
+    "total": 15,
+    "last_page": 2,
+    "from": 1,
+    "to": 10,
+    "first": "http://api.okejobhub.fun/api/ess/attendance/history?page=1",
+    "last": "http://api.okejobhub.fun/api/ess/attendance/history?page=2",
+    "prev": null,
+    "next": "http://api.okejobhub.fun/api/ess/attendance/history?page=2"
+  }
+};

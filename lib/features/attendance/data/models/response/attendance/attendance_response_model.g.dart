@@ -90,6 +90,7 @@ _$MetadataImpl _$$MetadataImplFromJson(Map<String, dynamic> json) =>
     _$MetadataImpl(
       createdVia: json['created_via'] as String?,
       createdAt: json['created_at'] as String?,
+      generatedVia: json['generated_via'] as String?,
       shiftId: (json['shift_id'] as num?)?.toInt(),
       shiftName: json['shift_name'] as String?,
       dayOfWeek: (json['day_of_week'] as num?)?.toInt(),
@@ -107,6 +108,7 @@ Map<String, dynamic> _$$MetadataImplToJson(_$MetadataImpl instance) =>
     <String, dynamic>{
       'created_via': instance.createdVia,
       'created_at': instance.createdAt,
+      'generated_via': instance.generatedVia,
       'shift_id': instance.shiftId,
       'shift_name': instance.shiftName,
       'day_of_week': instance.dayOfWeek,

@@ -61,6 +61,7 @@ class Metadata with _$Metadata {
   const factory Metadata(
       {@JsonKey(name: "created_via") String? createdVia,
       @JsonKey(name: "created_at") String? createdAt,
+      @JsonKey(name: "generated_via") String? generatedVia,
       @JsonKey(name: "shift_id") int? shiftId,
       @JsonKey(name: "shift_name") String? shiftName,
       @JsonKey(name: "day_of_week") int? dayOfWeek,
