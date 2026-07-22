@@ -84,10 +84,21 @@ This will watch for changes and automatically generate the necessary files.
   
 
 
+## CI / CD
+
+GitHub Actions ([`.github/workflows/flutter-ci.yml`](.github/workflows/flutter-ci.yml)):
+
+- **Pull requests:** `flutter analyze` (errors fatal) + `flutter test` only (saves Actions minutes).
+- **Push to `main` / manual dispatch:** quality gates, then **prod** release APK + GitHub Release.
+
+Note: GitHub Actions free-tier minutes/storage can limit how often full APK builds run.
+
 ## Notes
 
 - Make sure to use FVM to ensure the correct Flutter version is used.
 - If you add or modify models/providers with code generation annotations, always re-run the code generation command above.
+- Auth token is stored with `flutter_secure_storage` (not plain SharedPreferences).
+- Android-first delivery is intentional (client/budget); iOS push is deferred.
 
 ---
 

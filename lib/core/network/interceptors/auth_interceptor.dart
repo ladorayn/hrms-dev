@@ -1,10 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:hrms_mobile/core/constants/storage_keys.dart';
 import 'package:hrms_mobile/core/state/logout_guard.dart';
+import 'package:hrms_mobile/core/storage/secure_token_storage.dart';
 import 'package:hrms_mobile/features/auth/presentation/providers/logout/logout_provider.dart';
 import 'package:riverpod/riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthInterceptor extends Interceptor {
   final Ref ref;
@@ -15,12 +14,11 @@ class AuthInterceptor extends Interceptor {
   Future<void> onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
     try {
-      final prefs = await SharedPreferences.getInstance();
-      final token = prefs.getString(StorageKeys.token);
+      final token = await secureTokenStorage.read();
 
       if (token != null) {
         options.headers['Authorization'] = 'Bearer $token';
-        if (kDebugMode) print('[AuthInterceptor] Token attached: $token');
+        if (kDebugMode) print('[AuthInterceptor] Token attached');
       } else {
         if (kDebugMode) print('[AuthInterceptor] No token found');
       }

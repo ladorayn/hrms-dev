@@ -5,6 +5,7 @@ import 'package:hrms_mobile/core/constants/storage_keys.dart';
 import 'package:hrms_mobile/core/data/models/face_recognition/face_profile_response.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
+import 'package:hrms_mobile/core/storage/secure_token_storage.dart';
 import 'package:hrms_mobile/features/attendance/presentation/providers/attendance_provider.dart';
 import 'package:hrms_mobile/features/user/data/models/user.dart';
 import 'package:hrms_mobile/features/auth/presentation/providers/auth_repository_provider.dart';
@@ -39,7 +40,7 @@ class Auth extends _$Auth {
   Future<void> onLogout() async {
     final prefs = await SharedPreferences.getInstance();
     await ref.read(todayAttendanceProvider.notifier).clear();
-    await prefs.remove(StorageKeys.token);
+    await secureTokenStorage.delete();
     globalNavigatorKey.currentContext?.go(RoutePaths.login);
     await prefs.remove(StorageKeys.user);
     state = const AsyncData(null);
