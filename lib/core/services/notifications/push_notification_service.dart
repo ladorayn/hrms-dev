@@ -5,9 +5,8 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:hrms_mobile/core/data/models/notifications/fcm_registration_request.dart';
 import 'package:hrms_mobile/core/errors/error_handler.dart';
-import 'package:hrms_mobile/core/constants/storage_keys.dart';
 import 'package:hrms_mobile/core/services/notifications/local_notification_service.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hrms_mobile/core/storage/secure_token_storage.dart';
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -57,8 +56,7 @@ class PushNotificationService {
   }
 
   Future<void> sendTokenToBackend(String token) async {
-    final prefs = await SharedPreferences.getInstance();
-    final authToken = prefs.getString(StorageKeys.token);
+    final authToken = await secureTokenStorage.read();
 
     if (authToken == null) {
       debugPrint(

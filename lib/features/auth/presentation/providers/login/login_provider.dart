@@ -1,6 +1,5 @@
 import 'package:go_router/go_router.dart';
 import 'package:hrms_mobile/core/config/manual_capture.dart';
-import 'package:hrms_mobile/core/constants/storage_keys.dart';
 import 'package:hrms_mobile/core/data/models/face_recognition/face_profile_response.dart';
 import 'package:hrms_mobile/core/data/data_source/general_remote_source.dart';
 import 'package:hrms_mobile/core/data/repositories/general_repository/general_repository.dart';
@@ -10,6 +9,7 @@ import 'package:hrms_mobile/core/errors/exceptions.dart';
 import 'package:hrms_mobile/core/navigation/global_navigator.dart';
 import 'package:hrms_mobile/core/network/dio_provider.dart';
 import 'package:hrms_mobile/core/routes/route_paths.dart';
+import 'package:hrms_mobile/core/storage/secure_token_storage.dart';
 import 'package:hrms_mobile/features/auth/domain/entities/login_state.dart';
 import 'package:hrms_mobile/features/auth/domain/usecases/login_usecase.dart';
 import 'package:hrms_mobile/features/auth/presentation/providers/auth/auth_provider.dart';
@@ -18,7 +18,6 @@ import 'package:hrms_mobile/features/auth/presentation/providers/company_profile
 import 'package:hrms_mobile/features/auth/presentation/providers/logout/logout_provider.dart';
 import 'package:hrms_mobile/features/auth/presentation/providers/user_profile/user_profile_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 part 'login_provider.g.dart';
 
@@ -59,8 +58,7 @@ class Login extends _$Login {
       final loginResponse =
           await ref.read(loginUseCaseProvider)(email, password);
 
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString(StorageKeys.token, loginResponse.token);
+      await secureTokenStorage.write(loginResponse.token);
 
       if (loginResponse.user.isFirstLogin == true) {
         state = state.copyWith(isLoading: false);
