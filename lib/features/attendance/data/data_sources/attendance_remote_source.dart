@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:hrms_mobile/core/constants/mock_values.dart';
 import 'package:hrms_mobile/core/data/models/base_paginated_response.dart';
 import 'package:hrms_mobile/core/data/models/base_response.dart';
 import 'package:hrms_mobile/core/data/models/paginated_response.dart';
@@ -99,112 +98,11 @@ class AttendanceRemoteSource {
 
   Future<BasePaginatedResponse<ActivityLogModel>> getActivityLogs(
       {int limit = 10, int page = 1}) async {
-    // --- START OF MOCK (Comment out this section to bypass mock) ---
-    // final todayStr = DateTime.now().toIso8601String().split('T').first;
-    // if (page > 1) {
-    //   return BasePaginatedResponse(
-    //     data: [],
-    //     links: const LinksModel(first: null, last: null, prev: null, next: null),
-    //     meta: MetaModel(
-    //       currentPage: page,
-    //       lastPage: 1,
-    //       perPage: limit,
-    //       total: 2,
-    //       from: null,
-    //       to: null,
-    //       path: 'mock',
-    //     ),
-    //   );
-    // }
-
-    // final mockData = {
-    //   "status": "success",
-    //   "code": 200,
-    //   "message": "Logs retrieved successfully",
-    //   "data": [
-    //     {
-    //       "id": 354,
-    //       "event": "clock_out",
-    //       "description": "User clocked out at $todayStr 17:30:00",
-    //       "created_at": "${todayStr}T17:30:00.000000Z",
-    //       "updated_at": "${todayStr}T17:30:00.000000Z",
-    //       "time_ago": "today",
-    //       "event_type": "Clock Out",
-    //       "is_clock_in": false,
-    //       "is_clock_out": true,
-    //       "properties": {
-    //         "attendance_id": 6791,
-    //         "attendance_status": 1,
-    //         "attendance_status_label": "Approved",
-    //         "clock_out_at": "$todayStr 17:30:00",
-    //         "clock_out_status": 1,
-    //         "clock_out_status_label": "On Time",
-    //         "scheduled_clock_out": "17:00:00",
-    //         "tolerance_minutes": 700
-    //       },
-    //       "causer": {
-    //         "id": 18,
-    //         "name": "Lado",
-    //         "email": "ladorayhannajib@gmail.com"
-    //       }
-    //     },
-    //     {
-    //       "id": 353,
-    //       "event": "clock_in",
-    //       "description": "User clocked in at $todayStr 08:30:00",
-    //       "created_at": "${todayStr}T08:30:00.000000Z",
-    //       "updated_at": "${todayStr}T08:30:00.000000Z",
-    //       "time_ago": "today",
-    //       "event_type": "Clock In",
-    //       "is_clock_in": true,
-    //       "is_clock_out": false,
-    //       "properties": {
-    //         "attendance_id": 6791,
-    //         "attendance_status": 1,
-    //         "attendance_status_label": "Approved",
-    //         "clock_in_at": "$todayStr 08:30:00",
-    //         "clock_in_status": 1,
-    //         "clock_in_status_label": "On Time",
-    //         "scheduled_clock_in": "08:00:00",
-    //         "tolerance_minutes": 700
-    //       },
-    //       "causer": {
-    //         "id": 18,
-    //         "name": "Lado",
-    //         "email": "ladorayhannajib@gmail.com"
-    //       }
-    //     }
-    //   ],
-    //   "links": {
-    //     "first": null,
-    //     "last": null,
-    //     "prev": null,
-    //     "next": null
-    //   },
-    //   "meta": {
-    //     "current_page": 1,
-    //     "last_page": 1,
-    //     "per_page": limit,
-    //     "total": 2,
-    //     "from": 1,
-    //     "to": 2,
-    //     "path": "mock"
-    //   }
-    // };
-
-    // return BasePaginatedResponse.fromJson(
-    //   mockData,
-    //   (json) => ActivityLogModel.fromJson(json as Map<String, dynamic>),
-    //   emptyT: () => List.empty(),
-    // );
-    // --- END OF MOCK ---
-
     try {
       final response = await _dio.get(
         'api/ess/activity-logs',
         queryParameters: {'limit': limit, 'page': page},
       );
-    
       return BasePaginatedResponse.fromJson(
         response.data,
         (json) => ActivityLogModel.fromJson(json as Map<String, dynamic>),
@@ -447,7 +345,8 @@ class AttendanceRemoteSource {
         queryParameters: request.toJson(),
       );
 
-      return BranchListResponseModel.fromJson(response.data as Map<String, dynamic>);
+      return BranchListResponseModel.fromJson(
+          response.data as Map<String, dynamic>);
     } on DioException catch (e) {
       throw handleDioError(e);
     }
@@ -456,7 +355,8 @@ class AttendanceRemoteSource {
   Future<BranchListResponseModel> getBranchesByUrl(String url) async {
     try {
       final response = await _dio.get(url);
-      return BranchListResponseModel.fromJson(response.data as Map<String, dynamic>);
+      return BranchListResponseModel.fromJson(
+          response.data as Map<String, dynamic>);
     } on DioException catch (e) {
       throw handleDioError(e);
     }
