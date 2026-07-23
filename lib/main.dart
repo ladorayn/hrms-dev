@@ -11,6 +11,7 @@ import 'package:hrms_mobile/application/l10n/app_localizations.dart';
 import 'package:hrms_mobile/application/l10n/locale_provider.dart';
 import 'package:hrms_mobile/application/theme/i_theme.dart';
 import 'package:hrms_mobile/core/routes/app_router.dart';
+import 'package:hrms_mobile/core/services/crash_reporting/crash_reporting.dart';
 import 'package:hrms_mobile/core/services/notifications/local_notification_service.dart';
 import 'package:hrms_mobile/firebase_options.dart';
 import 'package:no_screenshot/no_screenshot.dart';
@@ -20,23 +21,27 @@ import 'package:hrms_mobile/core/services/notifications/providers/fcm_token_sync
 import 'core/services/notifications/providers/push_notification_provider.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  const flavor = String.fromEnvironment('FLAVOR', defaultValue: 'dev');
-  await dotenv.load(fileName: ".env.$flavor");
+  await runZonedGuarded(() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    const flavor = String.fromEnvironment('FLAVOR', defaultValue: 'dev');
+    await dotenv.load(fileName: ".env.$flavor");
 
-  if (!Platform.isIOS) {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
+    if (!Platform.isIOS) {
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+      await CrashReporting.init();
+      await LocalNotificationService.initializePlatformNotifications();
+    }
 
-    await LocalNotificationService.initializePlatformNotifications();
-  }
-  // LOCK ORIENTATION DEVICE
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
-  runApp(const ProviderScope(child: MyApp()));
+    await SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+    runApp(const ProviderScope(child: MyApp()));
+  }, (error, stack) {
+    CrashReporting.recordError(error, stack, fatal: true);
+  });
 }
 
 class MyApp extends ConsumerStatefulWidget {

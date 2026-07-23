@@ -1,7 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:hrms_mobile/core/errors/exceptions.dart';
+import 'package:hrms_mobile/core/services/crash_reporting/crash_reporting.dart';
 
 Exception handleDioError(DioException e) {
+  // Non-fatal breadcrumb for Crashlytics (Android); no-op if not initialized.
+  CrashReporting.recordError(e, e.stackTrace, fatal: false);
+
   if (e.type == DioExceptionType.connectionError ||
       e.type == DioExceptionType.connectionTimeout ||
       e.type == DioExceptionType.sendTimeout ||
@@ -38,7 +42,7 @@ Exception handleDioError(DioException e) {
         return ValidationException(message, {});
       case 500:
       case 502:
-        return ServerException(message); // Removed ?? as message has a fallback
+        return ServerException(message);
       default:
         return BadResponseException(message);
     }
